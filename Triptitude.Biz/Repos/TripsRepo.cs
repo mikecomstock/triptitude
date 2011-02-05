@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
@@ -17,6 +18,15 @@ namespace Triptitude.Biz.Repos
             _db.Trips.Add(trip);
             _db.SaveChanges();
             return trip;
+        }
+    }
+
+    public class UsersRepo : Repo<User>
+    {
+        public User FindByEmailPassword(string email, string password)
+        {
+            User user = _db.Users.FirstOrDefault(u => u.Email == email);
+            return user;
         }
     }
 }
