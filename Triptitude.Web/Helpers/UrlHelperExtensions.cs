@@ -18,5 +18,10 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("Create", "Trips");
         }
+
+        public static string TripDetails(this UrlHelper url, Trip trip)
+        {
+            return url.Action("Details", "Trips", new { id = trip.Id });
+        }
     }
 }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Triptitude.Biz.Forms;
+using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
@@ -23,6 +21,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            ViewBag.Trip = new TripsRepo().Find(id);
             return View();
         }
 
@@ -42,9 +41,8 @@ namespace Triptitude.Web.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                new TripsRepo().Save(form);
-                return RedirectToAction("Index", "Home");
+                Trip trip = new TripsRepo().Save(form);
+                return Redirect(Url.TripDetails(trip));
             }
             catch
             {
