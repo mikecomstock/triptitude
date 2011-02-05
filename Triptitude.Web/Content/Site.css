@@ -13,7 +13,7 @@ td { vertical-align: top; padding: 0; }
 #topbar { width: 955px; margin: 0 auto; padding: 10px 0; font-weight: bold; font-size: 13px; text-align: right; height: 20px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 18px; color: #FFFFFF; letter-spacing: 1px; }
 
-#user-status { float:right;}
+#user-status { float:right; line-height: 20px;}
 #user-status a { padding: 0 10px; color: #F8FAF5; }
 #user-status a + a { border-left: 1px solid #F8FAF5; }
 

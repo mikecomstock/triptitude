@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Helpers
 {

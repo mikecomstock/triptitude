@@ -10,23 +10,24 @@
     <div id="topbar-container">
         <div id="topbar">
             <a id="logo" href="/">Triptitude.com</a>
+            <div id="user-status">
+                @if (Request.IsAuthenticated)
+                {
+                    @User.Identity.Name
+                    @Html.RouteLink("Logout", "Logout");
+                }
+                else
+                {
+                    @Html.RouteLink("Login", "Login");
+                }
+            </div>
         </div>
-        <div id="user-status">
-            @if (Request.IsAuthenticated)
-            {
-                @Html.RouteLink("Logout", "Logout");
-            }
-            else
-            {
-                @Html.RouteLink("Login", "Login");
-            }
-        </div>
+    </div>
+    <div id="content">
         <form action="@Url.CreateTrip()" method="post">
         <input type="text" name="name" />
         <input type="submit" value="Create Trip" />
         </form>
-    </div>
-    <div id="content">
         @RenderBody()
     </div>
     <div id="footer">

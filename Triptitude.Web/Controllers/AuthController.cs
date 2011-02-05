@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
-using Triptitude.Biz.Models;
-using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
 
 namespace Triptitude.Web.Controllers
@@ -21,8 +19,9 @@ namespace Triptitude.Web.Controllers
 
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(user.Id.ToString(), true);
-                return RedirectToRoute("Default");
+                string userName = user.Id + "|" + user.Email;
+                FormsAuthentication.SetAuthCookie(userName, true);
+                return Redirect("~");
             }
             else
             {
