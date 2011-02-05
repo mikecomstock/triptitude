@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triptitude.Web", "Triptitude.Web\Triptitude.Web.csproj", "{D7BB8862-40F7-4E48-A35C-1381182227D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triptitude.Biz", "Triptitude.Biz\Triptitude.Biz.csproj", "{82A22680-3B8A-4609-98DB-B602837120EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{D7BB8862-40F7-4E48-A35C-1381182227D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7BB8862-40F7-4E48-A35C-1381182227D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7BB8862-40F7-4E48-A35C-1381182227D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82A22680-3B8A-4609-98DB-B602837120EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82A22680-3B8A-4609-98DB-B602837120EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82A22680-3B8A-4609-98DB-B602837120EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82A22680-3B8A-4609-98DB-B602837120EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

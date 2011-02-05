@@ -12,3 +12,7 @@ td { vertical-align: top; padding: 0; }
 #topbar-container { position: fixed; top: 0; left: 0; right: 0; background-color: #5588B4; border-bottom: 2px solid #325471; }
 #topbar { width: 955px; margin: 0 auto; padding: 10px 0; font-weight: bold; font-size: 13px; text-align: right; height: 20px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 18px; color: #FFFFFF; letter-spacing: 1px; }
+
+/* Page Sections */
+#content { width: 955px; margin: 90px auto 10px auto; overflow: visible; clear: both; }
+#footer { width: 955px; margin: 0 auto; }

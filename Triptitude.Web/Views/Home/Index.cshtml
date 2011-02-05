@@ -2,5 +2,10 @@
     ViewBag.Title = "Welcome to Triptitude!";
 }
 
-<h2>Index</h2>
-
+<h1>Index</h1>
+<div>
+@foreach (var user in ViewBag.Users)
+{
+    @user.Email
+}
+</div>

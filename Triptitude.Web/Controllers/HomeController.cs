@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Controllers
 {
@@ -6,6 +7,7 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Users = new Repo().FindAll<User>();
             return View();
         }
     }
