@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Models\Db.cs" />
+    <Compile Include="Repo.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\TripsRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

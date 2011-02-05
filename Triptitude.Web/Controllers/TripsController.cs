@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Triptitude.Biz.Forms;
+using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Controllers
 {
@@ -30,29 +32,29 @@ namespace Triptitude.Web.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Trips/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(TripCreate form)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                new TripsRepo().Save(form);
+                return RedirectToAction("Index", "Home");
             }
             catch
             {
                 return View();
             }
         }
-        
+
         //
         // GET: /Trips/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             return View();
@@ -67,7 +69,7 @@ namespace Triptitude.Web.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -78,7 +80,7 @@ namespace Triptitude.Web.Controllers
 
         //
         // GET: /Trips/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             return View();
@@ -93,7 +95,7 @@ namespace Triptitude.Web.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
