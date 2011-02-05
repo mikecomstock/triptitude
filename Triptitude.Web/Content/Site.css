@@ -13,6 +13,10 @@ td { vertical-align: top; padding: 0; }
 #topbar { width: 955px; margin: 0 auto; padding: 10px 0; font-weight: bold; font-size: 13px; text-align: right; height: 20px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 18px; color: #FFFFFF; letter-spacing: 1px; }
 
+#user-status { float:right;}
+#user-status a { padding: 0 10px; color: #F8FAF5; }
+#user-status a + a { border-left: 1px solid #F8FAF5; }
+
 /* Page Sections */
 #content { width: 955px; margin: 90px auto 10px auto; overflow: visible; clear: both; }
 #footer { width: 955px; margin: 0 auto; }

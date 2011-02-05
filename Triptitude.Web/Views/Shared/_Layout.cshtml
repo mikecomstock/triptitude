@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Triptitude.Web.Helpers;
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -9,11 +10,18 @@
     <div id="topbar-container">
         <div id="topbar">
             <a id="logo" href="/">Triptitude.com</a>
-            <div id="user-status">
-                Log In/Out
-            </div>
         </div>
-        <form action="/Trips/Create" method="post">
+        <div id="user-status">
+            @if (Request.IsAuthenticated)
+            {
+                @Html.RouteLink("Logout", "Logout");
+            }
+            else
+            {
+                @Html.RouteLink("Login", "Login");
+            }
+        </div>
+        <form action="@Url.CreateTrip()" method="post">
         <input type="text" name="name" />
         <input type="submit" value="Create Trip" />
         </form>
