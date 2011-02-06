@@ -14,7 +14,7 @@
         </div>
     </div>
     <div id="trip-bar">
-        <form action="@Url.CreateTrip()" method="post">
+        <form id="create-trip-form" action="@Url.CreateTrip()" method="post">
         <input type="text" name="name" />
         <input type="submit" value="Create Trip" />
         </form>
@@ -22,8 +22,7 @@
         {
             <div>
                 Currently planning:
-                @ViewBag.User.DefaultTrip.Name
-                @Html.SelectTripDropDownList((IQueryable<Trip>)ViewBag.Trips, (Trip)ViewBag.User.DefaultTrip)
+                @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
             </div>
         }
     </div>
