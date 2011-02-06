@@ -27,14 +27,14 @@ namespace Triptitude.Biz.Services
         {
             string websiteThumbnailRoot = ConfigurationManager.AppSettings["WebsiteThumbnailRoot"];
 
-            string originalOutputPath = Path.Combine(websiteThumbnailRoot, "Original", websiteId + ".jpg");
-            string smallOutputPath = Path.Combine(websiteThumbnailRoot, "Small", websiteId + ".jpg");
-            string mediumOutputPath = Path.Combine(websiteThumbnailRoot, "Medium", websiteId + ".jpg");
-            string largeOutputPath = Path.Combine(websiteThumbnailRoot, "Large", websiteId + ".jpg");
+            string originalOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-original.jpg");
+            string smallOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-small.jpg");
+            string mediumOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-medium.jpg");
+            string largeOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-large.jpg");
 
             string cutyCaptPath = ConfigurationManager.AppSettings["CutyCaptPath"];
-
-            string arguments = string.Format(@"--url=""{0}"" --out=""{1}""", url, originalOutputPath);
+            string userAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.84 Safari/534.13";
+            string arguments = string.Format(@"--url=""{0}"" --out=""{1}"" --user-agent=""{2}""", url, originalOutputPath, userAgent);
             var proc = new Process()
             {
                 StartInfo = new ProcessStartInfo(cutyCaptPath, arguments) { UseShellExecute = false, CreateNoWindow = true }
@@ -50,12 +50,12 @@ namespace Triptitude.Biz.Services
                     int cropHeight = (int)Math.Round((decimal)600 / 800 * original.Width, 0);
                     using (Image croppedOriginal = new Bitmap(original).Clone(new Rectangle(0, 0, cropWidth, cropHeight), original.PixelFormat))
                     {
-                        Bitmap small = ResizeImage(croppedOriginal, 100, 750);
+                        Bitmap small = ResizeImage(croppedOriginal, 100, 75);
                         small.Save(smallOutputPath, ImageFormat.Jpeg);
 
                         Bitmap medium = ResizeImage(croppedOriginal, 200, 150);
                         medium.Save(mediumOutputPath, ImageFormat.Jpeg);
-                        
+
                         Bitmap large = ResizeImage(croppedOriginal, 300, 225);
                         large.Save(largeOutputPath, ImageFormat.Jpeg);
                     }
