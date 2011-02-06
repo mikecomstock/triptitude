@@ -8,7 +8,8 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Create(string url)
         {
-            new WebsiteService().CreateThumbnailAsync(url);
+            
+            new WebsiteService().AddWebsite(url);
             return Redirect("~");
         }
     }

@@ -21,5 +21,15 @@ namespace Triptitude.Biz
         {
             return _db.Set<T>();
         }
+
+        public void Add(T entity)
+        {
+            _db.Set<T>().Add(entity);
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }
