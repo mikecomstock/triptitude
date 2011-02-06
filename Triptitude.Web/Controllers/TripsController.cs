@@ -37,17 +37,11 @@ namespace Triptitude.Web.Controllers
         // POST: /Trips/Create
 
         [HttpPost]
-        public ActionResult Create(TripCreate form)
+        public ActionResult Create(TripCreate form, User currentUser)
         {
-            try
-            {
-                Trip trip = new TripsRepo().Save(form);
-                return Redirect(Url.TripDetails(trip));
-            }
-            catch
-            {
-                return View();
-            }
+            Trip trip = new TripsRepo().Save(form);
+            new UsersRepo().SetDefaultTrip(currentUser.Id, trip.Id);
+            return Redirect(Url.TripDetails(trip));
         }
 
         //

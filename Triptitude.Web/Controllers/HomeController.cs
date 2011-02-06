@@ -13,5 +13,14 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trips = new TripsRepo().FindAll();
             return View();
         }
+
+        public ActionResult Header(User currentUser)
+        {
+            ViewBag.User = currentUser;
+            //TODO:remove
+            ViewBag.Trips = new TripsRepo().FindAll();
+
+            return PartialView();
+        }
     }
 }

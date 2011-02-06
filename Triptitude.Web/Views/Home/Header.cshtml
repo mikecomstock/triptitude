@@ -1,0 +1,30 @@
+﻿<div id="topbar-container">
+    <div id="topbar">
+        <a id="logo" href="/">Triptitude.com</a>
+        <div id="user-status">
+            @if (Request.IsAuthenticated)
+            {
+                @ViewBag.User.Email
+                @Html.RouteLink("Logout", "Logout");
+            }
+            else
+            {
+                @Html.RouteLink("Login", "Login");
+            }
+        </div>
+    </div>
+    <div id="trip-bar">
+        <form action="@Url.CreateTrip()" method="post">
+        <input type="text" name="name" />
+        <input type="submit" value="Create Trip" />
+        </form>
+        @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
+        {
+            <div>
+                Currently planning:
+                @ViewBag.User.DefaultTrip.Name
+                @Html.SelectTripDropDownList((IQueryable<Trip>)ViewBag.Trips, (Trip)ViewBag.User.DefaultTrip)
+            </div>
+        }
+    </div>
+</div>

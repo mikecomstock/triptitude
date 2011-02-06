@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Triptitude.Biz.Models;
+using Triptitude.Web.ModelBinders;
 
 namespace Triptitude.Web
 {
@@ -8,6 +10,11 @@ namespace Triptitude.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+        }
+
+        public static void RegisterModelBinders()
+        {
+            System.Web.Mvc.ModelBinders.Binders.Add(typeof(User), new CurrentUserModelBinder());
         }
 
         public static void RegisterRoutes(RouteCollection routes)
@@ -25,6 +32,7 @@ namespace Triptitude.Web
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
+            RegisterModelBinders();
             RegisterRoutes(RouteTable.Routes);
         }
     }

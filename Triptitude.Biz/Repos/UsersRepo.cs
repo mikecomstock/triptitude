@@ -10,5 +10,11 @@ namespace Triptitude.Biz.Repos
             User user = _db.Users.FirstOrDefault(u => u.Email == email);
             return user;
         }
+
+        public void SetDefaultTrip(int userId, int tripId)
+        {
+            Find(userId).DefaultTrip = _db.Trips.Find(tripId);
+            _db.SaveChanges();
+        }
     }
 }
