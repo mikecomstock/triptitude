@@ -60,9 +60,11 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Controllers\WebsiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="ModelBinders\CurrentUserModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Static\WebsiteThumbs\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
