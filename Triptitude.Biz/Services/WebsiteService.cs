@@ -1,4 +1,6 @@
-﻿using Triptitude.Biz.Models;
+﻿using System.Net;
+using System.Text.RegularExpressions;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Services
 {
@@ -6,9 +8,13 @@ namespace Triptitude.Biz.Services
     {
         public void AddWebsite(string url)
         {
+            WebClient x = new WebClient();
+            string source = x.DownloadString("http://www.singingeels.com/");
+            string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
             Website website = new Website();
             website.URL = url;
-            website.Title = "New website";
+            website.Title = title;
 
             var repo = new Repo<Website>();
             repo.Add(website);
