@@ -1,139 +1,75 @@
-﻿//using System;
-//using System.ComponentModel;
-//using System.Drawing;
-//using System.Windows.Forms;
-
-//namespace Triptitude.Biz
-//{
-//    public static class Util
-//    {
-//        //http://pietschsoft.com/post/2008/07/c-generate-webpage-thumbmail-screenshot-image.aspx
-//        public static Bitmap GenerateScreenshot(string url, int width, int height)
-//        {
-//            // Load the webpage into a WebBrowser control
-//            WebBrowser wb = new WebBrowser();
-//            wb.ScrollBarsEnabled = true;
-//            wb.ScriptErrorsSuppressed = true;
-//            wb.Navigate(url);
-//            while (wb.ReadyState != WebBrowserReadyState.Complete) { Application.DoEvents(); }
-
-//            // Set the size of the WebBrowser control
-//            wb.Width = width;
-//            wb.Height = height;
-
-//            // Get a Bitmap representation of the webpage as it's rendered in the WebBrowser control
-//            Bitmap bitmap = new Bitmap(wb.Width, wb.Height);
-//            wb.DrawToBitmap(bitmap, new Rectangle(0, 0, wb.Width, wb.Height));
-//            wb.Dispose();
-
-//            return bitmap;
-//        }
-//    }
-//}
-
-
-using System;
-using System.ComponentModel;
+﻿using System;
+using System.Configuration;
+using System.Diagnostics;
 using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
+using System.Drawing.Imaging;
 using System.IO;
 
-namespace SmallSharpTools.WebPreview
+namespace Triptitude.Biz
 {
-    public class PreviewBuilder
+    public static class Util
     {
-
-        #region "  Variables  "
-
-        private string _url = String.Empty;
-        private string _filename = String.Empty;
-
-        #endregion
-        
-        #region "  Constructor  "
-
-        public PreviewBuilder(string url, string filename)
+        public static void CreateThumbnails(string url, int websiteId)
         {
-            this._url = url;
-            this._filename = filename;
+            string websiteThumbnailRoot = ConfigurationManager.AppSettings["WebsiteThumbnailRoot"];
 
-            // ensure the output directory exists and create it is necessary
-            FileInfo outputFile = new FileInfo(filename);
-            if (!outputFile.Directory.Exists)
+            string originalOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-original.jpg");
+            string smallOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-small.jpg");
+            string mediumOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-medium.jpg");
+            string largeOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-large.jpg");
+
+            string cutyCaptPath = ConfigurationManager.AppSettings["CutyCaptPath"];
+            string userAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.84 Safari/534.13";
+            string arguments = string.Format(@"--url=""{0}"" --out=""{1}"" --user-agent=""{2}""", url, originalOutputPath, userAgent);
+            var proc = new Process()
             {
-                outputFile.Directory.Create();
+                StartInfo = new ProcessStartInfo(cutyCaptPath, arguments) { UseShellExecute = false, CreateNoWindow = true }
+            };
+            proc.Start();
+            proc.WaitForExit();
+
+            if (File.Exists(originalOutputPath))
+            {
+                using (Image original = Image.FromFile(originalOutputPath))
+                {
+                    int cropWidth = original.Width;
+                    int cropHeight = (int)Math.Round((decimal)600 / 800 * original.Width, 0);
+                    using (Image croppedOriginal = new Bitmap(original).Clone(new Rectangle(0, 0, cropWidth, cropHeight), original.PixelFormat))
+                    {
+                        Bitmap small = ResizeImage(croppedOriginal, 100, 75);
+                        small.Save(smallOutputPath, ImageFormat.Jpeg);
+
+                        Bitmap medium = ResizeImage(croppedOriginal, 200, 150);
+                        medium.Save(mediumOutputPath, ImageFormat.Jpeg);
+
+                        Bitmap large = ResizeImage(croppedOriginal, 300, 225);
+                        large.Save(largeOutputPath, ImageFormat.Jpeg);
+                    }
+                }
+
+                File.Delete(originalOutputPath);
             }
         }
 
-        #endregion
-
-        #region "  Methods  "
-
-        public void CreatePreview()
+        //http://stackoverflow.com/questions/249587/high-quality-image-scaling-c
+        private static System.Drawing.Bitmap ResizeImage(System.Drawing.Image image, int width, int height)
         {
-            ThreadStart ts = new ThreadStart(this.DoWork);
-            Thread t = new Thread(ts);
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
-        }
+            //a holder for the result
+            Bitmap result = new Bitmap(width, height);
 
-        private void DoWork()
-        {
-            Bitmap bitmap = GetPreviewImage();
-
-            bitmap.Save(_filename);
-            bitmap.Dispose();
-        }
-
-        private Bitmap GetPreviewImage()
-        {
-            WebBrowser wb = new WebBrowser();
-            wb.ScrollBarsEnabled = false;
-            wb.Size = new Size(Width, Height);
-            wb.ScriptErrorsSuppressed = true;
-            wb.NewWindow += new System.ComponentModel.CancelEventHandler(wb_NewWindow);
-            wb.Navigate(_url);
-            // wait for it to load
-            while (wb.ReadyState != WebBrowserReadyState.Complete)
+            //use a graphics object to draw the resized image into the bitmap
+            using (Graphics graphics = Graphics.FromImage(result))
             {
-                Application.DoEvents();
+                //set the resize quality modes to high quality
+                graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                //draw the image into the target bitmap
+                graphics.DrawImage(image, 0, 0, result.Width, result.Height);
             }
-            Bitmap bitmap = new Bitmap(Width, Height);
-            Rectangle rect = new Rectangle(0, 0, Width, Height);
-            wb.DrawToBitmap(bitmap, rect);
-            wb.Dispose();
-            return bitmap;
+
+            //return the resulting bitmap
+            return result;
         }
-
-        void wb_NewWindow(object sender, CancelEventArgs e)
-        {
-            e.Cancel = true;
-        }
-
-        #endregion
-
-        #region "  Properties  "
-
-        private int _width = 1024;
-
-        public int Width
-        {
-            get { return _width; }
-            set { _width = value; }
-        }
-
-        private int _height = 768;
-
-        public int Height
-        {
-            get { return _height; }
-            set { _height = value; }
-        }
-
-        #endregion
-
     }
 }
-
