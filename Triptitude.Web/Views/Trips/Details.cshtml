@@ -11,5 +11,6 @@
     Itinerary</h2>
 @foreach (ItineraryItem itineraryItem in ViewBag.Trip.Itinerary)
 {
+    <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Medium)" alt="" />
     <div>@itineraryItem.Id</div>
 }

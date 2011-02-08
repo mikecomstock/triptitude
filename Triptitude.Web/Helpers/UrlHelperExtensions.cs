@@ -30,10 +30,9 @@ namespace Triptitude.Web.Helpers
             return url.Action("AddToTrip", "Website");
         }
 
-        public static string WebsiteThumb(this UrlHelper url, Website website)
+        public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
         {
-            string staticRoot = ConfigurationManager.AppSettings["test"];
-            return staticRoot + "/WebsiteThumbs/" + Website.ThumbFilename(website.Id, Website.ThumbSize.Small);
+            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/WebsiteThumbs/" + Website.ThumbFilename(website.Id, thumbSize);
         }
     }
 }

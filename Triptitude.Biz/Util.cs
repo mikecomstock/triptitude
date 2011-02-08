@@ -14,7 +14,7 @@ namespace Triptitude.Biz
         {
             string websiteThumbnailRoot = ConfigurationManager.AppSettings["WebsiteThumbnailRoot"];
 
-            string originalOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Original));
+            string originalOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-original.jpg");
             string smallOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Small));
             string mediumOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Medium));
             string largeOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Large));
