@@ -11,6 +11,7 @@
     Itinerary</h2>
 @foreach (ItineraryItem itineraryItem in ViewBag.Trip.Itinerary)
 {
+    <h3>@itineraryItem.Website.Title</h3>
     <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Medium)" alt="" />
-    <div>@itineraryItem.Id</div>
+    
 }
