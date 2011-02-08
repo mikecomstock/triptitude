@@ -11,8 +11,11 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult AddToTrip(int tripId, string url)
         {
-            new WebsiteService().AddWebsite(url);
+            Website website = new WebsiteService().AddWebsite(url);
             Trip trip = new TripsRepo().Find(tripId);
+
+            new ItineraryService().AddWebsiteToTrip(website, trip);
+
             return Redirect(Url.TripDetails(trip));
         }
     }

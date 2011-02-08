@@ -1,33 +1,43 @@
 ﻿using System.Linq;
+using System.Web;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz
 {
     public class Repo<T> where T : class
     {
-        protected readonly Db _db;
-
-        public Repo()
-        {
-            _db = new Db();
-        }
+        protected Db _db { get { return DbProvider._db; } }
 
         public T Find(int id)
         {
-            return _db.Set<T>().Find(id);
+            return DbProvider._db.Set<T>().Find(id);
         }
 
         public IQueryable<T> FindAll()
         {
-            return _db.Set<T>();
+            return DbProvider._db.Set<T>();
         }
 
         public void Add(T entity)
         {
-            _db.Set<T>().Add(entity);
+            DbProvider._db.Set<T>().Add(entity);
+        }
+    }
+
+    internal class DbProvider
+    {
+        internal static Db _db
+        {
+            get
+            {
+                // Is bad code less bad if you write a comment about how bad it is? no. MC
+                if (HttpContext.Current.Request.RequestContext.HttpContext.Items["db"] == null)
+                    HttpContext.Current.Request.RequestContext.HttpContext.Items["db"] = new Db();
+                return (Db)HttpContext.Current.Request.RequestContext.HttpContext.Items["db"];
+            }
         }
 
-        public void Save()
+        public static void Save()
         {
             _db.SaveChanges();
         }

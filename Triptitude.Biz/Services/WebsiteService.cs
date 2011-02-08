@@ -6,7 +6,7 @@ namespace Triptitude.Biz.Services
 {
     public class WebsiteService
     {
-        public void AddWebsite(string url)
+        public Website AddWebsite(string url)
         {
             WebClient x = new WebClient();
             string source = x.DownloadString(url);
@@ -18,9 +18,12 @@ namespace Triptitude.Biz.Services
 
             var repo = new Repo<Website>();
             repo.Add(website);
-            repo.Save();
+            
+            DbProvider.Save();
 
             Util.CreateThumbnails(url, website.Id);
+
+            return website;
         }
     }
 }

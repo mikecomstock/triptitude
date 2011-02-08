@@ -7,3 +7,9 @@
 <input type="text" name="url" />
 <input type="submit" value="Add URL" />
 </form>
+<h2>
+    Itinerary</h2>
+@foreach (ItineraryItem itineraryItem in ViewBag.Trip.Itinerary)
+{
+    <div>@itineraryItem.Id</div>
+}

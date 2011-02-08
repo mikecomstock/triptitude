@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Helpers
@@ -27,6 +28,12 @@ namespace Triptitude.Web.Helpers
         public static string AddWebsiteToTrip(this UrlHelper url)
         {
             return url.Action("AddToTrip", "Website");
+        }
+
+        public static string WebsiteThumb(this UrlHelper url, Website website)
+        {
+            string staticRoot = ConfigurationManager.AppSettings["test"];
+            return staticRoot + "/WebsiteThumbs/" + Website.ThumbFilename(website.Id, Website.ThumbSize.Small);
         }
     }
 }
