@@ -1,16 +1,19 @@
 using System.Web.Mvc;
+using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
+using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
     public class WebsiteController : Controller
     {
         [HttpPost]
-        public ActionResult Create(string url)
+        public ActionResult AddToTrip(int tripId, string url)
         {
-            
             new WebsiteService().AddWebsite(url);
-            return Redirect("~");
+            Trip trip = new TripsRepo().Find(tripId);
+            return Redirect(Url.TripDetails(trip));
         }
     }
 }

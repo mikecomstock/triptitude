@@ -24,9 +24,9 @@ namespace Triptitude.Web.Helpers
             return url.Action("Details", "Trips", new { id = trip.Id });
         }
 
-        public static string AddWebsite(this UrlHelper url)
+        public static string AddWebsiteToTrip(this UrlHelper url)
         {
-            return url.Action("Create", "Website");
+            return url.Action("AddToTrip", "Website");
         }
     }
 }

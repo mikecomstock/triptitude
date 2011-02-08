@@ -9,7 +9,7 @@ namespace Triptitude.Biz.Services
         public void AddWebsite(string url)
         {
             WebClient x = new WebClient();
-            string source = x.DownloadString("http://www.singingeels.com/");
+            string source = x.DownloadString(url);
             string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
             Website website = new Website();

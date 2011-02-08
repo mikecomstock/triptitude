@@ -2,7 +2,8 @@
     ViewBag.Title = @ViewBag.Trip.Name;
 }
 <h1>@ViewBag.Trip.Name</h1>
-<form action="@Url.AddWebsite()" method="post">
+<form action="@Url.AddWebsiteToTrip()" method="post">
+<input type="hidden" value="@ViewBag.Trip.Id" name="tripId" />
 <input type="text" name="url" />
 <input type="submit" value="Add URL" />
 </form>
