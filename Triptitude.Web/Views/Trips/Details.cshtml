@@ -9,9 +9,7 @@
 </form>
 <h2>
     Itinerary</h2>
-@foreach (ItineraryItem itineraryItem in ViewBag.Trip.Itinerary)
+@for (int i = 1; i < ViewBag.NumberDays; i++)
 {
-    <h3>@itineraryItem.Website.Title</h3>
-    <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Medium)" alt="" />
-    
+    Html.RenderAction("DayDetails", "Trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
 }

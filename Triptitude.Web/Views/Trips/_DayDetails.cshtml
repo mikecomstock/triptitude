@@ -1,0 +1,21 @@
+﻿<div class="trip-day">
+    <h3>
+        Day @ViewBag.DayNumber</h3>
+    @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
+    {
+        <div class="trip-day-itinerary-item">
+            <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
+            <h4>
+                @itineraryItem.Website.Title
+            </h4>
+            @if (itineraryItem.Time.HasValue)
+            {
+                <div class="trip-day-itinerary-item-time">
+                    @itineraryItem.Time.Value.ToString("g")
+                </div>
+            }
+            <div class="trip-day-body">
+            </div>
+        </div>
+    }
+</div>

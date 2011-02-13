@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -15,8 +16,19 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            ViewBag.Trip = new TripsRepo().Find(id);
+            Trip trip = new TripsRepo().Find(id);
+            ViewBag.Trip = trip;
+            ViewBag.NumberDays = trip.Itinerary.Max(i => i.DayNumber) ?? 1;
             return View();
+        }
+
+        // Partial only
+        public ActionResult DayDetails(Trip trip, int dayNumber)
+        {
+            ViewBag.DayNumber = dayNumber;
+            ViewBag.Trip = trip;
+            ViewBag.DayItinerary = trip.Itinerary.Where(i => i.DayNumber == dayNumber);
+            return PartialView("_DayDetails");
         }
 
         public ActionResult Create()
