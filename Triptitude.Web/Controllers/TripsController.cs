@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -31,7 +32,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.DayItinerary = trip.Itinerary.Where(i => i.DayNumber == dayNumber);
             return PartialView("_DayDetails");
         }
-
+        
         public ActionResult Settings(int id)
         {
             var tripRepo = new TripsRepo();
