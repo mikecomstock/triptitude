@@ -20,10 +20,10 @@
         </form>
         @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
         {
-            <div>
-                Currently planning:
-                @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
-            </div>
+            <form action="@Url.SetDefaultTrip()" method="post">
+            @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
+            <input type="submit" value="Plan" />
+            </form>
             <div id="trip-nav-bar">
                 <a href="@Url.TripDetails((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.TripSettings((Trip)ViewBag.User.DefaultTrip)">
                     Settings</a>

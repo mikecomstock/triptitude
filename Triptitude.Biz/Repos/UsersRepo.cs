@@ -11,9 +11,9 @@ namespace Triptitude.Biz.Repos
             return user;
         }
 
-        public void SetDefaultTrip(int userId, int tripId)
+        public void SetDefaultTrip(User user, Trip trip)
         {
-            Find(userId).DefaultTrip = _db.Trips.Find(tripId);
+            user.DefaultTrip = trip;
             _db.SaveChanges();
         }
     }

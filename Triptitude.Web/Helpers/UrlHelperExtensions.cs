@@ -21,6 +21,11 @@ namespace Triptitude.Web.Helpers
             return url.Action("Create", "Trips");
         }
 
+        public static string SetDefaultTrip(this UrlHelper url)
+        {
+            return url.Action("SetDefaultTrip", "Users");
+        }
+
         public static string TripDetails(this UrlHelper url, Trip trip)
         {
             return url.Action("details", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
@@ -28,7 +33,7 @@ namespace Triptitude.Web.Helpers
 
         public static string TripSettings(this UrlHelper url, Trip trip)
         {
-            return url.Action("settings", "trips", new {id=trip.Id, title=trip.Name.ToSlug() });
+            return url.Action("settings", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
         }
 
         public static string AddWebsiteToTrip(this UrlHelper url)

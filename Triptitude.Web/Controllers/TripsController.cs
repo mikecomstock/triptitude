@@ -32,7 +32,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.DayItinerary = trip.Itinerary.Where(i => i.DayNumber == dayNumber);
             return PartialView("_DayDetails");
         }
-        
+
         public ActionResult Settings(int id)
         {
             var tripRepo = new TripsRepo();
@@ -60,7 +60,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Create(TripCreate form, User currentUser)
         {
             Trip trip = new TripsRepo().Save(form, currentUser.Id);
-            new UsersRepo().SetDefaultTrip(currentUser.Id, trip.Id);
+            new UsersRepo().SetDefaultTrip(currentUser, trip);
             return Redirect(Url.TripDetails(trip));
         }
 
