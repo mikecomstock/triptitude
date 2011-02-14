@@ -28,10 +28,13 @@ td { vertical-align: top; padding: 0; }
 
 /* Trip Schedules */
 .trip-day { margin-top: 10px; }
-.trip-day > h3 { padding: 5px; background: #CF543F; color: #FFF; }
-.trip-day-itinerary-item { overflow:auto; margin:10px 0; padding:5px 0; }
+.trip-day > h3 { padding: 3px; background: #CF543F; border-bottom: 2px solid #9B3827; color: #FFF; }
+.trip-day-itinerary-item { overflow: auto; margin: 5px 0; padding: 5px 0; }
 .trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px solid #DDD; }
 .trip-day-itinerary-item-time { }
-.trip-day-itinerary-item img { float: left; margin-right:10px; }
-.trip-day-itinerary-item > h4 { color: #666; font-size:14px; }
+.trip-day-itinerary-item img { float: left; margin-right: 10px; }
+.trip-day-itinerary-item > h4 { color: #666; font-size: 14px; }
 .trip-day-body { }
+
+/* Trip Settings */
+.trip-settings input[name="name"] { width: 400px; }

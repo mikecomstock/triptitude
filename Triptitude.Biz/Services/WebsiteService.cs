@@ -18,7 +18,7 @@ namespace Triptitude.Biz.Services
 
             var repo = new Repo<Website>();
             repo.Add(website);
-            
+
             DbProvider.Save();
 
             Util.CreateThumbnails(url, website.Id);

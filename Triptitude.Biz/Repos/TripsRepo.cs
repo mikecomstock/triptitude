@@ -23,5 +23,20 @@ namespace Triptitude.Biz.Repos
             _db.SaveChanges();
             return trip;
         }
+
+        public TripSettings GetSettings(Trip trip)
+        {
+            var tripSettings = new TripSettings()
+            {
+                Name = trip.Name
+            };
+            return tripSettings;
+        }
+
+        public void Save(Trip trip, TripSettings settings)
+        {
+            trip.Name = settings.Name;
+            _db.SaveChanges();
+        }
     }
 }

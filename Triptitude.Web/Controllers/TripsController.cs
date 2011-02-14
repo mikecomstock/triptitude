@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -29,6 +30,24 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = trip;
             ViewBag.DayItinerary = trip.Itinerary.Where(i => i.DayNumber == dayNumber);
             return PartialView("_DayDetails");
+        }
+
+        public ActionResult Settings(int id)
+        {
+            var tripRepo = new TripsRepo();
+            Trip trip = tripRepo.Find(id);
+            ViewBag.Trip = trip;
+            ViewBag.Form = tripRepo.GetSettings(trip);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Settings(int id, TripSettings form)
+        {
+            var tripRepo = new TripsRepo();
+            Trip trip = tripRepo.Find(id);
+            tripRepo.Save(trip, form);
+            return Redirect(Url.TripSettings(trip));
         }
 
         public ActionResult Create()

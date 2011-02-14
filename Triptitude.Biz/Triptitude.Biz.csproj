@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Models\Db.cs" />
     <Compile Include="Repo.cs" />

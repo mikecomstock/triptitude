@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Web.Mvc;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Helpers
@@ -22,7 +23,12 @@ namespace Triptitude.Web.Helpers
 
         public static string TripDetails(this UrlHelper url, Trip trip)
         {
-            return url.Action("Details", "Trips", new { id = trip.Id });
+            return url.Action("details", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
+        }
+
+        public static string TripSettings(this UrlHelper url, Trip trip)
+        {
+            return url.Action("settings", "trips", new {id=trip.Id, title=trip.Name.ToSlug() });
         }
 
         public static string AddWebsiteToTrip(this UrlHelper url)

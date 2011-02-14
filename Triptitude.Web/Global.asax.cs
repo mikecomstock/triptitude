@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using Triptitude.Biz.Models;
 using Triptitude.Web.ModelBinders;
@@ -24,6 +25,7 @@ namespace Triptitude.Web
             routes.MapRoute("Login", "Login", new { controller = "Auth", action = "Login" });
             routes.MapRoute("Logout", "Logout", new { controller = "Auth", action = "Logout" });
 
+            routes.MapRoute("Details", "{controller}/{id}/{title}/{action}", new { action = "Details", title = UrlParameter.Optional }, new { id = new IntegerRouteConstraint() });
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
 
@@ -36,4 +38,16 @@ namespace Triptitude.Web
             RegisterRoutes(RouteTable.Routes);
         }
     }
+
+    public class IntegerRouteConstraint : IRouteConstraint
+    {
+        public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            string id = values[parameterName].ToString();
+
+            int i;
+            return int.TryParse(id, out i);
+        }
+    }
+
 }
