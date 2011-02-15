@@ -58,7 +58,6 @@
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\ItineraryService.cs" />
     <Compile Include="Services\WebsiteService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

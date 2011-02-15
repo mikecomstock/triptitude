@@ -14,9 +14,10 @@ namespace Triptitude.Web.Controllers
             Website website = new WebsiteService().AddWebsite(url);
             Trip trip = new TripsRepo().Find(tripId);
 
-            new ItineraryService().AddWebsiteToTrip(website, trip);
+            var itineraryItemsRepo = new ItineraryItemsRepo();
+            var itineraryItem = itineraryItemsRepo.AddWebsiteToTrip(website, trip);
 
-            return Redirect(Url.TripDetails(trip));
+            return Redirect(Url.EditItineraryItem(itineraryItem));
         }
     }
 }

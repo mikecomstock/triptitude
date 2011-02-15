@@ -21,5 +21,19 @@ namespace Triptitude.Biz.Repos
             itineraryItem.EndDay = settings.EndDay;
             _db.SaveChanges();
         }
+
+        public ItineraryItem AddWebsiteToTrip(Website website, Trip trip)
+        {
+            ItineraryItem itineraryItem = new ItineraryItem
+            {
+                Trip = trip,
+                Website = website
+            };
+
+            trip.Itinerary.Add(itineraryItem);
+            _db.SaveChanges();
+
+            return itineraryItem;
+        }
     }
 }

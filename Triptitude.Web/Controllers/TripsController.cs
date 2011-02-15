@@ -46,7 +46,7 @@ namespace Triptitude.Web.Controllers
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
             tripRepo.Save(trip, form);
-            return Redirect(Url.TripSettings(trip));
+            return Redirect(Url.TripDetails(trip));
         }
 
         public ActionResult Create()
