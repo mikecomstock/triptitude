@@ -8,12 +8,9 @@
             <h4>
                 @itineraryItem.Website.Title
             </h4>
-            @if (itineraryItem.Time.HasValue)
-            {
-                <div class="trip-day-itinerary-item-time">
-                    @itineraryItem.Time.Value.ToString("g")
-                </div>
-            }
+            <div class="trip-day-itinerary-item-time">
+                @itineraryItem.DateTimeString
+            </div>
             <div class="trip-day-body">
             </div>
         </div>

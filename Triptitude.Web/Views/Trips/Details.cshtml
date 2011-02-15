@@ -9,7 +9,7 @@
 </form>
 <h2>
     Itinerary</h2>
-@for (int i = 1; i < ViewBag.NumberDays; i++)
+@for (int i = 1; i <= ViewBag.NumberDays; i++)
 {
     Html.RenderAction("DayDetails", "Trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
 }

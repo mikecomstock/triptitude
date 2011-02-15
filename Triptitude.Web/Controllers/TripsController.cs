@@ -20,7 +20,7 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            ViewBag.NumberDays = trip.Itinerary.Max(i => i.DayNumber) ?? 1;
+            ViewBag.NumberDays = trip.Itinerary.Max(i => i.EndDay) ?? 1;
             return View();
         }
 
@@ -29,7 +29,7 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.DayItinerary = trip.Itinerary.Where(i => i.DayNumber == dayNumber);
+            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber >= i.BeginDay && dayNumber <= i.EndDay);
             return PartialView("_DayDetails");
         }
 
