@@ -7,6 +7,8 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
+        #region General
+
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("Login");
@@ -15,6 +17,10 @@ namespace Triptitude.Web.Helpers
         {
             return url.RouteUrl("Logout");
         }
+
+        #endregion
+
+        #region Trips
 
         public static string CreateTrip(this UrlHelper url)
         {
@@ -40,6 +46,17 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("AddToTrip", "Website");
         }
+
+        #endregion
+
+        #region Itinerary Items
+
+        public static string EditItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
+        {
+            return url.Action("edit", "itineraryitems", new { id = itineraryItem.Id });
+        }
+
+        #endregion
 
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
         {

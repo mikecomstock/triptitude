@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+<h2>@ViewBag.ItineraryItem.Name</h2>
+<form action="@Url.EditItineraryItem((ItineraryItem)ViewBag.ItineraryItem)" method="post">
+<p>
+    <label for="beginday">
+        Begin Day</label>
+    <input type=text name="beginday" id="beginday" value="@ViewBag.Settings.BeginDay" />
+</p>
+<p>
+    <label for="endday">
+        End Day</label>
+    <input type=text name="endday" id="endday" value="@ViewBag.Settings.EndDay" />
+</p>
+<input type="submit" value="Save Changes" />
+</form>

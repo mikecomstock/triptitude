@@ -5,6 +5,7 @@
     {
         <div class="trip-day-itinerary-item">
             <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
+            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a>
             <h4>
                 @itineraryItem.Website.Title
             </h4>
