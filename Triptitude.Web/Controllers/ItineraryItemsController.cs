@@ -28,5 +28,14 @@ namespace Triptitude.Web.Controllers
             itineraryItemsRepo.Save(itineraryItem, settings);
             return Redirect(Url.TripDetails(itineraryItem.Trip));
         }
+
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var itineraryItemsRepo = new ItineraryItemsRepo();
+            ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
+            itineraryItemsRepo.SoftDelete(itineraryItem);
+            return Redirect(Url.TripDetails(itineraryItem.Trip));
+        }
     }
 }

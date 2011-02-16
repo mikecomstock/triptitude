@@ -56,6 +56,11 @@ namespace Triptitude.Web.Helpers
             return url.Action("edit", "itineraryitems", new { id = itineraryItem.Id });
         }
 
+        public static string SoftDeleteItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
+        {
+            return url.Action("delete", "itineraryitems", new { id = itineraryItem.Id });
+        }
+
         #endregion
 
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
