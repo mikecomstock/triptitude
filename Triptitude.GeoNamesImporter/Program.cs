@@ -10,6 +10,20 @@ namespace Triptitude.GeoNamesImporter
     {
         static void Main(string[] args)
         {
+            GeoNames();
+
+            Console.WriteLine("Done. Press a key to exit.");
+            Console.ReadKey(false);
+        }
+
+        static void GeoNames()
+        {
+            GeoNamesService geoNamesService = new GeoNamesService();
+            geoNamesService.GetGeonames();
+        }
+
+        static void Countries()
+        {
             GeoNamesService geoNamesService = new GeoNamesService();
             CountriesRepo countriesRepo = new CountriesRepo();
 
@@ -21,9 +35,6 @@ namespace Triptitude.GeoNamesImporter
             }
 
             countriesRepo.ImportCountries(countries);
-
-            Console.WriteLine("Done. Press a key to exit.");
-            Console.ReadKey(false);
         }
     }
 }
