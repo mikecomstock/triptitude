@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\ItineraryItemsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -126,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ItineraryItems\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Hotels\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

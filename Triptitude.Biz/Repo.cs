@@ -23,6 +23,11 @@ namespace Triptitude.Biz
         {
             DbProvider._db.Set<T>().Add(entity);
         }
+
+        public void Save()
+        {
+            DbProvider.Save();
+        }
     }
 
     // Is bad code less bad if you write a comment about how bad it is? no. MC

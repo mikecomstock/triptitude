@@ -12,11 +12,14 @@ namespace Triptitude.GeoNamesImporter
         private const string regionsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Regions.txt";
         private const string citiesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Cities.txt";
 
+        private const string hotelsAllActivePath = "C:\\Users\\Mike\\Desktop\\Temp\\Hotel_All_Active 02-26-11.txt";
+
         static void Main(string[] args)
         {
-            Countries();
-            Regions();
-            Cities();
+            //Countries();
+            //Regions();
+            //Cities();
+            Hotels();
 
             Console.WriteLine("Done. Press a key to exit.");
             Console.ReadKey(false);
@@ -25,22 +28,29 @@ namespace Triptitude.GeoNamesImporter
         static void Countries()
         {
             Console.WriteLine("=== PERPARING COUNTRIES ===");
-            GeoNamesService geoNamesService = new GeoNamesService();
-            geoNamesService.PrepareCountries(countryInfoPath, countriesOutPath);
+            var importService = new ImportService();
+            importService.PrepareCountries(countryInfoPath, countriesOutPath);
         }
 
         static void Regions()
         {
             Console.WriteLine("=== PERPARING REGIONS ===");
-            GeoNamesService geoNamesService = new GeoNamesService();
-            geoNamesService.PrepareRegions(allCountriesPath, regionsOutPath);
+            var importService = new ImportService();
+            importService.PrepareRegions(allCountriesPath, regionsOutPath);
         }
 
         static void Cities()
         {
             Console.WriteLine("=== PERPARING CITIES ===");
-            GeoNamesService geoNamesService = new GeoNamesService();
-            geoNamesService.PrepareCities(allCountriesPath, citiesOutPath);
+            var importService = new ImportService();
+            importService.PrepareCities(allCountriesPath, citiesOutPath);
+        }
+
+        static void Hotels()
+        {
+            Console.WriteLine("=== IMPORTING HOTELS ===");
+            ImportService importService = new ImportService();
+            importService.ImportHotels(hotelsAllActivePath);
         }
     }
 }

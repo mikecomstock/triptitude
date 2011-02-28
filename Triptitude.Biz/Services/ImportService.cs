@@ -7,7 +7,7 @@ using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Services
 {
-    public class GeoNamesService
+    public class ImportService
     {
         public void PrepareCountries(string countryInfoPath, string outPath)
         {
@@ -33,7 +33,7 @@ namespace Triptitude.Biz.Services
                     if (l[16] == "0") continue;
 
                     Console.WriteLine(l[4]);
-                    
+
                     writer.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}\t{15}\t{16}\t{17}",
                         l[16], l[0], l[1], l[2], l[3], l[4], l[5], l[7], l[8], l[9], l[10], l[11], l[12], l[13], l[14], l[15], l[17], l[18]);
 
@@ -140,6 +140,54 @@ namespace Triptitude.Biz.Services
                             writer.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}", l[0], l[2], l[4], l[5], region.GeoNameID);
                         // GeoNameID, ASCIIName, Latitude, Longitude, RegionGeoNameID
                     }
+                }
+            }
+        }
+
+        public void ImportHotels(string hotelAllActivePath)
+        {
+            ExpediaHotelsRepo expediaHotelsRepo = new ExpediaHotelsRepo();
+
+            FileStream inFileStream = new FileStream(hotelAllActivePath, FileMode.Open);
+            StreamReader reader = new StreamReader(inFileStream);
+
+            int i = 0;
+            string mode;
+
+            using (inFileStream)
+            using (reader)
+            {
+                reader.ReadLine(); //ignore first line
+
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var l = line.Split('|');
+                    int expediaHotelId = int.Parse(l[0]);
+
+                    ExpediaHotel expediaHotel = expediaHotelsRepo.Find(expediaHotelId);
+
+                    mode = "update";
+                    if (expediaHotel == null)
+                    {
+                        mode = "insert";
+                        expediaHotel = new ExpediaHotel
+                                           {
+                                               ExpediaHotelId = expediaHotelId,
+                                               BaseItem = new BaseItem
+                                                              {
+                                                                  Name = l[1],
+                                                                  ItemType = "H"
+                                                              }
+                                           };
+                        expediaHotelsRepo.Add(expediaHotel);
+                    }
+
+                    expediaHotel.HasContinentalBreakfast = l[30] == "Y";
+                    expediaHotelsRepo.Save();
+
+                    if (++i % 100 == 0)
+                        Console.WriteLine("{0}\t{1}", mode, expediaHotel.ExpediaHotelId);
                 }
             }
         }

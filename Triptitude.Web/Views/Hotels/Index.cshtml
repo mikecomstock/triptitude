@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Hotels";
+}
+<h2>
+    Hotels</h2>
+@foreach (ExpediaHotel hotel in ViewBag.Hotels)
+{
+    <div>
+        @hotel.BaseItem.Name
+    </div>
+}
