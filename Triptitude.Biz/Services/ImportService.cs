@@ -176,13 +176,15 @@ namespace Triptitude.Biz.Services
                                                ExpediaHotelId = expediaHotelId,
                                                BaseItem = new BaseItem
                                                               {
-                                                                  Name = l[1],
                                                                   ItemType = "H"
                                                               }
                                            };
                         expediaHotelsRepo.Add(expediaHotel);
                     }
 
+                    expediaHotel.BaseItem.Name = l[1];
+                    expediaHotel.BaseItem.Latitude = decimal.Parse(l[11]);
+                    expediaHotel.BaseItem.Longitude= decimal.Parse(l[10]);
                     expediaHotel.HasContinentalBreakfast = l[30] == "Y";
                     expediaHotelsRepo.Save();
 
