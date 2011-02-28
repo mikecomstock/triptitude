@@ -2,7 +2,7 @@
 
 namespace Triptitude.Biz.Repos
 {
-    public class CountriesRepo : Repo<Country>
+    public class CitiesRepo : Repo<City>
     {
     }
 }

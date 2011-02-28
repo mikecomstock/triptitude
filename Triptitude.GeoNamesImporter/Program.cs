@@ -1,17 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using Triptitude.Biz.Models;
-using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
 
 namespace Triptitude.GeoNamesImporter
 {
     class Program
     {
+        private const string countryInfoPath = "C:\\Users\\Mike\\Desktop\\Temp\\countryInfo.txt";
+        private const string allCountriesPath = "C:\\Users\\Mike\\Desktop\\Temp\\allCountries.txt";
+
+        private const string countriesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Countries.txt";
+        private const string regionsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Regions.txt";
+        private const string citiesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Cities.txt";
+
         static void Main(string[] args)
         {
-           // Countries();
-          //  Regions();
+            Countries();
+            Regions();
             Cities();
 
             Console.WriteLine("Done. Press a key to exit.");
@@ -20,40 +24,23 @@ namespace Triptitude.GeoNamesImporter
 
         static void Countries()
         {
-            Console.WriteLine("=== IMPORTING COUNTRIES ===");
+            Console.WriteLine("=== PERPARING COUNTRIES ===");
             GeoNamesService geoNamesService = new GeoNamesService();
-            IEnumerable<Country> countries = geoNamesService.GetCountries();
-
-            //foreach (var country in countries)
-            //{
-            //    Console.WriteLine("{0}\t{1}", country.ISO, country.Name);
-            //}
-
-            CountriesRepo countriesRepo = new CountriesRepo();
-            countriesRepo.ImportCountries(countries);
+            geoNamesService.PrepareCountries(countryInfoPath, countriesOutPath);
         }
 
         static void Regions()
         {
-            Console.WriteLine("=== IMPORTING REGIONS ===");
+            Console.WriteLine("=== PERPARING REGIONS ===");
             GeoNamesService geoNamesService = new GeoNamesService();
-            IEnumerable<Region> regions = geoNamesService.GetAdmin1Regions();
-
-            RegionsRepo regionsRepo = new RegionsRepo();
-            //foreach (var region in regions)
-            //{
-            //    Console.WriteLine("{0}\t{1}", region.GeoNameAdmin1Code, region.ASCIIName);
-            //    regionsRepo.ImportRegions(new[] { region });
-            //}
-
-            regionsRepo.ImportRegions(regions);
+            geoNamesService.PrepareRegions(allCountriesPath, regionsOutPath);
         }
 
         static void Cities()
         {
-            Console.WriteLine("=== IMPORTING CITIES ===");
+            Console.WriteLine("=== PERPARING CITIES ===");
             GeoNamesService geoNamesService = new GeoNamesService();
-            geoNamesService.GetCities();
+            geoNamesService.PrepareCities(allCountriesPath, citiesOutPath);
         }
     }
 }
