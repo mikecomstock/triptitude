@@ -6,6 +6,6 @@
 @foreach (ExpediaHotel hotel in ViewBag.Hotels)
 {
     <div>
-        @hotel.BaseItem.Name
+        <a href="@Url.HotelDetails(hotel)">@hotel.BaseItem.Name</a>
     </div>
 }

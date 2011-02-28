@@ -27,7 +27,7 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber >= i.BeginDay && dayNumber <= i.EndDay);
+            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
             return PartialView("_DayDetails");
         }
 

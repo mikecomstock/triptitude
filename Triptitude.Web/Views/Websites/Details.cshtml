@@ -1,0 +1,6 @@
+﻿@{
+    ViewBag.Title = "Website Details";
+}
+<h2>@ViewBag.Website.Title</h2>
+<img src="@Url.WebsiteThumb((Website)ViewBag.Website, Website.ThumbSize.Large)" alt="" />
+<a href="@ViewBag.Website.URL">@ViewBag.Website.URL</a>

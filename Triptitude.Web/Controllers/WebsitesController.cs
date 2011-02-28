@@ -6,8 +6,16 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class WebsiteController : Controller
+    public class WebsitesController : Controller
     {
+        public ActionResult Details(int id)
+        {
+            WebsitesRepo websitesRepo = new WebsitesRepo();
+            Website website = websitesRepo.Find(id);
+            ViewBag.Website = website;
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AddToTrip(int tripId, string url)
         {

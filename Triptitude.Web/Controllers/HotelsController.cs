@@ -13,5 +13,13 @@ namespace Triptitude.Web.Controllers
             ViewBag.Hotels = hotels;
             return View();
         }
+
+        public ActionResult Details(int id)
+        {
+            ExpediaHotelsRepo expediaHotelsRepo = new ExpediaHotelsRepo();
+            ExpediaHotel hotel = expediaHotelsRepo.FindByBaseItemId(id);
+            ViewBag.Hotel = hotel;
+            return View();
+        }
     }
 }

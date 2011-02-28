@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Services
 {
@@ -12,14 +13,15 @@ namespace Triptitude.Biz.Services
             string source = x.DownloadString(url);
             string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
-            Website website = new Website();
-            website.URL = url;
-            website.Title = title;
+            Website website = new Website
+            {
+                URL = url,
+                Title = title
+            };
 
-            var repo = new Repo<Website>();
-            repo.Add(website);
-            
-            DbProvider.Save();
+            WebsitesRepo websitesRepo = new WebsitesRepo();
+            websitesRepo.Add(website);
+            websitesRepo.Save();
 
             Util.CreateThumbnails(url, website.Id);
 

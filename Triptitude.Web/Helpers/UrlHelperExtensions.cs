@@ -11,11 +11,11 @@ namespace Triptitude.Web.Helpers
 
         public static string Login(this UrlHelper url)
         {
-            return url.RouteUrl("Login");
+            return url.RouteUrl("login");
         }
         public static string Logout(this UrlHelper url)
         {
-            return url.RouteUrl("Logout");
+            return url.RouteUrl("logout");
         }
 
         #endregion
@@ -24,12 +24,12 @@ namespace Triptitude.Web.Helpers
 
         public static string CreateTrip(this UrlHelper url)
         {
-            return url.Action("Create", "Trips");
+            return url.Action("create", "trips");
         }
 
         public static string SetDefaultTrip(this UrlHelper url)
         {
-            return url.Action("SetDefaultTrip", "Users");
+            return url.Action("setdefaulttrip", "users");
         }
 
         public static string TripDetails(this UrlHelper url, Trip trip)
@@ -44,7 +44,7 @@ namespace Triptitude.Web.Helpers
 
         public static string AddWebsiteToTrip(this UrlHelper url)
         {
-            return url.Action("AddToTrip", "Website");
+            return url.Action("addtotrip", "websites");
         }
 
         #endregion
@@ -61,11 +61,42 @@ namespace Triptitude.Web.Helpers
             return url.Action("delete", "itineraryitems", new { id = itineraryItem.Id });
         }
 
+        public static string Details(this UrlHelper url, ItineraryItem itineraryItem)
+        {
+            if (itineraryItem.BaseItem != null)
+            {
+                switch (itineraryItem.BaseItem.ItemType)
+                {
+                    case "H": return HotelDetails(url, itineraryItem.Hotel);
+                }
+            }
+
+            return Details(url, itineraryItem.Website);
+        }
+
         #endregion
+
+        #region Websites
+
+        public static string Details(this UrlHelper url, Website website)
+        {
+            return url.Action("details", "websites", new { id = website.Id, title = website.Title.ToSlug() });
+        }
 
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
         {
-            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/WebsiteThumbs/" + Website.ThumbFilename(website.Id, thumbSize);
+            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + Website.ThumbFilename(website.Id, thumbSize);
         }
+
+        #endregion
+
+        #region Hotels
+
+        public static string HotelDetails(this UrlHelper url, ExpediaHotel hotel)
+        {
+            return url.Action("details", "hotels", new { id = hotel.BaseItem.Id, title = hotel.BaseItem.Name.ToSlug() });
+        }
+
+        #endregion
     }
 }
