@@ -115,6 +115,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("index", "hotels");
         }
+
         public static string HotelDetails(this UrlHelper url, ExpediaHotel hotel)
         {
             return url.Action("details", "hotels", new { id = hotel.BaseItem.Id, title = hotel.BaseItem.Name.ToSlug() });
