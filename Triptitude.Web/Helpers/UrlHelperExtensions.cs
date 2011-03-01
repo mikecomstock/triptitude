@@ -56,11 +56,6 @@ namespace Triptitude.Web.Helpers
             return url.Action("settings", "plan", new { id = trip.Id, title = trip.Name.ToSlug() });
         }
 
-        public static string AddWebsiteToTrip(this UrlHelper url)
-        {
-            return url.Action("addtotrip", "websites");
-        }
-
         #endregion
 
         #region Itinerary Items
@@ -68,6 +63,11 @@ namespace Triptitude.Web.Helpers
         public static string AddBaseItemToItinerary(this UrlHelper url, BaseItem baseItem)
         {
             return url.Action("addbaseitemtotrip", "itineraryitems", new { baseItemId = baseItem.Id });
+        }
+
+        public static string AddWebsiteToTrip(this UrlHelper url)
+        {
+            return url.Action("addwebsitetotrip", "itineraryitems");
         }
 
         public static string EditItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)

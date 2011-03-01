@@ -2,6 +2,7 @@
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -40,6 +41,15 @@ namespace Triptitude.Web.Controllers
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.SoftDelete(itineraryItem);
             return Redirect(Url.PlanItinerary(itineraryItem.Trip));
+        }
+
+
+        [HttpPost]
+        public ActionResult AddWebsiteToTrip(string url, User currentUser)
+        {
+            Website website = new WebsiteService().AddWebsite(url);
+            var itineraryItem = itineraryItemsRepo.AddWebsiteToTrip(website, currentUser.DefaultTrip);
+            return Redirect(Url.EditItineraryItem(itineraryItem));
         }
 
         public ActionResult AddBaseItemToTrip(int baseItemId, User currentUser)
