@@ -65,6 +65,11 @@ namespace Triptitude.Web.Helpers
 
         #region Itinerary Items
 
+        public static string AddBaseItemToItinerary(this UrlHelper url, BaseItem baseItem)
+        {
+            return url.Action("addbaseitemtotrip", "itineraryitems", new { baseItemId = baseItem.Id });
+        }
+
         public static string EditItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
         {
             return url.Action("edit", "itineraryitems", new { id = itineraryItem.Id });

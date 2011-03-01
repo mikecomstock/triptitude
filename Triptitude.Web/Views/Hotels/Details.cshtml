@@ -1,4 +1,5 @@
 ﻿@{
     ViewBag.Title = ViewBag.Hotel.BaseItem.Name;
 }
-<h2>@ViewBag.Hotel.BaseItem.Name</h2>
+<h1>@ViewBag.Hotel.BaseItem.Name</h1>
+<a href="@Url.AddBaseItemToItinerary((BaseItem)ViewBag.Hotel.BaseItem)">Add to Trip</a>

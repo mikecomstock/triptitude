@@ -19,7 +19,7 @@ namespace Triptitude.Biz.Repos
         {
             itineraryItem.BeginDay = settings.BeginDay;
             itineraryItem.EndDay = settings.EndDay;
-            _db.SaveChanges();
+            Save();
         }
 
         public ItineraryItem AddWebsiteToTrip(Website website, Trip trip)
@@ -31,7 +31,21 @@ namespace Triptitude.Biz.Repos
             };
 
             trip.Itinerary.Add(itineraryItem);
-            _db.SaveChanges();
+            Save();
+
+            return itineraryItem;
+        }
+
+        public ItineraryItem AddBaseItemToTrip(BaseItem baseItem, Trip trip)
+        {
+            ItineraryItem itineraryItem = new ItineraryItem
+                                              {
+                                                  Trip = trip,
+                                                  BaseItem = baseItem
+                                              };
+
+            trip.Itinerary.Add(itineraryItem);
+            Save();
 
             return itineraryItem;
         }
@@ -43,7 +57,7 @@ namespace Triptitude.Biz.Repos
             itineraryItem.EndDay = null;
             itineraryItem.EndTime = null;
             itineraryItem.SoftDeleted = true;
-            _db.SaveChanges();
+            Save();
         }
     }
 }

@@ -8,9 +8,15 @@ namespace Triptitude.Web.Controllers
 {
     public class ItineraryItemsController : Controller
     {
+        private ItineraryItemsRepo itineraryItemsRepo;
+
+        public ItineraryItemsController()
+        {
+            itineraryItemsRepo = new ItineraryItemsRepo();
+        }
+
         public ActionResult Edit(int id)
         {
-            var itineraryItemsRepo = new ItineraryItemsRepo();
             var itineraryItem = itineraryItemsRepo.Find(id);
             var itineraryItemSettings = itineraryItemsRepo.GetSettings(itineraryItem);
 
@@ -23,7 +29,6 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, ItineraryItemSettings settings)
         {
-            var itineraryItemsRepo = new ItineraryItemsRepo();
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.Save(itineraryItem, settings);
             return Redirect(Url.PlanItinerary(itineraryItem.Trip));
@@ -32,10 +37,17 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            var itineraryItemsRepo = new ItineraryItemsRepo();
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.SoftDelete(itineraryItem);
             return Redirect(Url.PlanItinerary(itineraryItem.Trip));
+        }
+
+        public ActionResult AddBaseItemToTrip(int baseItemId, User currentUser)
+        {
+            BaseItemsRepo baseItemsRepo = new BaseItemsRepo();
+            BaseItem baseItem = baseItemsRepo.Find(baseItemId);
+            ItineraryItem itineraryItem = itineraryItemsRepo.AddBaseItemToTrip(baseItem, currentUser.DefaultTrip);
+            return Redirect(Url.EditItineraryItem(itineraryItem));
         }
     }
 }
