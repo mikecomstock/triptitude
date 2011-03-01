@@ -7,9 +7,9 @@ namespace Triptitude.Web.Controllers
 {
     public class HotelsController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            IQueryable<ExpediaHotel> hotels = new ExpediaHotelsRepo().FindAll().Take(15);
+            IQueryable<ExpediaHotel> hotels = new ExpediaHotelsRepo().Search(name).Take(15);
             ViewBag.Hotels = hotels;
             return View();
         }

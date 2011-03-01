@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Your Trip";
+}
+<h1>
+    Your Trip</h1>
+<form id="create-trip-form" action="@Url.CreateTrip()" method="post">
+<input type="text" name="name" />
+<input type="submit" value="Create Trip" />
+</form>

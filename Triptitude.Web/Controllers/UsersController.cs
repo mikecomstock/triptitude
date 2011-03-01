@@ -11,7 +11,7 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Find(id);
             new UsersRepo().SetDefaultTrip(currentUser, trip);
-            return Redirect(Url.TripDetails(trip));
+            return Redirect(Url.PlanItinerary(trip));
         }
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\ItineraryItemsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Controllers\PlanController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WebsitesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -123,7 +124,7 @@
     <Content Include="Views\Trips\_DayDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Trips\Settings.cshtml" />
+    <Content Include="Views\Plan\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ItineraryItems\Edit.cshtml" />
@@ -136,6 +137,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Websites\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Plan\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Plan\_DayDetails.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Trips\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Plan\Create.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

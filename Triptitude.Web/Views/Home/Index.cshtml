@@ -1,21 +1,10 @@
 ﻿@{
     ViewBag.Title = "Welcome to Triptitude!";
 }
-<h1>
-    Users</h1>
-<div>
-    @foreach (var user in ViewBag.Users)
-    {
-        @user.Email
-    }
-</div>
-<h1>
-    Trips</h1>
-<div>
-    @foreach (Trip trip in ViewBag.Trips)
-    {
-        <div>
-            <a href="@Url.TripDetails(trip)">@trip.Name</a>
-        </div>
-    }
-</div>
+<ol>
+    <li>Explore</li>
+    <li>Plan</li>
+    <li>Book</li>
+    <li>Prepare</li>
+    <li>Share</li>
+</ol>

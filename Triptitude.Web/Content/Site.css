@@ -17,10 +17,13 @@ td { vertical-align: top; padding: 0; }
 #user-status a { padding: 0 10px; color: #F8FAF5; }
 #user-status a + a { border-left: 1px solid #F8FAF5; }
 
+#main-menu { float: right; line-height: 20px; }
+#main-menu a { padding: 0 10px; color: #FFFFFF; }
+#main-menu a + a { border-left: 1px solid #CCCCCC; }
+
 /* Tripbar */
 #trip-bar { width: 955px; margin: 0px auto; background-color: #5588B4; border: 2px solid #325471; border-top: none; padding: 8px 8px 8px 8px; color: #FFF; overflow: auto; }
-#create-trip-form { float: right; }
-#trip-nav-bar a {color:#FFF; font-weight:bold;}
+#trip-nav-bar a { color: #FFF; font-weight: bold; }
 
 /* Page Sections */
 #content { width: 955px; margin: 110px auto 10px auto; overflow: visible; clear: both; }
@@ -37,5 +40,6 @@ td { vertical-align: top; padding: 0; }
 .trip-day-itinerary-item > h4 { color: #666; font-size: 14px; }
 .trip-day-body { }
 
-/* Trip Settings */
+/* Plan Trip */
+#create-trip-form { }
 .trip-settings input[name="name"] { width: 400px; }

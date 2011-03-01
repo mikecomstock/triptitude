@@ -2,13 +2,6 @@
     ViewBag.Title = @ViewBag.Trip.Name;
 }
 <h1>@ViewBag.Trip.Name</h1>
-<form action="@Url.AddWebsiteToTrip()" method="post">
-<input type="hidden" value="@ViewBag.Trip.Id" name="tripId" />
-<input type="text" name="url" />
-<input type="submit" value="Add URL" />
-</form>
-<h2>
-    Itinerary</h2>
 @for (int i = 1; i <= ViewBag.NumberDays; i++)
 {
     Html.RenderAction("DayDetails", "Trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });

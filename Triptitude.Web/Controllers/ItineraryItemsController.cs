@@ -26,7 +26,7 @@ namespace Triptitude.Web.Controllers
             var itineraryItemsRepo = new ItineraryItemsRepo();
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.Save(itineraryItem, settings);
-            return Redirect(Url.TripDetails(itineraryItem.Trip));
+            return Redirect(Url.PlanItinerary(itineraryItem.Trip));
         }
 
         [HttpPost]
@@ -35,7 +35,7 @@ namespace Triptitude.Web.Controllers
             var itineraryItemsRepo = new ItineraryItemsRepo();
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.SoftDelete(itineraryItem);
-            return Redirect(Url.TripDetails(itineraryItem.Trip));
+            return Redirect(Url.PlanItinerary(itineraryItem.Trip));
         }
     }
 }

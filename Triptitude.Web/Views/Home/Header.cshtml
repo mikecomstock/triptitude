@@ -12,20 +12,22 @@
                 @Html.RouteLink("Login", "Login");
             }
         </div>
+        <div id="main-menu">
+            <a href="@Url.CreateTrip()">Create Trip</a>
+            <a href="@Url.TripsHome()">Trips</a>
+            <a href="@Url.HotelsHome()">Hotels</a>
+        </div>
     </div>
     <div id="trip-bar">
-        <form id="create-trip-form" action="@Url.CreateTrip()" method="post">
-        <input type="text" name="name" />
-        <input type="submit" value="Create Trip" />
-        </form>
         @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
         {
             <form action="@Url.SetDefaultTrip()" method="post">
             @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
             <input type="submit" value="Plan" />
             </form>
+        
             <div id="trip-nav-bar">
-                <a href="@Url.TripDetails((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.TripSettings((Trip)ViewBag.User.DefaultTrip)">
+                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
                     Settings</a>
             </div>
         }

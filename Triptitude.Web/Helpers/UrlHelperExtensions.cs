@@ -22,9 +22,28 @@ namespace Triptitude.Web.Helpers
 
         #region Trips
 
+        public static string TripsHome(this UrlHelper url)
+        {
+            return url.Action("index", "trips");
+        }
+
+        public static string PublicDetails(this UrlHelper url, Trip trip)
+        {
+            return url.Action("details", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
+        }
+
+        #endregion
+
+        #region Plan Trip
+
+        public static string PlanItinerary(this UrlHelper url, Trip trip)
+        {
+            return url.Action("details", "plan", new { id = trip.Id, title = trip.Name.ToSlug() });
+        }
+
         public static string CreateTrip(this UrlHelper url)
         {
-            return url.Action("create", "trips");
+            return url.Action("create", "plan");
         }
 
         public static string SetDefaultTrip(this UrlHelper url)
@@ -32,14 +51,9 @@ namespace Triptitude.Web.Helpers
             return url.Action("setdefaulttrip", "users");
         }
 
-        public static string TripDetails(this UrlHelper url, Trip trip)
+        public static string Settings(this UrlHelper url, Trip trip)
         {
-            return url.Action("details", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
-        }
-
-        public static string TripSettings(this UrlHelper url, Trip trip)
-        {
-            return url.Action("settings", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
+            return url.Action("settings", "plan", new { id = trip.Id, title = trip.Name.ToSlug() });
         }
 
         public static string AddWebsiteToTrip(this UrlHelper url)
@@ -92,6 +106,10 @@ namespace Triptitude.Web.Helpers
 
         #region Hotels
 
+        public static string HotelsHome(this UrlHelper url)
+        {
+            return url.Action("index", "hotels");
+        }
         public static string HotelDetails(this UrlHelper url, ExpediaHotel hotel)
         {
             return url.Action("details", "hotels", new { id = hotel.BaseItem.Id, title = hotel.BaseItem.Name.ToSlug() });
