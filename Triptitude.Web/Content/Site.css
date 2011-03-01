@@ -23,10 +23,13 @@ td { vertical-align: top; padding: 0; }
 
 /* Tripbar */
 #trip-bar { width: 955px; margin: 0px auto; background-color: #5588B4; border: 2px solid #325471; border-top: none; padding: 8px 8px 8px 8px; color: #FFF; overflow: auto; }
-#trip-nav-bar a { color: #FFF; font-weight: bold; }
+#trip-nav-bar { border-top: 1px dashed #CCCCCC; margin-top:5px; padding-top:5px; font-size:14px; }
+#trip-nav-bar div { display:inline;}
+#trip-nav-bar a { color: #FFF; padding: 0 10px; }
+#trip-nav-bar a + a { border-left: 3px solid #325471;}
 
 /* Page Sections */
-#content { width: 955px; margin: 110px auto 10px auto; overflow: visible; clear: both; }
+#content { width: 955px; margin: 130px auto 10px auto; overflow: visible; clear: both; }
 #footer { width: 955px; margin: 0 auto; }
 
 

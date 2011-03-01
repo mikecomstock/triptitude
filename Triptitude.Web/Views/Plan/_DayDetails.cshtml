@@ -8,14 +8,14 @@
             {
                 <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             }
+            <h4>
+                <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
+            </h4>
             <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a>
             @{ var formName = "ii" + Guid.NewGuid().ToString("N"); }
             <form name="@formName" action="@Url.SoftDeleteItineraryItem(itineraryItem)" method="post">
             <a href="javascript: document.@(formName).submit();">Delete</a>
             </form>
-            <h4>
-                <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
-            </h4>
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
