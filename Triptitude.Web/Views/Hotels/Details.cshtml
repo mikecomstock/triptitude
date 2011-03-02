@@ -1,11 +1,29 @@
 ﻿@{
     ViewBag.Title = ViewBag.Hotel.BaseItem.Name;
 }
+<script type="text/javascript" charset="utf-8">
+    google.load("maps", "2");
+</script>
 <h1>@ViewBag.Hotel.BaseItem.Name</h1>
 <a href="@Url.AddBaseItemToItinerary((BaseItem)ViewBag.Hotel.BaseItem)">Add to Trip</a>
 <br />
 <br />
 <br />
+
+<div id="map"></div>
+<style media="screen"type="text/css">#map { width:300px; height:300px; }</style>
+@ViewBag.Hotel.BaseItem.Latitude, @ViewBag.Hotel.BaseItem.Longitude
+<script type="text/javascript">
+    $(document).ready(function () {
+        var map = new GMap2(document.getElementById('map'));
+        var hotelPoint = new GLatLng(@ViewBag.Hotel.BaseItem.Latitude, @ViewBag.Hotel.BaseItem.Longitude); 
+        var hotelMarker = new GMarker(hotelPoint);
+        map.setCenter(hotelPoint, 14);
+        map.addOverlay(hotelMarker);
+    });
+</script>
+
+
 <br />
 <br />
 <br />
