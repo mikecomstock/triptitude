@@ -46,3 +46,7 @@ td { vertical-align: top; padding: 0; }
 /* Plan Trip */
 #create-trip-form { }
 .trip-settings input[name="name"] { width: 400px; }
+
+/* Hotel Details */
+#hotel-details-map-container { width: 500px; height:300px; float:right;}
+#hotel-details-related-trips{ clear:both;}

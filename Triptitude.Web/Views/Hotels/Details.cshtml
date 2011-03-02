@@ -3,35 +3,26 @@
 }
 <script type="text/javascript" charset="utf-8">
     google.load("maps", "2");
-</script>
-<h1>@ViewBag.Hotel.BaseItem.Name</h1>
-<a href="@Url.AddBaseItemToItinerary((BaseItem)ViewBag.Hotel.BaseItem)">Add to Trip</a>
-<br />
-<br />
-<br />
-
-<div id="map"></div>
-<style media="screen"type="text/css">#map { width:300px; height:300px; }</style>
-@ViewBag.Hotel.BaseItem.Latitude, @ViewBag.Hotel.BaseItem.Longitude
-<script type="text/javascript">
-    $(document).ready(function () {
-        var map = new GMap2(document.getElementById('map'));
+       
+        $(document).ready(function () {
+        var map = new GMap2(document.getElementById('hotel-details-map-container'));
         var hotelPoint = new GLatLng(@ViewBag.Hotel.BaseItem.Latitude, @ViewBag.Hotel.BaseItem.Longitude); 
         var hotelMarker = new GMarker(hotelPoint);
         map.setCenter(hotelPoint, 14);
         map.addOverlay(hotelMarker);
     });
 </script>
-
-
-<br />
-<br />
-<br />
-<h2>
-    Related Trips</h2>
-@foreach (Trip trip in ViewBag.Hotel.BaseItem.Trips)
-{
-    <div>
-        <a href="@Url.PublicDetails(trip)">@trip.Name</a>
-    </div>
-}
+<h1>@ViewBag.Hotel.BaseItem.Name</h1>
+<a href="@Url.AddBaseItemToItinerary((BaseItem)ViewBag.Hotel.BaseItem)">Add to Trip</a>
+<div id="hotel-details-map-container">
+</div>
+<div id="hotel-details-related-trips">
+    <h2>
+        Related Trips</h2>
+    @foreach (Trip trip in ViewBag.Hotel.BaseItem.Trips)
+    {
+        <div>
+            <a href="@Url.PublicDetails(trip)">@trip.Name</a>
+        </div>
+    }
+</div>
