@@ -24,7 +24,10 @@
         @foreach (ExpediaHotel nearbyHotel in nearbyHotels)
         {
         <Placemark>
-            <name>@nearbyHotel.BaseItem.Name</name>
+            <description><![CDATA[
+            <a href="@Url.HotelDetails(nearbyHotel)">@nearbyHotel.BaseItem.Name</a>
+            ]]>
+            </description>
             <Point>
                 <coordinates>@nearbyHotel.BaseItem.Longitude, @nearbyHotel.BaseItem.Latitude</coordinates>
             </Point>

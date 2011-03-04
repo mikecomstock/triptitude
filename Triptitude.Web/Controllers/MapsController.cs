@@ -19,6 +19,8 @@ namespace Triptitude.Web.Controllers
             IQueryable<ExpediaHotel> nearbyHotels = expediaHotelsRepo.FindAll().OrderBy(h => h.BaseItem.Name).Skip(r.Next(0, 100)).Take(10);
             ViewBag.NearbyHotels = nearbyHotels;
 
+            // check out http://stackoverflow.com/questions/1184921/how-to-override-target-blank-in-kml-popups-in-embedded-google-map
+
             return View();
         }
     }
