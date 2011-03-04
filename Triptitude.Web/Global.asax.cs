@@ -22,6 +22,8 @@ namespace Triptitude.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("map", "maps/{action}/{id}.kml", new { controller = "maps" });
+
             routes.MapRoute("Login", "Login", new { controller = "Auth", action = "Login" });
             routes.MapRoute("Logout", "Logout", new { controller = "Auth", action = "Logout" });
 
