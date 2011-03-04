@@ -1,13 +1,35 @@
 ﻿@{
     Layout = null;
     ExpediaHotel hotel = ViewBag.ExpediaHotel;
+    IQueryable<ExpediaHotel> nearbyHotels = ViewBag.NearbyHotels;
 }
 <?xml version="1.0" encoding="UTF-8" ?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-  <Placemark>
-    <name>@hotel.BaseItem.Name</name>
-    <Point>
-      <coordinates>@hotel.BaseItem.Longitude, @hotel.BaseItem.Latitude</coordinates>
-    </Point>
-  </Placemark>
+    <Document>
+        <Style id="highlightPlacemark">
+            <IconStyle>
+                <Icon>
+                    <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        <Placemark>
+            <name>@hotel.BaseItem.Name</name>
+            <styleUrl>#highlightPlacemark</styleUrl>
+            <Point>
+                <coordinates>@hotel.BaseItem.Longitude, @hotel.BaseItem.Latitude</coordinates>
+            </Point>
+        </Placemark>
+
+        @foreach (ExpediaHotel nearbyHotel in nearbyHotels)
+        {
+        <Placemark>
+            <name>@nearbyHotel.BaseItem.Name</name>
+            <Point>
+                <coordinates>@nearbyHotel.BaseItem.Longitude, @nearbyHotel.BaseItem.Latitude</coordinates>
+            </Point>
+        </Placemark>   
+        }
+
+    </Document>
 </kml>
