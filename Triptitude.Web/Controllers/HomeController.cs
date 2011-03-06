@@ -15,5 +15,10 @@ namespace Triptitude.Web.Controllers
             ViewBag.User = currentUser;
             return PartialView();
         }
+
+        public ActionResult Signup()
+        {
+            return View();
+        }
     }
 }

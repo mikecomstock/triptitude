@@ -1,5 +1,4 @@
-﻿@using Triptitude.Web.Helpers;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -7,6 +6,13 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
 </head>
 <body>
+    <div class="fader">
+        &nbsp;</div>
+    <div id="background">
+        <div class="fader">
+            &nbsp;</div>
+        <img src="@Url.Background("dreamstimefree_524710.jpg")" />
+    </div>
     @Html.Action("Header", "Home")
     <div id="content">
         @RenderBody()

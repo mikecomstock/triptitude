@@ -1,45 +1,49 @@
 ﻿<div id="topbar-container">
     <div id="topbar">
         <a id="logo" href="/">Triptitude.com</a>
+        <div id="search">
+            search goes here!
+        </div>
         <div id="user-status">
             @if (Request.IsAuthenticated)
             {
-                @ViewBag.User.Email
-                @Html.RouteLink("Logout", "Logout");
+                <div id="user-status-header">
+                    Welcome back, <a href="@Url.MyHome()">@ViewBag.User.Email</a>
+                </div>
+                <div id="user-status-menu">
+                    <a href="@Url.CreateTrip()">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
+                    @Html.RouteLink("sign out", "logout")
+                </div>
             }
             else
             {
-                @Html.RouteLink("Login", "Login");
+                <div id="user-status-header">
+                    @Html.RouteLink("Login", "Login", null, new { id = "login-link" })
+                </div>
+                <div id="start-here">
+                    Hi are you new? @Html.RouteLink("Start here", "signup")
+                </div>
             }
         </div>
-        <div id="main-menu">
-            <a href="@Url.CreateTrip()">Create Trip</a> <a href="@Url.TripsHome()">Trips</a>
-            <a href="@Url.HotelsHome()">Hotels</a>
-        </div>
     </div>
-    <div id="trip-bar">
-        @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
-        {
-            <form action="@Url.SetDefaultTrip()" method="post">
-            @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
-            <input type="submit" value="Plan" />
-            </form>
+</div>
+<div id="default-trip-bar">
+    @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
+    {
+        <h1>
+            @ViewBag.User.DefaultTrip.Name
+        </h1>
         
-            <div id="trip-nav-bar">
-                <div>
-                    Plan: <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a>
-                    <a href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">Settings</a>
-                </div>
-                <div>
-                    Book: <a href="#">Info</a> <a href="#">Confirmations</a>
-                </div>
-                <div>
-                    Prepare: <a href="#">Print</a> <a href="#">Share</a>
-                </div>
-                <div>
-                    Log: <a href="#">Journal Entries</a> <a href="#">Reviews</a> <a href="#">Photos</a>
-                </div>
+@*<form action="@Url.SetDefaultTrip()" method="post">
+        @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
+        <input type="submit" value="Plan" />
+        </form>*@
+        
+        <div id="trip-nav-bar">
+            <div>
+                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
+                    Settings</a> <a href="#">Print</a> <a href="#">Share</a>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>

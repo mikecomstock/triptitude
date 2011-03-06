@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.IO;
 using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Models;
@@ -9,6 +10,11 @@ namespace Triptitude.Web.Helpers
     {
         #region General
 
+        public static string Background(this UrlHelper url, string imageFileName)
+        {
+            return Path.Combine("/static/backgrounds/", imageFileName);
+        }
+
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("login");
@@ -16,6 +22,20 @@ namespace Triptitude.Web.Helpers
         public static string Logout(this UrlHelper url)
         {
             return url.RouteUrl("logout");
+        }
+
+        #endregion
+
+        #region User pages
+
+        public static string MyHome(this UrlHelper url)
+        {
+            return url.Action("home", "my");
+        }
+
+        public static string MyTrips(this UrlHelper url)
+        {
+            return url.Action("trips", "my");
         }
 
         #endregion

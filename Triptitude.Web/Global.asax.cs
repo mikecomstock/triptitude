@@ -24,11 +24,12 @@ namespace Triptitude.Web
 
             routes.MapRoute("map", "maps/{action}/{id}.kml", new { controller = "maps" });
 
-            routes.MapRoute("Login", "Login", new { controller = "Auth", action = "Login" });
-            routes.MapRoute("Logout", "Logout", new { controller = "Auth", action = "Logout" });
+            routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
+            routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
+            routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });
 
-            routes.MapRoute("Details", "{controller}/{id}/{title}/{action}", new { action = "Details", title = UrlParameter.Optional }, new { id = new IntegerRouteConstraint() });
-            routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+            routes.MapRoute("Details", "{controller}/{id}/{title}/{action}", new { action = "details", title = UrlParameter.Optional }, new { id = new IntegerRouteConstraint() });
+            routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }
 
         protected void Application_Start()
