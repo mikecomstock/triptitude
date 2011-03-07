@@ -1,9 +1,16 @@
 ﻿<script type="text/javascript">
     $(function () {
         $('#search form').submit(function () {
-            $('#search-results').load('/search', $(this).serialize());
+            doSearch();
             return false;
         });
+        $('#search form input').keyup(function () {
+            doSearch();
+        });
+
+        function doSearch() {
+            $('#search-results').load('/search', $('#search form').serialize());
+        }
     });
 </script>
 <div id="header-container">
