@@ -1,9 +1,7 @@
 ﻿@{
     ViewBag.Title = "My Trips";
 }
-<div id="side-container">
-    <a href="#">account</a> <a href="#">trips</a> <a href="#">settings</a> <a href="#">log</a>
-</div>
+@Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">

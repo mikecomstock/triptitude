@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using Triptitude.Biz.Services;
+using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace Triptitude.Web.Controllers
             {
                 string userName = user.Id + "|" + user.Email;
                 FormsAuthentication.SetAuthCookie(userName, true);
-                return Redirect("~");
+                return Redirect(Url.MyAccount());
             }
             else
             {

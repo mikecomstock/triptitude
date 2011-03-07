@@ -41,6 +41,11 @@ namespace Triptitude.Web.Helpers
             return url.Action("trips", "my");
         }
 
+        public static string MySettings(this UrlHelper url)
+        {
+            return url.Action("settings", "my");
+        }
+
         #endregion
 
         #region Trips

@@ -7,12 +7,23 @@ namespace Triptitude.Web.Controllers
 {
     public class MyController : Controller
     {
+        public ActionResult SidePanel()
+        {
+            return PartialView("_SidePanel");
+        }
+
         public ActionResult Account()
         {
             return View();
         }
 
         public ActionResult Trips(User currentUser)
+        {
+            ViewBag.User = currentUser;
+            return View();
+        }
+
+        public ActionResult Settings(User currentUser)
         {
             ViewBag.User = currentUser;
             return View();

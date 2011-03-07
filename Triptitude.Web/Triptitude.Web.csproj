@@ -163,6 +163,8 @@
     <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
+    <Content Include="Views\My\_SidePanel.cshtml" />
+    <Content Include="Views\My\Settings.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
