@@ -8,8 +8,13 @@
             doSearch();
         });
 
+        var timerid;
         function doSearch() {
-            $('#search-results').load('/search', $('#search form').serialize());
+            var form = this;
+            clearTimeout(timerid);
+            timerid = setTimeout(function () {
+                $('#search-results').load('/search', $('#search form').serialize());
+            }, 500);
         }
     });
 </script>
