@@ -1,12 +1,27 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name;
 }
-<form action="@Url.AddWebsiteToTrip()" method="post">
-Add URL to trip:
-<input type="text" name="url" />
-<input type="submit" value="Add" />
-</form>
-@for (int i = 1; i <= ViewBag.NumberDays; i++)
-{
-    Html.RenderAction("daydetails", "plan", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
-}
+<div id="side-container">
+    <a href="#">itinerary</a> <a href="#">map</a> <a href="#">suggestions</a> <a href="#">similar trips</a>
+</div>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                Itinerary</h1>
+        </div>
+        <div class="panel-content">
+            <form action="@Url.AddWebsiteToTrip()" method="post">
+            Add URL to trip:
+            <input type="text" name="url" />
+            <input type="submit" value="Add" />
+            </form>
+            @for (int i = 1; i <= ViewBag.NumberDays; i++)
+            {
+
+                Html.RenderAction("daydetails", "plan", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
+
+            }
+        </div>
+    </div>
+</div>

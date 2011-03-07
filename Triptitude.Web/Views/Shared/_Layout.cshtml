@@ -11,11 +11,13 @@
     <div id="background">
         <div class="fader">
             &nbsp;</div>
-        <img src="@Url.Background("dreamstimefree_524710.jpg")" />
+        <img src="@Url.Background("dreamstimefree_524710.jpg")" alt="" />
     </div>
     @Html.Action("Header", "Home")
     <div id="content">
         @RenderBody()
+        <div class="clear">
+        </div>
     </div>
     <div id="footer">
     </div>

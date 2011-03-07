@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Controllers
 {
@@ -9,8 +10,9 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Trips()
+        public ActionResult Trips(User currentUser)
         {
+            ViewBag.User = currentUser;
             return View();
         }
     }

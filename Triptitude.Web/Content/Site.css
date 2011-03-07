@@ -1,5 +1,5 @@
 /* Html Tags */
-body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 11px; margin: 0; background-color:#000000; }
+body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 11px; margin: 0; background-color: #000000; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
 h1 { font-size: 24px; }
 a, a:visited, a:hover { color: #0077CC; text-decoration: none; }
@@ -8,14 +8,17 @@ img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
 
-/* Topbar */
-#topbar-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; height: 90px; }
-#topbar { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
+/* Utilities */
+.clear { clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0; }
 
-#logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 25px; }
+/* Topbar */
+#header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; height: 70px; }
+#header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
+#logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 10px; }
+#search { float: right; width: 300px; height: 50px; background-color: #808080; color: #FFFFFF; margin-left: 30px; }
 
 /* User status */
-#user-status { color: #FFFFFF; float: right; text-align: right; margin-top: 15px; }
+#user-status { color: #FFFFFF; float: right; text-align: right; margin-top: 5px; }
 #user-status a, #user-status a:visited { color: #66C3FE; }
 #user-status-header { margin-bottom: 5px; color: #8A8A8A; }
 #user-status-header a { font-weight: bold; font-size: 13px; }
@@ -24,25 +27,25 @@ td { vertical-align: top; padding: 0; }
 #user-status-menu a { padding-left: 5px; margin: 0; }
 #user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
 
-/* Search */
-#search { float: right; width: 300px; height: 70px; background-color: #808080; color: #FFFFFF; margin-left: 30px; }
-
-
-#main-menu { }
-#main-menu a { padding: 0 10px; color: #FFFFFF; }
-#main-menu a + a { border-left: 1px solid #CCCCCC; }
-
 /* Tripbar */
-#default-trip-bar { width: 955px; margin: 100px auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px 7px 7px 7px; padding: 15px; }
-#default-trip-bar h1 { color: #FFFFFF; }
-#trip-nav-bar { margin-top: 5px; padding-top: 5px; font-size: 14px; }
-#trip-nav-bar div { display: inline; }
-#trip-nav-bar a { color: #66C3FE; padding: 5px 10px; font-weight: bold; }
-#trip-nav-bar a + a { border-left: 3px solid #325471; }
+#trip-bar-container { width: 955px; margin: 80px auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
+#trip-bar { margin: 10px; padding: 10px 0; }
+#trip-bar-title { color: #FFFFFF; display: block; font-size:24px; font-weight:bold; }
+#trip-nav-bar { margin-top: 5px; font-size: 16px; overflow: auto; }
+#trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
+#trip-nav-bar a + a { border-left: 3px solid #000000; }
 
 /* Page Sections */
-#content { width: 955px; margin: 20px auto 10px auto; overflow: visible; clear: both; background-color: #FFFFFF; padding: 15px; }
-#footer { width: 955px; margin: 0 auto; }
+#content { width: 955px; margin: 10px auto; clear: both; }
+#side-container { float: left; width: 220px; }
+#side-container a { margin-bottom: 10px; background-color: #E9BA26; padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; -moz-border-radius: 4px; }
+#main-container { float: left; width: 710px; margin-left: 25px; }
+
+.panel { -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; }
+.panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
+.panel-content { background-color: #FFFFFF; padding: 10px; }
+
+#footer { width: 955px; height: 200px; }
 
 /* Background */
 #background { -moz-user-select: none; left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }

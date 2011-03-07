@@ -1,5 +1,5 @@
-﻿<div id="topbar-container">
-    <div id="topbar">
+﻿<div id="header-container">
+    <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             search goes here!
@@ -27,23 +27,17 @@
         </div>
     </div>
 </div>
-<div id="default-trip-bar">
-    @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
-    {
-        <h1>
-            @ViewBag.User.DefaultTrip.Name
-        </h1>
-        
-@*<form action="@Url.SetDefaultTrip()" method="post">
-        @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
-        <input type="submit" value="Plan" />
-        </form>*@
-        
-        <div id="trip-nav-bar">
-            <div>
+<div id="trip-bar-container">
+    <div id="trip-bar">
+        @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
+        {
+            <div id="trip-bar-title">
+                @ViewBag.User.DefaultTrip.Name
+            </div>        
+            <div id="trip-nav-bar">
                 <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
                     Settings</a> <a href="#">Print</a> <a href="#">Share</a>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

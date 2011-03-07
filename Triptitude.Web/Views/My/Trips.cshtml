@@ -3,3 +3,7 @@
 }
 <h1>
     My Trips</h1>
+<form action="@Url.SetDefaultTrip()" method="post">
+@Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
+<input type="submit" value="Plan" />
+</form>
