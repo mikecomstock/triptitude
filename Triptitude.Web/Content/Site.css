@@ -10,7 +10,7 @@ td { vertical-align: top; padding: 0; }
 
 /* Utilities */
 .clear { clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0; }
-.watermark { font-weight: normal !important; }
+.placeholder { font-weight: normal !important; }
 .add-to-trip-button { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
 
 /* Background */
@@ -26,7 +26,12 @@ td { vertical-align: top; padding: 0; }
 #header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; height: 70px; }
 #header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 10px; }
-#search { float: right; width: 300px; height: 50px; background-color: #808080; color: #FFFFFF; margin-left: 30px; }
+
+/* Search */
+#search { float: right; margin-left: 30px; margin-top: 10px; }
+#search form { -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
+#search input[type="text"] { font-size: 16px; padding: 4px; }
+#search input[type="submit"] { font-size: 16px; padding: 4px; background-color: #E9BA26; border: none; color: #FFFFFF; margin-left: -6px; }
 
 /* User status */
 #user-status { color: #FFFFFF; float: right; text-align: right; margin-top: 5px; }

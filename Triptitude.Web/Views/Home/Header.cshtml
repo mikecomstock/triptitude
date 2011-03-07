@@ -1,10 +1,5 @@
 ﻿<script type="text/javascript">
     $(function () {
-        $('#trip-bar input[name=email]').watermark('Enter your email address...');
-        $('#trip-bar input[name=tripname]').watermark('Name your trip...');
-    });
-
-    $(function () {
         $('#search form').submit(function () {
             $('#search-results').load('/search', $(this).serialize());
             return false;
@@ -16,8 +11,8 @@
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form>
-            <input type="text" name="s" />
-            <input type="submit" value="Search" />
+            <input type="text" name="s" placeholder="Search everything..." />
+            <input type="submit" value="Go >" />
             </form>
             <div id="search-results">
             </div>
@@ -63,8 +58,8 @@
                 Like to travel? Plan your next trip.
             </div>
             <form>
-            <input type="text" name="email" />
-            <input type="text" name="tripname" />
+            <input type="text" name="email" placeholder="Enter your email address..." />
+            <input type="text" name="tripname" placeholder="Name your trip..." />
             <input type="submit" value="Start Planning >" />
             </form>
         }
