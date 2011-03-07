@@ -77,6 +77,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jquery.watermark.min.js" />
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />

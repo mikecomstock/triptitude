@@ -1,4 +1,10 @@
-﻿<div id="header-container">
+﻿<script type="text/javascript">
+    $(function () {
+        $('#trip-bar input[name=email]').watermark('Enter your email address...');
+        $('#trip-bar input[name=tripname]').watermark('Name your trip...');
+    });
+</script>
+<div id="header-container">
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
@@ -45,8 +51,8 @@
                 Like to travel? Plan your next trip.
             </div>
             <form action="" method="post">
-            <input type="text" />
-            <input type="text" />
+            <input type="text" name="email" />
+            <input type="text" name="tripname" />
             <input type="submit" value="Start Planning >" />
             </form>
         }
