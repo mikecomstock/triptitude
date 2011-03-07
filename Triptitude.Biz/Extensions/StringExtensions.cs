@@ -10,6 +10,7 @@ namespace Triptitude.Biz.Extensions
         /// </summary>
         public static string ToSlug(this string s)
         {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
             byte[] bytes = Encoding.GetEncoding("Cyrillic").GetBytes(s);
             s = Encoding.ASCII.GetString(bytes);
 

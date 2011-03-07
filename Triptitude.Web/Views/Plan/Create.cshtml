@@ -1,9 +1,17 @@
 ﻿@{
     ViewBag.Title = "Create a Trip";
 }
-<h1>
-    Create a Trip</h1>
-<form id="create-trip-form" action="@Url.CreateTrip()" method="post">
-<input type="text" name="name" />
-<input type="submit" value="Create Trip" />
-</form>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                Create a Trip</h1>
+        </div>
+        <div class="panel-content">
+            <form id="create-trip-form" action="@Url.CreateTrip()" method="post">
+            <input type="text" name="name" />
+            <input type="submit" value="Create Trip" />
+            </form>
+        </div>
+    </div>
+</div>
