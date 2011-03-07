@@ -31,10 +31,16 @@ td { vertical-align: top; padding: 0; }
 /* Tripbar */
 #trip-bar-container { width: 955px; margin: 80px auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
 #trip-bar { margin: 10px; padding: 10px 0; }
-#trip-bar-title { color: #FFFFFF; display: block; font-size:24px; font-weight:bold; }
+#trip-bar-title { color: #FFFFFF; display: block; font-size:26px; font-weight:bold; }
+
 #trip-nav-bar { margin-top: 5px; font-size: 16px; overflow: auto; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
 #trip-nav-bar a + a { border-left: 3px solid #000000; }
+
+#trip-bar form {margin-top: 10px;}
+#trip-bar form input[type="text"] { font-size: 18px; font-weight:bold; color: #666666; width: 360px; padding:5px; margin-right:10px;}
+#trip-bar form input[type="submit"] { font-size: 18px; font-weight:bold; padding:5px; border:none; color: #FFFFFF; background-color:#0190E9;}
+
 
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }
