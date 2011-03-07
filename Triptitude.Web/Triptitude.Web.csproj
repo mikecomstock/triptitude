@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Signup.cshtml" />
+    <Content Include="Views\Home\_SearchResults.cshtml" />
     <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />

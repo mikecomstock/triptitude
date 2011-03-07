@@ -20,5 +20,11 @@ namespace Triptitude.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Search(string s)
+        {
+            ViewBag.SearchString = s;
+            return PartialView("_SearchResults");
+        }
     }
 }

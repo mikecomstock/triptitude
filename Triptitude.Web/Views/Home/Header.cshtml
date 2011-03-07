@@ -3,12 +3,24 @@
         $('#trip-bar input[name=email]').watermark('Enter your email address...');
         $('#trip-bar input[name=tripname]').watermark('Name your trip...');
     });
+
+    $(function () {
+        $('#search form').submit(function () {
+            $('#search-results').load('/search', $(this).serialize());
+            return false;
+        });
+    });
 </script>
 <div id="header-container">
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
-            search goes here!
+            <form>
+            <input type="text" name="s" />
+            <input type="submit" value="Search" />
+            </form>
+            <div id="search-results">
+            </div>
         </div>
         <div id="user-status">
             @if (Request.IsAuthenticated)
@@ -50,7 +62,7 @@
             <div id="trip-bar-title">
                 Like to travel? Plan your next trip.
             </div>
-            <form action="" method="post">
+            <form>
             <input type="text" name="email" />
             <input type="text" name="tripname" />
             <input type="submit" value="Start Planning >" />

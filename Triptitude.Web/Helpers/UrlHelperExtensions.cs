@@ -14,7 +14,10 @@ namespace Triptitude.Web.Helpers
         {
             return Path.Combine("/static/backgrounds/", imageFileName);
         }
-
+        public static string Search(this UrlHelper url)
+        {
+            return url.RouteUrl("search");
+        }
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("login");
