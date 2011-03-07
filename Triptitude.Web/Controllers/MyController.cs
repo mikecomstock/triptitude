@@ -1,11 +1,13 @@
 ﻿using System.Web.Mvc;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
+using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
     public class MyController : Controller
     {
-        public ActionResult Home()
+        public ActionResult Account()
         {
             return View();
         }
@@ -14,6 +16,14 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.User = currentUser;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult DefaultTrip(User currentUser, int id)
+        {
+            Trip trip = new TripsRepo().Find(id);
+            new UsersRepo().SetDefaultTrip(currentUser, trip);
+            return Redirect(Url.PlanItinerary(trip));
         }
     }
 }

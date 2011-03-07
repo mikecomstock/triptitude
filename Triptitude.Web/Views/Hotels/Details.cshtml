@@ -8,7 +8,7 @@
     $(document).ready(function () {
         var myLatlng = new google.maps.LatLng(@hotel.BaseItem.Latitude, @hotel.BaseItem.Longitude);
         var myOptions = {
-          zoom: 4,
+          zoom: 15,
           center: myLatlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
@@ -18,17 +18,28 @@
 
     });
 </script>
-<h1>@ViewBag.Hotel.BaseItem.Name</h1>
-@Html.AddToTripButton(Url, hotel.BaseItem)
-<div id="hotel-details-map-container">
+<div id="side-container">
+    <a href="#">details</a> <a href="#">map</a> <a href="#">related trips</a>
 </div>
-<div id="hotel-details-related-trips">
-    <h2>
-        Related Trips</h2>
-    @foreach (Trip trip in hotel.BaseItem.Trips)
-    {
-        <div>
-            <a href="@Url.PublicDetails(trip)">@trip.Name</a>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            @Html.AddToTripButton(Url, hotel.BaseItem)
+            <h1>@ViewBag.Hotel.BaseItem.Name</h1>
         </div>
-    }
+        <div class="panel-content">
+            <div id="hotel-details-map-container">
+            </div>
+            <div id="hotel-details-related-trips">
+                <h2>
+                    Related Trips</h2>
+                @foreach (Trip trip in hotel.BaseItem.Trips)
+                {
+                    <div>
+                        <a href="@Url.PublicDetails(trip)">@trip.Name</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>

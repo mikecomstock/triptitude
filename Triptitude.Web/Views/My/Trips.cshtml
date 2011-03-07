@@ -1,9 +1,26 @@
 ﻿@{
     ViewBag.Title = "My Trips";
 }
-<h1>
-    My Trips</h1>
-<form action="@Url.SetDefaultTrip()" method="post">
-@Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
-<input type="submit" value="Plan" />
-</form>
+<div id="side-container">
+    <a href="#">account</a> <a href="#">trips</a> <a href="#">settings</a> <a href="#">log</a>
+</div>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                My Trips</h1>
+        </div>
+        <div class="panel-content">
+            <form action="@Url.SetDefaultTrip()" method="post">
+            @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
+            <input type="submit" value="Plan" />
+            </form>
+            @foreach (Trip trip in ViewBag.User.Trips)
+            {
+                <div>
+                    @trip.Name
+                </div>
+            }
+        </div>
+    </div>
+</div>

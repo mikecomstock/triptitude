@@ -28,9 +28,9 @@ namespace Triptitude.Web.Helpers
 
         #region User pages
 
-        public static string MyHome(this UrlHelper url)
+        public static string MyAccount(this UrlHelper url)
         {
-            return url.Action("home", "my");
+            return url.Action("account", "my");
         }
 
         public static string MyTrips(this UrlHelper url)
@@ -68,7 +68,7 @@ namespace Triptitude.Web.Helpers
 
         public static string SetDefaultTrip(this UrlHelper url)
         {
-            return url.Action("setdefaulttrip", "users");
+            return url.Action("defaulttrip", "my");
         }
 
         public static string Settings(this UrlHelper url, Trip trip)

@@ -158,7 +158,7 @@
   <ItemGroup>
     <Content Include="Views\Home\Signup.cshtml" />
     <None Include="Views\Maps\Hotel.cshtml" />
-    <Content Include="Views\My\Home.cshtml" />
+    <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
