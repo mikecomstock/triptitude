@@ -1,9 +1,7 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name;
 }
-<div id="side-container">
-    <a href="#">itinerary</a> <a href="#">map</a> <a href="#">suggestions</a> <a href="#">similar trips</a>
-</div>
+@Html.Action("SidePanel", "Trips")
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
@@ -19,7 +17,7 @@
             @for (int i = 1; i <= ViewBag.NumberDays; i++)
             {
 
-                Html.RenderAction("daydetails", "plan", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
+                Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
 
             }
         </div>

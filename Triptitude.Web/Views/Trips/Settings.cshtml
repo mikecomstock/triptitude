@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Trip Settings";
+}
+@Html.Action("SidePanel", "Trips")
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                Settings</h1>
+        </div>
+        <div class="panel-content">
+            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" class="trip-settings">
+            <p>
+                <label for="name">
+                    Name</label>
+                <input type="text" name="name" value="@ViewBag.Trip.Name" />
+            </p>
+            <input type="submit" value="Save Trip Settings" />
+            </form>
+        </div>
+    </div>
+</div>

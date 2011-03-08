@@ -1,8 +1,0 @@
-﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name;
-}
-<h1>@ViewBag.Trip.Name</h1>
-@for (int i = 1; i <= ViewBag.NumberDays; i++)
-{
-    Html.RenderAction("DayDetails", "Trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
-}

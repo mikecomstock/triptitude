@@ -71,12 +71,12 @@ namespace Triptitude.Web.Helpers
 
         public static string PlanItinerary(this UrlHelper url, Trip trip)
         {
-            return url.SlugAction("details", "plan", trip.Id, trip.Name);
+            return url.SlugAction("edit", "trips", trip.Id, trip.Name);
         }
 
         public static string CreateTrip(this UrlHelper url)
         {
-            return url.Action("create", "plan");
+            return url.Action("create", "trips");
         }
 
         public static string SetDefaultTrip(this UrlHelper url)
@@ -86,7 +86,17 @@ namespace Triptitude.Web.Helpers
 
         public static string Settings(this UrlHelper url, Trip trip)
         {
-            return url.SlugAction("settings", "plan", trip.Id, trip.Name);
+            return url.SlugAction("settings", "trips", trip.Id, trip.Name);
+        }
+
+        public static string Print(this UrlHelper url, Trip trip)
+        {
+            return url.SlugAction("print", "trips", trip.Id, trip.Name);
+        }
+
+        public static string Map(this UrlHelper url, Trip trip)
+        {
+            return url.SlugAction("map", "trips", trip.Id, trip.Name);
         }
 
         #endregion

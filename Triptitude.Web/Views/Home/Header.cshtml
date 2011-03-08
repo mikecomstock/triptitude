@@ -40,8 +40,9 @@
                 @ViewBag.User.DefaultTrip.Name
             </div>        
             <div id="trip-nav-bar">
-                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
-                    Settings</a> <a href="#">Print</a> <a href="#">Trip Log</a>
+                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
+                    Map</a> <a href="@Url.Print((Trip)ViewBag.User.DefaultTrip)">Print</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
+                        Settings</a>
             </div>
         }
         else
