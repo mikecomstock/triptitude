@@ -29,7 +29,7 @@ namespace Triptitude.Web
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });
 
-            routes.MapRoute("Details", "{controller}/{id}/{title}/{action}", new { action = "details", title = UrlParameter.Optional }, new { id = new IntegerRouteConstraint() });
+            routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }
 
@@ -43,15 +43,53 @@ namespace Triptitude.Web
         }
     }
 
-    public class IntegerRouteConstraint : IRouteConstraint
+    public class SlugRouteConstraint : IRouteConstraint
     {
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            string id = values[parameterName].ToString();
+            string idslug = (string)values[parameterName];
+            if (!idslug.Contains("-")) return false;
+
+            string id = idslug.Split('-')[0];
 
             int i;
             return int.TryParse(id, out i);
         }
     }
 
+    public class SlugRoute : Route
+    {
+        public SlugRoute(string url, IRouteHandler routeHandler) : base(url, routeHandler) { }
+        public SlugRoute(string url, RouteValueDictionary defaults, IRouteHandler routeHandler) : base(url, defaults, routeHandler) { }
+        public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, IRouteHandler routeHandler) : base(url, defaults, constraints, routeHandler) { }
+        public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, RouteValueDictionary dataTokens, IRouteHandler routeHandler) : base(url, defaults, constraints, dataTokens, routeHandler) { }
+
+        public override RouteData GetRouteData(HttpContextBase httpContext)
+        {
+            RouteData data = base.GetRouteData(httpContext);
+            if (data == null) return null;
+
+            if (data.Values.ContainsKey("idslug"))
+            {
+                string idslug = (string)data.Values["idslug"];
+                string id = idslug.Split('-')[0];
+                data.Values.Add("id", id);
+            }
+
+            return data;
+        }
+    }
+
+    public static class RouteCollectionExtensionHelper
+    {
+        public static Route MapSlugRoute(this RouteCollection routes, string name, string url, object defaults, object constraints)
+        {
+            var route = new SlugRoute(url,
+                new RouteValueDictionary(defaults),
+                new RouteValueDictionary(constraints),
+                new MvcRouteHandler());
+            routes.Add(name, route);
+            return route;
+        }
+    }
 }

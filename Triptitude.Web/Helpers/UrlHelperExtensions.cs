@@ -8,6 +8,11 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
+        public static string SlugAction(this UrlHelper url, string action, string controller, int id, string name)
+        {
+            return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });
+        }
+
         #region General
 
         public static string Background(this UrlHelper url, string imageFileName)
@@ -57,7 +62,7 @@ namespace Triptitude.Web.Helpers
 
         public static string PublicDetails(this UrlHelper url, Trip trip)
         {
-            return url.Action("details", "trips", new { id = trip.Id, title = trip.Name.ToSlug() });
+            return url.SlugAction("details", "trips", trip.Id, trip.Name);
         }
 
         #endregion
@@ -66,7 +71,7 @@ namespace Triptitude.Web.Helpers
 
         public static string PlanItinerary(this UrlHelper url, Trip trip)
         {
-            return url.Action("details", "plan", new { id = trip.Id, title = trip.Name.ToSlug() });
+            return url.SlugAction("details", "plan", trip.Id, trip.Name);
         }
 
         public static string CreateTrip(this UrlHelper url)
@@ -81,7 +86,7 @@ namespace Triptitude.Web.Helpers
 
         public static string Settings(this UrlHelper url, Trip trip)
         {
-            return url.Action("settings", "plan", new { id = trip.Id, title = trip.Name.ToSlug() });
+            return url.SlugAction("settings", "plan", trip.Id, trip.Name);
         }
 
         #endregion
@@ -127,7 +132,7 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, Website website)
         {
-            return url.Action("details", "websites", new { id = website.Id, title = website.Title.ToSlug() });
+            return url.SlugAction("details", "websites", website.Id, website.Title);
         }
 
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
@@ -146,7 +151,7 @@ namespace Triptitude.Web.Helpers
 
         public static string HotelDetails(this UrlHelper url, ExpediaHotel hotel)
         {
-            return url.Action("details", "hotels", new { id = hotel.BaseItem.Id, title = hotel.BaseItem.Name.ToSlug() });
+            return SlugAction(url, "details", "hotels", hotel.BaseItem.Id, hotel.BaseItem.Name);
         }
 
         #endregion
