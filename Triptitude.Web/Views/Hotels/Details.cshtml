@@ -28,11 +28,22 @@
             <h1>@ViewBag.Hotel.BaseItem.Name</h1>
         </div>
         <div class="panel-content">
+            basic hotel info here
+        </div>
+    </div>
+    <div class="panel">
+        <h2>
+            Map and Address</h2>
+        <div class="panel-content">
             <div id="hotel-details-map-container">
             </div>
+        </div>
+    </div>
+    <div class="panel">
+        <h2>
+            Related Trips</h2>
+        <div class="panel-content">
             <div id="hotel-details-related-trips">
-                <h2>
-                    Related Trips</h2>
                 @foreach (Trip trip in hotel.BaseItem.Trips)
                 {
                     <div>

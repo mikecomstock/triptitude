@@ -30,7 +30,7 @@ td { vertical-align: top; padding: 0; }
 /* Search */
 #search { float: right; margin-left: 30px; margin-top: 10px; }
 #search form { -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
-#search input[type="text"] { font-size: 16px; padding: 4px; border:none; }
+#search input[type="text"] { font-size: 16px; padding: 4px; border: none; }
 #search input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #FFFFFF; margin-left: -6px; }
 
 /* User status */
@@ -64,12 +64,17 @@ td { vertical-align: top; padding: 0; }
 #main-container { float: left; width: 710px; margin-left: 25px; }
 
 .panel { -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; }
+.panel + .panel { margin-top: 10px; }
+.panel h2 { color:#262626; font-size:22px;padding:10px 10px 0 10px; text-transform:lowercase;}
 .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-content { padding: 10px; }
+.panel-content-not-padded { }
 
 /* Footer */
 #footer { width: 955px; height: 200px; }
-S /* Trip Schedules */ .trip-day { margin-top: 10px; }
+
+/* Trip Schedules */
+.trip-day { margin-top: 10px; }
 .trip-day > h3 { padding: 3px; background: #CF543F; border-bottom: 2px solid #9B3827; color: #FFF; }
 .trip-day-itinerary-item { overflow: auto; margin: 5px 0; padding: 5px 0; }
 .trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px solid #DDD; }
@@ -83,5 +88,5 @@ S /* Trip Schedules */ .trip-day { margin-top: 10px; }
 .trip-settings input[name="name"] { width: 400px; }
 
 /* Hotel Details */
-#hotel-details-map-container { width: 300px; height: 200px; float: right; }
+#hotel-details-map-container { width: 400px; height: 200px; }
 #hotel-details-related-trips { clear: both; }
