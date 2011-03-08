@@ -18,6 +18,7 @@ namespace Triptitude.Biz.Extensions
 
             str = Regex.Replace(str, @"[^a-z0-9\s-]", ""); // invalid chars          
             str = Regex.Replace(str, @"\s+", " ").Trim(); // convert multiple spaces into one space  
+            str = Regex.Replace(str, @"\s+-\s+", "-"); // remove spaces around dashes
             str = str.Substring(0, str.Length <= 100 ? str.Length : 100).Trim(); // cut and trim it  
             str = Regex.Replace(str, @"\s", "-"); // hyphens  
 
