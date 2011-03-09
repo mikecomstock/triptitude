@@ -144,53 +144,53 @@ namespace Triptitude.Biz.Services
             }
         }
 
-        public void ImportHotels(string hotelAllActivePath)
+        public void ImportHotels(string hotelAllActivePath, string outPath)
         {
-            ExpediaHotelsRepo expediaHotelsRepo = new ExpediaHotelsRepo();
-
             FileStream inFileStream = new FileStream(hotelAllActivePath, FileMode.Open);
+            FileStream outFileStream = new FileStream(outPath, FileMode.Create);
             StreamReader reader = new StreamReader(inFileStream);
+            StreamWriter writer = new StreamWriter(outFileStream);
 
             int i = 0;
-            string mode;
-
+            
             using (inFileStream)
             using (reader)
+            using (outFileStream)
+            using (writer)
             {
                 reader.ReadLine(); //ignore first line
 
+                writer.WriteLine("set nocount on");
+                writer.WriteLine("begin tran");
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var l = line.Split('|');
-                    int expediaHotelId = int.Parse(l[0]);
 
-                    ExpediaHotel expediaHotel = expediaHotelsRepo.Find(expediaHotelId);
+                    var name = l[1].Replace("'", "''");
+                    var latitude = l[11];
+                    var longitude = l[10];
+                    var expediaHotelId = int.Parse(l[0]);
+                    var hasContinentalBreakfast = l[30] == "Y" ? 1 : 0;
 
-                    mode = "update";
-                    if (expediaHotel == null)
-                    {
-                        mode = "insert";
-                        expediaHotel = new ExpediaHotel
-                                           {
-                                               ExpediaHotelId = expediaHotelId,
-                                               BaseItem = new BaseItem
-                                                              {
-                                                                  ItemType = "H"
-                                                              }
-                                           };
-                        expediaHotelsRepo.Add(expediaHotel);
-                    }
-
-                    expediaHotel.BaseItem.Name = l[1];
-                    expediaHotel.BaseItem.Latitude = decimal.Parse(l[11]);
-                    expediaHotel.BaseItem.Longitude= decimal.Parse(l[10]);
-                    expediaHotel.HasContinentalBreakfast = l[30] == "Y";
-                    expediaHotelsRepo.Save();
+                    var sql = string.Format("execute insert_eh '{0}',{1},{2},{3},{4}",
+                                            name,
+                                            latitude,
+                                            longitude,
+                                            expediaHotelId,
+                                            hasContinentalBreakfast
+                        );
+                    //DbProvider._db.Database.SqlCommand(sql);
+                    writer.WriteLine(sql);
 
                     if (++i % 100 == 0)
-                        Console.WriteLine("{0}\t{1}", mode, expediaHotel.ExpediaHotelId);
+                    {
+                        Console.Clear();
+                        Console.WriteLine(i);
+                    }
                 }
+                writer.WriteLine("commit");
+                writer.WriteLine("set nocount off");
             }
         }
     }

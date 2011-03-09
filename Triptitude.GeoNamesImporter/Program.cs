@@ -13,6 +13,7 @@ namespace Triptitude.GeoNamesImporter
         private const string citiesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Cities.txt";
 
         private const string hotelsAllActivePath = "C:\\Users\\Mike\\Desktop\\Temp\\Hotel_All_Active 02-26-11.txt";
+        private const string hotelsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Hotels.sql";
 
         static void Main(string[] args)
         {
@@ -50,7 +51,7 @@ namespace Triptitude.GeoNamesImporter
         {
             Console.WriteLine("=== IMPORTING HOTELS ===");
             ImportService importService = new ImportService();
-            importService.ImportHotels(hotelsAllActivePath);
+            importService.ImportHotels(hotelsAllActivePath, hotelsOutPath);
         }
     }
 }
