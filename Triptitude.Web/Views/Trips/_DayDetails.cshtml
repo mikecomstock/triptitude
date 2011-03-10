@@ -1,8 +1,10 @@
 ﻿<div class="trip-day">
     <h3>
         Day @ViewBag.DayNumber</h3>
-    @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
+    @if (ViewBag.AreItems)
     {
+        foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
+        {
         <div class="trip-day-itinerary-item">
             @if (itineraryItem.Website != null)
             {
@@ -26,5 +28,10 @@
             <div class="trip-day-body">
             </div>
         </div>
+        }
+    }
+    else
+    {
+        <p>-</p>
     }
 </div>

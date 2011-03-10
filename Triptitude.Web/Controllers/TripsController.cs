@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -49,7 +50,9 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
+            var itineraryItems = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
+            ViewBag.DayItinerary = itineraryItems;
+            ViewBag.AreItems = itineraryItems.Any();
             return PartialView("_DayDetails");
         }
 
