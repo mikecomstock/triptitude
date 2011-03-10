@@ -1,10 +1,8 @@
 ﻿<div class="trip-day">
     <h3>
         Day @ViewBag.DayNumber</h3>
-    @if (ViewBag.AreItems)
+    @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
     {
-        foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
-        {
         <div class="trip-day-itinerary-item">
             @if (itineraryItem.Website != null)
             {
@@ -17,21 +15,13 @@
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
             </h4>
-            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a>
-            @{ var formName = "ii" + Guid.NewGuid().ToString("N"); }
-            <form name="@formName" action="@Url.SoftDeleteItineraryItem(itineraryItem)" method="post">
-            <a href="javascript: document.@(formName).submit();">Delete</a>
-            </form>
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
+            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a href="@Url.SoftDeleteItineraryItem(itineraryItem)">
+                Delete</a>
             <div class="trip-day-body">
             </div>
         </div>
-        }
-    }
-    else
-    {
-        <p>-</p>
     }
 </div>

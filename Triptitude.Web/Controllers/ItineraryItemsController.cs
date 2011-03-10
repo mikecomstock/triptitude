@@ -35,7 +35,6 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.PlanItinerary(itineraryItem.Trip));
         }
 
-        [HttpPost]
         public ActionResult Delete(int id)
         {
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);

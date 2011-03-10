@@ -9,16 +9,9 @@
                 Itinerary</h1>
         </div>
         <div class="panel-content">
-            <form action="@Url.AddWebsiteToTrip()" method="post">
-            Add URL to trip:
-            <input type="text" name="url" />
-            <input type="submit" value="Add" />
-            </form>
             @for (int i = 1; i <= ViewBag.NumberDays; i++)
             {
-
                 Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
-
             }
         </div>
     </div>

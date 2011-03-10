@@ -48,6 +48,8 @@ td { vertical-align: top; padding: 0; }
 #trip-bar { margin: 10px; padding: 10px 0; }
 #trip-bar-title { color: #FFFFFF; display: block; font-size: 26px; font-weight: bold; }
 
+#add-website-to-trip-form {float:right;}
+
 #trip-nav-bar { margin-top: 5px; font-size: 16px; overflow: auto; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
 #trip-nav-bar a + a { border-left: 3px solid #000000; }
@@ -74,9 +76,10 @@ td { vertical-align: top; padding: 0; }
 #footer { width: 955px; height: 200px; }
 
 /* Trip Schedules */
-.trip-day { margin-top: 10px; }
-.trip-day > h3 { padding: 3px; background: #CF543F; border-bottom: 2px solid #9B3827; color: #FFF; }
-.trip-day-itinerary-item { overflow: auto; margin: 5px 0; padding: 5px 0; }
+.trip-day { margin-top: 10px; background-color:#DDDDDD; margin-left:65px; min-height:25px;padding:10px;-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); }
+.trip-day > h3 { padding: 3px 6px; width: 45px;background: #666666; color: #FFF; display:block; margin-left:-75px; margin-top: -25px; -moz-border-radius: 5px; float:left; }
+.trip-day-itinerary-item { overflow: auto; }
+.trip-day-itinerary-item+.trip-day-itinerary-item  { margin-top: 10px; }
 .trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px solid #DDD; }
 .trip-day-itinerary-item-time { }
 .trip-day-itinerary-item img { float: left; margin-right: 10px; }

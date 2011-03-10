@@ -50,9 +50,7 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            var itineraryItems = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
-            ViewBag.DayItinerary = itineraryItems;
-            ViewBag.AreItems = itineraryItems.Any();
+            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
             return PartialView("_DayDetails");
         }
 
