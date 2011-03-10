@@ -8,6 +8,10 @@
             {
                 <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             }
+            else if (itineraryItem.BaseItem.Photos.Any())
+            {
+                <img src="@itineraryItem.BaseItem.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
+            }
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
             </h4>

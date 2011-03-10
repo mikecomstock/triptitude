@@ -34,16 +34,16 @@ namespace Triptitude.Biz
                 using (Image original = Image.FromFile(originalOutputPath))
                 {
                     int cropWidth = original.Width;
-                    int cropHeight = (int)Math.Round((decimal)600 / 800 * original.Width, 0);
+                    int cropHeight = (int)Math.Round((decimal)800 / 800 * original.Width, 0);
                     using (Image croppedOriginal = new Bitmap(original).Clone(new Rectangle(0, 0, cropWidth, cropHeight), original.PixelFormat))
                     {
-                        Bitmap small = ResizeImage(croppedOriginal, 100, 75);
+                        Bitmap small = ResizeImage(croppedOriginal, 70, 70);
                         small.Save(smallOutputPath, ImageFormat.Jpeg);
 
-                        Bitmap medium = ResizeImage(croppedOriginal, 200, 150);
+                        Bitmap medium = ResizeImage(croppedOriginal, 200, 200);
                         medium.Save(mediumOutputPath, ImageFormat.Jpeg);
 
-                        Bitmap large = ResizeImage(croppedOriginal, 300, 225);
+                        Bitmap large = ResizeImage(croppedOriginal, 300, 300);
                         large.Save(largeOutputPath, ImageFormat.Jpeg);
                     }
                 }
