@@ -88,10 +88,10 @@ td { vertical-align: top; padding: 0; }
 .trip-settings input[name="name"] { width: 400px; }
 
 /* Hotel Details */
-#hotel-details-map-container { width: 400px; height: 220px;}
+#hotel-details-map-container { width: 400px; height: 220px; }
 #hotel-details-related-trips { clear: both; }
 
-#hotel-details-photo-list-container {position:relative; overflow:hidden; width:700px;}
-#hotel-details-photo-list  { margin:10px; }
-#hotel-details-photo-list li { width:auto !important; }
-.hotel-photo {margin-right:10px;-moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);}
+#hotel-details-photo-list-container { position: relative; overflow: hidden; width: 700px; }
+#hotel-details-photo-list { margin: 10px; }
+#hotel-details-photo-list li { width: auto !important; }
+.hotel-photo { margin-right: 10px; -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
