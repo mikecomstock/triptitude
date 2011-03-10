@@ -152,7 +152,7 @@ namespace Triptitude.Biz.Services
             StreamWriter writer = new StreamWriter(outFileStream);
 
             int i = 0;
-            
+
             using (inFileStream)
             using (reader)
             using (outFileStream)
@@ -190,6 +190,55 @@ namespace Triptitude.Biz.Services
                     }
                 }
                 writer.WriteLine("commit");
+                writer.WriteLine("set nocount off");
+            }
+        }
+
+        public void ImportHotelImages(string hotelImagesPath, string hotelImagesOutPath)
+        {
+            FileStream inFileStream = new FileStream(hotelImagesPath, FileMode.Open);
+            FileStream outFileStream = new FileStream(hotelImagesOutPath, FileMode.Create);
+            StreamReader reader = new StreamReader(inFileStream);
+            StreamWriter writer = new StreamWriter(outFileStream);
+
+            int i = 0;
+
+            using (inFileStream)
+            using (reader)
+            using (outFileStream)
+            using (writer)
+            {
+                reader.ReadLine(); //ignore first line
+
+                writer.WriteLine("set nocount on");
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var l = line.Split('|');
+
+                    var expediaHotelId = l[0];
+                    var imageURL = l[3];
+                    var thumbURL = l[8];
+                    var isDefault = l[9] == "True" ? 1 : 0;
+                    var height = l[5];
+                    var width = l[6];
+                    var sql = string.Format("execute insert_eh_photo {0},'{1}','{2}',{3},{4},{5}",
+                            expediaHotelId,
+                            imageURL,
+                            thumbURL,
+                            isDefault,
+                            height,
+                            width
+                        );
+                    DbProvider._db.Database.SqlCommand(sql);
+                    //writer.WriteLine(sql);
+
+                    if (++i % 1000 == 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine(i);
+                    }
+                }
                 writer.WriteLine("set nocount off");
             }
         }

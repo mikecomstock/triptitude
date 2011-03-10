@@ -6,6 +6,7 @@
 <script type="text/javascript" charset="utf-8">
 
     $(document).ready(function () {
+
         var myLatlng = new google.maps.LatLng(@hotel.BaseItem.Latitude, @hotel.BaseItem.Longitude);
         var myOptions = {
           zoom: 15,
@@ -16,6 +17,12 @@
         var ctaLayer = new google.maps.KmlLayer('@Url.Map(hotel.BaseItem)', {preserveViewport:true});
         ctaLayer.setMap(map);
 
+        $("#hotel-details-photo-list").jCarouselLite({
+            auto: 1500,
+            speed: 800,
+            visible: 5,
+            circular: true
+        });
     });
 </script>
 <div id="side-container">
@@ -28,12 +35,21 @@
             @Html.AddToTripButton(Url, hotel.BaseItem)
             <h1>@ViewBag.Hotel.BaseItem.Name</h1>
         </div>
-        <div class="panel-content">
-            basic hotel info here
-            @foreach (BaseItemPhoto baseItemPhoto in hotel.BaseItem.Photos)
-            {
-                <img src="@baseItemPhoto.ImageURL" />
-            }
+        <div class="panel-content-not-padded">
+            <div id="hotel-details-photo-list-container">
+                <div id="hotel-details-photo-list">
+                    <ul>
+                        @foreach (BaseItemPhoto baseItemPhoto in hotel.BaseItem.Photos)
+                        {
+                            <li>
+                                <img class="hotel-photo" alt="" src="@baseItemPhoto.ImageURL" height="@baseItemPhoto.NiceHeight" width="@baseItemPhoto.NiceWidth" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <h2>Map Hotel Info</h2>
+            <p>bunch of stuff goes here</p>
         </div>
     </div>
     <div class="panel">

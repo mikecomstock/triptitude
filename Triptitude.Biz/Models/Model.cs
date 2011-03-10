@@ -169,6 +169,11 @@ namespace Triptitude.Biz.Models
         public int BaseItemId { get; set; }
         public string ImageURL { get; set; }
         public string ThumbURL { get; set; }
+        public int Height { get; set; }
+        public int Width { get; set; }
+
+        public int NiceHeight { get { return 200; } }
+        public int NiceWidth { get { return (int)((decimal)Width / (decimal)Height * (decimal)NiceHeight); } }
     }
 
     public class ExpediaHotel

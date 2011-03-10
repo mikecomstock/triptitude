@@ -63,9 +63,9 @@ td { vertical-align: top; padding: 0; }
 #side-container a { margin-bottom: 10px; background-color: #E9BA26; padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; -moz-border-radius: 4px; }
 #main-container { float: left; width: 710px; margin-left: 25px; }
 
-.panel { -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; }
+.panel { -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
-.panel h2 { color:#262626; font-size:22px;padding:10px 10px 0 10px; text-transform:lowercase;}
+.panel h2 { color: #262626; font-size: 22px; padding: 10px 10px 0 10px; text-transform: lowercase; }
 .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-content { padding: 10px; }
 .panel-content-not-padded { }
@@ -88,5 +88,10 @@ td { vertical-align: top; padding: 0; }
 .trip-settings input[name="name"] { width: 400px; }
 
 /* Hotel Details */
-#hotel-details-map-container { width: 400px; height: 200px; }
+#hotel-details-map-container { width: 400px; height: 220px;}
 #hotel-details-related-trips { clear: both; }
+
+#hotel-details-photo-list-container {position:relative; overflow:hidden; width:700px;}
+#hotel-details-photo-list  { margin:10px; }
+#hotel-details-photo-list li { width:auto !important; }
+.hotel-photo {margin-right:10px;-moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);}
