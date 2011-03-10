@@ -19,8 +19,8 @@
     });
 </script>
 <div id="side-container">
-    <a href="#">details</a> <a href="#">map</a> <a href="#">related trips</a>
-    <a href="#">alternatives</a>
+    <a href="#">details</a> <a href="#">map</a> <a href="#">related trips</a> <a href="#">
+        alternatives</a>
 </div>
 <div id="main-container">
     <div class="panel">
@@ -30,6 +30,10 @@
         </div>
         <div class="panel-content">
             basic hotel info here
+            @foreach (BaseItemPhoto baseItemPhoto in hotel.BaseItem.Photos)
+            {
+                <img src="@baseItemPhoto.ImageURL" />
+            }
         </div>
     </div>
     <div class="panel">

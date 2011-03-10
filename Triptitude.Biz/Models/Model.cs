@@ -156,12 +156,19 @@ namespace Triptitude.Biz.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
 
+        public virtual ICollection<BaseItemPhoto> Photos { get; set; }
         public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
 
-        public IEnumerable<Trip> Trips
-        {
-            get { return ItineraryItems.Select(ii => ii.Trip); }
-        }
+        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip); } }
+    }
+
+    [Table("BaseItemPhotos")]
+    public class BaseItemPhoto
+    {
+        public int Id { get; set; }
+        public int BaseItemId { get; set; }
+        public string ImageURL { get; set; }
+        public string ThumbURL { get; set; }
     }
 
     public class ExpediaHotel
