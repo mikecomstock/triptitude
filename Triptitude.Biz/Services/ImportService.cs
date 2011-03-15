@@ -220,8 +220,8 @@ namespace Triptitude.Biz.Services
                     var imageURL = l[3];
                     var thumbURL = l[8];
                     var isDefault = l[9] == "True" ? 1 : 0;
-                    var height = l[5];
-                    var width = l[6];
+                    var height = l[6];
+                    var width = l[5];
                     var sql = string.Format("execute insert_eh_photo {0},'{1}','{2}',{3},{4},{5}",
                             expediaHotelId,
                             imageURL,

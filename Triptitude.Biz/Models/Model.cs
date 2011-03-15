@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Mvc;
 using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Models
@@ -24,6 +23,11 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<ItineraryItem> Itinerary { get; set; }
+
+        public IEnumerable<BaseItemPhoto> Photos
+        {
+            get { return Itinerary.Select(i => i.BaseItem).Distinct().SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
+        }
     }
 
     public class ItineraryItem
@@ -174,7 +178,13 @@ namespace Triptitude.Biz.Models
         public int Width { get; set; }
 
         public int NiceHeight { get { return 200; } }
-        public int NiceWidth { get { return (int)((decimal)Width / (decimal)Height * (decimal)NiceHeight); } }
+        public int NiceWidth
+        {
+            get
+            {
+                return (int)((decimal)Width / (decimal)Height * (decimal)NiceHeight);
+            }
+        }
     }
 
     public class ExpediaHotel

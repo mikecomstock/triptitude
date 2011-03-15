@@ -2,7 +2,7 @@
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
-            <form action="">
+            <form action="@Url.HotelsHome()">
             <input type="text" name="s" placeholder="Search everything..." />
             <input type="submit" value="Go >" />
             </form>
@@ -46,8 +46,7 @@
                 <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
                     Map</a> <a href="@Url.Print((Trip)ViewBag.User.DefaultTrip)">Print</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
                         Settings</a>
-            </div>
-                   
+            </div> 
         }
         else
         {

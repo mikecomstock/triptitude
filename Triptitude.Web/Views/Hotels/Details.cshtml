@@ -16,13 +16,6 @@
         var map = new google.maps.Map(document.getElementById("hotel-details-map-container"), myOptions);
         var ctaLayer = new google.maps.KmlLayer('@Url.Map(hotel.BaseItem)', {preserveViewport:true});
         ctaLayer.setMap(map);
-
-        $("#hotel-details-photo-list").jCarouselLite({
-            auto: 1500,
-            speed: 800,
-            visible: 5,
-            circular: true
-        });
     });
 </script>
 <div id="side-container">
@@ -36,17 +29,11 @@
             <h1>@ViewBag.Hotel.BaseItem.Name</h1>
         </div>
         <div class="panel-content-not-padded">
-            <div id="hotel-details-photo-list-container">
-                <div id="hotel-details-photo-list">
-                    <ul>
-                        @foreach (BaseItemPhoto baseItemPhoto in hotel.BaseItem.Photos)
-                        {
-                            <li>
-                                <img class="hotel-photo" alt="" src="@baseItemPhoto.ImageURL" height="@baseItemPhoto.NiceHeight" width="@baseItemPhoto.NiceWidth" />
-                            </li>
-                        }
-                    </ul>
-                </div>
+            <div id="hotel-details-photo-list">
+                @foreach (BaseItemPhoto baseItemPhoto in hotel.BaseItem.Photos)
+                {
+                    <img class="hotel-photo" alt="" src="@baseItemPhoto.ImageURL" height="@baseItemPhoto.NiceHeight"  />
+                }
             </div>
         </div>
     </div>
@@ -63,12 +50,7 @@
             Related Trips</h2>
         <div class="panel-content">
             <div id="hotel-details-related-trips">
-                @foreach (Trip trip in hotel.BaseItem.Trips)
-                {
-                    <div>
-                        <a href="@Url.PublicDetails(trip)">@trip.Name</a>
-                    </div>
-                }
+                @Html.Action("_rows", "trips", new { trips = hotel.BaseItem.Trips })
             </div>
         </div>
     </div>

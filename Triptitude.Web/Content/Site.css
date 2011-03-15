@@ -97,12 +97,18 @@ td { vertical-align: top; padding: 0; }
 #hotel-details-map-container { width: 400px; height: 220px; }
 #hotel-details-related-trips { clear: both; }
 
-#hotel-details-photo-list-container { position: relative; overflow: hidden; width: 700px; }
-#hotel-details-photo-list { margin: 10px; }
-#hotel-details-photo-list li { width: auto !important; }
+#hotel-details-photo-list { margin: 10px; white-space: nowrap; overflow: auto; overflow-y:hidden; height: 225px; }
 .hotel-photo { margin-right: 10px; -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
 
 /* My Trips */
-.my-trip-row { display:block; padding:15px; font-size:16px; }
-.my-trip-row span { font-weight:bold; padding-right:15px; }
+.my-trip-row { display: block; padding: 15px; font-size: 16px; }
+.my-trip-row span { font-weight: bold; padding-right: 15px; }
 .my-trip-row + .my-trip-row { border-top: 1px dashed #CCCCCC; }
+
+/* Trip Row */
+.trip-rows { clear: both; }
+.trip-row { font-weight: bold; padding: 5px; overflow: auto; }
+.trip-row + .trip-row { border-top: 1px dashed #CCCCCC; }
+.trip-row-photo { float: left; }
+.trip-row-body { float: left; }
+.trip-row-title { font-size: 16px; line-height: 70px; padding: 15px; }

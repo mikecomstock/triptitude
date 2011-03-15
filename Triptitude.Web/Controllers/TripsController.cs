@@ -17,6 +17,20 @@ namespace Triptitude.Web.Controllers
             return PartialView("_SidePanel");
         }
 
+        // partial only
+        public ActionResult _Row(Trip trip)
+        {
+            ViewBag.Trip = trip;
+            return PartialView();
+        }
+
+        // partial only
+        public ActionResult _Rows(IEnumerable<Trip> trips)
+        {
+            ViewBag.Trips = trips;
+            return PartialView();
+        }
+
         public ActionResult Index()
         {
             ViewBag.Trips = new TripsRepo().FindAll();

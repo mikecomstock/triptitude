@@ -1,0 +1,6 @@
+﻿<div class="trip-rows">
+    @foreach (Trip trip in ViewBag.Trips)
+    {
+        @Html.Action("_row", "trips", new { trip });
+    }
+</div>
