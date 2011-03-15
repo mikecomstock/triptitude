@@ -1,23 +1,19 @@
 ﻿@{
     ViewBag.Title = "My Trips";
+    ICollection<Trip> trips = (ICollection<Trip>)ViewBag.User.Trips;
 }
 @Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
+            <a href="@Url.CreateTrip()">create a trip</a>
             <h1>
                 My Trips</h1>
         </div>
         <div class="panel-content">
-            <form action="@Url.SetDefaultTrip()" method="post">
-            @Html.SelectTripDropDownList((ICollection<Trip>)ViewBag.User.Trips, (Trip)ViewBag.User.DefaultTrip)
-            <input type="submit" value="Plan" />
-            </form>
-            @foreach (Trip trip in ViewBag.User.Trips)
+            @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
             {
-                <div>
-                    @trip.Name
-                </div>
+                <a  class="my-trip-row" href="@Url.SetDefaultTrip(trip)"><span>Plan</span> @trip.Name</a>
             }
         </div>
     </div>

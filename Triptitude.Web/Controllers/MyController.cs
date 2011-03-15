@@ -29,7 +29,7 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+        // needs security check
         public ActionResult DefaultTrip(User currentUser, int id)
         {
             Trip trip = new TripsRepo().Find(id);

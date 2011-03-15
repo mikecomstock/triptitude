@@ -80,9 +80,9 @@ namespace Triptitude.Web.Helpers
             return url.Action("create", "trips");
         }
 
-        public static string SetDefaultTrip(this UrlHelper url)
+        public static string SetDefaultTrip(this UrlHelper url, Trip trip)
         {
-            return url.Action("defaulttrip", "my");
+            return url.Action("defaulttrip", "my", new { id = trip.Id });
         }
 
         public static string Settings(this UrlHelper url, Trip trip)
