@@ -1,0 +1,31 @@
+﻿@{
+    Trip trip = (Trip)ViewBag.Trip;
+}
+<?xml version="1.0" encoding="UTF-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+    <Document>
+        <Style id="highlightPlacemark">
+            <IconStyle>
+                <Icon>
+                    <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+                </Icon>
+            </IconStyle>
+        </Style>
+        
+        @foreach (ItineraryItem itineraryItem in trip.Itinerary)
+        {
+            if (itineraryItem.BaseItem != null)
+            {                
+                <Placemark>
+                    <description><![CDATA[
+                    <a href="@Url.Details(itineraryItem)">@itineraryItem.BaseItem.Name</a>
+                    ]]>
+                    </description>
+                    <Point>
+                        <coordinates>@itineraryItem.BaseItem.Longitude, @itineraryItem.BaseItem.Latitude</coordinates>
+                    </Point>
+                </Placemark>   
+            }
+        }
+    </Document>
+</kml>

@@ -163,6 +163,7 @@
     <Content Include="Views\Trips\Map.cshtml" />
     <Content Include="Views\Trips\_Row.cshtml" />
     <Content Include="Views\Trips\_Rows.cshtml" />
+    <Content Include="Views\Maps\Trip.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

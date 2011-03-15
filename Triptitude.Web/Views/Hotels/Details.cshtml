@@ -14,7 +14,7 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         var map = new google.maps.Map(document.getElementById("hotel-details-map-container"), myOptions);
-        var ctaLayer = new google.maps.KmlLayer('@Url.Map(hotel.BaseItem)', {preserveViewport:true});
+        var ctaLayer = new google.maps.KmlLayer('@Url.Kml(hotel.BaseItem)', {preserveViewport:true});
         ctaLayer.setMap(map);
     });
 </script>

@@ -169,9 +169,14 @@ namespace Triptitude.Web.Helpers
 
         #region Maps
 
-        public static string Map(this UrlHelper url, BaseItem baseItem)
+        public static string Kml(this UrlHelper url, BaseItem baseItem)
         {
             return string.Format("http://76.119.197.117/maps/hotel/{0}.kml", baseItem.Id);
+        }
+
+        public static string Kml(this UrlHelper url, Trip trip)
+        {
+            return string.Format("http://76.119.197.117/maps/trip/{0}.kml", trip.Id);
         }
 
         #endregion

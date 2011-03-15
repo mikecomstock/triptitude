@@ -21,7 +21,14 @@ namespace Triptitude.Web.Controllers
 
             // check out http://stackoverflow.com/questions/1184921/how-to-override-target-blank-in-kml-popups-in-embedded-google-map
 
-            return View();
+            return PartialView();
+        }
+
+        public ActionResult Trip(int id)
+        {
+            Trip trip = new TripsRepo().Find(id);
+            ViewBag.Trip = trip;
+            return PartialView();
         }
     }
 }

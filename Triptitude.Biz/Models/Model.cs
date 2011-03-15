@@ -26,7 +26,7 @@ namespace Triptitude.Biz.Models
 
         public IEnumerable<BaseItemPhoto> Photos
         {
-            get { return Itinerary.Select(i => i.BaseItem).Distinct().SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
+            get { return Itinerary.Select(i => i.BaseItem).Distinct().Where(bi => bi != null).SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
         }
     }
 
@@ -163,7 +163,7 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<BaseItemPhoto> Photos { get; set; }
         public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip); } }
+        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
     }
 
     [Table("BaseItemPhotos")]
