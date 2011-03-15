@@ -97,7 +97,7 @@ td { vertical-align: top; padding: 0; }
 #hotel-details-map-container { width: 400px; height: 220px; }
 #hotel-details-related-trips { clear: both; }
 
-#hotel-details-photo-list { margin: 10px; white-space: nowrap; overflow: auto; overflow-y:hidden; height: 225px; }
+#hotel-details-photo-list { margin: 10px; white-space: nowrap; overflow: auto; overflow-y:hidden; height: 275px; }
 .hotel-photo { margin-right: 10px; -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
 
 /* My Trips */

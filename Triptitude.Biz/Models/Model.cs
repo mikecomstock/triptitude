@@ -177,14 +177,7 @@ namespace Triptitude.Biz.Models
         public int Height { get; set; }
         public int Width { get; set; }
 
-        public int NiceHeight { get { return 200; } }
-        public int NiceWidth
-        {
-            get
-            {
-                return (int)((decimal)Width / (decimal)Height * (decimal)NiceHeight);
-            }
-        }
+        public int NiceHeight { get { return 250; } }
     }
 
     public class ExpediaHotel
