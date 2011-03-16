@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\ItineraryItemsController.cs" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <Content Include="Views\Home\Signup.cshtml" />
     <Content Include="Views\Home\_SearchResults.cshtml" />
+    <Content Include="Views\Destinations\City.cshtml" />
     <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />

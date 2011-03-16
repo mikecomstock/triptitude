@@ -147,8 +147,8 @@ namespace Triptitude.Biz.Models
         [Key]
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
     }
 
