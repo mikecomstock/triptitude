@@ -9,9 +9,9 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Cities = new CitiesRepo().FindAll().Take(10);
+            ViewBag.Cities = new CitiesRepo().FindAll().Where(c => c.Region.ASCIIName == "minnesota").Take(10);
             ViewBag.Regions = new RegionsRepo().FindAll().Take(10);
-            ViewBag.Countries = new CountriesRepo().FindAll().Take(10);
+            ViewBag.Countries = new CountriesRepo().FindAll().OrderBy(c => c.Name);
             return View();
         }
 

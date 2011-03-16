@@ -4,10 +4,10 @@
 <div id="main-container">
     <div class="panel">
         <h2>
-            Countries
+            Cities
         </h2>
         <div class="panel-content">
-            @foreach (Destination destination in ViewBag.Countries)
+            @foreach (Destination destination in ViewBag.Cities)
             {
                 <div>
                     <a href="@Url.Details(destination)">@destination.FullName</a>
@@ -30,10 +30,10 @@
     </div>
     <div class="panel">
         <h2>
-            Cities
+            Countries
         </h2>
         <div class="panel-content">
-            @foreach (Destination destination in ViewBag.Cities)
+            @foreach (Destination destination in ViewBag.Countries)
             {
                 <div>
                     <a href="@Url.Details(destination)">@destination.FullName</a>

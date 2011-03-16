@@ -5,23 +5,23 @@
     Country country = destination as Country;
     ViewBag.Title = destination.FullName;
 }
-@if (destination is City)
-{
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" charset="utf-8">
-    $(document).ready(function () {
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            
+            var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+            var map = new google.maps.Map(document.getElementById("destination-details-map-container"), myOptions);
+            var geocoder = new google.maps.Geocoder();
 
-        var myLatlng = new google.maps.LatLng(@city.Latitude, @city.Longitude);
-        var myOptions = {
-          zoom: 14,
-          center: myLatlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(document.getElementById("city-details-map-container"), myOptions);
-        
-    });
+            geocoder.geocode({ 'address': '@destination.FullName' }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    map.fitBounds(results[0].geometry.viewport);
+                    map.setZoom(map.getZoom()+2);
+                }
+            });
+        });
     </script>
-}
+
 <div id="side-container">
     <a href="#">map</a> <a href="#">trips</a> <a href="#">hotels</a> <a href="#">activities</a>
 </div>
