@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div id="main-container">
+    <div class="panel">
+        <h2>
+            Countries
+        </h2>
+        <div class="panel-content">
+            @foreach (Destination destination in ViewBag.Countries)
+            {
+                <div>
+                    <a href="@Url.Details(destination)">@destination.FullName</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="panel">
+        <h2>
+            Regions
+        </h2>
+        <div class="panel-content">
+            @foreach (Destination destination in ViewBag.Regions)
+            {
+                <div>
+                    <a href="@Url.Details(destination)">@destination.FullName</a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="panel">
+        <h2>
+            Cities
+        </h2>
+        <div class="panel-content">
+            @foreach (Destination destination in ViewBag.Cities)
+            {
+                <div>
+                    <a href="@Url.Details(destination)">@destination.FullName</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

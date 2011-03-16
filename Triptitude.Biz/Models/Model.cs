@@ -110,7 +110,15 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class Country
+    // abstract!
+    public abstract class Destination
+    {
+        public abstract int Id { get; }
+        public abstract string ShortName { get; }
+        public abstract string FullName { get; }
+    }
+
+    public class Country : Destination
     {
         [Key]
         public int GeoNameID { get; set; }
@@ -118,6 +126,22 @@ namespace Triptitude.Biz.Models
         public string ISO3 { get; set; }
         public int ISONumeric { get; set; }
         public string FIPS { get; set; }
+
+        public override int Id
+        {
+            get { return GeoNameID; }
+        }
+
+        public override string FullName
+        {
+            get { return Name; }
+        }
+
+        public override string ShortName
+        {
+            get { return Name; }
+        }
+
         public string Name { get; set; }
         public string Capital { get; set; }
         public int Population { get; set; }
@@ -133,16 +157,31 @@ namespace Triptitude.Biz.Models
         public string EquivalentFipsCode { get; set; }
     }
 
-    public class Region
+    public class Region : Destination
     {
         [Key]
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public virtual Country Country { get; set; }
         public string GeoNameAdmin1Code { get; set; }
+
+        public override int Id
+        {
+            get { return GeoNameID; }
+        }
+
+        public override string FullName
+        {
+            get { return ASCIIName + ", " + Country.FullName; }
+        }
+
+        public override string ShortName
+        {
+            get { return ASCIIName; }
+        }
     }
 
-    public class City
+    public class City : Destination
     {
         [Key]
         public int GeoNameID { get; set; }
@@ -150,6 +189,21 @@ namespace Triptitude.Biz.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
+
+        public override int Id
+        {
+            get { return GeoNameID; }
+        }
+
+        public override string FullName
+        {
+            get { return ASCIIName + ", " + Region.FullName; }
+        }
+
+        public override string ShortName
+        {
+            get { return ASCIIName; }
+        }
     }
 
     public class BaseItem

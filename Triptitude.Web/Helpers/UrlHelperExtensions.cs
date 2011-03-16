@@ -180,5 +180,14 @@ namespace Triptitude.Web.Helpers
         }
 
         #endregion
+
+        #region Destinations
+
+        public static string Details(this UrlHelper url, Destination destination)
+        {
+            return SlugAction(url, "details", "destinations", destination.Id, destination.FullName);
+        }
+
+        #endregion
     }
 }

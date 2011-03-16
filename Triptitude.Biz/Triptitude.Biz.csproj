@@ -61,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\BaseItemsRepo.cs" />
     <Compile Include="Repos\CitiesRepo.cs" />
+    <Compile Include="Repos\DestinationsRepo.cs" />
     <Compile Include="Repos\ExpediaHotelsRepo.cs" />
     <Compile Include="Repos\ItineraryItemsRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />

@@ -7,11 +7,19 @@ namespace Triptitude.Web.Controllers
 {
     public class DestinationsController : Controller
     {
-        public ActionResult City(int id)
+        public ActionResult Index()
         {
-            var citiesRepo = new CitiesRepo();
-            City city = citiesRepo.Find(id);
-            ViewBag.City = city;
+            ViewBag.Cities = new CitiesRepo().FindAll().Take(10);
+            ViewBag.Regions = new RegionsRepo().FindAll().Take(10);
+            ViewBag.Countries = new CountriesRepo().FindAll().Take(10);
+            return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            DestinationsRepo destinationsRepo = new DestinationsRepo();
+            Destination destination = destinationsRepo.Find(id);
+            ViewBag.Destination = destination;
             ViewBag.Trips = new TripsRepo().FindAll().Take(5);
             return View();
         }
