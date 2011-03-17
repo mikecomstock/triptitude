@@ -56,7 +56,7 @@ td { vertical-align: top; padding: 0; }
 #trip-nav-bar a + a { border-left: 3px solid #FFF; }
 
 #trip-bar #start-here-form { margin-top: 10px; }
-#start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 360px; padding: 5px; margin-right: 10px; }
+#start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 230px; padding: 5px; margin-right: 10px; }
 #start-here-form input[type="submit"] { font-size: 18px; font-weight: bold; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; }
 
 /* Page Sections */

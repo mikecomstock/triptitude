@@ -1,15 +1,17 @@
 ﻿@{
-    ViewBag.Title = "Welcome to Triptitude!";
+    ViewBag.Title = "We'll help you plan your next trip - Triptitude.com";
     ViewBag.HideTripBar = true;
 }
 <style type="text/css">
-    #landing-page-panel { width: 955px; margin: 50px auto 0 auto; background-color: rgba(255, 255, 255, 0.7); -moz-border-radius: 7px; padding: 20px; overflow: auto; }
-    #landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color:#0190E9; }
-    #landing-page-panel h2 { font-size: 22px; margin-bottom: 20px; }
+    #landing-page-panel { width: 955px; margin: 50px auto 0 auto; background-color: rgba(255, 255, 255, 0.85); -moz-border-radius: 7px; padding: 20px; overflow: auto; }
+    #landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color: #0190E9; }
+    #landing-page-panel h2 { font-size: 22px; margin-bottom: 10px; margin-top: 20px; }
+    #landing-page-panel p { color: #333; font-size: 14px; line-height: 1.5; margin: 0; }
     #landing-page-panel #start-here-form { float: right; background-color: rgba(0, 0, 0, 0.3); padding: 20px; margin: 0 0 20px 20px; -moz-box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.8); }
     #landing-page-panel #start-here-form input { display: block; width: 300px; margin: 0 auto 10px auto; }
     #landing-page-panel #start-here-form input[type="submit"] { margin: 20px auto 0 auto; width: 200px; }
     #landing-page-panel #start-here-form h3 { font-size: 18px; margin-bottom: 10px; }
+    #landing-page-panel ul li { font-size: 14px; margin: 5px 0; }
 </style>
 <div id="landing-page-panel">
     <h1>
@@ -20,14 +22,20 @@
         Start here</h3>
     <input type="text" name="email" placeholder="Your email address..." />
     <input type="text" name="tripname" placeholder="Name your trip..." />
+    <input type="text" name="destination" placeholder="Where do you want to go?" />
     <input type="submit" value="Start Planning >" />
     </form>
-    <h2>Organize your trip from start to finish</h2>
+    <h2>
+        Organize your trip from start to finish</h2>
     <p>
-        Finding flights and hotels is easy. Planning your entire vacan't isn't.</p>
+        Planning a vacation isn't easy. Sure, you can book flights and hotels almost anywhere,
+        but how do figure out what to do in the first place? Answer: use Triptitude</p>
+    <h2>
+        With Triptitude you can</h2>
     <ul>
-        <li>Search for trips others have planned.<span>When you see examples of what others
-            are doing, you'll get inspired.</span> </li>
-        <li></li>
+        <li><strong>Get inspired</strong> by viewing trips that others have planned.</li>
+        <li><strong>Create</strong> an itinerary or <strong>customize</strong> someone else's.</li>
+        <li><strong>Compare</strong> your itineraries and <strong>optimize</strong> your pleasure.</li>
+        <li><strong>Print your itinerary</strong>, maps, directions, and notes for a stress-free travel experience.</li>
     </ul>
 </div>
