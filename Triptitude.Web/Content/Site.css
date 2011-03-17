@@ -46,12 +46,12 @@ td { vertical-align: top; padding: 0; }
 /* Tripbar */
 #trip-bar-container { width: 955px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
 #trip-bar { margin: 10px; padding: 10px 0; }
-#trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; padding: 0 20px; }
-#trip-bar-pre-title { color:#E9BA26;}
+#trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold;}
+#trip-bar-pre-title { color:#BBB;}
 
 #add-website-to-trip-form { float: right; }
 
-#trip-nav-bar { font-size: 20px; overflow: auto; float:right; }
+#trip-nav-bar { font-size: 20px; float:right; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
 #trip-nav-bar a + a { border-left: 3px solid #FFF; }
 

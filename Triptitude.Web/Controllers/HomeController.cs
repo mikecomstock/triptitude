@@ -10,9 +10,10 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Header(User currentUser)
+        public ActionResult Header(User currentUser, bool? hideTripBar)
         {
             ViewBag.User = currentUser;
+            ViewBag.HideTripBar = hideTripBar;
             return PartialView();
         }
 
