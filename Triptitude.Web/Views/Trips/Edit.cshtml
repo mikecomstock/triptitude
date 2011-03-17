@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name;
 }
-@Html.Action("SidePanel", "Trips")
+@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">

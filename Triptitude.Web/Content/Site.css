@@ -22,7 +22,8 @@ td { vertical-align: top; padding: 0; }
 .fader, #background .fader { background: url("http://a0.ak.lscdn.net/deals/images/bingy/background-fade.png") repeat-x scroll left bottom transparent; }
 
 /* Topbar */
-#header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; height: 70px; }
+#header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; }
+#header-container, #header-height-fill { height: 70px;}
 #header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 10px; }
 
@@ -43,15 +44,16 @@ td { vertical-align: top; padding: 0; }
 #user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
 
 /* Tripbar */
-#trip-bar-container { width: 955px; margin: 80px auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
+#trip-bar-container { width: 955px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
 #trip-bar { margin: 10px; padding: 10px 0; }
-#trip-bar-title { color: #FFFFFF; display: block; font-size: 26px; font-weight: bold; }
+#trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; padding: 0 20px; }
+#trip-bar-pre-title { color:#E9BA26;}
 
 #add-website-to-trip-form { float: right; }
 
-#trip-nav-bar { margin-top: 5px; font-size: 16px; overflow: auto; }
+#trip-nav-bar { font-size: 20px; overflow: auto; float:right; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
-#trip-nav-bar a + a { border-left: 3px solid #000000; }
+#trip-nav-bar a + a { border-left: 3px solid #FFF; }
 
 #trip-bar form { margin-top: 10px; }
 #trip-bar form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 360px; padding: 5px; margin-right: 10px; }

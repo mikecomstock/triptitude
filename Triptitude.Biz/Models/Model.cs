@@ -110,6 +110,8 @@ namespace Triptitude.Biz.Models
         }
     }
 
+    #region Destinations
+
     // abstract!
     public abstract class Destination
     {
@@ -205,6 +207,8 @@ namespace Triptitude.Biz.Models
             get { return ASCIIName; }
         }
     }
+
+    #endregion
 
     public class BaseItem
     {

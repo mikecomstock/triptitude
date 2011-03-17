@@ -32,32 +32,5 @@
         </div>
     </div>
 </div>
-<div id="trip-bar-container">
-    <div id="trip-bar">
-        @if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
-        {     <form id="add-website-to-trip-form" action="@Url.AddWebsiteToTrip()" method="post">
-            <input type="text" name="url" placeholder="Add a website URL to this trip..." />
-            <input type="submit" value="Add" />
-            </form>
-            <div id="trip-bar-title">
-                @ViewBag.User.DefaultTrip.Name
-            </div>        
-            <div id="trip-nav-bar">
-                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
-                    Map</a> <a href="@Url.Print((Trip)ViewBag.User.DefaultTrip)">Print</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
-                        Settings</a>
-            </div> 
-        }
-        else
-        {
-            <div id="trip-bar-title">
-                Like to travel? Plan your next trip.
-            </div>
-            <form action="">
-            <input type="text" name="email" placeholder="Enter your email address..." />
-            <input type="text" name="tripname" placeholder="Name your trip..." />
-            <input type="submit" value="Start Planning >" />
-            </form>
-        }
-    </div>
+<div id="header-height-fill">
 </div>

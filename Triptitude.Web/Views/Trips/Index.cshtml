@@ -1,13 +1,14 @@
 ﻿@{
     ViewBag.Title = "Trips";
 }
-<h1>
-    Trips</h1>
-<div>
-    @foreach (Trip trip in ViewBag.Trips)
-    {
-        <div>
-            <a href="@Url.PublicDetails(trip)">@trip.Name</a>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                Trips</h1>
         </div>
-    }
+        <div class="panel-content">
+            @Html.Action("_rows", "trips", new { ViewBag.Trips })
+        </div>
+    </div>
 </div>
