@@ -41,6 +41,7 @@ namespace Triptitude.Biz.Models
         public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public bool SoftDeleted { get; set; }
+        public virtual ICollection<ItineraryItemNote> ItineraryItemNotes { get; set; }
 
         public string Name
         {
@@ -81,6 +82,16 @@ namespace Triptitude.Biz.Models
         {
             get { return new ExpediaHotelsRepo().FindByBaseItemId(BaseItem.Id); }
         }
+    }
+
+    public class ItineraryItemNote
+    {
+        public int Id { get; set; }
+        public virtual ItineraryItem ItineraryItem { get; set; }
+        public DateTime Created_On { get; set; }
+        public int Created_By { get; set; }
+        public string Text { get; set; }
+        public bool Public { get; set; }
     }
 
     public class Website

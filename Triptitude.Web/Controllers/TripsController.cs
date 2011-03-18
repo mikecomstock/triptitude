@@ -64,7 +64,8 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.DayItinerary = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay);
+            ViewBag.DayItinerary =
+                trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay).OrderBy(i => i.BeginDay);
             return PartialView("_DayDetails");
         }
 
@@ -98,6 +99,5 @@ namespace Triptitude.Web.Controllers
             new UsersRepo().SetDefaultTrip(currentUser, trip);
             return Redirect(Url.PlanItinerary(trip));
         }
-
     }
 }

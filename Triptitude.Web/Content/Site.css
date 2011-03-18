@@ -2,8 +2,8 @@
 body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 11px; margin: 0; background-color: #000000; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
 h1 { font-size: 24px; }
-a, a:visited, a:hover { color: #0077CC; text-decoration: none; }
-a:hover { text-decoration: underline; }
+a, a:visited, a:hover, .link { color: #0077CC; text-decoration: none; cursor:pointer; }
+a:hover, .link:hover { text-decoration: underline; }
 img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
@@ -23,7 +23,7 @@ td { vertical-align: top; padding: 0; }
 
 /* Topbar */
 #header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; }
-#header-container, #header-height-fill { height: 70px;}
+#header-container, #header-height-fill { height: 70px; }
 #header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 10px; }
 
@@ -46,12 +46,12 @@ td { vertical-align: top; padding: 0; }
 /* Tripbar */
 #trip-bar-container { width: 955px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.7); -moz-border-radius: 7px; }
 #trip-bar { margin: 10px; padding: 10px 0; }
-#trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold;}
-#trip-bar-pre-title { color:#BBB;}
+#trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; }
+#trip-bar-pre-title { color: #BBB; }
 
 #add-website-to-trip-form { float: right; }
 
-#trip-nav-bar { font-size: 20px; float:right; }
+#trip-nav-bar { font-size: 20px; float: right; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
 #trip-nav-bar a + a { border-left: 3px solid #FFF; }
 
@@ -62,7 +62,7 @@ td { vertical-align: top; padding: 0; }
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }
 
-#side-container { float: left; width: 220px; margin-top:50px; }
+#side-container { float: left; width: 220px; margin-top: 50px; }
 #side-container a { margin-bottom: 10px; background-color: #E9BA26; padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; -moz-border-radius: 4px; }
 #main-container { float: left; width: 710px; margin-left: 25px; }
 
@@ -81,15 +81,26 @@ td { vertical-align: top; padding: 0; }
 #footer { width: 955px; height: 200px; }
 
 /* Trip Schedules */
-.trip-day { margin-top: 10px; background-color: #DDDDDD; margin-left: 65px; min-height: 25px; padding: 10px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); }
-.trip-day > h3 { padding: 3px 6px; width: 45px; background: #666666; color: #FFF; display: block; margin-left: -75px; margin-top: -25px; -moz-border-radius: 5px; float: left; }
+.trip-day { margin-top: 10px; background-color: #DDDDDD; margin-left: 65px; min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); }
+.trip-day > h3 { padding: 3px 6px; width: 45px; background: #666666; color: #FFF; display: block; margin-left: -65px; margin-top: -15px; -moz-border-radius: 5px; float: left; }
 .trip-day-itinerary-item { overflow: auto; }
-.trip-day-itinerary-item + .trip-day-itinerary-item { margin-top: 10px; }
-.trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px solid #DDD; }
+.trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px dashed #000; }
 .trip-day-itinerary-item-time { }
-.trip-day-itinerary-item img { float: left; margin-right: 10px; }
-.trip-day-itinerary-item > h4 { color: #666; font-size: 14px; }
-.trip-day-body { }
+.trip-day-itinerary-item img { float: left; margin: 10px; }
+.trip-day-itinerary-item > h4 { color: #666; font-size: 14px; margin: 10px; }
+.itinerary-item-notes { clear: both; }
+.itinerary-item-note { background-color: #666; color: #FFF; font-size:14px; overflow:auto; padding: 3px 8px; clear: both; margin: 0 10px 10px 10px; -moz-border-radius: 5px; }
+.itinerary-item-note .link { float:right; background-color:#FFF; padding: 2px 4px; -moz-border-radius:3px; margin-right:-5px; margin-left: 8px; }
+.itinerary-item-note .link:hover { color:#FFF; background-color: #66C3FE; }
+.note-dialog form { padding:0; margin:0; }
+.note-dialog textarea { width: 100%; height:100%; padding:0; margin:0; }
+
+/* Dialogs */
+.ui-dialog {background:none; padding:0;-moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF;}
+.ui-dialog-titlebar {background:none; background-color:#E9BA26; border:none;-moz-border-radius: 5px 5px 0 0; padding:15px !important; font-size:14px; }
+.ui-dialog-content { overflow:visible !important; padding:20px !important; }
+.ui-dialog-buttonpane { border:none !important; margin-top:-5px !important; padding: 0 15px 15px 15px !important; }
+.ui-widget-overlay { opacity: 0.5;}
 
 /* Trip Map */
 #trip-map-container { width: 100%; height: 500px; }
@@ -120,4 +131,4 @@ td { vertical-align: top; padding: 0; }
 
 
 /* Destinations */
-#destination-details-map-container{ width:100%; height:200px;}
+#destination-details-map-container { width: 100%; height: 200px; }

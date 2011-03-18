@@ -139,6 +139,20 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
+        #region Notes
+
+        public static string Edit(this UrlHelper url, ItineraryItemNote note)
+        {
+            return url.Action("edit", "notes", new { note.Id });
+        }
+
+        public static string Delete(this UrlHelper url, ItineraryItemNote note)
+        {
+            return url.Action("delete", "notes", new { note.Id });
+        }
+
+        #endregion
+
         #region Websites
 
         public static string Details(this UrlHelper url, Website website)

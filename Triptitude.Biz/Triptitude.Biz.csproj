@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Forms\TripSettings.cs" />
     <Compile Include="Models\Db.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Repos\DestinationsRepo.cs" />
     <Compile Include="Repos\ExpediaHotelsRepo.cs" />
     <Compile Include="Repos\ItineraryItemsRepo.cs" />
+    <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
