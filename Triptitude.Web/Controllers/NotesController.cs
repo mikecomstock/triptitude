@@ -19,7 +19,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Create(int itineraryItemId)
         {
             ItineraryItem itineraryItem = new ItineraryItemsRepo().Find(itineraryItemId);
-            ViewBag.Note = new ItineraryItemNote { ItineraryItem = itineraryItem };
+            ViewBag.Note = new Note { ItineraryItem = itineraryItem };
             ViewBag.Action = Url.CreateNote(itineraryItemId);
             return PartialView("Form");
         }
@@ -32,7 +32,7 @@ namespace Triptitude.Web.Controllers
 
             if (userOwnsTrip && !string.IsNullOrWhiteSpace(form.Text))
             {
-                ItineraryItemNote note = new ItineraryItemNote
+                Note note = new Note
                                              {
                                                  Created_By = currentUser.Id,
                                                  Created_On = DateTime.UtcNow,
@@ -48,7 +48,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            ItineraryItemNote note = notesRepo.Find(id);
+            Note note = notesRepo.Find(id);
             ViewBag.Note = note;
             ViewBag.Action = Url.Edit(note);
             return PartialView("Form");

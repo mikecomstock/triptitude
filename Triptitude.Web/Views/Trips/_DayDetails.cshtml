@@ -22,10 +22,10 @@
             </div>
             <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.SoftDeleteItineraryItem(itineraryItem)">
                 Delete</a>
-            @if (itineraryItem.ItineraryItemNotes != null)
+            @if (itineraryItem.Notes != null)
             {
                 <div class="itinerary-item-notes">
-                    @foreach (ItineraryItemNote note in itineraryItem.ItineraryItemNotes)
+                    @foreach (Note note in itineraryItem.Notes)
                     {
                         <div class="itinerary-item-note">
                             <div class="edit-note-link link" data-note-id="@note.Id">

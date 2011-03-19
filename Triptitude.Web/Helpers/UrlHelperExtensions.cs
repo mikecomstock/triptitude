@@ -146,12 +146,12 @@ namespace Triptitude.Web.Helpers
             return url.Action("create", "notes", new { itineraryItemId });
         }
 
-        public static string Edit(this UrlHelper url, ItineraryItemNote note)
+        public static string Edit(this UrlHelper url, Note note)
         {
             return url.Action("edit", "notes", new { note.Id });
         }
 
-        public static string Delete(this UrlHelper url, ItineraryItemNote note)
+        public static string Delete(this UrlHelper url, Note note)
         {
             return url.Action("delete", "notes", new { note.Id });
         }

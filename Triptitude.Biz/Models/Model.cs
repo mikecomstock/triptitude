@@ -41,7 +41,7 @@ namespace Triptitude.Biz.Models
         public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public bool SoftDeleted { get; set; }
-        public virtual ICollection<ItineraryItemNote> ItineraryItemNotes { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
 
         public string Name
         {
@@ -84,7 +84,7 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class ItineraryItemNote
+    public class Note
     {
         public int Id { get; set; }
         public virtual ItineraryItem ItineraryItem { get; set; }

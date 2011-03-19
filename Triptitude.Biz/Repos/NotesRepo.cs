@@ -3,9 +3,9 @@ using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
 {
-    public class NotesRepo : Repo<ItineraryItemNote>
+    public class NotesRepo : Repo<Note>
     {
-        public ItineraryItemNote Save(NoteForm form)
+        public Note Save(NoteForm form)
         {
             var note = Find(form.Id);
             note.Text = form.Text;
