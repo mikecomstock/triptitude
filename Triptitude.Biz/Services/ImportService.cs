@@ -230,7 +230,7 @@ namespace Triptitude.Biz.Services
                             height,
                             width
                         );
-                    DbProvider._db.Database.SqlCommand(sql);
+                    DbProvider._db.Database.ExecuteSqlCommand(sql);
                     //writer.WriteLine(sql);
 
                     if (++i % 1000 == 0)

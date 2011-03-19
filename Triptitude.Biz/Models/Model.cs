@@ -239,7 +239,7 @@ namespace Triptitude.Biz.Models
     public class BaseItemPhoto
     {
         public int Id { get; set; }
-        public int BaseItemId { get; set; }
+        public BaseItem BaseItem { get; set; }
         public string ImageURL { get; set; }
         public string ThumbURL { get; set; }
         public bool IsDefault { get; set; }

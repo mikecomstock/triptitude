@@ -5,16 +5,16 @@ namespace Triptitude.Biz.Models
 {
     public class Db : DbContext
     {
-        protected override void OnModelCreating(System.Data.Entity.ModelConfiguration.ModelBuilder modelBuilder)
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().IsIndependent().Map(m => m.MapKey(u => u.Id, "DefaultTripId"));
+            modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey( "DefaultTrip_Id"));
             modelBuilder.Entity<User>().HasMany(u => u.Trips).WithMany(t => t.Users);
 
-            modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGenerationOption(DatabaseGenerationOption.None);
-            modelBuilder.Entity<Region>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGenerationOption(DatabaseGenerationOption.None);
-            modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGenerationOption(DatabaseGenerationOption.None);
+            modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<Region>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            modelBuilder.Entity<ExpediaHotel>().HasKey(r => r.ExpediaHotelId).Property(p => p.ExpediaHotelId).HasDatabaseGenerationOption(DatabaseGenerationOption.None);
+            modelBuilder.Entity<ExpediaHotel>().HasKey(r => r.ExpediaHotelId).Property(p => p.ExpediaHotelId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
 
         public DbSet<User> Users { get; set; }
