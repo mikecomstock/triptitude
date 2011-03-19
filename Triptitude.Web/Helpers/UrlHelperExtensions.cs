@@ -141,6 +141,11 @@ namespace Triptitude.Web.Helpers
 
         #region Notes
 
+        public static string CreateNote(this UrlHelper url, int itineraryItemId)
+        {
+            return url.Action("create", "notes", new { itineraryItemId });
+        }
+
         public static string Edit(this UrlHelper url, ItineraryItemNote note)
         {
             return url.Action("edit", "notes", new { note.Id });

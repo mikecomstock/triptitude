@@ -5,7 +5,7 @@
     {
         <div class="trip-day-itinerary-item">
             <div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
-                Add Note</div>
+                + Add Note</div>
             @if (itineraryItem.Website != null)
             {
                 <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
@@ -20,7 +20,7 @@
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
-            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a href="@Url.SoftDeleteItineraryItem(itineraryItem)">
+            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.SoftDeleteItineraryItem(itineraryItem)">
                 Delete</a>
             @if (itineraryItem.ItineraryItemNotes != null)
             {
@@ -30,7 +30,7 @@
                         <div class="itinerary-item-note">
                             <div class="edit-note-link link" data-note-id="@note.Id">
                                 Edit</div>
-                            <a class="link" href="@Url.Delete(note)">Delete</a>
+                            <a class="link confirm-delete" href="@Url.Delete(note)">Delete</a>
                             @note.Text
                         </div>                        
                     }

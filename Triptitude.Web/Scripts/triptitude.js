@@ -1,7 +1,12 @@
 ﻿$(function () {
 
     $('input').placeholder();
-
+    $('.confirm-delete').click(function (e) {
+        var test = confirm('Delete?');
+        if (!test) {
+            e.preventDefault();
+        }
+    });
     //    $('#search form').submit(function () {
     //        doSearch();
     //        return false;
@@ -20,23 +25,29 @@
     //    }
     $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
         var itineraryItemId = $(this).attr('data-itinerary-item-id');
-        alert(itineraryItemId);
+        $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
+            CreateNoteModal(data);
+        });
     });
 
     $('.itinerary-item-note .edit-note-link').click(function (clickData) {
         var noteId = $(this).attr('data-note-id');
-        $.get('/Notes/Edit/' + noteId, function (data) {
-            $(data).dialog({
-                title: 'Your note',
-                dialogClass: 'note-dialog',
-                width: 450,
-                height: 300,
-                modal: true,
-                buttons: [{
-                    text: "Save",
-                    click: function () { $(this).submit(); }
-                }]
-            });
+        $.get('/notes/edit/' + noteId, function (data) {
+            CreateNoteModal(data);
         });
     });
+
+    function CreateNoteModal(data) {
+        $(data).dialog({
+            title: 'Your note',
+            dialogClass: 'note-dialog',
+            width: 450,
+            height: 300,
+            modal: true,
+            buttons: [{
+                text: 'Save',
+                click: function () { $(this).submit(); }
+            }]
+        });
+    }
 });

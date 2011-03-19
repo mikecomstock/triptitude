@@ -18,24 +18,31 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Create(int itineraryItemId)
         {
-            ViewBag.ItineraryItemId = itineraryItemId;
-            return PartialView("Edit");
+            ItineraryItem itineraryItem = new ItineraryItemsRepo().Find(itineraryItemId);
+            ViewBag.Note = new ItineraryItemNote { ItineraryItem = itineraryItem };
+            ViewBag.Action = Url.CreateNote(itineraryItemId);
+            return PartialView("Form");
         }
 
+        [HttpPost]
         public ActionResult Create(NoteForm form, User currentUser)
         {
-            var itineraryItem = new ItineraryItemsRepo().FindAll().First(
-                    i => i.Id == form.ItineraryItemId && i.Trip.Users.Contains(currentUser));
-            ItineraryItemNote note = new ItineraryItemNote
-                                         {
-                                             Created_By = currentUser.Id,
-                                             Created_On = DateTime.UtcNow,
-                                             Public = true,
-                                             Text = form.Text,
+            var itineraryItem = new ItineraryItemsRepo().Find(form.ItineraryItemId);
+            bool userOwnsTrip = itineraryItem.Trip.Users.Contains(currentUser);
 
-                                         };
-            notesRepo.Add(note);
-            notesRepo.Save();
+            if (userOwnsTrip && !string.IsNullOrWhiteSpace(form.Text))
+            {
+                ItineraryItemNote note = new ItineraryItemNote
+                                             {
+                                                 Created_By = currentUser.Id,
+                                                 Created_On = DateTime.UtcNow,
+                                                 Public = true,
+                                                 Text = form.Text,
+                                                 ItineraryItem = itineraryItem
+                                             };
+                notesRepo.Add(note);
+                notesRepo.Save();
+            }
             return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
         }
 
@@ -43,21 +50,32 @@ namespace Triptitude.Web.Controllers
         {
             ItineraryItemNote note = notesRepo.Find(id);
             ViewBag.Note = note;
-            return PartialView();
+            ViewBag.Action = Url.Edit(note);
+            return PartialView("Form");
         }
 
         [HttpPost]
         public ActionResult Edit(NoteForm form, User currentUser)
         {
-            var note = notesRepo.Save(form);
+            var note = notesRepo.Find(form.Id);
+            var userOwnsTrip = note.ItineraryItem.Trip.Users.Contains(currentUser);
+            if (userOwnsTrip)
+            {
+                notesRepo.Save(form);
+            }
+
             return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
         }
 
         public ActionResult Delete(int id, User currentUser)
         {
             var note = notesRepo.Find(id);
-            notesRepo.Delete(note);
-            notesRepo.Save();
+            var userOwnsTrip = note.ItineraryItem.Trip.Users.Contains(currentUser);
+            if (userOwnsTrip)
+            {
+                notesRepo.Delete(note);
+                notesRepo.Save();
+            }
             return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
         }
     }
