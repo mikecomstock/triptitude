@@ -8,14 +8,6 @@ namespace Triptitude.Web.Controllers
 {
     public class DestinationsController : Controller
     {
-        public ActionResult Index()
-        {
-            ViewBag.Cities = new CitiesRepo().FindAll().Where(c => c.Region.ASCIIName == "minnesota").Take(10);
-            ViewBag.Regions = new RegionsRepo().FindAll().Take(10);
-            ViewBag.Countries = new CountriesRepo().FindAll().OrderBy(c => c.Name);
-            return View();
-        }
-
         public ActionResult Details(int id)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();
@@ -25,6 +17,7 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        // JSON only
         public ActionResult Search(string term)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();

@@ -92,17 +92,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-1.4.4.min.js" />
-    <Content Include="Scripts\jquery-1.4.4-vsdoc.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui.js" />
-    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -133,9 +122,6 @@
     <Content Include="Views\ItineraryItems\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Hotels\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Hotels\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +142,6 @@
   <ItemGroup>
     <Content Include="Views\Home\_SearchResults.cshtml" />
     <Content Include="Views\Destinations\Details.cshtml" />
-    <Content Include="Views\Destinations\Index.cshtml" />
     <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
