@@ -2,8 +2,9 @@
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
-            <form action="@Url.HotelsHome()">
-            <input type="text" name="s" placeholder="Search everything..." />
+            <form action="@Url.DestinationSearch()" method="post">
+            <input type="text" name="s" placeholder="Where do you want to go?" />
+            <input type="hidden" name="destinationid" />
             <input type="submit" value="Go >" />
             </form>
             <div id="search-results">

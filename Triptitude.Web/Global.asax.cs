@@ -24,7 +24,6 @@ namespace Triptitude.Web
 
             routes.MapRoute("map", "maps/{action}/{id}.kml", new { controller = "maps" });
 
-            routes.MapRoute("Search", "search", new { controller = "home", action = "search" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });

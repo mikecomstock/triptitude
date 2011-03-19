@@ -19,10 +19,6 @@ namespace Triptitude.Web.Helpers
         {
             return Path.Combine("/static/backgrounds/", imageFileName);
         }
-        public static string Search(this UrlHelper url)
-        {
-            return url.RouteUrl("search");
-        }
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("login");
@@ -201,6 +197,11 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Destinations
+
+        public static string DestinationSearch(this UrlHelper url)
+        {
+            return url.Action("search", "destinations");
+        }
 
         public static string Details(this UrlHelper url, Destination destination)
         {

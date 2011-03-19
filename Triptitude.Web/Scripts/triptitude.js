@@ -1,28 +1,20 @@
 ﻿$(function () {
 
     $('input').placeholder();
+
     $('.confirm-delete').click(function (e) {
         var test = confirm('Delete?');
-        if (!test) {
-            e.preventDefault();
+        if (!test) { e.preventDefault(); }
+    });
+
+    $('#search input[name="s"]').autocomplete({
+        source: "/destinations/search",
+        select: function (event, ui) {
+            $('#search input[name="destinationid"]').val(ui.item.id);
+            $(this).closest("form").submit();
         }
     });
-    //    $('#search form').submit(function () {
-    //        doSearch();
-    //        return false;
-    //    });
-    //    $('#search form input').keyup(function () {
-    //        doSearch();
-    //    });
 
-    //    var timerid;
-    //    function doSearch() {
-    //        var form = this;
-    //        clearTimeout(timerid);
-    //        timerid = setTimeout(function () {
-    //            $('#search-results').load('/search', $('#search form').serialize());
-    //        }, 500);
-    //    }
     $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
         var itineraryItemId = $(this).attr('data-itinerary-item-id');
         $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
