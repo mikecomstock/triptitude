@@ -1,4 +1,5 @@
 ﻿$(function () {
+    var searchForm = $('#search');
 
     $('input').placeholder();
 
@@ -7,10 +8,17 @@
         if (!test) { e.preventDefault(); }
     });
 
-    $('#search input[name="s"]').autocomplete({
+    searchForm.submit(function (e) {
+        var destinationId = $('#search input[name="destinationid"]').val();
+        if (destinationId == '') {
+            e.preventDefault();
+        }
+    });
+
+    $('input[name="s"]', searchForm).autocomplete({
         source: "/destinations/search",
         select: function (event, ui) {
-            $('#search input[name="destinationid"]').val(ui.item.id);
+            $('input[name="destinationid"]', searchForm).val(ui.item.id);
             $(this).closest("form").submit();
         }
     });

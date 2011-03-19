@@ -1,19 +1,21 @@
 ﻿@{
     ViewBag.Title = "Map of " + @ViewBag.Trip.Name;
 }
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" charset="utf-8">
+@section Scripts {
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" charset="utf-8">
 
-    $(document).ready(function () {
-           
-        var myOptions = {
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(document.getElementById("trip-map-container"), myOptions);
-        var ctaLayer = new google.maps.KmlLayer('@Url.Kml((Trip)ViewBag.Trip)');
-        ctaLayer.setMap(map);
-    });
-</script>
+        $(document).ready(function () {
+
+            var myOptions = {
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("trip-map-container"), myOptions);
+            var ctaLayer = new google.maps.KmlLayer('@Url.Kml((Trip)ViewBag.Trip)');
+            ctaLayer.setMap(map);
+        });
+    </script>
+}
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
