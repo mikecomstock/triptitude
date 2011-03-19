@@ -17,7 +17,7 @@ td { vertical-align: top; padding: 0; }
 #background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
 
 #background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
-.fader, #background .fader { background: url("http://a0.ak.lscdn.net/deals/images/bingy/background-fade.png") repeat-x scroll left bottom transparent; }
+/* also defined in layout */
 .fader { height: 420px; left: 0; position: fixed; width: 100%; z-index: -1; }
 .fader, #background .fader { background: url("http://a0.ak.lscdn.net/deals/images/bingy/background-fade.png") repeat-x scroll left bottom transparent; }
 
@@ -146,6 +146,5 @@ td { vertical-align: top; padding: 0; }
 .trip-row-body { float: left; }
 .trip-row-title { font-size: 16px; line-height: 70px; padding: 15px; }
 
-
 /* Destinations */
-#destination-details-map-container { width: 100%; height: 200px; }
+#destination-details-map-container { width: 100%; height: 300px; }

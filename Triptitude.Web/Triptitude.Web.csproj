@@ -80,6 +80,7 @@
   <ItemGroup>
     <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\triptitude.js" />
+    <Content Include="Static\Backgrounds\background-fade.png" />
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
@@ -153,7 +154,6 @@
     <Content Include="Views\Trips\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Signup.cshtml" />
     <Content Include="Views\Home\_SearchResults.cshtml" />
     <Content Include="Views\Destinations\Details.cshtml" />
     <Content Include="Views\Destinations\Index.cshtml" />
