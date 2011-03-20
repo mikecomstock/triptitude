@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -16,6 +15,15 @@ namespace Triptitude.Web.Controllers
             Destination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
             ViewBag.Trips = new TripsRepo().FindAll().Take(5);
+            return View();
+        }
+
+        public ActionResult Hotels(int id)
+        {
+            DestinationsRepo destinationsRepo = new DestinationsRepo();
+            Destination destination = destinationsRepo.Find(id);
+            ViewBag.Destination = destination;
+            ViewBag.Hotels = new ExpediaHotelsRepo().FindAll().Take(20);
             return View();
         }
 

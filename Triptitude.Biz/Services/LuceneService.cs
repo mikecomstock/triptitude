@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Analysis.Tokenattributes;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Triptitude.Biz.Models;
@@ -32,7 +30,7 @@ namespace Triptitude.Biz.Services
 
             Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
             IndexWriter indexWriter = new IndexWriter(directory, analyzer, true, new IndexWriter.MaxFieldLength(15));
-
+            
             IEnumerable<Destination> countries = new CountriesRepo().FindAll().ToList();
             IEnumerable<Destination> regions = new RegionsRepo().FindAll().ToList();
             IEnumerable<Destination> cities = new CitiesRepo().GetDataReaderForIndexing();
