@@ -38,6 +38,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Lucene.Net">
+      <HintPath>..\packages\Lucene.2.9.2.2\lib\Lucene.Net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -74,6 +77,7 @@
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Repos\CountriesRepo.cs" />
     <Compile Include="Services\ImportService.cs" />
+    <Compile Include="Services\LuceneService.cs" />
     <Compile Include="Services\WebsiteService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

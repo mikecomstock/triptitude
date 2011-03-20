@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -20,14 +22,14 @@ namespace Triptitude.Web.Controllers
         // JSON only
         public ActionResult Search(string term)
         {
-            DestinationsRepo destinationsRepo = new DestinationsRepo();
-            var destinations = destinationsRepo.Search(term).Take(10);
+            var luceneService = new LuceneService();
+            var searchResults = luceneService.SearchDestinations(term);
 
-            var results = from d in destinations
+            var results = from d in searchResults
                           select new
                                      {
                                          label = d.FullName,
-                                         id = d.Id
+                                         id = d.GeoNameId
                                      };
             return Json(results, JsonRequestBehavior.AllowGet);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Triptitude.Biz.Services;
 
 namespace Triptitude.GeoNamesImporter
@@ -24,7 +25,8 @@ namespace Triptitude.GeoNamesImporter
             //Regions();
             //Cities();
             //Hotels();
-            HotelImages();
+            //HotelImages();
+            BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
             Console.ReadKey(false);
@@ -63,6 +65,24 @@ namespace Triptitude.GeoNamesImporter
             Console.WriteLine("=== IMPORTING HOTEL IMAGES ===");
             ImportService importService = new ImportService();
             importService.ImportHotelImages(hotelImagesPath, hotelImagesOutPath);
+        }
+
+        private static void BuildSearchIndexes()
+        {
+            var luceneService = new LuceneService();
+            luceneService.IndexDestinations();
+
+            while (true)
+            {
+                Console.Write("Query: ");
+                var line = Console.ReadLine();
+                var results = luceneService.SearchDestinations(line);
+                Console.WriteLine(results.Count());
+                foreach (var result in results)
+                {
+                    Console.WriteLine(result.FullName);
+                }
+            }
         }
     }
 }
