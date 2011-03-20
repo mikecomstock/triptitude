@@ -72,17 +72,17 @@ namespace Triptitude.GeoNamesImporter
             var luceneService = new LuceneService();
             luceneService.IndexDestinations();
 
-            while (true)
-            {
-                Console.Write("Query: ");
-                var line = Console.ReadLine();
-                var results = luceneService.SearchDestinations(line);
-                Console.WriteLine(results.Count());
-                foreach (var result in results)
-                {
-                    Console.WriteLine(result.FullName);
-                }
-            }
+            //while (true)
+            //{
+            //    Console.Write("Query: ");
+            //    var line = Console.ReadLine();
+            //    var results = luceneService.SearchDestinations(line);
+            //    Console.WriteLine(results.Count());
+            //    foreach (var result in results)
+            //    {
+            //        Console.WriteLine(result.FullName);
+            //    }
+            //}
         }
     }
 }

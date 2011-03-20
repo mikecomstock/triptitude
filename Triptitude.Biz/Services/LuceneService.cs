@@ -1,17 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
+using Lucene.Net.Analysis.Tokenattributes;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
-using Lucene.Net.Util;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Token = Lucene.Net.Analysis.Token;
+using Version = Lucene.Net.Util.Version;
 
 namespace Triptitude.Biz.Services
 {
@@ -27,20 +30,24 @@ namespace Triptitude.Biz.Services
             var directoryInfo = new DirectoryInfo(LuceneDestinationsIndexPath);
             var directory = FSDirectory.Open(directoryInfo);
 
-            Analyzer analyzer = new KeywordAnalyzer();
+            Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
             IndexWriter indexWriter = new IndexWriter(directory, analyzer, true, new IndexWriter.MaxFieldLength(15));
 
             IEnumerable<Destination> countries = new CountriesRepo().FindAll().ToList();
             IEnumerable<Destination> regions = new RegionsRepo().FindAll().ToList();
-
-            foreach (var country in countries.Union(regions))
+            IEnumerable<Destination> cities = new CitiesRepo().GetDataReaderForIndexing();
+            IEnumerable<Destination> destinations = countries.Union(regions).Union(cities);
+            int i = 0;
+            foreach (var destination in destinations)
             {
-                var nameField = new Field("fullName", country.FullName, Field.Store.YES, Field.Index.ANALYZED);
-                var idField = new Field("id", country.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED);
-
+                if (++i % 5000 == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine(i + destination.FullName);
+                }
                 var doc = new Lucene.Net.Documents.Document();
-                doc.Add(nameField);
-                doc.Add(idField);
+                doc.Add(new Field("fullName", destination.FullName, Field.Store.YES, Field.Index.ANALYZED));
+                doc.Add(new Field("id", destination.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                 indexWriter.AddDocument(doc);
             }
 
@@ -57,20 +64,20 @@ namespace Triptitude.Biz.Services
             FSDirectory directory = FSDirectory.Open(directoryInfo);
 
             IndexSearcher searcher = new IndexSearcher(directory, true);
-            Analyzer analyzer = new KeywordAnalyzer();
-            QueryParser queryParser = new QueryParser(Version.LUCENE_29, "fullName", analyzer);
-            var fuzzyQuery = queryParser.GetFuzzyQuery("fullName", term, 0.4f);
-            //Query query = queryParser.Parse(term);
-            //Query fuzzyQuery = new FuzzyQuery(new Term("fullName", term));
+            StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
+            TokenStream tokenStream = analyzer.TokenStream("fullName", new StringReader(term));
+            BooleanQuery query = new BooleanQuery();
 
-            //Query prefixQuery = new PrefixQuery(new Term("fullName", term));
-            //MultiFieldQueryParser q = new MultiFieldQueryParser();
-            //BooleanQuery query = new BooleanQuery();
-            //query.Add(fuzzyQuery, BooleanClause.Occur.SHOULD);
-            //query.Add(prefixQuery, BooleanClause.Occur.SHOULD);
+            Token token = tokenStream.Next();
+            while (token != null)
+            {
+                Query prefixQuery = new PrefixQuery(new Term("fullName", token.Term()));
+                query.Add(prefixQuery, BooleanClause.Occur.MUST);
+                token = tokenStream.Next();
+            }
 
             TopScoreDocCollector collector = TopScoreDocCollector.create(10, true);
-            searcher.Search(fuzzyQuery, collector);
+            searcher.Search(query, collector);
             ScoreDoc[] hits = collector.TopDocs().scoreDocs;
 
             foreach (ScoreDoc scoreDoc in hits)
