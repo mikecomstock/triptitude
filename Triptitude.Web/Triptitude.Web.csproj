@@ -143,6 +143,7 @@
     <Content Include="Views\Home\_SearchResults.cshtml" />
     <Content Include="Views\Destinations\Details.cshtml" />
     <Content Include="Views\Destinations\Hotels.cshtml" />
+    <Content Include="Views\Destinations\_SidePanel.cshtml" />
     <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />

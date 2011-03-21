@@ -1,9 +1,7 @@
 ﻿@{
     ViewBag.Title = "Hotels";
 }
-<div id="side-container">
-    <a href="#">map</a> <a href="#">trips</a> <a href="@Url.Hotels((Destination)ViewBag.Destination)">hotels</a>
-</div>
+@Html.Action("_SidePanel", "destinations", new { ViewBag.Destination })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">

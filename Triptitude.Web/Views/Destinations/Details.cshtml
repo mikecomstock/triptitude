@@ -23,9 +23,7 @@
         });
     </script>
 }
-<div id="side-container">
-    <a href="#">map</a> <a href="#">trips</a> <a href="@Url.Hotels(destination)">hotels</a>
-</div>
+@Html.Action("_SidePanel", "destinations", new { ViewBag.Destination })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">

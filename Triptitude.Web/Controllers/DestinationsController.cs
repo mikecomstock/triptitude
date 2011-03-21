@@ -9,6 +9,14 @@ namespace Triptitude.Web.Controllers
 {
     public class DestinationsController : Controller
     {
+        public ActionResult _SidePanel(int id)
+        {
+            DestinationsRepo destinationsRepo = new DestinationsRepo();
+            Destination destination = destinationsRepo.Find(id);
+            ViewBag.Destination = destination;
+            return PartialView();
+        }
+
         public ActionResult Details(int id)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();
