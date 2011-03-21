@@ -9,7 +9,19 @@
                 Hotels near @ViewBag.Destination.ShortName</h1>
         </div>
         <div class="panel-content">
-            <div id="destination-details-map-container">
+            <div class="hotel-rows">
+                @foreach (ExpediaHotel hotel in ViewBag.Hotels)
+                {
+                    <div class="hotel-row">
+                        @if (hotel.BaseItem.DefaultPhoto != null)
+                        {
+                            <img class="hotel-row-photo" alt="" src="@hotel.BaseItem.DefaultPhoto.ThumbURL" height="70" width="70" />
+                        }
+                        <div class="hotel-row-body">
+                            <a class="hotel-row-title" href="@Url.Details(hotel)">@hotel.BaseItem.Name</a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>

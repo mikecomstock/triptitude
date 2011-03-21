@@ -4,5 +4,6 @@ namespace Triptitude.Biz.Repos
 {
     public class BaseItemsRepo : Repo<BaseItem>
     {
+
     }
 }

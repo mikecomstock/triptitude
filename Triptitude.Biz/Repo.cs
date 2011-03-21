@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Triptitude.Biz.Models;
@@ -17,6 +18,11 @@ namespace Triptitude.Biz
         public IQueryable<T> FindAll()
         {
             return DbProvider._db.Set<T>();
+        }
+
+        public IEnumerable<T> Sql(string sql, params object[] parameters)
+        {
+            return DbProvider._db.Set<T>().SqlQuery(sql, parameters);
         }
 
         public void Add(T entity)

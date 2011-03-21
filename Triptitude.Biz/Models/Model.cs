@@ -233,6 +233,15 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
 
         public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
+
+        public BaseItemPhoto DefaultPhoto
+        {
+            get
+            {
+                var photo = Photos.OrderByDescending(p => p.IsDefault).FirstOrDefault();
+                return photo;
+            }
+        }
     }
 
     [Table("BaseItemPhotos")]

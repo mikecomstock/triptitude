@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -16,7 +17,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Destination = destination;
             return PartialView();
         }
-
+        [OutputCache(Duration = 1000)]
         public ActionResult Details(int id)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();
@@ -25,13 +26,16 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trips = new TripsRepo().FindAll().Take(5);
             return View();
         }
-
+        [OutputCache(Duration = 1000)]
         public ActionResult Hotels(int id)
         {
+            int radiusInMiles = 50;
+            int radiusInMeters = (int)(radiusInMiles * 1609.344);
+
             DestinationsRepo destinationsRepo = new DestinationsRepo();
             Destination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
-            ViewBag.Hotels = new ExpediaHotelsRepo().FindAll().Take(20);
+            ViewBag.Hotels = new ExpediaHotelsRepo().FindNear((City) destination, radiusInMeters).Take(20);
             return View();
         }
 

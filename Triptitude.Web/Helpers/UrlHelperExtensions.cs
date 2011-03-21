@@ -126,7 +126,7 @@ namespace Triptitude.Web.Helpers
             {
                 switch (itineraryItem.BaseItem.ItemType)
                 {
-                    case "H": return HotelDetails(url, itineraryItem.Hotel);
+                    case "H": return Details(url, itineraryItem.Hotel);
                 }
             }
 
@@ -175,7 +175,7 @@ namespace Triptitude.Web.Helpers
             return url.Action("index", "hotels");
         }
 
-        public static string HotelDetails(this UrlHelper url, ExpediaHotel hotel)
+        public static string Details(this UrlHelper url, ExpediaHotel hotel)
         {
             return SlugAction(url, "details", "hotels", hotel.BaseItem.Id, hotel.BaseItem.Name);
         }

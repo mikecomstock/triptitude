@@ -130,6 +130,14 @@ td { vertical-align: top; padding: 0; }
 #hotel-details-map-container { width: 400px; height: 220px; }
 #hotel-details-related-trips { clear: both; }
 
+/* Hotel Rows */
+.hotel-rows { clear: both; }
+.hotel-row { font-weight: bold; padding: 5px; overflow: auto; }
+.hotel-row + .hotel-row { border-top: 1px dashed #CCCCCC; }
+.hotel-row-photo { float: left; }
+.hotel-row-body { float: left; }
+.hotel-row-title { font-size: 16px; line-height: 70px; padding: 15px; }
+
 #hotel-details-photo-list { margin: 10px; white-space: nowrap; overflow: auto; overflow-y: hidden; height: 275px; }
 .hotel-photo { margin-right: 10px; -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
 
