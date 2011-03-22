@@ -17,7 +17,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Destination = destination;
             return PartialView();
         }
-        [OutputCache(Duration = 1000)]
+
         public ActionResult Details(int id)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();
@@ -26,7 +26,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trips = new TripsRepo().FindAll().Take(5);
             return View();
         }
-        [OutputCache(Duration = 1000)]
+
         public ActionResult Hotels(int id)
         {
             int radiusInMiles = 50;

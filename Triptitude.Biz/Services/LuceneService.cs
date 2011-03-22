@@ -29,8 +29,8 @@ namespace Triptitude.Biz.Services
             var directory = FSDirectory.Open(directoryInfo);
 
             Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
-            IndexWriter indexWriter = new IndexWriter(directory, analyzer, true, new IndexWriter.MaxFieldLength(15));
-            
+            IndexWriter indexWriter = new IndexWriter(directory, analyzer, true, new IndexWriter.MaxFieldLength(100));
+
             IEnumerable<Destination> countries = new CountriesRepo().FindAll().ToList();
             IEnumerable<Destination> regions = new RegionsRepo().FindAll().ToList();
             IEnumerable<Destination> cities = new CitiesRepo().GetDataReaderForIndexing();
@@ -43,7 +43,7 @@ namespace Triptitude.Biz.Services
                     Console.Clear();
                     Console.WriteLine(i + destination.FullName);
                 }
-                var doc = new Lucene.Net.Documents.Document();
+                Document doc = new Document();
                 doc.Add(new Field("fullName", destination.FullName, Field.Store.YES, Field.Index.ANALYZED));
                 doc.Add(new Field("id", destination.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                 indexWriter.AddDocument(doc);
@@ -56,7 +56,7 @@ namespace Triptitude.Biz.Services
 
         public IEnumerable<DestinationSearchResult> SearchDestinations(string term)
         {
-            if (string.IsNullOrWhiteSpace(term)) yield break; ;
+            if (string.IsNullOrWhiteSpace(term)) yield break;
 
             DirectoryInfo directoryInfo = new DirectoryInfo(LuceneDestinationsIndexPath);
             FSDirectory directory = FSDirectory.Open(directoryInfo);
@@ -65,12 +65,18 @@ namespace Triptitude.Biz.Services
             StandardAnalyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
             TokenStream tokenStream = analyzer.TokenStream("fullName", new StringReader(term));
             BooleanQuery query = new BooleanQuery();
-
+            
             Token token = tokenStream.Next();
             while (token != null)
             {
-                Query prefixQuery = new PrefixQuery(new Term("fullName", token.Term()));
+                Term thisTerm = new Term("fullName", token.Term());
+
+                TermQuery termQuery = new TermQuery(thisTerm);
+                query.Add(termQuery, BooleanClause.Occur.SHOULD);
+
+                Query prefixQuery = new PrefixQuery(thisTerm);
                 query.Add(prefixQuery, BooleanClause.Occur.MUST);
+
                 token = tokenStream.Next();
             }
 

@@ -3,12 +3,10 @@
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form action="@Url.DestinationSearch()" method="post">
-            <input type="text" name="s" placeholder="Where do you want to go?" />
+            <input type="text" name="s" class="destination-autocomplete" placeholder="Where do you want to go?" />
             <input type="hidden" name="destinationid" />
             <input type="submit" value="Go >" />
             </form>
-            <div id="search-results">
-            </div>
         </div>
         <div id="user-status">
             @if (Request.IsAuthenticated)
@@ -63,7 +61,8 @@ else if (ViewBag.HideTripBar != true)
             <form action="" id="start-here-form">
             <input type="text" name="email" placeholder="Your email address..." />
             <input type="text" name="tripname" placeholder="Name your trip..." />
-            <input type="text" name="destination" placeholder="Where do you want to go?" />
+            <input type="text" name="destination" class="destination-autocomplete" placeholder="Where do you want to go?" />
+            <input type="hidden" name="destinationid" />
             <input type="submit" value="Start Planning >" />
             </form>
         </div>

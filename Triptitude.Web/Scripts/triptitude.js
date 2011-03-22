@@ -15,10 +15,10 @@
         }
     });
 
-    $('input[name="s"]', searchForm).autocomplete({
+    $('.destination-autocomplete').autocomplete({
         source: "/destinations/search",
         select: function (event, ui) {
-            $('input[name="destinationid"]', searchForm).val(ui.item.id);
+            $('input[name="destinationid"]', $(this).closest("form")).val(ui.item.id);
             $(this).closest("form").submit();
         }
     });
