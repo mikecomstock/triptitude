@@ -12,6 +12,7 @@ td { vertical-align: top; padding: 0; }
 .clear { clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 
+
 /* Background */
 #background { -moz-user-select: none; left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
 #background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
@@ -72,6 +73,9 @@ td { vertical-align: top; padding: 0; }
 
 .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-title a { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
+.panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
+.panel-header h2 { padding: 10px 0; }
+
 .add-to-trip-button { }
 
 .panel-content { padding: 10px; }
@@ -160,3 +164,10 @@ td { vertical-align: top; padding: 0; }
 
 /* Destinations */
 #destination-details-map-container { width: 100%; height: 300px; }
+
+#trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
+.distance-slider { width: 200px; }
+.trip-length-slider { width: 200px;}
+#trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }
+.trip-search-form-section { float: left; text-align: center; }
+.trip-search-form-section +.trip-search-form-section { margin-left:20px;}

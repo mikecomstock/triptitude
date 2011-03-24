@@ -63,4 +63,26 @@
             resizable: false
         });
     });
+
+    $('.distance-slider').slider({
+        value: 100,
+        min: 0,
+        max: 200,
+        range: 'min',
+        step: 10,
+        slide: function (event, ui) {
+            $(this).siblings('.label').html('within ' + $(this).slider("value") + ' miles');
+        }
+    });
+
+    $('.trip-length-slider').slider({
+        range: true,
+        values: [2,10],
+        min: 1,
+        max: 20,
+        step: 1,
+        slide: function (event, ui) {
+            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
+        }
+    });
 });

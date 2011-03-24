@@ -35,9 +35,27 @@
         </div>
     </div>
     <div class="panel">
-        <h2>
-            Trips to @destination.ShortName
-        </h2>
+        <div class="panel-header">
+            <h2>
+                Trips to @destination.ShortName
+            </h2>
+            <form id="trip-search-form" action="#">
+            <div class="trip-search-form-section">
+                <div class="distance-slider">
+                </div>
+                <div class="label">
+                    within 100 miles
+                </div>
+            </div>
+            <div class="trip-search-form-section">
+                <div class="trip-length-slider">
+                </div>
+                <div class="label">
+                    2 - 10 days
+                </div>
+            </div>
+            </form>
+        </div>
         <div class="panel-content">
             <div id="destination-details-related-trips">
                 @Html.Action("_rows", "trips", new { trips = ViewBag.Trips })
