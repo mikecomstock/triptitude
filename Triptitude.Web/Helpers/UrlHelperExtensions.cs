@@ -28,6 +28,11 @@ namespace Triptitude.Web.Helpers
             return url.RouteUrl("logout");
         }
 
+        public static string Static(this UrlHelper url, string path)
+        {
+            return Path.Combine("/static/", path);
+        }
+
         #endregion
 
         #region User pages

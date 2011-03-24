@@ -50,4 +50,17 @@
             }]
         });
     }
+
+    $('.trip-row-map-link').click(function () {
+        var name = $(this).attr('data-trip-name');
+        var mapUrl = $(this).attr('data-image-url');
+        var linkUrl = $(this).attr('data-link-url');
+
+        $('<a class="trip-map-dialog-link" href="' + linkUrl + '"><img src="' + mapUrl + '" height="300" width="500" /></a>').dialog({
+            title: name,
+            modal: false,
+            width: 540,
+            resizable: false
+        });
+    });
 });

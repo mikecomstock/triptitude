@@ -62,7 +62,7 @@ td { vertical-align: top; padding: 0; }
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }
 
-#side-container { float: left; width: 220px; margin-top: 50px; text-transform:lowercase; }
+#side-container { float: left; width: 220px; margin-top: 50px; text-transform: lowercase; }
 #side-container a { margin-bottom: 10px; background-color: #E9BA26; padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; -moz-border-radius: 4px; }
 #main-container { float: left; width: 710px; margin-left: 25px; }
 
@@ -113,7 +113,7 @@ td { vertical-align: top; padding: 0; }
 
 
 /* Dialogs */
-.ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; }
+.ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
 .ui-dialog-titlebar { background: none; background-color: #E9BA26; border: none; -moz-border-radius: 5px 5px 0 0; padding: 15px !important; font-size: 14px; }
 .ui-dialog-content { overflow: visible !important; padding: 20px !important; }
 .ui-dialog-buttonpane { border: none !important; margin-top: -5px !important; padding: 0 15px 15px 15px !important; }
@@ -151,8 +151,12 @@ td { vertical-align: top; padding: 0; }
 .trip-row { font-weight: bold; padding: 5px; overflow: auto; }
 .trip-row + .trip-row { border-top: 1px dashed #CCCCCC; }
 .trip-row-photo { float: left; }
-.trip-row-body { float: left; }
-.trip-row-title { font-size: 16px; line-height: 70px; padding: 15px; }
+.trip-row-body { float: left; margin-left: 10px; }
+.trip-row-title { font-size: 16px; display: block; margin: 10px 0 10px 0; }
+.trip-row-map-link { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 20px; }
+.trip-row-map-link:hover { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 20px; background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
+
+.trip-map-dialog-link { display: block; }
 
 /* Destinations */
 #destination-details-map-container { width: 100%; height: 300px; }

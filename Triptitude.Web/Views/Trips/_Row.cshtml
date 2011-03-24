@@ -9,5 +9,7 @@
     }
     <div class="trip-row-body">
         <a class="trip-row-title" href="@Url.PublicDetails(trip)">@trip.Name</a>
+        <div class="link trip-row-map-link" title="Map of @trip.Name" data-trip-name="@trip.Name" data-image-url="@trip.StaticMapUrl" data-link-url="@Url.Map(trip)" >
+            map</div>
     </div>
 </div>

@@ -12,7 +12,7 @@
             </IconStyle>
         </Style>
         
-        @foreach (ItineraryItem itineraryItem in trip.Itinerary)
+        @foreach (ItineraryItem itineraryItem in trip.NonDeletedItineraryItems)
         {
             if (itineraryItem.BaseItem != null)
             {                
