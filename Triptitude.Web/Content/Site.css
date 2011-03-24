@@ -153,8 +153,8 @@ td { vertical-align: top; padding: 0; }
 .trip-row-photo { float: left; }
 .trip-row-body { float: left; margin-left: 10px; }
 .trip-row-title { font-size: 16px; display: block; margin: 10px 0 10px 0; }
-.trip-row-map-link { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 20px; }
-.trip-row-map-link:hover { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 20px; background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
+.trip-row-map-link { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
+.trip-row-map-link:hover { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
 
 .trip-map-dialog-link { display: block; }
 
