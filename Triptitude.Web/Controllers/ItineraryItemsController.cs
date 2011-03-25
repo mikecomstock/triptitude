@@ -38,11 +38,12 @@ namespace Triptitude.Web.Controllers
         public ActionResult Delete(int id)
         {
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
-            itineraryItemsRepo.SoftDelete(itineraryItem);
-            return Redirect(Url.PlanItinerary(itineraryItem.Trip));
+            var trip = itineraryItem.Trip;
+            itineraryItemsRepo.Delete(itineraryItem);
+            itineraryItemsRepo.Save();
+            return Redirect(Url.PlanItinerary(trip));
         }
-
-
+        
         [HttpPost]
         public ActionResult AddWebsiteToTrip(string url, User currentUser)
         {

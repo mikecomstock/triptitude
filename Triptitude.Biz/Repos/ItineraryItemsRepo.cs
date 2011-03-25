@@ -49,15 +49,5 @@ namespace Triptitude.Biz.Repos
 
             return itineraryItem;
         }
-
-        public void SoftDelete(ItineraryItem itineraryItem)
-        {
-            itineraryItem.BeginDay = null;
-            itineraryItem.BeginTime = null;
-            itineraryItem.EndDay = null;
-            itineraryItem.EndTime = null;
-            itineraryItem.SoftDeleted = true;
-            Save();
-        }
     }
 }

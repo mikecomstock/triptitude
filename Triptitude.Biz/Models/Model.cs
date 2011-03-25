@@ -23,12 +23,7 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<ItineraryItem> Itinerary { get; set; }
-
-        public IEnumerable<ItineraryItem> NonDeletedItineraryItems
-        {
-            get { return Itinerary.Where(i => !i.SoftDeleted); }
-        }
-
+        
         public IEnumerable<BaseItemPhoto> Photos
         {
             get { return Itinerary.Select(i => i.BaseItem).Distinct().Where(bi => bi != null).SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
@@ -40,7 +35,7 @@ namespace Triptitude.Biz.Models
             {
                 string url = "http://maps.google.com/maps/api/staticmap?size=500x300&maptype=roadmap&sensor=false";
 
-                var itineraryItems = NonDeletedItineraryItems.Where(i => i.BaseItem != null).OrderBy(i => i.BeginDay).ThenBy(i => i.BeginTime);
+                var itineraryItems = Itinerary.Where(i => i.BaseItem != null).OrderBy(i => i.BeginDay).ThenBy(i => i.BeginTime);
 
                 if (itineraryItems.Count() == 1)
                     url += "&zoom=13";
@@ -69,7 +64,6 @@ namespace Triptitude.Biz.Models
         public TimeSpan? BeginTime { get; set; }
         public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
-        public bool SoftDeleted { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
 
         public string Name

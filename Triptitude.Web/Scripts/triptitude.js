@@ -43,7 +43,7 @@
             dialogClass: 'note-dialog',
             width: 450,
             height: 300,
-            modal: true,
+            modal: false,
             buttons: [{
                 text: 'Save',
                 click: function () { $(this).submit(); }
