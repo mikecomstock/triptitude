@@ -64,7 +64,7 @@ namespace Triptitude.Web.Helpers
         public static string PublicDetails(this UrlHelper url, Trip trip)
         {
             //TODO: point at public instead of private
-            return url.SlugAction("edit", "trips", trip.Id, trip.Name);
+            return url.SlugAction("details", "trips", trip.Id, trip.Name);
         }
 
         #endregion

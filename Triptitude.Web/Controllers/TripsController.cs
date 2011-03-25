@@ -51,21 +51,27 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Details(int id)
+        {
+            return Edit(id);
+        }
+
         public ActionResult Edit(int id)
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
             ViewBag.NumberDays = trip.NonDeletedItineraryItems.Max(i => i.EndDay) ?? 1;
-            return View();
+            return View("edit");
         }
 
         // partial only
-        public ActionResult DayDetails(Trip trip, int dayNumber)
+        public ActionResult DayDetails(Trip trip, int dayNumber, User currentUser)
         {
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
             ViewBag.DayItinerary =
                 trip.NonDeletedItineraryItems.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay).OrderBy(i => i.BeginDay);
+            ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
             return PartialView("_DayDetails");
         }
 

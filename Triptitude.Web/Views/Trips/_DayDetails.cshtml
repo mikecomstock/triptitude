@@ -20,8 +20,11 @@
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
-            <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.SoftDeleteItineraryItem(itineraryItem)">
-                Delete</a>
+            @if (ViewBag.Editing)
+            {
+                <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.SoftDeleteItineraryItem(itineraryItem)">
+                    Delete</a>
+            }
             @if (itineraryItem.Notes != null)
             {
                 <div class="itinerary-item-notes">
