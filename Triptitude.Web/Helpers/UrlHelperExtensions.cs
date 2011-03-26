@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
@@ -135,7 +136,10 @@ namespace Triptitude.Web.Helpers
                 }
             }
 
-            return Details(url, itineraryItem.Website);
+            if (itineraryItem.Website != null)
+                return Details(url, itineraryItem.Website);
+
+            throw new Exception("Unknown itineraryitem type. Could not find details url.");
         }
 
         #endregion

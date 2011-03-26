@@ -9,7 +9,7 @@
                 Itinerary</h1>
         </div>
         <div class="panel-content">
-            @for (int i = 1; i <= ViewBag.NumberDays; i++)
+            @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
             {
                 Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
             }

@@ -1,6 +1,14 @@
 ﻿<div class="trip-day">
     <h3>
         Day @ViewBag.DayNumber</h3>
+    @foreach (Transportation trans in ViewBag.Transportations)
+    {
+        <div class="trip-day-itinerary-item">
+            <h4>
+                Flight from @trans.FromCity.ASCIIName to @trans.ToCity.ASCIIName
+            </h4>
+        </div>            
+    }
     @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
     {
         <div class="trip-day-itinerary-item">
@@ -10,7 +18,7 @@
             {
                 <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             }
-            else if (itineraryItem.BaseItem.Photos.Any())
+            else if (itineraryItem.BaseItem != null && itineraryItem.BaseItem.Photos.Any())
             {
                 <img src="@itineraryItem.BaseItem.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             }

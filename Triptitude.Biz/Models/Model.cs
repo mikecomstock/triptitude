@@ -23,7 +23,21 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<ItineraryItem> Itinerary { get; set; }
-        
+        public virtual ICollection<Transportation> Transportations { get; set; }
+        public int TotalDays
+        {
+            get
+            {
+                List<int?> days = new List<int?>
+                                     {
+                                         Itinerary.Max(x => x.BeginDay),
+                                         Itinerary.Max(x => x.EndDay),
+                                         Transportations.Max(x => x.BeginDay),
+                                         Transportations.Max(x => x.EndDay) 
+                                     };
+                return days.Max() ?? 1;
+            }
+        }
         public IEnumerable<BaseItemPhoto> Photos
         {
             get { return Itinerary.Select(i => i.BaseItem).Distinct().Where(bi => bi != null).SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
@@ -70,9 +84,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                return
-                    BaseItem != null ? BaseItem.Name :
-                    Website != null ? Website.Title : "[No Title]";
+                return BaseItem != null ? BaseItem.Name : Website != null ? Website.Title : "[No Title]";
             }
         }
 
@@ -105,6 +117,15 @@ namespace Triptitude.Biz.Models
         {
             get { return new ExpediaHotelsRepo().FindByBaseItemId(BaseItem.Id); }
         }
+    }
+
+    public class Transportation
+    {
+        public int Id { get; set; }
+        public virtual City FromCity { get; set; }
+        public virtual City ToCity { get; set; }
+        public int? BeginDay { get; set; }
+        public int? EndDay { get; set; }
     }
 
     public class Note
