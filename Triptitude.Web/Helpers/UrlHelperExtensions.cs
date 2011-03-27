@@ -223,5 +223,14 @@ namespace Triptitude.Web.Helpers
         }
 
         #endregion
+
+        #region Transportations
+
+        public static string Edit(this UrlHelper url, Transportation transportation)
+        {
+            return url.Action("edit", "transportations", new { transportation.Id });
+        }
+
+        #endregion
     }
 }

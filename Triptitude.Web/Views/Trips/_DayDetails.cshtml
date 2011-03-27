@@ -3,10 +3,12 @@
         Day @ViewBag.DayNumber</h3>
     @foreach (Transportation trans in ViewBag.Transportations)
     {
-        <div class="trip-day-itinerary-item">
+        <div class="trip-day-itinerary-item .transportation">
             <h4>
                 Flight from @trans.FromCity.ASCIIName to @trans.ToCity.ASCIIName
             </h4>
+            <div class="link" data-action="edit-transportation" data-id="@trans.Id">
+                edit</div>
         </div>            
     }
     @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)

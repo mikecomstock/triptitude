@@ -1,27 +1,20 @@
 ﻿$(function () {
-    var searchForm = $('#search');
 
     $('input').placeholder();
+    BindDestinationAutocomplete(null);
 
     $('.confirm-delete').click(function (e) {
         var test = confirm('Delete?');
         if (!test) { e.preventDefault(); }
     });
 
-    searchForm.submit(function (e) {
+    $('#search').submit(function (e) {
         var destinationId = $('#search input[name="destinationid"]').val();
         if (destinationId == '') {
             e.preventDefault();
         }
     });
 
-    $('.destination-autocomplete').autocomplete({
-        source: "/destinations/search",
-        select: function (event, ui) {
-            $('input[name="destinationid"]', $(this).closest("form")).val(ui.item.id);
-            $(this).closest("form").submit();
-        }
-    });
 
     $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
         var itineraryItemId = $(this).attr('data-itinerary-item-id');
@@ -36,20 +29,6 @@
             CreateNoteModal(data);
         });
     });
-
-    function CreateNoteModal(data) {
-        $(data).dialog({
-            title: 'Your note',
-            dialogClass: 'note-dialog',
-            width: 450,
-            height: 300,
-            modal: false,
-            buttons: [{
-                text: 'Save',
-                click: function () { $(this).submit(); }
-            }]
-        });
-    }
 
     $('.trip-row-map-link').click(function () {
         var name = $(this).attr('data-trip-name');
@@ -77,7 +56,7 @@
 
     $('.trip-length-slider').slider({
         range: true,
-        values: [2,10],
+        values: [2, 10],
         min: 1,
         max: 20,
         step: 1,
@@ -85,4 +64,56 @@
             $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
         }
     });
+
+    $('[data-action="edit-transportation"]').click(function () {
+        var id = $(this).attr('data-id');
+        $.get('/transportations/edit/' + id, function (data) {
+            CreateTransportationsModal(data);
+        });
+    });
 });
+
+function BindDestinationAutocomplete(context) {
+    $('.destination-autocomplete', context).autocomplete({
+        source: "/destinations/search",
+        select: function (event, ui) {
+            var hiddenFieldName = $(this).attr('data-hidden-field-name');
+            $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
+            var autoSubmit = $(this).attr('data-auto-submit');
+            console.log(autoSubmit);
+            if (autoSubmit == 'true')
+                $(this).closest("form").submit();
+        }
+    });
+}
+
+function CreateNoteModal(data) {
+    $(data).dialog({
+        title: 'Your note',
+        dialogClass: 'note-dialog',
+        width: 450,
+        height: 300,
+        modal: false,
+        buttons: [{
+            text: 'Save',
+            click: function () { $(this).submit(); }
+        }]
+    });
+}
+
+function CreateTransportationsModal(data) {
+    var dialog = $(data);
+    dialog.dialog({
+        title: 'Transportation',
+        dialogClass: 'transportation-dialog',
+        width: 450,
+        height: 300,
+        modal: false,
+        buttons: [{
+            text: 'Save',
+            click: function () { $(this).submit(); }
+        }]
+    });
+
+    BindDestinationAutocomplete(dialog);
+}
