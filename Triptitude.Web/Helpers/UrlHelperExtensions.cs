@@ -221,9 +221,19 @@ namespace Triptitude.Web.Helpers
 
         #region Transportations
 
+        public static string CreateTransportation(this UrlHelper url)
+        {
+            return url.Action("create", "transportations");
+        }
+
         public static string Edit(this UrlHelper url, Transportation transportation)
         {
             return url.Action("edit", "transportations", new { transportation.Id });
+        }
+
+        public static string Delete(this UrlHelper url, Transportation transportation)
+        {
+            return url.Action("delete", "transportations", new { transportation.Id });
         }
 
         #endregion

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -28,18 +27,18 @@ namespace Triptitude.Web.Controllers
         public ActionResult Create(NoteForm form, User currentUser)
         {
             var itineraryItem = new ItineraryItemsRepo().Find(form.ItineraryItemId);
-            bool userOwnsTrip = itineraryItem.Trip.Users.Contains(currentUser);
+            bool userOwnsTrip = currentUser.OwnsTrips(itineraryItem.Trip);
 
             if (userOwnsTrip && !string.IsNullOrWhiteSpace(form.Text))
             {
                 Note note = new Note
-                                             {
-                                                 Created_By = currentUser.Id,
-                                                 Created_On = DateTime.UtcNow,
-                                                 Public = true,
-                                                 Text = form.Text,
-                                                 ItineraryItem = itineraryItem
-                                             };
+                {
+                    Created_By = currentUser.Id,
+                    Created_On = DateTime.UtcNow,
+                    Public = true,
+                    Text = form.Text,
+                    ItineraryItem = itineraryItem
+                };
                 notesRepo.Add(note);
                 notesRepo.Save();
             }
@@ -58,7 +57,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Edit(NoteForm form, User currentUser)
         {
             var note = notesRepo.Find(form.Id);
-            var userOwnsTrip = note.ItineraryItem.Trip.Users.Contains(currentUser);
+            var userOwnsTrip = currentUser.OwnsTrips(note.ItineraryItem.Trip);
             if (userOwnsTrip)
             {
                 notesRepo.Save(form);
@@ -70,7 +69,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Delete(int id, User currentUser)
         {
             var note = notesRepo.Find(id);
-            var userOwnsTrip = note.ItineraryItem.Trip.Users.Contains(currentUser);
+            var userOwnsTrip = currentUser.OwnsTrips(note.ItineraryItem.Trip);
             if (userOwnsTrip)
             {
                 notesRepo.Delete(note);

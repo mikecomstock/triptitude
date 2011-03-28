@@ -7,6 +7,8 @@
         <div class="panel-title">
             <h1>
                 Itinerary</h1>
+            <div data-trip-id="@ViewBag.Trip.Id" class="create-transportation-link link">
+                + Add Transportation</div>
         </div>
         <div class="panel-content">
             @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)

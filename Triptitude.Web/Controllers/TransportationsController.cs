@@ -9,19 +9,39 @@ namespace Triptitude.Web.Controllers
     public class TransportationsController : Controller
     {
         private TransportationsRepo repo;
+        private TripsRepo tripsRepo;
 
         public TransportationsController()
         {
             repo = new TransportationsRepo();
+            tripsRepo = new TripsRepo();
+        }
+
+        public ActionResult Create(User currentUser, int tripId)
+        {
+            TransportationForm form = new TransportationForm { TripId = tripId };
+            ViewBag.Form = form;
+            ViewBag.Action = Url.CreateTransportation();
+            return PartialView("Form");
+        }
+
+        [HttpPost]
+        public ActionResult Create(TransportationForm form, User currentUser)
+        {
+            var trip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrip = currentUser.OwnsTrips(trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            var transportation = repo.Save(form);
+            return Redirect(Url.PublicDetails(transportation.Trip));
         }
 
         public ActionResult Edit(int id, User currentUser)
         {
             var transportation = repo.Find(id);
-            bool userOwnsTrip = transportation.Trip.Users.Contains(currentUser);
+            bool userOwnsTrip = currentUser.OwnsTrips(transportation.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            ViewBag.Transportation = transportation;
             TransportationForm form = new TransportationForm
                                           {
                                               Id = transportation.Id,
@@ -34,31 +54,33 @@ namespace Triptitude.Web.Controllers
                                               EndDay = transportation.EndDay
                                           };
             ViewBag.Form = form;
-            return PartialView();
+            ViewBag.Action = Url.Edit(transportation);
+            return PartialView("Form");
         }
 
         [HttpPost]
         public ActionResult Edit(TransportationForm form, User currentUser)
         {
-            var tripsRepo = new TripsRepo();
-            var citiesRepo = new CitiesRepo();
-
-            var transportation = repo.Find(form.Id);
+            var transportation = repo.Find(form.Id.Value);
             var oldTrip = transportation.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsOldTrip = oldTrip.Users.Contains(currentUser);
-            bool userOwnsNewTrip = newTrip.Users.Contains(currentUser);
+            bool userOwnsTrips = currentUser.OwnsTrips(oldTrip, newTrip);
+            if (!userOwnsTrips) Redirect("/");
 
-            if (!userOwnsOldTrip || !userOwnsNewTrip) Redirect("/");
+            repo.Save(form);
+            return Redirect(Url.PublicDetails(transportation.Trip));
+        }
 
-            transportation.Trip = newTrip;
-            transportation.ToCity = citiesRepo.Find(form.ToCityId);
-            transportation.FromCity = citiesRepo.Find(form.FromCityId);
-            transportation.BeginDay = form.BeginDay;
-            transportation.EndDay = form.EndDay;
+        public ActionResult Delete(int id, User currentUser)
+        {
+            var transportation = repo.Find(id);
+            var trip = transportation.Trip;
+            bool userOwnsTrip = currentUser.OwnsTrips(trip);
+
+            if (userOwnsTrip) Redirect("/");
+            repo.Delete(transportation);
             repo.Save();
-
-            return Redirect(Url.PublicDetails(newTrip));
+            return Redirect(Url.PublicDetails(trip));
         }
     }
 }

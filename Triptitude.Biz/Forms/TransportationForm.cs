@@ -2,7 +2,7 @@
 {
     public class TransportationForm
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int TripId { get; set; }
         public int FromCityId { get; set; }
         public int ToCityId { get; set; }

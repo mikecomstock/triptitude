@@ -71,8 +71,10 @@ td { vertical-align: top; padding: 0; }
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; padding: 10px 10px 0 10px; text-transform: lowercase; }
 
-.panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
+.panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
+.panel-title h1 { float: left; }
 .panel-title a { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
+.panel-title .link { float: right; }
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
 
@@ -116,6 +118,7 @@ td { vertical-align: top; padding: 0; }
 .note-dialog form { padding: 0; margin: 0; }
 .note-dialog textarea { width: 100%; height: 100%; padding: 0; margin: 0; }
 
+.trip-day-itinerary-item.transportation {cursor:pointer;}
 
 /* Dialogs */
 .ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
@@ -168,7 +171,7 @@ td { vertical-align: top; padding: 0; }
 
 #trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
 .distance-slider { width: 200px; }
-.trip-length-slider { width: 200px;}
+.trip-length-slider { width: 200px; }
 #trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }
 .trip-search-form-section { float: left; text-align: center; }
-.trip-search-form-section +.trip-search-form-section { margin-left:20px;}
+.trip-search-form-section + .trip-search-form-section { margin-left: 20px; }

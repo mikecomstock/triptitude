@@ -15,6 +15,12 @@
         }
     });
 
+    $('.create-transportation-link').click(function (clickData) {
+        var tripId = $(this).attr('data-trip-id');
+        $.get('/transportations/create?tripid=' + tripId, function (getData) {
+            CreateTransportationsModal(getData);
+        });
+    });
 
     $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
         var itineraryItemId = $(this).attr('data-itinerary-item-id');
@@ -103,6 +109,8 @@ function CreateNoteModal(data) {
 
 function CreateTransportationsModal(data) {
     var dialog = $(data);
+    var id = $('[name="id"]', dialog).val();
+
     dialog.dialog({
         title: 'Transportation',
         dialogClass: 'transportation-dialog',
@@ -110,10 +118,15 @@ function CreateTransportationsModal(data) {
         height: 300,
         modal: false,
         resizable: false,
-        buttons: [{
-            text: 'Save',
-            click: function () { $(this).submit(); }
-        }]
+        buttons: [
+            { text: 'Delete', click: function () {
+                var test = confirm('Delete?');
+                if (test)
+                    window.location.href = "/transportations/delete/" + id
+            }
+            },
+            { text: 'Save', click: function () { $(this).submit(); } }
+        ]
     });
 
     BindDestinationAutocomplete(dialog);
