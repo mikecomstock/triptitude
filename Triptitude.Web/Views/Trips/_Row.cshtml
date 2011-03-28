@@ -1,6 +1,6 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
-    BaseItemPhoto photo = trip.Photos.FirstOrDefault();
+    HotelPhoto photo = trip.Photos.FirstOrDefault();
 }
 <div class="trip-row">
     @if (photo != null)

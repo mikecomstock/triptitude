@@ -152,6 +152,7 @@ namespace Triptitude.Biz.Services
             StreamWriter writer = new StreamWriter(outFileStream);
 
             int i = 0;
+            Repo repo = new Repo();
 
             using (inFileStream)
             using (reader)
@@ -167,21 +168,15 @@ namespace Triptitude.Biz.Services
                     var line = reader.ReadLine();
                     var l = line.Split('|');
 
+                    var id = int.Parse(l[0]);
                     var name = l[1].Replace("'", "''");
                     var latitude = l[11];
                     var longitude = l[10];
-                    var expediaHotelId = int.Parse(l[0]);
                     var hasContinentalBreakfast = l[30] == "Y" ? 1 : 0;
 
-                    var sql = string.Format("execute insert_eh '{0}',{1},{2},{3},{4}",
-                                            name,
-                                            latitude,
-                                            longitude,
-                                            expediaHotelId,
-                                            hasContinentalBreakfast
-                        );
-                    //DbProvider._db.Database.SqlCommand(sql);
-                    writer.WriteLine(sql);
+                    const string sql = "execute InsertHotel @p0, @p1, @p2, @p3, @p4";
+                    repo.ExecuteSql(sql, id, name, latitude, longitude, hasContinentalBreakfast);
+                    //writer.WriteLine(sql);
 
                     if (++i % 100 == 0)
                     {
@@ -202,6 +197,7 @@ namespace Triptitude.Biz.Services
             StreamWriter writer = new StreamWriter(outFileStream);
 
             int i = 0;
+            Repo repo = new Repo();
 
             using (inFileStream)
             using (reader)
@@ -216,21 +212,15 @@ namespace Triptitude.Biz.Services
                     var line = reader.ReadLine();
                     var l = line.Split('|');
 
-                    var expediaHotelId = l[0];
+                    var hotelId = l[0];
                     var imageURL = l[3];
                     var thumbURL = l[8];
                     var isDefault = l[9] == "True" ? 1 : 0;
                     var height = l[6];
                     var width = l[5];
-                    var sql = string.Format("execute insert_eh_photo {0},'{1}','{2}',{3},{4},{5}",
-                            expediaHotelId,
-                            imageURL,
-                            thumbURL,
-                            isDefault,
-                            height,
-                            width
-                        );
-                    DbProvider._db.Database.ExecuteSqlCommand(sql);
+
+                    const string sql = "execute InsertHotelPhoto @p0, @p1, @p2, @p3, @p4, @p5";
+                    repo.ExecuteSql(sql, hotelId, imageURL, thumbURL, isDefault, height, width);
                     //writer.WriteLine(sql);
 
                     if (++i % 1000 == 0)

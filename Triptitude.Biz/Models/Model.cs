@@ -38,9 +38,9 @@ namespace Triptitude.Biz.Models
                 return days.Max() ?? 1;
             }
         }
-        public IEnumerable<BaseItemPhoto> Photos
+        public IEnumerable<HotelPhoto> Photos
         {
-            get { return Itinerary.Select(i => i.BaseItem).Distinct().Where(bi => bi != null).SelectMany(bi => bi.Photos).OrderByDescending(p => p.IsDefault); }
+            get { return Itinerary.Select(i => i.Hotel).Distinct().Where(h => h != null).SelectMany(h => h.Photos).OrderByDescending(p => p.IsDefault); }
         }
 
         public string StaticMapUrl
@@ -49,7 +49,7 @@ namespace Triptitude.Biz.Models
             {
                 string url = "http://maps.google.com/maps/api/staticmap?size=500x300&maptype=roadmap&sensor=false";
 
-                var itineraryItems = Itinerary.Where(i => i.BaseItem != null).OrderBy(i => i.BeginDay).ThenBy(i => i.BeginTime);
+                var itineraryItems = Itinerary.Where(i => i.Hotel != null).OrderBy(i => i.BeginDay).ThenBy(i => i.BeginTime);
 
                 if (itineraryItems.Count() == 1)
                     url += "&zoom=13";
@@ -57,8 +57,8 @@ namespace Triptitude.Biz.Models
                 string path = "&path=color:0x0000ff|weight:5";
                 foreach (var itineraryItem in itineraryItems)
                 {
-                    var lat = itineraryItem.BaseItem.Latitude;
-                    var lon = itineraryItem.BaseItem.Longitude;
+                    var lat = itineraryItem.Hotel.Latitude;
+                    var lon = itineraryItem.Hotel.Longitude;
                     url += string.Format("&markers=color:blue%7Clabel:{2}%7C{0},{1}", lat, lon, l++);
                     path += string.Format("|{0},{1}", lat, lon);
                 }
@@ -73,7 +73,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual Trip Trip { get; set; }
         public virtual Website Website { get; set; }
-        public virtual BaseItem BaseItem { get; set; }
+        public virtual Hotel Hotel { get; set; }
         public int? BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
         public int? EndDay { get; set; }
@@ -84,7 +84,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                return BaseItem != null ? BaseItem.Name : Website != null ? Website.Title : "[No Title]";
+                return Hotel != null ? Hotel.Name : Website != null ? Website.Title : "[No Title]";
             }
         }
 
@@ -111,11 +111,6 @@ namespace Triptitude.Biz.Models
         public string DateTimeString
         {
             get { return BeginDateTimeString + " - " + EndDateTimeString; }
-        }
-
-        public ExpediaHotel Hotel
-        {
-            get { return new ExpediaHotelsRepo().FindByBaseItemId(BaseItem.Id); }
         }
     }
 
@@ -266,34 +261,10 @@ namespace Triptitude.Biz.Models
 
     #endregion
 
-    public class BaseItem
+    [Table("HotelPhotos")]
+    public class HotelPhoto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string ItemType { get; set; }
-        public decimal? Latitude { get; set; }
-        public decimal? Longitude { get; set; }
-
-        public virtual ICollection<BaseItemPhoto> Photos { get; set; }
-        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
-
-        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
-
-        public BaseItemPhoto DefaultPhoto
-        {
-            get
-            {
-                var photo = Photos.OrderByDescending(p => p.IsDefault).FirstOrDefault();
-                return photo;
-            }
-        }
-    }
-
-    [Table("BaseItemPhotos")]
-    public class BaseItemPhoto
-    {
-        public int Id { get; set; }
-        public BaseItem BaseItem { get; set; }
         public string ImageURL { get; set; }
         public string ThumbURL { get; set; }
         public bool IsDefault { get; set; }
@@ -303,11 +274,24 @@ namespace Triptitude.Biz.Models
         public int NiceHeight { get { return 250; } }
     }
 
-    public class ExpediaHotel
+    public class Hotel
     {
-        [Key]
-        public int ExpediaHotelId { get; set; }
-        public virtual BaseItem BaseItem { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public bool? HasContinentalBreakfast { get; set; }
+        public virtual ICollection<HotelPhoto> Photos { get; set; }
+        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
+
+        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
+        public HotelPhoto DefaultPhoto
+        {
+            get
+            {
+                var photo = Photos.FirstOrDefault(p => p.IsDefault);
+                return photo;
+            }
+        }
     }
 }

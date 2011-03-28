@@ -20,9 +20,9 @@
             {
                 <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             }
-            else if (itineraryItem.BaseItem != null && itineraryItem.BaseItem.Photos.Any())
+            else if (itineraryItem.Hotel != null && itineraryItem.Hotel.Photos.Any())
             {
-                <img src="@itineraryItem.BaseItem.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
+                <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             }
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>

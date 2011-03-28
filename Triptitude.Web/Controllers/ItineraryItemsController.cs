@@ -52,11 +52,11 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.EditItineraryItem(itineraryItem));
         }
 
-        public ActionResult AddBaseItemToTrip(int baseItemId, User currentUser)
+        public ActionResult AddHotelToTrip(int hotelId, User currentUser)
         {
-            BaseItemsRepo baseItemsRepo = new BaseItemsRepo();
-            BaseItem baseItem = baseItemsRepo.Find(baseItemId);
-            ItineraryItem itineraryItem = itineraryItemsRepo.AddBaseItemToTrip(baseItem, currentUser.DefaultTrip);
+            HotelsRepo hotelsRepo = new HotelsRepo();
+            var hotel = hotelsRepo.Find(hotelId);
+            ItineraryItem itineraryItem = itineraryItemsRepo.AddHotelToTrip(hotel, currentUser.DefaultTrip);
             return Redirect(Url.EditItineraryItem(itineraryItem));
         }
     }

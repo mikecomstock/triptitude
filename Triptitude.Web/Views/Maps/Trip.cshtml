@@ -14,15 +14,15 @@
         
         @foreach (ItineraryItem itineraryItem in trip.NonDeletedItineraryItems)
         {
-            if (itineraryItem.BaseItem != null)
+            if (itineraryItem.Hotel != null)
             {                
                 <Placemark>
                     <description><![CDATA[
-                    <a href="@Url.Details(itineraryItem)">@itineraryItem.BaseItem.Name</a>
+                    <a href="@Url.Details(itineraryItem)">@itineraryItem.Hotel.Name</a>
                     ]]>
                     </description>
                     <Point>
-                        <coordinates>@itineraryItem.BaseItem.Longitude, @itineraryItem.BaseItem.Latitude</coordinates>
+                        <coordinates>@itineraryItem.Hotel.Longitude, @itineraryItem.Hotel.Latitude</coordinates>
                     </Point>
                 </Placemark>   
             }

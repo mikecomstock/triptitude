@@ -13,9 +13,9 @@ namespace Triptitude.Web.Helpers
             return html.DropDownList("id", trips.ToList().Select(t => new SelectListItem() { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTrip.Id }));
         }
 
-        public static MvcHtmlString AddToTripButton(this HtmlHelper html, UrlHelper url, BaseItem baseItem)
+        public static MvcHtmlString AddToTripButton(this HtmlHelper html, UrlHelper url, Hotel hotel)
         {
-            string s = string.Format("<a href=\"{0}\" class=\"add-to-trip-button\">Add to Trip</a>", url.AddBaseItemToItinerary(baseItem));
+            string s = string.Format("<a href=\"{0}\" class=\"add-to-trip-button\">Add to Trip</a>", url.AddHotelToItinerary(hotel));
             return new MvcHtmlString(s);
         }
     }

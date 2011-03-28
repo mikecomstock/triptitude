@@ -34,7 +34,7 @@ namespace Triptitude.Web.Controllers
             DestinationsRepo destinationsRepo = new DestinationsRepo();
             Destination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
-            ViewBag.Hotels = new ExpediaHotelsRepo().FindNear((City) destination, radiusInMeters).Take(20);
+            ViewBag.Hotels = new HotelsRepo().FindNear((City) destination, radiusInMeters).Take(20);
             return View();
         }
 

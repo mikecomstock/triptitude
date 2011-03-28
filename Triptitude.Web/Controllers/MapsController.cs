@@ -10,13 +10,12 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Hotel(int id)
         {
-            ExpediaHotelsRepo expediaHotelsRepo = new ExpediaHotelsRepo();
-
-            ExpediaHotel expediaHotel = expediaHotelsRepo.FindByBaseItemId(id);
-            ViewBag.ExpediaHotel = expediaHotel;
+            HotelsRepo hotelsRepo = new HotelsRepo();
+            Hotel hotel = hotelsRepo.Find(id);
+            ViewBag.Hotel = hotel;
 
             Random r = new Random();
-            IQueryable<ExpediaHotel> nearbyHotels = expediaHotelsRepo.FindAll().OrderBy(h => h.BaseItem.Name).Skip(r.Next(0, 100)).Take(10);
+            IQueryable<Hotel> nearbyHotels = hotelsRepo.FindAll().OrderBy(h => h.Name).Skip(r.Next(0, 100)).Take(10);
             ViewBag.NearbyHotels = nearbyHotels;
 
             // check out http://stackoverflow.com/questions/1184921/how-to-override-target-blank-in-kml-popups-in-embedded-google-map

@@ -8,8 +8,8 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Details(int id)
         {
-            ExpediaHotelsRepo expediaHotelsRepo = new ExpediaHotelsRepo();
-            ExpediaHotel hotel = expediaHotelsRepo.FindByBaseItemId(id);
+            HotelsRepo hotelsRepo = new HotelsRepo();
+            Hotel hotel = hotelsRepo.Find(id);
             ViewBag.Hotel = hotel;
             return View();
         }

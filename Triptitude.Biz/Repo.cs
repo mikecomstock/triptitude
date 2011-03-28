@@ -41,6 +41,15 @@ namespace Triptitude.Biz
         }
     }
 
+    public class Repo
+    {
+        protected Db _db { get { return DbProvider._db; } }
+        public void ExecuteSql(string sql, params object[] paramegers)
+        {
+            DbProvider._db.Database.ExecuteSqlCommand(sql, paramegers);
+        }
+    }
+
     // Is bad code less bad if you write a comment about how bad it is? no. MC
     internal class DbProvider
     {

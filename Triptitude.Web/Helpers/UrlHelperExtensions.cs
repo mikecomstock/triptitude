@@ -106,9 +106,9 @@ namespace Triptitude.Web.Helpers
 
         #region Itinerary Items
 
-        public static string AddBaseItemToItinerary(this UrlHelper url, BaseItem baseItem)
+        public static string AddHotelToItinerary(this UrlHelper url, Hotel hotel)
         {
-            return url.Action("addbaseitemtotrip", "itineraryitems", new { baseItemId = baseItem.Id });
+            return url.Action("addhoteltotrip", "itineraryitems", new { hotelId = hotel.Id });
         }
 
         public static string AddWebsiteToTrip(this UrlHelper url)
@@ -128,13 +128,8 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, ItineraryItem itineraryItem)
         {
-            if (itineraryItem.BaseItem != null)
-            {
-                switch (itineraryItem.BaseItem.ItemType)
-                {
-                    case "H": return Details(url, itineraryItem.Hotel);
-                }
-            }
+            if (itineraryItem.Hotel != null)
+                return Details(url, itineraryItem.Hotel);
 
             if (itineraryItem.Website != null)
                 return Details(url, itineraryItem.Website);
@@ -184,18 +179,18 @@ namespace Triptitude.Web.Helpers
             return url.Action("index", "hotels");
         }
 
-        public static string Details(this UrlHelper url, ExpediaHotel hotel)
+        public static string Details(this UrlHelper url, Hotel hotel)
         {
-            return SlugAction(url, "details", "hotels", hotel.BaseItem.Id, hotel.BaseItem.Name);
+            return SlugAction(url, "details", "hotels", hotel.Id, hotel.Name);
         }
 
         #endregion
 
         #region Maps
 
-        public static string Kml(this UrlHelper url, BaseItem baseItem)
+        public static string Kml(this UrlHelper url, Hotel hotel)
         {
-            return string.Format("http://76.119.197.117/maps/hotel/{0}.kml", baseItem.Id);
+            return string.Format("http://76.119.197.117/maps/hotel/{0}.kml", hotel.Id);
         }
 
         public static string Kml(this UrlHelper url, Trip trip)

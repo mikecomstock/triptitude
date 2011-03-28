@@ -13,8 +13,6 @@ namespace Triptitude.Biz.Models
             modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Region>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
-            modelBuilder.Entity<ExpediaHotel>().HasKey(r => r.ExpediaHotelId).Property(p => p.ExpediaHotelId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
 
         public DbSet<User> Users { get; set; }
@@ -23,7 +21,6 @@ namespace Triptitude.Biz.Models
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<BaseItem> BaseItems { get; set; }
-        public DbSet<ExpediaHotel> ExpediaHotels { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
     }
 }

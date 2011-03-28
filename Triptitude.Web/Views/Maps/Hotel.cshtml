@@ -1,6 +1,6 @@
 ﻿@{
-    ExpediaHotel hotel = ViewBag.ExpediaHotel;
-    IQueryable<ExpediaHotel> nearbyHotels = ViewBag.NearbyHotels;
+    Hotel hotel = ViewBag.Hotel;
+    IQueryable<Hotel> nearbyHotels = ViewBag.NearbyHotels;
 }
 <?xml version="1.0" encoding="UTF-8" ?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -13,22 +13,22 @@
             </IconStyle>
         </Style>
         <Placemark>
-            <name>@hotel.BaseItem.Name</name>
+            <name>@hotel.Name</name>
             <styleUrl>#highlightPlacemark</styleUrl>
             <Point>
-                <coordinates>@hotel.BaseItem.Longitude, @hotel.BaseItem.Latitude</coordinates>
+                <coordinates>@hotel.Longitude, @hotel.Latitude</coordinates>
             </Point>
         </Placemark>
 
-        @foreach (ExpediaHotel nearbyHotel in nearbyHotels)
+        @foreach (Hotel nearbyHotel in nearbyHotels)
         {
         <Placemark>
             <description><![CDATA[
-            <a href="@Url.Details(nearbyHotel)">@nearbyHotel.BaseItem.Name</a>
+            <a href="@Url.Details(nearbyHotel)">@nearbyHotel.Name</a>
             ]]>
             </description>
             <Point>
-                <coordinates>@nearbyHotel.BaseItem.Longitude, @nearbyHotel.BaseItem.Latitude</coordinates>
+                <coordinates>@nearbyHotel.Longitude, @nearbyHotel.Latitude</coordinates>
             </Point>
         </Placemark>   
         }

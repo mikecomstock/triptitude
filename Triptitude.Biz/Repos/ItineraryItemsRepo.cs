@@ -36,12 +36,12 @@ namespace Triptitude.Biz.Repos
             return itineraryItem;
         }
 
-        public ItineraryItem AddBaseItemToTrip(BaseItem baseItem, Trip trip)
+        public ItineraryItem AddHotelToTrip(Hotel hotel, Trip trip)
         {
             ItineraryItem itineraryItem = new ItineraryItem
                                               {
                                                   Trip = trip,
-                                                  BaseItem = baseItem
+                                                  Hotel = hotel
                                               };
 
             trip.Itinerary.Add(itineraryItem);

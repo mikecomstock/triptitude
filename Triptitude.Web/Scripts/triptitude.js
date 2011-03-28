@@ -109,6 +109,7 @@ function CreateTransportationsModal(data) {
         width: 450,
         height: 300,
         modal: false,
+        resizable: false,
         buttons: [{
             text: 'Save',
             click: function () { $(this).submit(); }
