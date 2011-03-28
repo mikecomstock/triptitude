@@ -86,6 +86,7 @@ td { vertical-align: top; padding: 0; }
 #landing-page-panel { margin: 10px 20px; padding: 20px 0; }
 #landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color: #0190E9; }
 #landing-page-panel h2 { font-size: 22px; margin-bottom: 10px; margin-top: 20px; }
+#landing-page-panel h3 { font-size: 20px !important; }
 #landing-page-panel p { color: #333; font-size: 14px; line-height: 1.5; margin: 0; }
 #landing-page-panel #start-here-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
 #landing-page-panel #start-here-form input { display: block; width: 300px; margin: 0 auto 10px auto; }
