@@ -1,21 +1,22 @@
 ﻿@{
     ViewBag.Title = "Website Details";
 }
-<h1>@ViewBag.Website.Title</h1>
-<img src="@Url.WebsiteThumb((Website)ViewBag.Website, Website.ThumbSize.Large)" alt="" />
-<a href="@ViewBag.Website.URL">@ViewBag.Website.URL</a>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<h2>
-    Related Trips</h2>
-@foreach (Trip trip in ViewBag.Website.Trips)
-{
-    <div>
-        <a href="@Url.PublicDetails(trip)">@trip.Name</a>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>@ViewBag.Website.Title</h1>
+        </div>
+        <div class="panel-content-not-padded">
+            <img src="@Url.WebsiteThumb((Website)ViewBag.Website, Website.ThumbSize.Large)" alt="" />
+            <a href="@ViewBag.Website.URL">@ViewBag.Website.URL</a>
+        </div>
     </div>
-}
+    <div class="panel">
+        <h2>
+            Trips</h2>
+        <div class="panel-content">
+            <div id="hotel-details-related-trips">
+                @Html.Action("_rows", "trips", new { trips = ViewBag.Website.Trips })
+            </div>
+        </div>
+    </div>
