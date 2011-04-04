@@ -115,7 +115,7 @@ function CreateTransportationsModal(data) {
         title: 'Transportation',
         dialogClass: 'transportation-dialog',
         width: 450,
-        height: 300,
+        height: 430,
         modal: false,
         resizable: false,
         buttons: [

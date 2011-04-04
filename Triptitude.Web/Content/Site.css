@@ -134,6 +134,13 @@ td { vertical-align: top; padding: 0; }
 #create-trip-form { }
 .trip-settings input[name="name"] { width: 400px; }
 
+.transportation-dialog { }
+.transportation-dialog form { padding:0 !important; }
+.transportation-dialog form p { background-color:#EEE; border-bottom:1px solid #CCC; margin:0; padding: 10px 15px !important; }
+.transportation-dialog form label { display: block; float:left; width:40px;  }
+.transportation-dialog form input { width: 30px;  }
+.transportation-dialog form input.destination-autocomplete { width: 300px;  }
+
 /* Hotel Details */
 #hotel-details-map-container { width: 400px; height: 220px; }
 #hotel-details-related-trips { clear: both; }

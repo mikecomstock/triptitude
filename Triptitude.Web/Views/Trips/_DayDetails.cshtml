@@ -5,7 +5,9 @@
     {
         <div class="trip-day-itinerary-item transportation" data-action="edit-transportation" data-id="@trans.Id" title="Details">
             <h4>
-                @trans.TransportationType.Name from @trans.FromCity.ASCIIName to @trans.ToCity.ASCIIName
+                @trans.TransportationType.Name
+                from <a href="@Url.Details((City)trans.FromCity)">@trans.FromCity.ASCIIName</a>
+                to <a href="@Url.Details((City)trans.ToCity)">@trans.ToCity.ASCIIName</a>
             </h4>
         </div>            
     }

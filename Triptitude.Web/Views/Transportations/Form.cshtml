@@ -14,24 +14,20 @@
     <label for="fromcityname">
         From</label>
     <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete" value="@form.FromCityName" />
-    <input type="hidden" name="fromcityid" value="@form.FromCityId" />
+    <input type="hidden" id="fromcityid" name="fromcityid" value="@form.FromCityId" />
 </p>
 <p>
     <label for="tocityname">
         To</label>
     <input type="text" name="tocityname" data-hidden-field-name="tocityid" class="destination-autocomplete" value="@form.ToCityName" />
-    <input type="hidden" name="tocityid" value="@form.ToCityId" />
+    <input type="hidden" id="tocityid" name="tocityid" value="@form.ToCityId" />
 </p>
 <p>
     <label for="beginDay">
-        Begin Day
+        Day
     </label>
-    <input type="text" name="beginDay" value="@form.BeginDay" />
-</p>
-<p>
-    <label for="endDay">
-        End Day
-    </label>
-    <input type="text" name="endDay" value="@form.EndDay" />
+    <input type="text" id="beginDay" name="beginDay" value="@form.BeginDay" />
+    thru
+    <input type="text" id="endDay" name="endDay" value="@form.EndDay" />
 </p>
 </form>
