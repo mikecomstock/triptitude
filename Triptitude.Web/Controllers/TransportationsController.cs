@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -9,18 +10,21 @@ namespace Triptitude.Web.Controllers
     public class TransportationsController : Controller
     {
         private TransportationsRepo repo;
+        private TransportationTypesRepo transportationTypesRepo;
         private TripsRepo tripsRepo;
 
         public TransportationsController()
         {
             repo = new TransportationsRepo();
             tripsRepo = new TripsRepo();
+            transportationTypesRepo = new TransportationTypesRepo();
         }
 
         public ActionResult Create(User currentUser, int tripId)
         {
-            TransportationForm form = new TransportationForm { TripId = tripId };
+            TransportationForm form = new TransportationForm { TripId = tripId, TransportationTypeId = -1 };
             ViewBag.Form = form;
+            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.CreateTransportation();
             return PartialView("Form");
         }
@@ -45,6 +49,7 @@ namespace Triptitude.Web.Controllers
             TransportationForm form = new TransportationForm
                                           {
                                               Id = transportation.Id,
+                                              TransportationTypeId = transportation.TransportationType.Id,
                                               TripId = transportation.Trip.Id,
                                               FromCityId = transportation.FromCity.Id,
                                               FromCityName = transportation.FromCity.FullName,
@@ -54,6 +59,7 @@ namespace Triptitude.Web.Controllers
                                               EndDay = transportation.EndDay
                                           };
             ViewBag.Form = form;
+            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.Edit(transportation);
             return PartialView("Form");
         }

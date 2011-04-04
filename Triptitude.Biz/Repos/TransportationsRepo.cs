@@ -19,9 +19,11 @@ namespace Triptitude.Biz.Repos
                 Add(transportation);
             }
 
+            var type = new TransportationTypesRepo().Find(form.TransportationTypeId);
             var trip = new TripsRepo().Find(form.TripId);
             var citiesRepo = new CitiesRepo();
 
+            transportation.TransportationType = type;
             transportation.Trip = trip;
             transportation.ToCity = citiesRepo.Find(form.ToCityId);
             transportation.FromCity = citiesRepo.Find(form.FromCityId);

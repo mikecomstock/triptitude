@@ -122,11 +122,18 @@ namespace Triptitude.Biz.Models
     public class Transportation
     {
         public int Id { get; set; }
+        public virtual TransportationType TransportationType { get; set; }
         public virtual Trip Trip { get; set; }
         public virtual City FromCity { get; set; }
         public virtual City ToCity { get; set; }
         public int? BeginDay { get; set; }
         public int? EndDay { get; set; }
+    }
+
+    public class TransportationType
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class Note

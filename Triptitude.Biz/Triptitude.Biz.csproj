@@ -72,6 +72,7 @@
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
     <Compile Include="Repos\TransportationsRepo.cs" />
+    <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
     <Compile Include="Repos\WebsitesRepo.cs" />

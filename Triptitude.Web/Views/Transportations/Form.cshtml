@@ -1,9 +1,15 @@
 ﻿@{
     Triptitude.Biz.Forms.TransportationForm form = (Triptitude.Biz.Forms.TransportationForm)ViewBag.Form;
+    IEnumerable<TransportationType> transportationTypes = (IEnumerable<TransportationType>)ViewBag.TransportationTypes;
 }
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="id" value="@form.Id" />
 <input type="hidden" name="tripid" value="@form.TripId" />
+<p>
+    <label for="transportationtypeid">
+        Type</label>
+    @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
+</p>
 <p>
     <label for="fromcityname">
         From</label>
