@@ -86,7 +86,7 @@ function BindDestinationAutocomplete(context) {
             var hiddenFieldName = $(this).attr('data-hidden-field-name');
             $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
             var autoSubmit = $(this).attr('data-auto-submit');
-            console.log(autoSubmit);
+
             if (autoSubmit == 'true')
                 $(this).closest("form").submit();
         }
@@ -130,4 +130,51 @@ function CreateTransportationsModal(data) {
     });
 
     BindDestinationAutocomplete(dialog);
+}
+
+function drawMap(container) {
+
+    var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+    var map = new google.maps.Map(container.get(0), myOptions);
+    var bounds = new google.maps.LatLngBounds();
+    var tripId = container.attr('data-trip-id');
+
+    $.get('/maps/trip/' + tripId, function (mapData) {
+
+        $.each(mapData.trans, function (i, item) {
+
+            var fromPoint = new google.maps.LatLng(item.From.Lat, item.From.Lon);
+            var toPoint = new google.maps.LatLng(item.To.Lat, item.To.Lon);
+            var fromMarker = new google.maps.Marker({ position: fromPoint, map: map, title: item.From.Name });
+            var toMarker = new google.maps.Marker({ position: toPoint, map: map, title: item.To.Name });
+
+            bounds.extend(fromPoint);
+            bounds.extend(toPoint);
+
+            var flightPlanCoordinates = [fromPoint, toPoint];
+            var flightPath = new google.maps.Polyline({ path: flightPlanCoordinates, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2 });
+            flightPath.setMap(map);
+
+            google.maps.event.addListener(fromMarker, 'click', function () {
+                new google.maps.InfoWindow({ content: item.From.InfoHtml }).open(map, fromMarker);
+            });
+            google.maps.event.addListener(toMarker, 'click', function () {
+                new google.maps.InfoWindow({ content: item.To.InfoHtml }).open(map, toMarker);
+            });
+
+        });
+
+        $.each(mapData.hotels, function (i, item) {
+
+            var hotelPoint = new google.maps.LatLng(item.Lat, item.Lon);
+            var hotelMarker = new google.maps.Marker({ position: hotelPoint, map: map, title: item.Name });
+            bounds.extend(hotelPoint);
+
+            google.maps.event.addListener(hotelMarker, 'click', function () {
+                new google.maps.InfoWindow({ content: item.InfoHtml }).open(map, hotelMarker);
+            });
+        });
+
+    });
+    map.fitBounds(bounds);
 }
