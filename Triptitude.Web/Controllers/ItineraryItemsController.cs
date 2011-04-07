@@ -23,8 +23,8 @@ namespace Triptitude.Web.Controllers
 
             ViewBag.ItineraryItem = itineraryItem;
             ViewBag.Settings = itineraryItemSettings;
-
-            return View();
+            
+            return PartialView();
         }
 
         [HttpPost]

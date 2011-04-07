@@ -30,6 +30,7 @@
     });
 
     $('.itinerary-item-note .edit-note-link').click(function (clickData) {
+        clickData.preventDefault();
         var noteId = $(this).attr('data-note-id');
         $.get('/notes/edit/' + noteId, function (data) {
             CreateNoteModal(data);
@@ -75,10 +76,17 @@
         }
     });
 
-    $('[data-action="edit-transportation"]').click(function () {
+    $('.trip-day-itinerary-item.transportation').click(function () {
         var id = $(this).attr('data-id');
         $.get('/transportations/edit/' + id, function (data) {
             CreateTransportationsModal(data);
+        });
+    });
+
+    $('.trip-day-itinerary-item.website').click(function () {
+        var id = $(this).attr('data-id');
+        $.get('/itineraryitems/edit/' + id, function (data) {
+            CreateWebsiteModel(data);
         });
     });
 });
@@ -124,16 +132,38 @@ function CreateTransportationsModal(data) {
         resizable: false,
         buttons: [
             { text: 'Delete', click: function () {
-                var test = confirm('Delete?');
-                if (test)
+                var confirmed = confirm('Delete?');
+                if (confirmed)
                     window.location.href = "/transportations/delete/" + id
-            }
+            } 
             },
             { text: 'Save', click: function () { $(this).submit(); } }
         ]
     });
 
     BindDestinationAutocomplete(dialog);
+}
+
+function CreateWebsiteModel(data) {
+    var dialog = $(data);
+    var id = $('[name="id"]', dialog).val();
+    dialog.dialog({
+        title: 'Website',
+        dialogClass: 'website-dialog',
+        width: 450,
+        height: 450,
+        model: false,
+        resizable: false,
+        buttons: [
+            { text: 'Delete', click: function () {
+                var confirmed = confirm('Delete?');
+                if (confirmed)
+                    window.location.href = "/itineraryitems/delete/" + id
+            }
+            },
+            { text: 'Save', click: function () { $(this).submit(); } }
+        ]
+    });
 }
 
 function drawMap(container) {

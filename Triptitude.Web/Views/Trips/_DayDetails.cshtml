@@ -3,7 +3,7 @@
         Day @ViewBag.DayNumber</h3>
     @foreach (Transportation trans in ViewBag.Transportations)
     {
-        <div class="trip-day-itinerary-item transportation" data-action="edit-transportation" data-id="@trans.Id" title="Details">
+        <div class="trip-day-itinerary-item transportation" data-id="@trans.Id" title="Details">
             <h4>
                 @trans.TransportationType.Name
                 from <a href="@Url.Details((City)trans.FromCity)">@trans.FromCity.ASCIIName</a>
@@ -11,19 +11,40 @@
             </h4>
         </div>            
     }
-    @foreach (ItineraryItem itineraryItem in ViewBag.DayItinerary)
+    @foreach (ItineraryItem itineraryItem in ViewBag.Websites)
     {
-        <div class="trip-day-itinerary-item">
+        <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id">
             <div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
                 + Add Note</div>
-            @if (itineraryItem.Website != null)
+            <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
+            <h4>
+                <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
+            </h4>
+            <div class="trip-day-itinerary-item-time">
+                @itineraryItem.DateTimeString
+            </div>
+            @if (itineraryItem.Notes != null)
             {
-                <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
+                <div class="itinerary-item-notes">
+                    @foreach (Note note in itineraryItem.Notes)
+                    {
+                        <div class="itinerary-item-note">
+                            <div class="edit-note-link link" data-note-id="@note.Id">
+                                Edit</div>
+                            <a class="link confirm-delete" href="@Url.Delete(note)">Delete</a>
+                            @note.Text
+                        </div>                        
+                    }
+                </div>
             }
-            else if (itineraryItem.Hotel != null && itineraryItem.Hotel.Photos.Any())
-            {
-                <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
-            }
+        </div>
+    }
+    @foreach (ItineraryItem itineraryItem in ViewBag.Hotels)
+    {
+        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id">
+            <div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
+                + Add Note</div>
+            <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
             </h4>
