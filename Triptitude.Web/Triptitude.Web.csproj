@@ -143,7 +143,6 @@
     <Content Include="Views\Destinations\Details.cshtml" />
     <Content Include="Views\Destinations\Hotels.cshtml" />
     <Content Include="Views\Destinations\_SidePanel.cshtml" />
-    <None Include="Views\Maps\Hotel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
     <Content Include="Views\My\_SidePanel.cshtml" />
@@ -153,7 +152,6 @@
     <Content Include="Views\Trips\Map.cshtml" />
     <Content Include="Views\Trips\_Row.cshtml" />
     <Content Include="Views\Trips\_Rows.cshtml" />
-    <Content Include="Views\Maps\Trip.cshtml" />
     <Content Include="Views\Notes\Form.cshtml" />
     <Content Include="Views\Transportations\Form.cshtml" />
     <Content Include="Views\Trips\Details.cshtml" />

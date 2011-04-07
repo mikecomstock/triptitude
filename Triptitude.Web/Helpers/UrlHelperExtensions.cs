@@ -180,20 +180,6 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Maps
-
-        public static string Kml(this UrlHelper url, Hotel hotel)
-        {
-            return string.Format("http://76.119.197.117/maps/hotel/{0}.kml", hotel.Id);
-        }
-
-        public static string Kml(this UrlHelper url, Trip trip)
-        {
-            return string.Format("http://76.119.197.117/maps/trip/{0}.kml", trip.Id);
-        }
-
-        #endregion
-
         #region Destinations
 
         public static string DestinationSearch(this UrlHelper url)
