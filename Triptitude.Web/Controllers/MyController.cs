@@ -34,7 +34,7 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Find(id);
             new UsersRepo().SetDefaultTrip(currentUser, trip);
-            return Redirect(Url.PlanItinerary(trip));
+            return Redirect(Url.Details(trip));
         }
     }
 }

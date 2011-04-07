@@ -53,14 +53,9 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return Edit(id);
-        }
-
-        public ActionResult Edit(int id)
-        {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            return View("edit");
+            return View();
         }
 
         // partial only
@@ -89,7 +84,7 @@ namespace Triptitude.Web.Controllers
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
             tripRepo.Save(trip, form);
-            return Redirect(Url.PublicDetails(trip));
+            return Redirect(Url.Details(trip));
         }
 
         public ActionResult Create()
@@ -102,7 +97,7 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Save(form, currentUser.Id);
             new UsersRepo().SetDefaultTrip(currentUser, trip);
-            return Redirect(Url.PlanItinerary(trip));
+            return Redirect(Url.Details(trip));
         }
     }
 }

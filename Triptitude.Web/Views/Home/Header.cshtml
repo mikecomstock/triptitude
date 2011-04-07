@@ -39,7 +39,7 @@
         <div id="trip-bar">
             <form id="add-website-to-trip-form" action="@Url.AddWebsiteToTrip()" method="post"><input type="text" name="url" placeholder="Add a website URL to this trip..." /><input type="submit" value="Add" /></form>
             <div id="trip-nav-bar">
-                <a href="@Url.PlanItinerary((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
+                <a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
                     Map</a> @*<a href="@Url.Print((Trip)ViewBag.User.DefaultTrip)">Print</a>*@ <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
                         Settings</a>
             </div>

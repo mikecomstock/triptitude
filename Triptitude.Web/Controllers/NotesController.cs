@@ -42,7 +42,7 @@ namespace Triptitude.Web.Controllers
                 notesRepo.Add(note);
                 notesRepo.Save();
             }
-            return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
+            return Redirect(Url.Details(currentUser.DefaultTrip));
         }
 
         public ActionResult Edit(int id)
@@ -63,7 +63,7 @@ namespace Triptitude.Web.Controllers
                 notesRepo.Save(form);
             }
 
-            return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
+            return Redirect(Url.Details(currentUser.DefaultTrip));
         }
 
         public ActionResult Delete(int id, User currentUser)
@@ -75,7 +75,7 @@ namespace Triptitude.Web.Controllers
                 notesRepo.Delete(note);
                 notesRepo.Save();
             }
-            return Redirect(Url.PublicDetails(currentUser.DefaultTrip));
+            return Redirect(Url.Details(currentUser.DefaultTrip));
         }
     }
 }

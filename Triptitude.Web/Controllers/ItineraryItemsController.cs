@@ -32,7 +32,7 @@ namespace Triptitude.Web.Controllers
         {
             ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
             itineraryItemsRepo.Save(itineraryItem, settings);
-            return Redirect(Url.PlanItinerary(itineraryItem.Trip));
+            return Redirect(Url.Details(itineraryItem.Trip));
         }
 
         public ActionResult Delete(int id)
@@ -41,7 +41,7 @@ namespace Triptitude.Web.Controllers
             var trip = itineraryItem.Trip;
             itineraryItemsRepo.Delete(itineraryItem);
             itineraryItemsRepo.Save();
-            return Redirect(Url.PlanItinerary(trip));
+            return Redirect(Url.Details(trip));
         }
         
         [HttpPost]

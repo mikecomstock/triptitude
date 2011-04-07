@@ -8,7 +8,7 @@
         <img class="trip-row-photo" alt="" src="@photo.ThumbURL" height="70" width="70" />
     }
     <div class="trip-row-body">
-        <a class="trip-row-title" href="@Url.PublicDetails(trip)">@trip.Name</a>
+        <a class="trip-row-title" href="@Url.Details(trip)">@trip.Name</a>
         <div class="link trip-row-map-link" title="Map of @trip.Name" data-trip-id="@trip.Id" data-trip-name="@trip.Name" data-link-url="@Url.Map(trip)" >
             map</div>
     </div>

@@ -62,20 +62,14 @@ namespace Triptitude.Web.Helpers
             return url.Action("index", "trips");
         }
 
-        public static string PublicDetails(this UrlHelper url, Trip trip)
+        public static string Details(this UrlHelper url, Trip trip)
         {
-            //TODO: point at public instead of private
             return url.SlugAction("details", "trips", trip.Id, trip.Name);
         }
 
         #endregion
 
         #region Plan Trip
-
-        public static string PlanItinerary(this UrlHelper url, Trip trip)
-        {
-            return url.SlugAction("edit", "trips", trip.Id, trip.Name);
-        }
 
         public static string CreateTrip(this UrlHelper url)
         {

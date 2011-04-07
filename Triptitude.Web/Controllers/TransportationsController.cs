@@ -37,7 +37,7 @@ namespace Triptitude.Web.Controllers
             if (!userOwnsTrip) return Redirect("/");
 
             var transportation = repo.Save(form);
-            return Redirect(Url.PublicDetails(transportation.Trip));
+            return Redirect(Url.Details(transportation.Trip));
         }
 
         public ActionResult Edit(int id, User currentUser)
@@ -74,7 +74,7 @@ namespace Triptitude.Web.Controllers
             if (!userOwnsTrips) Redirect("/");
 
             repo.Save(form);
-            return Redirect(Url.PublicDetails(transportation.Trip));
+            return Redirect(Url.Details(transportation.Trip));
         }
 
         public ActionResult Delete(int id, User currentUser)
@@ -86,7 +86,7 @@ namespace Triptitude.Web.Controllers
             if (userOwnsTrip) Redirect("/");
             repo.Delete(transportation);
             repo.Save();
-            return Redirect(Url.PublicDetails(trip));
+            return Redirect(Url.Details(trip));
         }
     }
 }
