@@ -144,6 +144,11 @@ function drawMap(container) {
     var tripId = container.attr('data-trip-id');
     var infoWindow = new google.maps.InfoWindow();
 
+    directionsPolylineOptions = { strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5 };
+    var directionsDisplay = new google.maps.DirectionsRenderer({suppressInfoWindows:true, suppressMarkers:true, polylineOptions:directionsPolylineOptions, preserveViewport:true });
+    var directionsService = new google.maps.DirectionsService();
+    directionsDisplay.setMap(map);
+    
     $.get('/maps/trip/' + tripId, function (mapData) {
 
         $.each(mapData.trans, function (i, item) {
@@ -158,9 +163,18 @@ function drawMap(container) {
             bounds.extend(fromPoint);
             bounds.extend(toPoint);
 
-            var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2 });
-            transPath.setMap(map);
-            transPath.infoHtml = 'path';
+            if (item.PathType == 'road') {
+                var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
+                directionsService.route(request, function (result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(result);
+                    }
+                });
+            } else {
+                var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
+                transPath.setMap(map);
+                transPath.infoHtml = 'path';
+            }
 
             google.maps.event.addListener(fromMarker, 'mouseover', function () {
                 infoWindow.setContent(fromMarker.infoHtml);

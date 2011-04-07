@@ -22,6 +22,7 @@ namespace Triptitude.Web.Controllers
                         let infoHtml = t.TransportationType.Name + " from <a href='" + Url.Details(t.FromCity) + "'>" + t.FromCity.ShortName + "</a> to <a href='" + Url.Details(t.ToCity) + "'>" + t.ToCity.ShortName + "</a>"
                         select new
                                    {
+                                       PathType = t.TransportationType.TravelMode,
                                        From = new
                                        {
                                            Name = t.FromCity.ShortName,
