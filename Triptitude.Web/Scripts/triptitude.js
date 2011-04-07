@@ -142,6 +142,7 @@ function drawMap(container) {
     var map = new google.maps.Map(container.get(0), myOptions);
     var bounds = new google.maps.LatLngBounds();
     var tripId = container.attr('data-trip-id');
+    var infoWindow = new google.maps.InfoWindow();
 
     $.get('/maps/trip/' + tripId, function (mapData) {
 
@@ -150,32 +151,37 @@ function drawMap(container) {
             var fromPoint = new google.maps.LatLng(item.From.Lat, item.From.Lon);
             var toPoint = new google.maps.LatLng(item.To.Lat, item.To.Lon);
             var fromMarker = new google.maps.Marker({ position: fromPoint, map: map, title: item.From.Name });
+            fromMarker.infoHtml = item.From.InfoHtml;
             var toMarker = new google.maps.Marker({ position: toPoint, map: map, title: item.To.Name });
+            toMarker.infoHtml = item.To.InfoHtml;
 
             bounds.extend(fromPoint);
             bounds.extend(toPoint);
 
-            var flightPlanCoordinates = [fromPoint, toPoint];
-            var flightPath = new google.maps.Polyline({ path: flightPlanCoordinates, strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2 });
-            flightPath.setMap(map);
+            var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#FF0000", strokeOpacity: 1.0, strokeWeight: 2 });
+            transPath.setMap(map);
+            transPath.infoHtml = 'path';
 
-            google.maps.event.addListener(fromMarker, 'click', function () {
-                new google.maps.InfoWindow({ content: item.From.InfoHtml }).open(map, fromMarker);
+            google.maps.event.addListener(fromMarker, 'mouseover', function () {
+                infoWindow.setContent(fromMarker.infoHtml);
+                infoWindow.open(map, fromMarker);
             });
-            google.maps.event.addListener(toMarker, 'click', function () {
-                new google.maps.InfoWindow({ content: item.To.InfoHtml }).open(map, toMarker);
+            google.maps.event.addListener(toMarker, 'mouseover', function () {
+                infoWindow.setContent(toMarker.infoHtml);
+                infoWindow.open(map, toMarker);
             });
-
         });
 
         $.each(mapData.hotels, function (i, item) {
 
             var hotelPoint = new google.maps.LatLng(item.Lat, item.Lon);
             var hotelMarker = new google.maps.Marker({ position: hotelPoint, map: map, title: item.Name });
+            hotelMarker.infoHtml = item.InfoHtml
             bounds.extend(hotelPoint);
 
-            google.maps.event.addListener(hotelMarker, 'click', function () {
-                new google.maps.InfoWindow({ content: item.InfoHtml }).open(map, hotelMarker);
+            google.maps.event.addListener(hotelMarker, 'mouseover', function () {
+                infoWindow.setContent(hotelMarker.infoHtml);
+                infoWindow.open(map, hotelMarker);
             });
         });
 
