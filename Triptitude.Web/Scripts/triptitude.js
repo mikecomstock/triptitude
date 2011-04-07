@@ -179,6 +179,6 @@ function drawMap(container) {
             });
         });
 
+        map.fitBounds(bounds);
     });
-    map.fitBounds(bounds);
 }
