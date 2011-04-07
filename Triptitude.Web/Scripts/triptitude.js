@@ -144,11 +144,9 @@ function drawMap(container) {
     var tripId = container.attr('data-trip-id');
     var infoWindow = new google.maps.InfoWindow();
 
-    directionsPolylineOptions = { strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5 };
-    var directionsDisplay = new google.maps.DirectionsRenderer({suppressInfoWindows:true, suppressMarkers:true, polylineOptions:directionsPolylineOptions, preserveViewport:true });
+    var directionsPolylineOptions = { strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5 };
     var directionsService = new google.maps.DirectionsService();
-    directionsDisplay.setMap(map);
-    
+
     $.get('/maps/trip/' + tripId, function (mapData) {
 
         $.each(mapData.trans, function (i, item) {
@@ -166,6 +164,8 @@ function drawMap(container) {
             if (item.PathType == 'road') {
                 var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
                 directionsService.route(request, function (result, status) {
+                    var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
+                    directionsDisplay.setMap(map);
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setDirections(result);
                     }
