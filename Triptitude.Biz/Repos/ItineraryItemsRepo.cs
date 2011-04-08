@@ -1,5 +1,6 @@
 ﻿using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Services;
 
 namespace Triptitude.Biz.Repos
 {
@@ -22,12 +23,17 @@ namespace Triptitude.Biz.Repos
             Save();
         }
 
-        public ItineraryItem AddWebsiteToTrip(Website website, Trip trip)
+        // TODO: move this to a service class instead
+        public ItineraryItem AddWebsiteToTrip(WebsiteForm form, Trip trip)
         {
+            Website website = new WebsiteService().AddWebsite(form.Url);
+
             ItineraryItem itineraryItem = new ItineraryItem
             {
                 Trip = trip,
-                Website = website
+                Website = website,
+                BeginDay = form.BeginDay,
+                EndDay = form.EndDay
             };
 
             trip.Itinerary.Add(itineraryItem);
@@ -36,6 +42,7 @@ namespace Triptitude.Biz.Repos
             return itineraryItem;
         }
 
+        // TODO: move this to a service class instead
         public ItineraryItem AddHotelToTrip(Hotel hotel, Trip trip)
         {
             ItineraryItem itineraryItem = new ItineraryItem

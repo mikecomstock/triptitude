@@ -9,6 +9,8 @@
                 Itinerary</h1>
             <div data-trip-id="@ViewBag.Trip.Id" class="create-transportation-link link">
                 + Add Transportation</div>
+            <div data-trip-id="@ViewBag.Trip.Id" class="create-website-link link">
+                + Add Website</div>
         </div>
         <div class="panel-content">
             @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)

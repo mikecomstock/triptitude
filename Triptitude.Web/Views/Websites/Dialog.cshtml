@@ -1,0 +1,22 @@
+﻿@{
+    WebsiteForm form = (WebsiteForm)ViewBag.Form;
+}
+<form action="@ViewBag.Action" method="post">
+<input type="hidden" name="tripid" value="@form.TripId" />
+<input type="hidden" name="itineraryitemid" value="@form.ItineraryItemId" />
+<p>
+    <label for="url">
+        Website Url</label>
+    <input type="text" name="url" id="url" value="@form.Url" placeholder="paste URL here" />
+</p>
+<p>
+    <label for="beginday">
+        Begin Day</label>
+    <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+</p>
+<p>
+    <label for="endday">
+        End Day</label>
+    <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+</p>
+</form>

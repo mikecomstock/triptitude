@@ -61,6 +61,7 @@
     <Compile Include="Forms\TransportationForm.cs" />
     <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Forms\TripSettings.cs" />
+    <Compile Include="Forms\WebsiteForm.cs" />
     <Compile Include="Models\Db.cs" />
     <Compile Include="Repo.cs" />
     <Compile Include="Models\Model.cs" />

@@ -154,6 +154,11 @@ namespace Triptitude.Web.Helpers
 
         #region Websites
 
+        public static string CreateWebsite(this UrlHelper url)
+        {
+            return url.Action("create", "websites");
+        }
+
         public static string Details(this UrlHelper url, Website website)
         {
             return url.SlugAction("details", "websites", website.Id, website.Title);

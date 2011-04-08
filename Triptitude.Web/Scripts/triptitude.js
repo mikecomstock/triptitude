@@ -22,6 +22,13 @@
         });
     });
 
+    $('.create-website-link').click(function (clickData) {
+        var tripId = $(this).attr('data-trip-id');
+        $.get('/websites/create?tripid=' + tripId, function (getData) {
+            CreateWebsiteModal(getData);
+        });
+    });
+
     $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
         var itineraryItemId = $(this).attr('data-itinerary-item-id');
         $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
@@ -86,7 +93,7 @@
     $('.trip-day-itinerary-item.website').click(function () {
         var id = $(this).attr('data-id');
         $.get('/itineraryitems/edit/' + id, function (data) {
-            CreateWebsiteModel(data);
+            CreateWebsiteModal(data);
         });
     });
 });
@@ -144,7 +151,7 @@ function CreateTransportationsModal(data) {
     BindDestinationAutocomplete(dialog);
 }
 
-function CreateWebsiteModel(data) {
+function CreateWebsiteModal(data) {
     var dialog = $(data);
     var id = $('[name="id"]', dialog).val();
     dialog.dialog({

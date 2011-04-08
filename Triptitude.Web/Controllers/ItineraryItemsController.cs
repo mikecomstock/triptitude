@@ -2,7 +2,6 @@
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
-using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -44,14 +43,6 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
         
-        [HttpPost]
-        public ActionResult AddWebsiteToTrip(string url, User currentUser)
-        {
-            Website website = new WebsiteService().AddWebsite(url);
-            var itineraryItem = itineraryItemsRepo.AddWebsiteToTrip(website, currentUser.DefaultTrip);
-            return Redirect(Url.EditItineraryItem(itineraryItem));
-        }
-
         public ActionResult AddHotelToTrip(int hotelId, User currentUser)
         {
             HotelsRepo hotelsRepo = new HotelsRepo();
