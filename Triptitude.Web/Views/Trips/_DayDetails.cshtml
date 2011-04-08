@@ -3,7 +3,7 @@
         Day @ViewBag.DayNumber</h3>
     @foreach (Transportation trans in ViewBag.Transportations)
     {
-        <div class="trip-day-itinerary-item transportation" data-id="@trans.Id" title="Details">
+        <div class="trip-day-itinerary-item transportation" data-id="@trans.Id" title="Click for details">
             <h4>
                 @trans.TransportationType.Name
                 from <a href="@Url.Details((City)trans.FromCity)">@trans.FromCity.ASCIIName</a>
@@ -13,7 +13,7 @@
     }
     @foreach (ItineraryItem itineraryItem in ViewBag.Websites)
     {
-        <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id">
+        <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id" title="Click for details">
             @*<div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
                 + Add Note</div>*@
             <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
@@ -41,7 +41,7 @@
     }
     @foreach (ItineraryItem itineraryItem in ViewBag.Hotels)
     {
-        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id">
+        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
             @*<div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
                 + Add Note</div>*@
             <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />

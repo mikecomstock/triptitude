@@ -105,11 +105,6 @@ namespace Triptitude.Web.Helpers
             return url.Action("addhoteltotrip", "itineraryitems", new { hotelId = hotel.Id });
         }
 
-        public static string AddWebsiteToTrip(this UrlHelper url)
-        {
-            return url.Action("addwebsitetotrip", "itineraryitems");
-        }
-
         public static string EditItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
         {
             return url.Action("edit", "itineraryitems", new { id = itineraryItem.Id });

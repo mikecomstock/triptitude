@@ -105,7 +105,7 @@ input.day-input { width: 20px; }
 /* Trip Schedules */
 .trip-day { margin-top: 10px; background-color: #DDDDDD; margin-left: 65px; min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); }
 .trip-day > h3 { padding: 3px 6px; width: 45px; background: #666666; color: #FFF; display: block; margin-left: -65px; margin-top: -15px; -moz-border-radius: 5px; float: left; }
-.trip-day-itinerary-item { overflow: auto; }
+.trip-day-itinerary-item { overflow: auto; cursor: pointer; }
 .trip-day-itinerary-item:hover { background-color: #CCC; }
 .trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px dashed #000; }
 .trip-day-itinerary-item-time { }
@@ -116,8 +116,6 @@ input.day-input { width: 20px; }
 .itinerary-item-note .link { float: right; background-color: #FFF; padding: 2px 4px; -moz-border-radius: 3px; margin-right: -5px; margin-left: 8px; font-size: 11px; }
 .itinerary-item-note .link:hover { color: #FFF; background-color: #66C3FE; }
 .create-note-link { float: right; color: #FFF; background-color: #66C3FE; padding: 2px 4px; -moz-border-radius: 3px; margin: 10px; -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
-
-.trip-day-itinerary-item.transportation { cursor: pointer; }
 
 /* Dialogs */
 .ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
@@ -134,7 +132,7 @@ input.day-input { width: 20px; }
 .transportation-dialog form label { display: block; float: left; width: 40px; }
 .transportation-dialog form input.destination-autocomplete { width: 300px; }
 
-.website-dialog form { padding: 0 !important;}
+.website-dialog form { padding: 0 !important; }
 .website-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .website-dialog form label { display: block; float: left; width: 90px; }
 .website-dialog form #url { width: 300px; }

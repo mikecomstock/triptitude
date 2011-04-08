@@ -3,7 +3,8 @@
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form action="@Url.DestinationSearch()" method="post">
-            <input type="text" name="s" class="destination-autocomplete" data-hidden-field-name="destinationid" data-auto-submit="true" placeholder="Where do you want to go?" />
+            <input type="text" name="s" class="destination-autocomplete" data-hidden-field-name="destinationid"
+                data-auto-submit="true" placeholder="Where are you going?" />
             <input type="hidden" name="destinationid" />
             <input type="submit" value="Go >" />
             </form>
@@ -37,10 +38,9 @@
 {     
     <div id="trip-bar-container">
         <div id="trip-bar">
-            <form id="add-website-to-trip-form" action="@Url.AddWebsiteToTrip()" method="post"><input type="text" name="url" placeholder="Add a website URL to this trip..." /><input type="submit" value="Add" /></form>
             <div id="trip-nav-bar">
                 <a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
-                    Map</a> @*<a href="@Url.Print((Trip)ViewBag.User.DefaultTrip)">Print</a>*@ <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
+                    Map</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
                         Settings</a>
             </div>
             <div id="trip-bar-pre-title">
@@ -61,7 +61,7 @@ else if (ViewBag.HideTripBar != true)
             <form action="" id="start-here-form">
             <input type="text" name="email" placeholder="Your email address..." />
             <input type="text" name="tripname" placeholder="Name your trip..." />
-            <input type="text" name="destination" class="destination-autocomplete" placeholder="Where do you want to go?" />
+            <input type="text" name="destination" class="destination-autocomplete" placeholder="Where are you going?" />
             <input type="hidden" name="destinationid" />
             <input type="submit" value="Start Planning >" />
             </form>
