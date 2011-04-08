@@ -12,12 +12,6 @@ namespace Triptitude.Biz.Models
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
-
-        public bool OwnsTrips(params Trip[] trips)
-        {
-            var userOwnsAllTrips = trips.All(t => Trips.Contains(t));
-            return userOwnsAllTrips;
-        }
     }
 
     public class Trip
