@@ -92,7 +92,7 @@
 
     $('.trip-day-itinerary-item.website').click(function () {
         var id = $(this).attr('data-id');
-        $.get('/itineraryitems/edit/' + id, function (data) {
+        $.get('/websites/edit?itineraryitemid=' + id, function (data) {
             CreateWebsiteModal(data);
         });
     });
@@ -142,7 +142,7 @@ function CreateTransportationsModal(data) {
                 var confirmed = confirm('Delete?');
                 if (confirmed)
                     window.location.href = "/transportations/delete/" + id
-            } 
+            }
             },
             { text: 'Save', click: function () { $(this).submit(); } }
         ]

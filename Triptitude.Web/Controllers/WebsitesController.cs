@@ -31,7 +31,7 @@ namespace Triptitude.Web.Controllers
             WebsiteForm form = new WebsiteForm { TripId = tripId };
             ViewBag.Form = form;
             ViewBag.Action = Url.CreateWebsite();
-            return PartialView("Dialog");
+            return PartialView("dialog");
         }
 
         [HttpPost]
@@ -41,8 +41,40 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrip = currentUser.OwnsTrips(trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            itineraryItemsRepo.AddWebsiteToTrip(form, trip);
+            itineraryItemsRepo.Save(form);
             return Redirect(Url.Details(trip));
+        }
+
+        public ActionResult Edit(int itineraryItemId, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
+            bool userOwnsTrip = currentUser.OwnsTrips(itineraryItem.Trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            WebsiteForm form = new WebsiteForm
+                                   {
+                                       BeginDay = itineraryItem.BeginDay,
+                                       EndDay = itineraryItem.EndDay,
+                                       ItineraryItemId = itineraryItemId,
+                                       TripId = itineraryItem.Trip.Id,
+                                       Url = itineraryItem.Website.URL
+                                   };
+            ViewBag.Form = form;
+            ViewBag.Action = Url.EditWebsite();
+            return PartialView("dialog");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(WebsiteForm form, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(form.ItineraryItemId.Value);
+            var oldTrip = itineraryItem.Trip;
+            var newTrip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrips = currentUser.OwnsTrips(oldTrip, newTrip);
+            if (!userOwnsTrips) Redirect("/");
+
+            itineraryItemsRepo.Save(form);
+            return Redirect(Url.Details(itineraryItem.Trip));
         }
     }
 }

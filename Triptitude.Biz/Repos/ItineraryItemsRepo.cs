@@ -24,19 +24,30 @@ namespace Triptitude.Biz.Repos
         }
 
         // TODO: move this to a service class instead
-        public ItineraryItem AddWebsiteToTrip(WebsiteForm form, Trip trip)
+        public ItineraryItem Save(WebsiteForm form)
         {
-            Website website = new WebsiteService().AddWebsite(form.Url);
+            ItineraryItem itineraryItem;
 
-            ItineraryItem itineraryItem = new ItineraryItem
+            if (form.ItineraryItemId.HasValue)
             {
-                Trip = trip,
-                Website = website,
-                BeginDay = form.BeginDay,
-                EndDay = form.EndDay
-            };
+                itineraryItem = Find(form.ItineraryItemId.Value);
+            }
+            else
+            {
+                itineraryItem = new ItineraryItem();
+                Add(itineraryItem);
+            }
 
-            trip.Itinerary.Add(itineraryItem);
+            Trip trip = new TripsRepo().Find(form.TripId);
+            itineraryItem.Trip = trip;
+
+            // Use the existing site if it already exists. Otherwise add & thumbnail it.
+            WebsitesRepo websitesRepo = new WebsitesRepo();
+            itineraryItem.Website = websitesRepo.FindByUrl(form.Url) ?? new WebsiteService().AddWebsite(form.Url);
+
+            itineraryItem.BeginDay = form.BeginDay;
+            itineraryItem.EndDay = form.EndDay;
+
             Save();
 
             return itineraryItem;

@@ -159,6 +159,11 @@ namespace Triptitude.Web.Helpers
             return url.Action("create", "websites");
         }
 
+        public static string EditWebsite(this UrlHelper url)
+        {
+            return url.Action("edit", "websites");
+        }
+
         public static string Details(this UrlHelper url, Website website)
         {
             return url.SlugAction("details", "websites", website.Id, website.Title);
