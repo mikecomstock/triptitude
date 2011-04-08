@@ -14,8 +14,8 @@
     @foreach (ItineraryItem itineraryItem in ViewBag.Websites)
     {
         <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id">
-            <div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
-                + Add Note</div>
+            @*<div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
+                + Add Note</div>*@
             <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
@@ -23,7 +23,7 @@
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
-            @if (itineraryItem.Notes != null)
+            @*@if (itineraryItem.Notes != null)
             {
                 <div class="itinerary-item-notes">
                     @foreach (Note note in itineraryItem.Notes)
@@ -36,14 +36,14 @@
                         </div>                        
                     }
                 </div>
-            }
+            }*@
         </div>
     }
     @foreach (ItineraryItem itineraryItem in ViewBag.Hotels)
     {
         <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id">
-            <div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
-                + Add Note</div>
+            @*<div data-itinerary-item-id="@itineraryItem.Id" class="create-note-link link">
+                + Add Note</div>*@
             <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             <h4>
                 <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
@@ -56,7 +56,7 @@
                 <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.DeleteItineraryItem(itineraryItem)">
                     Delete</a>
             }
-            @if (itineraryItem.Notes != null)
+            @*@if (itineraryItem.Notes != null)
             {
                 <div class="itinerary-item-notes">
                     @foreach (Note note in itineraryItem.Notes)
@@ -69,7 +69,7 @@
                         </div>                        
                     }
                 </div>
-            }
+            }*@
         </div>
     }
 </div>
