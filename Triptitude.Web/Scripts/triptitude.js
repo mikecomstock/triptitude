@@ -1,6 +1,7 @@
 ﻿$(function () {
 
     $('input').placeholder();
+
     BindDestinationAutocomplete(null);
 
     $('.confirm-delete').click(function (e) {
@@ -98,6 +99,10 @@
     });
 });
 
+function BrowserAutocompleteOff() {
+    $('input.day-input').attr('autocomplete', 'off');
+}
+
 function BindDestinationAutocomplete(context) {
     $('.destination-autocomplete', context).autocomplete({
         source: "/destinations/search",
@@ -147,30 +152,31 @@ function CreateTransportationsModal(data) {
             { text: 'Save', click: function () { $(this).submit(); } }
         ]
     });
-
+    BrowserAutocompleteOff();
     BindDestinationAutocomplete(dialog);
 }
 
 function CreateWebsiteModal(data) {
     var dialog = $(data);
-    var id = $('[name="id"]', dialog).val();
+    var id = $('[name="itineraryitemid"]', dialog).val();
     dialog.dialog({
         title: 'Website',
         dialogClass: 'website-dialog',
         width: 450,
-        height: 450,
+        height: 260,
         model: false,
         resizable: false,
         buttons: [
             { text: 'Delete', click: function () {
                 var confirmed = confirm('Delete?');
                 if (confirmed)
-                    window.location.href = "/itineraryitems/delete/" + id
+                    window.location.href = "/websites/delete?itineraryitemid=" + id
             }
             },
             { text: 'Save', click: function () { $(this).submit(); } }
         ]
     });
+    BrowserAutocompleteOff();
 }
 
 function drawMap(container) {

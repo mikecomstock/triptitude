@@ -82,8 +82,8 @@ namespace Triptitude.Web.Controllers
             var transportation = repo.Find(id);
             var trip = transportation.Trip;
             bool userOwnsTrip = currentUser.OwnsTrips(trip);
+            if (!userOwnsTrip) Redirect("/");
 
-            if (userOwnsTrip) Redirect("/");
             repo.Delete(transportation);
             repo.Save();
             return Redirect(Url.Details(trip));

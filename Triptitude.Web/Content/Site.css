@@ -132,13 +132,12 @@ input.day-input { width: 20px; }
 .transportation-dialog form { padding: 0 !important; }
 .transportation-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .transportation-dialog form label { display: block; float: left; width: 40px; }
-.transportation-dialog form input { width: 30px; }
 .transportation-dialog form input.destination-autocomplete { width: 300px; }
 
 .website-dialog form { padding: 0 !important;}
 .website-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .website-dialog form label { display: block; float: left; width: 90px; }
-.website-dialog form #url { width: 200px; }
+.website-dialog form #url { width: 300px; }
 
 
 /* Trip Map */

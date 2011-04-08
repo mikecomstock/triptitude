@@ -76,5 +76,17 @@ namespace Triptitude.Web.Controllers
             itineraryItemsRepo.Save(form);
             return Redirect(Url.Details(itineraryItem.Trip));
         }
+
+        public ActionResult Delete(int itineraryItemId, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
+            var trip = itineraryItem.Trip;
+            bool userOwnsTrip = currentUser.OwnsTrips(trip);
+            if (!userOwnsTrip) Redirect("/");
+
+            itineraryItemsRepo.Delete(itineraryItem);
+            itineraryItemsRepo.Save();
+            return Redirect(Url.Details(trip));
+        }
     }
 }
