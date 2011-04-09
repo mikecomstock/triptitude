@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\HotelForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\TransportationForm.cs" />
     <Compile Include="Forms\TripCreate.cs" />

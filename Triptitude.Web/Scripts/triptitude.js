@@ -30,20 +30,27 @@
         });
     });
 
-    $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
-        var itineraryItemId = $(this).attr('data-itinerary-item-id');
-        $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
-            CreateNoteModal(data);
+    $('.add-hotel-link').click(function (clickData) {
+        var hotelId = $(this).attr('data-hotel-id');
+        $.get('/itineraryitems/addhotel?hotelid=' + hotelId, function (data) {
+            CreateHotelModal(data);
         });
     });
 
-    $('.itinerary-item-note .edit-note-link').click(function (clickData) {
-        clickData.preventDefault();
-        var noteId = $(this).attr('data-note-id');
-        $.get('/notes/edit/' + noteId, function (data) {
-            CreateNoteModal(data);
-        });
-    });
+    //    $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
+    //        var itineraryItemId = $(this).attr('data-itinerary-item-id');
+    //        $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
+    //            CreateNoteModal(data);
+    //        });
+    //    });
+
+    //    $('.itinerary-item-note .edit-note-link').click(function (clickData) {
+    //        clickData.preventDefault();
+    //        var noteId = $(this).attr('data-note-id');
+    //        $.get('/notes/edit/' + noteId, function (data) {
+    //            CreateNoteModal(data);
+    //        });
+    //    });
 
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
@@ -97,6 +104,13 @@
             CreateWebsiteModal(data);
         });
     });
+
+    $('.trip-day-itinerary-item.hotel').click(function () {
+        var id = $(this).attr('data-id');
+        $.get('/itineraryitems/edithotel?itineraryitemid=' + id, function (data) {
+            CreateHotelModal(data);
+        });
+    });
 });
 
 function BrowserAutocompleteOff() {
@@ -117,19 +131,19 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-function CreateNoteModal(data) {
-    $(data).dialog({
-        title: 'Your note',
-        dialogClass: 'note-dialog',
-        width: 450,
-        height: 300,
-        modal: false,
-        buttons: [{
-            text: 'Save',
-            click: function () { $(this).submit(); }
-        }]
-    });
-}
+//function CreateNoteModal(data) {
+//    $(data).dialog({
+//        title: 'Your note',
+//        dialogClass: 'note-dialog',
+//        width: 450,
+//        height: 300,
+//        modal: false,
+//        buttons: [{
+//            text: 'Save',
+//            click: function () { $(this).submit(); }
+//        }]
+//    });
+//}
 
 function CreateTransportationsModal(data) {
     var dialog = $(data);
@@ -158,22 +172,44 @@ function CreateTransportationsModal(data) {
 
 function CreateWebsiteModal(data) {
     var dialog = $(data);
-    var id = $('[name="itineraryitemid"]', dialog).val();
+    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
     dialog.dialog({
         title: 'Website',
         dialogClass: 'website-dialog',
         width: 450,
         height: 260,
-        model: false,
+        modal: false,
         resizable: false,
         buttons: [
             { text: 'Delete', click: function () {
                 var confirmed = confirm('Delete?');
                 if (confirmed)
-                    window.location.href = "/websites/delete?itineraryitemid=" + id
+                    window.location.href = "/websites/delete?itineraryitemid=" + itineraryitemid
             }
             },
             { text: 'Save', click: function () { $(this).submit(); } }
+        ]
+    });
+    BrowserAutocompleteOff();
+}
+
+function CreateHotelModal(data) {
+    var dialog = $(data);
+    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
+    dialog.dialog({
+        title: 'Hotel',
+        dialogClass: 'hotel-dialog',
+        width: 450,
+        height: 250,
+        modal: false,
+        resizable: false,
+        buttons: [
+            { text: 'Delete', click: function () {
+                var confirmed = confirm('Delete?');
+                if (confirmed)
+                    window.location.href = "/itineraryitems/deletehotel?itineraryitemid=" + itineraryitemid
+            }
+            }, { text: 'Save', click: function () { $(this).submit(); } }
         ]
     });
     BrowserAutocompleteOff();

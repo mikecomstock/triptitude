@@ -21,7 +21,7 @@ namespace Triptitude.Web.Helpers
 
         public static MvcHtmlString AddToTripButton(this HtmlHelper html, UrlHelper url, Hotel hotel)
         {
-            string s = string.Format("<a href=\"{0}\" class=\"add-to-trip-button\">Add to Trip</a>", url.AddHotelToItinerary(hotel));
+            string s = string.Format("", hotel.Id);
             return new MvcHtmlString(s);
         }
     }

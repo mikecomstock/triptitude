@@ -1,0 +1,21 @@
+﻿@{
+    HotelForm form = (HotelForm)ViewBag.Form;
+    Hotel hotel = (Hotel)ViewBag.Hotel;
+}
+<form action="@ViewBag.Action" method="post">
+<input type="hidden" name="tripid" value="@form.TripId" />
+<input type="hidden" name="itineraryitemid" value="@form.ItineraryItemId" />
+<input type="hidden" name="hotelid" value="@form.HotelId" />
+<p>
+    <label>
+        Name</label>
+    <a href="@Url.Details(hotel)">@hotel.Name</a>
+</p>
+<p>
+    <label for="beginday">
+        Day</label>
+    <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+    thru
+    <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+</p>
+</form>

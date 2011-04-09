@@ -50,9 +50,9 @@ input.day-input { width: 20px; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 
-#add-website-to-trip-form { float: right; }
+#trip-actions {float:right;}
 
-#trip-nav-bar { font-size: 20px; float: right; }
+#trip-nav-bar { font-size: 20px; float: right; clear:both; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
 #trip-nav-bar a + a { border-left: 3px solid #FFF; }
 
@@ -73,12 +73,9 @@ input.day-input { width: 20px; }
 
 .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
 .panel-title h1 { float: left; }
-.panel-title a { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
-.panel-title .link { float: right; }
+.panel-title a, .panel-title .link { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
-
-.add-to-trip-button { }
 
 .panel-content { padding: 10px; }
 .panel-content-not-padded { }
@@ -136,6 +133,10 @@ input.day-input { width: 20px; }
 .website-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .website-dialog form label { display: block; float: left; width: 90px; }
 .website-dialog form #url { width: 300px; }
+
+.hotel-dialog form {padding: 0 !important; }
+.hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
+.hotel-dialog form label { display: block; float: left; width: 60px; }
 
 
 /* Trip Map */

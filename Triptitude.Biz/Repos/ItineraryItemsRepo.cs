@@ -54,15 +54,29 @@ namespace Triptitude.Biz.Repos
         }
 
         // TODO: move this to a service class instead
-        public ItineraryItem AddHotelToTrip(Hotel hotel, Trip trip)
+        public ItineraryItem Save(HotelForm form)
         {
-            ItineraryItem itineraryItem = new ItineraryItem
-                                              {
-                                                  Trip = trip,
-                                                  Hotel = hotel
-                                              };
+            ItineraryItem itineraryItem;
 
-            trip.Itinerary.Add(itineraryItem);
+            if (form.ItineraryItemId.HasValue)
+            {
+                itineraryItem = Find(form.ItineraryItemId.Value);
+            }
+            else
+            {
+                itineraryItem = new ItineraryItem();
+                Add(itineraryItem);
+            }
+
+            Trip trip = new TripsRepo().Find(form.TripId);
+            itineraryItem.Trip = trip;
+
+            HotelsRepo hotelsRepo = new HotelsRepo();
+            itineraryItem.Hotel = hotelsRepo.Find(form.HotelId);
+
+            itineraryItem.BeginDay = form.BeginDay;
+            itineraryItem.EndDay = form.EndDay;
+
             Save();
 
             return itineraryItem;

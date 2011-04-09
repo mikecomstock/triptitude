@@ -38,10 +38,12 @@
 {     
     <div id="trip-bar-container">
         <div id="trip-bar">
+            <div id="trip-actions">
+            </div>
             <div id="trip-nav-bar">
-                <a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.User.DefaultTrip)">
-                    Map</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.User.DefaultTrip)">
-                        Settings</a>
+                <a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="create-transportation-link link">
+                    Add Transportation</a> <a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="create-website-link link">
+                        Add Website</a>
             </div>
             <div id="trip-bar-pre-title">
                 currently planning...</div>

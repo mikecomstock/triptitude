@@ -24,8 +24,9 @@
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
-            @Html.AddToTripButton(Url, hotel)
-            <h1>@ViewBag.Hotel.Name</h1>
+            <div data-hotel-id="@hotel.Id" class="link add-hotel-link">
+                Add to Trip</div>
+            <h1>@hotel.Name</h1>
         </div>
         <div class="panel-content-not-padded">
             <div id="hotel-details-photo-list">

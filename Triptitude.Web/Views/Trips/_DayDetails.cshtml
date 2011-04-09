@@ -51,11 +51,6 @@
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
             </div>
-            @if (ViewBag.Editing)
-            {
-                <a href="@Url.EditItineraryItem(itineraryItem)">Edit</a> <a class="confirm-delete" href="@Url.DeleteItineraryItem(itineraryItem)">
-                    Delete</a>
-            }
             @*@if (itineraryItem.Notes != null)
             {
                 <div class="itinerary-item-notes">

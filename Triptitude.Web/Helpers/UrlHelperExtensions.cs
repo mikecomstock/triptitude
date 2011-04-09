@@ -100,19 +100,13 @@ namespace Triptitude.Web.Helpers
 
         #region Itinerary Items
 
-        public static string AddHotelToItinerary(this UrlHelper url, Hotel hotel)
+        public static string ItineraryAddHotel(this UrlHelper url, Hotel hotel)
         {
-            return url.Action("addhoteltotrip", "itineraryitems", new { hotelId = hotel.Id });
+            return url.Action("addhotel", "itineraryitems", new { hotelId = hotel.Id });
         }
-
-        public static string EditItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
+        public static string ItineraryEditHotel(this UrlHelper url, ItineraryItem itineraryItem)
         {
-            return url.Action("edit", "itineraryitems", new { id = itineraryItem.Id });
-        }
-
-        public static string DeleteItineraryItem(this UrlHelper url, ItineraryItem itineraryItem)
-        {
-            return url.Action("delete", "itineraryitems", new { id = itineraryItem.Id });
+            return url.Action("edithotel", "itineraryitems", new { itineraryItemId = itineraryItem.Id });
         }
 
         public static string Details(this UrlHelper url, ItineraryItem itineraryItem)
