@@ -16,11 +16,9 @@ input.day-input { width: 20px; }
 /* Background */
 #background { -moz-user-select: none; left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
 #background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
-
-#background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
 /* also defined in layout */
+#background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
 .fader { height: 420px; left: 0; position: fixed; width: 100%; z-index: -1; }
-.fader, #background .fader { background: url("http://a0.ak.lscdn.net/deals/images/bingy/background-fade.png") repeat-x scroll left bottom transparent; }
 
 /* Topbar */
 #header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; }

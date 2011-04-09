@@ -78,14 +78,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery.placeholder.js" />
-    <Content Include="Scripts\triptitude.js" />
     <Content Include="Static\Backgrounds\background-fade.png" />
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Static\Icons\map.png" />
+    <Content Include="Static\Scripts\jquery.placeholder.js" />
+    <Content Include="Static\Scripts\triptitude.js" />
+    <Content Include="Static\Stylesheets\Site.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
