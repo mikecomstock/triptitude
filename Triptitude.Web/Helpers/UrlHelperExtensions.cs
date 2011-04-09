@@ -111,13 +111,13 @@ namespace Triptitude.Web.Helpers
             throw new Exception("Unknown itineraryitem type. Could not find details url.");
         }
 
-        public static string ItineraryAddHotel(this UrlHelper url, Hotel hotel)
+        public static string ItineraryAddHotel(this UrlHelper url)
         {
-            return url.Action("addhotel", "itineraryitems", new { hotelId = hotel.Id });
+            return url.Action("addhotel", "itineraryitems");
         }
-        public static string ItineraryEditHotel(this UrlHelper url, ItineraryItem itineraryItem)
+        public static string ItineraryEditHotel(this UrlHelper url)
         {
-            return url.Action("edithotel", "itineraryitems", new { itineraryItemId = itineraryItem.Id });
+            return url.Action("edithotel", "itineraryitems");
         }
 
         public static string ItineraryAddTransportation(this UrlHelper url)
@@ -125,9 +125,9 @@ namespace Triptitude.Web.Helpers
             return url.Action("addtransportation", "itineraryitems");
         }
 
-        public static string ItineraryEditTransportation(this UrlHelper url, Transportation transportation)
+        public static string ItineraryEditTransportation(this UrlHelper url)
         {
-            return url.Action("edittransportation", "itineraryitems", new { transportation.Id });
+            return url.Action("edittransportation", "itineraryitems");
         }
 
         public static string ItineraryAddWebsite(this UrlHelper url)

@@ -36,7 +36,7 @@ namespace Triptitude.Web.Controllers
             };
             ViewBag.Form = form;
             ViewBag.Hotel = hotel;
-            ViewBag.Action = Url.ItineraryAddHotel(hotel);
+            ViewBag.Action = Url.ItineraryAddHotel();
             return PartialView("HotelDialog");
         }
 
@@ -67,7 +67,7 @@ namespace Triptitude.Web.Controllers
                         };
             ViewBag.Form = form;
             ViewBag.Hotel = itineraryItem.Hotel;
-            ViewBag.Action = Url.ItineraryEditHotel(itineraryItem);
+            ViewBag.Action = Url.ItineraryEditHotel();
             return PartialView("HotelDialog");
         }
 
@@ -207,7 +207,7 @@ namespace Triptitude.Web.Controllers
             };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
-            ViewBag.Action = Url.ItineraryEditTransportation(transportation);
+            ViewBag.Action = Url.ItineraryEditTransportation();
             return PartialView("TransportationDialog");
         }
 
