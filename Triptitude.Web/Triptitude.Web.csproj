@@ -123,9 +123,6 @@
     <Content Include="Views\Hotels\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Websites\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Trips\_DayDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

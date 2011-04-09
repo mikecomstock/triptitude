@@ -16,7 +16,7 @@
         <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id" title="Click for details">
             <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
             <h4>
-                <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
+                <a rel="nofollow" target="_blank" href="@itineraryItem.Website.URL">@itineraryItem.Website.Title</a>
             </h4>
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString
@@ -28,7 +28,7 @@
         <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
             <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             <h4>
-                <a href="@Url.Details(itineraryItem)">@itineraryItem.Name</a>
+                <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
             </h4>
             <div class="trip-day-itinerary-item-time">
                 @itineraryItem.DateTimeString

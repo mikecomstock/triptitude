@@ -91,18 +91,7 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Itinerary Items
-
-        public static string Details(this UrlHelper url, ItineraryItem itineraryItem)
-        {
-            if (itineraryItem.Hotel != null)
-                return Details(url, itineraryItem.Hotel);
-
-            if (itineraryItem.Website != null)
-                return Details(url, itineraryItem.Website);
-
-            throw new Exception("Unknown itineraryitem type. Could not find details url.");
-        }
-
+        
         public static string ItineraryAddHotel(this UrlHelper url)
         {
             return url.Action("addhotel", "itineraryitems");
@@ -135,12 +124,7 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Websites
-
-        public static string Details(this UrlHelper url, Website website)
-        {
-            return url.SlugAction("details", "websites", website.Id, website.Title);
-        }
-
+        
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
         {
             return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + Website.ThumbFilename(website.Id, thumbSize);
