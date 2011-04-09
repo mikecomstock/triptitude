@@ -37,21 +37,6 @@
         });
     });
 
-    //    $('.trip-day-itinerary-item .create-note-link').click(function (clickData) {
-    //        var itineraryItemId = $(this).attr('data-itinerary-item-id');
-    //        $.get('/notes/create?itineraryItemId=' + itineraryItemId, function (data) {
-    //            CreateNoteModal(data);
-    //        });
-    //    });
-
-    //    $('.itinerary-item-note .edit-note-link').click(function (clickData) {
-    //        clickData.preventDefault();
-    //        var noteId = $(this).attr('data-note-id');
-    //        $.get('/notes/edit/' + noteId, function (data) {
-    //            CreateNoteModal(data);
-    //        });
-    //    });
-
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
@@ -130,20 +115,6 @@ function BindDestinationAutocomplete(context) {
         }
     });
 }
-
-//function CreateNoteModal(data) {
-//    $(data).dialog({
-//        title: 'Your note',
-//        dialogClass: 'note-dialog',
-//        width: 450,
-//        height: 300,
-//        modal: false,
-//        buttons: [{
-//            text: 'Save',
-//            click: function () { $(this).submit(); }
-//        }]
-//    });
-//}
 
 function CreateTransportationsModal(data) {
     var dialog = $(data);
