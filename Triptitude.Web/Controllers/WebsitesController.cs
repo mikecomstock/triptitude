@@ -31,7 +31,7 @@ namespace Triptitude.Web.Controllers
             WebsiteForm form = new WebsiteForm { TripId = tripId };
             ViewBag.Form = form;
             ViewBag.Action = Url.CreateWebsite();
-            return PartialView("dialog");
+            return PartialView("websitedialog");
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@ namespace Triptitude.Web.Controllers
                                    };
             ViewBag.Form = form;
             ViewBag.Action = Url.EditWebsite();
-            return PartialView("dialog");
+            return PartialView("websitedialog");
         }
 
         [HttpPost]
