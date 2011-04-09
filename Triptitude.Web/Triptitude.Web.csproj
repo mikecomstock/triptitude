@@ -153,13 +153,13 @@
     <Content Include="Views\Trips\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Websites\Dialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\ItineraryItems\HotelDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\ItineraryItems\TransportationDialog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ItineraryItems\WebsiteDialog.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

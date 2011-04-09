@@ -25,7 +25,7 @@
 
     $('.add-website-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/websites/create?tripid=' + tripId, function (getData) {
+        $.get('/itineraryitems/addwebsite?tripid=' + tripId, function (getData) {
             CreateWebsiteModal(getData);
         });
     });
@@ -85,7 +85,7 @@
 
     $('.trip-day-itinerary-item.website').click(function () {
         var id = $(this).attr('data-id');
-        $.get('/websites/edit?itineraryitemid=' + id, function (data) {
+        $.get('/itineraryitems/editwebsite?itineraryitemid=' + id, function (data) {
             CreateWebsiteModal(data);
         });
     });
@@ -155,7 +155,7 @@ function CreateWebsiteModal(data) {
             { text: 'Delete', click: function () {
                 var confirmed = confirm('Delete?');
                 if (confirmed)
-                    window.location.href = "/websites/delete?itineraryitemid=" + itineraryitemid
+                    window.location.href = "/itineraryitems/deletewebsite?itineraryitemid=" + itineraryitemid
             }
             },
             { text: 'Save', click: function () { $(this).submit(); } }

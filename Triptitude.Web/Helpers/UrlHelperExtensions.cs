@@ -130,6 +130,16 @@ namespace Triptitude.Web.Helpers
             return url.Action("edittransportation", "itineraryitems", new { transportation.Id });
         }
 
+        public static string ItineraryAddWebsite(this UrlHelper url)
+        {
+            return url.Action("addwebsite", "itineraryitems");
+        }
+
+        public static string ItineraryEditWebsite(this UrlHelper url)
+        {
+            return url.Action("editwebsite", "itineraryitems");
+        }
+
         #endregion
 
         #region Notes
@@ -152,16 +162,6 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Websites
-
-        public static string CreateWebsite(this UrlHelper url)
-        {
-            return url.Action("create", "websites");
-        }
-
-        public static string EditWebsite(this UrlHelper url)
-        {
-            return url.Action("edit", "websites");
-        }
 
         public static string Details(this UrlHelper url, Website website)
         {
