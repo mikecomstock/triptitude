@@ -108,7 +108,7 @@ input.day-input { width: 20px; }
 .ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
 .ui-dialog-titlebar { background: none; background-color: #E9BA26; border: none; -moz-border-radius: 5px 5px 0 0; padding: 15px !important; font-size: 14px; }
 .ui-dialog-content { overflow: visible !important; padding: 20px !important; }
-.ui-dialog-buttonpane { border: none !important; margin-top: -5px !important; padding: 0 15px 15px 15px !important; }
+.ui-dialog-buttonpane { border: none !important; margin: 0 !important; padding: 15px !important; }
 .ui-widget-overlay { opacity: 0.5; }
 
 .transportation-dialog form { padding: 0 !important; }
