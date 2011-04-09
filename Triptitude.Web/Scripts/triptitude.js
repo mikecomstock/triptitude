@@ -16,14 +16,14 @@
         }
     });
 
-    $('.create-transportation-link').click(function (clickData) {
+    $('.add-transportation-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
         $.get('/itineraryitems/addtransportation?tripid=' + tripId, function (getData) {
             CreateTransportationsModal(getData);
         });
     });
 
-    $('.create-website-link').click(function (clickData) {
+    $('.add-website-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
         $.get('/websites/create?tripid=' + tripId, function (getData) {
             CreateWebsiteModal(getData);
