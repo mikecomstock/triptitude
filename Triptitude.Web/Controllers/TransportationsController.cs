@@ -26,7 +26,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.CreateTransportation();
-            return PartialView("Form");
+            return PartialView("Dialog");
         }
 
         [HttpPost]
@@ -61,7 +61,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.Edit(transportation);
-            return PartialView("Form");
+            return PartialView("Dialog");
         }
 
         [HttpPost]
