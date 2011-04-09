@@ -13,14 +13,13 @@ td { vertical-align: top; padding: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 20px; }
 
-/* Background */
+/* Background - parts also defined in layout */
 #background { -moz-user-select: none; left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
 #background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
-/* also defined in layout */
 #background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
 .fader { height: 420px; left: 0; position: fixed; width: 100%; z-index: -1; }
 
-/* Topbar */
+/* Header */
 #header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; }
 #header-container, #header-height-fill { height: 70px; }
 #header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
@@ -47,8 +46,6 @@ input.day-input { width: 20px; }
 #trip-bar { margin: 10px; padding: 10px 0; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
-
-#trip-actions {float:right;}
 
 #trip-nav-bar { font-size: 20px; float: right; clear:both; }
 #trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
@@ -106,11 +103,6 @@ input.day-input { width: 20px; }
 .trip-day-itinerary-item-time { }
 .trip-day-itinerary-item img { float: left; margin: 10px; }
 .trip-day-itinerary-item > h4 { color: #666; font-size: 14px; margin: 10px; }
-.itinerary-item-notes { clear: both; }
-.itinerary-item-note { background-color: #666; color: #FFF; font-size: 14px; overflow: auto; padding: 3px 8px; clear: both; margin: 0 10px 10px 10px; -moz-border-radius: 5px; }
-.itinerary-item-note .link { float: right; background-color: #FFF; padding: 2px 4px; -moz-border-radius: 3px; margin-right: -5px; margin-left: 8px; font-size: 11px; }
-.itinerary-item-note .link:hover { color: #FFF; background-color: #66C3FE; }
-.create-note-link { float: right; color: #FFF; background-color: #66C3FE; padding: 2px 4px; -moz-border-radius: 3px; margin: 10px; -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9); }
 
 /* Dialogs */
 .ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
@@ -118,9 +110,6 @@ input.day-input { width: 20px; }
 .ui-dialog-content { overflow: visible !important; padding: 20px !important; }
 .ui-dialog-buttonpane { border: none !important; margin-top: -5px !important; padding: 0 15px 15px 15px !important; }
 .ui-widget-overlay { opacity: 0.5; }
-
-.note-dialog form { padding: 0; margin: 0; }
-.note-dialog textarea { width: 100%; height: 100%; padding: 0; margin: 0; }
 
 .transportation-dialog form { padding: 0 !important; }
 .transportation-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
@@ -136,14 +125,12 @@ input.day-input { width: 20px; }
 .hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .hotel-dialog form label { display: block; float: left; width: 60px; }
 
-
 /* Trip Map */
 #trip-map-container { width: 100%; height: 500px; }
 
 /* Plan Trip */
 #create-trip-form { }
 .trip-settings input[name="name"] { width: 400px; }
-
 
 /* Hotel Details */
 #hotel-details-map-container { width: 400px; height: 220px; }
@@ -174,7 +161,6 @@ input.day-input { width: 20px; }
 .trip-row-title { font-size: 16px; display: block; margin: 10px 0 10px 0; }
 .trip-row-map-link { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
 .trip-row-map-link:hover { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
-
 .trip-map-dialog-link { display: block; }
 
 /* Destinations */
