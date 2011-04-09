@@ -16,10 +16,6 @@ namespace Triptitude.Web.Helpers
 
         #region General
 
-        public static string Background(this UrlHelper url, string imageFileName)
-        {
-            return Path.Combine("/static/backgrounds/", imageFileName);
-        }
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("login");
@@ -31,6 +27,7 @@ namespace Triptitude.Web.Helpers
 
         public static string Static(this UrlHelper url, string path)
         {
+            if (path[0] == '/') throw new ArgumentException("Argument should not begin with a slash.", "path");
             return Path.Combine("/static/", path);
         }
 
@@ -56,11 +53,6 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Trips
-
-        public static string TripsHome(this UrlHelper url)
-        {
-            return url.Action("index", "trips");
-        }
 
         public static string Details(this UrlHelper url, Trip trip)
         {
@@ -142,25 +134,6 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Notes
-
-        public static string CreateNote(this UrlHelper url, int itineraryItemId)
-        {
-            return url.Action("create", "notes", new { itineraryItemId });
-        }
-
-        public static string Edit(this UrlHelper url, Note note)
-        {
-            return url.Action("edit", "notes", new { note.Id });
-        }
-
-        public static string Delete(this UrlHelper url, Note note)
-        {
-            return url.Action("delete", "notes", new { note.Id });
-        }
-
-        #endregion
-
         #region Websites
 
         public static string Details(this UrlHelper url, Website website)
@@ -176,11 +149,6 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Hotels
-
-        public static string HotelsHome(this UrlHelper url)
-        {
-            return url.Action("index", "hotels");
-        }
 
         public static string Details(this UrlHelper url, Hotel hotel)
         {

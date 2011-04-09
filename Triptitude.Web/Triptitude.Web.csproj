@@ -65,7 +65,6 @@
     <Compile Include="Controllers\ItineraryItemsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MyController.cs" />
-    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WebsitesController.cs" />
@@ -149,7 +148,6 @@
     <Content Include="Views\Trips\Map.cshtml" />
     <Content Include="Views\Trips\_Row.cshtml" />
     <Content Include="Views\Trips\_Rows.cshtml" />
-    <Content Include="Views\Notes\Form.cshtml" />
     <Content Include="Views\Trips\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>

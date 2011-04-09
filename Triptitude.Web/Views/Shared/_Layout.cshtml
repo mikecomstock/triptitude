@@ -5,7 +5,7 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css"
         rel="Stylesheet" type="text/css" />
     <style type="text/css">
-        .fader, #background .fader { background: url("@Url.Background("background-fade.png")") repeat-x scroll left bottom transparent; }
+        .fader, #background .fader { background: url("@Url.Static("backgrounds/background-fade.png")") repeat-x scroll left bottom transparent; }
         </style>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
 </head>
@@ -15,7 +15,7 @@
     <div id="background">
         <div class="fader">
             &nbsp;</div>
-        <img src="@Url.Background("dreamstimefree_524710.jpg")" alt="" />
+        <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
     </div>
     @Html.Action("Header", "Home", new { ViewBag.HideTripBar })
     <div id="content">
