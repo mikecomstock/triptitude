@@ -18,7 +18,7 @@
 
     $('.create-transportation-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/transportations/create?tripid=' + tripId, function (getData) {
+        $.get('/itineraryitems/addtransportation?tripid=' + tripId, function (getData) {
             CreateTransportationsModal(getData);
         });
     });
@@ -78,7 +78,7 @@
 
     $('.trip-day-itinerary-item.transportation').click(function () {
         var id = $(this).attr('data-id');
-        $.get('/transportations/edit/' + id, function (data) {
+        $.get('/itineraryitems/edittransportation/' + id, function (data) {
             CreateTransportationsModal(data);
         });
     });
@@ -131,7 +131,7 @@ function CreateTransportationsModal(data) {
             { text: 'Delete', click: function () {
                 var confirmed = confirm('Delete?');
                 if (confirmed)
-                    window.location.href = "/transportations/delete/" + id
+                    window.location.href = "/itineraryitems/deletetransportation/" + id
             }
             },
             { text: 'Save', click: function () { $(this).submit(); } }

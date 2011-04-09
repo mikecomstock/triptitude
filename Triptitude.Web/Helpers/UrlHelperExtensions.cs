@@ -100,15 +100,6 @@ namespace Triptitude.Web.Helpers
 
         #region Itinerary Items
 
-        public static string ItineraryAddHotel(this UrlHelper url, Hotel hotel)
-        {
-            return url.Action("addhotel", "itineraryitems", new { hotelId = hotel.Id });
-        }
-        public static string ItineraryEditHotel(this UrlHelper url, ItineraryItem itineraryItem)
-        {
-            return url.Action("edithotel", "itineraryitems", new { itineraryItemId = itineraryItem.Id });
-        }
-
         public static string Details(this UrlHelper url, ItineraryItem itineraryItem)
         {
             if (itineraryItem.Hotel != null)
@@ -118,6 +109,25 @@ namespace Triptitude.Web.Helpers
                 return Details(url, itineraryItem.Website);
 
             throw new Exception("Unknown itineraryitem type. Could not find details url.");
+        }
+
+        public static string ItineraryAddHotel(this UrlHelper url, Hotel hotel)
+        {
+            return url.Action("addhotel", "itineraryitems", new { hotelId = hotel.Id });
+        }
+        public static string ItineraryEditHotel(this UrlHelper url, ItineraryItem itineraryItem)
+        {
+            return url.Action("edithotel", "itineraryitems", new { itineraryItemId = itineraryItem.Id });
+        }
+
+        public static string ItineraryAddTransportation(this UrlHelper url)
+        {
+            return url.Action("addtransportation", "itineraryitems");
+        }
+
+        public static string ItineraryEditTransportation(this UrlHelper url, Transportation transportation)
+        {
+            return url.Action("edittransportation", "itineraryitems", new { transportation.Id });
         }
 
         #endregion
@@ -194,25 +204,6 @@ namespace Triptitude.Web.Helpers
         public static string Hotels(this UrlHelper url, Destination destination)
         {
             return SlugAction(url, "hotels", "destinations", destination.Id, destination.FullName);
-        }
-
-        #endregion
-
-        #region Transportations
-
-        public static string CreateTransportation(this UrlHelper url)
-        {
-            return url.Action("create", "transportations");
-        }
-
-        public static string Edit(this UrlHelper url, Transportation transportation)
-        {
-            return url.Action("edit", "transportations", new { transportation.Id });
-        }
-
-        public static string Delete(this UrlHelper url, Transportation transportation)
-        {
-            return url.Action("delete", "transportations", new { transportation.Id });
         }
 
         #endregion

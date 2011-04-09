@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -11,40 +12,16 @@ namespace Triptitude.Web.Controllers
         private TripsRepo tripsRepo;
         private ItineraryItemsRepo itineraryItemsRepo;
         private HotelsRepo hotelsRepo;
+        private TransportationsRepo transportationsRepo;
+        private TransportationTypesRepo transportationTypesRepo;
 
         public ItineraryItemsController()
         {
             tripsRepo = new TripsRepo();
             itineraryItemsRepo = new ItineraryItemsRepo();
             hotelsRepo = new HotelsRepo();
-        }
-
-        public ActionResult Edit(int id)
-        {
-            var itineraryItem = itineraryItemsRepo.Find(id);
-            var itineraryItemSettings = itineraryItemsRepo.GetSettings(itineraryItem);
-
-            ViewBag.ItineraryItem = itineraryItem;
-            ViewBag.Settings = itineraryItemSettings;
-
-            return PartialView();
-        }
-
-        [HttpPost]
-        public ActionResult Edit(int id, ItineraryItemSettings settings)
-        {
-            ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
-            itineraryItemsRepo.Save(itineraryItem, settings);
-            return Redirect(Url.Details(itineraryItem.Trip));
-        }
-
-        public ActionResult Delete(int id)
-        {
-            ItineraryItem itineraryItem = itineraryItemsRepo.Find(id);
-            var trip = itineraryItem.Trip;
-            itineraryItemsRepo.Delete(itineraryItem);
-            itineraryItemsRepo.Save();
-            return Redirect(Url.Details(trip));
+            transportationTypesRepo = new TransportationTypesRepo();
+            transportationsRepo = new TransportationsRepo();
         }
 
         #region Hotels
@@ -116,6 +93,83 @@ namespace Triptitude.Web.Controllers
 
             itineraryItemsRepo.Delete(itineraryItem);
             itineraryItemsRepo.Save();
+            return Redirect(Url.Details(trip));
+        }
+
+        #endregion
+
+        #region Websites
+
+        #endregion
+
+        #region Transportation
+
+        public ActionResult AddTransportation(User currentUser, int tripId)
+        {
+            TransportationForm form = new TransportationForm { TripId = tripId, TransportationTypeId = -1 };
+            ViewBag.Form = form;
+            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
+            ViewBag.Action = Url.ItineraryAddTransportation();
+            return PartialView("TransportationDialog");
+        }
+
+        [HttpPost]
+        public ActionResult AddTransportation(TransportationForm form, User currentUser)
+        {
+            var trip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            var transportation = transportationsRepo.Save(form);
+            return Redirect(Url.Details(transportation.Trip));
+        }
+
+        public ActionResult EditTransportation(int id, User currentUser)
+        {
+            var transportation = transportationsRepo.Find(id);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, transportation.Trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            TransportationForm form = new TransportationForm
+            {
+                Id = transportation.Id,
+                TransportationTypeId = transportation.TransportationType.Id,
+                TripId = transportation.Trip.Id,
+                FromCityId = transportation.FromCity.Id,
+                FromCityName = transportation.FromCity.FullName,
+                ToCityId = transportation.ToCity.Id,
+                ToCityName = transportation.ToCity.FullName,
+                BeginDay = transportation.BeginDay,
+                EndDay = transportation.EndDay
+            };
+            ViewBag.Form = form;
+            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
+            ViewBag.Action = Url.ItineraryEditTransportation(transportation);
+            return PartialView("TransportationDialog");
+        }
+
+        [HttpPost]
+        public ActionResult EditTransportation(TransportationForm form, User currentUser)
+        {
+            var transportation = transportationsRepo.Find(form.Id.Value);
+            var oldTrip = transportation.Trip;
+            var newTrip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
+            if (!userOwnsTrips) Redirect("/");
+
+            transportationsRepo.Save(form);
+            return Redirect(Url.Details(transportation.Trip));
+        }
+
+        public ActionResult DeleteTransportation(int id, User currentUser)
+        {
+            var transportation = transportationsRepo.Find(id);
+            var trip = transportation.Trip;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) Redirect("/");
+
+            transportationsRepo.Delete(transportation);
+            transportationsRepo.Save();
             return Redirect(Url.Details(trip));
         }
 
