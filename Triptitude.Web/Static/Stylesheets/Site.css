@@ -101,7 +101,7 @@ input.day-input { width: 20px; }
 .trip-day-itinerary-item:hover { background-color: #CCC; }
 .trip-day-itinerary-item + .trip-day-itinerary-item { border-top: 1px dashed #000; }
 .trip-day-itinerary-item-time { }
-.trip-day-itinerary-item img { float: left; margin: 10px; }
+.trip-day-itinerary-item img { float: right; margin: 10px; }
 .trip-day-itinerary-item > h4 { color: #666; font-size: 14px; margin: 10px; }
 
 /* Dialogs */

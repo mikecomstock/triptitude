@@ -1,6 +1,17 @@
-﻿<div class="trip-day">
+﻿@{
+    var hotels = (IEnumerable<ItineraryItem>)ViewBag.Hotels;
+}
+<div class="trip-day">
     <h3>
         Day @ViewBag.DayNumber</h3>
+    @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.EndDay == ViewBag.DayNumber))
+    {
+        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
+            <h4>
+                Check out of <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
+            </h4>
+        </div>
+    }
     @foreach (Transportation trans in ViewBag.Transportations)
     {
         <div class="trip-day-itinerary-item transportation" data-id="@trans.Id" title="Click for details">
@@ -18,21 +29,15 @@
             <h4>
                 <a rel="nofollow" target="_blank" href="@itineraryItem.Website.URL">@itineraryItem.Website.Title</a>
             </h4>
-            <div class="trip-day-itinerary-item-time">
-                @itineraryItem.DateTimeString
-            </div>
         </div>
     }
-    @foreach (ItineraryItem itineraryItem in ViewBag.Hotels)
+    @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.BeginDay == ViewBag.DayNumber))
     {
         <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
             <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
             <h4>
-                <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
+                Check in to <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
             </h4>
-            <div class="trip-day-itinerary-item-time">
-                @itineraryItem.DateTimeString
-            </div>
-        </div>
+        </div>        
     }
 </div>

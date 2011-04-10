@@ -65,6 +65,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = trip;
             ViewBag.Transportations = trip.Transportations.Where(t => t.BeginDay == dayNumber || t.EndDay == dayNumber);
             var itineraryItems = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay).OrderBy(i => i.BeginDay);
+
             ViewBag.Hotels = itineraryItems.Where(i => i.Hotel != null);
             ViewBag.Websites = itineraryItems.Where(i => i.Website != null);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
