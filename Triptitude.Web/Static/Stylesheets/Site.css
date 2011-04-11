@@ -47,14 +47,15 @@ input.day-input { width: 20px; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 
-#trip-bar-menu { float: right; clear:both; }
-#trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px;margin: 0; display:block; }
-#trip-bar-menu li:hover{ background-color: #333;  }
-#trip-bar-menu li li:hover{ background-color: #444;  }
-#trip-bar-menu > ul { margin:5px 0; padding:0; list-style:none;font-size: 20px; font-weight: bold; }
-#trip-bar-menu > ul > li { float:left; }
+#trip-bar-menu { float: right; clear: both; }
+#trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
+#trip-bar-menu li:hover { background-color: #333; }
+#trip-bar-menu li li:hover { background-color: #444; }
+#trip-bar-menu > ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; }
+#trip-bar-menu > ul > li { float: left; }
 #trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
-#trip-bar-menu > ul ul { display:none; position:absolute; list-style:none; font-size: 14px; padding:10px; background-color:inherit; }
+#trip-bar-menu > ul ul { display: none; position: absolute; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; }
+#trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
 
 #trip-bar #start-here-form { margin-top: 10px; }
 #start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 230px; padding: 5px; margin-right: 10px; }
@@ -85,11 +86,11 @@ input.day-input { width: 20px; }
 #landing-page-panel { margin: 10px 20px; padding: 20px 0; }
 #landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color: #0190E9; }
 #landing-page-panel h2 { font-size: 22px; margin-bottom: 10px; margin-top: 20px; }
-#landing-page-panel h3 { font-size: 24px !important; color:#333; }
+#landing-page-panel h3 { font-size: 24px !important; color: #333; }
 #landing-page-panel p { color: #333; font-size: 14px; line-height: 1.5; margin: 0; }
 #landing-page-panel #start-here-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
 #landing-page-panel #start-here-form input { display: block; width: 300px; margin: 0 auto 10px auto; }
-#landing-page-panel #start-here-form input[type="submit"] { margin: 20px auto 0 auto; width: 200px; font-weight:normal; }
+#landing-page-panel #start-here-form input[type="submit"] { margin: 20px auto 0 auto; width: 200px; font-weight: normal; }
 #landing-page-panel #start-here-form h3 { font-size: 18px; margin-bottom: 15px; }
 #landing-page-panel ul { margin: 30px 0 0 20px; }
 #landing-page-panel ul li { font-size: 16px; margin: 10px 0; }
@@ -126,7 +127,7 @@ input.day-input { width: 20px; }
 .website-dialog form label { display: block; float: left; width: 90px; }
 .website-dialog form #url { width: 300px; }
 
-.hotel-dialog form {padding: 0 !important; }
+.hotel-dialog form { padding: 0 !important; }
 .hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .hotel-dialog form label { display: block; float: left; width: 60px; }
 
