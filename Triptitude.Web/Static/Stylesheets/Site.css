@@ -47,9 +47,14 @@ input.day-input { width: 20px; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 26px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 
-#trip-nav-bar { font-size: 20px; float: right; clear:both; }
-#trip-nav-bar a { color: #66C3FE; padding: 5px 15px; font-weight: bold; display: block; float: left; margin: 5px 0; }
-#trip-nav-bar a + a { border-left: 3px solid #FFF; }
+#trip-bar-menu { float: right; clear:both; }
+#trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px;margin: 0; display:block; }
+#trip-bar-menu li:hover{ background-color: #333;  }
+#trip-bar-menu li li:hover{ background-color: #444;  }
+#trip-bar-menu > ul { margin:5px 0; padding:0; list-style:none;font-size: 20px; font-weight: bold; }
+#trip-bar-menu > ul > li { float:left; }
+#trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
+#trip-bar-menu > ul ul { display:none; position:absolute; list-style:none; font-size: 14px; padding:10px; background-color:inherit; }
 
 #trip-bar #start-here-form { margin-top: 10px; }
 #start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 230px; padding: 5px; margin-right: 10px; }

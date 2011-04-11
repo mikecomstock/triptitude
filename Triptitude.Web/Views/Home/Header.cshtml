@@ -23,7 +23,7 @@
             else
             {
                 <div id="user-status-header">
-                    @Html.RouteLink("Login", "Login", null, new { id = "login-link", rel="nofollow" })
+                    @Html.RouteLink("Login", "Login", null, new { id = "login-link", rel = "nofollow" })
                 </div>
                 <div id="start-here">
                     Hi are you new? <a href="/">Start here</a>
@@ -38,10 +38,17 @@
 {     
     <div id="trip-bar-container">
         <div id="trip-bar">
-            <div id="trip-nav-bar">
-                <a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a> <a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-transportation-link link">
-                    Add Transportation</a> <a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-website-link link">
-                        Add Website</a>
+            <div id="trip-bar-menu">
+                <ul>
+                    <li><a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a></li>
+                    <li><span class="add-plans-link link">Add Plans</span>
+                        <ul>
+                            <li><a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-transportation-link link">
+                                Transportation</a></li>
+                            <li><a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-website-link link">Website</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <div id="trip-bar-pre-title">
                 currently planning...</div>

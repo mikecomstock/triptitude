@@ -16,6 +16,13 @@
         }
     });
 
+    $('#trip-bar-menu li').hover(function (hoverData) {
+        $(this).children('ul').show();
+
+    }, function (hoverData) {
+        $(this).children('ul').hide();
+    });
+
     $('.add-transportation-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
         $.get('/itineraryitems/addtransportation?tripid=' + tripId, function (getData) {
@@ -46,7 +53,6 @@
         container.attr('data-trip-id', tripId);
         container.dialog({
             title: name,
-            modal: false,
             width: 540,
             height: 400,
             resizable: false
