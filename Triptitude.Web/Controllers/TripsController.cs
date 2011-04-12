@@ -77,12 +77,12 @@ namespace Triptitude.Web.Controllers
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
             ViewBag.Trip = trip;
-            ViewBag.Form = tripRepo.GetSettings(trip);
+            ViewBag.Form = tripRepo.GetSettingsForm(trip);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Settings(int id, TripSettings form)
+        public ActionResult Settings(int id, TripSettingsForm form)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);

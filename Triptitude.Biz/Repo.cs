@@ -68,15 +68,14 @@ namespace Triptitude.Biz
                 }
                 else
                 {
-
-                    if (HttpContext.Current.Request.RequestContext.HttpContext.Items["db"] == null)
-                        HttpContext.Current.Request.RequestContext.HttpContext.Items["db"] = new Db();
-                    return (Db)HttpContext.Current.Request.RequestContext.HttpContext.Items["db"];
+                    if (HttpContext.Current.Items["db"] == null)
+                        HttpContext.Current.Items["db"] = new Db();
+                    return (Db)HttpContext.Current.Items["db"];
                 }
             }
         }
 
-        public static void Save()
+        internal static void Save()
         {
             _db.SaveChanges();
         }

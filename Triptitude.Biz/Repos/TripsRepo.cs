@@ -20,23 +20,31 @@ namespace Triptitude.Biz.Repos
             User user = _db.Users.Find(savedByUserId);
             trip.Users = new List<User> { user };
 
-            _db.SaveChanges();
+            Save();
             return trip;
         }
 
-        public TripSettings GetSettings(Trip trip)
+        public TripSettingsForm GetSettingsForm(Trip trip)
         {
-            var tripSettings = new TripSettings()
-            {
-                Name = trip.Name
-            };
-            return tripSettings;
+            var form = new TripSettingsForm()
+                           {
+                               Name = trip.Name,
+                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToShortDateString() : string.Empty
+                           };
+            return form;
         }
 
-        public void Save(Trip trip, TripSettings settings)
+        public void Save(Trip trip, TripSettingsForm form)
         {
-            trip.Name = settings.Name;
-            _db.SaveChanges();
+            trip.Name = form.Name;
+
+            DateTime parsedDate;
+            if (DateTime.TryParse(form.BeginDate, out parsedDate))
+                trip.BeginDate = parsedDate;
+            else
+                trip.BeginDate = null;
+
+            Save();
         }
     }
 }

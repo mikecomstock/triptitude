@@ -6,24 +6,6 @@ namespace Triptitude.Biz.Repos
 {
     public class ItineraryItemsRepo : Repo<ItineraryItem>
     {
-        public ItineraryItemSettings GetSettings(ItineraryItem itineraryItem)
-        {
-            var itinerarySettings = new ItineraryItemSettings
-                                        {
-                                            BeginDay = itineraryItem.BeginDay,
-                                            EndDay = itineraryItem.EndDay
-                                        };
-            return itinerarySettings;
-        }
-
-        public void Save(ItineraryItem itineraryItem, ItineraryItemSettings settings)
-        {
-            itineraryItem.BeginDay = settings.BeginDay;
-            itineraryItem.EndDay = settings.EndDay;
-            Save();
-        }
-
-        // TODO: move this to a service class instead
         public ItineraryItem Save(WebsiteForm form)
         {
             ItineraryItem itineraryItem;
@@ -53,7 +35,6 @@ namespace Triptitude.Biz.Repos
             return itineraryItem;
         }
 
-        // TODO: move this to a service class instead
         public ItineraryItem Save(HotelForm form)
         {
             ItineraryItem itineraryItem;

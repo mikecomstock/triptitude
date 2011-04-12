@@ -18,6 +18,7 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public DateTime? BeginDate { get; set; }
         public int Created_By { get; set; }
         public DateTime Created_On { get; set; }
         public virtual ICollection<User> Users { get; set; }
