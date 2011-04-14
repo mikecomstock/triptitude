@@ -165,6 +165,44 @@ namespace Triptitude.Web.Controllers
 
         #endregion
 
+        #region Destination Tags
+
+        public ActionResult EditDestinationTag(int itineraryItemId, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, itineraryItem.Trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            DestinationTagForm form = new DestinationTagForm
+                                          {
+                                              BeginDay = itineraryItem.BeginDay,
+                                              EndDay = itineraryItem.EndDay,
+                                              ItineraryItemId = itineraryItem.Id,
+                                              TripId = itineraryItem.Trip.Id,
+                                              DestinationId = itineraryItem.TagDestination.City.GeoNameID,
+                                              DestinationName = itineraryItem.TagDestination.City.FullName,
+                                              TagName = itineraryItem.TagDestination.Tag.Name
+                                          };
+            ViewBag.Form = form;
+            ViewBag.Action = Url.ItineraryEditDestinationTag();
+            return PartialView("DestinationTagDialog");
+        }
+
+        [HttpPost]
+        public ActionResult EditDestinationTag(DestinationTagForm form, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(form.ItineraryItemId.Value);
+            var oldTrip = itineraryItem.Trip;
+            var newTrip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
+            if (!userOwnsTrips) Redirect("/");
+
+            itineraryItemsRepo.Save(form);
+            return Redirect(Url.Details(itineraryItem.Trip));
+        }
+
+        #endregion
+
         #region Transportation
 
         public ActionResult AddTransportation(User currentUser, int tripId)

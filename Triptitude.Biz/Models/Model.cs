@@ -50,6 +50,7 @@ namespace Triptitude.Biz.Models
         public virtual Trip Trip { get; set; }
         public virtual Website Website { get; set; }
         public virtual Hotel Hotel { get; set; }
+        public virtual TagDestination TagDestination { get; set; }
         public int? BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
         public int? EndDay { get; set; }
@@ -60,7 +61,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                return Hotel != null ? Hotel.Name : Website != null ? Website.Title : "[No Title]";
+                return Hotel != null ? Hotel.Name : Website != null ? Website.Title : TagDestination != null ? TagDestination.Tag.Name : "[No Title]";
             }
         }
 
@@ -154,6 +155,20 @@ namespace Triptitude.Biz.Models
         {
             get { return ItineraryItems.Select(ii => ii.Trip); }
         }
+    }
+
+    public class TagDestination
+    {
+        public int Id { get; set; }
+        public virtual Tag Tag { get; set; }
+        public virtual City City { get; set; }
+    }
+
+    public class Tag
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<TagDestination> TagDestinations { get; set; }
     }
 
     #region Destinations
@@ -256,6 +271,8 @@ namespace Triptitude.Biz.Models
 
     #endregion
 
+    #region Hotels
+
     [Table("HotelPhotos")]
     public class HotelPhoto
     {
@@ -289,4 +306,6 @@ namespace Triptitude.Biz.Models
             }
         }
     }
+
+    #endregion
 }

@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\DestinationTagForm.cs" />
     <Compile Include="Forms\HotelForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\TransportationForm.cs" />
@@ -69,10 +70,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\CitiesRepo.cs" />
     <Compile Include="Repos\DestinationsRepo.cs" />
+    <Compile Include="Repos\DestinationTagsRepo.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\ItineraryItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
+    <Compile Include="Repos\TagsRepo.cs" />
     <Compile Include="Repos\TransportationsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />

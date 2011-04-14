@@ -26,7 +26,7 @@ namespace Triptitude.Biz.Repos
 
         public TripSettingsForm GetSettingsForm(Trip trip)
         {
-            var form = new TripSettingsForm()
+            var form = new TripSettingsForm
                            {
                                Name = trip.Name,
                                BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToShortDateString() : string.Empty

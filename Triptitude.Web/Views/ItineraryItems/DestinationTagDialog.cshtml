@@ -1,0 +1,26 @@
+﻿@{
+    Triptitude.Biz.Forms.DestinationTagForm form = (Triptitude.Biz.Forms.DestinationTagForm)ViewBag.Form;
+}
+<form action="@ViewBag.Action" method="post">
+<input type="hidden" name="itineraryitemid" value="@form.ItineraryItemId" />
+<input type="hidden" name="tripid" value="@form.TripId" />
+<p>
+    <label for="tagname">
+        Activity</label>
+    <input type="text" name="tagname" value="@form.TagName" />
+</p>
+<p>
+    <label for="destinationname">
+        Destination</label>
+    <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" value="@form.DestinationName" />
+    <input type="hidden" id="destinationid" name="destinationid" value="@form.DestinationId" />
+</p>
+<p>
+    <label for="beginDay">
+        Day
+    </label>
+    <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
+    thru
+    <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+</p>
+</form>

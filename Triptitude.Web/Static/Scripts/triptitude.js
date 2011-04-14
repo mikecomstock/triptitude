@@ -102,6 +102,13 @@
             CreateHotelModal(data);
         });
     });
+
+    $('.trip-day-itinerary-item.destination-tag').click(function () {
+        var id = $(this).attr('data-id');
+        $.get('/itineraryitems/editdestinationtag?itineraryitemid=' + id, function (data) {
+            CreateDestinationTagModal(data);
+        });
+    });
 });
 
 function BrowserAutocompleteOff() {
@@ -195,6 +202,32 @@ function CreateHotelModal(data) {
         resizable: false,
         buttons: buttons
     });
+    BrowserAutocompleteOff();
+}
+
+function CreateDestinationTagModal(data) {
+    var dialog = $(data);
+    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
+
+    var buttons = [];
+    if (itineraryitemid) {
+        buttons.push({ text: 'Delete', click: function () {
+            var confirmed = confirm('Delete?');
+            if (confirmed)
+                window.location.href = "/itineraryitems/deletedestinationtag?itineraryitemid=" + itineraryitemid
+        }
+        });
+    }
+    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
+
+    dialog.dialog({
+        title: 'Tag',
+        dialogClass: 'destination-tag-dialog',
+        width: 450,
+        resizable: false,
+        buttons: buttons
+    });
+    BindDestinationAutocomplete(dialog);
     BrowserAutocompleteOff();
 }
 

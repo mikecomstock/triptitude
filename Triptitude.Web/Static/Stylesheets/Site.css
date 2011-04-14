@@ -131,6 +131,12 @@ input.day-input { width: 20px; }
 .hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .hotel-dialog form label { display: block; float: left; width: 60px; }
 
+.destination-tag-dialog form { padding: 0 !important; }
+.destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
+.destination-tag-dialog form label { display: block; float: left; width: 100px; }
+.destination-tag-dialog form input.destination-autocomplete { width: 300px; }
+
+
 /* Trip Map */
 #trip-map-container { width: 100%; height: 500px; }
 

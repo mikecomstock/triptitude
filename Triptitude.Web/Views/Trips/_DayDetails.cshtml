@@ -31,6 +31,14 @@
             </h4>
         </div>
     }
+    @foreach (ItineraryItem itineraryItem in ViewBag.DestinationTags)
+    {
+        <div class="trip-day-itinerary-item destination-tag" data-id="@itineraryItem.Id" title="Click for details">
+            <h4>
+                @itineraryItem.TagDestination.Tag.Name in <a href="@Url.Details((City)itineraryItem.TagDestination.City)">@itineraryItem.TagDestination.City.ASCIIName</a>
+            </h4>
+        </div>
+    }
     @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.BeginDay == ViewBag.DayNumber))
     {
         <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
