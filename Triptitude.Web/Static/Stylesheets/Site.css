@@ -49,13 +49,18 @@ input.day-input { width: 20px; }
 
 #trip-bar-menu { float: right; clear: both; }
 #trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
+#trip-bar-menu a:hover { text-decoration: none; }
+#trip-bar-menu a span { color: #BBB; font-weight: normal; display: block; padding: 5px 15px 15px 15px; font-size: 14px; }
+#trip-bar-menu a span strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
 #trip-bar-menu li:hover { background-color: #333; }
 #trip-bar-menu li li:hover { background-color: #444; }
 #trip-bar-menu > ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; }
 #trip-bar-menu > ul > li { float: left; }
 #trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
-#trip-bar-menu > ul ul { display: none; position: absolute; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; }
+#trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; }
+#trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
+
 
 #trip-bar #start-here-form { margin-top: 10px; }
 #start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 230px; padding: 5px; margin-right: 10px; }

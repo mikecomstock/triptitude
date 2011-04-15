@@ -228,7 +228,7 @@ function CreateDestinationTagModal(data) {
     buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
 
     dialog.dialog({
-        title: 'Tag',
+        title: 'Activity',
         dialogClass: 'destination-tag-dialog',
         width: 450,
         resizable: false,

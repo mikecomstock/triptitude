@@ -85,9 +85,9 @@ namespace Triptitude.Biz.Repos
             Tag tag = new TagsRepo().FindOrCreateByName(form.TagName);
 
             DestinationTagsRepo destinationTagsRepo = new DestinationTagsRepo();
-            TagDestination tagDestination = destinationTagsRepo.FindOrCreate(city, tag);
+            DestinationTag destinationTag = destinationTagsRepo.FindOrCreate(city, tag);
 
-            itineraryItem.TagDestination = tagDestination;
+            itineraryItem.DestinationTag = destinationTag;
 
             itineraryItem.BeginDay = form.BeginDay;
             itineraryItem.EndDay = form.EndDay;

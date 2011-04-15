@@ -68,7 +68,7 @@ namespace Triptitude.Web.Controllers
 
             ViewBag.Hotels = itineraryItems.Where(i => i.Hotel != null);
             ViewBag.Websites = itineraryItems.Where(i => i.Website != null);
-            ViewBag.DestinationTags = itineraryItems.Where(i => i.TagDestination != null);
+            ViewBag.DestinationTags = itineraryItems.Where(i => i.DestinationTag != null);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
             return PartialView("_DayDetails");
         }

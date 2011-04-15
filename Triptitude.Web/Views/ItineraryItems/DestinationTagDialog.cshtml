@@ -5,15 +5,15 @@
 <input type="hidden" name="itineraryitemid" value="@form.ItineraryItemId" />
 <input type="hidden" name="tripid" value="@form.TripId" />
 <p>
-    <label for="tagname">
-        Activity</label>
-    <input type="text" name="tagname" value="@form.TagName" />
-</p>
-<p>
     <label for="destinationname">
         Destination</label>
     <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" value="@form.DestinationName" />
     <input type="hidden" id="destinationid" name="destinationid" value="@form.DestinationId" />
+</p>
+<p>
+    <label for="tagname">
+        Activity Name</label>
+    <input type="text" name="tagname" value="@form.TagName" />
 </p>
 <p>
     <label for="beginDay">
