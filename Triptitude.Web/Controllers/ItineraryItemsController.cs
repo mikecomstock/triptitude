@@ -220,6 +220,18 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(itineraryItem.Trip));
         }
 
+        public ActionResult DeleteDestinationTag(int itineraryItemId, User currentUser)
+        {
+            var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
+            var trip = itineraryItem.Trip;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) Redirect("/");
+
+            itineraryItemsRepo.Delete(itineraryItem);
+            itineraryItemsRepo.Save();
+            return Redirect(Url.Details(trip));
+        }
+
         #endregion
 
         #region Transportation

@@ -49,7 +49,7 @@ input.day-input { width: 20px; }
 
 #trip-bar-menu { float: right; clear: both; }
 #trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
-#trip-bar-menu a:hover { text-decoration: none; }
+#trip-bar-menu a:hover, #trip-bar-menu .link:hover { text-decoration: none !important; }
 #trip-bar-menu a span { color: #BBB; font-weight: normal; display: block; padding: 5px 15px 15px 15px; font-size: 14px; }
 #trip-bar-menu a span strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
 #trip-bar-menu li:hover { background-color: #333; }
