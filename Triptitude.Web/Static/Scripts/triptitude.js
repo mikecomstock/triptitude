@@ -37,6 +37,13 @@
         });
     });
 
+    $('.add-tag-link').click(function (clickData) {
+        var tripId = $(this).attr('data-trip-id');
+        $.get('/itineraryitems/adddestinationtag?tripid=' + tripId, function (getData) {
+            CreateDestinationTagModal(getData);
+        });
+    });
+
     $('.add-hotel-link').click(function (clickData) {
         var hotelId = $(this).attr('data-hotel-id');
         $.get('/itineraryitems/addhotel?hotelid=' + hotelId, function (data) {

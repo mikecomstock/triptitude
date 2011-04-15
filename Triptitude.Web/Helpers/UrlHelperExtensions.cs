@@ -121,6 +121,11 @@ namespace Triptitude.Web.Helpers
             return url.Action("editwebsite", "itineraryitems");
         }
 
+        public static string ItineraryAddDestinationTag(this UrlHelper url)
+        {
+            return url.Action("adddestinationtag", "itineraryitems");            
+        }
+
         public static string ItineraryEditDestinationTag(this UrlHelper url)
         {
             return url.Action("editdestinationtag", "itineraryitems");            

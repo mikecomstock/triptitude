@@ -167,6 +167,25 @@ namespace Triptitude.Web.Controllers
 
         #region Destination Tags
 
+        public ActionResult AddDestinationTag(User currentUser, int tripId)
+        {
+            DestinationTagForm form = new DestinationTagForm { TripId = tripId };
+            ViewBag.Form = form;
+            ViewBag.Action = Url.ItineraryAddDestinationTag();
+            return PartialView("destinationtagdialog");
+        }
+
+        [HttpPost]
+        public ActionResult AddDestinationTag(DestinationTagForm form, User currentUser)
+        {
+            var trip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            itineraryItemsRepo.Save(form);
+            return Redirect(Url.Details(trip));
+        }
+
         public ActionResult EditDestinationTag(int itineraryItemId, User currentUser)
         {
             var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
@@ -185,7 +204,7 @@ namespace Triptitude.Web.Controllers
                                           };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryEditDestinationTag();
-            return PartialView("DestinationTagDialog");
+            return PartialView("destinationtagdialog");
         }
 
         [HttpPost]
