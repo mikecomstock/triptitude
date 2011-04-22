@@ -1,8 +1,8 @@
 ﻿@{
     Destination destination = ViewBag.Destination;
-    City city = destination.City;
-    Region region = destination.Region;
-    Country country = destination.Country;
+    City city = destination as City;
+    Region region = destination as Region;
+    Country country = destination as Country;
     ViewBag.Title = destination.FullName;
 }
 @section Scripts {

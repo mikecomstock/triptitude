@@ -5,13 +5,13 @@ namespace Triptitude.Biz.Repos
 {
     public class DestinationTagsRepo : Repo<DestinationTag>
     {
-        public DestinationTag FindOrCreate(Destination destination, Tag tag)
+        public DestinationTag FindOrCreate(City city, Tag tag)
         {
-            DestinationTag destinationTag = FindAll().FirstOrDefault(td => td.Destination.Id == destination.Id && td.Tag.Id == tag.Id);
+            DestinationTag destinationTag = FindAll().FirstOrDefault(td => td.City.GeoNameID == city.GeoNameID && td.Tag.Id == tag.Id);
 
             if (destinationTag == null)
             {
-                destinationTag = new DestinationTag { Destination = destination, Tag = tag };
+                destinationTag = new DestinationTag { City = city, Tag = tag };
                 Add(destinationTag);
                 Save();
             }

@@ -35,7 +35,7 @@
     {
         <div class="trip-day-itinerary-item destination-tag" data-id="@itineraryItem.Id" title="Click for details">
             <h4>
-                @itineraryItem.DestinationTag.Tag.Name in <a href="@Url.Details(itineraryItem.DestinationTag.Destination)">@itineraryItem.DestinationTag.Destination.Name</a>
+                @itineraryItem.DestinationTag.Tag.Name in <a href="@Url.Details((City)itineraryItem.DestinationTag.City)">@itineraryItem.DestinationTag.City.ASCIIName</a>
             </h4>
         </div>
     }
