@@ -301,6 +301,19 @@ function drawMap(container) {
             });
         });
 
+        $.each(mapData.destinationTags, function (i, item) {
+
+            var point = new google.maps.LatLng(item.Lat, item.Lon);
+            var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
+            marker.infoHtml = item.InfoHtml
+            bounds.extend(point);
+
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                infoWindow.setContent(marker.infoHtml);
+                infoWindow.open(map, marker);
+            });
+        });
+
         map.fitBounds(bounds);
     });
 }

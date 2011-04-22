@@ -50,7 +50,18 @@ namespace Triptitude.Web.Controllers
                                         InfoHtml = infoHtml
                                     };
 
-            var jsonObject = new { trans, hotels };
+            var destinationTagItineraryItems = trip.Itinerary.Where(i => i.DestinationTag != null);
+            var destinationTags = from dt in destinationTagItineraryItems
+                                  let infoHtml = string.Format("{0} in <a href='{1}'>{2}</a>", dt.DestinationTag.Tag.Name, Url.Details(dt.DestinationTag.City), dt.DestinationTag.City.ShortName)
+                                  select new
+                                             {
+                                                 Name = dt.DestinationTag.City.ShortName,
+                                                 Lat = dt.DestinationTag.City.Latitude,
+                                                 Lon = dt.DestinationTag.City.Longitude,
+                                                 InfoHtml = infoHtml
+                                             };
+
+            var jsonObject = new { trans, hotels, destinationTags };
 
             return Json(jsonObject, JsonRequestBehavior.AllowGet);
         }
