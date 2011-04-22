@@ -31,10 +31,10 @@ namespace Triptitude.Biz.Services
             Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_29);
             IndexWriter indexWriter = new IndexWriter(directory, analyzer, true, new IndexWriter.MaxFieldLength(100));
 
-            IEnumerable<Destination> countries = new CountriesRepo().FindAll().ToList();
-            IEnumerable<Destination> regions = new RegionsRepo().FindAll().ToList();
-            IEnumerable<Destination> cities = new CitiesRepo().GetDataReaderForIndexing();
-            IEnumerable<Destination> destinations = countries.Union(regions).Union(cities);
+            IEnumerable<IIndexable> countries = new CountriesRepo().FindAll().ToList();
+            IEnumerable<IIndexable> regions = new RegionsRepo().FindAll().ToList();
+            IEnumerable<IIndexable> cities = new CitiesRepo().GetDataReaderForIndexing();
+            IEnumerable<IIndexable> destinations = countries.Union(regions).Union(cities);
             int i = 0;
             foreach (var destination in destinations)
             {

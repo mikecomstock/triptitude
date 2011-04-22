@@ -81,11 +81,11 @@ namespace Triptitude.Biz.Repos
             Trip trip = new TripsRepo().Find(form.TripId);
             itineraryItem.Trip = trip;
 
-            City city = new CitiesRepo().Find(form.DestinationId);
+            Destination destination = new DestinationsRepo().Find(form.DestinationId);
             Tag tag = new TagsRepo().FindOrCreateByName(form.TagName);
 
             DestinationTagsRepo destinationTagsRepo = new DestinationTagsRepo();
-            DestinationTag destinationTag = destinationTagsRepo.FindOrCreate(city, tag);
+            DestinationTag destinationTag = destinationTagsRepo.FindOrCreate(destination, tag);
 
             itineraryItem.DestinationTag = destinationTag;
 

@@ -198,8 +198,8 @@ namespace Triptitude.Web.Controllers
                                               EndDay = itineraryItem.EndDay,
                                               ItineraryItemId = itineraryItem.Id,
                                               TripId = itineraryItem.Trip.Id,
-                                              DestinationId = itineraryItem.DestinationTag.City.GeoNameID,
-                                              DestinationName = itineraryItem.DestinationTag.City.FullName,
+                                              DestinationId = itineraryItem.DestinationTag.Destination.Id,
+                                              DestinationName = itineraryItem.DestinationTag.Destination.FullName,
                                               TagName = itineraryItem.DestinationTag.Tag.Name
                                           };
             ViewBag.Form = form;

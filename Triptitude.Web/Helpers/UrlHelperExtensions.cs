@@ -163,6 +163,11 @@ namespace Triptitude.Web.Helpers
             return SlugAction(url, "details", "destinations", destination.Id, destination.FullName);
         }
 
+        public static string Details(this UrlHelper url, City city)
+        {
+            return SlugAction(url, "details", "destinations", city.GeoNameID, city.FullName);
+        }
+
         public static string Hotels(this UrlHelper url, Destination destination)
         {
             return SlugAction(url, "hotels", "destinations", destination.Id, destination.FullName);
