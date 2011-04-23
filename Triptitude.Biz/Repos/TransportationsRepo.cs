@@ -27,8 +27,8 @@ namespace Triptitude.Biz.Repos
             transportation.Trip = trip;
             transportation.ToCity = citiesRepo.Find(form.ToCityId);
             transportation.FromCity = citiesRepo.Find(form.FromCityId);
-            transportation.BeginDay = form.BeginDay;
-            transportation.EndDay = form.EndDay;
+            transportation.BeginDay = form.BeginDay.Value;
+            transportation.EndDay = form.EndDay.Value;
             Save();
 
             return transportation;

@@ -51,9 +51,9 @@ namespace Triptitude.Biz.Models
         public virtual Website Website { get; set; }
         public virtual Hotel Hotel { get; set; }
         public virtual DestinationTag DestinationTag { get; set; }
-        public int? BeginDay { get; set; }
+        public int BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
-        public int? EndDay { get; set; }
+        public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
 
@@ -64,31 +64,6 @@ namespace Triptitude.Biz.Models
                 return Hotel != null ? Hotel.Name : Website != null ? Website.Title : DestinationTag != null ? DestinationTag.Tag.Name : "[No Title]";
             }
         }
-
-        public string BeginDateTimeString
-        {
-            get
-            {
-                string timeString = null;
-                if (BeginTime.HasValue)
-                    timeString = DateTime.Today.Add(BeginTime.Value).ToShortTimeString();
-                return string.Format("{0} Day {1}", timeString, BeginDay);
-            }
-        }
-        public string EndDateTimeString
-        {
-            get
-            {
-                string timeString = null;
-                if (EndTime.HasValue)
-                    timeString = DateTime.Today.Add(EndTime.Value).ToShortTimeString();
-                return string.Format("{0} Day {1}", timeString, EndDay);
-            }
-        }
-        public string DateTimeString
-        {
-            get { return BeginDateTimeString + " - " + EndDateTimeString; }
-        }
     }
 
     public class Transportation
@@ -98,8 +73,8 @@ namespace Triptitude.Biz.Models
         public virtual Trip Trip { get; set; }
         public virtual City FromCity { get; set; }
         public virtual City ToCity { get; set; }
-        public int? BeginDay { get; set; }
-        public int? EndDay { get; set; }
+        public int BeginDay { get; set; }
+        public int EndDay { get; set; }
     }
 
     public class TransportationType

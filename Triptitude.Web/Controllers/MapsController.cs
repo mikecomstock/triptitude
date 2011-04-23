@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Web.Helpers;
@@ -19,7 +20,9 @@ namespace Triptitude.Web.Controllers
 
             var transportations = trip.Transportations;
             var trans = from t in transportations
-                        let infoHtml = t.TransportationType.Name + " from <a href='" + Url.Details(t.FromCity) + "'>" + t.FromCity.ShortName + "</a> to <a href='" + Url.Details(t.ToCity) + "'>" + t.ToCity.ShortName + "</a>"
+                        let infoTitle = string.Format("<h3>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></h3>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
+                        let infoBody = Util.DateTimeRangeString(t.BeginDay, null, t.EndDay, null)
+                        let infoHtml = infoTitle + "<br/>" + infoBody
                         select new
                                    {
                                        PathType = t.TransportationType.TravelMode,
@@ -41,7 +44,11 @@ namespace Triptitude.Web.Controllers
 
             var hotelItineraryItems = trip.Itinerary.Where(i => i.Hotel != null);
             var hotels = from i in hotelItineraryItems
-                         let infoHtml = string.Format("Lodging at <a href='{0}'>{1}</a>", Url.Details(i.Hotel), i.Hotel.Name)
+                         let infoTitle = string.Format("<h3>Lodging at <a href='{0}'>{1}</a></h3>", Url.Details(i.Hotel), i.Hotel.Name)
+                         let numNights = i.EndDay - i.BeginDay
+                         let nightsText = numNights == 1 ? "night" : "nights"
+                         let infoBody = Util.DateTimeRangeString(i.BeginDay, i.BeginTime, i.EndDay, i.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
+                         let infoHtml = infoTitle + "<br/>" + infoBody
                          select new
                                     {
                                         Name = i.Hotel.Name,
@@ -52,7 +59,10 @@ namespace Triptitude.Web.Controllers
 
             var destinationTagItineraryItems = trip.Itinerary.Where(i => i.DestinationTag != null);
             var destinationTags = from dt in destinationTagItineraryItems
-                                  let infoHtml = string.Format("{0} in <a href='{1}'>{2}</a>", dt.DestinationTag.Tag.Name, Url.Details(dt.DestinationTag.City), dt.DestinationTag.City.ShortName)
+                                  let infoTitle = string.Format("<h3>{0} in <a href='{1}'>{2}</a></h3>", dt.DestinationTag.Tag.Name, Url.Details(dt.DestinationTag.City), dt.DestinationTag.City.ShortName)
+                                  let infoBody = Util.DateTimeRangeString(dt.BeginDay, dt.BeginTime, dt.EndDay, dt.EndTime)
+                                  let infoHtml = infoTitle + "<br/>" + infoBody
+
                                   select new
                                              {
                                                  Name = dt.DestinationTag.City.ShortName,

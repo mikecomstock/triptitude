@@ -1,5 +1,4 @@
-﻿using System;
-using Triptitude.Biz.Forms;
+﻿using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Services;
 
@@ -28,8 +27,8 @@ namespace Triptitude.Biz.Repos
             WebsitesRepo websitesRepo = new WebsitesRepo();
             itineraryItem.Website = websitesRepo.FindByUrl(form.Url) ?? new WebsiteService().AddWebsite(form.Url);
 
-            itineraryItem.BeginDay = form.BeginDay;
-            itineraryItem.EndDay = form.EndDay;
+            itineraryItem.BeginDay = form.BeginDay.Value;
+            itineraryItem.EndDay = form.EndDay.Value;
 
             Save();
 
@@ -56,8 +55,8 @@ namespace Triptitude.Biz.Repos
             HotelsRepo hotelsRepo = new HotelsRepo();
             itineraryItem.Hotel = hotelsRepo.Find(form.HotelId);
 
-            itineraryItem.BeginDay = form.BeginDay;
-            itineraryItem.EndDay = form.EndDay;
+            itineraryItem.BeginDay = form.BeginDay.Value;
+            itineraryItem.EndDay = form.EndDay.Value;
 
             Save();
 
@@ -89,8 +88,8 @@ namespace Triptitude.Biz.Repos
 
             itineraryItem.DestinationTag = destinationTag;
 
-            itineraryItem.BeginDay = form.BeginDay;
-            itineraryItem.EndDay = form.EndDay;
+            itineraryItem.BeginDay = form.BeginDay.Value;
+            itineraryItem.EndDay = form.EndDay.Value;
 
             Save();
 

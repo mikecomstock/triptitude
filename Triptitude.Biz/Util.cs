@@ -72,5 +72,27 @@ namespace Triptitude.Biz
             //return the resulting bitmap
             return result;
         }
+
+        public static string DateTimeRangeString(int beginDay, TimeSpan? beginTime, int endDay, TimeSpan? endTime)
+        {
+            string dateTimeString = string.Empty;
+
+            if (beginDay == endDay && !beginTime.HasValue && !endTime.HasValue)
+            {
+                dateTimeString += string.Format("Day {0}", beginDay);
+            }
+            else
+            {
+                if (beginTime.HasValue) dateTimeString += string.Format("{0} ", DateTime.Today.Add(beginTime.Value).ToShortTimeString());
+                dateTimeString += string.Format("Day {0}", beginDay);
+
+                dateTimeString += " - ";
+
+                if (endTime.HasValue) dateTimeString += string.Format("{0} ", DateTime.Today.Add(endTime.Value).ToShortTimeString());
+                dateTimeString += string.Format("Day {0}", endDay);
+            }
+
+            return dateTimeString;
+        }
     }
 }
