@@ -30,10 +30,7 @@
         </div>
         <div class="panel-content-not-padded">
             <div id="hotel-details-photo-list">
-                @foreach (HotelPhoto photo in hotel.Photos.OrderByDescending(p => p.IsDefault))
-                {
-                    <img class="hotel-photo" alt="" src="@photo.ImageURL" height="@photo.NiceHeight"  />
-                }
+                <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
             </div>
         </div>
     </div>

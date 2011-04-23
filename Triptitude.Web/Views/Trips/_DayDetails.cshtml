@@ -42,7 +42,7 @@
     @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.BeginDay == ViewBag.DayNumber))
     {
         <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
-            <img src="@itineraryItem.Hotel.Photos.OrderByDescending(p => p.IsDefault).First().ThumbURL" alt="" />
+            <img src="@itineraryItem.Hotel.Photo.ThumbURL" alt="" />
             <h4>
                 Check in to <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
             </h4>

@@ -30,17 +30,17 @@ namespace Triptitude.Biz.Models
             {
                 List<int?> days = new List<int?>
                                      {
-                                         Itinerary.Max(x => x.BeginDay),
-                                         Itinerary.Max(x => x.EndDay),
-                                         Transportations.Max(x => x.BeginDay),
-                                         Transportations.Max(x => x.EndDay) 
+                                         Itinerary.Any() ? Itinerary.Max(x => x.BeginDay) : 0,
+                                         Itinerary.Any() ? Itinerary.Max(x => x.EndDay) : 0,
+                                         Transportations.Any() ? Transportations.Max(x => x.BeginDay) : 0,
+                                         Transportations.Any() ? Transportations.Max(x => x.EndDay) : 0
                                      };
-                return days.Max() ?? 1;
+                return Math.Max(days.Max().Value, 1);
             }
         }
         public IEnumerable<HotelPhoto> Photos
         {
-            get { return Itinerary.Select(i => i.Hotel).Distinct().Where(h => h != null).SelectMany(h => h.Photos).OrderByDescending(p => p.IsDefault); }
+            get { return Itinerary.Select(i => i.Hotel).Distinct().Where(h => h != null).Select(h => h.Photo); }
         }
     }
 
@@ -247,16 +247,12 @@ namespace Triptitude.Biz.Models
 
     #region Hotels
 
-    [Table("HotelPhotos")]
     public class HotelPhoto
     {
-        public int Id { get; set; }
         public string ImageURL { get; set; }
         public string ThumbURL { get; set; }
-        public bool IsDefault { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
-
         public int NiceHeight { get { return 250; } }
     }
 
@@ -266,16 +262,22 @@ namespace Triptitude.Biz.Models
         public string Name { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
-        public bool? HasContinentalBreakfast { get; set; }
-        public virtual ICollection<HotelPhoto> Photos { get; set; }
+        public int Image_Id { get; set; }
+        public int NumberOfReviews { get; set; }
+        public decimal ConsumerRating { get; set; }
         public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
 
         public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
-        public HotelPhoto DefaultPhoto
+
+        public HotelPhoto Photo
         {
             get
             {
-                var photo = Photos.FirstOrDefault(p => p.IsDefault);
+                var photo = new HotelPhoto
+                        {
+                            ImageURL = string.Format("http://media.hotelscombined.com/HI{0}.jpg", Image_Id),
+                            ThumbURL = string.Format("http://media.hotelscombined.com/HT{0}.jpg", Image_Id)
+                        };
                 return photo;
             }
         }

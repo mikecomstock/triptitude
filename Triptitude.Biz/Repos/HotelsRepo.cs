@@ -17,7 +17,7 @@ namespace Triptitude.Biz.Repos
 
         public IEnumerable<Hotel> FindNear(City city, int radiusInMeters)
         {
-            const string sql = "select h.* from Hotels h join HotelsNear(@p0,@p1,@p2) as hn on h.Id = hn.Id order by hn.Distance";
+            const string sql = "select h.* from Hotels h join HotelsNear(@p0,@p1,@p2) as hn on h.Id = hn.Hotel_Id order by hn.Distance";
             var hotels = Sql(sql, city.Latitude, city.Longitude, radiusInMeters);
             return hotels;
         }

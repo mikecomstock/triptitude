@@ -13,19 +13,18 @@ namespace Triptitude.GeoNamesImporter
         private const string regionsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Regions.txt";
         private const string citiesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Cities.txt";
 
-        private const string hotelsAllActivePath = "C:\\Users\\Mike\\Desktop\\Temp\\Hotel_All_Active 02-26-11.txt";
-        private const string hotelsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Hotels.sql";
+        private const string hotelFilePath = "C:\\Source\\Datafiles\\Hotels_All.csv";
 
-        private const string hotelImagesPath = "C:\\Users\\Mike\\Desktop\\Temp\\images.txt";
-        private const string hotelImagesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Images.sql";
+        //private const string hotelImagesPath = "C:\\Users\\Mike\\Desktop\\Temp\\images.txt";
+        //private const string hotelImagesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Images.sql";
 
         static void Main(string[] args)
         {
             //Countries();
             //Regions();
             //Cities();
-            //Hotels();
-            HotelImages();
+            HotelsCombined();
+            ////HotelImages();
             //BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
@@ -53,19 +52,20 @@ namespace Triptitude.GeoNamesImporter
             importService.PrepareCities(allCountriesPath, citiesOutPath);
         }
 
-        static void Hotels()
+        static void HotelsCombined()
         {
             Console.WriteLine("=== IMPORTING HOTELS ===");
             ImportService importService = new ImportService();
-            importService.ImportHotels(hotelsAllActivePath, hotelsOutPath);
+            var numErrors = importService.ImportHotelsCombinedHotels(hotelFilePath);
+            if (numErrors > 0) Console.Write(String.Format("!!!!!! {0} ERRORS !!!!!!", numErrors));
         }
 
-        static void HotelImages()
-        {
-            Console.WriteLine("=== IMPORTING HOTEL IMAGES ===");
-            ImportService importService = new ImportService();
-            importService.ImportHotelImages(hotelImagesPath, hotelImagesOutPath);
-        }
+        //static void HotelImages()
+        //{
+        //    Console.WriteLine("=== IMPORTING HOTEL IMAGES ===");
+        //    ImportService importService = new ImportService();
+        //    importService.ImportHotelImages(hotelImagesPath, hotelImagesOutPath);
+        //}
 
         private static void BuildSearchIndexes()
         {

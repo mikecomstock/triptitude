@@ -13,10 +13,7 @@
                 @foreach (Hotel hotel in ViewBag.Hotels)
                 {
                     <div class="hotel-row">
-                        @if (hotel.DefaultPhoto != null)
-                        {
-                            <img class="hotel-row-photo" alt="" src="@hotel.DefaultPhoto.ThumbURL" height="70" width="70" />
-                        }
+                        <img class="hotel-row-photo" alt="" src="@hotel.Photo.ThumbURL" height="70" width="70" />
                         <div class="hotel-row-body">
                             <a class="hotel-row-title" href="@Url.Details(hotel)">@hotel.Name</a>
                         </div>

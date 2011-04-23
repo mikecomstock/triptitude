@@ -144,39 +144,42 @@ namespace Triptitude.Biz.Services
             }
         }
 
-        public void ImportHotels(string hotelAllActivePath, string outPath)
+        /// <returns>Number of errors</returns>
+        public int ImportHotelsCombinedHotels(string hotelFilePath)
         {
-            FileStream inFileStream = new FileStream(hotelAllActivePath, FileMode.Open);
-            FileStream outFileStream = new FileStream(outPath, FileMode.Create);
+            FileStream inFileStream = new FileStream(hotelFilePath, FileMode.Open);
             StreamReader reader = new StreamReader(inFileStream);
-            StreamWriter writer = new StreamWriter(outFileStream);
 
-            int i = 0;
+            int i = 0, numErrors = 0;
             Repo repo = new Repo();
 
             using (inFileStream)
             using (reader)
-            using (outFileStream)
-            using (writer)
             {
                 reader.ReadLine(); //ignore first line
 
-                writer.WriteLine("set nocount on");
-                writer.WriteLine("begin tran");
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var l = line.Split('|');
+                    var l = line.Split(',');
 
-                    var id = int.Parse(l[0]);
-                    var name = l[1].Replace("'", "''");
-                    var latitude = l[11];
-                    var longitude = l[10];
-                    var hasContinentalBreakfast = l[30] == "Y" ? 1 : 0;
+                    var hotelsCombinedId = int.Parse(l[0]);
+                    var name = l[2].Replace("\"", " ").Trim();
+                    var latitude = l[17];
+                    var longitude = l[18];
+                    var imageId = l[13];
+                    var numberOfReviews = l[19];
+                    var consumerRating = l[20];
 
-                    const string sql = "execute InsertHotel @p0, @p1, @p2, @p3, @p4";
-                    repo.ExecuteSql(sql, id, name, latitude, longitude, hasContinentalBreakfast);
-                    //writer.WriteLine(sql);
+                    if (name != string.Empty && latitude != string.Empty && longitude != string.Empty && imageId != string.Empty)
+                    {
+                        const string sql = "execute InsertHotel @p0, @p1, @p2, @p3, @p4, @p5, @p6";
+                        repo.ExecuteSql(sql, hotelsCombinedId, name, latitude, longitude, imageId, numberOfReviews, consumerRating);
+                    }
+                    else
+                    {
+                        numErrors++;
+                    }
 
                     if (++i % 100 == 0)
                     {
@@ -184,53 +187,53 @@ namespace Triptitude.Biz.Services
                         Console.WriteLine(i);
                     }
                 }
-                writer.WriteLine("commit");
-                writer.WriteLine("set nocount off");
             }
+
+            return numErrors;
         }
 
-        public void ImportHotelImages(string hotelImagesPath, string hotelImagesOutPath)
-        {
-            FileStream inFileStream = new FileStream(hotelImagesPath, FileMode.Open);
-            FileStream outFileStream = new FileStream(hotelImagesOutPath, FileMode.Create);
-            StreamReader reader = new StreamReader(inFileStream);
-            StreamWriter writer = new StreamWriter(outFileStream);
+        //public void ImportHotelImages(string hotelImagesPath, string hotelImagesOutPath)
+        //{
+        //    FileStream inFileStream = new FileStream(hotelImagesPath, FileMode.Open);
+        //    FileStream outFileStream = new FileStream(hotelImagesOutPath, FileMode.Create);
+        //    StreamReader reader = new StreamReader(inFileStream);
+        //    StreamWriter writer = new StreamWriter(outFileStream);
 
-            int i = 0;
-            Repo repo = new Repo();
+        //    int i = 0;
+        //    Repo repo = new Repo();
 
-            using (inFileStream)
-            using (reader)
-            using (outFileStream)
-            using (writer)
-            {
-                reader.ReadLine(); //ignore first line
+        //    using (inFileStream)
+        //    using (reader)
+        //    using (outFileStream)
+        //    using (writer)
+        //    {
+        //        reader.ReadLine(); //ignore first line
 
-                writer.WriteLine("set nocount on");
-                while (!reader.EndOfStream)
-                {
-                    var line = reader.ReadLine();
-                    var l = line.Split('|');
+        //        writer.WriteLine("set nocount on");
+        //        while (!reader.EndOfStream)
+        //        {
+        //            var line = reader.ReadLine();
+        //            var l = line.Split('|');
 
-                    var hotelId = l[0];
-                    var imageURL = l[3];
-                    var thumbURL = l[8];
-                    var isDefault = l[9] == "True" ? 1 : 0;
-                    var height = l[6];
-                    var width = l[5];
+        //            var hotelId = l[0];
+        //            var imageURL = l[3];
+        //            var thumbURL = l[8];
+        //            var isDefault = l[9] == "True" ? 1 : 0;
+        //            var height = l[6];
+        //            var width = l[5];
 
-                    const string sql = "execute InsertHotelPhoto @p0, @p1, @p2, @p3, @p4, @p5";
-                    repo.ExecuteSql(sql, hotelId, imageURL, thumbURL, isDefault, height, width);
-                    //writer.WriteLine(sql);
+        //            const string sql = "execute InsertHotelPhoto @p0, @p1, @p2, @p3, @p4, @p5";
+        //            repo.ExecuteSql(sql, hotelId, imageURL, thumbURL, isDefault, height, width);
+        //            //writer.WriteLine(sql);
 
-                    if (++i % 1000 == 0)
-                    {
-                        Console.Clear();
-                        Console.WriteLine(i);
-                    }
-                }
-                writer.WriteLine("set nocount off");
-            }
-        }
+        //            if (++i % 1000 == 0)
+        //            {
+        //                Console.Clear();
+        //                Console.WriteLine(i);
+        //            }
+        //        }
+        //        writer.WriteLine("set nocount off");
+        //    }
+        //}
     }
 }
