@@ -26,7 +26,7 @@ namespace Triptitude.Biz.Repos
                                  {
                                      GeoNameID = (int)dbDataReader["GeonameId"],
                                      ASCIIName = (string)dbDataReader["ASCIIName"],
-                                     Region = regions[(int)dbDataReader["Region_GeoNameId"]]
+                                     Region = regions[(int)dbDataReader["Region_Id"]]
                                  };
             }
         }

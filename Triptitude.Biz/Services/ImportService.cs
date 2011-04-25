@@ -122,6 +122,7 @@ namespace Triptitude.Biz.Services
                         var regionISO = l[10];
 
                         if (++i % 100 == 0) Console.WriteLine(i);
+                        if (i == 10000) return numErrors;
 
                         if (countries.ContainsKey(countryISO) && countries[countryISO].ContainsKey(regionISO))
                         {
@@ -142,14 +143,12 @@ namespace Triptitude.Biz.Services
         /// <returns>Number of errors</returns>
         public int ImportHotelsCombinedHotels(string hotelFilePath)
         {
-            FileStream inFileStream = new FileStream(hotelFilePath, FileMode.Open);
-            StreamReader reader = new StreamReader(inFileStream);
+            repo.ExecuteSql("truncate table hotels");
 
             int i = 0, numErrors = 0;
-            Repo repo = new Repo();
 
-            using (inFileStream)
-            using (reader)
+            using (FileStream inFileStream = new FileStream(hotelFilePath, FileMode.Open))
+            using (StreamReader reader = new StreamReader(inFileStream))
             {
                 reader.ReadLine(); //ignore first line
 
@@ -177,10 +176,7 @@ namespace Triptitude.Biz.Services
                     }
 
                     if (++i % 100 == 0)
-                    {
-                        Console.Clear();
                         Console.WriteLine(i);
-                    }
                 }
             }
 

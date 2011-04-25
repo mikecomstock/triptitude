@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Triptitude.Biz.Services;
 
 namespace Triptitude.GeoNamesImporter
@@ -14,9 +13,9 @@ namespace Triptitude.GeoNamesImporter
         {
             //Countries();
             //Regions();
-            Cities();
+            //Cities();
             //HotelsCombined();
-            //BuildSearchIndexes();
+            BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
             Console.ReadKey(false);

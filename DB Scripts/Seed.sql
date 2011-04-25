@@ -1,3 +1,5 @@
+insert into Users (Email) values ('mikecomstock@gmail.com')
+
 insert into TransportationTypes (Name) values ('Taxi')
 insert into TransportationTypes (Name) values ('Bus')
 insert into TransportationTypes (Name) values ('Drive')
