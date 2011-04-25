@@ -148,71 +148,47 @@ namespace Triptitude.Biz.Models
     #region Destinations
 
     // abstract!
-    public abstract class Destination
+    public interface Destination
     {
-        public abstract int Id { get; }
-        public abstract string ShortName { get; }
-        public abstract string FullName { get; }
+        int Id { get; set; }
+        string ShortName { get; }
+        string FullName { get; }
     }
 
     public class Country : Destination
     {
-        [Key]
+        public int Id { get; set; }
         public int GeoNameID { get; set; }
         public string ISO { get; set; }
-        public string ISO3 { get; set; }
-        public int ISONumeric { get; set; }
-        public string FIPS { get; set; }
-
-        public override int Id
-        {
-            get { return GeoNameID; }
-        }
-
-        public override string FullName
-        {
-            get { return Name; }
-        }
-
-        public override string ShortName
-        {
-            get { return Name; }
-        }
-
         public string Name { get; set; }
-        public string Capital { get; set; }
-        public int Population { get; set; }
-        public string Continent { get; set; }
-        public string TLD { get; set; }
-        public string CurrencyCode { get; set; }
-        public string CurrencyName { get; set; }
-        public string Phone { get; set; }
-        public string PostalCodeFormat { get; set; }
-        public string PostalCodeRegex { get; set; }
-        public string Languages { get; set; }
-        public string Neighbours { get; set; }
-        public string EquivalentFipsCode { get; set; }
+        public virtual ICollection<Region> Regions { get; set; }
+
+        public string FullName
+        {
+            get { return Name; }
+        }
+
+        public string ShortName
+        {
+            get { return Name; }
+        }
+
     }
 
     public class Region : Destination
     {
-        [Key]
+        public int Id { get; set; }
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public virtual Country Country { get; set; }
         public string GeoNameAdmin1Code { get; set; }
 
-        public override int Id
-        {
-            get { return GeoNameID; }
-        }
-
-        public override string FullName
+        public string FullName
         {
             get { return ASCIIName + ", " + Country.FullName; }
         }
 
-        public override string ShortName
+        public string ShortName
         {
             get { return ASCIIName; }
         }
@@ -220,24 +196,19 @@ namespace Triptitude.Biz.Models
 
     public class City : Destination
     {
-        [Key]
+        public int Id { get; set; }
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
 
-        public override int Id
-        {
-            get { return GeoNameID; }
-        }
-
-        public override string FullName
+        public string FullName
         {
             get { return ASCIIName + ", " + Region.FullName; }
         }
 
-        public override string ShortName
+        public string ShortName
         {
             get { return ASCIIName; }
         }
