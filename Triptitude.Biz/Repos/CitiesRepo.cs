@@ -10,7 +10,7 @@ namespace Triptitude.Biz.Repos
     {
         public IEnumerable<City> GetDataReaderForIndexing()
         {
-            var regions = new RegionsRepo().FindAll().ToDictionary(r => r.Id);
+            var regions = new RegionsRepo().FindAll().ToDictionary(r => r.GeoNameID);
 
             DbConnection dbConnection = _db.Database.Connection;
             DbCommand dbCommand = dbConnection.CreateCommand();
@@ -26,7 +26,7 @@ namespace Triptitude.Biz.Repos
                                  {
                                      GeoNameID = (int)dbDataReader["GeonameId"],
                                      ASCIIName = (string)dbDataReader["ASCIIName"],
-                                     Region = regions[(int)dbDataReader["Region_Id"]]
+                                     Region = regions[(int)dbDataReader["Region_GeoNameId"]]
                                  };
             }
         }

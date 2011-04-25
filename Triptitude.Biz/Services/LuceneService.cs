@@ -45,7 +45,7 @@ namespace Triptitude.Biz.Services
                 }
                 Document doc = new Document();
                 doc.Add(new Field("fullName", destination.FullName, Field.Store.YES, Field.Index.ANALYZED));
-                doc.Add(new Field("id", destination.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+                doc.Add(new Field("id", destination.GeoNameID.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                 indexWriter.AddDocument(doc);
             }
 

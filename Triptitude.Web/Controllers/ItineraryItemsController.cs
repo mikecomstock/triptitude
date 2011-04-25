@@ -267,9 +267,9 @@ namespace Triptitude.Web.Controllers
                 Id = transportation.Id,
                 TransportationTypeId = transportation.TransportationType.Id,
                 TripId = transportation.Trip.Id,
-                FromCityId = transportation.FromCity.Id,
+                FromCityId = transportation.FromCity.GeoNameID,
                 FromCityName = transportation.FromCity.FullName,
-                ToCityId = transportation.ToCity.Id,
+                ToCityId = transportation.ToCity.GeoNameID,
                 ToCityName = transportation.ToCity.FullName,
                 BeginDay = transportation.BeginDay,
                 EndDay = transportation.EndDay

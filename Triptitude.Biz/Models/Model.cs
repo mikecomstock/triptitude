@@ -150,14 +150,14 @@ namespace Triptitude.Biz.Models
     // abstract!
     public interface Destination
     {
-        int Id { get; set; }
+        int GeoNameID { get; set; }
         string ShortName { get; }
         string FullName { get; }
     }
 
     public class Country : Destination
     {
-        public int Id { get; set; }
+        [Key]
         public int GeoNameID { get; set; }
         public string ISO { get; set; }
         public string Name { get; set; }
@@ -177,7 +177,7 @@ namespace Triptitude.Biz.Models
 
     public class Region : Destination
     {
-        public int Id { get; set; }
+        [Key]
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public virtual Country Country { get; set; }
@@ -196,7 +196,7 @@ namespace Triptitude.Biz.Models
 
     public class City : Destination
     {
-        public int Id { get; set; }
+        [Key]
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public decimal Latitude { get; set; }

@@ -160,12 +160,12 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, Destination destination)
         {
-            return SlugAction(url, "details", "destinations", destination.Id, destination.FullName);
+            return SlugAction(url, "details", "destinations", destination.GeoNameID, destination.FullName);
         }
 
         public static string Hotels(this UrlHelper url, Destination destination)
         {
-            return SlugAction(url, "hotels", "destinations", destination.Id, destination.FullName);
+            return SlugAction(url, "hotels", "destinations", destination.GeoNameID, destination.FullName);
         }
 
         #endregion

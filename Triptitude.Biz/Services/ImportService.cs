@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Services
@@ -65,7 +63,7 @@ namespace Triptitude.Biz.Services
             repo.ExecuteSql("truncate table regions");
 
             CountriesRepo countriesRepo = new CountriesRepo();
-            var countries = countriesRepo.FindAll().ToDictionary(c => c.ISO, c => c.Id);
+            var countries = countriesRepo.FindAll().ToDictionary(c => c.ISO, c => c.GeoNameID);
 
             using (FileStream inFileStream = new FileStream(allCountriesPath, FileMode.Open))
             using (StreamReader reader = new StreamReader(inFileStream))
@@ -84,7 +82,7 @@ namespace Triptitude.Biz.Services
 
                         Console.WriteLine(name);
 
-                        repo.ExecuteSql("insert into Regions (GeoNameId, ASCIIName, GeoNameAdmin1Code, Country_Id) values (@p0, @p1, @p2, @p3)", geonameId, name, admin1Code, countryId);
+                        repo.ExecuteSql("insert into Regions (GeoNameId, ASCIIName, GeoNameAdmin1Code, Country_GeoNameId) values (@p0, @p1, @p2, @p3)", geonameId, name, admin1Code, countryId);
                     }
                 }
             }
@@ -95,7 +93,7 @@ namespace Triptitude.Biz.Services
             repo.ExecuteSql("truncate table cities");
 
             CountriesRepo countriesRepo = new CountriesRepo();
-            var countries = countriesRepo.FindAll().ToDictionary(d => d.ISO, d => d.Regions.ToDictionary(r => r.GeoNameAdmin1Code, r => r.Id));
+            var countries = countriesRepo.FindAll().ToDictionary(d => d.ISO, d => d.Regions.ToDictionary(r => r.GeoNameAdmin1Code, r => r.GeoNameID));
 
             int numErrors = 0;
 
@@ -122,7 +120,6 @@ namespace Triptitude.Biz.Services
                         var regionISO = l[10];
 
                         if (++i % 100 == 0) Console.WriteLine(i);
-                        if (i == 10000) return numErrors;
 
                         if (countries.ContainsKey(countryISO) && countries[countryISO].ContainsKey(regionISO))
                         {
@@ -168,63 +165,26 @@ namespace Triptitude.Biz.Services
                     if (name != string.Empty && latitude != string.Empty && longitude != string.Empty && imageId != string.Empty)
                     {
                         const string sql = "execute InsertHotel @p0, @p1, @p2, @p3, @p4, @p5, @p6";
-                        repo.ExecuteSql(sql, hotelsCombinedId, name, latitude, longitude, imageId, numberOfReviews, consumerRating);
+                        try
+                        {
+                            repo.ExecuteSql(sql, hotelsCombinedId, name, latitude, longitude, imageId, numberOfReviews,
+                                            consumerRating);
+                        }
+                        catch
+                        {
+                            numErrors++;
+                        }
                     }
                     else
                     {
                         numErrors++;
                     }
 
-                    if (++i % 100 == 0)
-                        Console.WriteLine(i);
+                    if (++i % 100 == 0) Console.WriteLine(i);
                 }
             }
 
             return numErrors;
         }
-
-        //public void ImportHotelImages(string hotelImagesPath, string hotelImagesOutPath)
-        //{
-        //    FileStream inFileStream = new FileStream(hotelImagesPath, FileMode.Open);
-        //    FileStream outFileStream = new FileStream(hotelImagesOutPath, FileMode.Create);
-        //    StreamReader reader = new StreamReader(inFileStream);
-        //    StreamWriter writer = new StreamWriter(outFileStream);
-
-        //    int i = 0;
-        //    Repo repo = new Repo();
-
-        //    using (inFileStream)
-        //    using (reader)
-        //    using (outFileStream)
-        //    using (writer)
-        //    {
-        //        reader.ReadLine(); //ignore first line
-
-        //        writer.WriteLine("set nocount on");
-        //        while (!reader.EndOfStream)
-        //        {
-        //            var line = reader.ReadLine();
-        //            var l = line.Split('|');
-
-        //            var hotelId = l[0];
-        //            var imageURL = l[3];
-        //            var thumbURL = l[8];
-        //            var isDefault = l[9] == "True" ? 1 : 0;
-        //            var height = l[6];
-        //            var width = l[5];
-
-        //            const string sql = "execute InsertHotelPhoto @p0, @p1, @p2, @p3, @p4, @p5";
-        //            repo.ExecuteSql(sql, hotelId, imageURL, thumbURL, isDefault, height, width);
-        //            //writer.WriteLine(sql);
-
-        //            if (++i % 1000 == 0)
-        //            {
-        //                Console.Clear();
-        //                Console.WriteLine(i);
-        //            }
-        //        }
-        //        writer.WriteLine("set nocount off");
-        //    }
-        //}
     }
 }
