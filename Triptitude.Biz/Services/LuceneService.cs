@@ -90,7 +90,7 @@ namespace Triptitude.Biz.Services
                 yield return new DestinationSearchResult
                 {
                     FullName = document.Get("fullName"),
-                    GeoNameId = int.Parse(document.Get("id"))
+                    Id = int.Parse(document.Get("id"))
                 };
             }
         }
@@ -98,7 +98,7 @@ namespace Triptitude.Biz.Services
         public class DestinationSearchResult
         {
             public string FullName { get; set; }
-            public int GeoNameId { get; set; }
+            public int Id { get; set; }
         }
     }
 }

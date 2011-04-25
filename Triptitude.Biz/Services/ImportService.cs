@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Data.Entity;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
@@ -9,139 +10,125 @@ namespace Triptitude.Biz.Services
 {
     public class ImportService
     {
-        public void PrepareCountries(string countryInfoPath, string outPath)
+        private Repo repo = new Repo();
+
+        public void PrepareCountries(string countryInfoPath)
         {
+            repo.ExecuteSql("truncate table countries");
+
             FileStream inFileStream = new FileStream(countryInfoPath, FileMode.Open);
-            FileStream outFileStream = new FileStream(outPath, FileMode.Create);
             StreamReader reader = new StreamReader(inFileStream);
-            StreamWriter writer = new StreamWriter(outFileStream);
 
             using (inFileStream)
             using (reader)
-            using (outFileStream)
-            using (writer)
             {
-                string line;
-                string[] l;
-
                 while (!reader.EndOfStream)
                 {
-                    line = reader.ReadLine();
-                    if (line[0] == '#') continue;
-                    l = line.Split('\t');
+                    var line = reader.ReadLine();
+                    var l = line.Split(',');
 
-                    if (l[16] == "0") continue;
+                    var iso = l[0];
+                    var name = l[1].Replace("\"", " ").Trim();
 
-                    Console.WriteLine(l[4]);
+                    if (iso == "O1" || iso == "A1" || iso == "A2") continue;
 
-                    writer.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}\t{14}\t{15}\t{16}\t{17}",
-                        l[16], l[0], l[1], l[2], l[3], l[4], l[5], l[7], l[8], l[9], l[10], l[11], l[12], l[13], l[14], l[15], l[17], l[18]);
-
+                    Console.WriteLine(iso + "\t" + name);
+                    repo.ExecuteSql("insert into Countries (ISO, Name) values (@p0, @p1)", iso, name);
                 }
             }
-
-            /*Country country = new Country
-                {
-                    ISO = c[0],
-                    ISO3 = c[1],
-                    ISONumeric = int.Parse(c[2]),
-                    FIPS = c[3],
-                    Name = c[4],
-                    Capital = c[5],
-                    AreaInSqKm = string.IsNullOrWhiteSpace(c[6]) ? (double?)null : double.Parse(c[6]),
-                    Population = int.Parse(c[7]),
-                    Continent = c[8],
-                    TLD = c[9],
-                    CurrencyCode = c[10],
-                    CurrencyName = c[11],
-                    Phone = c[12],
-                    PostalCodeFormat = c[13],
-                    PostalCodeRegex = c[14],
-                    Languages = c[15],
-                    GeoNameID = int.Parse(c[16]),
-                    Neighbours = c[17],
-                    EquivalentFipsCode = c[18]
-                };*/
         }
 
-        public void PrepareRegions(string allCountriesPath, string outPath)
+        public void PrepareRegions(string allCountriesPath)
         {
+            repo.ExecuteSql("truncate table regions");
+
             CountriesRepo countriesRepo = new CountriesRepo();
             var countries = countriesRepo.FindAll().ToList();
 
             FileStream inFileStream = new FileStream(allCountriesPath, FileMode.Open);
-            FileStream outFileStream = new FileStream(outPath, FileMode.Create);
             StreamReader reader = new StreamReader(inFileStream);
-            StreamWriter writer = new StreamWriter(outFileStream);
-
+            int n = 0;
             using (inFileStream)
             using (reader)
-            using (outFileStream)
-            using (writer)
             {
-                string line;
-                string[] l;
-                int i = 0;
-                Country country;
-
                 while (!reader.EndOfStream)
                 {
-                    line = reader.ReadLine();
-                    l = line.Split('\t');
+                    var line = reader.ReadLine();
+                    var l = line.Split(',');
 
-                    if (l[6] == "A" && l[7] == "ADM1")
-                    {
-                        if (++i % 100 == 0) Console.WriteLine(i);
-                        country = countries.First(c => c.ISO == l[8]);
-                        writer.WriteLine("{0}\t{1}\t{2}\t{3}", l[0], l[2], l[8], country.GeoNameID);
-                        // GeoNameID, Name, Admin1Code, CountryGeoNameID
-                    }
+                    var countryISO = l[0];
+                    var ISOFIPS = l[1];
+                    var name = l[2].Replace("\"", " ").Trim();
+
+                    Country country = countries.First(c => c.ISO == countryISO);
+
+                    // Ignore US FIPS codes (they are dupes of the ISO codes)
+                    if (country.ISO == "US" && int.TryParse(ISOFIPS[0].ToString(), out n)) continue;
+
+                    repo.ExecuteSql("insert into Regions (ISOFIPS, Name, Country_Id) values (@p0, @p1, @p2)", ISOFIPS, name, country.Id);
+
+                    Console.WriteLine(string.Format("{0}\t{1}\t{2}", ISOFIPS, name, country.Name));
                 }
+            }
+
+            // Maxmind data isn't the best so...
+            foreach (var country in countries)
+            {
+                repo.ExecuteSql("insert into Regions (ISOFIPS, Name, Country_Id) values (@p0, @p1, @p2)", "--", "Unknown Region", country.Id);
             }
         }
 
-        public void PrepareCities(string allCountriesPath, string outPath)
+        public int PrepareCities(string allCountriesPath)
         {
-            RegionsRepo regionsRepo = new RegionsRepo();
-            var regions = regionsRepo.FindAll().ToList();
+            repo.ExecuteSql("truncate table cities");
 
-            Dictionary<string, Region> d = new Dictionary<string, Region>(regions.Count);
-            foreach (var region in regions)
+            CountriesRepo countriesRepo = new CountriesRepo();
+            var countries = countriesRepo.FindAll().ToDictionary(d => d.ISO, d => d.Regions.ToDictionary(r => r.ISOFIPS, r => r.Id));
+
+            int i = 0, numErrors = 0;
+
+            using (FileStream inFileStream = new FileStream(allCountriesPath, FileMode.Open))
+            using (StreamReader reader = new StreamReader(inFileStream, Encoding.GetEncoding(28591))) // uses latin-1 encoding (see http://stackoverflow.com/questions/370801/streamreader-problem-unknown-file-encoding-western-iso-88591)
             {
-                d.Add(region.Country.ISO + "." + region.GeoNameAdmin1Code, region);
-            }
-
-            FileStream inFileStream = new FileStream(allCountriesPath, FileMode.Open);
-            FileStream outFileStream = new FileStream(outPath, FileMode.Create);
-            StreamReader reader = new StreamReader(inFileStream);
-            StreamWriter writer = new StreamWriter(outFileStream);
-
-            using (inFileStream)
-            using (reader)
-            using (outFileStream)
-            using (writer)
-            {
-                string line, key;
-                string[] l;
-                int i = 0;
-                Region region;
+                // Skip first line
+                reader.ReadLine();
 
                 while (!reader.EndOfStream)
                 {
-                    line = reader.ReadLine();
-                    l = line.Split('\t');
+                    var line = reader.ReadLine();
+                    var l = line.Split(',');
 
-                    if (l[6] == "P")
+                    var countryISO = l[0].ToUpper();
+                    var ASCIIName = l[1];
+                    var accentName = l[2];
+                    var regionISOFIPS = l[3];
+                    var population = l[4];
+                    var lat = l[5];
+                    var lon = l[6];
+
+                    if (countries.ContainsKey(countryISO) && countries[countryISO].ContainsKey(regionISOFIPS))
                     {
-                        if (++i % 10000 == 0) Console.WriteLine(i);
-                        key = l[8] + "." + l[10];
-                        d.TryGetValue(key, out region);
-                        if (region != null)
-                            writer.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}", l[0], l[2], l[4], l[5], region.GeoNameID);
-                        // GeoNameID, ASCIIName, Latitude, Longitude, RegionGeoNameID
+                        int regionId = countries[countryISO][regionISOFIPS];
+
+                        if (i % 100 == 0)
+                            repo.ExecuteSql("execute InsertCity @p0, @p1, @p2, @p3, @p4, @p5", ASCIIName, accentName, lat, lon, regionId, population);
                     }
+                    else
+                    {
+                        int regionId = countries[countryISO]["--"];
+
+                        if (i % 100 == 0)
+                            repo.ExecuteSql("execute InsertCity @p0, @p1, @p2, @p3, @p4, @p5", ASCIIName, accentName, lat, lon, regionId, population);
+
+                        numErrors++;
+                    }
+
+                    if (++i % 1000 == 0)
+                        Console.WriteLine(i + " " + accentName);
                 }
             }
+
+            return numErrors;
         }
 
         /// <returns>Number of errors</returns>
@@ -151,7 +138,6 @@ namespace Triptitude.Biz.Services
             StreamReader reader = new StreamReader(inFileStream);
 
             int i = 0, numErrors = 0;
-            Repo repo = new Repo();
 
             using (inFileStream)
             using (reader)
@@ -191,49 +177,5 @@ namespace Triptitude.Biz.Services
 
             return numErrors;
         }
-
-        //public void ImportHotelImages(string hotelImagesPath, string hotelImagesOutPath)
-        //{
-        //    FileStream inFileStream = new FileStream(hotelImagesPath, FileMode.Open);
-        //    FileStream outFileStream = new FileStream(hotelImagesOutPath, FileMode.Create);
-        //    StreamReader reader = new StreamReader(inFileStream);
-        //    StreamWriter writer = new StreamWriter(outFileStream);
-
-        //    int i = 0;
-        //    Repo repo = new Repo();
-
-        //    using (inFileStream)
-        //    using (reader)
-        //    using (outFileStream)
-        //    using (writer)
-        //    {
-        //        reader.ReadLine(); //ignore first line
-
-        //        writer.WriteLine("set nocount on");
-        //        while (!reader.EndOfStream)
-        //        {
-        //            var line = reader.ReadLine();
-        //            var l = line.Split('|');
-
-        //            var hotelId = l[0];
-        //            var imageURL = l[3];
-        //            var thumbURL = l[8];
-        //            var isDefault = l[9] == "True" ? 1 : 0;
-        //            var height = l[6];
-        //            var width = l[5];
-
-        //            const string sql = "execute InsertHotelPhoto @p0, @p1, @p2, @p3, @p4, @p5";
-        //            repo.ExecuteSql(sql, hotelId, imageURL, thumbURL, isDefault, height, width);
-        //            //writer.WriteLine(sql);
-
-        //            if (++i % 1000 == 0)
-        //            {
-        //                Console.Clear();
-        //                Console.WriteLine(i);
-        //            }
-        //        }
-        //        writer.WriteLine("set nocount off");
-        //    }
-        //}
     }
 }

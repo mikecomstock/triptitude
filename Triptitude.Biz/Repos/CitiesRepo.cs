@@ -24,9 +24,10 @@ namespace Triptitude.Biz.Repos
             {
                 yield return new City
                                  {
-                                     GeoNameID = (int)dbDataReader["GeonameId"],
+                                     Id = (int)dbDataReader["Id"],
                                      ASCIIName = (string)dbDataReader["ASCIIName"],
-                                     Region = regions[(int)dbDataReader["Region_GeoNameId"]]
+                                     Name = (string)dbDataReader["Name"],
+                                     Region = regions[(int)dbDataReader["Region_Id"]]
                                  };
             }
         }

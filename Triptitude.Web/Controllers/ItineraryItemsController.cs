@@ -198,7 +198,7 @@ namespace Triptitude.Web.Controllers
                                               EndDay = itineraryItem.EndDay,
                                               ItineraryItemId = itineraryItem.Id,
                                               TripId = itineraryItem.Trip.Id,
-                                              DestinationId = itineraryItem.DestinationTag.City.GeoNameID,
+                                              DestinationId = itineraryItem.DestinationTag.City.Id,
                                               DestinationName = itineraryItem.DestinationTag.City.FullName,
                                               TagName = itineraryItem.DestinationTag.Tag.Name
                                           };

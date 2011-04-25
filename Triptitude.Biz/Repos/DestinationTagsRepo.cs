@@ -7,7 +7,7 @@ namespace Triptitude.Biz.Repos
     {
         public DestinationTag FindOrCreate(City city, Tag tag)
         {
-            DestinationTag destinationTag = FindAll().FirstOrDefault(td => td.City.GeoNameID == city.GeoNameID && td.Tag.Id == tag.Id);
+            DestinationTag destinationTag = FindAll().FirstOrDefault(td => td.City.Id == city.Id && td.Tag.Id == tag.Id);
 
             if (destinationTag == null)
             {

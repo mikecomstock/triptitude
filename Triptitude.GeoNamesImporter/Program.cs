@@ -6,25 +6,17 @@ namespace Triptitude.GeoNamesImporter
 {
     class Program
     {
-        private const string countryInfoPath = "C:\\Users\\Mike\\Desktop\\Temp\\countryInfo.txt";
-        private const string allCountriesPath = "C:\\Users\\Mike\\Desktop\\Temp\\allCountries.txt";
-
-        private const string countriesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Countries.txt";
-        private const string regionsOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Regions.txt";
-        private const string citiesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Cities.txt";
-
+        private const string countryPath = "C:\\Source\\Datafiles\\countries.txt";
+        private const string regionsPath = "C:\\Source\\Datafiles\\regions.txt";
+        private const string citiesPath = "C:\\Source\\Datafiles\\worldcitiespop.txt";
         private const string hotelFilePath = "C:\\Source\\Datafiles\\Hotels_All.csv";
-
-        //private const string hotelImagesPath = "C:\\Users\\Mike\\Desktop\\Temp\\images.txt";
-        //private const string hotelImagesOutPath = "C:\\Users\\Mike\\Desktop\\Temp\\Images.sql";
 
         static void Main(string[] args)
         {
-            //Countries();
-            //Regions();
-            //Cities();
-            HotelsCombined();
-            ////HotelImages();
+            Countries();
+            Regions();
+            Cities();
+            //HotelsCombined();
             //BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
@@ -35,21 +27,22 @@ namespace Triptitude.GeoNamesImporter
         {
             Console.WriteLine("=== PERPARING COUNTRIES ===");
             var importService = new ImportService();
-            importService.PrepareCountries(countryInfoPath, countriesOutPath);
+            importService.PrepareCountries(countryPath);
         }
 
         static void Regions()
         {
             Console.WriteLine("=== PERPARING REGIONS ===");
             var importService = new ImportService();
-            importService.PrepareRegions(allCountriesPath, regionsOutPath);
+            importService.PrepareRegions(regionsPath);
         }
 
         static void Cities()
         {
             Console.WriteLine("=== PERPARING CITIES ===");
             var importService = new ImportService();
-            importService.PrepareCities(allCountriesPath, citiesOutPath);
+            var numErrors = importService.PrepareCities(citiesPath);
+            if (numErrors > 0) Console.Write(String.Format("!!!!!! {0} ERRORS !!!!!!", numErrors));
         }
 
         static void HotelsCombined()
@@ -59,13 +52,6 @@ namespace Triptitude.GeoNamesImporter
             var numErrors = importService.ImportHotelsCombinedHotels(hotelFilePath);
             if (numErrors > 0) Console.Write(String.Format("!!!!!! {0} ERRORS !!!!!!", numErrors));
         }
-
-        //static void HotelImages()
-        //{
-        //    Console.WriteLine("=== IMPORTING HOTEL IMAGES ===");
-        //    ImportService importService = new ImportService();
-        //    importService.ImportHotelImages(hotelImagesPath, hotelImagesOutPath);
-        //}
 
         private static void BuildSearchIndexes()
         {

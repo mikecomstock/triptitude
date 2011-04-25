@@ -48,7 +48,7 @@ namespace Triptitude.Web.Controllers
                           select new
                                      {
                                          label = d.FullName,
-                                         id = d.GeoNameId
+                                         id = d.Id
                                      };
             return Json(results, JsonRequestBehavior.AllowGet);
         }
