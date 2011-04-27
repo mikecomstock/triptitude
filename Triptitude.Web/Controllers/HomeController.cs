@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Controllers
 {
@@ -21,6 +23,14 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.SearchString = s;
             return PartialView("_SearchResults");
+        }
+
+        public ActionResult Sitemap()
+        {
+            TripsRepo tripsRepo = new TripsRepo();
+            IQueryable<Trip> trips = tripsRepo.FindAll();
+            ViewBag.Trips = trips;
+            return View();
         }
     }
 }
