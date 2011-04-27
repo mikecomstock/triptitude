@@ -31,11 +31,11 @@ namespace Triptitude.Web.Controllers
             return PartialView();
         }
 
-        //public ActionResult Index()
-        //{
-        //    ViewBag.Trips = new TripsRepo().FindAll();
-        //    return View();
-        //}
+        public ActionResult Index()
+        {
+            ViewBag.Trips = new TripsRepo().FindAll();
+            return View();
+        }
 
         public ActionResult Print(int id)
         {
