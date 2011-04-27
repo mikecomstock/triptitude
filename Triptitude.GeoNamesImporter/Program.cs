@@ -9,16 +9,23 @@ namespace Triptitude.GeoNamesImporter
         private const string allCountriesPath = "C:\\Users\\Mike\\Desktop\\Temp\\allCountries.txt";
         private const string hotelFilePath = "C:\\Source\\Datafiles\\Hotels_All.csv";
 
+        static DateTime startTime = DateTime.Now;
+
         static void Main(string[] args)
         {
             //Countries();
             //Regions();
             //Cities();
-            HotelsCombined();
+            //HotelsCombined();
             //BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
             Console.ReadKey(false);
+        }
+
+        static void WriteTime()
+        {
+            Console.WriteLine((DateTime.Now - startTime).TotalMinutes + " minutes");
         }
 
         static void Countries()
@@ -26,6 +33,7 @@ namespace Triptitude.GeoNamesImporter
             Console.WriteLine("=== IMPORTING COUNTRIES ===");
             var importService = new ImportService();
             importService.PrepareCountries(countryInfoPath);
+            WriteTime();
         }
 
         static void Regions()
@@ -33,6 +41,7 @@ namespace Triptitude.GeoNamesImporter
             Console.WriteLine("=== IMPORTING REGIONS ===");
             var importService = new ImportService();
             importService.PrepareRegions(allCountriesPath);
+            WriteTime();
         }
 
         static void Cities()
@@ -40,6 +49,7 @@ namespace Triptitude.GeoNamesImporter
             Console.WriteLine("=== IMPORTING CITIES ===");
             var importService = new ImportService();
             importService.PrepareCities(allCountriesPath);
+            WriteTime();
         }
 
         static void HotelsCombined()
@@ -48,12 +58,14 @@ namespace Triptitude.GeoNamesImporter
             ImportService importService = new ImportService();
             var numErrors = importService.ImportHotelsCombinedHotels(hotelFilePath);
             if (numErrors > 0) Console.Write(String.Format("!!!!!! {0} ERRORS !!!!!!", numErrors));
+            WriteTime();
         }
 
         private static void BuildSearchIndexes()
         {
             var luceneService = new LuceneService();
             luceneService.IndexDestinations();
+            WriteTime();
 
             //while (true)
             //{
