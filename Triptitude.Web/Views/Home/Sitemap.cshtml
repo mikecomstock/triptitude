@@ -5,13 +5,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
-      <loc>http://www.triptitude.com/</loc>
+      <loc>http://www.triptitude.com</loc>
       <changefreq>daily</changefreq>
    </url>
    @foreach (Trip trip in trips)
    {
    <url>
-      <loc>@Url.Details(trip)</loc>
+      <loc>@("http://www.triptitude.com" + Url.Details(trip))</loc>
       <changefreq>daily</changefreq>
    </url>
    }
