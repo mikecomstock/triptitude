@@ -1,13 +1,16 @@
 ﻿<div id="header-container">
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
-        <div id="search">
-            <form action="@Url.DestinationSearch()" method="post">
-            <input type="text" name="s" class="destination-autocomplete" data-hidden-field-name="destinationid" data-auto-submit="true" placeholder="Where are you going?" />
-            <input type="hidden" name="destinationid" />
-            <input type="submit" value="Go >" />
-            </form>
-        </div>
+        @if (!Request.Url.Host.Contains("triptitude.com"))
+        {
+            <div id="search">
+                <form action="@Url.DestinationSearch()" method="post">
+                <input type="text" name="s" class="destination-autocomplete" data-hidden-field-name="destinationid" data-auto-submit="true" placeholder="Where are you going?" />
+                <input type="hidden" name="destinationid" />
+                <input type="submit" value="Go >" />
+                </form>
+            </div>
+        }
         <div id="user-status">
             @if (Request.IsAuthenticated)
             {

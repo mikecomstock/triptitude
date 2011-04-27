@@ -2,3 +2,4 @@
 Disallow: /destinations/
 Disallow: /hotels/
 Allow: /trips
+Sitemap: http://www.triptitude.com/sitemap.xml

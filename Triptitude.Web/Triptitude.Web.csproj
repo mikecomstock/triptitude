@@ -78,6 +78,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="google650c6fbb6afb9905.html" />
     <Content Include="robots.txt" />
     <Content Include="Static\Backgrounds\background-fade.png" />
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />

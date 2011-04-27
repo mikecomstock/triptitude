@@ -87,7 +87,7 @@ input.day-input { width: 20px; }
 .panel-content-not-padded { }
 
 /* Landing Page */
-#landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); -moz-border-radius: 7px; }
+#landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); -moz-border-radius: 7px; padding-bottom: 40px; }
 #landing-page-panel { margin: 10px 20px; padding: 20px 0; }
 #landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color: #0190E9; }
 #landing-page-panel h2 { font-size: 22px; margin-bottom: 10px; margin-top: 20px; }
@@ -99,7 +99,7 @@ input.day-input { width: 20px; }
 #landing-page-panel #start-here-form h3 { font-size: 18px; margin-bottom: 15px; }
 #landing-page-panel ul { margin: 30px 0 0 20px; }
 #landing-page-panel ul li { font-size: 16px; margin: 10px 0; }
-#landing-page-panel #landing-steps { clear: both; overflow: auto; border-top: 1px dashed #CCC; padding-top: 20px; }
+#landing-page-panel #landing-steps { clear: both; overflow: auto; border-top: 1px dashed #CCC; padding-top: 20px; display:none; }
 #landing-page-panel .landing-step { float: left; padding: 10px; background-color: #E9BA26; margin-left: 180px; height: 40px; width: 40px; -moz-border-radius: 40px; line-height: 40px; text-align: center; color: #FFF; font-weight: bold; font-size: 30px; }
 
 /* Footer */
