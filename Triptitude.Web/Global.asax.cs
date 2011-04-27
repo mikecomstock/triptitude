@@ -21,12 +21,15 @@ namespace Triptitude.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
 
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Slug", "{controller}/{action}/{idslug}", null, new { idslug = new SlugRouteConstraint() });
+
+            routes.MapRoute("DestinationsRedirect", "destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
+
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }
 

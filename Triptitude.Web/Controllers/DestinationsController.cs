@@ -9,6 +9,13 @@ namespace Triptitude.Web.Controllers
 {
     public class DestinationsController : Controller
     {
+        public ActionResult Redirect(int id)
+        {
+            DestinationsRepo destinationsRepo = new DestinationsRepo();
+            Destination destination = destinationsRepo.Find(id);
+            return RedirectPermanent(Url.Details(destination));
+        }
+
         public ActionResult _SidePanel(int id)
         {
             DestinationsRepo destinationsRepo = new DestinationsRepo();
@@ -34,7 +41,7 @@ namespace Triptitude.Web.Controllers
             DestinationsRepo destinationsRepo = new DestinationsRepo();
             Destination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
-            ViewBag.Hotels = new HotelsRepo().FindNear((City) destination, radiusInMeters).Take(20);
+            ViewBag.Hotels = new HotelsRepo().FindNear((City)destination, radiusInMeters).Take(20);
             return View();
         }
 
