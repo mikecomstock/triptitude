@@ -1,7 +1,7 @@
 ﻿<div id="header-container">
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
-        @if (!Request.Url.Host.Contains("triptitude.com"))
+        @if (!Request.Url.Host.Contains("triptitude.com") || Request.IsAuthenticated)
         {
             <div id="search">
                 <form action="@Url.DestinationSearch()" method="post">

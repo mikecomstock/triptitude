@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Web;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -20,7 +21,14 @@ namespace Triptitude.Biz.Services
     {
         public string LuceneDestinationsIndexPath
         {
-            get { return ConfigurationManager.AppSettings["LuceneDestinationsIndexPath"]; }
+            get
+            {
+#if DEBUG
+                return ConfigurationManager.AppSettings["LuceneDestinationsIndexPath"];
+#else
+                return HttpContext.Current.Server.MapPath(@"/App_Data/LuceneIndexes/Destinations/");
+#endif
+            }
         }
 
         public void IndexDestinations()
