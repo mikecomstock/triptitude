@@ -106,7 +106,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\TextFile1.txt" />
     <Content Include="google650c6fbb6afb9905.html" />
     <Content Include="robots.txt" />
     <Content Include="Static\Backgrounds\background-fade.png" />
@@ -145,6 +144,7 @@
     <Content Include="Views\Home\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Static\WebsiteThumbs\" />
   </ItemGroup>
   <ItemGroup>
