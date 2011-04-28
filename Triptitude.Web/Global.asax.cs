@@ -1,6 +1,8 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Elmah;
 using Triptitude.Biz.Models;
 using Triptitude.Web.ModelBinders;
 
@@ -10,7 +12,7 @@ namespace Triptitude.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new ElmahHandleErrorAttribute());
         }
 
         public static void RegisterModelBinders()
@@ -22,7 +24,7 @@ namespace Triptitude.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Sitemap", "sitemap.xml", new {controller = "home", action = "sitemap"});
+            routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
 
@@ -93,4 +95,21 @@ namespace Triptitude.Web
             return route;
         }
     }
+
+    public class ElmahHandleErrorAttribute : System.Web.Mvc.HandleErrorAttribute
+    {
+        public override void OnException(ExceptionContext context)
+        {
+            base.OnException(context);
+            if (context.ExceptionHandled) // this check somehow makes sure we only get 1 exception email while in dev
+                RaiseErrorSignal(context.Exception);
+        }
+
+        private static void RaiseErrorSignal(Exception e)
+        {
+            var context = HttpContext.Current;
+            ErrorSignal.FromContext(context).Raise(e, context);
+        }
+    }
+
 }
