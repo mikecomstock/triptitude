@@ -9,6 +9,7 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Email { get; set; }
+        public string HashedPassword { get; set; }
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
