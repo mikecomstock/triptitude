@@ -22,6 +22,8 @@ namespace Triptitude.Biz.Models
         public DateTime? BeginDate { get; set; }
         public int Created_By { get; set; }
         public DateTime Created_On { get; set; }
+        public bool ShowInSiteMap { get; set; }
+
         public virtual ICollection<User> Users { get; set; }
         public virtual ICollection<ItineraryItem> Itinerary { get; set; }
         public virtual ICollection<Transportation> Transportations { get; set; }

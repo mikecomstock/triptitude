@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Trips";
+    Trip trip = (Trip)ViewBag.Trip;
+}
+<div class="panel">
+    <h2>
+        Trip Details</h2>
+    <form action="@Url.Admin(trip)" method="post">
+    @Html.Editor("trip", ViewData)
+    <input type="submit" value="Save" />
+    </form>
+</div>

@@ -33,6 +33,15 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
+        #region Admin
+
+        public static string Admin(this UrlHelper url, Trip trip)
+        {
+            return url.Action("trips", "admin", new { trip.Id });
+        }
+
+        #endregion
+
         #region User pages
 
         public static string MyAccount(this UrlHelper url)
@@ -91,7 +100,7 @@ namespace Triptitude.Web.Helpers
         #endregion
 
         #region Itinerary Items
-        
+
         public static string ItineraryAddHotel(this UrlHelper url)
         {
             return url.Action("addhotel", "itineraryitems");
@@ -123,18 +132,18 @@ namespace Triptitude.Web.Helpers
 
         public static string ItineraryAddDestinationTag(this UrlHelper url)
         {
-            return url.Action("adddestinationtag", "itineraryitems");            
+            return url.Action("adddestinationtag", "itineraryitems");
         }
 
         public static string ItineraryEditDestinationTag(this UrlHelper url)
         {
-            return url.Action("editdestinationtag", "itineraryitems");            
+            return url.Action("editdestinationtag", "itineraryitems");
         }
 
         #endregion
 
         #region Websites
-        
+
         public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
         {
             return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + Website.ThumbFilename(website.Id, thumbSize);

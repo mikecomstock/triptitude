@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
+}
+<div class="panel">
+    <h2>
+        Admin</h2>
+    <h3>
+        Trips</h3>
+    @foreach (Trip trip in trips)
+    {
+        <div>
+            <a href="@Url.Admin(trip)">@trip.Name</a>
+        </div>
+    }
+</div>

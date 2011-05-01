@@ -28,7 +28,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Sitemap()
         {
             TripsRepo tripsRepo = new TripsRepo();
-            IQueryable<Trip> trips = tripsRepo.FindAll();
+            IQueryable<Trip> trips = tripsRepo.FindAll().Where(t => t.ShowInSiteMap);
             ViewBag.Trips = trips;
             return View();
         }
