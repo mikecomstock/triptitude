@@ -26,7 +26,6 @@ namespace Triptitude.Web
 
 
             // Old stuff that's gone
-            routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
             routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTags", "Tag/{name}", new { controller = "Home", Action = "NotFound" });
@@ -45,6 +44,7 @@ namespace Triptitude.Web
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Slug", "{controller}/{action}/{idslug}", null, new { idslug = new SlugRouteConstraint() });
 
+            routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }

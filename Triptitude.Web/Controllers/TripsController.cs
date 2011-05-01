@@ -11,9 +11,10 @@ namespace Triptitude.Web.Controllers
     public class TripsController : Controller
     {
         // partial only
-        public ActionResult SidePanel(Trip trip)
+        public ActionResult SidePanel(Trip trip, User currentUser)
         {
             ViewBag.Trip = trip;
+            ViewBag.UserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             return PartialView("_SidePanel");
         }
 
@@ -73,20 +74,28 @@ namespace Triptitude.Web.Controllers
             return PartialView("_DayDetails");
         }
 
-        public ActionResult Settings(int id)
+        public ActionResult Settings(int id, User currentUser)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
+
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
             ViewBag.Trip = trip;
             ViewBag.Form = tripRepo.GetSettingsForm(trip);
             return View();
         }
 
         [HttpPost]
-        public ActionResult Settings(int id, TripSettingsForm form)
+        public ActionResult Settings(int id, TripSettingsForm form, User currentUser)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
+
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
             tripRepo.Save(trip, form);
             return Redirect(Url.Details(trip));
         }

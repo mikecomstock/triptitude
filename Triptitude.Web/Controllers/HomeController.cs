@@ -30,6 +30,8 @@ namespace Triptitude.Web.Controllers
             TripsRepo tripsRepo = new TripsRepo();
             IQueryable<Trip> trips = tripsRepo.FindAll().Where(t => t.ShowInSiteMap);
             ViewBag.Trips = trips;
+
+            Response.ContentType = "text/xml";
             return View();
         }
 

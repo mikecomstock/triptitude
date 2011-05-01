@@ -1,5 +1,7 @@
 ﻿<div id="side-container">
-    <a href="@Url.Details((Trip)ViewBag.Trip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.Trip)">
-        Map</a> <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.Trip)">
-            Settings</a>
+    <a href="@Url.Details((Trip)ViewBag.Trip)">Itinerary</a> <a href="@Url.Map((Trip)ViewBag.Trip)">Map</a>
+    @if (ViewBag.UserOwnsTrip)
+    {
+        <a id="trip-settings-link" href="@Url.Settings((Trip)ViewBag.Trip)">Settings</a>
+    }
 </div>

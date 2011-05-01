@@ -78,7 +78,7 @@ namespace Triptitude.Web.Controllers
             var oldTrip = itineraryItem.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) Redirect("/");
+            if (!userOwnsTrips) return Redirect("/");
 
             itineraryItemsRepo.Save(form);
             return Redirect(Url.Details(itineraryItem.Trip));
@@ -89,7 +89,7 @@ namespace Triptitude.Web.Controllers
             var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
             var trip = itineraryItem.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) Redirect("/");
+            if (!userOwnsTrip) return Redirect("/");
 
             itineraryItemsRepo.Delete(itineraryItem);
             itineraryItemsRepo.Save();
@@ -145,7 +145,7 @@ namespace Triptitude.Web.Controllers
             var oldTrip = itineraryItem.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) Redirect("/");
+            if (!userOwnsTrips) return Redirect("/");
 
             itineraryItemsRepo.Save(form);
             return Redirect(Url.Details(itineraryItem.Trip));
@@ -156,7 +156,7 @@ namespace Triptitude.Web.Controllers
             var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
             var trip = itineraryItem.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) Redirect("/");
+            if (!userOwnsTrip) return Redirect("/");
 
             itineraryItemsRepo.Delete(itineraryItem);
             itineraryItemsRepo.Save();
@@ -214,7 +214,7 @@ namespace Triptitude.Web.Controllers
             var oldTrip = itineraryItem.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) Redirect("/");
+            if (!userOwnsTrips) return Redirect("/");
 
             itineraryItemsRepo.Save(form);
             return Redirect(Url.Details(itineraryItem.Trip));
@@ -225,7 +225,7 @@ namespace Triptitude.Web.Controllers
             var itineraryItem = itineraryItemsRepo.Find(itineraryItemId);
             var trip = itineraryItem.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) Redirect("/");
+            if (!userOwnsTrip) return Redirect("/");
 
             itineraryItemsRepo.Delete(itineraryItem);
             itineraryItemsRepo.Save();
@@ -287,7 +287,7 @@ namespace Triptitude.Web.Controllers
             var oldTrip = transportation.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) Redirect("/");
+            if (!userOwnsTrips) return Redirect("/");
 
             transportationsRepo.Save(form);
             return Redirect(Url.Details(transportation.Trip));
@@ -298,7 +298,7 @@ namespace Triptitude.Web.Controllers
             var transportation = transportationsRepo.Find(id);
             var trip = transportation.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) Redirect("/");
+            if (!userOwnsTrip) return Redirect("/");
 
             transportationsRepo.Delete(transportation);
             transportationsRepo.Save();
