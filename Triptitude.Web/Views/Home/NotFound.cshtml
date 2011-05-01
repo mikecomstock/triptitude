@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "NotFound";
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            setTimeout(redir, 5000);
+        });
+        function redir() {
+            window.location = '/';
+        }
+    </script>
+}
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                Page Removed</h1>
+        </div>
+        <div class="panel-content" style="font-size: 24px; font-weight: bold; color: #666; padding: 50px 20px;">
+            This page has been removed! <a href="/">Go here</a> instead.
+        </div>
+    </div>
+</div>

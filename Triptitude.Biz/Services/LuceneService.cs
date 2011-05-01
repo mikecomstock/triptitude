@@ -23,11 +23,11 @@ namespace Triptitude.Biz.Services
         {
             get
             {
-#if DEBUG
-                return ConfigurationManager.AppSettings["LuceneDestinationsIndexPath"];
-#else
+//#if DEBUG
+//                return ConfigurationManager.AppSettings["LuceneDestinationsIndexPath"];
+//#else
                 return HttpContext.Current.Server.MapPath(@"/App_Data/LuceneIndexes/Destinations/");
-#endif
+//#endif
             }
         }
 

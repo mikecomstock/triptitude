@@ -32,5 +32,11 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trips = trips;
             return View();
         }
+
+        public ActionResult NotFound()
+        {
+            Response.StatusCode = 410;
+            return View();
+        }
     }
 }

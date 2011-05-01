@@ -24,6 +24,19 @@ namespace Triptitude.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            // Old stuff that gone
+            routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldTags", "Tag/{name}", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldActivities", "Activities/{id}/{name}", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldActivities2", "Activities", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
+            // End of Old Stuff
+
+
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
@@ -51,7 +64,7 @@ namespace Triptitude.Web
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             string idslug = (string)values[parameterName];
-            if (!idslug.Contains("-")) return false;
+            //if (!idslug.Contains("-")) return false;
 
             string id = idslug.Split('-')[0];
 
