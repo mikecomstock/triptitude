@@ -23,7 +23,7 @@ namespace Triptitude.Biz.Services
             websitesRepo.Add(website);
             websitesRepo.Save();
 
-            Util.CreateThumbnails(url, website.Id);
+            //Util.CreateThumbnails(url, website.Id);
 
             return website;
         }

@@ -25,9 +25,9 @@
     @foreach (ItineraryItem itineraryItem in ViewBag.Websites)
     {
         <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id" title="Click for details">
-            <img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />
+            @*<img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />*@
             <h4>
-                <a rel="nofollow" target="_blank" href="@itineraryItem.Website.URL">@itineraryItem.Website.Title</a>
+                <a rel="nofollow" target="_blank" href="@itineraryItem.Website.URL">@itineraryItem.Website.Title</a> (Website)
             </h4>
         </div>
     }
