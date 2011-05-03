@@ -63,6 +63,7 @@
     <Compile Include="Forms\DestinationTagForm.cs" />
     <Compile Include="Forms\HotelForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
+    <Compile Include="Forms\SignupForm.cs" />
     <Compile Include="Forms\TransportationForm.cs" />
     <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Repos\ItineraryItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
+    <Compile Include="Repos\SignupRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
     <Compile Include="Repos\TransportationsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />

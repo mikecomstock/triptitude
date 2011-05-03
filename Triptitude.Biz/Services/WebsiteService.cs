@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Text.RegularExpressions;
+using System.Web;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
@@ -12,6 +13,7 @@ namespace Triptitude.Biz.Services
             WebClient x = new WebClient();
             string source = x.DownloadString(url);
             string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+            title = HttpUtility.HtmlDecode(title);
 
             Website website = new Website
             {

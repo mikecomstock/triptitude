@@ -67,7 +67,7 @@ else if (ViewBag.HideTripBar != true)
             <div id="trip-bar-title">
                 Like to travel? Plan your next trip.
             </div>
-            <form action="" id="start-here-form">
+            <form action="@Url.Signup()" method="post" id="start-here-form">
             <input type="text" name="email" placeholder="Your email address..." />
             <input type="text" name="tripname" placeholder="Name your trip..." />
             <input type="text" name="destination" class="destination-autocomplete" placeholder="Where are you going?" />
