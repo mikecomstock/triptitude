@@ -42,7 +42,7 @@ namespace Triptitude.Web
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
 
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
-            routes.MapSlugRoute("Slug", "{controller}/{action}/{idslug}", null, new { idslug = new SlugRouteConstraint() });
+            routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
 
             routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
 
