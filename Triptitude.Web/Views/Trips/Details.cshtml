@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name;
+    ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
 }
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">

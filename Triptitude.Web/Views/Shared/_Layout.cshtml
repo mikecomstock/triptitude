@@ -6,6 +6,11 @@
     {
         <meta name="description" content="@ViewBag.Description" />
     }
+    
+    @if (ViewBag.ShowInSiteMap == false)
+    {
+        <meta name="robots" content="noindex" />
+    }
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
     <style type="text/css">
         .fader, #background .fader { background: url("@Url.Static("backgrounds/background-fade.png")") repeat-x scroll left bottom transparent; }
