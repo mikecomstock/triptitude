@@ -7,6 +7,8 @@ namespace Triptitude.Biz.Models
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Signup>().Property(s => s.RequestInfo).HasMaxLength(4000);
+
             modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey("DefaultTrip_Id"));
             modelBuilder.Entity<User>().HasMany(u => u.Trips).WithMany(t => t.Users);
 

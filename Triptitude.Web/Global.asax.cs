@@ -29,6 +29,7 @@ namespace Triptitude.Web
             routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTags", "Tag/{name}", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldIsers", "Users/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldActivities", "Activities/{id}/{name}", new { controller = "Home", Action = "NotFound" });

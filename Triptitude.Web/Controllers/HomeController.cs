@@ -63,17 +63,6 @@ namespace Triptitude.Web.Controllers
             return ip;
         }
 
-
-        //Dim sIPAddress As String = context.Request.ServerVariables("HTTP_X_FORWARDED_FOR")
-        //If String.IsNullOrEmpty(sIPAddress) Then
-        //    Return context.Request.ServerVariables("REMOTE_ADDR")
-        //Else
-        //    Dim ipArray As String() = sIPAddress.Split(New [Char]() {","c})
-        //    Return ipArray(0)
-        //End If
-
-
-
         public ActionResult Sitemap()
         {
             TripsRepo tripsRepo = new TripsRepo();
