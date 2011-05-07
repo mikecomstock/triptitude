@@ -1,4 +1,5 @@
 ﻿<div id="side-container">
-    <a href="@Url.Details((Destination)ViewBag.Destination)">@ViewBag.Destination.ShortName</a>
-    <a href="#">Trips</a> <a href="@Url.Hotels((Destination)ViewBag.Destination)">Hotels</a>
+    <a href="@Url.Details((IDestination)ViewBag.Destination)">@ViewBag.Destination.ShortName</a>
+    <a href="#">Trips</a> <a href="@Url.Hotels((IDestination)ViewBag.Destination)">Hotels</a>
+ @*    <a href="@Url.Activities((IDestination)ViewBag.Destination)">Activities</a>*@
 </div>

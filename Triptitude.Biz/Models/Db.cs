@@ -25,5 +25,6 @@ namespace Triptitude.Biz.Models
         public DbSet<Region> Regions { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<DestinationTag> DestinationTags { get; set; }
     }
 }

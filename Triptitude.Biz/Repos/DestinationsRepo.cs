@@ -7,7 +7,7 @@ namespace Triptitude.Biz.Repos
 {
     public class DestinationsRepo
     {
-        public Destination Find(int id)
+        public IDestination Find(int id)
         {
             Country country = new CountriesRepo().Find(id);
             if (country != null) return country;
@@ -21,13 +21,23 @@ namespace Triptitude.Biz.Repos
             throw new Exception("Couldn't find destination");
         }
 
-        public IEnumerable<Destination> Search(string term)
+        public IEnumerable<IDestination> Search(string term)
         {
-            IEnumerable<Destination> countries = new CountriesRepo().FindAll().Where(c => c.Name.StartsWith(term)).Take(10);
-            IEnumerable<Destination> regions = new RegionsRepo().FindAll().Where(c => c.ASCIIName.StartsWith(term)).Take(10);
-            IEnumerable<Destination> cities = new CitiesRepo().FindAll().Where(c => c.ASCIIName.StartsWith(term)).Take(10);
+            IEnumerable<IDestination> countries = new CountriesRepo().FindAll().Where(c => c.Name.StartsWith(term)).Take(10);
+            IEnumerable<IDestination> regions = new RegionsRepo().FindAll().Where(c => c.ASCIIName.StartsWith(term)).Take(10);
+            IEnumerable<IDestination> cities = new CitiesRepo().FindAll().Where(c => c.ASCIIName.StartsWith(term)).Take(10);
 
             return countries.Concat(regions).Concat(cities);
         }
+
+        //public IQueryable<Tag> GetTags(int id)
+        //{
+        //    IDestination destination = Find(id);
+            
+        //    if(destination is Region)
+        //    {
+        //        RegionsRepo regionsRepo = new RegionsRepo();
+        //    }
+        //}
     }
 }

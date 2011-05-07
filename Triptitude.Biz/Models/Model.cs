@@ -150,6 +150,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual Tag Tag { get; set; }
         public virtual City City { get; set; }
+        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
     }
 
     public class Tag
@@ -161,14 +162,15 @@ namespace Triptitude.Biz.Models
     #region Destinations
 
     // abstract!
-    public interface Destination
+    public interface IDestination
     {
         int GeoNameID { get; set; }
         string ShortName { get; }
         string FullName { get; }
+        IQueryable<Tag> Tags { get; }
     }
 
-    public class Country : Destination
+    public class Country : IDestination
     {
         [Key]
         public int GeoNameID { get; set; }
@@ -181,6 +183,11 @@ namespace Triptitude.Biz.Models
             get { return Name; }
         }
 
+        public IQueryable<Tag> Tags
+        {
+            get { return Regions.SelectMany(r => r.Tags).AsQueryable(); }
+        }
+
         public string ShortName
         {
             get { return Name; }
@@ -188,17 +195,23 @@ namespace Triptitude.Biz.Models
 
     }
 
-    public class Region : Destination
+    public class Region : IDestination
     {
         [Key]
         public int GeoNameID { get; set; }
         public string ASCIIName { get; set; }
         public virtual Country Country { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
         public string GeoNameAdmin1Code { get; set; }
 
         public string FullName
         {
             get { return ASCIIName + ", " + Country.FullName; }
+        }
+
+        public IQueryable<Tag> Tags
+        {
+            get { return Cities.SelectMany(c => c.Tags).AsQueryable(); }
         }
 
         public string ShortName
@@ -207,7 +220,7 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class City : Destination
+    public class City : IDestination
     {
         [Key]
         public int GeoNameID { get; set; }
@@ -215,6 +228,12 @@ namespace Triptitude.Biz.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
+        public virtual ICollection<DestinationTag> DestinationTags { get; set; }
+
+        public IQueryable<Tag> Tags
+        {
+            get { return DestinationTags.Where(dt => dt.ItineraryItems.Any()).Select(dt => dt.Tag).AsQueryable(); }
+        }
 
         public string FullName
         {
