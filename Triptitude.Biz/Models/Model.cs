@@ -46,24 +46,18 @@ namespace Triptitude.Biz.Models
         }
     }
 
+    #region Activities
+
     [Table("Activities")]
     public class Activity
     {
         public int Id { get; set; }
         public virtual Trip Trip { get; set; }
-        public virtual Tag Tag { get; set; }
-        public virtual City City { get; set; }
         public int BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
-        [NotMapped]
-        public virtual LodgingActivity LodgingActivity { get; set; }
-        [NotMapped]
-        public virtual WebsiteActivity WebsiteActivity { get; set; }
-        //public virtual ICollection<TransportationActivity> TransportationActivities { get; set; }
-        //public virtual TransportationActivity TransportationActivity { get { return TransportationActivities.FirstOrDefault(); } }
 
         public string Name
         {
@@ -81,6 +75,41 @@ namespace Triptitude.Biz.Models
         public virtual City FromCity { get; set; }
         public virtual City ToCity { get; set; }
     }
+
+    [Table("HotelActivities")]
+    public class HotelActivity : Activity
+    {
+        public virtual Hotel Hotel { get; set; }
+    }
+
+    [Table("WebsiteActivities")]
+    public class WebsiteActivity : Activity
+    {
+        public string URL { get; set; }
+        public string Title { get; set; }
+
+        public enum ThumbSize { Small, Medium, Large }
+
+        public static string ThumbFilename(int websiteId, ThumbSize thumbSize)
+        {
+            switch (thumbSize)
+            {
+                case ThumbSize.Small: return websiteId + "-small.jpg";
+                case ThumbSize.Medium: return websiteId + "-medium.jpg";
+                case ThumbSize.Large: return websiteId + "-large.jpg";
+                default: throw new Exception();
+            }
+        }
+    }
+
+    [Table("TagActivities")]
+    public class TagActivity : Activity
+    {
+        public Tag Tag { get; set; }
+        public City City { get; set; }
+    }
+
+    #endregion
 
     public class TransportationType
     {
@@ -108,27 +137,6 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public string Text { get; set; }
         public bool Public { get; set; }
-    }
-
-    public class WebsiteActivity
-    {
-        public int Id { get; set; }
-        public virtual Activity Activity { get; set; }
-        public string URL { get; set; }
-        public string Title { get; set; }
-
-        public enum ThumbSize { Small, Medium, Large }
-
-        public static string ThumbFilename(int websiteId, ThumbSize thumbSize)
-        {
-            switch (thumbSize)
-            {
-                case ThumbSize.Small: return websiteId + "-small.jpg";
-                case ThumbSize.Medium: return websiteId + "-medium.jpg";
-                case ThumbSize.Large: return websiteId + "-large.jpg";
-                default: throw new Exception();
-            }
-        }
     }
 
     public class Tag
@@ -223,13 +231,6 @@ namespace Triptitude.Biz.Models
 
     #region Hotels
 
-    public class LodgingActivity
-    {
-        public int Id { get; set; }
-        public virtual Activity Activity { get; set; }
-        public virtual Hotel Hotel { get; set; }
-    }
-
     public class HotelPhoto
     {
         public string ImageURL { get; set; }
@@ -248,9 +249,9 @@ namespace Triptitude.Biz.Models
         public int Image_Id { get; set; }
         public int NumberOfReviews { get; set; }
         public decimal ConsumerRating { get; set; }
-        public virtual ICollection<LodgingActivity> LodgingActivities { get; set; }
+        public virtual ICollection<HotelActivity> HotelActivities { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return LodgingActivities.Select(la => la.Activity).Select(a => a.Trip).Distinct(); } }
+        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Distinct(); } }
 
         public HotelPhoto Photo
         {

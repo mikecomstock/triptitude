@@ -1,97 +1,118 @@
 ﻿using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
-using Triptitude.Biz.Services;
 
 namespace Triptitude.Biz.Repos
 {
-    public class ActivitiesRepo: Repo<Activity>
+    public class ActivitiesRepo : Repo<Activity>
     {
-        public Activity Save(WebsiteForm form)
+        private static void SetBaseProperties(Activity activity, ActivityForm form)
         {
-            Activity itineraryItem;
+            activity.Trip = new TripsRepo().Find(form.TripId);
+            activity.BeginDay = form.BeginDay.Value;
+            activity.EndDay = form.EndDay.Value;
+        }
 
-            if (form.ItineraryItemId.HasValue)
+        public Activity Save(TransportationActivityForm form)
+        {
+            TransportationActivity activity;
+
+            if (form.ActivityId.HasValue)
             {
-                itineraryItem = Find(form.ItineraryItemId.Value);
+                activity = (TransportationActivity)Find(form.ActivityId.Value);
             }
             else
             {
-                itineraryItem = null;// new Activity();
-                Add(itineraryItem);
+                activity = new TransportationActivity();
+                Add(activity);
             }
 
-            Trip trip = new TripsRepo().Find(form.TripId);
-            itineraryItem.Trip = trip;
+            SetBaseProperties(activity, form);
 
-            // Use the existing site if it already exists. Otherwise add & thumbnail it.
-            WebsitesRepo websitesRepo = new WebsitesRepo();
-            itineraryItem.WebsiteActivity = websitesRepo.FindByUrl(form.Url) ?? new WebsiteService().AddWebsite(form.Url);
+            var type = new TransportationTypesRepo().Find(form.TransportationTypeId);
+            activity.TransportationType = type;
 
-            itineraryItem.BeginDay = form.BeginDay.Value;
-            itineraryItem.EndDay = form.EndDay.Value;
+            var citiesRepo = new CitiesRepo();
+            activity.FromCity = citiesRepo.Find(form.FromCityId);
+            activity.ToCity = citiesRepo.Find(form.ToCityId);
 
             Save();
 
-            return itineraryItem;
+            return activity;
         }
 
-        public Activity Save(HotelForm form)
+        public Activity Save(HotelActivityForm form)
         {
-            Activity itineraryItem;
+            HotelActivity activity;
 
-            if (form.ItineraryItemId.HasValue)
+            if (form.ActivityId.HasValue)
             {
-                itineraryItem = Find(form.ItineraryItemId.Value);
+                activity = (HotelActivity)Find(form.ActivityId.Value);
             }
             else
             {
-                itineraryItem = null;// new Activity();
-                Add(itineraryItem);
+                activity = new HotelActivity();
+                Add(activity);
             }
 
-            Trip trip = new TripsRepo().Find(form.TripId);
-            itineraryItem.Trip = trip;
+            SetBaseProperties(activity, form);
 
             HotelsRepo hotelsRepo = new HotelsRepo();
-            //itineraryItem.LodgingActivity = hotelsRepo.Find(form.HotelId);
-
-            itineraryItem.BeginDay = form.BeginDay.Value;
-            itineraryItem.EndDay = form.EndDay.Value;
+            activity.Hotel = hotelsRepo.Find(form.HotelId);
 
             Save();
 
-            return itineraryItem;
+            return activity;
         }
 
-        public Activity Save(DestinationTagForm form)
+        public Activity Save(WebsiteActivityForm form)
         {
-            Activity itineraryItem;
+            WebsiteActivity activity;
 
-            if (form.ItineraryItemId.HasValue)
+            if (form.ActivityId.HasValue)
             {
-                itineraryItem = Find(form.ItineraryItemId.Value);
+                activity = (WebsiteActivity)Find(form.ActivityId.Value);
             }
             else
             {
-                itineraryItem = null;// new Activity();
-                Add(itineraryItem);
+                activity = new WebsiteActivity();
+                Add(activity);
             }
 
-            Trip trip = new TripsRepo().Find(form.TripId);
-            itineraryItem.Trip = trip;
+            SetBaseProperties(activity, form);
 
-            City city = new CitiesRepo().Find(form.DestinationId);
+            activity.URL = form.Url;// .WebsiteActivity = websitesRepo.FindByUrl(form.Url) ?? new WebsiteService().AddWebsite(form.Url);
+            activity.Title = "TODO: set this title";
+            
+            Save();
+
+            return activity;
+        }
+
+        public Activity Save(TagActivityForm form)
+        {
+            TagActivity activity;
+
+            if (form.ActivityId.HasValue)
+            {
+                activity = (TagActivity)Find(form.ActivityId.Value);
+            }
+            else
+            {
+                activity = new TagActivity();
+                Add(activity);
+            }
+
+            SetBaseProperties(activity, form);
+
             Tag tag = new TagsRepo().FindOrCreateByName(form.TagName);
+            activity.Tag = tag;
 
-            itineraryItem.Tag = tag;
-            itineraryItem.City = city;
-
-            itineraryItem.BeginDay = form.BeginDay.Value;
-            itineraryItem.EndDay = form.EndDay.Value;
+            City city = new CitiesRepo().Find(form.CityId);
+            activity.City = city;
 
             Save();
 
-            return itineraryItem;
+            return activity;
         }
     }
 }

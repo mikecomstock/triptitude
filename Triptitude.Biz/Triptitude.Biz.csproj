@@ -60,14 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Forms\DestinationTagForm.cs" />
-    <Compile Include="Forms\HotelForm.cs" />
+    <Compile Include="Forms\ActivityForms.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\SignupForm.cs" />
-    <Compile Include="Forms\TransportationForm.cs" />
     <Compile Include="Forms\TripCreate.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
-    <Compile Include="Forms\WebsiteForm.cs" />
     <Compile Include="Models\Db.cs" />
     <Compile Include="Repo.cs" />
     <Compile Include="Models\Model.cs" />
@@ -80,7 +77,6 @@
     <Compile Include="Repos\RegionsRepo.cs" />
     <Compile Include="Repos\SignupRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
-    <Compile Include="Repos\TransportationsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
