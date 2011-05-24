@@ -15,9 +15,9 @@ namespace Triptitude.Biz
             string websiteThumbnailRoot = ConfigurationManager.AppSettings["WebsiteThumbnailRoot"];
 
             string originalOutputPath = Path.Combine(websiteThumbnailRoot, websiteId + "-original.jpg");
-            string smallOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Small));
-            string mediumOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Medium));
-            string largeOutputPath = Path.Combine(websiteThumbnailRoot, Website.ThumbFilename(websiteId, Website.ThumbSize.Large));
+            string smallOutputPath = Path.Combine(websiteThumbnailRoot, WebsiteActivity.ThumbFilename(websiteId, WebsiteActivity.ThumbSize.Small));
+            string mediumOutputPath = Path.Combine(websiteThumbnailRoot, WebsiteActivity.ThumbFilename(websiteId, WebsiteActivity.ThumbSize.Medium));
+            string largeOutputPath = Path.Combine(websiteThumbnailRoot, WebsiteActivity.ThumbFilename(websiteId, WebsiteActivity.ThumbSize.Large));
 
             string cutyCaptPath = ConfigurationManager.AppSettings["CutyCaptPath"];
             string userAgent = "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.13 (KHTML, like Gecko) Chrome/9.0.597.84 Safari/534.13";

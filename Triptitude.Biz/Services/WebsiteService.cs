@@ -8,14 +8,14 @@ namespace Triptitude.Biz.Services
 {
     public class WebsiteService
     {
-        public Website AddWebsite(string url)
+        public WebsiteActivity AddWebsite(string url)
         {
             WebClient x = new WebClient();
             string source = x.DownloadString(url);
             string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
             title = HttpUtility.HtmlDecode(title);
 
-            Website website = new Website
+            WebsiteActivity website = new WebsiteActivity
             {
                 URL = url,
                 Title = title

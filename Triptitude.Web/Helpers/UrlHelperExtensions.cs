@@ -148,9 +148,9 @@ namespace Triptitude.Web.Helpers
 
         #region Websites
 
-        public static string WebsiteThumb(this UrlHelper url, Website website, Website.ThumbSize thumbSize)
+        public static string WebsiteThumb(this UrlHelper url, WebsiteActivity websiteActivity, WebsiteActivity.ThumbSize thumbSize)
         {
-            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + Website.ThumbFilename(website.Id, thumbSize);
+            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + WebsiteActivity.ThumbFilename(websiteActivity.Id, thumbSize);
         }
 
         #endregion

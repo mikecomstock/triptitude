@@ -3,11 +3,11 @@ using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
 {
-    public class TransportationsRepo : Repo<Transportation>
+    public class TransportationsRepo : Repo<TransportationActivity>
     {
-        public Transportation Save(TransportationForm form)
+        public TransportationActivity Save(TransportationForm form)
         {
-            Transportation transportation;
+            TransportationActivity transportation;
 
             if (form.Id.HasValue)
             {
@@ -15,7 +15,7 @@ namespace Triptitude.Biz.Repos
             }
             else
             {
-                transportation = new Transportation();
+                transportation = new TransportationActivity();
                 Add(transportation);
             }
 
@@ -24,11 +24,9 @@ namespace Triptitude.Biz.Repos
             var citiesRepo = new CitiesRepo();
 
             transportation.TransportationType = type;
-            transportation.Trip = trip;
+            //transportation.Trip = trip;
             transportation.ToCity = citiesRepo.Find(form.ToCityId);
             transportation.FromCity = citiesRepo.Find(form.FromCityId);
-            transportation.BeginDay = form.BeginDay.Value;
-            transportation.EndDay = form.EndDay.Value;
             Save();
 
             return transportation;

@@ -29,65 +29,57 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime? BeginDate { get; set; }
         public int Created_By { get; set; }
         public DateTime Created_On { get; set; }
+        public DateTime? BeginDate { get; set; }
         public bool ShowInSiteMap { get; set; }
 
         public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<ItineraryItem> Itinerary { get; set; }
-        public virtual ICollection<Transportation> Transportations { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
+
         public int TotalDays
         {
             get
             {
-                List<int?> days = new List<int?>
-                                     {
-                                         Itinerary.Any() ? Itinerary.Max(x => x.BeginDay) : 0,
-                                         Itinerary.Any() ? Itinerary.Max(x => x.EndDay) : 0,
-                                         Transportations.Any() ? Transportations.Max(x => x.BeginDay) : 0,
-                                         Transportations.Any() ? Transportations.Max(x => x.EndDay) : 0
-                                     };
-                return Math.Max(days.Max().Value, 1);
+                return Activities.Any() ? Activities.Max(a => a.EndDay) : 1;
             }
-        }
-        public IEnumerable<HotelPhoto> Photos
-        {
-            get { return Itinerary.Select(i => i.Hotel).Distinct().Where(h => h != null).Select(h => h.Photo); }
         }
     }
 
-    public class ItineraryItem
+    [Table("Activities")]
+    public class Activity
     {
         public int Id { get; set; }
         public virtual Trip Trip { get; set; }
-        public virtual Website Website { get; set; }
-        public virtual Hotel Hotel { get; set; }
-        public virtual DestinationTag DestinationTag { get; set; }
+        public virtual Tag Tag { get; set; }
+        public virtual City City { get; set; }
         public int BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        [NotMapped]
+        public virtual LodgingActivity LodgingActivity { get; set; }
+        [NotMapped]
+        public virtual WebsiteActivity WebsiteActivity { get; set; }
+        //public virtual ICollection<TransportationActivity> TransportationActivities { get; set; }
+        //public virtual TransportationActivity TransportationActivity { get { return TransportationActivities.FirstOrDefault(); } }
 
         public string Name
         {
             get
             {
-                return Hotel != null ? Hotel.Name : Website != null ? Website.Title : DestinationTag != null ? DestinationTag.Tag.Name : "[No Title]";
+                return "activity name here";// return Hotel != null ? Hotel.Name : Website != null ? Website.Title : DestinationTag != null ? DestinationTag.Tag.Name : "[No Title]";
             }
         }
     }
 
-    public class Transportation
+    [Table("TransportationActivities")]
+    public class TransportationActivity : Activity
     {
-        public int Id { get; set; }
         public virtual TransportationType TransportationType { get; set; }
-        public virtual Trip Trip { get; set; }
         public virtual City FromCity { get; set; }
         public virtual City ToCity { get; set; }
-        public int BeginDay { get; set; }
-        public int EndDay { get; set; }
     }
 
     public class TransportationType
@@ -111,16 +103,17 @@ namespace Triptitude.Biz.Models
     public class Note
     {
         public int Id { get; set; }
-        public virtual ItineraryItem ItineraryItem { get; set; }
-        public DateTime Created_On { get; set; }
+        public virtual Activity Activity { get; set; }
         public int Created_By { get; set; }
+        public DateTime Created_On { get; set; }
         public string Text { get; set; }
         public bool Public { get; set; }
     }
 
-    public class Website
+    public class WebsiteActivity
     {
         public int Id { get; set; }
+        public virtual Activity Activity { get; set; }
         public string URL { get; set; }
         public string Title { get; set; }
 
@@ -136,21 +129,6 @@ namespace Triptitude.Biz.Models
                 default: throw new Exception();
             }
         }
-
-        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
-
-        public IEnumerable<Trip> Trips
-        {
-            get { return ItineraryItems.Select(ii => ii.Trip); }
-        }
-    }
-
-    public class DestinationTag
-    {
-        public int Id { get; set; }
-        public virtual Tag Tag { get; set; }
-        public virtual City City { get; set; }
-        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
     }
 
     public class Tag
@@ -228,12 +206,7 @@ namespace Triptitude.Biz.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
-        public virtual ICollection<DestinationTag> DestinationTags { get; set; }
-
-        public IQueryable<Tag> Tags
-        {
-            get { return DestinationTags.Where(dt => dt.ItineraryItems.Any()).Select(dt => dt.Tag).AsQueryable(); }
-        }
+        public virtual IQueryable<Tag> Tags { get; set; }
 
         public string FullName
         {
@@ -249,6 +222,13 @@ namespace Triptitude.Biz.Models
     #endregion
 
     #region Hotels
+
+    public class LodgingActivity
+    {
+        public int Id { get; set; }
+        public virtual Activity Activity { get; set; }
+        public virtual Hotel Hotel { get; set; }
+    }
 
     public class HotelPhoto
     {
@@ -268,9 +248,9 @@ namespace Triptitude.Biz.Models
         public int Image_Id { get; set; }
         public int NumberOfReviews { get; set; }
         public decimal ConsumerRating { get; set; }
-        public virtual ICollection<ItineraryItem> ItineraryItems { get; set; }
+        public virtual ICollection<LodgingActivity> LodgingActivities { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return ItineraryItems.Select(ii => ii.Trip).Distinct(); } }
+        public IEnumerable<Trip> Trips { get { return LodgingActivities.Select(la => la.Activity).Select(a => a.Trip).Distinct(); } }
 
         public HotelPhoto Photo
         {

@@ -10,7 +10,7 @@ namespace Triptitude.Web.Controllers
     public class ItineraryItemsController : Controller
     {
         private TripsRepo tripsRepo;
-        private ItineraryItemsRepo itineraryItemsRepo;
+        private ActivitiesRepo itineraryItemsRepo;
         private HotelsRepo hotelsRepo;
         private TransportationsRepo transportationsRepo;
         private TransportationTypesRepo transportationTypesRepo;
@@ -18,7 +18,7 @@ namespace Triptitude.Web.Controllers
         public ItineraryItemsController()
         {
             tripsRepo = new TripsRepo();
-            itineraryItemsRepo = new ItineraryItemsRepo();
+            itineraryItemsRepo = new ActivitiesRepo();
             hotelsRepo = new HotelsRepo();
             transportationTypesRepo = new TransportationTypesRepo();
             transportationsRepo = new TransportationsRepo();
@@ -63,10 +63,10 @@ namespace Triptitude.Web.Controllers
                             EndDay = itineraryItem.EndDay,
                             ItineraryItemId = itineraryItemId,
                             TripId = itineraryItem.Trip.Id,
-                            HotelId = itineraryItem.Hotel.Id
+                            HotelId = itineraryItem.LodgingActivity.Hotel.Id
                         };
             ViewBag.Form = form;
-            ViewBag.Hotel = itineraryItem.Hotel;
+            ViewBag.Hotel = itineraryItem.LodgingActivity.Hotel;
             ViewBag.Action = Url.ItineraryEditHotel();
             return PartialView("HotelDialog");
         }
@@ -131,7 +131,7 @@ namespace Triptitude.Web.Controllers
                 EndDay = itineraryItem.EndDay,
                 ItineraryItemId = itineraryItemId,
                 TripId = itineraryItem.Trip.Id,
-                Url = itineraryItem.Website.URL
+                Url = itineraryItem.WebsiteActivity.URL
             };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryEditWebsite();
@@ -198,9 +198,9 @@ namespace Triptitude.Web.Controllers
                                               EndDay = itineraryItem.EndDay,
                                               ItineraryItemId = itineraryItem.Id,
                                               TripId = itineraryItem.Trip.Id,
-                                              DestinationId = itineraryItem.DestinationTag.City.GeoNameID,
-                                              DestinationName = itineraryItem.DestinationTag.City.FullName,
-                                              TagName = itineraryItem.DestinationTag.Tag.Name
+                                              DestinationId = itineraryItem.City.GeoNameID,
+                                              DestinationName = itineraryItem.City.FullName,
+                                              TagName = itineraryItem.Tag.Name
                                           };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryEditDestinationTag();
@@ -264,7 +264,7 @@ namespace Triptitude.Web.Controllers
 
             TransportationForm form = new TransportationForm
             {
-                Id = transportation.Id,
+                //Id = transportation.Id,
                 TransportationTypeId = transportation.TransportationType.Id,
                 TripId = transportation.Trip.Id,
                 FromCityId = transportation.FromCity.GeoNameID,
