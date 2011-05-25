@@ -1,9 +1,9 @@
 ﻿@{
-    WebsiteForm form = (WebsiteForm)ViewBag.Form;
+    WebsiteActivityForm form = (WebsiteActivityForm)ViewBag.Form;
 }
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="tripid" value="@form.TripId" />
-<input type="hidden" name="itineraryitemid" value="@form.ItineraryItemId" />
+<input type="hidden" name="activityid" value="@form.ActivityId" />
 <p>
     <label for="url">
         Website URL</label>
