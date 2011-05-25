@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Triptitude.Biz.Forms
+﻿namespace Triptitude.Biz.Forms
 {
     public class TripSettingsForm
     {

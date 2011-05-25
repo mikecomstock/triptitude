@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
@@ -39,12 +40,11 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Hotels(int id)
         {
-            int radiusInMiles = 50;
-            int radiusInMeters = (int)(radiusInMiles * 1609.344);
+            City city = (City)destinationsRepo.Find(id);
+            ViewBag.Destination = city;
+            var hotelSearchForm = new HotelSearchForm { Latitude = city.Latitude, Longitude = city.Longitude, RadiusInMiles = 10 };
+            ViewBag.HotelSearchForm = hotelSearchForm;
 
-            IDestination destination = destinationsRepo.Find(id);
-            ViewBag.Destination = destination;
-            ViewBag.Hotels = new HotelsRepo().FindNear((City)destination, radiusInMeters).Take(40);
             return View();
         }
 
