@@ -23,8 +23,7 @@ namespace Triptitude.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-
+            
             // Old stuff that's gone
             routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
@@ -32,12 +31,9 @@ namespace Triptitude.Web
             routes.MapRoute("OldIsers", "Users/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
-            routes.MapRoute("OldActivities", "Activities/{id}/{name}", new { controller = "Home", Action = "NotFound" });
-            routes.MapRoute("OldActivities2", "Activities", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff
-
-
+            
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });

@@ -107,41 +107,41 @@ namespace Triptitude.Web.Helpers
 
         public static string ItineraryAddHotel(this UrlHelper url)
         {
-            return url.Action("addhotel", "itineraryitems");
+            return url.Action("addhotel", "activities");
         }
         public static string ItineraryEditHotel(this UrlHelper url)
         {
-            return url.Action("edithotel", "itineraryitems");
+            return url.Action("edithotel", "activities");
         }
 
         public static string ItineraryAddTransportation(this UrlHelper url)
         {
-            return url.Action("addtransportation", "itineraryitems");
+            return url.Action("addtransportation", "activities");
         }
 
         public static string ItineraryEditTransportation(this UrlHelper url)
         {
-            return url.Action("edittransportation", "itineraryitems");
+            return url.Action("edittransportation", "activities");
         }
 
         public static string ItineraryAddWebsite(this UrlHelper url)
         {
-            return url.Action("addwebsite", "itineraryitems");
+            return url.Action("addwebsite", "activities");
         }
 
         public static string ItineraryEditWebsite(this UrlHelper url)
         {
-            return url.Action("editwebsite", "itineraryitems");
+            return url.Action("editwebsite", "activities");
         }
 
         public static string ItineraryAddDestinationTag(this UrlHelper url)
         {
-            return url.Action("adddestinationtag", "itineraryitems");
+            return url.Action("adddestinationtag", "activities");
         }
 
         public static string ItineraryEditDestinationTag(this UrlHelper url)
         {
-            return url.Action("editdestinationtag", "itineraryitems");
+            return url.Action("editdestinationtag", "activities");
         }
 
         #endregion

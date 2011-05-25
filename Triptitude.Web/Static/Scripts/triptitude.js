@@ -25,28 +25,28 @@
 
     $('.add-transportation-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/addtransportation?tripid=' + tripId, function (getData) {
+        $.get('/activities/addtransportation?tripid=' + tripId, function (getData) {
             CreateTransportationsModal(getData);
         });
     });
 
     $('.add-website-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/addwebsite?tripid=' + tripId, function (getData) {
+        $.get('/activities/addwebsite?tripid=' + tripId, function (getData) {
             CreateWebsiteModal(getData);
         });
     });
 
     $('.add-tag-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/adddestinationtag?tripid=' + tripId, function (getData) {
+        $.get('/activities/adddestinationtag?tripid=' + tripId, function (getData) {
             CreateDestinationTagModal(getData);
         });
     });
 
     $('.add-hotel-link').click(function (clickData) {
         var hotelId = $(this).attr('data-hotel-id');
-        $.get('/itineraryitems/addhotel?hotelid=' + hotelId, function (data) {
+        $.get('/activities/addhotel?hotelid=' + hotelId, function (data) {
             CreateHotelModal(data);
         });
     });
@@ -90,29 +90,29 @@
     });
 
     $('.trip-day-itinerary-item.transportation').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/edittransportation/' + id, function (data) {
+        var activityId = $(this).attr('data-activity-id');
+        $.get('/activities/edittransportation?activityid=' + activityId, function (data) {
             CreateTransportationsModal(data);
         });
     });
 
     $('.trip-day-itinerary-item.website').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/editwebsite?itineraryitemid=' + id, function (data) {
+        var activityId = $(this).attr('data-id');
+        $.get('/activities/editwebsite?activityid=' + activityId, function (data) {
             CreateWebsiteModal(data);
         });
     });
 
     $('.trip-day-itinerary-item.hotel').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/edithotel?itineraryitemid=' + id, function (data) {
+        var activityId = $(this).attr('data-id');
+        $.get('/activities/edithotel?activityid=' + activityId, function (data) {
             CreateHotelModal(data);
         });
     });
 
     $('.trip-day-itinerary-item.destination-tag').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/editdestinationtag?itineraryitemid=' + id, function (data) {
+        var activityId = $(this).attr('data-id');
+        $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) {
             CreateDestinationTagModal(data);
         });
     });
@@ -138,14 +138,14 @@ function BindDestinationAutocomplete(context) {
 
 function CreateTransportationsModal(data) {
     var dialog = $(data);
-    var id = $('[name="id"]', dialog).val();
+    var activityId = $('[name="activityid"]', dialog).val();
 
     var buttons = [];
-    if (id) {
+    if (activityId) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/itineraryitems/deletetransportation/" + id
+                window.location.href = "/activities/deletetransportation?activityid=" + activityId
         }
         });
     }
@@ -164,14 +164,14 @@ function CreateTransportationsModal(data) {
 
 function CreateWebsiteModal(data) {
     var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
+    var activityid = $('[name="activityid"]', dialog).val();
 
     var buttons = [];
-    if (itineraryitemid) {
+    if (activityid) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/itineraryitems/deletewebsite?itineraryitemid=" + itineraryitemid
+                window.location.href = "/activities/deletewebsite?activityid=" + activityid
         }
         });
     }
@@ -189,14 +189,14 @@ function CreateWebsiteModal(data) {
 
 function CreateHotelModal(data) {
     var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
+    var activityid = $('[name="activityid"]', dialog).val();
 
     var buttons = [];
-    if (itineraryitemid) {
+    if (activityid) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/itineraryitems/deletehotel?itineraryitemid=" + itineraryitemid
+                window.location.href = "/activities/deletehotel?activityid=" + activityid
         }
         });
     }
@@ -214,14 +214,14 @@ function CreateHotelModal(data) {
 
 function CreateDestinationTagModal(data) {
     var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
+    var activityid = $('[name="activityid"]', dialog).val();
 
     var buttons = [];
-    if (itineraryitemid) {
+    if (activityid) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/itineraryitems/deletedestinationtag?itineraryitemid=" + itineraryitemid
+                window.location.href = "/activities/deletedestinationtag?activityid=" + activityid
         }
         });
     }

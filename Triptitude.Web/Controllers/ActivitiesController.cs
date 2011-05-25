@@ -49,15 +49,15 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult EditHotel(int itineraryItemId, User currentUser)
+        public ActionResult EditHotel(int activityId, User currentUser)
         {
-            HotelActivity activity = (HotelActivity)activitiesRepo.Find(itineraryItemId);
+            HotelActivity activity = (HotelActivity)activitiesRepo.Find(activityId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
             var form = new HotelActivityForm
             {
-                ActivityId = itineraryItemId,
+                ActivityId = activityId,
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
@@ -82,9 +82,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(activity.Trip));
         }
 
-        public ActionResult DeleteHotel(int itineraryItemId, User currentUser)
+        public ActionResult DeleteHotel(int activityId, User currentUser)
         {
-            var activity = activitiesRepo.Find(itineraryItemId);
+            var activity = activitiesRepo.Find(activityId);
             var trip = activity.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
@@ -117,9 +117,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult EditWebsite(int itineraryItemId, User currentUser)
+        public ActionResult EditWebsite(int activityId, User currentUser)
         {
-            var activity = (WebsiteActivity)activitiesRepo.Find(itineraryItemId);
+            var activity = (WebsiteActivity)activitiesRepo.Find(activityId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
@@ -127,7 +127,7 @@ namespace Triptitude.Web.Controllers
             {
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
-                ActivityId = itineraryItemId,
+                ActivityId = activityId,
                 TripId = activity.Trip.Id,
                 Url = activity.URL
             };
@@ -149,9 +149,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(activity.Trip));
         }
 
-        public ActionResult DeleteWebsite(int itineraryItemId, User currentUser)
+        public ActionResult DeleteWebsite(int activityId, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(itineraryItemId);
+            var itineraryItem = activitiesRepo.Find(activityId);
             var trip = itineraryItem.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
@@ -184,9 +184,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult EditDestinationTag(int itineraryItemId, User currentUser)
+        public ActionResult EditDestinationTag(int activityId, User currentUser)
         {
-            var activity = (TagActivity)activitiesRepo.Find(itineraryItemId);
+            var activity = (TagActivity)activitiesRepo.Find(activityId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
@@ -218,9 +218,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(tagActivity.Trip));
         }
 
-        public ActionResult DeleteDestinationTag(int itineraryItemId, User currentUser)
+        public ActionResult DeleteDestinationTag(int activityId, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(itineraryItemId);
+            var itineraryItem = activitiesRepo.Find(activityId);
             var trip = itineraryItem.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
@@ -254,9 +254,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(transportation.Trip));
         }
 
-        public ActionResult EditTransportation(int id, User currentUser)
+        public ActionResult EditTransportation(int activityId, User currentUser)
         {
-            var transportation = (TransportationActivity)activitiesRepo.Find(id);
+            var transportation = (TransportationActivity)activitiesRepo.Find(activityId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, transportation.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
@@ -291,9 +291,9 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(activity.Trip));
         }
 
-        public ActionResult DeleteTransportation(int id, User currentUser)
+        public ActionResult DeleteTransportation(int activityId, User currentUser)
         {
-            var transportation = activitiesRepo.Find(id);
+            var transportation = activitiesRepo.Find(activityId);
             var trip = transportation.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
