@@ -104,7 +104,7 @@ namespace Triptitude.Biz.Repos
 
             SetBaseProperties(activity, form);
 
-            Tag tag = new TagsRepo().FindOrCreateByName(form.TagName);
+            Tag tag = new TagsRepo().FindOrInitializeByName(form.TagName);
             activity.Tag = tag;
 
             City city = new CitiesRepo().Find(form.CityId);

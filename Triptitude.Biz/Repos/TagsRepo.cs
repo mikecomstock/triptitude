@@ -5,7 +5,7 @@ namespace Triptitude.Biz.Repos
 {
     public class TagsRepo : Repo<Tag>
     {
-        public Tag FindOrCreateByName(string name)
+        public Tag FindOrInitializeByName(string name)
         {
             Tag tag = FindAll().FirstOrDefault(t => t.Name == name.Trim());
 
@@ -13,7 +13,6 @@ namespace Triptitude.Biz.Repos
             {
                 tag = new Tag { Name = name.Trim() };
                 Add(tag);
-                Save();
             }
 
             return tag;
