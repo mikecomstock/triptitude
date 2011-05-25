@@ -87,12 +87,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
-    <Compile Include="Controllers\ItineraryItemsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
@@ -179,18 +179,6 @@
     <Content Include="Views\Trips\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\ItineraryItems\HotelDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\TransportationDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\WebsiteDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\DestinationTagDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Sitemap.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Destinations\Activities.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Activities\DestinationTagDialog.cshtml" />
+    <Content Include="Views\Activities\HotelDialog.cshtml" />
+    <Content Include="Views\Activities\TransportationDialog.cshtml" />
+    <Content Include="Views\Activities\WebsiteDialog.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

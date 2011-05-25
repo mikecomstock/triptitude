@@ -34,7 +34,7 @@
         public string TagName { get; set; }
         public int CityId { get; set; }
 
-        // Used only for display purposes?
+        // Used only for display purposes
         public string CityName { get; set; }
     }
 }

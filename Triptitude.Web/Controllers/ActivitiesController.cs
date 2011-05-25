@@ -7,14 +7,14 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class ItineraryItemsController : Controller
+    public class ActivitiesController : Controller
     {
-        private TripsRepo tripsRepo;
-        private ActivitiesRepo activitiesRepo;
-        private HotelsRepo hotelsRepo;
-        private TransportationTypesRepo transportationTypesRepo;
+        private readonly TripsRepo tripsRepo;
+        private readonly ActivitiesRepo activitiesRepo;
+        private readonly HotelsRepo hotelsRepo;
+        private readonly TransportationTypesRepo transportationTypesRepo;
 
-        public ItineraryItemsController()
+        public ActivitiesController()
         {
             tripsRepo = new TripsRepo();
             activitiesRepo = new ActivitiesRepo();
