@@ -80,12 +80,10 @@
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
-    <Compile Include="Repos\WebsitesRepo.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Repos\CountriesRepo.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\LuceneService.cs" />
-    <Compile Include="Services\WebsiteService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>

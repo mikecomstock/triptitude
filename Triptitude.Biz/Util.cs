@@ -4,6 +4,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Web;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz
@@ -93,6 +96,24 @@ namespace Triptitude.Biz
             }
 
             return dateTimeString;
+        }
+
+        public static string GetWebsiteData(string url)
+        {
+            WebRequest webRequest = WebRequest.Create(url);
+            webRequest.Timeout = 5000;
+            WebResponse webResponse = webRequest.GetResponse();
+            Stream responseStream = webResponse.GetResponseStream();
+            StreamReader streamReader = new StreamReader(responseStream);
+            string content = streamReader.ReadToEnd();
+
+            streamReader.Close();
+            responseStream.Close();
+            webResponse.Close();
+
+            string title = Regex.Match(content, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+            title = HttpUtility.HtmlDecode(title);
+            return title;
         }
     }
 }

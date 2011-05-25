@@ -80,8 +80,8 @@ namespace Triptitude.Biz.Repos
 
             SetBaseProperties(activity, form);
 
-            activity.URL = form.Url;// .WebsiteActivity = websitesRepo.FindByUrl(form.Url) ?? new WebsiteService().AddWebsite(form.Url);
-            activity.Title = "TODO: set this title";
+            activity.URL = form.Url;
+            activity.Title = Util.GetWebsiteData(form.Url);
             
             Save();
 
