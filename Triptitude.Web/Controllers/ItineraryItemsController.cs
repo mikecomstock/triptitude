@@ -100,14 +100,14 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult AddWebsite(User currentUser, int tripId)
         {
-            WebsiteForm form = new WebsiteForm { TripId = tripId };
+            WebsiteActivityForm form = new WebsiteActivityForm { TripId = tripId };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryAddWebsite();
             return PartialView("websitedialog");
         }
 
         [HttpPost]
-        public ActionResult AddWebsite(WebsiteForm form, User currentUser)
+        public ActionResult AddWebsite(WebsiteActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
@@ -119,17 +119,17 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult EditWebsite(int itineraryItemId, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(itineraryItemId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, itineraryItem.Trip);
+            var activity = (WebsiteActivity)activitiesRepo.Find(itineraryItemId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            WebsiteForm form = new WebsiteForm
+            WebsiteActivityForm form = new WebsiteActivityForm
             {
-                BeginDay = itineraryItem.BeginDay,
-                EndDay = itineraryItem.EndDay,
-                ItineraryItemId = itineraryItemId,
-                TripId = itineraryItem.Trip.Id,
-                Url = itineraryItem.WebsiteActivity.URL
+                BeginDay = activity.BeginDay,
+                EndDay = activity.EndDay,
+                ActivityId = itineraryItemId,
+                TripId = activity.Trip.Id,
+                Url = activity.URL
             };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryEditWebsite();
@@ -137,16 +137,16 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditWebsite(WebsiteForm form, User currentUser)
+        public ActionResult EditWebsite(WebsiteActivityForm form, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(form.ItineraryItemId.Value);
-            var oldTrip = itineraryItem.Trip;
+            var activity = activitiesRepo.Find(form.ActivityId.Value);
+            var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return Redirect("/");
 
             activitiesRepo.Save(form);
-            return Redirect(Url.Details(itineraryItem.Trip));
+            return Redirect(Url.Details(activity.Trip));
         }
 
         public ActionResult DeleteWebsite(int itineraryItemId, User currentUser)
@@ -167,14 +167,14 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult AddDestinationTag(User currentUser, int tripId)
         {
-            DestinationTagForm form = new DestinationTagForm { TripId = tripId };
+            TagActivityForm form = new TagActivityForm { TripId = tripId };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryAddDestinationTag();
             return PartialView("destinationtagdialog");
         }
 
         [HttpPost]
-        public ActionResult AddDestinationTag(DestinationTagForm form, User currentUser)
+        public ActionResult AddDestinationTag(TagActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
@@ -186,19 +186,19 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult EditDestinationTag(int itineraryItemId, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(itineraryItemId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, itineraryItem.Trip);
+            var activity = (TagActivity)activitiesRepo.Find(itineraryItemId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            DestinationTagForm form = new DestinationTagForm
+            TagActivityForm form = new TagActivityForm
                                           {
-                                              BeginDay = itineraryItem.BeginDay,
-                                              EndDay = itineraryItem.EndDay,
-                                              ItineraryItemId = itineraryItem.Id,
-                                              TripId = itineraryItem.Trip.Id,
-                                              DestinationId = itineraryItem.City.GeoNameID,
-                                              DestinationName = itineraryItem.City.FullName,
-                                              TagName = itineraryItem.Tag.Name
+                                              BeginDay = activity.BeginDay,
+                                              EndDay = activity.EndDay,
+                                              ActivityId = activity.Id,
+                                              TripId = activity.Trip.Id,
+                                              CityId = activity.City.GeoNameID,
+                                              CityName = activity.City.FullName,
+                                              TagName = activity.Tag.Name
                                           };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryEditDestinationTag();
@@ -206,16 +206,16 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditDestinationTag(DestinationTagForm form, User currentUser)
+        public ActionResult EditDestinationTag(TagActivityForm form, User currentUser)
         {
-            var itineraryItem = activitiesRepo.Find(form.ItineraryItemId.Value);
-            var oldTrip = itineraryItem.Trip;
+            var tagActivity = (TagActivity)activitiesRepo.Find(form.ActivityId.Value);
+            var oldTrip = tagActivity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return Redirect("/");
 
             activitiesRepo.Save(form);
-            return Redirect(Url.Details(itineraryItem.Trip));
+            return Redirect(Url.Details(tagActivity.Trip));
         }
 
         public ActionResult DeleteDestinationTag(int itineraryItemId, User currentUser)
@@ -236,7 +236,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult AddTransportation(User currentUser, int tripId)
         {
-            TransportationForm form = new TransportationForm { TripId = tripId, TransportationTypeId = -1 };
+            TransportationActivityForm form = new TransportationActivityForm { TripId = tripId, TransportationTypeId = -1 };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.ItineraryAddTransportation();
@@ -244,25 +244,25 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransportation(TransportationForm form, User currentUser)
+        public ActionResult AddTransportation(TransportationActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            var transportation = transportationsRepo.Save(form);
+            var transportation = activitiesRepo.Save(form);
             return Redirect(Url.Details(transportation.Trip));
         }
 
         public ActionResult EditTransportation(int id, User currentUser)
         {
-            var transportation = transportationsRepo.Find(id);
+            var transportation = (TransportationActivity)activitiesRepo.Find(id);
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, transportation.Trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            TransportationForm form = new TransportationForm
+            TransportationActivityForm form = new TransportationActivityForm
             {
-                //Id = transportation.Id,
+                ActivityId = transportation.Id,
                 TransportationTypeId = transportation.TransportationType.Id,
                 TripId = transportation.Trip.Id,
                 FromCityId = transportation.FromCity.GeoNameID,
@@ -279,27 +279,27 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTransportation(TransportationForm form, User currentUser)
+        public ActionResult EditTransportation(TransportationActivityForm form, User currentUser)
         {
-            var transportation = transportationsRepo.Find(form.Id.Value);
-            var oldTrip = transportation.Trip;
+            var activity = (TransportationActivity)activitiesRepo.Find(form.ActivityId.Value);
+            var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return Redirect("/");
 
-            transportationsRepo.Save(form);
-            return Redirect(Url.Details(transportation.Trip));
+            activitiesRepo.Save(form);
+            return Redirect(Url.Details(activity.Trip));
         }
 
         public ActionResult DeleteTransportation(int id, User currentUser)
         {
-            var transportation = transportationsRepo.Find(id);
+            var transportation = activitiesRepo.Find(id);
             var trip = transportation.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            transportationsRepo.Delete(transportation);
-            transportationsRepo.Save();
+            activitiesRepo.Delete(transportation);
+            activitiesRepo.Save();
             return Redirect(Url.Details(trip));
         }
 

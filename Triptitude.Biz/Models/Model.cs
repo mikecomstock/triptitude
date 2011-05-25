@@ -44,6 +44,11 @@ namespace Triptitude.Biz.Models
                 return Activities.Any() ? Activities.Max(a => a.EndDay) : 1;
             }
         }
+
+        public IEnumerable<HotelPhoto> Photos
+        {
+            get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
+        }
     }
 
     #region Activities
@@ -58,14 +63,6 @@ namespace Triptitude.Biz.Models
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
-
-        public string Name
-        {
-            get
-            {
-                return "activity name here";// return Hotel != null ? Hotel.Name : Website != null ? Website.Title : DestinationTag != null ? DestinationTag.Tag.Name : "[No Title]";
-            }
-        }
     }
 
     [Table("TransportationActivities")]
@@ -105,8 +102,8 @@ namespace Triptitude.Biz.Models
     [Table("TagActivities")]
     public class TagActivity : Activity
     {
-        public Tag Tag { get; set; }
-        public City City { get; set; }
+        public virtual Tag Tag { get; set; }
+        public virtual City City { get; set; }
     }
 
     #endregion
