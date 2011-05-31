@@ -236,7 +236,8 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult AddTransportation(User currentUser, int tripId)
         {
-            TransportationActivityForm form = new TransportationActivityForm { TripId = tripId, TransportationTypeId = -1 };
+            var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
+            TransportationActivityForm form = new TransportationActivityForm { TripId = tripId, TransportationTypeId = fly.Id };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.ItineraryAddTransportation();

@@ -15,7 +15,7 @@ namespace Triptitude.Web.Controllers
 
             var transportations = trip.Activities.OfType<TransportationActivity>();
             var trans = from t in transportations
-                        let infoTitle = string.Format("<h3>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></h3>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
+                        let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
                         let infoBody = Util.DateTimeRangeString(t.BeginDay, null, t.EndDay, null)
                         let infoHtml = infoTitle + "<br/>" + infoBody
                         select new
@@ -39,7 +39,7 @@ namespace Triptitude.Web.Controllers
 
             var hotelItineraryItems = trip.Activities.OfType<HotelActivity>();
             var hotels = from i in hotelItineraryItems
-                         let infoTitle = string.Format("<h3>Lodging at <a href='{0}'>{1}</a></h3>", Url.Details(i.Hotel), i.Hotel.Name)
+                         let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(i.Hotel), i.Hotel.Name)
                          let numNights = i.EndDay - i.BeginDay
                          let nightsText = numNights == 1 ? "night" : "nights"
                          let infoBody = Util.DateTimeRangeString(i.BeginDay, i.BeginTime, i.EndDay, i.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
@@ -54,7 +54,7 @@ namespace Triptitude.Web.Controllers
 
             var destinationTagItineraryItems = trip.Activities.OfType<TagActivity>();
             var destinationTags = from dt in destinationTagItineraryItems
-                                  let infoTitle = string.Format("<h3>{0} in <a href='{1}'>{2}</a></h3>", dt.Tag.Name, Url.Details(dt.City), dt.City.ShortName)
+                                  let infoTitle = string.Format("<strong>{0} in <a href='{1}'>{2}</a></strong>", dt.Tag.Name, Url.Details(dt.City), dt.City.ShortName)
                                   let infoBody = Util.DateTimeRangeString(dt.BeginDay, dt.BeginTime, dt.EndDay, dt.EndTime)
                                   let infoHtml = infoTitle + "<br/>" + infoBody
 

@@ -57,7 +57,7 @@ input.day-input { width: 20px; }
 #trip-bar-menu > ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; }
 #trip-bar-menu > ul > li { float: left; }
 #trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
-#trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; }
+#trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit;  z-index:2;}
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
 
@@ -105,7 +105,7 @@ input.day-input { width: 20px; }
 /* Footer */
 #footer { width: 955px; height: 200px; }
 
-/* Trip Schedules */
+/* Trip Itinerary */
 .trip-day { margin-top: 10px; background-color: #DDDDDD; margin-left: 65px; min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); }
 .trip-day > h3 { padding: 3px 6px; width: 45px; background: #666666; color: #FFF; display: block; margin-left: -65px; margin-top: -15px; -moz-border-radius: 5px; float: left; }
 .trip-day-itinerary-item { overflow: auto; cursor: pointer; }
