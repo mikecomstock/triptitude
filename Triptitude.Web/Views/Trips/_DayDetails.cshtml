@@ -17,6 +17,7 @@
         {
             var hotelActivity = activity as HotelActivity;
         <div class="trip-day-itinerary-item hotel" data-activity-id="@activity.Id" title="Click for details">
+            <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
             <h4>
                 Check @(ViewBag.DayNumber == hotelActivity.BeginDay ? "in to" : "out of")
                 <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
