@@ -28,5 +28,10 @@ namespace Triptitude.Biz.Repos
             user.DefaultTrip = trip;
             _db.SaveChanges();
         }
+
+        public void MigrateAnonymousUser(string anonymousID, int userId)
+        {
+            //TODO: in the 'creator' table, set userid = UserId where anonid = anonymousId
+        }
     }
 }

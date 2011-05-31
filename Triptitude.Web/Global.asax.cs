@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Profile;
 using System.Web.Routing;
+using System.Web.Security;
 using Elmah;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 using Triptitude.Web.ModelBinders;
 
 namespace Triptitude.Web
@@ -23,7 +26,7 @@ namespace Triptitude.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            
+
             // Old stuff that's gone
             routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
@@ -33,7 +36,7 @@ namespace Triptitude.Web
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff
-            
+
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
@@ -54,6 +57,13 @@ namespace Triptitude.Web
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterModelBinders();
             RegisterRoutes(RouteTable.Routes);
+        }
+
+        public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)
+        {
+            int userId = int.Parse(args.Context.User.Identity.Name.Split('|')[0]);
+            new UsersRepo().MigrateAnonymousUser(args.AnonymousID, userId);
+            AnonymousIdentificationModule.ClearAnonymousIdentifier();
         }
     }
 
