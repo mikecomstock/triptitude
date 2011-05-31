@@ -15,7 +15,7 @@
             @if (Request.IsAuthenticated)
             {
                 <div id="user-status-header">
-                    Welcome back, <a href="@Url.MyAccount()">@ViewBag.User.Email</a>
+                    Welcome back, <a href="@Url.MyTrips()">@ViewBag.User.Email</a>
                 </div>
                 <div id="user-status-menu">
                     <a href="@Url.CreateTrip()">create a trip</a> <a href="@Url.MyTrips()">my trips</a>

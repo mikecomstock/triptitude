@@ -160,9 +160,7 @@ input.day-input { width: 20px; }
 .hotel-row-photo { float: left; }
 .hotel-row-body { float: left; }
 .hotel-row-title { font-size: 16px; line-height: 70px; padding: 15px; }
-
-#hotel-details-photo-list { margin: 10px; white-space: nowrap; overflow: auto; overflow-y: hidden; height: 275px; }
-.hotel-photo { margin-right: 10px; -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
+.hotel-photo { -moz-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); }
 
 /* My Trips */
 .my-trip-row { display: block; padding: 15px; font-size: 16px; }

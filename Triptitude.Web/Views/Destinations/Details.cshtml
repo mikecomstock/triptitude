@@ -3,6 +3,7 @@
     City city = destination as City;
     Region region = destination as Region;
     Country country = destination as Country;
+    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
     ViewBag.Title = destination.FullName;
 }
 @section Scripts {
@@ -30,6 +31,8 @@
             <h1>@destination.FullName</h1>
         </div>
         <div class="panel-content">
+            <div>
+            </div>
             <div id="destination-details-map-container">
             </div>
         </div>
@@ -39,7 +42,7 @@
             <h2>
                 Trips to @destination.ShortName
             </h2>
-            <form id="trip-search-form" action="#">
+            @*<form id="trip-search-form" action="#">
             <div class="trip-search-form-section">
                 <div class="distance-slider">
                 </div>
@@ -54,12 +57,21 @@
                     2 - 10 days
                 </div>
             </div>
-            </form>
+            </form>*@
         </div>
         <div class="panel-content">
-            <div id="destination-details-related-trips">
-                @Html.Action("_rows", "trips", new { trips = ViewBag.Trips })
-            </div>
+            @if (trips != null && trips.Any())
+            {
+                <div id="destination-details-related-trips">
+                    @Html.Action("_rows", "trips", new { trips })
+                </div>
+            }
+            else
+            {
+                <div>
+                    No trips found! <a href="@Url.CreateTrip()">Create one here.</a>
+                </div>
+            }
         </div>
     </div>
 </div>

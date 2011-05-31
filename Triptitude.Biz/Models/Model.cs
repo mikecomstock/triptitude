@@ -212,6 +212,7 @@ namespace Triptitude.Biz.Models
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
         public virtual IQueryable<Tag> Tags { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
 
         public string FullName
         {

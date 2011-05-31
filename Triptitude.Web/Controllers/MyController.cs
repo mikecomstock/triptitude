@@ -14,6 +14,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Account()
         {
+            return Redirect(Url.MyTrips());
             return View();
         }
 
@@ -25,6 +26,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings(User currentUser)
         {
+            return Redirect(Url.MyTrips());
             ViewBag.User = currentUser;
             return View();
         }

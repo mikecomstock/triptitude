@@ -19,7 +19,7 @@
     </script>
 }
 <div id="side-container">
-    <a href="#">Details</a> <a href="#">Map</a> <a href="#">Trips</a> <a href="#">Alternatives</a>
+    <a href="@Url.Details(hotel)">Details</a> @*<a href="#">Map</a> <a href="#">Trips</a> <a href="#">Alternatives</a>*@
 </div>
 <div id="main-container">
     <div class="panel">
@@ -28,10 +28,8 @@
                 Add to Trip</div>
             <h1>@hotel.Name</h1>
         </div>
-        <div class="panel-content-not-padded">
-            <div id="hotel-details-photo-list">
-                <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
-            </div>
+        <div class="panel-content">
+            <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
         </div>
     </div>
     <div class="panel">
@@ -46,9 +44,18 @@
         <h2>
             Trips to @ViewBag.Hotel.Name</h2>
         <div class="panel-content">
-            <div id="hotel-details-related-trips">
-                @Html.Action("_rows", "trips", new { trips = hotel.Trips })
-            </div>
+            @if (hotel.Trips.Any())
+            {
+                <div id="hotel-details-related-trips">
+                    @Html.Action("_rows", "trips", new { trips = hotel.Trips })
+                </div>
+            }
+            else
+            {
+                <div>
+                    No trips found! <a href="@Url.CreateTrip()">Create one here.</a>
+                </div>
+            }
         </div>
     </div>
 </div>
