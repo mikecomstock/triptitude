@@ -40,7 +40,7 @@ namespace Triptitude.Web
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
-            routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });
+            //routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });
 
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
@@ -72,10 +72,7 @@ namespace Triptitude.Web
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             string idslug = (string)values[parameterName];
-            //if (!idslug.Contains("-")) return false;
-
             string id = idslug.Split('-')[0];
-
             int i;
             return int.TryParse(id, out i);
         }

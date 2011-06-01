@@ -9,7 +9,7 @@ namespace Triptitude.Web.Helpers
         {
             if (user == null) return false;
 
-            var userOwnsAllTrips = trips.All(t => user.Trips.Contains(t));
+            var userOwnsAllTrips = trips.All(t => t.User == user);
             return userOwnsAllTrips;
         }
     }

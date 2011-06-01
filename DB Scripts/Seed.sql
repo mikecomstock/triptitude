@@ -1,4 +1,4 @@
-insert into Users (Email) values ('mikecomstock@gmail.com')
+insert into Users (Email,HashedPassword) values ('mikecomstock@gmail.com','$2a$10$OF9caiAHmaafsoNtvgfYi./ps5tT7k4BWlLMGoEce1lOn8lMsPTpO')
 
 insert into TransportationTypes (Name) values ('Taxi')
 insert into TransportationTypes (Name) values ('Bus')

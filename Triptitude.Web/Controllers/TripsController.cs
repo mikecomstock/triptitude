@@ -103,7 +103,7 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Create(TripCreate form, User currentUser)
         {
-            Trip trip = new TripsRepo().Save(form, currentUser.Id);
+            Trip trip = new TripsRepo().Save(form, currentUser);
             new UsersRepo().SetDefaultTrip(currentUser, trip);
             return Redirect(Url.Details(trip));
         }

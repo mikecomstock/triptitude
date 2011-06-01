@@ -10,8 +10,7 @@ namespace Triptitude.Biz.Models
             modelBuilder.Entity<Signup>().Property(s => s.RequestInfo).HasMaxLength(4000);
 
             modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey("DefaultTrip_Id"));
-            modelBuilder.Entity<User>().HasMany(u => u.Trips).WithMany(t => t.Users);
-
+            
             modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Region>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

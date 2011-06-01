@@ -1,23 +1,23 @@
-﻿using Triptitude.Biz.Forms;
-using Triptitude.Biz.Models;
+﻿//using Triptitude.Biz.Forms;
+//using Triptitude.Biz.Models;
 
-namespace Triptitude.Biz.Repos
-{
-    public class NotesRepo : Repo<Note>
-    {
-        public Note Save(NoteForm form)
-        {
-            var note = Find(form.Id);
-            note.Text = form.Text;
+//namespace Triptitude.Biz.Repos
+//{
+//    public class NotesRepo : Repo<Note>
+//    {
+//        public Note Save(NoteForm form)
+//        {
+//            var note = Find(form.Id);
+//            note.Text = form.Text;
 
-            if (string.IsNullOrWhiteSpace(note.Text))
-            {
-                Delete(note);
-            }
-            Save();
+//            if (string.IsNullOrWhiteSpace(note.Text))
+//            {
+//                Delete(note);
+//            }
+//            Save();
 
-            // Should his return null if the note was deleted?
-            return note;
-        }
-    }
-}
+//            // Should his return null if the note was deleted?
+//            return note;
+//        }
+//    }
+//}

@@ -26,7 +26,6 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings(User currentUser)
         {
-            return Redirect(Url.MyTrips());
             ViewBag.User = currentUser;
             return View();
         }

@@ -20,6 +20,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string HashedPassword { get; set; }
+        public string AnonymousId { get; set; }
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
@@ -29,12 +30,12 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Created_By { get; set; }
+        public User User { get; set; }
         public DateTime Created_On { get; set; }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSiteMap { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public IEnumerable<User> Users { get { return new[] { User }; } }
         public virtual ICollection<Activity> Activities { get; set; }
 
         public int TotalDays
