@@ -34,6 +34,8 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSiteMap { get; set; }
+        public bool Moderated { get; set; }
+        public bool ShowInSite { get; set; }
 
         public IEnumerable<User> Users { get { return new[] { User }; } }
         public virtual ICollection<Activity> Activities { get; set; }
@@ -250,7 +252,7 @@ namespace Triptitude.Biz.Models
         public decimal ConsumerRating { get; set; }
         public virtual ICollection<HotelActivity> HotelActivities { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Distinct(); } }
+        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Where(t => t.ShowInSite).Distinct(); } }
 
         public HotelPhoto Photo
         {

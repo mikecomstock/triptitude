@@ -1,12 +1,30 @@
 ﻿@{
     ViewBag.Title = "Trips";
     Trip trip = (Trip)ViewBag.Trip;
+    ViewBag.HideTripBar = true;
 }
 <div class="panel">
-    <h2>
-        Trip Details</h2>
-    <form action="@Url.Admin(trip)" method="post">
-    @Html.Editor("trip", ViewData)
-    <input type="submit" value="Save" />
-    </form>
+    <div class="panel-title">
+        <h1>
+            Admin</h1>
+    </div>
+    <div class="panel-content">
+        <form action="@Url.Admin(trip)" method="post">
+        @Html.Editor("trip", ViewData)
+        <input type="submit" value="Save" />
+        </form>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            @ViewBag.Trip.Name
+        </h1>
+    </div>
+    <div class="panel-content">
+        @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
+        {
+            Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
+        }
+    </div>
 </div>

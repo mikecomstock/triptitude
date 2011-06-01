@@ -33,7 +33,9 @@ namespace Triptitude.Web.Controllers
         public ActionResult Trips(int id, FormCollection form)
         {
             Trip trip = tripsRepo.Find(id);
+            trip.Moderated = true;
             trip.ShowInSiteMap = form["trip.ShowInSiteMap"].Split(',')[0] == "true";
+            trip.ShowInSite = form["trip.ShowInSite"].Split(',')[0] == "true";
             tripsRepo.Save();
 
             return Redirect("/admin");
