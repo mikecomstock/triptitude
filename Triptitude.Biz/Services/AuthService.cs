@@ -8,7 +8,7 @@ namespace Triptitude.Biz.Services
         public User Authenticate(string email, string password)
         {
             UsersRepo usersRepo = new UsersRepo();
-            User user = usersRepo.FindByEmailPassword(email, password);
+            User user = usersRepo.FindByEmailAndPassword(email, password);
             return user;
         }
     }

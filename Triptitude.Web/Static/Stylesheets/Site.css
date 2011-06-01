@@ -23,7 +23,7 @@ input.day-input { width: 20px; }
 #header-container { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; z-index: 5; }
 #header-container, #header-height-fill { height: 70px; }
 #header { width: 955px; margin: 0 auto; padding: 10px 0; font-size: 13px; overflow: hidden; }
-#email-warning { background-color: #DE888A; font-size: 14px; text-align: center; padding: 8px; color: #000; font-weight: bold; }
+#email-warning { background-color: #FE9FAA; font-size: 14px; text-align: center; padding: 8px; color: #000; font-weight: bold; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFFFFF; letter-spacing: 1px; margin-top: 10px; }
 
 /* Search */

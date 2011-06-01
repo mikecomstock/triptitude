@@ -49,7 +49,7 @@
 @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
 {
     <div id="email-warning">
-        Your work might be lost unless you <a href="@Url.MySettings()">enter your email</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
+        You'll lose your trip unless you <a href="@Url.MySettings()">enter your email</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
     </div>
 }
 @if (currentUser.DefaultTrip != null)

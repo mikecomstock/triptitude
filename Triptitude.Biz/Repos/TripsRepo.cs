@@ -6,7 +6,7 @@ namespace Triptitude.Biz.Repos
 {
     public class TripsRepo : Repo<Trip>
     {
-        public Trip Save(TripCreate form, User currentUser)
+        public Trip Save(CreateTripForm form, User currentUser)
         {
             Trip trip = new Trip
                             {

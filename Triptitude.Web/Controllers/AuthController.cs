@@ -20,8 +20,7 @@ namespace Triptitude.Web.Controllers
 
             if (user != null)
             {
-                string userName = user.Id + "|" + user.Email;
-                FormsAuthentication.SetAuthCookie(userName, true);
+                AuthHelper.SetAuthCookie(user);
                 return Redirect(Url.MyAccount());
             }
             else

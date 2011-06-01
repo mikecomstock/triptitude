@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Web.Helpers;
@@ -26,11 +27,33 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings(User currentUser)
         {
+            var form = new UsersRepo().GetSettingsForm(currentUser);
+            ViewBag.Form = form;
             ViewBag.User = currentUser;
             return View();
         }
 
-        // needs security check
+        [HttpPost]
+        public ActionResult Settings(UserSettingsForm form, User currentUser)
+        {
+            var usersRepo = new UsersRepo();
+            usersRepo.Save(form, currentUser);
+
+            if (true /*TODO: if valid*/)
+            {
+                AuthHelper.SetAuthCookie(currentUser);
+                return Redirect(Url.MyTrips());
+            }
+            else
+            {
+                ViewBag.Form = form;
+                ViewBag.User = currentUser;
+                return View();
+            }
+        }
+
+        //TODO: needs security check
+        //TODO: convert this to a post
         public ActionResult DefaultTrip(User currentUser, int id)
         {
             Trip trip = new TripsRepo().Find(id);

@@ -101,7 +101,7 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(TripCreate form, User currentUser)
+        public ActionResult Create(CreateTripForm form, User currentUser)
         {
             Trip trip = new TripsRepo().Save(form, currentUser);
             new UsersRepo().SetDefaultTrip(currentUser, trip);

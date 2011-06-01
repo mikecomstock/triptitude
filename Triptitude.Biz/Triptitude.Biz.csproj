@@ -59,12 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\ActivityForms.cs" />
     <Compile Include="Forms\HotelSearchForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\SignupForm.cs" />
-    <Compile Include="Forms\TripCreate.cs" />
+    <Compile Include="Forms\CreateTripForm.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
     <Compile Include="Models\Db.cs" />
     <Compile Include="Repo.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Repos\ActivitiesRepo.cs" />
     <Compile Include="Repos\CitiesRepo.cs" />
     <Compile Include="Repos\DestinationsRepo.cs" />
+    <Compile Include="Exceptions\EmailTakenException.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />

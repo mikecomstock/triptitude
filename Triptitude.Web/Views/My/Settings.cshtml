@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "My Settings";
+    UserSettingsForm form = (UserSettingsForm)ViewBag.Form;
 }
 @Html.Action("SidePanel", "My")
 <div id="main-container">
@@ -9,7 +10,21 @@
                 My Settings</h1>
         </div>
         <div class="panel-content">
-            (settings form goes here)
+            <form id="create-trip-form" action="@Url.MySettings()" method="post">
+            <p>
+                <label for="email">
+                    Email
+                </label>
+                <input type="text" name="email" value="@form.Email" />
+            </p>
+            <p>
+                <label for="password">
+                    Password
+                </label>
+                <input type="password" name="password" />
+            </p>
+            <input type="submit" value="Save Settings" />
+            </form>
         </div>
     </div>
 </div>
