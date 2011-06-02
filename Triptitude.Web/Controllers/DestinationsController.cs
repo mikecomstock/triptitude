@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -59,18 +61,33 @@ namespace Triptitude.Web.Controllers
         }
 
         // JSON only
-        public ActionResult Search(string term)
+        public ActionResult Search(string term, User currentUser)
         {
+            IEnumerable<City> citiesInTrip = new List<City>();
+            if (currentUser.DefaultTrip != null)
+            {
+                var firstTerm = term.Split(' ')[0];
+                citiesInTrip = currentUser.DefaultTrip.Cities.Where(c => c.ShortName.StartsWith(firstTerm, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            var tripCities = from t in citiesInTrip
+                             select new
+                                        {
+                                            label = t.FullName,
+                                            id = t.GeoNameID
+                                        };
+
             var luceneService = new LuceneService();
             var searchResults = luceneService.SearchDestinations(term);
 
-            var results = from d in searchResults
+            var results = from d in searchResults.Where(sr => !citiesInTrip.Select(c => c.GeoNameID).Contains(sr.GeoNameId))
                           select new
                                      {
                                          label = d.FullName,
                                          id = d.GeoNameId
                                      };
-            return Json(results, JsonRequestBehavior.AllowGet);
+
+            return Json(tripCities.Union(results), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -52,6 +52,11 @@ namespace Triptitude.Biz.Models
         {
             get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
         }
+
+        public IEnumerable<City> Cities
+        {
+            get { return Activities.SelectMany(a => a.Cities).Distinct(); }
+        }
     }
 
     #region Activities
@@ -66,6 +71,9 @@ namespace Triptitude.Biz.Models
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        
+        // From CityActivities view
+        public virtual ICollection<City> Cities { get; set; }
     }
 
     [Table("TransportationActivities")]
