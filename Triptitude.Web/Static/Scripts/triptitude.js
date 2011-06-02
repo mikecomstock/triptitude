@@ -151,6 +151,7 @@ function BrowserAutocompleteOff() {
 
 function BindDestinationAutocomplete(context) {
     $('.destination-autocomplete', context).autocomplete({
+        delay: 0,
         source: "/destinations/search",
         select: function (event, ui) {
             var hiddenFieldName = $(this).attr('data-hidden-field-name');
