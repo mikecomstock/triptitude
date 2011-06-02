@@ -5,16 +5,6 @@ using System.Linq;
 
 namespace Triptitude.Biz.Models
 {
-    public class Signup
-    {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string TripName { get; set; }
-        public int GeoNameId { get; set; }
-        public string IP { get; set; }
-        public string RequestInfo { get; set; }
-    }
-
     public class User
     {
         public int Id { get; set; }

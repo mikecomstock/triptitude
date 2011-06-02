@@ -16,10 +16,6 @@ namespace Triptitude.Web.Helpers
 
         #region General
 
-        //public static string Signup(this UrlHelper url)
-        //{
-        //    return url.RouteUrl("signup");
-        //}
         public static string Login(this UrlHelper url)
         {
             return url.RouteUrl("login");

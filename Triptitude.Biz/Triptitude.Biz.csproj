@@ -64,7 +64,6 @@
     <Compile Include="Forms\ActivityForms.cs" />
     <Compile Include="Forms\HotelSearchForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
-    <Compile Include="Forms\SignupForm.cs" />
     <Compile Include="Forms\CreateTripForm.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
     <Compile Include="Models\Db.cs" />
@@ -78,7 +77,6 @@
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
-    <Compile Include="Repos\SignupRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />

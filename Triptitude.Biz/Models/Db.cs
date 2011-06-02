@@ -7,8 +7,6 @@ namespace Triptitude.Biz.Models
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Signup>().Property(s => s.RequestInfo).HasMaxLength(4000);
-
             modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey("DefaultTrip_Id"));
 
             modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -16,7 +14,6 @@ namespace Triptitude.Biz.Models
             modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
 
-        public DbSet<Signup> Signups { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Trip> Trips { get; set; }
 

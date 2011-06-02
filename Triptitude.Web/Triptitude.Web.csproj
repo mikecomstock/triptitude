@@ -195,9 +195,6 @@
     <Content Include="Views\Admin\Trips.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Signup.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Destinations\Activities.cshtml" />
   </ItemGroup>
   <ItemGroup>
