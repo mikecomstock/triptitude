@@ -87,7 +87,7 @@ namespace Triptitude.Web.Controllers
                                          id = d.GeoNameId
                                      };
 
-            return Json(tripCities.Union(results), JsonRequestBehavior.AllowGet);
+            return Json(tripCities.Union(results).Take(10), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
