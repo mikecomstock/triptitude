@@ -7,6 +7,7 @@ insert into TransportationTypes (Name) values ('Fly')
 insert into TransportationTypes (Name) values ('Walk')
 insert into TransportationTypes (Name) values ('Bike')
 insert into TransportationTypes (Name) values ('Boat')
+insert into TransportationTypes (Name) values ('Train')
 
 insert into Tags (Name) values ('Surfing')
 
