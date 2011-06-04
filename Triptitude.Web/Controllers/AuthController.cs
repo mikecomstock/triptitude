@@ -21,6 +21,7 @@ namespace Triptitude.Web.Controllers
             if (user != null)
             {
                 AuthHelper.SetAuthCookie(user);
+                EmailService.SendTest();
                 return Redirect(Url.MyAccount());
             }
             else

@@ -37,11 +37,26 @@
     <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Hammock">
+      <HintPath>..\packages\Hammock.1.2.4\lib\net40\Hammock.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock.ClientProfile">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Hammock.ClientProfile.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\Lucene.2.9.2.2\lib\Lucene.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Postmark">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Postmark.dll</HintPath>
+    </Reference>
+    <Reference Include="Specifications">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Specifications.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -83,6 +98,7 @@
     <Compile Include="Repos\UsersRepo.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Repos\CountriesRepo.cs" />
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ImportService.cs" />
     <Compile Include="Services\LuceneService.cs" />
     <Compile Include="Util.cs" />

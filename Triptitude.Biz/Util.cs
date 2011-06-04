@@ -13,6 +13,11 @@ namespace Triptitude.Biz
 {
     public static class Util
     {
+        public static bool ServerIsProduction
+        {
+            get { return HttpContext.Current != null && HttpContext.Current.Request.Url.Host.Contains("triptitude.com"); }
+        }
+
         public static void CreateThumbnails(string url, int websiteId)
         {
             string websiteThumbnailRoot = ConfigurationManager.AppSettings["WebsiteThumbnailRoot"];
