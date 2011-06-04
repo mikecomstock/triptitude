@@ -33,7 +33,7 @@ namespace Triptitude.Biz.Services
             if (!Util.ServerIsProduction)
             {
                 message.HtmlBody = string.Format("<h1><strong>DEV MODE</strong> Original Recipient: {0}</h1>{1}", message.To, message.HtmlBody);
-                message.TextBody = "***** DEV MODE *****" + Environment.NewLine + "Original Recipient: " + message.To + Environment.NewLine + message.HtmlBody;
+                message.TextBody = "***** DEV MODE *****" + Environment.NewLine + "Original Recipient: " + message.To + Environment.NewLine + message.TextBody;
                 message.To = "test@triptitude.com";
                 message.Cc = null;
                 message.Bcc = null;
