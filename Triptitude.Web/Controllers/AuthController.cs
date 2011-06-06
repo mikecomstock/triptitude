@@ -16,12 +16,12 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginForm form)
         {
-            ViewBag.Form = form;
-
             if (!ModelState.IsValid)
             {
+                ViewBag.Form = form;
                 return View();
             }
 
@@ -34,6 +34,7 @@ namespace Triptitude.Web.Controllers
             else
             {
                 ModelState.AddModelError("credentials", "Invalid credentials.");
+                ViewBag.Form = form;
                 return View();
             }
         }

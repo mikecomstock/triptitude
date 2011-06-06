@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "login";
 }
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () { document.getElementById('email').focus(); });
+    </script>
+}
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
@@ -11,6 +16,7 @@
             <h1>
                 Welcome back!</h1>
             <form method="post" action="@Url.Login()">
+            @Html.AntiForgeryToken()
             @Html.ValidationMessage("credentials")
             <p>
                 @Html.ValidationMessage("email")

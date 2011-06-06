@@ -15,6 +15,7 @@
         </div>
         <div class="panel-content">
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
+            @Html.AntiForgeryToken()
             <p>
                 @Html.ValidationMessage("name")
                 <label for="name">

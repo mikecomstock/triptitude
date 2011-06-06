@@ -83,16 +83,26 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Settings(int id, TripSettingsForm form, User currentUser)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
 
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
+            if (ModelState.IsValid)
+            {
+                bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+                if (!userOwnsTrip) return Redirect("/");
 
-            tripRepo.Save(trip, form);
-            return Redirect(Url.Details(trip));
+                tripRepo.Save(trip, form);
+                return Redirect(Url.Details(trip));
+            }
+            else
+            {
+                ViewBag.Trip = trip;
+                ViewBag.Form = form;
+                return View();
+            }
         }
 
         public ActionResult Create()
@@ -103,6 +113,7 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateTripForm form, User currentUser)
         {
             if (ModelState.IsValid)

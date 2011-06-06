@@ -21,21 +21,13 @@ namespace Triptitude.Biz.Repos
         public User FindOrInitialize(string anonymousId)
         {
             if (string.IsNullOrWhiteSpace(anonymousId)) throw new ArgumentNullException("anonymousId");
-
-            User user = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousId);
-            if (user == null)
-            {
-                user = new User { AnonymousId = anonymousId };
-            }
+            User user = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousId) ?? new User { AnonymousId = anonymousId };
             return user;
         }
 
         public UserSettingsForm GetSettingsForm(User user)
         {
-            UserSettingsForm form = new UserSettingsForm
-                                        {
-                                            Email = user.Email
-                                        };
+            UserSettingsForm form = new UserSettingsForm { Email = user.Email };
             return form;
         }
 
@@ -72,8 +64,8 @@ namespace Triptitude.Biz.Repos
             User registeredUser = Find(userId);
             if (anonymousUser != null)
             {
-                anonymousUser.Trips.ToList().ForEach(t => t.User = registeredUser);
                 //TODO: do this for every table that has a user_id
+                anonymousUser.Trips.ToList().ForEach(t => t.User = registeredUser);
 
                 if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
             }
