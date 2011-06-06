@@ -10,18 +10,18 @@
                 My Settings</h1>
         </div>
         <div class="panel-content">
-            <form id="create-trip-form" action="@Url.MySettings()" method="post">
+            <form id="my-settings-form" action="@Url.MySettings()" method="post">
             <p>
                 <label for="email">
                     Email
                 </label>
-                <input type="text" name="email" value="@form.Email" />
+                <input type="text" name="email" id="email" value="@form.Email" />
             </p>
             <p>
                 <label for="password">
                     Password
                 </label>
-                <input type="password" name="password" />
+                <input type="password" name="password" id="password" />
             </p>
             <input type="submit" value="Save Settings" />
             </form>

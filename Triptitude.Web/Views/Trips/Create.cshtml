@@ -8,9 +8,23 @@
                 Create a Trip</h1>
         </div>
         <div class="panel-content">
-            <form id="create-trip-form" action="@Url.CreateTrip()" method="post">
-            <input type="text" name="name" />
-            <input type="submit" value="Create Trip" />
+            <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
+            <p>
+                @Html.ValidationMessage("name")
+                <label for="name">
+                    Name your trip</label>
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" />
+            </p>
+            <p>
+                @Html.ValidationMessage("destination")
+                <label for="destinationname">
+                    Where are you going?</label>
+                <input type="text" name="destinationname" id="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" value="@ViewBag.Form.DestinationName" />
+                <input type="hidden" id="destinationid" name="destinationid" value="@ViewBag.Form.DestinationId" />
+            </p>
+            <p>
+                <input type="submit" value="Start Planning >" />
+            </p>
             </form>
         </div>
     </div>

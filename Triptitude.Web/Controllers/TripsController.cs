@@ -97,15 +97,25 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Create()
         {
+            var form = new CreateTripForm();
+            ViewBag.Form = form;
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(CreateTripForm form, User currentUser)
         {
-            Trip trip = new TripsRepo().Save(form, currentUser);
-            new UsersRepo().SetDefaultTrip(currentUser, trip);
-            return Redirect(Url.Details(trip));
+            if (ModelState.IsValid)
+            {
+                Trip trip = new TripsRepo().Save(form, currentUser);
+                new UsersRepo().SetDefaultTrip(currentUser, trip);
+                return Redirect(Url.Details(trip));
+            }
+            else
+            {
+                ViewBag.Form = form;
+                return View();
+            }
         }
     }
 }

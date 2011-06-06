@@ -13,6 +13,9 @@ td { vertical-align: top; padding: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 20px; }
 
+/* Form Validation */
+.field-validation-error{ display:block; padding: 5px; background-color: #E92553; color:#FFF; font-weight:bold; margin-bottom:11px; font-size:12px;}
+
 /* Background - parts also defined in layout */
 #background { -moz-user-select: none; left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
 #background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
@@ -37,7 +40,7 @@ input.day-input { width: 20px; }
 #user-status a, #user-status a:visited { color: #66C3FE; }
 #user-status-header { margin-bottom: 5px; color: #8A8A8A; }
 #user-status-header a { font-weight: bold; font-size: 13px; }
-#start-here { font-size: 12px; font-weight: normal; }
+#user-status #start-here-link { font-size: 12px; font-weight: normal; }
 #user-status-menu { font-size: 12px; font-weight: normal; }
 #user-status-menu a { padding-left: 5px; margin: 0; }
 #user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
@@ -61,7 +64,6 @@ input.day-input { width: 20px; }
 #trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
-
 
 #trip-bar #start-here-form { margin-top: 10px; }
 #start-here-form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
@@ -146,9 +148,13 @@ input.day-input { width: 20px; }
 /* Trip Map */
 #trip-map-container { width: 100%; height: 500px; }
 
-/* Plan Trip */
+/* Create Trip Form */
 #create-trip-form { }
-.trip-settings input[name="name"] { width: 400px; }
+#create-trip-form p { overflow:auto; }
+#create-trip-form label {float:left; display:block; width: 200px; font-size: 16px; line-height:33px;}
+#create-trip-form input[type="text"] {font-size: 18px; font-weight: bold; color: #666666; width: 400px; padding: 5px; margin-right: 10px; }
+#create-trip-form input[type="submit"] {font-size: 18px; font-weight: bold; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; }
+
 
 /* Hotel Details */
 #hotel-details-map-container { width: 400px; height: 220px; }
@@ -167,6 +173,9 @@ input.day-input { width: 20px; }
 .my-trip-row { display: block; padding: 15px; font-size: 16px; }
 .my-trip-row span { font-weight: bold; padding-right: 15px; }
 .my-trip-row + .my-trip-row { border-top: 1px dashed #CCCCCC; }
+
+/* My Settings */
+.my-settings-form {}
 
 /* Trip Row */
 .trip-rows { clear: both; }
