@@ -12,10 +12,10 @@ namespace Triptitude.Biz.Repos
         public User FindByEmailAndPassword(string email, string password)
         {
             User user = FindAll().FirstOrDefault(u => u.Email == email);
-            bool hashesMatch = BCryptHelper.CheckPassword(password, user.HashedPassword);
+            if (user == null) return null;
 
-            if (hashesMatch) return user;
-            else return null;
+            bool hashesMatch = BCryptHelper.CheckPassword(password, user.HashedPassword);
+            return hashesMatch ? user : null;
         }
 
         public User FindOrInitialize(string anonymousId)

@@ -10,13 +10,16 @@
         <div class="panel-content">
             <h1>
                 Welcome back!</h1>
-            <form method="post">
+            <form method="post" action="@Url.Login()">
+            @Html.ValidationMessage("credentials")
             <p>
+                @Html.ValidationMessage("email")
                 <label for="email">
                     Email</label>
-                <input type="text" id="email" name="email" />
+                <input type="text" id="email" name="email" value="@ViewBag.Form.Email" />
             </p>
             <p>
+                @Html.ValidationMessage("password")
                 <label for="password">
                     Password</label>
                 <input type="password" id="password" name="password" />
