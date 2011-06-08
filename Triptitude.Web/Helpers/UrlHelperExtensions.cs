@@ -24,6 +24,10 @@ namespace Triptitude.Web.Helpers
         {
             return url.RouteUrl("logout");
         }
+        public static string ForgotPass(this UrlHelper url)
+        {
+            return url.RouteUrl("forgotpass");
+        }
 
         public static string Static(this UrlHelper url, string path)
         {

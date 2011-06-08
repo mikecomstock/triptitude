@@ -23,6 +23,7 @@
                 <label for="email">
                     Email</label>
                 <input type="text" id="email" name="email" value="@ViewBag.Form.Email" />
+                <a href="@Url.ForgotPass()">Forgot Password</a>
             </p>
             <p>
                 @Html.ValidationMessage("password")

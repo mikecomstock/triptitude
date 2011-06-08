@@ -49,7 +49,7 @@
 @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
 {
     <div id="email-warning">
-        You'll lose your trip unless you <a href="@Url.MySettings()">enter your email</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
+        You'll lose your trip unless you <a href="@Url.MySettings()">create an account</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
     </div>
 }
 @if (currentUser.DefaultTrip != null)
@@ -84,6 +84,7 @@ else if (ViewBag.HideTripBar != true)
                 Like to travel? Plan your next trip.
             </div>
             <form action="@Url.CreateTrip()" method="post" id="start-here-form">
+            @Html.AntiForgeryToken()
             <input type="text" name="name" placeholder="Name your trip..." />
             <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
             <input type="hidden" id="destinationid" name="destinationid" />

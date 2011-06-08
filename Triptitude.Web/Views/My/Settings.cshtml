@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "My Settings";
     UserSettingsForm form = (UserSettingsForm)ViewBag.Form;
+    User user = (User)ViewBag.User;
 }
 @Html.Action("SidePanel", "My")
 <div id="main-container">
@@ -12,16 +13,26 @@
         <div class="panel-content">
             <form id="my-settings-form" action="@Url.MySettings()" method="post">
             <p>
+                @Html.ValidationMessage("email")
                 <label for="email">
                     Email
                 </label>
-                <input type="text" name="email" id="email" value="@form.Email" />
+                @if (string.IsNullOrWhiteSpace(user.Email))
+                {
+                    <input type="text" name="email" id="email" value="@form.Email" />
+                }
+                else
+                {
+                    <span id="email">@user.Email</span>
+                    <input type="hidden" name="email" id="email" value="@form.Email" />
+                }
             </p>
             <p>
+                @Html.ValidationMessage("password")
                 <label for="password">
                     Password
                 </label>
-                <input type="password" name="password" id="password" />
+                <input type="password" name="password" id="password" value="@form.Password" />
             </p>
             <input type="submit" value="Save Settings" />
             </form>

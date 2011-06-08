@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using DevOne.Security.Cryptography.BCrypt;
-using Triptitude.Biz.Exceptions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
@@ -18,6 +17,12 @@ namespace Triptitude.Biz.Repos
             return hashesMatch ? user : null;
         }
 
+        public User FindByEmail(string email)
+        {
+            User user = FindAll().FirstOrDefault(u => u.Email == email);
+            return user;
+        }
+
         public User FindOrInitialize(string anonymousId)
         {
             if (string.IsNullOrWhiteSpace(anonymousId)) throw new ArgumentNullException("anonymousId");
@@ -31,25 +36,41 @@ namespace Triptitude.Biz.Repos
             return form;
         }
 
-        public void Save(UserSettingsForm form, User user)
+        public enum UserSaveAction
         {
-            var existingUser = FindAll().SingleOrDefault(u => u.Id != user.Id && u.Email == form.Email);
-            if (existingUser != null)
-                throw new EmailTakenException();
+            NoAction, NewUserCreated, EmailAlreadyTaken
+        }
 
-            user.Email = form.Email;
+        public void Save(UserSettingsForm form, User user, out UserSaveAction userSaveAction)
+        {
+            var existingUser = FindAll().FirstOrDefault(u => u.Id != user.Id && u.Email == form.Email);
+            bool emailAlreadyTaken = existingUser != null;
 
-            if (!string.IsNullOrWhiteSpace(form.Password))
+            // Handle UserSaveAction
+            if (emailAlreadyTaken) userSaveAction = UserSaveAction.EmailAlreadyTaken;
+            else if (string.IsNullOrWhiteSpace(user.Email)) userSaveAction = UserSaveAction.NewUserCreated;
+            else userSaveAction = UserSaveAction.NoAction;
+
+            // Set users properties
+            if (userSaveAction != UserSaveAction.EmailAlreadyTaken)
             {
-                string salt = BCryptHelper.GenerateSalt(10);
-                string hashedPassword = BCryptHelper.HashPassword(form.Password, salt);
-                user.HashedPassword = hashedPassword;
+                // For new users only (don't allow changes, just to simplify code for now)
+                user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email : user.Email;
+
+                if (!string.IsNullOrWhiteSpace(form.Password))
+                {
+                    string salt = BCryptHelper.GenerateSalt(10);
+                    string hashedPassword = BCryptHelper.HashPassword(form.Password, salt);
+                    user.HashedPassword = hashedPassword;
+                }
+
+                // The user is probably in the db already, since they
+                // likely created a trip, but check just to make sure.
+                if (user.Id == 0)
+                    Add(user);
+
+                Save();
             }
-
-            if (user.Id == 0)
-                Add(user);
-
-            Save();
         }
 
         public void SetDefaultTrip(User user, Trip trip)

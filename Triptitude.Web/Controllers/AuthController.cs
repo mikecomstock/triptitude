@@ -44,5 +44,31 @@ namespace Triptitude.Web.Controllers
             FormsAuthentication.SignOut();
             return Redirect("~");
         }
+
+        public ActionResult ForgotPass()
+        {
+            ViewBag.Sent = false;
+            ViewBag.Form = new ForgotPassForm();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPass(ForgotPassForm form)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO: send
+
+                // next i should generate a new login token for the user, with a timeout?, and then send it to the user in an email.
+                ViewBag.Sent = true;
+            }
+            else
+            {
+                ViewBag.Sent = false;
+            }
+
+            ViewBag.Form = form;
+            return View();
+        }
     }
 }
