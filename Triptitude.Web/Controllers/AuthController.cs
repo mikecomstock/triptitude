@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Security;
 using Triptitude.Biz.Forms;
+using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
@@ -9,8 +12,24 @@ namespace Triptitude.Web.Controllers
     public class AuthController : Controller
     {
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(Guid? token)
         {
+            if (token.HasValue)
+            {
+                var usersRepo = new UsersRepo();
+                User user = usersRepo.FindByToken(token.Value);
+
+                if (user != null && !user.GuidIsExpired)
+                {
+                    AuthHelper.SetAuthCookie(user);
+                    return Redirect(Url.MySettings());
+                }
+                else
+                {
+                    ModelState.AddModelError("credentials", "Your login link has expired. Use the 'Forgot Password' link to create a new one.");
+                }
+            }
+
             ViewBag.Form = new LoginForm();
             return View();
         }
@@ -34,6 +53,7 @@ namespace Triptitude.Web.Controllers
             else
             {
                 ModelState.AddModelError("credentials", "Invalid credentials.");
+                Session["email"] = form.Email;
                 ViewBag.Form = form;
                 return View();
             }
@@ -48,18 +68,23 @@ namespace Triptitude.Web.Controllers
         public ActionResult ForgotPass()
         {
             ViewBag.Sent = false;
-            ViewBag.Form = new ForgotPassForm();
+            ViewBag.Form = new ForgotPassForm
+                               {
+                                   Email = (string)Session["email"]
+                               };
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ForgotPass(ForgotPassForm form)
         {
             if (ModelState.IsValid)
             {
-                //TODO: send
-
-                // next i should generate a new login token for the user, with a timeout?, and then send it to the user in an email.
+                var usersRepo = new UsersRepo();
+                User user = usersRepo.FindByEmail(form.Email);
+                usersRepo.SetNewGuidIfNeeded(user);
+                EmailService.SendForgotPassEmail(user);
                 ViewBag.Sent = true;
             }
             else

@@ -15,9 +15,23 @@ namespace Triptitude.Biz.Services
                 From = "admin@triptitude.com",
                 To = user.Email,
                 Subject = "Welcome to Triptitude",
-                HtmlBody = "This is a signup email",
-                TextBody = "This is a signup email",
+                HtmlBody = string.Format("Thanks for joining Triptitude! <a href='{0}'>Click here to sign in.</a>", user.LoginLinkUrl),
+                TextBody = string.Format("Thanks for joining Triptitude! Use this link to sign in: {0}", user.LoginLinkUrl),
                 Tag = "signup"
+            };
+            Send(message);
+        }
+
+        public static void SendForgotPassEmail(User user)
+        {
+            PostmarkMessage message = new PostmarkMessage
+            {
+                From = "admin@triptitude.com",
+                To = user.Email,
+                Subject = "Triptitude password reset",
+                HtmlBody = string.Format("<a href='{0}'>Click here to reset your password.</a>", user.LoginLinkUrl),
+                TextBody = string.Format("Use this link to reset your password: {0}", user.LoginLinkUrl),
+                Tag = "forgot-pass"
             };
             Send(message);
         }

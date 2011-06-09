@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace Triptitude.Biz.Models
@@ -11,9 +13,31 @@ namespace Triptitude.Biz.Models
         public string Email { get; set; }
         public string HashedPassword { get; set; }
         public string AnonymousId { get; set; }
+        public Guid? Guid { get; set; }
+        public DateTime? GuidCreatedOnUtc { get; set; }
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
+
+        public bool GuidIsExpired
+        {
+            get
+            {
+                if (!Guid.HasValue || !GuidCreatedOnUtc.HasValue) return true;
+                DateTime guidExpiresOn = GuidCreatedOnUtc.Value.AddMonths(1);
+                return guidExpiresOn < DateTime.UtcNow;
+            }
+        }
+
+        public string LoginLinkUrl
+        {
+            get
+            {
+                string root = ConfigurationManager.AppSettings["RootUrl"];
+                string path = Path.Combine(root, "login?token=" + Guid.Value);
+                return path;
+            }
+        }
     }
 
     public class Trip
@@ -61,7 +85,7 @@ namespace Triptitude.Biz.Models
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
-        
+
         // From CityActivities view
         public virtual ICollection<City> Cities { get; set; }
     }

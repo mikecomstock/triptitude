@@ -23,6 +23,12 @@ namespace Triptitude.Biz.Repos
             return user;
         }
 
+        public User FindByToken(Guid token)
+        {
+            User user = FindAll().FirstOrDefault(u => u.Guid == token);
+            return user;
+        }
+
         public User FindOrInitialize(string anonymousId)
         {
             if (string.IsNullOrWhiteSpace(anonymousId)) throw new ArgumentNullException("anonymousId");
@@ -77,6 +83,16 @@ namespace Triptitude.Biz.Repos
         {
             user.DefaultTrip = trip;
             _db.SaveChanges();
+        }
+
+        public void SetNewGuidIfNeeded(User user)
+        {
+            if (!user.Guid.HasValue || !user.GuidCreatedOnUtc.HasValue || (DateTime.UtcNow - user.GuidCreatedOnUtc.Value).TotalDays > 1)
+            {
+                user.Guid = Guid.NewGuid();
+                user.GuidCreatedOnUtc = DateTime.UtcNow;
+                Save();
+            }
         }
 
         public void MigrateAnonymousUser(string anonymousID, int userId)
