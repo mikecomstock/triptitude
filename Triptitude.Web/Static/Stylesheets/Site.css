@@ -109,7 +109,7 @@ input.day-input { width: 20px; }
 #landing-page-panel #start-here-form h3 { font-size: 18px; margin-bottom: 15px; }
 #landing-page-panel ul { margin: 0; padding-left: 40px; }
 #landing-page-panel ul li { font-size: 16px; margin: 10px 0; }
-#landing-page-panel #trips { margin: 20px auto; width: 800px; overflow: auto; background-color: rgba(243, 236, 183, 0.30); }
+#landing-page-panel #trips { margin: 50px auto; width: 800px; overflow: auto; background-color: rgba(243, 236, 183, 0.30); }
 #landing-page-panel #trips .panel-title { padding: 5px; }
 #landing-page-panel #trips .panel-title h2 { margin: 0; }
 #landing-page-panel .trip-row { float: left; width: 388px; height: 80px; overflow: hidden; border-top: 1px dashed #CCCCCC; }
