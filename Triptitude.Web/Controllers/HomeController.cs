@@ -11,6 +11,7 @@ namespace Triptitude.Web.Controllers
         {
             TripsRepo tripsRepo = new TripsRepo();
             var trips = tripsRepo.FindAll().Where(t => t.ShowInSite).OrderByDescending(t => t.Created_On).Take(10).ToList();
+            ViewBag.HideTripBar = true;
             ViewBag.Trips = trips;
 
             return View();

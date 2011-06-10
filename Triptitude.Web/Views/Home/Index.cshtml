@@ -9,23 +9,23 @@
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
         <h1>
-            We'll help you plan your next trip
+            We'll help you plan your next vacation
         </h1>
         <form action="@Url.CreateTrip()" method="post" id="start-here-form">
         @Html.AntiForgeryToken()
         <h3>
-            Try it out:</h3>
+            Try it out</h3>
         <input type="text" name="name" placeholder="Name your trip..." />
         <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
         <input type="hidden" id="destinationid" name="destinationid" />
         <input type="submit" value="Start Planning >" />
         </form>
-        <h2>
-            Organize your travel plans from start to finish</h2>
         <p>
             Planning a vacation isn't easy. You can book flights and hotels almost anywhere, but how do figure out what to do in the first place? And how do you keep track of it all? The answer: <strong>Triptitude</strong></p>
+        <h2>
+            Organize your travel plans from start to finish</h2>
         <ul>
-            <li><strong>Search trips</strong> others have planned and <strong>be inspired</strong>.</li>
+            <li><strong>Search trips</strong> others have planned and <strong>get inspired</strong>.</li>
             <li><strong>Create</strong> an itinerary or <strong>customize</strong> one.</li>
             <li><strong>Plan </strong>before you book to <strong>optimize</strong> your pleasure.</li>
             <li><strong>Print your itinerary</strong>, maps, and notes for stress-free travel.</li>

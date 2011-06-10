@@ -15,8 +15,8 @@ input.day-input { width: 20px; }
 
 /* Form Defaults */
 .panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
-.panel form label { display: block; float: left; width: 100px; line-height:33px; font-size:16px; clear:both; }
-.panel form span { line-height:33px; font-size:16px; }
+.panel form label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
+.panel form span { line-height: 33px; font-size: 16px; }
 .panel form input[type="checkbox"] { margin: 10px 0; }
 .panel form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
 .panel form input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
@@ -98,27 +98,27 @@ input.day-input { width: 20px; }
 
 /* Landing Page */
 #landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); -moz-border-radius: 7px; padding-bottom: 40px; }
-#landing-page-panel { margin: 10px 20px; padding: 20px 0;}
-#landing-page-panel h1 { font-size: 40px; margin-bottom: 30px; color: #0190E9; }
-#landing-page-panel h2 { font-size: 22px; margin-bottom: 10px; margin-top: 20px; }
+#landing-page-panel { margin: 10px 20px; padding: 20px 0; }
+#landing-page-panel h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
+#landing-page-panel h2 { font-size: 22px; margin: 20px 0 20px 0; }
 #landing-page-panel h3 { font-size: 24px !important; color: #333; }
-#landing-page-panel > p { color: #333; font-size: 14px; line-height: 1.5; margin: 0; }
+#landing-page-panel > p { color: #333; font-size: 16px; line-height: 1.5; margin: -10px 0 0 0; }
 #landing-page-panel #start-here-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
 #landing-page-panel #start-here-form input { display: block; width: 300px; margin: 0 auto 10px auto; }
 #landing-page-panel #start-here-form input[type="submit"] { margin: 20px auto 0 auto; width: 200px; font-weight: normal; }
 #landing-page-panel #start-here-form h3 { font-size: 18px; margin-bottom: 15px; }
-#landing-page-panel ul { margin: 30px 0 0 20px; }
+#landing-page-panel ul { margin: 0; padding-left: 40px; }
 #landing-page-panel ul li { font-size: 16px; margin: 10px 0; }
-#landing-page-panel #trips { margin: 20px auto; width: 800px; overflow:auto; background-color: rgba(243, 236, 183, 0.30);}
-#landing-page-panel #trips .panel-title { padding:5px; }
-#landing-page-panel #trips .panel-title h2 { margin:0; }
-#landing-page-panel .trip-row { float:left; width: 388px; height: 80px; overflow:hidden; border-top: 1px dashed #CCCCCC; }
+#landing-page-panel #trips { margin: 20px auto; width: 800px; overflow: auto; background-color: rgba(243, 236, 183, 0.30); }
+#landing-page-panel #trips .panel-title { padding: 5px; }
+#landing-page-panel #trips .panel-title h2 { margin: 0; }
+#landing-page-panel .trip-row { float: left; width: 388px; height: 80px; overflow: hidden; border-top: 1px dashed #CCCCCC; }
 
 /* Footer */
 #footer { width: 955px; height: 200px; }
 
 /* Trip Itinerary */
-.trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom:10px; }
+.trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
 .trip-day > h3 { padding: 3px 6px; background: #4DBAFE; color: #FFF; }
 .activity > h4 { color: #333; margin: 10px; }
 .activity { overflow: auto; cursor: pointer; }
@@ -152,17 +152,16 @@ input.day-input { width: 20px; }
 .destination-tag-dialog form label { display: block; float: left; width: 120px; }
 .destination-tag-dialog form input.destination-autocomplete { width: 280px; }
 
-
 /* Trip Map */
 #trip-map-container { width: 100%; height: 500px; }
 
 /* Create Trip Form */
 #create-trip-form label { width: 200px; }
-#create-trip-form input[type="text"] { width: 400px;  }
+#create-trip-form input[type="text"] { width: 400px; }
 
 /* Trip Settings Form */
 #trip-settings-form label { width: 140px; }
-#trip-settings-form input[type="text"] { width: 400px;  }
+#trip-settings-form input[type="text"] { width: 400px; }
 
 /* Hotel Details */
 #hotel-details-map-container { width: 400px; height: 220px; }
@@ -185,11 +184,11 @@ input.day-input { width: 20px; }
 /* Trip Row */
 .trip-rows { clear: both; }
 .trip-row { padding: 5px; overflow: auto; }
-.trip-row p { margin:5px 0; }
+.trip-row p { margin: 5px 0; }
 .trip-row + .trip-row { border-top: 1px dashed #CCCCCC; }
 .trip-row-photo { float: left; }
 .trip-row-body { float: left; margin-left: 10px; }
-.trip-row-title {font-weight: bold;  font-size: 16px; display: block; }
+.trip-row-title { font-weight: bold; font-size: 16px; display: block; margin-top: 2px; }
 .trip-row-map-link { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
 .trip-row-map-link:hover { display: inline; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
 .trip-map-dialog-link { display: block; }
