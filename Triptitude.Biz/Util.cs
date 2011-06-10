@@ -103,22 +103,31 @@ namespace Triptitude.Biz
             return dateTimeString;
         }
 
-        public static string GetWebsiteData(string url)
+        public static string GetWebsiteTitle(string url)
         {
-            WebRequest webRequest = WebRequest.Create(url);
-            webRequest.Timeout = 5000;
-            WebResponse webResponse = webRequest.GetResponse();
-            Stream responseStream = webResponse.GetResponseStream();
-            StreamReader streamReader = new StreamReader(responseStream);
-            string content = streamReader.ReadToEnd();
+            try
+            {
+                WebRequest webRequest = WebRequest.Create(url);
+                webRequest.Timeout = 5000;
+                using (WebResponse webResponse = webRequest.GetResponse())
+                using (Stream responseStream = webResponse.GetResponseStream())
+                using (StreamReader streamReader = new StreamReader(responseStream))
+                {
+                    string content = streamReader.ReadToEnd();
 
-            streamReader.Close();
-            responseStream.Close();
-            webResponse.Close();
+                    streamReader.Close();
+                    responseStream.Close();
+                    webResponse.Close();
 
-            string title = Regex.Match(content, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-            title = HttpUtility.HtmlDecode(title);
-            return title;
+                    string title = Regex.Match(content, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                    title = HttpUtility.HtmlDecode(title);
+                    return title;
+                }
+            }
+            catch
+            {
+                return url;
+            }
         }
     }
 }

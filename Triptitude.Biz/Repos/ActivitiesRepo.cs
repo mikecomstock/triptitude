@@ -81,7 +81,7 @@ namespace Triptitude.Biz.Repos
             SetBaseProperties(activity, form);
 
             activity.URL = form.Url;
-            activity.Title = Util.GetWebsiteData(form.Url);
+            activity.Title = Util.GetWebsiteTitle(form.Url);
             
             Save();
 

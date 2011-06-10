@@ -1,6 +1,10 @@
 ﻿@{
     ViewBag.Title = "Plan your trip, with Triptitude.com";
     ViewBag.Description = "Easily create a custom travel itinerary. We'll suggest hotels and activities along the way.";
+    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
+}
+@section Scripts {
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 }
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
@@ -8,6 +12,7 @@
             We'll help you plan your next trip
         </h1>
         <form action="@Url.CreateTrip()" method="post" id="start-here-form">
+        @Html.AntiForgeryToken()
         <h3>
             Try it out:</h3>
         <input type="text" name="name" placeholder="Name your trip..." />
@@ -25,13 +30,15 @@
             <li><strong>Plan </strong>before you book to <strong>optimize</strong> your pleasure.</li>
             <li><strong>Print your itinerary</strong>, maps, and notes for stress-free travel.</li>
         </ul>
-        <div id="landing-steps">
-            <div class="landing-step">
-                1</div>
-            <div class="landing-step">
-                2</div>
-            <div class="landing-step">
-                3</div>
-        </div>
+        @if (trips != null && trips.Any())
+        {
+            <div id="trips">
+                <div class="panel-title">
+                    <h2>
+                        Recent Trips</h2>
+                </div>
+                @Html.Action("_rows", "trips", new { trips })
+            </div>
+        }
     </div>
 </div>

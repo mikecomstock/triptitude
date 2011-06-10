@@ -9,6 +9,10 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Index()
         {
+            TripsRepo tripsRepo = new TripsRepo();
+            var trips = tripsRepo.FindAll().Where(t => t.ShowInSite).OrderByDescending(t => t.Created_On).Take(10).ToList();
+            ViewBag.Trips = trips;
+
             return View();
         }
 

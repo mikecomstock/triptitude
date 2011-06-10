@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "login";
+    ViewBag.Title = "Login";
 }
 @section Scripts{
     <script type="text/javascript">
@@ -10,11 +10,9 @@
     <div class="panel">
         <div class="panel-title">
             <h1>
-                Login</h1>
+                Welcome back!</h1>
         </div>
         <div class="panel-content">
-            <h1>
-                Welcome back!</h1>
             <form method="post" action="@Url.Login()">
             @Html.AntiForgeryToken()
             @Html.ValidationMessage("credentials")
@@ -22,16 +20,16 @@
                 @Html.ValidationMessage("email")
                 <label for="email">
                     Email</label>
-                <input type="text" id="email" name="email" value="@ViewBag.Form.Email" />
-                <a href="@Url.ForgotPass()">Forgot Password</a>
+                <input type="text" id="email" name="email" value="@ViewBag.Form.Email" tabindex="1" />
+                <a href="@Url.ForgotPass()" tabindex="5">Forgot Password</a>
             </p>
             <p>
                 @Html.ValidationMessage("password")
                 <label for="password">
                     Password</label>
-                <input type="password" id="password" name="password" />
+                <input type="password" id="password" name="password" tabindex="2" />
             </p>
-            <input type="submit" value="Log In" />
+            <input type="submit" value="Log In" tabindex="3" />
             </form>
         </div>
     </div>

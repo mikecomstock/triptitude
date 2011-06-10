@@ -3,6 +3,11 @@
     UserSettingsForm form = (UserSettingsForm)ViewBag.Form;
     User user = (User)ViewBag.User;
 }
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () { document.getElementById('email').focus(); });
+    </script>
+}
 @Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
@@ -19,7 +24,7 @@
                 </label>
                 @if (string.IsNullOrWhiteSpace(user.Email))
                 {
-                    <input type="text" name="email" id="email" value="@form.Email" />
+                    <input type="text" name="email" id="email" value="@form.Email" tabindex="1" />
                 }
                 else
                 {
@@ -32,9 +37,9 @@
                 <label for="password">
                     Password
                 </label>
-                <input type="password" name="password" id="password" value="@form.Password" />
+                <input type="password" name="password" id="password" value="@form.Password" tabindex="2" />
             </p>
-            <input type="submit" value="Save Settings" />
+            <input type="submit" value="Save Settings" tabindex="3" />
             </form>
         </div>
     </div>

@@ -6,7 +6,7 @@
         if (activity is TransportationActivity)
         {
             var transportationActivity = activity as TransportationActivity;
-        <div class="trip-day-itinerary-item transportation" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity transportation" data-activity-id="@activity.Id" title="Click for details">
             <h4>
                 @transportationActivity.TransportationType.Name
                 from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
@@ -16,7 +16,7 @@
         else if (activity is HotelActivity)
         {
             var hotelActivity = activity as HotelActivity;
-        <div class="trip-day-itinerary-item hotel" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity hotel" data-activity-id="@activity.Id" title="Click for details">
             @if (ViewBag.DayNumber == hotelActivity.BeginDay)
             {
                 <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
@@ -30,7 +30,7 @@
         else if (activity is WebsiteActivity)
         {
             var websiteActivity = activity as WebsiteActivity;
-        <div class="trip-day-itinerary-item website" data-activity-id="@activity.Id" title="Click to visit">
+        <div class="activity website" data-activity-id="@activity.Id" title="Click to visit">
             <h4>
                 <a rel="nofollow" target="_blank" href="@websiteActivity.URL">@websiteActivity.Title</a> (link)
             </h4>
@@ -39,7 +39,7 @@
         else if (activity is TagActivity)
         {
             var tagActivity = activity as TagActivity;
-        <div class="trip-day-itinerary-item destination-tag" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity destination-tag" data-activity-id="@activity.Id" title="Click for details">
             <h4>
                 @tagActivity.Tag.Name in <a href="@Url.Details(tagActivity.City)">@tagActivity.City.ASCIIName</a>
             </h4>
