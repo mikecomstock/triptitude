@@ -102,7 +102,7 @@ input.day-input { width: 20px; }
 #landing-page-panel h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
 #landing-page-panel h2 { font-size: 22px; margin: 20px 0 20px 0; }
 #landing-page-panel h3 { font-size: 24px !important; color: #333; }
-#landing-page-panel > p { color: #333; font-size: 16px; line-height: 1.5; margin: -10px 0 0 0; }
+#landing-page-panel > p { color: #333; font-size: 17px; line-height: 1.5; margin: -10px 0 0 0; }
 #landing-page-panel #start-here-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
 #landing-page-panel #start-here-form input { display: block; width: 300px; margin: 0 auto 10px auto; }
 #landing-page-panel #start-here-form input[type="submit"] { margin: 20px auto 0 auto; width: 200px; font-weight: normal; }
