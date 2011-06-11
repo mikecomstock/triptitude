@@ -12,7 +12,7 @@ namespace Triptitude.Web.Controllers
     public class AuthController : Controller
     {
         [HttpGet]
-        public ActionResult Login(Guid? token)
+        public ActionResult Login(Guid? token, string returnUrl)
         {
             if (token.HasValue)
             {
@@ -22,7 +22,7 @@ namespace Triptitude.Web.Controllers
                 if (user != null && !user.GuidIsExpired)
                 {
                     AuthHelper.SetAuthCookie(user);
-                    return Redirect(Url.MySettings());
+                    return string.IsNullOrWhiteSpace(returnUrl) ? Redirect(Url.MySettings()) : Redirect(returnUrl);
                 }
                 else
                 {
@@ -30,7 +30,7 @@ namespace Triptitude.Web.Controllers
                 }
             }
 
-            ViewBag.Form = new LoginForm();
+            ViewBag.Form = new LoginForm { ReturnUrl = returnUrl };
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace Triptitude.Web.Controllers
             if (user != null)
             {
                 AuthHelper.SetAuthCookie(user);
-                return Redirect(Url.MyAccount());
+                return string.IsNullOrWhiteSpace(form.ReturnUrl) ? Redirect(Url.MyAccount()) : Redirect(form.ReturnUrl);
             }
             else
             {

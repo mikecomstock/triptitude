@@ -13,7 +13,7 @@ td { vertical-align: top; padding: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 20px; }
 
-/* Form Defaults */
+/* Panel Form Defaults */
 .panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 .panel form label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
 .panel form span { line-height: 33px; font-size: 16px; }

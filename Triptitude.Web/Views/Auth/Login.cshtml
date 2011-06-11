@@ -15,6 +15,7 @@
         <div class="panel-content">
             <form method="post" action="@Url.Login()">
             @Html.AntiForgeryToken()
+            <input type="hidden" name="returnurl" value="@ViewBag.Form.ReturnUrl" />
             @Html.ValidationMessage("credentials")
             <p>
                 @Html.ValidationMessage("email")
