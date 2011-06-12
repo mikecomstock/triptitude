@@ -53,10 +53,9 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Activities(int id)
         {
-            IDestination destination = destinationsRepo.Find(id);
-            ViewBag.Destination = destination;
-            var tags = destination.Tags;
-            ViewBag.Tags = tags;
+            City city = (City)destinationsRepo.Find(id);
+            ViewBag.Destination = city;
+            ViewBag.Tags = city.TagsToShow;
             return View();
         }
 

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = ViewBag.Tag.Name;
+    Tag tag = (Tag)ViewBag.Tag;
+}
+<div id="side-container">
+    <a href="@Url.Details(tag)">Details</a>
+</div>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            @*            <div data-tag-id="@tag.Id" class="link add-tag-link">
+                Add to Trip</div>*@
+            <h1>@tag.Name</h1>
+        </div>
+        <div class="panel-content">
+            <div class="cities">
+                @foreach (var city in tag.CitiesToShow)
+                {
+                    <div class="city">
+                        <a href="@Url.Details(city)">@city.FullName</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -95,6 +95,7 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MyController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Auth\ForgotPass.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tags\Details.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -165,6 +165,17 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public virtual ICollection<TagActivity> TagActivities { get; set; }
+
+        public IEnumerable<TagActivity> TagActivitiesToShow
+        {
+            get { return TagActivities.Where(ta => ta.Trip.ShowInSite); }
+        }
+
+        public IEnumerable<City> CitiesToShow
+        {
+            get { return TagActivitiesToShow.OrderBy(ta => ta.Cities.Count).Select(ta => ta.City).Distinct(); }
+        }
     }
 
     #region Destinations
@@ -247,6 +258,16 @@ namespace Triptitude.Biz.Models
         public string ShortName
         {
             get { return ASCIIName; }
+        }
+
+        public IEnumerable<Tag> TagsToShow
+        {
+            get
+            {
+                var tagActivities = Activities.OfType<TagActivity>().Where(ta => ta.Trip.ShowInSite);
+                IEnumerable<Tag> tags = tagActivities.GroupBy(ta => ta.Tag).OrderByDescending(g => g.Count()).Select(g => g.Key);
+                return tags;
+            }
         }
     }
 

@@ -207,3 +207,20 @@ input.day-input { width: 20px; }
 #trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }
 #trip-search-form .trip-search-form-section { float: left; text-align: center; }
 #trip-search-form .trip-search-form-section + .trip-search-form-section { margin-left: 20px; }
+
+/* Tags */
+.tags { }
+.tags .tag { padding: 10px; }
+.tags .tag + .tag { border-top: 1px dashed #CCCCCC; }
+
+/* Cities */
+.cities { }
+.cities .city { padding: 10px; }
+.cities .city + .city { border-top: 1px dashed #CCCCCC; }
+
+
+
+
+
+
+
