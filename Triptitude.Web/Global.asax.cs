@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Profile;
 using System.Web.Routing;
@@ -42,6 +44,7 @@ namespace Triptitude.Web
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
 
+            routes.MapSlugRoute("DestinationActivities", "destinations/{idslug}/activities/{tagidslug}", new { controller = "destinations", action = "activity" }, new { idslug = new SlugRouteConstraint(), tagidslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
 
@@ -90,11 +93,14 @@ namespace Triptitude.Web
             RouteData data = base.GetRouteData(httpContext);
             if (data == null) return null;
 
-            if (data.Values.ContainsKey("idslug"))
+            var slugValues = data.Values.Where(v => v.Key.EndsWith("slug")).ToList();
+
+            foreach (var keyValuePair in slugValues)
             {
-                string idslug = (string)data.Values["idslug"];
-                string id = idslug.Split('-')[0];
-                data.Values.Add("id", id);
+                string value = (string)keyValuePair.Value;
+                string id = value.Split('-')[0];
+                string argName = keyValuePair.Key.Substring(0, keyValuePair.Key.Length - "slug".Length);
+                data.Values.Add(argName, id);
             }
 
             return data;
