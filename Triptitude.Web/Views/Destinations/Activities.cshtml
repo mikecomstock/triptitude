@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Activities near " + ViewBag.Destination.ShortName;
     var tags = ((IEnumerable<Tag>)ViewBag.Tags);
+    IDestination destination = (IDestination)ViewBag.Destination;
 }
 @Html.Action("_SidePanel", "destinations", new { ViewBag.Destination })
 <div id="main-container">
@@ -14,7 +15,7 @@
                 @foreach (Tag tag in tags)
                 {
                     <div class="tag">
-                        <a href="@Url.Details(tag)">@tag.Name</a> <span>(used @tag.TagActivitiesToShow.Count() times)</span>
+                        <a href="@Url.Tag(destination, tag)">@tag.Name</a> <span>(used @tag.TagActivitiesToShow.Count() times)</span>
                     </div>
                 }
             </div>

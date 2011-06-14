@@ -195,6 +195,11 @@ namespace Triptitude.Web.Helpers
             return SlugAction(url, "details", "tags", tag.Id, tag.Name);
         }
 
+        public static string Tag(this UrlHelper url, IDestination destination, Tag tag)
+        {
+            return url.Action("activity", "destinations", new { idslug = destination.GeoNameID + "-" + destination.FullName.ToSlug(), tagidslug = tag.Id + "-" + tag.Name.ToSlug() });
+        }
+
         #endregion
     }
 }

@@ -59,6 +59,16 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Activity(int id, int tagId)
+        {
+            City city = (City)destinationsRepo.Find(id);
+            ViewBag.Destination = city;
+
+            var tagsRepo = new TagsRepo();
+            ViewBag.Tag = tagsRepo.Find(tagId);
+            return View();
+        }
+
         // JSON only
         public ActionResult Search(string term, User currentUser)
         {

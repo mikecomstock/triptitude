@@ -41,7 +41,7 @@
             var tagActivity = activity as TagActivity;
         <div class="activity destination-tag" data-activity-id="@activity.Id" title="Click for details">
             <h4>
-                <a href="@Url.Details(@tagActivity.Tag)">@tagActivity.Tag.Name</a> in <a href="@Url.Details(tagActivity.City)">@tagActivity.City.ASCIIName</a>
+                <a href="@Url.Tag(tagActivity.City, tagActivity.Tag)">@tagActivity.Tag.Name in @tagActivity.City.ASCIIName</a>
             </h4>
         </div>
         }
