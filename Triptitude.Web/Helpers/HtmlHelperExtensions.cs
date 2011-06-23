@@ -18,11 +18,5 @@ namespace Triptitude.Web.Helpers
             var options = transportationTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTypeId });
             return html.DropDownList("transportationtypeid", options);
         }
-
-        public static MvcHtmlString AddToTripButton(this HtmlHelper html, UrlHelper url, Hotel hotel)
-        {
-            string s = string.Format("", hotel.Id);
-            return new MvcHtmlString(s);
-        }
     }
 }

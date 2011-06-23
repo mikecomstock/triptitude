@@ -69,6 +69,17 @@ namespace Triptitude.Web.Controllers
             return PartialView("_DayDetails");
         }
 
+        public ActionResult PackingList(int id)
+        {
+            Trip trip = new TripsRepo().Find(id);
+            ViewBag.Trip = trip;
+            var tags = trip.Activities.OfType<TagActivity>().Select(ta => ta.Tag);
+            ViewBag.Tags = tags;
+            var items = tags.SelectMany(t => t.Items);
+            ViewBag.Items = items;
+            return View();
+        }
+
         public ActionResult Settings(int id, User currentUser)
         {
             var tripRepo = new TripsRepo();

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = ViewBag.Tag.Name;
+    var tag = (Tag)ViewBag.Tag;
+}
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            Admin - @tag.Name (Tag)</h1>
+    </div>
+    <div class="panel-content">
+        <form action="@Url.Admin(tag)" method="post">
+        @Html.Editor("tag", ViewData)
+        <input type="submit" value="Save" />
+        </form>
+    </div>
+</div>

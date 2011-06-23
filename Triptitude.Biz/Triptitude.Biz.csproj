@@ -92,6 +92,7 @@
     <Compile Include="Repos\CitiesRepo.cs" />
     <Compile Include="Repos\DestinationsRepo.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
+    <Compile Include="Repos\ItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\RegionsRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />

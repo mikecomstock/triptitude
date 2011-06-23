@@ -10,6 +10,15 @@ insert into TransportationTypes (Name) values ('Boat')
 insert into TransportationTypes (Name) values ('Train')
 
 insert into Tags (Name) values ('Surfing')
+insert into Tags (Name) values ('Fishing')
+
+insert into Items (Name, URL) values ('Surf Board','http://www.surf-board.com')
+insert into Items (Name, URL) values ('Beach Towel','http://www.beach-towel.com')
+insert into Items (Name, URL) values ('Fishing Pole','http://www.fishing-pole.com')
+
+insert into ItemTags values ((select id from Tags where name = 'Surfing'), (select id from Items where name = 'Surf Board'))
+insert into ItemTags values ((select id from Tags where name = 'Surfing'), (select id from Items where name = 'Beach Towel'))
+insert into ItemTags values ((select id from Tags where name = 'Fishing'), (select id from Items where name = 'Fishing Pole'))
 
 /*
 insert into Trips(Name, Created_By, Created_On, ShowInSiteMap) values ('Test Trip 1', (select id from users where email = 'mikecomstock@gmail.com'), SYSDATETIME(), 0)

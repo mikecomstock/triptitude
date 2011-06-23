@@ -6,7 +6,6 @@
     {
         <meta name="description" content="@ViewBag.Description" />
     }
-    
     @if (ViewBag.ShowInSiteMap == false)
     {
         <meta name="robots" content="noindex" />
@@ -25,7 +24,7 @@
             &nbsp;</div>
         <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
     </div>
-    @Html.Action("Header", "Home", new { ViewBag.HideTripBar })
+    @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
     <div id="content">
         @RenderBody()
         <div class="clear">

@@ -44,6 +44,16 @@ namespace Triptitude.Web.Helpers
             return url.Action("trips", "admin", new { trip.Id });
         }
 
+        public static string Admin(this UrlHelper url, Tag tag)
+        {
+            return url.Action("tag", "admin", new { tag.Id });
+        }
+
+        public static string Admin(this UrlHelper url, Item item)
+        {
+            return url.Action("item", "admin", new { item.Id });
+        }
+
         #endregion
 
         #region User pages
@@ -70,6 +80,11 @@ namespace Triptitude.Web.Helpers
         public static string Details(this UrlHelper url, Trip trip)
         {
             return url.SlugAction("details", "trips", trip.Id, trip.Name);
+        }
+
+        public static string PackingList(this UrlHelper url, Trip trip)
+        {
+            return url.SlugAction("packinglist", "trips", trip.Id, trip.Name);
         }
 
         #endregion

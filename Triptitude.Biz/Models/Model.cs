@@ -166,6 +166,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<TagActivity> TagActivities { get; set; }
+        public virtual ICollection<Item> Items { get; set; }
 
         public IEnumerable<TagActivity> TagActivitiesToShow
         {
@@ -176,6 +177,17 @@ namespace Triptitude.Biz.Models
         {
             get { return TagActivitiesToShow.OrderBy(ta => ta.Cities.Count).Select(ta => ta.City).Distinct(); }
         }
+
+        // Needed to make Html.ListBoxFor work in the admin section.
+        public override string ToString() { return Id.ToString(); }
+    }
+
+    public class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 
     #region Destinations

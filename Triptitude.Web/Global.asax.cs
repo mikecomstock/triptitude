@@ -45,7 +45,7 @@ namespace Triptitude.Web
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
 
             routes.MapSlugRoute("DestinationActivities", "destinations/{idslug}/activities/{tagidslug}", new { controller = "destinations", action = "activity" }, new { idslug = new SlugRouteConstraint(), tagidslug = new SlugRouteConstraint() });
-            routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
+            routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
 
             routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
@@ -88,6 +88,7 @@ namespace Triptitude.Web
         public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, IRouteHandler routeHandler) : base(url, defaults, constraints, routeHandler) { }
         public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, RouteValueDictionary dataTokens, IRouteHandler routeHandler) : base(url, defaults, constraints, dataTokens, routeHandler) { }
 
+
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
             RouteData data = base.GetRouteData(httpContext);
@@ -109,13 +110,15 @@ namespace Triptitude.Web
 
     public static class RouteCollectionExtensionHelper
     {
-        public static Route MapSlugRoute(this RouteCollection routes, string name, string url, object defaults, object constraints)
+        public static Route MapSlugRoute(this RouteCollection routes, string name, string url, object defaults, object constraints, object dataTokens = null)
         {
             var route = new SlugRoute(url,
                 new RouteValueDictionary(defaults),
                 new RouteValueDictionary(constraints),
+                new RouteValueDictionary(dataTokens),
                 new MvcRouteHandler());
             routes.Add(name, route);
+
             return route;
         }
     }
