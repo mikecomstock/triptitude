@@ -21,15 +21,15 @@ namespace Triptitude.Biz.Repos
         public Trip Generate(CreateTripForm form, User currentUser)
         {
             Random r = new Random();
-            int minimumNightStay = form.NumberOfDays < 7 ? 3 : form.NumberOfDays < 14 ? 5 : form.NumberOfDays < 30 ? 7 : 10;
-            int hotelsNeeded = (int)Math.Ceiling((decimal)form.NumberOfDays / minimumNightStay);
+            int minimumNightStay = form.NumDays < 7 ? 3 : form.NumDays < 14 ? 5 : form.NumDays < 30 ? 7 : 10;
+            int hotelsNeeded = (int)Math.Ceiling((decimal)form.NumDays / minimumNightStay);
 
             var transportationTypesRepo = new TransportationTypesRepo();
             var fly = transportationTypesRepo.Find("Fly");
 
             var citiesRepo = new CitiesRepo();
-            var fromCity = citiesRepo.Find(4930956);
-            var toCity = citiesRepo.Find(form.DestinationId.Value);
+            var fromCity = citiesRepo.Find(form.FromId.Value);
+            var toCity = citiesRepo.Find(form.ToId.Value);
 
             Trip trip = new Trip { Name = "My trip to " + toCity.ShortName, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
 
@@ -41,17 +41,17 @@ namespace Triptitude.Biz.Repos
             var hotels = hotelsRepo.IncrementalSearch(new HotelSearchForm { Latitude = toCity.Latitude, Longitude = toCity.Longitude }, hotelsNeeded + 2).OrderBy(h => Guid.NewGuid()).ToList();
 
             var beginHotelDay = 1;
-            while (beginHotelDay < form.NumberOfDays)
+            while (beginHotelDay < form.NumDays)
             {
                 var hotel = hotels.First();
                 hotels.Remove(hotel);
-                var daysInThisHotel = Math.Min(r.Next(minimumNightStay, minimumNightStay + 2), form.NumberOfDays - beginHotelDay);
+                var daysInThisHotel = Math.Min(r.Next(minimumNightStay, minimumNightStay + 2), form.NumDays - beginHotelDay);
                 trip.Activities.Add(new HotelActivity { BeginDay = beginHotelDay, EndDay = beginHotelDay + daysInThisHotel, Hotel = hotel });
                 beginHotelDay += daysInThisHotel;
             }
 
             // Transportation home
-            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumberOfDays, EndDay = form.NumberOfDays, TransportationType = fly, FromCity = toCity, ToCity = fromCity });
+            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromCity = toCity, ToCity = fromCity });
             return trip;
         }
 

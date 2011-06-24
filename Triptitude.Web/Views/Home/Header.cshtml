@@ -3,7 +3,6 @@
 }
 <div id="header-container">
     <div id="header">
-    
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form action="@Url.DestinationSearch()" method="post">
@@ -84,12 +83,24 @@ else if (ViewBag.HideTripBar != true)
             <div id="trip-bar-title">
                 Like to travel? Plan your next trip.
             </div>
-            <form action="@Url.CreateTrip()" method="post" id="start-here-form">
+            <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
-            <input type="text" name="name" placeholder="Name your trip..." />
-            <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
-            <input type="hidden" id="destinationid" name="destinationid" />
-            <input type="submit" value="Start Planning >" />
+            <p>
+                <input type="text" name="fromname" data-hidden-field-name="fromid" class="destination-autocomplete" placeholder="From (any city)" />
+                <input type="hidden" id="fromid" name="fromid" />
+            </p>
+            <p>
+                <input type="text" name="toname" data-hidden-field-name="toid" class="destination-autocomplete" placeholder="To (any city)" />
+                <input type="hidden" id="toid" name="toid" />
+            </p>
+            <p>
+                <label for="numberofdays">
+                    Number of days</label>
+                <input type="text" id="numberofdays" name="numberofdays" />
+            </p>
+            <p>
+                <input type="submit" value="Start Planning >" />
+            </p>
             </form>
         </div>
     </div>

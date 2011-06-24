@@ -4,7 +4,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () { document.getElementById('name').focus(); });
+        $(document).ready(function () { document.getElementById('fromname').focus(); });
     </script>
 }
 <div id="main-container">
@@ -16,18 +16,31 @@
         <div class="panel-content">
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
-            <p>
+            @*<p>
                 @Html.ValidationMessage("name")
                 <label for="name">
                     Name your trip</label>
                 <input type="text" name="name" id="name" value="@ViewBag.Form.Name" />
+            </p>*@
+            <p>
+                @Html.ValidationMessage("from")
+                <label for="fromname">
+                    From</label>
+                <input type="text" name="fromname" id="fromname" data-hidden-field-name="fromid" class="destination-autocomplete" value="@ViewBag.Form.FromName" />
+                <input type="hidden" id="fromid" name="fromid" value="@ViewBag.Form.FromId" />
             </p>
             <p>
-                @Html.ValidationMessage("destination")
-                <label for="destinationname">
-                    Where are you going?</label>
-                <input type="text" name="destinationname" id="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" value="@ViewBag.Form.DestinationName" />
-                <input type="hidden" id="destinationid" name="destinationid" value="@ViewBag.Form.DestinationId" />
+                @Html.ValidationMessage("to")
+                <label for="toname">
+                    To</label>
+                <input type="text" name="toname" id="toname" data-hidden-field-name="toid" class="destination-autocomplete" value="@ViewBag.Form.ToName" />
+                <input type="hidden" id="toid" name="toid" value="@ViewBag.Form.ToId" />
+            </p>
+            <p>
+                @Html.ValidationMessage("numberofdays")
+                <label for="numberofdays">
+                    Number of days</label>
+                <input type="text" id="numberofdays" name="numberofdays" value="@ViewBag.Form.NumberOfDays" />
             </p>
             <p>
                 <input type="submit" value="Start Planning >" />

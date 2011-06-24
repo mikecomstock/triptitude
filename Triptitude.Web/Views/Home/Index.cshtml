@@ -11,14 +11,26 @@
         <h1>
             We'll help you plan your next vacation
         </h1>
-        <form action="@Url.CreateTrip()" method="post" id="start-here-form">
+        <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
         @Html.AntiForgeryToken()
         <h3>
             Try it out</h3>
-        <input type="text" name="name" placeholder="Name your trip..." />
-        <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
-        <input type="hidden" id="destinationid" name="destinationid" />
-        <input type="submit" value="Start Planning >" />
+        <p>
+            <input type="text" name="fromname" data-hidden-field-name="fromid" class="destination-autocomplete" placeholder="From (any city)" />
+            <input type="hidden" id="fromid" name="fromid" />
+        </p>
+        <p>
+            <input type="text" name="toname" data-hidden-field-name="toid" class="destination-autocomplete" placeholder="To (any city)" />
+            <input type="hidden" id="toid" name="toid" />
+        </p>
+        <p>
+            <label for="numberofdays">
+                Number of days</label>
+            <input type="text" id="numberofdays" name="numberofdays" />
+        </p>
+        <p>
+            <input type="submit" value="Start Planning >" />
+        </p>
         </form>
         <p>
             Planning a vacation isn't easy. You can book flights and hotels almost anywhere, but how do figure out what to do in the first place? And how do you keep track of it all? The answer: <strong>Triptitude</strong></p>
