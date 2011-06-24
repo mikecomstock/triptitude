@@ -9,6 +9,7 @@ namespace Triptitude.Biz.Forms
         public string Name { get; set; }
         public string DestinationName { get; set; }
         public int? DestinationId { get; set; }
+        public int NumberOfDays { get { return 35; } }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

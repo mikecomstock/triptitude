@@ -111,6 +111,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BingSiteAuth.xml" />
     <Content Include="google398a80352917011f.html" />
     <Content Include="google650c6fbb6afb9905.html" />
     <Content Include="robots.txt" />

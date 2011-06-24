@@ -22,8 +22,19 @@
                 <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
             }
             <h4>
-                Check @(ViewBag.DayNumber == hotelActivity.BeginDay ? "in to" : "out of")
-                <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
+                @if (ViewBag.DayNumber == hotelActivity.BeginDay)
+                {
+                    <p>
+                        Check in to <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a> for a @(hotelActivity.EndDay - hotelActivity.BeginDay)
+                        night stay
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        Check out of <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
+                    </p>
+                }
             </h4>
         </div>
         }

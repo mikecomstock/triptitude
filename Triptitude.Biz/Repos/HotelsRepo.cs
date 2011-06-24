@@ -24,5 +24,18 @@ namespace Triptitude.Biz.Repos
             var hotels = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
             return hotels;
         }
+
+        public IEnumerable<Hotel> IncrementalSearch(HotelSearchForm form, int untilHotelCount)
+        {
+            var searchForm = new HotelSearchForm { Latitude = form.Latitude, Longitude = form.Longitude, RadiusInMiles = 0 };
+            IEnumerable<Hotel> hotels;
+            do
+            {
+                form.RadiusInMiles += 5;
+                hotels = Search(form);
+            } while (hotels.Count() < untilHotelCount);
+
+            return hotels;
+        }
     }
 }
