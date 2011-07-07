@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -302,6 +303,18 @@ namespace Triptitude.Web.Controllers
             activitiesRepo.Delete(transportation);
             activitiesRepo.Save();
             return Redirect(Url.Details(trip));
+        }
+
+        #endregion
+
+        #region Places
+
+        public ActionResult SearchPlaces(string s)
+        {
+            var placesService = new PlacesService();
+            var places = placesService.Search(s);
+            ViewBag.Places = places;
+            return View();
         }
 
         #endregion

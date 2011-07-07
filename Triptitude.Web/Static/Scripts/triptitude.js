@@ -116,28 +116,28 @@
         drawMap(container);
     });
 
-    $('.trip-day-itinerary-item.transportation').click(function () {
+    $('.trip-day .transportation').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/edittransportation?activityid=' + activityId, function (data) {
             CreateTransportationsModal(data);
         });
     });
 
-    $('.trip-day-itinerary-item.website').click(function () {
+    $('.trip-day .website').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editwebsite?activityid=' + activityId, function (data) {
             CreateWebsiteModal(data);
         });
     });
 
-    $('.trip-day-itinerary-item.hotel').click(function () {
+    $('.trip-day .hotel').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/edithotel?activityid=' + activityId, function (data) {
             CreateHotelModal(data);
         });
     });
 
-    $('.trip-day-itinerary-item.destination-tag').click(function () {
+    $('.trip-day .destination-tag').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) {
             CreateDestinationTagModal(data);
