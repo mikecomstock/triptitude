@@ -312,7 +312,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult SearchPlaces(string s)
         {
             var placesService = new PlacesService();
-            var places = placesService.Search(s);
+            var places = placesService.Search(s).ToList();
             ViewBag.Places = places;
             return View();
         }
