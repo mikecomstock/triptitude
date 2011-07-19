@@ -37,4 +37,9 @@
         // Used only for display purposes
         public string CityName { get; set; }
     }
+
+    public class PlaceActivityForm : ActivityForm
+    {
+        public string FactualId { get; set; }
+    }
 }

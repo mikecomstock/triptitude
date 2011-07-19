@@ -1,4 +1,5 @@
-﻿using Triptitude.Biz.Forms;
+﻿using System;
+using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
@@ -82,7 +83,7 @@ namespace Triptitude.Biz.Repos
 
             activity.URL = form.Url;
             activity.Title = Util.GetWebsiteTitle(form.Url);
-            
+
             Save();
 
             return activity;
@@ -109,6 +110,31 @@ namespace Triptitude.Biz.Repos
 
             City city = new CitiesRepo().Find(form.CityId);
             activity.City = city;
+
+            Save();
+
+            return activity;
+        }
+
+        public Activity Save(PlaceActivityForm form)
+        {
+            PlaceActivity activity;
+
+            if (form.ActivityId.HasValue)
+            {
+                activity = (PlaceActivity)Find(form.ActivityId.Value);
+            }
+            else
+            {
+                activity = new PlaceActivity();
+                Add(activity);
+            }
+
+            SetBaseProperties(activity, form);
+
+            PlacesRepo placesRepo = new PlacesRepo();
+            Place place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
+            activity.Place = place;
 
             Save();
 

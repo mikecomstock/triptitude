@@ -8,8 +8,7 @@
             var transportationActivity = activity as TransportationActivity;
         <div class="activity transportation" data-activity-id="@activity.Id" title="Click for details">
             <h4>
-                @transportationActivity.TransportationType.Name
-                from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
+                @transportationActivity.TransportationType.Name from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
             </h4>
         </div>
         }
@@ -45,7 +44,7 @@
             <h4>
                 <a rel="nofollow" target="_blank" href="@websiteActivity.URL">@websiteActivity.Title</a> (link)
             </h4>
-        </div>       
+        </div>
         }
         else if (activity is TagActivity)
         {
@@ -53,6 +52,15 @@
         <div class="activity destination-tag" data-activity-id="@activity.Id" title="Click for details">
             <h4>
                 <a href="@Url.Tag(tagActivity.City, tagActivity.Tag)">@tagActivity.Tag.Name in @tagActivity.City.ASCIIName</a>
+            </h4>
+        </div>
+        }
+        else if (activity is PlaceActivity)
+        {
+            var placeActivity = activity as PlaceActivity;
+        <div class="activity place" data-activity-id="@activity.Id" title="Click for details">
+            <h4>
+                @placeActivity.Place.Name [@placeActivity.Place.FactualId]
             </h4>
         </div>
         }

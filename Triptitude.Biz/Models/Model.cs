@@ -131,6 +131,12 @@ namespace Triptitude.Biz.Models
         public virtual City City { get; set; }
     }
 
+    [Table("PlaceActivities")]
+    public class PlaceActivity : Activity
+    {
+        public virtual Place Place { get; set; }
+    }
+
     #endregion
 
     public class TransportationType
@@ -324,4 +330,92 @@ namespace Triptitude.Biz.Models
     }
 
     #endregion
+    
+    public class Place
+    {
+        public int Id { get; set; }
+        public string FactualId { get; set; }
+        public string Name { get; set; }
+        [NotMapped]
+        public string Address { get; set; }
+        [NotMapped]
+        public string AddressExtended { get; set; }
+        [NotMapped]
+        public string POBox { get; set; }
+        [NotMapped]
+        public string Locality { get; set; }
+        [NotMapped]
+        public string Region { get; set; }
+        [NotMapped]
+        public string Country { get; set; }
+        [NotMapped]
+        public string PostCode { get; set; }
+        [NotMapped]
+        public string Telephone { get; set; }
+        [NotMapped]
+        public string Fax { get; set; }
+        [NotMapped]
+        public string Category { get; set; }
+        [NotMapped]
+        public string Website { get; set; }
+        [NotMapped]
+        public string Email { get; set; }
+        [NotMapped]
+        public decimal Latitude { get; set; }
+        [NotMapped]
+        public decimal Longitude { get; set; }
+        [NotMapped]
+        public string Status { get; set; }
+
+        public static Place FromEntityJson(dynamic json)
+        {
+            Place p = new Place
+            {
+                Address = json.address,
+                AddressExtended = json.address_extended,
+                Category = json.category,
+                Country = json.country,
+                Email = json.email,
+                FactualId = json.factual_id,
+                Fax = json.fax,
+                Latitude = json.latitude,
+                Locality = json.locality,
+                Longitude = json.longitude,
+                Name = json.name,
+                POBox = json.po_box,
+                PostCode = json.postcode,
+                Region = json.region,
+                Status = json.status,
+                Telephone = json.tel,
+                Website = json.website
+            };
+            return p;
+        }
+
+        public static Place FromSearchJson(dynamic json)
+        {
+            //"subject_key","factual_id","name","address","address_extended","po_box","locality","region","country","postcode","tel","fax","category","website","email","latitude","longitude","status"
+            Place p = new Place
+            {
+                FactualId = json[1],
+                Name = json[2],
+                Address = json[3],
+                AddressExtended = json[4],
+                POBox = json[5],
+                Locality = json[6],
+                Region = json[7],
+                Country = json[8],
+                PostCode = json[9],
+                Telephone = json[10],
+                Fax = json[11],
+                Category = json[12],
+                Website = json[13],
+                Email = json[14],
+                Latitude = json[15],
+                Longitude = json[16],
+                Status = json[17]
+            };
+            return p;
+        }
+    }
 }

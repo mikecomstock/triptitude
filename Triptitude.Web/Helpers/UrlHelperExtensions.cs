@@ -201,6 +201,11 @@ namespace Triptitude.Web.Helpers
             return SlugAction(url, "activities", "destinations", destination.GeoNameID, destination.FullName);
         }
 
+        public static string Places(this UrlHelper url, IDestination destination)
+        {
+            return SlugAction(url, "places", "destinations", destination.GeoNameID, destination.FullName);
+        }
+
         #endregion
 
         #region Tags

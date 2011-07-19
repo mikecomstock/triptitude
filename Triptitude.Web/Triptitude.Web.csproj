@@ -253,7 +253,10 @@
     <Content Include="Areas\Admin\Views\Tags\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activities\SearchPlaces.cshtml" />
+    <Content Include="Views\Destinations\Places.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Activities\PlaceDialog.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

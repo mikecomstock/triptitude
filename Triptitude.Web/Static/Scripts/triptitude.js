@@ -10,7 +10,7 @@
     });
 
     $('#search').submit(function (e) {
-        var destinationId = $('#search input[name="destinationid"]').val();
+        var destinationId = $('input[name="destinationid"]', $(this)).val();
         if (destinationId == '') {
             e.preventDefault();
         }
@@ -23,16 +23,16 @@
         $(this).children('ul').hide();
     });
 
-//    $('.distance-slider').slider({
-//        value: 100,
-//        min: 0,
-//        max: 200,
-//        range: 'min',
-//        step: 10,
-//        slide: function (event, ui) {
-//            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-//        }
-//    });
+    //    $('.distance-slider').slider({
+    //        value: 100,
+    //        min: 0,
+    //        max: 200,
+    //        range: 'min',
+    //        step: 10,
+    //        slide: function (event, ui) {
+    //            $(this).siblings('.label').html('within ' + ui.value + ' miles');
+    //        }
+    //    });
 
     $('.trip-length-slider').slider({
         range: true,
@@ -90,6 +90,13 @@
         var tripId = $(this).attr('data-trip-id');
         $.get('/activities/adddestinationtag?tripid=' + tripId, function (getData) {
             CreateDestinationTagModal(getData);
+        });
+    });
+
+    $('.add-place-link').click(function (clickData) {
+        var placeId = $(this).attr('data-place-id');
+        $.get('/activities/addplace?placeid=' + placeId, function (getData) {
+            console.log(getData);
         });
     });
 

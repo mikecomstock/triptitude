@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -309,12 +310,21 @@ namespace Triptitude.Web.Controllers
 
         #region Places
 
-        public ActionResult SearchPlaces(string s)
+        public ActionResult AddPlace(string placeId, User currentUser)
         {
             var placesService = new PlacesService();
-            var places = placesService.Search(s).ToList();
-            ViewBag.Places = places;
-            return View();
+            Place place = placesService.Find(placeId);
+
+            PlaceActivityForm form = new PlaceActivityForm
+                                         {
+                                             BeginDay = 3,
+                                             EndDay = 3,
+                                             FactualId = placeId,
+                                             TripId = currentUser.DefaultTrip.Id
+                                         };
+            activitiesRepo.Save(form);
+            
+            return PartialView("PlaceDialog");
         }
 
         #endregion

@@ -69,6 +69,19 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Places(int id)
+        {
+            City city = (City)destinationsRepo.Find(id);
+            ViewBag.Destination = city;
+            var placeSearchForm = new PlaceSearchForm { Latitude = city.Latitude, Longitude = city.Longitude, RadiusInMiles = 10 };
+            ViewBag.PlaceSearchForm = placeSearchForm;
+            
+            var placesService = new PlacesService();
+            IEnumerable<Place> places = placesService.Search(placeSearchForm).ToList();
+            ViewBag.Places = places;
+            return View();
+        }
+
         // JSON only
         public ActionResult Search(string term, User currentUser)
         {

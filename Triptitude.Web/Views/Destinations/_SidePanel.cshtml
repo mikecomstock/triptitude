@@ -3,6 +3,7 @@
     @if (ViewBag.Destination is City)
     {
         <a href="@Url.Hotels((IDestination)ViewBag.Destination)">Hotels</a>
+        <a href="@Url.Places((IDestination)ViewBag.Destination)">Places</a>
     }
     <a href="@Url.Activities((IDestination)ViewBag.Destination)">Activities</a>
 </div>
