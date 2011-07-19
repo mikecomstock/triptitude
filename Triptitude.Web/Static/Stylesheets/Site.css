@@ -142,6 +142,10 @@ input[type="submit"] { font-size: 18px; padding: 5px; border: none; color: #FFFF
 .hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .hotel-dialog form label { display: block; float: left; width: 60px; }
 
+.place-dialog form { padding: 0 !important; }
+.place-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
+.place-dialog form label { display: block; float: left; width: 60px; }
+
 .destination-tag-dialog form { padding: 0 !important; }
 .destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .destination-tag-dialog form label { display: block; float: left; width: 120px; }

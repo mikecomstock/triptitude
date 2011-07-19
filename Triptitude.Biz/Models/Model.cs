@@ -330,7 +330,7 @@ namespace Triptitude.Biz.Models
     }
 
     #endregion
-    
+
     public class Place
     {
         public int Id { get; set; }
@@ -373,7 +373,7 @@ namespace Triptitude.Biz.Models
             {
                 Address = json.address,
                 AddressExtended = json.address_extended,
-                Category = json.category,
+                Category = ((string)json.category).Trim('"'),
                 Country = json.country,
                 Email = json.email,
                 FactualId = json.factual_id,
@@ -408,7 +408,7 @@ namespace Triptitude.Biz.Models
                 PostCode = json[9],
                 Telephone = json[10],
                 Fax = json[11],
-                Category = json[12],
+                Category = ((string)json[12]).Trim('"'),
                 Website = json[13],
                 Email = json[14],
                 Latitude = json[15],

@@ -9,7 +9,7 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
-        public static string SlugAction(this UrlHelper url, string action, string controller, int id, string name)
+        public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name)
         {
             return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });
         }
@@ -129,34 +129,44 @@ namespace Triptitude.Web.Helpers
             return url.Action("edithotel", "activities");
         }
 
+
         public static string ItineraryAddTransportation(this UrlHelper url)
         {
             return url.Action("addtransportation", "activities");
         }
-
         public static string ItineraryEditTransportation(this UrlHelper url)
         {
             return url.Action("edittransportation", "activities");
         }
 
+
         public static string ItineraryAddWebsite(this UrlHelper url)
         {
             return url.Action("addwebsite", "activities");
         }
-
         public static string ItineraryEditWebsite(this UrlHelper url)
         {
             return url.Action("editwebsite", "activities");
         }
 
+
         public static string ItineraryAddDestinationTag(this UrlHelper url)
         {
             return url.Action("adddestinationtag", "activities");
         }
-
         public static string ItineraryEditDestinationTag(this UrlHelper url)
         {
             return url.Action("editdestinationtag", "activities");
+        }
+
+
+        public static string ItineraryAddPlace(this UrlHelper url)
+        {
+            return url.Action("addplace", "activities");
+        }
+        public static string ItineraryEditPlace(this UrlHelper url)
+        {
+            return url.Action("editplace", "activities");
         }
 
         #endregion
@@ -218,6 +228,15 @@ namespace Triptitude.Web.Helpers
         public static string Tag(this UrlHelper url, IDestination destination, Tag tag)
         {
             return url.Action("activity", "destinations", new { idslug = destination.GeoNameID + "-" + destination.FullName.ToSlug(), tagidslug = tag.Id + "-" + tag.Name.ToSlug() });
+        }
+
+        #endregion
+
+        #region Places
+
+        public static string Details(this UrlHelper url, Place place)
+        {
+            return url.Action("details", "places", new {id = place.FactualId});
         }
 
         #endregion

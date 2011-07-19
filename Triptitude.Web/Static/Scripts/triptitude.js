@@ -96,7 +96,7 @@
     $('.add-place-link').click(function (clickData) {
         var placeId = $(this).attr('data-place-id');
         $.get('/activities/addplace?placeid=' + placeId, function (getData) {
-            console.log(getData);
+            CreatePlaceModal(getData);
         });
     });
 
@@ -148,6 +148,13 @@
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) {
             CreateDestinationTagModal(data);
+        });
+    });
+
+    $('.trip-day .place').click(function () {
+        var activityId = $(this).attr('data-activity-id');
+        $.get('/activities/editplace?activityid=' + activityId, function (data) {
+            CreatePlaceModal(data);
         });
     });
 });
@@ -270,6 +277,31 @@ function CreateDestinationTagModal(data) {
         buttons: buttons
     });
     BindDestinationAutocomplete(dialog);
+    BrowserAutocompleteOff();
+}
+
+function CreatePlaceModal(data) {
+    var dialog = $(data);
+    var activityId = $('[name="activityid"]', dialog).val();
+
+    var buttons = [];
+    if (activityId) {
+        buttons.push({ text: 'Delete', click: function () {
+            var confirmed = confirm('Delete?');
+            if (confirmed)
+                window.location.href = "/activities/deleteplace?activityid=" + activityId
+        }
+        });
+    }
+    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
+
+    dialog.dialog({
+        title: 'Place',
+        dialogClass: 'place-dialog',
+        width: 450,
+        resizable: false,
+        buttons: buttons
+    });
     BrowserAutocompleteOff();
 }
 

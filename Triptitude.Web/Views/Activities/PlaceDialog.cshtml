@@ -1,3 +1,21 @@
-﻿<div>
-    add place here!
-</div>
+﻿@{
+    PlaceActivityForm form = (PlaceActivityForm)ViewBag.Form;
+    Place place = (Place)ViewBag.Place;
+}
+<form action="@ViewBag.Action" method="post">
+<input type="hidden" name="tripid" value="@form.TripId" />
+<input type="hidden" name="activityid" value="@form.ActivityId" />
+<input type="hidden" name="factualid" value="@form.FactualId" />
+<p>
+    <label>
+        Name</label>
+    @place.Name
+</p>
+<p>
+    <label for="beginday">
+        Day</label>
+    <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+    thru
+    <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+</p>
+</form>

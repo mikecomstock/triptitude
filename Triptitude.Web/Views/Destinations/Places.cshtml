@@ -17,8 +17,8 @@
                 <div class="place">
                     <span class="place-name link">@place.Name</span>
                     <div>
-                        [@place.FactualId]
-                        @place.Category, @place.Locality, @place.Region, @place.Country
+                        @(string.IsNullOrWhiteSpace(place.Category) ? string.Empty : place.Category + ",")
+                        @place.Locality, @place.Region, @place.Country
                     </div>
                     <span class="add-place-link link" data-place-id="@place.FactualId">Add to Trip</span>
                 </div>

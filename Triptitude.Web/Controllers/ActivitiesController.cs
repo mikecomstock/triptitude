@@ -313,20 +313,73 @@ namespace Triptitude.Web.Controllers
         public ActionResult AddPlace(string placeId, User currentUser)
         {
             var placesService = new PlacesService();
-            Place place = placesService.Find(placeId);
-
+            var place = placesService.Find(placeId);
             PlaceActivityForm form = new PlaceActivityForm
                                          {
-                                             BeginDay = 3,
-                                             EndDay = 3,
                                              FactualId = placeId,
                                              TripId = currentUser.DefaultTrip.Id
                                          };
-            activitiesRepo.Save(form);
-            
+            ViewBag.Form = form;
+            ViewBag.Place = place;
+            ViewBag.Action = Url.ItineraryAddPlace();
             return PartialView("PlaceDialog");
         }
 
+        [HttpPost]
+        public ActionResult AddPlace(PlaceActivityForm form, User currentUser)
+        {
+            var trip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            activitiesRepo.Save(form);
+            return Redirect(Url.Details(trip));
+        }
+
+        public ActionResult EditPlace(int activityId, User currentUser)
+        {
+            PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(activityId);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            var form = new PlaceActivityForm()
+            {
+                ActivityId = activityId,
+                BeginDay = activity.BeginDay,
+                EndDay = activity.EndDay,
+                TripId = activity.Trip.Id,
+                FactualId = activity.Place.FactualId
+            };
+            ViewBag.Form = form;
+            ViewBag.Place = activity.Place;
+            ViewBag.Action = Url.ItineraryEditPlace();
+            return PartialView("PlaceDialog");
+        }
+
+        [HttpPost]
+        public ActionResult EditPlace(PlaceActivityForm form, User currentUser)
+        {
+            PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(form.ActivityId.Value);
+            var oldTrip = activity.Trip;
+            var newTrip = tripsRepo.Find(form.TripId);
+            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
+            if (!userOwnsTrips) return Redirect("/");
+
+            activitiesRepo.Save(form);
+            return Redirect(Url.Details(activity.Trip));
+        }
+
+        public ActionResult DeletePlace(int activityId, User currentUser)
+        {
+            var activity = activitiesRepo.Find(activityId);
+            var trip = activity.Trip;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            activitiesRepo.Delete(activity);
+            activitiesRepo.Save();
+            return Redirect(Url.Details(trip));
+        }
         #endregion
     }
 }
