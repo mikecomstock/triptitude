@@ -213,9 +213,10 @@ input[type="submit"] { font-size: 18px; padding: 5px; border: none; color: #FFFF
 #hotel-search-form .hotel-search-form-section + .hotel-search-form-section { margin-left: 20px; }
 
 #place-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
-#place-search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 650px; }
+#place-search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
 #place-search-form .place-search-form-section { float: left; text-align: center; }
 #place-search-form .place-search-form-section + .place-search-form-section { margin-left: 20px; }
+#place-search-form input[type="text"] { font-size: 14px; }
 
 #trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
 #trip-search-form .distance-slider { width: 200px; }

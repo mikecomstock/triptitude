@@ -13,8 +13,15 @@ namespace Triptitude.Biz.Services
 
         public IEnumerable<Place> Search(PlaceSearchForm form)
         {
-            string filters = string.Format(@"{{""$loc"":{{""$within_dist"":[{0},{1},{2}]}}}}&sort={{""factual_id"":1}}", form.Latitude, form.Longitude, form.RadiusInKm);
-            string searchPath = string.Format("http://api.factual.com/v2/tables/s4OOB4/read?APIKey={0}&filters={1}", FactualServerKey, filters);
+            string filters = string.Empty;
+            if (!string.IsNullOrWhiteSpace(form.Search))
+            {
+                filters += string.Format(@"""$search"":[""{0}""],", form.Search);
+            }
+            filters += string.Format(@"""$loc"":{{""$within_dist"":[{0},{1},{2}]}}", form.Latitude, form.Longitude, form.RadiusInKm);
+            string sort = @"""factual_id"":1";
+
+            string searchPath = string.Format("http://api.factual.com/v2/tables/s4OOB4/read?APIKey={0}&filters={{{1}}}&sort={{{2}}}", FactualServerKey, filters, sort);
             dynamic json = GetJson(searchPath);
 
             foreach (dynamic d in json.response.data)

@@ -71,6 +71,31 @@
     });
 
     /****************/
+    /* Place Search */
+    /****************/
+
+    $('.distance-slider', '#place-search-form').slider({
+        value: 10,
+        min: 1,
+        max: 50,
+        range: 'min',
+        step: 1,
+        slide: function (event, ui) {
+            $(this).siblings('.label').html('within ' + ui.value + ' miles');
+        },
+        change: function (event, ui) {
+            $(this).siblings('input').val(ui.value);
+        }
+    });
+
+    $('#place-search-form').submit(function (event) {
+        event.preventDefault();
+        $.get("/places/search", $(this).serialize(), function (data) {
+            $('.panel-content').html(data);
+        });
+    });
+
+    /****************/
 
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
@@ -90,7 +115,7 @@
 
     /****************/
     
-    $('.add-activity').click(function (clickData) {
+    $('.add-activity').live('click', function (clickData) {
         var activityType = $(this).attr('data-activity-type');
 
         switch (activityType) {

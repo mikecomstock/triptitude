@@ -12,23 +12,13 @@
             @PlaceSearchForm(ViewBag.PlaceSearchForm)
         </div>
         <div class="panel-content">
-            @foreach (Place place in ViewBag.Places)
-            {
-                <div class="place">
-                    <span class="place-name link">@place.Name</span>
-                    <div>
-                        @(string.IsNullOrWhiteSpace(place.Category) ? string.Empty : place.Category + ",")
-                        @place.Locality, @place.Region, @place.Country
-                    </div>
-                    <span class="add-activity link" data-activity-type="place" data-place-id="@place.FactualId">Add to Trip</span>
-                </div>
-            }
+            @Html.Action("Search", "places", new { form = ViewBag.PlaceSearchForm })
         </div>
     </div>
 </div>
 @helper PlaceSearchForm(PlaceSearchForm form)
     {
-    <form id="places-search-form" action="#">
+    <form id="place-search-form" action="#">
     <input type="hidden" name="latitude" value="@form.Latitude" />
     <input type="hidden" name="longitude" value="@form.Longitude" />
     <div class="place-search-form-section">
@@ -39,5 +29,12 @@
         </div>
         <input type="hidden" name="radiusinmiles" value="@form.RadiusInMiles" />
     </div>
+    <div class="place-search-form-section">
+        <input type="text" name="search" value="@form.Search" />
+        <div class="label">
+            name
+        </div>
+    </div>
+    <input type="submit" value="Search" />
     </form>
 }
