@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -22,6 +21,18 @@ namespace Triptitude.Web.Controllers
             activitiesRepo = new ActivitiesRepo();
             hotelsRepo = new HotelsRepo();
             transportationTypesRepo = new TransportationTypesRepo();
+        }
+
+        public ActionResult Delete(int activityId, User currentUser)
+        {
+            var activity = activitiesRepo.Find(activityId);
+            var trip = activity.Trip;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
+
+            activitiesRepo.Delete(activity);
+            activitiesRepo.Save();
+            return Redirect(Url.Details(trip));
         }
 
         #region Hotels
@@ -84,18 +95,6 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(activity.Trip));
         }
 
-        public ActionResult DeleteHotel(int activityId, User currentUser)
-        {
-            var activity = activitiesRepo.Find(activityId);
-            var trip = activity.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
-
-            activitiesRepo.Delete(activity);
-            activitiesRepo.Save();
-            return Redirect(Url.Details(trip));
-        }
-
         #endregion
 
         #region Websites
@@ -149,18 +148,6 @@ namespace Triptitude.Web.Controllers
 
             activitiesRepo.Save(form);
             return Redirect(Url.Details(activity.Trip));
-        }
-
-        public ActionResult DeleteWebsite(int activityId, User currentUser)
-        {
-            var itineraryItem = activitiesRepo.Find(activityId);
-            var trip = itineraryItem.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
-
-            activitiesRepo.Delete(itineraryItem);
-            activitiesRepo.Save();
-            return Redirect(Url.Details(trip));
         }
 
         #endregion
@@ -218,18 +205,6 @@ namespace Triptitude.Web.Controllers
 
             activitiesRepo.Save(form);
             return Redirect(Url.Details(tagActivity.Trip));
-        }
-
-        public ActionResult DeleteDestinationTag(int activityId, User currentUser)
-        {
-            var itineraryItem = activitiesRepo.Find(activityId);
-            var trip = itineraryItem.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
-
-            activitiesRepo.Delete(itineraryItem);
-            activitiesRepo.Save();
-            return Redirect(Url.Details(trip));
         }
 
         #endregion
@@ -292,18 +267,6 @@ namespace Triptitude.Web.Controllers
 
             activitiesRepo.Save(form);
             return Redirect(Url.Details(activity.Trip));
-        }
-
-        public ActionResult DeleteTransportation(int activityId, User currentUser)
-        {
-            var transportation = activitiesRepo.Find(activityId);
-            var trip = transportation.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
-
-            activitiesRepo.Delete(transportation);
-            activitiesRepo.Save();
-            return Redirect(Url.Details(trip));
         }
 
         #endregion
@@ -369,17 +332,6 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(activity.Trip));
         }
 
-        public ActionResult DeletePlace(int activityId, User currentUser)
-        {
-            var activity = activitiesRepo.Find(activityId);
-            var trip = activity.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
-
-            activitiesRepo.Delete(activity);
-            activitiesRepo.Save();
-            return Redirect(Url.Details(trip));
-        }
         #endregion
     }
 }

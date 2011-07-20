@@ -187,7 +187,7 @@ function CreateTransportationsModal(data) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/activities/deletetransportation?activityid=" + activityId
+                window.location.href = "/activities/delete?activityid=" + activityId
         }
         });
     }
@@ -213,7 +213,7 @@ function CreateWebsiteModal(data) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/activities/deletewebsite?activityid=" + activityId
+                window.location.href = "/activities/delete?activityid=" + activityId
         }
         });
     }
@@ -238,7 +238,7 @@ function CreateHotelModal(data) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/activities/deletehotel?activityid=" + activityId
+                window.location.href = "/activities/delete?activityid=" + activityId
         }
         });
     }
@@ -263,7 +263,7 @@ function CreateDestinationTagModal(data) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/activities/deletedestinationtag?activityid=" + activityId
+                window.location.href = "/activities/delete?activityid=" + activityId
         }
         });
     }
@@ -289,7 +289,7 @@ function CreatePlaceModal(data) {
         buttons.push({ text: 'Delete', click: function () {
             var confirmed = confirm('Delete?');
             if (confirmed)
-                window.location.href = "/activities/deleteplace?activityid=" + activityId
+                window.location.href = "/activities/delete?activityid=" + activityId
         }
         });
     }
