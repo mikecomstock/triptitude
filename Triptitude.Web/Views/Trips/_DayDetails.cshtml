@@ -6,7 +6,7 @@
         if (activity is TransportationActivity)
         {
             var transportationActivity = activity as TransportationActivity;
-        <div class="activity transportation" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="transportation" title="Click for details">
             <h4>
                 @transportationActivity.TransportationType.Name from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
             </h4>
@@ -15,7 +15,7 @@
         else if (activity is HotelActivity)
         {
             var hotelActivity = activity as HotelActivity;
-        <div class="activity hotel" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="hotel" title="Click for details">
             @if (ViewBag.DayNumber == hotelActivity.BeginDay)
             {
                 <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
@@ -40,7 +40,7 @@
         else if (activity is WebsiteActivity)
         {
             var websiteActivity = activity as WebsiteActivity;
-        <div class="activity website" data-activity-id="@activity.Id" title="Click to visit">
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="website" title="Click to visit">
             <h4>
                 <a rel="nofollow" target="_blank" href="@websiteActivity.URL">@websiteActivity.Title</a> (link)
             </h4>
@@ -49,7 +49,7 @@
         else if (activity is TagActivity)
         {
             var tagActivity = activity as TagActivity;
-        <div class="activity destination-tag" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="activity" title="Click for details">
             <h4>
                 <a href="@Url.Tag(tagActivity.City, tagActivity.Tag)">@tagActivity.Tag.Name in @tagActivity.City.ASCIIName</a>
             </h4>
@@ -58,7 +58,7 @@
         else if (activity is PlaceActivity)
         {
             var placeActivity = activity as PlaceActivity;
-        <div class="activity place" data-activity-id="@activity.Id" title="Click for details">
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="place" title="Click for details">
             <h4>
                 @placeActivity.Place.Name
             </h4>

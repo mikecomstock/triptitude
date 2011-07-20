@@ -48,6 +48,7 @@
     /****************/
     /* Hotel Search */
     /****************/
+
     $('.distance-slider', '#hotel-search-form').slider({
         value: 10,
         min: 1,
@@ -68,44 +69,8 @@
             $('.panel-content').html(data);
         });
     });
+
     /****************/
-    /****************/
-    /****************/
-
-    $('.add-transportation-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/addtransportation?tripid=' + tripId, function (data) {
-            CreateModal(data, "Transportation", "transportation");
-        });
-    });
-
-    $('.add-website-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/addwebsite?tripid=' + tripId, function (data) {
-            CreateModal(data, "Website", "website");
-        });
-    });
-
-    $('.add-tag-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/adddestinationtag?tripid=' + tripId, function (data) {
-            CreateModal(data, "Activity", "destination-tag");
-        });
-    });
-
-    $('.add-place-link').click(function (clickData) {
-        var placeId = $(this).attr('data-place-id');
-        $.get('/activities/addplace?placeid=' + placeId, function (data) {
-            CreateModal(data, "Place", "place");
-        });
-    });
-
-    $('.add-hotel-link').click(function (clickData) {
-        var hotelId = $(this).attr('data-hotel-id');
-        $.get('/activities/addhotel?hotelid=' + hotelId, function (data) {
-            CreateModal(data, "Hotel", "hotel");
-        });
-    });
 
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
@@ -123,45 +88,57 @@
         drawMap(container);
     });
 
-    $('.trip-day .transportation').click(function () {
-        var activityId = $(this).attr('data-activity-id');
-        $.get('/activities/edittransportation?activityid=' + activityId, function (data) {
-            CreateModal(data, "Transportation", "transportation")
-        });
+    /****************/
+    
+    $('.add-activity').click(function (clickData) {
+        var activityType = $(this).attr('data-activity-type');
+
+        switch (activityType) {
+            case 'transportation':
+                $.get('/activities/addtransportation', function (data) { CreateActivityModal(data, "Transportation", "transportation"); });
+                break;
+            case 'website':
+                $.get('/activities/addwebsite', function (data) { CreateActivityModal(data, "Website", "website"); });
+                break;
+            case 'activity':
+                $.get('/activities/adddestinationtag', function (data) { CreateActivityModal(data, "Activity", "destination-tag"); });
+                break;
+            case 'place':
+                var placeId = $(this).attr('data-place-id');
+                $.get('/activities/addplace?placeid=' + placeId, function (data) { CreateActivityModal(data, "Place", "place"); });
+                break;
+            case 'hotel':
+                var hotelId = $(this).attr('data-hotel-id');
+                $.get('/activities/addhotel?hotelid=' + hotelId, function (data) { CreateActivityModal(data, "Hotel", "hotel"); });
+                break;
+        }
     });
 
-    $('.trip-day .website').click(function () {
+    $('.trip-day .activity').click(function () {
         var activityId = $(this).attr('data-activity-id');
-        $.get('/activities/editwebsite?activityid=' + activityId, function (data) {
-            CreateModal(data, "Website", "website");
-        });
-    });
+        var activityType = $(this).attr('data-activity-type');
 
-    $('.trip-day .hotel').click(function () {
-        var activityId = $(this).attr('data-activity-id');
-        $.get('/activities/edithotel?activityid=' + activityId, function (data) {
-            CreateModal(data, "Hotel", "hotel");
-        });
-    });
-
-    $('.trip-day .destination-tag').click(function () {
-        var activityId = $(this).attr('data-activity-id');
-        $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) {
-            CreateModal(data, "Activity", "destination-tag");
-        });
-    });
-
-    $('.trip-day .place').click(function () {
-        var activityId = $(this).attr('data-activity-id');
-        $.get('/activities/editplace?activityid=' + activityId, function (data) {
-            CreateModal(data, "Place", "place");
-        });
+        switch (activityType) {
+            case 'transportation':
+                $.get('/activities/edittransportation?activityid=' + activityId, function (data) { CreateActivityModal(data, "Transportation", "transportation") });
+                break;
+            case 'website':
+                $.get('/activities/editwebsite?activityid=' + activityId, function (data) { CreateActivityModal(data, "Website", "website"); });
+                break;
+            case 'activity':
+                $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) { CreateActivityModal(data, "Activity", "destination-tag"); });
+                break;
+            case 'place':
+                var placeId = $(this).attr('data-place-id');
+                $.get('/activities/editplace?activityid=' + activityId, function (data) { CreateActivityModal(data, "Place", "place"); });
+                break;
+            case 'hotel':
+                var hotelId = $(this).attr('data-hotel-id');
+                $.get('/activities/edithotel?activityid=' + activityId, function (data) { CreateActivityModal(data, "Hotel", "hotel"); });
+                break;
+        }
     });
 });
-
-function BrowserAutocompleteOff() {
-    $('input.day-input').attr('autocomplete', 'off');
-}
 
 function BindDestinationAutocomplete(context) {
     $('.destination-autocomplete', context).autocomplete({
@@ -178,7 +155,7 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-function CreateModal(data, title, dialogClass) {
+function CreateActivityModal(data, title, dialogClass) {
     var dialog = $(data);
     var activityId = $('[name="activityid"]', dialog).val();
 
@@ -201,7 +178,7 @@ function CreateModal(data, title, dialogClass) {
         buttons: buttons
     });
 
-    BrowserAutocompleteOff();
+    $('input.day-input').attr('autocomplete', 'off');
     BindDestinationAutocomplete(dialog);
 }
 

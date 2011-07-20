@@ -99,9 +99,9 @@ namespace Triptitude.Web.Controllers
 
         #region Websites
 
-        public ActionResult AddWebsite(User currentUser, int tripId)
+        public ActionResult AddWebsite(User currentUser)
         {
-            WebsiteActivityForm form = new WebsiteActivityForm { TripId = tripId };
+            WebsiteActivityForm form = new WebsiteActivityForm { TripId = currentUser.DefaultTrip.Id };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryAddWebsite();
             return PartialView("websitedialog");
@@ -154,9 +154,9 @@ namespace Triptitude.Web.Controllers
 
         #region Destination Tags
 
-        public ActionResult AddDestinationTag(User currentUser, int tripId)
+        public ActionResult AddDestinationTag(User currentUser)
         {
-            TagActivityForm form = new TagActivityForm { TripId = tripId };
+            TagActivityForm form = new TagActivityForm { TripId = currentUser.DefaultTrip.Id };
             ViewBag.Form = form;
             ViewBag.Action = Url.ItineraryAddDestinationTag();
             return PartialView("destinationtagdialog");
@@ -211,10 +211,10 @@ namespace Triptitude.Web.Controllers
 
         #region Transportation
 
-        public ActionResult AddTransportation(User currentUser, int tripId)
+        public ActionResult AddTransportation(User currentUser)
         {
             var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
-            TransportationActivityForm form = new TransportationActivityForm { TripId = tripId, TransportationTypeId = fly.Id };
+            TransportationActivityForm form = new TransportationActivityForm { TripId = currentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.ItineraryAddTransportation();
