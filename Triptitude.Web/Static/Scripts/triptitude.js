@@ -74,36 +74,36 @@
 
     $('.add-transportation-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/addtransportation?tripid=' + tripId, function (getData) {
-            CreateTransportationsModal(getData);
+        $.get('/activities/addtransportation?tripid=' + tripId, function (data) {
+            CreateModal(data, "Transportation", "transportation");
         });
     });
 
     $('.add-website-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/addwebsite?tripid=' + tripId, function (getData) {
-            CreateWebsiteModal(getData);
+        $.get('/activities/addwebsite?tripid=' + tripId, function (data) {
+            CreateModal(data, "Website", "website");
         });
     });
 
     $('.add-tag-link').click(function (clickData) {
         var tripId = $(this).attr('data-trip-id');
-        $.get('/activities/adddestinationtag?tripid=' + tripId, function (getData) {
-            CreateDestinationTagModal(getData);
+        $.get('/activities/adddestinationtag?tripid=' + tripId, function (data) {
+            CreateModal(data, "Activity", "destination-tag");
         });
     });
 
     $('.add-place-link').click(function (clickData) {
         var placeId = $(this).attr('data-place-id');
-        $.get('/activities/addplace?placeid=' + placeId, function (getData) {
-            CreatePlaceModal(getData);
+        $.get('/activities/addplace?placeid=' + placeId, function (data) {
+            CreateModal(data, "Place", "place");
         });
     });
 
     $('.add-hotel-link').click(function (clickData) {
         var hotelId = $(this).attr('data-hotel-id');
         $.get('/activities/addhotel?hotelid=' + hotelId, function (data) {
-            CreateHotelModal(data);
+            CreateModal(data, "Hotel", "hotel");
         });
     });
 
@@ -126,35 +126,35 @@
     $('.trip-day .transportation').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/edittransportation?activityid=' + activityId, function (data) {
-            CreateTransportationsModal(data);
+            CreateModal(data, "Transportation", "transportation")
         });
     });
 
     $('.trip-day .website').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editwebsite?activityid=' + activityId, function (data) {
-            CreateWebsiteModal(data);
+            CreateModal(data, "Website", "website");
         });
     });
 
     $('.trip-day .hotel').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/edithotel?activityid=' + activityId, function (data) {
-            CreateHotelModal(data);
+            CreateModal(data, "Hotel", "hotel");
         });
     });
 
     $('.trip-day .destination-tag').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) {
-            CreateDestinationTagModal(data);
+            CreateModal(data, "Activity", "destination-tag");
         });
     });
 
     $('.trip-day .place').click(function () {
         var activityId = $(this).attr('data-activity-id');
         $.get('/activities/editplace?activityid=' + activityId, function (data) {
-            CreatePlaceModal(data);
+            CreateModal(data, "Place", "place");
         });
     });
 });
@@ -178,7 +178,7 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-function CreateTransportationsModal(data) {
+function CreateModal(data, title, dialogClass) {
     var dialog = $(data);
     var activityId = $('[name="activityid"]', dialog).val();
 
@@ -194,115 +194,15 @@ function CreateTransportationsModal(data) {
     buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
 
     dialog.dialog({
-        title: 'Transportation',
-        dialogClass: 'transportation-dialog',
+        title: title,
+        dialogClass: dialogClass + '-dialog',
         width: 450,
         resizable: false,
         buttons: buttons
     });
+
     BrowserAutocompleteOff();
     BindDestinationAutocomplete(dialog);
-}
-
-function CreateWebsiteModal(data) {
-    var dialog = $(data);
-    var activityId = $('[name="activityid"]', dialog).val();
-
-    var buttons = [];
-    if (activityId) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/activities/delete?activityid=" + activityId
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Website',
-        dialogClass: 'website-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
-}
-
-function CreateHotelModal(data) {
-    var dialog = $(data);
-    var activityId = $('[name="activityid"]', dialog).val();
-
-    var buttons = [];
-    if (activityId) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/activities/delete?activityid=" + activityId
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Hotel',
-        dialogClass: 'hotel-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
-}
-
-function CreateDestinationTagModal(data) {
-    var dialog = $(data);
-    var activityId = $('[name="activityid"]', dialog).val();
-
-    var buttons = [];
-    if (activityId) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/activities/delete?activityid=" + activityId
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Activity',
-        dialogClass: 'destination-tag-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BindDestinationAutocomplete(dialog);
-    BrowserAutocompleteOff();
-}
-
-function CreatePlaceModal(data) {
-    var dialog = $(data);
-    var activityId = $('[name="activityid"]', dialog).val();
-
-    var buttons = [];
-    if (activityId) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/activities/delete?activityid=" + activityId
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Place',
-        dialogClass: 'place-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
 }
 
 function drawMap(container) {
