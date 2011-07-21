@@ -11,11 +11,11 @@ td { vertical-align: top; padding: 0; }
 /* Utilities */
 .clear { clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
-input.day-input { width: 20px; }
+input.day-input { width: 30px; }
 
 /* Form Defaults */
-input[type="text"] { font-size: 18px; }
-input[type="submit"] { font-size: 18px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+input[type="text"] { font-size: 14px; }
+input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 
 /* Panel Form Defaults */
 .panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
@@ -144,7 +144,7 @@ input[type="submit"] { font-size: 18px; padding: 5px; border: none; color: #FFFF
 
 .place-dialog form { padding: 0 !important; }
 .place-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.place-dialog form label { display: block; float: left; width: 60px; }
+.place-dialog form label { display: block; float: left; width: 70px; }
 
 .destination-tag-dialog form { padding: 0 !important; }
 .destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
@@ -156,7 +156,7 @@ input[type="submit"] { font-size: 18px; padding: 5px; border: none; color: #FFFF
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }
-#create-trip-form input[type="text"] { width: 400px; }
+#create-trip-form input[type="text"] { width: 400px; font-size: 18px; }
 #create-trip-form #numberofdays { width: 40px; }
 
 #landing-page-panel #create-trip-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }

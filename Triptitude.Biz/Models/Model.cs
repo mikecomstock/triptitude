@@ -336,35 +336,20 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public string FactualId { get; set; }
         public string Name { get; set; }
-        [NotMapped]
         public string Address { get; set; }
-        [NotMapped]
         public string AddressExtended { get; set; }
-        [NotMapped]
         public string POBox { get; set; }
-        [NotMapped]
         public string Locality { get; set; }
-        [NotMapped]
         public string Region { get; set; }
-        [NotMapped]
         public string Country { get; set; }
-        [NotMapped]
         public string PostCode { get; set; }
-        [NotMapped]
         public string Telephone { get; set; }
-        [NotMapped]
         public string Fax { get; set; }
-        [NotMapped]
         public string Category { get; set; }
-        [NotMapped]
         public string Website { get; set; }
-        [NotMapped]
         public string Email { get; set; }
-        [NotMapped]
-        public decimal Latitude { get; set; }
-        [NotMapped]
-        public decimal Longitude { get; set; }
-        [NotMapped]
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public string Status { get; set; }
 
         public static Place FromEntityJson(dynamic json)
@@ -416,6 +401,16 @@ namespace Triptitude.Biz.Models
                 Status = json[17]
             };
             return p;
+        }
+
+        public string NiceAddress
+        {
+            get
+            {
+                var parts = new[] { Address, Locality, Region, Country };
+                var full = String.Join(", ", parts);
+                return full;
+            }
         }
     }
 }
