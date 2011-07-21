@@ -207,10 +207,10 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #place-search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
 #place-search-form input[type="text"] { font-size: 14px; }
 
-#trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
+/*#trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
 #trip-search-form .distance-slider { width: 200px; }
 #trip-search-form .trip-length-slider { width: 200px; }
-#trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }
+#trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }*/
 
 /* Tags */
 .tags { }
@@ -231,7 +231,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
 .trips.details .trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
 .trips.details .trip-day > h3 { padding: 3px 6px; background: #4DBAFE; color: #FFF; }
-.trips.details .activity > .title { color: #333; margin: 10px; font-weight:bold; }
+.trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity { overflow: auto; cursor: pointer; }
 .trips.details .activity:hover { background-color: #EEE; }
 .trips.details .activity + .activity { border-top: 1px dashed #4DBAFE; }

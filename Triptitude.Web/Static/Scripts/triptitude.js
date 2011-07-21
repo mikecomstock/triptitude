@@ -18,32 +18,20 @@
 
     $('#trip-bar-menu li').hover(function (hoverData) {
         $(this).children('ul').show();
-
     }, function (hoverData) {
         $(this).children('ul').hide();
     });
 
-    //    $('.distance-slider').slider({
-    //        value: 100,
-    //        min: 0,
-    //        max: 200,
-    //        range: 'min',
-    //        step: 10,
-    //        slide: function (event, ui) {
-    //            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-    //        }
-    //    });
-
-    $('.trip-length-slider').slider({
-        range: true,
-        values: [2, 10],
-        min: 1,
-        max: 20,
-        step: 1,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
-        }
-    });
+//    $('.trip-length-slider').slider({
+//        range: true,
+//        values: [2, 10],
+//        min: 1,
+//        max: 20,
+//        step: 1,
+//        slide: function (event, ui) {
+//            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
+//        }
+//    });
 
     /****************/
     /* Hotel Search */
