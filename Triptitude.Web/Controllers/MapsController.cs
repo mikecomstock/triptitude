@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz;
@@ -19,32 +18,45 @@ namespace Triptitude.Web.Controllers
             Trip trip = new TripsRepo().Find(id);
 
             var hotelActivities = trip.Activities.OfType<HotelActivity>();
-            var hotelMarkers = from ha in hotelActivities
-                               let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(ha.Hotel), ha.Hotel.Name)
-                               let numNights = ha.EndDay - ha.BeginDay
+            var hotelMarkers = from a in hotelActivities
+                               let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(a.Hotel), a.Hotel.Name)
+                               let numNights = a.EndDay - a.BeginDay
                                let nightsText = numNights == 1 ? "night" : "nights"
-                               let infoBody = Util.DateTimeRangeString(ha.BeginDay, ha.BeginTime, ha.EndDay, ha.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
+                               let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
                                let infoHtml = infoTitle + "<br/>" + infoBody
                                select new
                                           {
-                                              ha.Hotel.Name,
-                                              ha.Hotel.Latitude,
-                                              ha.Hotel.Longitude,
+                                              a.Hotel.Name,
+                                              a.Hotel.Latitude,
+                                              a.Hotel.Longitude,
                                               InfoHtml = infoHtml,
                                               ExtendBounds = true
                                           };
             markers.AddRange(hotelMarkers);
 
+            var placeActivities = trip.Activities.OfType<PlaceActivity>();
+            var placeMarkers = from a in placeActivities
+                               let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
+                               select new
+                                          {
+                                              a.Place.Name,
+                                              a.Place.Latitude,
+                                              a.Place.Longitude,
+                                              InfoHtml = infoHtml,
+                                              ExtendBounds = true
+                                          };
+            markers.AddRange(placeMarkers);
+
             var tagActivities = trip.Activities.OfType<TagActivity>();
-            var activityMarkers = from dt in tagActivities
-                                  let infoTitle = string.Format("<strong>{0} in <a href='{1}'>{2}</a></strong>", dt.Tag.Name, Url.Details(dt.City), dt.City.ShortName)
-                                  let infoBody = Util.DateTimeRangeString(dt.BeginDay, dt.BeginTime, dt.EndDay, dt.EndTime)
+            var activityMarkers = from a in tagActivities
+                                  let infoTitle = string.Format("<strong>{0} in <a href='{1}'>{2}</a></strong>", a.Tag.Name, Url.Details(a.City), a.City.ShortName)
+                                  let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime)
                                   let infoHtml = infoTitle + "<br/>" + infoBody
                                   select new
                                   {
-                                      Name = dt.City.ShortName,
-                                      dt.City.Latitude,
-                                      dt.City.Longitude,
+                                      Name = a.City.ShortName,
+                                      a.City.Latitude,
+                                      a.City.Longitude,
                                       InfoHtml = infoHtml,
                                       ExtendBounds = true
                                   };
@@ -53,47 +65,47 @@ namespace Triptitude.Web.Controllers
             #region Transportation Activities
 
             var transportationActivities = trip.Activities.OfType<TransportationActivity>();
-            var toMarkers = from t in transportationActivities
-                            let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
-                            let infoBody = Util.DateTimeRangeString(t.BeginDay, null, t.EndDay, null)
+            var toMarkers = from a in transportationActivities
+                            let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
+                            let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                             let infoHtml = infoTitle + "<br/>" + infoBody
                             select new
                                        {
-                                           Name = t.ToCity.ShortName,
-                                           t.ToCity.Latitude,
-                                           t.ToCity.Longitude,
+                                           Name = a.ToCity.ShortName,
+                                           a.ToCity.Latitude,
+                                           a.ToCity.Longitude,
                                            InfoHtml = infoHtml,
                                            ExtendBounds = false
                                        };
             markers.AddRange(toMarkers);
 
-            var fromMarkers = from t in transportationActivities
-                              let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
-                              let infoBody = Util.DateTimeRangeString(t.BeginDay, null, t.EndDay, null)
+            var fromMarkers = from a in transportationActivities
+                              let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
+                              let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                               let infoHtml = infoTitle + "<br/>" + infoBody
                               select new
                                          {
-                                             Name = t.FromCity.ShortName,
-                                             t.FromCity.Latitude,
-                                             t.FromCity.Longitude,
+                                             Name = a.FromCity.ShortName,
+                                             a.FromCity.Latitude,
+                                             a.FromCity.Longitude,
                                              InfoHtml = infoHtml,
                                              ExtendBounds = false
                                          };
             markers.AddRange(fromMarkers);
 
-            var transLines = from t in transportationActivities
+            var transLines = from a in transportationActivities
                              select new
                                         {
-                                            t.TransportationType.PathType,
+                                            a.TransportationType.PathType,
                                             From = new
                                             {
-                                                t.FromCity.Latitude,
-                                                t.FromCity.Longitude
+                                                a.FromCity.Latitude,
+                                                a.FromCity.Longitude
                                             },
                                             To = new
                                             {
-                                                t.ToCity.Latitude,
-                                                t.ToCity.Longitude
+                                                a.ToCity.Latitude,
+                                                a.ToCity.Longitude
                                             }
                                         };
             polyLines.AddRange(transLines);
