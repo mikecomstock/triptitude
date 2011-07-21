@@ -6,8 +6,9 @@
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function () {
-            $('#trip-map-container').each(function () {
-                drawMap($(this));
+            var tripId = $('#trip-map-container').attr('data-trip-id');
+            $.get('/maps/trip/' + tripId, function (mapData) {
+                drawMap($('#trip-map-container'), mapData);
             });
         });
 
@@ -18,7 +19,7 @@
     <div class="panel">
         <div class="panel-title">
             <h1>@ViewBag.Trip.Name
-                </h1>
+            </h1>
         </div>
         <div class="panel-content">
             <div id="trip-map-container" data-trip-id="@ViewBag.Trip.Id">

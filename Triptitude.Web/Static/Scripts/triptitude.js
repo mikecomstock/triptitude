@@ -100,17 +100,18 @@
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
-        var linkUrl = $(this).attr('data-link-url');
 
         var container = $('<div></div>');
-        container.attr('data-trip-id', tripId);
         container.dialog({
             title: name,
             width: 540,
             height: 400,
             resizable: false
         });
-        drawMap(container);
+
+        $.get('/maps/trip/' + tripId, function (mapData) {
+            drawMap(container, mapData);
+        });
     });
 
     /****************/
@@ -207,57 +208,53 @@ function CreateActivityModal(data, title, dialogClass) {
     BindDestinationAutocomplete(dialog);
 }
 
-function drawMap(container) {
+function drawMap(container, mapData) {
 
     var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
     var map = new google.maps.Map(container.get(0), myOptions);
     var bounds = new google.maps.LatLngBounds();
-    var tripId = container.attr('data-trip-id');
     var infoWindow = new google.maps.InfoWindow();
 
     var directionsPolylineOptions = { strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5 };
     var directionsService = new google.maps.DirectionsService();
 
-    $.get('/maps/trip/' + tripId, function (mapData) {
+    $.each(mapData.markers, function (i, item) {
 
-        $.each(mapData.markers, function (i, item) {
+        var point = new google.maps.LatLng(item.Latitude, item.Longitude);
+        var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
+        marker.infoHtml = item.InfoHtml
 
-            var point = new google.maps.LatLng(item.Latitude, item.Longitude);
-            var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
-            marker.infoHtml = item.InfoHtml
+        if (item.ExtendBounds == true) bounds.extend(point);
 
-            if (item.ExtendBounds == true) bounds.extend(point);
-
-            google.maps.event.addListener(marker, 'mouseover', function () {
-                infoWindow.setContent(marker.infoHtml);
-                infoWindow.open(map, marker);
-            });
+        google.maps.event.addListener(marker, 'mouseover', function () {
+            infoWindow.setContent(marker.infoHtml);
+            infoWindow.open(map, marker);
         });
-
-        $.each(mapData.polyLines, function (i, item) {
-
-            var fromPoint = new google.maps.LatLng(item.From.Latitude, item.From.Longitude);
-            var toPoint = new google.maps.LatLng(item.To.Latitude, item.To.Longitude);
-
-            if (item.From.ExtendBounds == true) bounds.extend(fromPoint);
-            if (item.To.ExtendBounds == true) bounds.extend(toPoint);
-
-            if (item.PathType == 'directions') {
-                var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
-                directionsService.route(request, function (result, status) {
-                    var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
-                    directionsDisplay.setMap(map);
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(result);
-                    }
-                });
-            } else {
-                var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
-                transPath.setMap(map);
-            }
-
-        });
-
-        map.fitBounds(bounds);
     });
+
+    $.each(mapData.polyLines, function (i, item) {
+
+        var fromPoint = new google.maps.LatLng(item.From.Latitude, item.From.Longitude);
+        var toPoint = new google.maps.LatLng(item.To.Latitude, item.To.Longitude);
+
+        if (item.From.ExtendBounds == true) bounds.extend(fromPoint);
+        if (item.To.ExtendBounds == true) bounds.extend(toPoint);
+
+        if (item.PathType == 'directions') {
+            var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
+            directionsService.route(request, function (result, status) {
+                var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
+                directionsDisplay.setMap(map);
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                }
+            });
+        } else {
+            var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
+            transPath.setMap(map);
+        }
+
+    });
+
+    map.fitBounds(bounds);
 }
