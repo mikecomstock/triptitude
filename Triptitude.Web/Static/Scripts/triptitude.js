@@ -49,7 +49,7 @@
     /* Hotel Search */
     /****************/
 
-    $('.distance-slider', '#hotel-search-form').slider({
+    $('.distance-slider', '.hotels #search-form').slider({
         value: 10,
         min: 1,
         max: 50,
@@ -63,7 +63,7 @@
             $(this).closest('form').submit();
         }
     });
-    $('#hotel-search-form').submit(function (event) {
+    $('.hotels #search-form').submit(function (event) {
         event.preventDefault();
         $.get("/hotels/search", $(this).serialize(), function (data) {
             $('.panel-content').html(data);
@@ -74,7 +74,7 @@
     /* Place Search */
     /****************/
 
-    $('.distance-slider', '#place-search-form').slider({
+    $('.distance-slider', '.places #search-form').slider({
         value: 10,
         min: 1,
         max: 50,
@@ -88,7 +88,7 @@
         }
     });
 
-    $('#place-search-form').submit(function (event) {
+    $('.places #search-form').submit(function (event) {
         event.preventDefault();
         $.get("/places/search", $(this).serialize(), function (data) {
             $('.panel-content').html(data);

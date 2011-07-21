@@ -196,23 +196,21 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 /* Destinations */
 #destination-details-map-container { width: 100%; height: 300px; }
 
-#hotel-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
-#hotel-search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 650px; }
-#hotel-search-form .hotel-search-form-section { float: left; text-align: center; }
-#hotel-search-form .hotel-search-form-section + .hotel-search-form-section { margin-left: 20px; }
+.search-form-section { float: left; text-align: center; }
+.search-form-section + .search-form-section { margin-left: 20px; }
+
+#search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
+#search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
+#search-form input[type="text"] { font-size: 14px; }
 
 #place-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
 #place-search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
-#place-search-form .place-search-form-section { float: left; text-align: center; }
-#place-search-form .place-search-form-section + .place-search-form-section { margin-left: 20px; }
 #place-search-form input[type="text"] { font-size: 14px; }
 
 #trip-search-form { font-weight: bold; color: #666; font-size: 14px; overflow: auto; }
 #trip-search-form .distance-slider { width: 200px; }
 #trip-search-form .trip-length-slider { width: 200px; }
 #trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }
-#trip-search-form .trip-search-form-section { float: left; text-align: center; }
-#trip-search-form .trip-search-form-section + .trip-search-form-section { margin-left: 20px; }
 
 /* Tags */
 .tags { }

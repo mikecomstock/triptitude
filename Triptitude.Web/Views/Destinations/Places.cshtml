@@ -18,10 +18,10 @@
 </div>
 @helper PlaceSearchForm(PlaceSearchForm form)
     {
-    <form id="place-search-form" action="#">
+    <form id="search-form" action="#">
     <input type="hidden" name="latitude" value="@form.Latitude" />
     <input type="hidden" name="longitude" value="@form.Longitude" />
-    <div class="place-search-form-section">
+    <div class="search-form-section">
         <div class="distance-slider">
         </div>
         <div class="label">
@@ -29,7 +29,7 @@
         </div>
         <input type="hidden" name="radiusinmiles" value="@form.RadiusInMiles" />
     </div>
-    <div class="place-search-form-section">
+    <div class="search-form-section">
         <input type="text" name="search" value="@form.Search" />
         <div class="label">
             name
