@@ -112,14 +112,6 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 /* Footer */
 #footer { width: 955px; height: 200px; }
 
-/* Trip Itinerary */
-.trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
-.trip-day > h3 { padding: 3px 6px; background: #4DBAFE; color: #FFF; }
-.activity > h4 { color: #333; margin: 10px; }
-.activity { overflow: auto; cursor: pointer; }
-.activity:hover { background-color: #EEE; }
-.activity + .activity { border-top: 1px dashed #4DBAFE; }
-.activity img { float: right; margin: 10px; }
 
 /* Dialogs */
 .ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
@@ -150,9 +142,6 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 .destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .destination-tag-dialog form label { display: block; float: left; width: 120px; }
 .destination-tag-dialog form input.destination-autocomplete { width: 280px; }
-
-/* Trip Map */
-#trip-map-container { width: 100%; height: 500px; }
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }
@@ -237,5 +226,17 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 
 /* Places */
 .place { padding: 5px; }
-.place + .place { border-top: 1px dashed #CCCCCC;  }
+.place + .place { border-top: 1px dashed #CCCCCC; }
 .place-name { font-size: 16px; }
+
+/* Trips */
+.trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
+.trips.details .trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
+.trips.details .trip-day > h3 { padding: 3px 6px; background: #4DBAFE; color: #FFF; }
+.trips.details .activity > .title { color: #333; margin: 10px; font-weight:bold; }
+.trips.details .activity { overflow: auto; cursor: pointer; }
+.trips.details .activity:hover { background-color: #EEE; }
+.trips.details .activity + .activity { border-top: 1px dashed #4DBAFE; }
+.trips.details .activity img { float: right; margin: 10px; }
+
+.trips.map #trip-map-container { width: 100%; height: 500px; }

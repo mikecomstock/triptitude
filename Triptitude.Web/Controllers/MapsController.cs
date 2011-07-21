@@ -16,8 +16,9 @@ namespace Triptitude.Web.Controllers
             var polyLines = new List<object>();
 
             Trip trip = new TripsRepo().Find(id);
+            var activities = trip.Activities;
 
-            var hotelActivities = trip.Activities.OfType<HotelActivity>();
+            var hotelActivities = activities.OfType<HotelActivity>();
             var hotelMarkers = from a in hotelActivities
                                let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(a.Hotel), a.Hotel.Name)
                                let numNights = a.EndDay - a.BeginDay
@@ -34,7 +35,7 @@ namespace Triptitude.Web.Controllers
                                           };
             markers.AddRange(hotelMarkers);
 
-            var placeActivities = trip.Activities.OfType<PlaceActivity>();
+            var placeActivities = activities.OfType<PlaceActivity>();
             var placeMarkers = from a in placeActivities
                                let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
                                select new
@@ -47,7 +48,7 @@ namespace Triptitude.Web.Controllers
                                           };
             markers.AddRange(placeMarkers);
 
-            var tagActivities = trip.Activities.OfType<TagActivity>();
+            var tagActivities = activities.OfType<TagActivity>();
             var activityMarkers = from a in tagActivities
                                   let infoTitle = string.Format("<strong>{0} in <a href='{1}'>{2}</a></strong>", a.Tag.Name, Url.Details(a.City), a.City.ShortName)
                                   let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime)
@@ -64,7 +65,7 @@ namespace Triptitude.Web.Controllers
 
             #region Transportation Activities
 
-            var transportationActivities = trip.Activities.OfType<TransportationActivity>();
+            var transportationActivities = activities.OfType<TransportationActivity>();
             var toMarkers = from a in transportationActivities
                             let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
                             let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)

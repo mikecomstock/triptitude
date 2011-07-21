@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /destinations/
 Disallow: /hotels/
 Disallow: /users/
+Disallow: /destinations/*/places
 Allow: /trips
 Sitemap: http://www.triptitude.com/sitemap.xml

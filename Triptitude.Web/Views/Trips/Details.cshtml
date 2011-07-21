@@ -2,6 +2,19 @@
     ViewBag.Title = @ViewBag.Trip.Name;
     ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
 }
+@section Scripts {
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function () {
+            var tripId = $('#trip-map-container').attr('data-trip-id');
+            $.get('/maps/trip/' + tripId, function (mapData) {
+                drawMap($('#trip-map-container'), mapData);
+            });
+        });
+
+    </script>
+}
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
@@ -11,6 +24,8 @@
             </h1>
         </div>
         <div class="panel-content">
+            <div id="trip-map-container" data-trip-id="@ViewBag.Trip.Id">
+            </div>
             @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
             {
                 Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });

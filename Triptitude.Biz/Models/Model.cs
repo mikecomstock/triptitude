@@ -150,6 +150,7 @@ namespace Triptitude.Biz.Models
                 switch (Name)
                 {
                     case "Fly": return "geodesic";
+                    case "Train": return "geodesic";
                     default: return "directions";
                 }
             }
