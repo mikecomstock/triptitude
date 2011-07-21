@@ -143,15 +143,14 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string TravelMode
+        public string PathType
         {
             get
             {
                 switch (Name)
                 {
-                    case "Fly":
-                    case "Boat": return "line";
-                    default: return "road";
+                    case "Fly": return "geodesic";
+                    default: return "directions";
                 }
             }
         }

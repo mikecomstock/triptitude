@@ -114,7 +114,7 @@
     });
 
     /****************/
-    
+
     $('.add-activity').live('click', function (clickData) {
         var activityType = $(this).attr('data-activity-type');
 
@@ -220,19 +220,29 @@ function drawMap(container) {
 
     $.get('/maps/trip/' + tripId, function (mapData) {
 
-        $.each(mapData.trans, function (i, item) {
+        $.each(mapData.markers, function (i, item) {
 
-            var fromPoint = new google.maps.LatLng(item.From.Lat, item.From.Lon);
-            var toPoint = new google.maps.LatLng(item.To.Lat, item.To.Lon);
-            var fromMarker = new google.maps.Marker({ position: fromPoint, map: map, title: item.From.Name });
-            fromMarker.infoHtml = item.From.InfoHtml;
-            var toMarker = new google.maps.Marker({ position: toPoint, map: map, title: item.To.Name });
-            toMarker.infoHtml = item.To.InfoHtml;
+            var point = new google.maps.LatLng(item.Latitude, item.Longitude);
+            var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
+            marker.infoHtml = item.InfoHtml
 
-            bounds.extend(fromPoint);
-            bounds.extend(toPoint);
+            if (item.ExtendBounds == true) bounds.extend(point);
 
-            if (item.PathType == 'road') {
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                infoWindow.setContent(marker.infoHtml);
+                infoWindow.open(map, marker);
+            });
+        });
+
+        $.each(mapData.polyLines, function (i, item) {
+
+            var fromPoint = new google.maps.LatLng(item.From.Latitude, item.From.Longitude);
+            var toPoint = new google.maps.LatLng(item.To.Latitude, item.To.Longitude);
+
+            if (item.From.ExtendBounds == true) bounds.extend(fromPoint);
+            if (item.To.ExtendBounds == true) bounds.extend(toPoint);
+
+            if (item.PathType == 'directions') {
                 var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
                 directionsService.route(request, function (result, status) {
                     var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
@@ -244,43 +254,8 @@ function drawMap(container) {
             } else {
                 var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
                 transPath.setMap(map);
-                transPath.infoHtml = 'path';
             }
 
-            google.maps.event.addListener(fromMarker, 'mouseover', function () {
-                infoWindow.setContent(fromMarker.infoHtml);
-                infoWindow.open(map, fromMarker);
-            });
-            google.maps.event.addListener(toMarker, 'mouseover', function () {
-                infoWindow.setContent(toMarker.infoHtml);
-                infoWindow.open(map, toMarker);
-            });
-        });
-
-        $.each(mapData.hotels, function (i, item) {
-
-            var hotelPoint = new google.maps.LatLng(item.Lat, item.Lon);
-            var hotelMarker = new google.maps.Marker({ position: hotelPoint, map: map, title: item.Name });
-            hotelMarker.infoHtml = item.InfoHtml
-            bounds.extend(hotelPoint);
-
-            google.maps.event.addListener(hotelMarker, 'mouseover', function () {
-                infoWindow.setContent(hotelMarker.infoHtml);
-                infoWindow.open(map, hotelMarker);
-            });
-        });
-
-        $.each(mapData.destinationTags, function (i, item) {
-
-            var point = new google.maps.LatLng(item.Lat, item.Lon);
-            var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
-            marker.infoHtml = item.InfoHtml
-            bounds.extend(point);
-
-            google.maps.event.addListener(marker, 'mouseover', function () {
-                infoWindow.setContent(marker.infoHtml);
-                infoWindow.open(map, marker);
-            });
         });
 
         map.fitBounds(bounds);
