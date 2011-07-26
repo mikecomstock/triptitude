@@ -11,6 +11,7 @@
         <div class="panel-header">
             @PlaceSearchForm(ViewBag.PlaceSearchForm)
         </div>
+        <div class="panel-alert">Can't find something? <span class="link add-activity" data-activity-type="place" href="@Url.ItineraryAddPlace()">Add a place or activity manually.</span></div>
         <div class="panel-content">
             @Html.Action("Search", "places", new { form = ViewBag.PlaceSearchForm })
         </div>

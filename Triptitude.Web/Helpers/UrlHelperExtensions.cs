@@ -236,7 +236,7 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, Place place)
         {
-            return url.Action("details", "places", new {id = place.FactualId});
+            return url.Action("details", "places", new { id = place.FactualId });
         }
 
         #endregion

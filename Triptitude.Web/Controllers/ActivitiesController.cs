@@ -273,10 +273,23 @@ namespace Triptitude.Web.Controllers
 
         #region Places
 
+        /// <summary>
+        /// Note that placeId refers to a FactualId. It is null when adding a custom place.
+        /// </summary>
         public ActionResult AddPlace(string placeId, User currentUser)
         {
-            var placesService = new PlacesService();
-            var place = placesService.Find(placeId);
+            Place place;
+            if (placeId == "")
+            {
+                place = new Place();
+                place.Name = "test";
+            }
+            else
+            {
+                var placesService = new PlacesService();
+                place = placesService.Find(placeId);
+            }
+
             PlaceActivityForm form = new PlaceActivityForm
                                          {
                                              FactualId = placeId,
@@ -311,7 +324,9 @@ namespace Triptitude.Web.Controllers
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
-                FactualId = activity.Place.FactualId
+                FactualId = activity.Place.FactualId,
+                PlaceId = activity.Place.Id,
+                Name = activity.Place.Name
             };
             ViewBag.Form = form;
             ViewBag.Place = activity.Place;

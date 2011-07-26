@@ -6,21 +6,32 @@
 <input type="hidden" name="tripid" value="@form.TripId" />
 <input type="hidden" name="activityid" value="@form.ActivityId" />
 <input type="hidden" name="factualid" value="@form.FactualId" />
-<p>
+<input type="hidden" name="placeid" value="@form.PlaceId" />
+@if (string.IsNullOrWhiteSpace(place.FactualId))
+{<p>
     <label>
         Name</label>
-    @place.Name
-</p>
-<p>
-    <label>
-        Address</label>
-    @place.NiceAddress
-</p>
-<p>
-    <label>
-        Phone</label>
-    @place.Telephone
-</p>
+    @Html.TextBox("name", @form.Name)
+    </p>
+}
+else
+{
+    <p>
+        <label>
+            Name</label>
+        @place.Name
+    </p>
+    <p>
+        <label>
+            Address</label>
+        @place.NiceAddress
+    </p>
+    <p>
+        <label>
+            Phone</label>
+        @place.Telephone
+    </p>
+}
 <p>
     <label for="beginday">
         Day</label>

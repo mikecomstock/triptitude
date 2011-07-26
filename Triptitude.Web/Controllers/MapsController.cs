@@ -38,6 +38,7 @@ namespace Triptitude.Web.Controllers
             var placeActivities = activities.OfType<PlaceActivity>();
             var placeMarkers = from a in placeActivities
                                let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
+                               where a.Place.Latitude.HasValue && a.Place.Longitude.HasValue
                                select new
                                           {
                                               a.Place.Name,

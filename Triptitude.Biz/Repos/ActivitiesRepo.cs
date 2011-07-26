@@ -133,8 +133,17 @@ namespace Triptitude.Biz.Repos
             SetBaseProperties(activity, form);
 
             PlacesRepo placesRepo = new PlacesRepo();
-            Place place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
-            activity.Place = place;
+
+            // If this is a custom place:
+            if (string.IsNullOrWhiteSpace(form.FactualId))
+            {
+                Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
+                place.Name = form.Name;
+            }
+            else
+            {
+                activity.Place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
+            }
 
             Save();
 

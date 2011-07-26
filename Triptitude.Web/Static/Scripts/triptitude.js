@@ -118,7 +118,7 @@
                 $.get('/activities/adddestinationtag', function (data) { CreateActivityModal(data, "Activity", "destination-tag"); });
                 break;
             case 'place':
-                var placeId = $(this).attr('data-place-id');
+                var placeId = $(this).attr('data-place-id') || '';
                 $.get('/activities/addplace?placeid=' + placeId, function (data) { CreateActivityModal(data, "Place", "place"); });
                 break;
             case 'hotel':

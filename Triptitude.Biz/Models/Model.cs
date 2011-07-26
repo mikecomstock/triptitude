@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using Triptitude.Biz.Forms;
 
 namespace Triptitude.Biz.Models
 {

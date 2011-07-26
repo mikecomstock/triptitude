@@ -92,6 +92,8 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
 
+.panel-alert { padding:10px; background-color:#FE9FAA; font-weight:bold; text-align:center; font-size:16px;}
+
 .panel-content { padding: 10px; }
 .panel-content-not-padded { }
 

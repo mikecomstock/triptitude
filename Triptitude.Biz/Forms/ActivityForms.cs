@@ -41,5 +41,7 @@
     public class PlaceActivityForm : ActivityForm
     {
         public string FactualId { get; set; }
+        public int? PlaceId { get; set; }
+        public string Name { get; set; }
     }
 }
