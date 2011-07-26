@@ -326,7 +326,10 @@ namespace Triptitude.Web.Controllers
                 TripId = activity.Trip.Id,
                 FactualId = activity.Place.FactualId,
                 PlaceId = activity.Place.Id,
-                Name = activity.Place.Name
+                Name = activity.Place.Name,
+                Address = activity.Place.Address,
+                Telephone = activity.Place.Telephone,
+                Website = activity.Place.Website
             };
             ViewBag.Form = form;
             ViewBag.Place = activity.Place;

@@ -8,10 +8,26 @@
 <input type="hidden" name="factualid" value="@form.FactualId" />
 <input type="hidden" name="placeid" value="@form.PlaceId" />
 @if (string.IsNullOrWhiteSpace(place.FactualId))
-{<p>
-    <label>
-        Name</label>
-    @Html.TextBox("name", @form.Name)
+{
+    <p>
+        <label for="name">
+            Name</label>
+        @Html.TextBox("name", @form.Name)
+    </p>
+    <p>
+        <label for="address">
+            Address</label>
+        @Html.TextBox("address", @form.Address)
+    </p>
+    <p>
+        <label for="telephone">
+            Phone</label>
+        @Html.TextBox("telephone", @form.Telephone)
+    </p>
+    <p>
+        <label for="website">
+            Website</label>
+        @Html.TextBox("website", @form.Website)
     </p>
 }
 else

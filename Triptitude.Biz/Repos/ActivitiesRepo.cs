@@ -138,7 +138,11 @@ namespace Triptitude.Biz.Repos
             if (string.IsNullOrWhiteSpace(form.FactualId))
             {
                 Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
+
                 place.Name = form.Name;
+                place.Address = form.Address;
+                place.Telephone = form.Telephone;
+                place.Website = form.Website;
             }
             else
             {
