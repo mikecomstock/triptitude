@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using Triptitude.Biz.Forms;
 
 namespace Triptitude.Biz.Models
 {
@@ -70,7 +69,16 @@ namespace Triptitude.Biz.Models
 
         public IEnumerable<City> Cities
         {
-            get { return Activities.SelectMany(a => a.Cities).Distinct(); }
+            get
+            {
+                IEnumerable<City> cities = Activities.SelectMany(a => a.Cities).ToList();
+                IEnumerable<City> grouped = from c in cities
+                                            group c by c into grp
+                                            let count = grp.Count()
+                                            orderby count
+                                            select grp.Key;
+                return grouped;
+            }
         }
     }
 
@@ -352,6 +360,16 @@ namespace Triptitude.Biz.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public string Status { get; set; }
+        
+        public string NiceAddress
+        {
+            get
+            {
+                var parts = new[] { Address, Locality, Region, Country };
+                var full = String.Join(", ", parts);
+                return full;
+            }
+        }
 
         public static Place FromEntityJson(dynamic json)
         {
@@ -402,16 +420,6 @@ namespace Triptitude.Biz.Models
                 Status = json[17]
             };
             return p;
-        }
-
-        public string NiceAddress
-        {
-            get
-            {
-                var parts = new[] { Address, Locality, Region, Country };
-                var full = String.Join(", ", parts);
-                return full;
-            }
         }
     }
 }

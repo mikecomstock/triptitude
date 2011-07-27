@@ -12,6 +12,9 @@ namespace Triptitude.Biz.Models
             modelBuilder.Entity<Country>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<Region>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
             modelBuilder.Entity<City>().HasKey(r => r.GeoNameID).Property(p => p.GeoNameID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            modelBuilder.Entity<Place>().Property(p => p.Latitude).HasPrecision(9, 6);
+            modelBuilder.Entity<Place>().Property(p => p.Longitude).HasPrecision(9, 6);
         }
 
         public DbSet<User> Users { get; set; }

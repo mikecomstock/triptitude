@@ -92,7 +92,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
 
-.panel-alert { padding:10px; background-color:#FE9FAA; font-weight:bold; text-align:center; font-size:16px;}
+.panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
 
 .panel-content { padding: 10px; }
 .panel-content-not-padded { }
@@ -136,9 +136,14 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 .hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .hotel-dialog form label { display: block; float: left; width: 60px; }
 
+.place-dialog { width: 600px !important; }
 .place-dialog form { padding: 0 !important; }
 .place-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
 .place-dialog form label { display: block; float: left; width: 70px; }
+
+.place-dialog .place-map-container { float: right; width: 300px; margin: 10px 10px 0 0; border: 1px solid #CCC; }
+.place-dialog .place-map { height: 180px; background-color: #EEE; }
+.place-dialog .place-map-caption { padding: 3px; font-size: 12px; text-align: center; background-color: #4DBAFE; color: #FFF; }
 
 .destination-tag-dialog form { padding: 0 !important; }
 .destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }

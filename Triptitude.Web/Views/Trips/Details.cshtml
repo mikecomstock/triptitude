@@ -1,6 +1,7 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name;
-    ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
+    Trip trip = ViewBag.Trip;
+    ViewBag.Title = trip.Name;
+    ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
 }
 @section Scripts {
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -15,20 +16,20 @@
 
     </script>
 }
-@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
+@Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
             <h1>
-                @ViewBag.Trip.Name
+                @trip.Name
             </h1>
         </div>
         <div class="panel-content">
-            <div id="trip-map-container" data-trip-id="@ViewBag.Trip.Id">
+            <div id="trip-map-container" data-trip-id="@trip.Id">
             </div>
-            @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
+            @for (int i = 1; i <= trip.TotalDays; i++)
             {
-                Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
             }
         </div>
     </div>

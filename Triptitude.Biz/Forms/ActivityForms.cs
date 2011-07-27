@@ -48,5 +48,8 @@
         public string Telephone { get; set; }
 
         public string Website { get; set; }
+
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
 }

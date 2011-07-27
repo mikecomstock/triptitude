@@ -22,16 +22,16 @@
         $(this).children('ul').hide();
     });
 
-//    $('.trip-length-slider').slider({
-//        range: true,
-//        values: [2, 10],
-//        min: 1,
-//        max: 20,
-//        step: 1,
-//        slide: function (event, ui) {
-//            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
-//        }
-//    });
+    //    $('.trip-length-slider').slider({
+    //        range: true,
+    //        values: [2, 10],
+    //        min: 1,
+    //        max: 20,
+    //        step: 1,
+    //        slide: function (event, ui) {
+    //            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
+    //        }
+    //    });
 
     /****************/
     /* Hotel Search */
@@ -169,7 +169,7 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-function CreateActivityModal(data, title, dialogClass) {
+function CreateActivityModal(data, title, activityType) {
     var dialog = $(data);
     var activityId = $('[name="activityid"]', dialog).val();
 
@@ -186,7 +186,7 @@ function CreateActivityModal(data, title, dialogClass) {
 
     dialog.dialog({
         title: title,
-        dialogClass: dialogClass + '-dialog',
+        dialogClass: activityType + '-dialog',
         width: 450,
         resizable: false,
         buttons: buttons
@@ -194,6 +194,33 @@ function CreateActivityModal(data, title, dialogClass) {
 
     $('input.day-input').attr('autocomplete', 'off');
     BindDestinationAutocomplete(dialog);
+
+    if (activityType == 'place')
+        drawPlaceDialogMap(dialog);
+}
+
+function drawPlaceDialogMap(dialog) {
+    var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
+    var map = new google.maps.Map($('.place-map', dialog).get(0), myOptions);
+    var bounds = new google.maps.LatLngBounds();
+
+    var marker;
+    var currLat = $('#latitude', dialog).val();
+    var currLng = $('#longitude', dialog).val();
+    if (currLat != '' && currLng != '') {
+        var point = new google.maps.LatLng(currLat, currLng);
+        marker = new google.maps.Marker({ position: point, map: map });
+        bounds.extend(point);
+    }
+    map.fitBounds(bounds);
+    map.setZoom(13);
+
+    google.maps.event.addListener(map, 'click', function (event) {
+        if (marker != null) marker.setMap(null);
+        marker = new google.maps.Marker({ position: event.latLng, map: map });
+        $('#latitude', dialog).val(event.latLng.lat());
+        $('#longitude', dialog).val(event.latLng.lng());
+    });
 }
 
 function drawMap(container, mapData) {

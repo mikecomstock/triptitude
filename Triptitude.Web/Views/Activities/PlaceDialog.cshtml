@@ -7,6 +7,15 @@
 <input type="hidden" name="activityid" value="@form.ActivityId" />
 <input type="hidden" name="factualid" value="@form.FactualId" />
 <input type="hidden" name="placeid" value="@form.PlaceId" />
+@Html.Hidden("latitude", @form.Latitude)
+@Html.Hidden("longitude", @form.Longitude)
+<div class="place-map-container">
+    <div class="place-map">
+        map
+    </div>
+    <div class="place-map-caption">
+        Click map to enter location</div>
+</div>
 @if (string.IsNullOrWhiteSpace(place.FactualId))
 {
     <p>

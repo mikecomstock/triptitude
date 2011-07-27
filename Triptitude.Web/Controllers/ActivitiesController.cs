@@ -329,7 +329,9 @@ namespace Triptitude.Web.Controllers
                 Name = activity.Place.Name,
                 Address = activity.Place.Address,
                 Telephone = activity.Place.Telephone,
-                Website = activity.Place.Website
+                Website = activity.Place.Website,
+                Latitude = activity.Place.Latitude.HasValue ? activity.Place.Latitude.Value.ToString() : string.Empty,
+                Longitude = activity.Place.Longitude.HasValue ? activity.Place.Longitude.Value.ToString() : string.Empty
             };
             ViewBag.Form = form;
             ViewBag.Place = activity.Place;

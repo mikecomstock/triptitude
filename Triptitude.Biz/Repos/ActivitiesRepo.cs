@@ -143,6 +143,8 @@ namespace Triptitude.Biz.Repos
                 place.Address = form.Address;
                 place.Telephone = form.Telephone;
                 place.Website = form.Website;
+                place.Latitude = string.IsNullOrWhiteSpace(form.Latitude) ? (decimal?)null : decimal.Parse(form.Latitude);
+                place.Longitude = string.IsNullOrWhiteSpace(form.Longitude) ? (decimal?)null : decimal.Parse(form.Longitude);
             }
             else
             {
