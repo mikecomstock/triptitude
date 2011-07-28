@@ -3,7 +3,8 @@ using System.Web.Mvc;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
-{ 
+{
+    [Authorize(Users = "1|mikecomstock@gmail.com")]
     public class TagsController : Controller
     {
         private Db db = new Db();
@@ -31,7 +32,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Admin/Tags/Create
@@ -43,15 +44,15 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             {
                 db.Tags.Add(tag);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
 
             return View(tag);
         }
-        
+
         //
         // GET: /Admin/Tags/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
             Tag tag = db.Tags.Find(id);
@@ -62,11 +63,12 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         // POST: /Admin/Tags/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Tag tag)
+        public ActionResult Edit(int id, Tag tag)
         {
             if (ModelState.IsValid)
             {
-                
+                Tag t = db.Tags.Find(id);
+                t.Name = tag.Name;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -75,7 +77,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
 
         //
         // GET: /Admin/Tags/Delete/5
- 
+
         public ActionResult Delete(int id)
         {
             Tag tag = db.Tags.Find(id);
@@ -87,7 +89,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             Tag tag = db.Tags.Find(id);
             db.Tags.Remove(tag);
             db.SaveChanges();
