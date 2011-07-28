@@ -14,7 +14,21 @@
         </div>
         <div class="panel-content">
             <div class="items">
-                @foreach (var item in items)
+                @foreach (var tag in tags.Where(t=>t.Items.Any()))
+                {
+                    <div class="tag-group">
+                        <div class="title">@tag.NiceName</div>
+                        <ul class="items">
+                            @foreach (var item in tag.Items)
+                            {
+                                <li><input type="checkbox" disabled="disabled" /> @item.Name @*<a href="@item.URL">Buy on Amazon</a>*@</li>
+                                
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @*@foreach (var item in items)
                 {
                     <div class="item">
                         @item.Name
@@ -30,7 +44,7 @@
                             }
                         </div>
                     </div>
-                }
+                }*@
             </div>
         </div>
     </div>
