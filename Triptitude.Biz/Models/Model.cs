@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -94,6 +95,7 @@ namespace Triptitude.Biz.Models
         public int EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
 
         // From CityActivities view
         public virtual ICollection<City> Cities { get; set; }
@@ -182,6 +184,7 @@ namespace Triptitude.Biz.Models
         public string Name { get; set; }
         public virtual ICollection<TagActivity> TagActivities { get; set; }
         public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Activity> Activities { get; set; }
 
         public IEnumerable<TagActivity> TagActivitiesToShow
         {
@@ -195,6 +198,11 @@ namespace Triptitude.Biz.Models
 
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
+
+        public string NiceName
+        {
+            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name); }
+        }
     }
 
     public class Item
@@ -360,7 +368,7 @@ namespace Triptitude.Biz.Models
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
         public string Status { get; set; }
-        
+
         public string NiceAddress
         {
             get

@@ -60,6 +60,11 @@
             var placeActivity = activity as PlaceActivity;
         <div class="activity" data-activity-id="@activity.Id" data-activity-type="place" title="Click for details">
             <div class="title">
+                @if (placeActivity.Tags.Any())
+                {
+                    Tag tag = placeActivity.Tags.First();
+                    <a href="@Url.Details(tag)">@tag.NiceName</a>                
+                }
                 @placeActivity.Place.Name
             </div>
         </div>

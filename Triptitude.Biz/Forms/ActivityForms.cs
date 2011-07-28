@@ -6,6 +6,7 @@
         public int TripId { get; set; }
         public int? BeginDay { get; set; }
         public int? EndDay { get; set; }
+        public string TagName { get; set; }
     }
 
     public class TransportationActivityForm : ActivityForm

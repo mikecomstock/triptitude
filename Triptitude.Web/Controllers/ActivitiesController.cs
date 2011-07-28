@@ -324,6 +324,7 @@ namespace Triptitude.Web.Controllers
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
+                TagName = activity.Tags.Any() ? activity.Tags.First().Name : string.Empty,
                 FactualId = activity.Place.FactualId,
                 PlaceId = activity.Place.Id,
                 Name = activity.Place.Name,

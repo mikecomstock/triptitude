@@ -16,6 +16,11 @@
     <div class="place-map-caption">
         Click map to enter location</div>
 </div>
+<p>
+    <label for="tag">
+        Tag</label>
+    @Html.TextBox("tagname", @form.TagName)
+</p>
 @if (string.IsNullOrWhiteSpace(place.FactualId))
 {
     <p>

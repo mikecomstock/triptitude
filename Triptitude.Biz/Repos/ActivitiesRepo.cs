@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
@@ -11,6 +12,20 @@ namespace Triptitude.Biz.Repos
             activity.Trip = new TripsRepo().Find(form.TripId);
             activity.BeginDay = form.BeginDay.Value;
             activity.EndDay = form.EndDay.Value;
+
+            if (activity.Tags != null)
+            {
+                foreach (var tag in activity.Tags.ToList())
+                {
+                    activity.Tags.Remove(tag);
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(form.TagName))
+            {
+                Tag tag = new TagsRepo().FindOrInitializeByName(form.TagName);
+                activity.Tags = new List<Tag> { tag };
+            }
         }
 
         public Activity Save(TransportationActivityForm form)
@@ -138,13 +153,13 @@ namespace Triptitude.Biz.Repos
             if (string.IsNullOrWhiteSpace(form.FactualId))
             {
                 Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
-
                 place.Name = form.Name;
                 place.Address = form.Address;
                 place.Telephone = form.Telephone;
                 place.Website = form.Website;
                 place.Latitude = string.IsNullOrWhiteSpace(form.Latitude) ? (decimal?)null : decimal.Parse(form.Latitude);
                 place.Longitude = string.IsNullOrWhiteSpace(form.Longitude) ? (decimal?)null : decimal.Parse(form.Longitude);
+                activity.Place = place;
             }
             else
             {
