@@ -63,7 +63,7 @@
                 @if (placeActivity.Tags.Any())
                 {
                     Tag tag = placeActivity.Tags.First();
-                    <a href="@Url.Details(tag)">@tag.NiceName</a>                
+                    <text><a href="@Url.Details(tag)">@tag.NiceName</a> at</text>
                 }
                 @placeActivity.Place.Name
             </div>

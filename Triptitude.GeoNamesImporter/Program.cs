@@ -17,7 +17,7 @@ namespace Triptitude.GeoNamesImporter
             //Regions();
             //Cities();
             //HotelsCombined();
-            //BuildSearchIndexes();
+            BuildSearchIndexes();
 
             Console.WriteLine("Done. Press a key to exit.");
             Console.ReadKey(false);

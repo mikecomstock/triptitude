@@ -124,6 +124,7 @@
     <Content Include="Static\Scripts\jquery.placeholder.js" />
     <Content Include="Static\Scripts\triptitude.js" />
     <Content Include="Static\Stylesheets\Site.css" />
+    <None Include="Views\Activities\WorkingOnIt.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
