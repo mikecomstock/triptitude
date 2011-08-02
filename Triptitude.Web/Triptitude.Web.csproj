@@ -207,7 +207,6 @@
     <Content Include="Views\Destinations\Activities.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activities\DestinationTagDialog.cshtml" />
     <Content Include="Views\Activities\HotelDialog.cshtml" />
     <Content Include="Views\Activities\TransportationDialog.cshtml" />
     <Content Include="Views\Activities\WebsiteDialog.cshtml" />
@@ -271,6 +270,12 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  
+  <!-- Added by MC based on http://stackoverflow.com/questions/755645/asp-net-mvc-1-0-afterbuilding-views-fails-on-tfs-build -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>

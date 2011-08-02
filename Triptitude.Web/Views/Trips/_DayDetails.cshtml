@@ -46,15 +46,6 @@
             </div>
         </div>
         }
-        else if (activity is TagActivity)
-        {
-            var tagActivity = activity as TagActivity;
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="activity" title="Click for details">
-            <div class="title">
-                <a href="@Url.Tag(tagActivity.City, tagActivity.Tag)">@tagActivity.Tag.Name in @tagActivity.City.ASCIIName</a>
-            </div>
-        </div>
-        }
         else if (activity is PlaceActivity)
         {
             var placeActivity = activity as PlaceActivity;

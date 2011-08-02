@@ -26,7 +26,6 @@ namespace Triptitude.Biz.Models
         public DbSet<TransportationActivity> TransportationActivities { get; set; }
         public DbSet<HotelActivity> HotelActivities { get; set; }
         public DbSet<WebsiteActivity> WebsiteActivities { get; set; }
-        public DbSet<TagActivity> TagActivities { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
         public DbSet<TransportationType> TransportationTypes { get; set; }

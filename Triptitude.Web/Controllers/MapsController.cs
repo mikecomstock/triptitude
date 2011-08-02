@@ -49,21 +49,6 @@ namespace Triptitude.Web.Controllers
                                           };
             markers.AddRange(placeMarkers);
 
-            var tagActivities = activities.OfType<TagActivity>();
-            var activityMarkers = from a in tagActivities
-                                  let infoTitle = string.Format("<strong>{0} in <a href='{1}'>{2}</a></strong>", a.Tag.Name, Url.Details(a.City), a.City.ShortName)
-                                  let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime)
-                                  let infoHtml = infoTitle + "<br/>" + infoBody
-                                  select new
-                                  {
-                                      Name = a.City.ShortName,
-                                      a.City.Latitude,
-                                      a.City.Longitude,
-                                      InfoHtml = infoHtml,
-                                      ExtendBounds = true
-                                  };
-            markers.AddRange(activityMarkers);
-
             #region Transportation Activities
 
             var transportationActivities = activities.OfType<TransportationActivity>();

@@ -31,7 +31,4 @@ insert into HotelActivities(Id, Hotel_Id) values (SCOPE_IDENTITY(), 74503)
 
 insert into Activities(Trip_Id,BeginDay,EndDay) values (1,3,3)
 insert into WebsiteActivities(Id, URL, Title) values (SCOPE_IDENTITY(), 'http://www.triptitude.com', 'Triptitude.com')
-
-insert into Activities(Trip_Id,BeginDay,EndDay) values (1,4,4)
-insert into TagActivities(Id, Tag_Id, City_GeoNameId) values (SCOPE_IDENTITY(), (select id from Tags where Name = 'Surfing'), 5053511)
 */

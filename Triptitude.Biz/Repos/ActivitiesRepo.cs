@@ -104,33 +104,6 @@ namespace Triptitude.Biz.Repos
             return activity;
         }
 
-        public Activity Save(TagActivityForm form)
-        {
-            TagActivity activity;
-
-            if (form.ActivityId.HasValue)
-            {
-                activity = (TagActivity)Find(form.ActivityId.Value);
-            }
-            else
-            {
-                activity = new TagActivity();
-                Add(activity);
-            }
-
-            SetBaseProperties(activity, form);
-
-            Tag tag = new TagsRepo().FindOrInitializeByName(form.TagName);
-            activity.Tag = tag;
-
-            City city = new CitiesRepo().Find(form.CityId);
-            activity.City = city;
-
-            Save();
-
-            return activity;
-        }
-
         public Activity Save(PlaceActivityForm form)
         {
             PlaceActivity activity;

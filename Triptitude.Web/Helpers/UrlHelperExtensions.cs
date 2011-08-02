@@ -148,17 +148,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("editwebsite", "activities");
         }
-
-
-        public static string ItineraryAddDestinationTag(this UrlHelper url)
-        {
-            return url.Action("adddestinationtag", "activities");
-        }
-        public static string ItineraryEditDestinationTag(this UrlHelper url)
-        {
-            return url.Action("editdestinationtag", "activities");
-        }
-
+        
 
         public static string ItineraryAddPlace(this UrlHelper url)
         {

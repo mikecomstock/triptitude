@@ -152,63 +152,6 @@ namespace Triptitude.Web.Controllers
 
         #endregion
 
-        #region Destination Tags
-
-        public ActionResult AddDestinationTag(User currentUser)
-        {
-            TagActivityForm form = new TagActivityForm { TripId = currentUser.DefaultTrip.Id };
-            ViewBag.Form = form;
-            ViewBag.Action = Url.ItineraryAddDestinationTag();
-            return PartialView("destinationtagdialog");
-        }
-
-        [HttpPost]
-        public ActionResult AddDestinationTag(TagActivityForm form, User currentUser)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
-            activitiesRepo.Save(form);
-            return Redirect(Url.Details(trip));
-        }
-
-        public ActionResult EditDestinationTag(int activityId, User currentUser)
-        {
-            var activity = (TagActivity)activitiesRepo.Find(activityId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
-            TagActivityForm form = new TagActivityForm
-                                          {
-                                              BeginDay = activity.BeginDay,
-                                              EndDay = activity.EndDay,
-                                              ActivityId = activity.Id,
-                                              TripId = activity.Trip.Id,
-                                              CityId = activity.City.GeoNameID,
-                                              CityName = activity.City.FullName,
-                                              TagName = activity.Tag.Name
-                                          };
-            ViewBag.Form = form;
-            ViewBag.Action = Url.ItineraryEditDestinationTag();
-            return PartialView("destinationtagdialog");
-        }
-
-        [HttpPost]
-        public ActionResult EditDestinationTag(TagActivityForm form, User currentUser)
-        {
-            var tagActivity = (TagActivity)activitiesRepo.Find(form.ActivityId.Value);
-            var oldTrip = tagActivity.Trip;
-            var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
-
-            activitiesRepo.Save(form);
-            return Redirect(Url.Details(tagActivity.Trip));
-        }
-
-        #endregion
-
         #region Transportation
 
         public ActionResult AddTransportation(User currentUser)

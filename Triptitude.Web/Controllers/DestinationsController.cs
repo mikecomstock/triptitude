@@ -86,11 +86,12 @@ namespace Triptitude.Web.Controllers
         public ActionResult Search(string term, User currentUser)
         {
             IEnumerable<City> citiesInTrip = new List<City>();
-            if (currentUser.DefaultTrip != null)
-            {
-                var firstTerm = term.Split(' ')[0];
-                citiesInTrip = currentUser.DefaultTrip.Cities.Where(c => c.ShortName.StartsWith(firstTerm, StringComparison.InvariantCultureIgnoreCase));
-            }
+            //TODO: fix this
+            //if (currentUser.DefaultTrip != null)
+            //{
+            //    var firstTerm = term.Split(' ')[0];
+            //    citiesInTrip = currentUser.DefaultTrip.Cities.Where(c => c.ShortName.StartsWith(firstTerm, StringComparison.InvariantCultureIgnoreCase));
+            //}
 
             var tripCities = from t in citiesInTrip
                              select new

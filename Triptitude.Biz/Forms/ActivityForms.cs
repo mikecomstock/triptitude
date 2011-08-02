@@ -30,15 +30,6 @@
         public string Url { get; set; }
     }
 
-    public class TagActivityForm : ActivityForm
-    {
-        public string TagName { get; set; }
-        public int CityId { get; set; }
-
-        // Used only for display purposes
-        public string CityName { get; set; }
-    }
-
     public class PlaceActivityForm : ActivityForm
     {
         public int? PlaceId { get; set; }

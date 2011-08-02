@@ -114,9 +114,6 @@
             case 'website':
                 $.get('/activities/addwebsite', function (data) { CreateActivityModal(data, "Website", "website"); });
                 break;
-            case 'activity':
-                $.get('/activities/adddestinationtag', function (data) { CreateActivityModal(data, "Activity", "destination-tag"); });
-                break;
             case 'place':
                 var placeId = $(this).attr('data-place-id') || '';
                 $.get('/activities/addplace?placeid=' + placeId, function (data) { CreateActivityModal(data, "Place", "place"); });
@@ -138,9 +135,6 @@
                 break;
             case 'website':
                 $.get('/activities/editwebsite?activityid=' + activityId, function (data) { CreateActivityModal(data, "Website", "website"); });
-                break;
-            case 'activity':
-                $.get('/activities/editdestinationtag?activityid=' + activityId, function (data) { CreateActivityModal(data, "Activity", "destination-tag"); });
                 break;
             case 'place':
                 var placeId = $(this).attr('data-place-id');

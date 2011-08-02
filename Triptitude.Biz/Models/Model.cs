@@ -135,13 +135,6 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    [Table("TagActivities")]
-    public class TagActivity : Activity
-    {
-        public virtual Tag Tag { get; set; }
-        public virtual City City { get; set; }
-    }
-
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {
@@ -182,20 +175,9 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<TagActivity> TagActivities { get; set; }
         public virtual ICollection<Item> Items { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
-
-        public IEnumerable<TagActivity> TagActivitiesToShow
-        {
-            get { return TagActivities.Where(ta => ta.Trip.ShowInSite); }
-        }
-
-        public IEnumerable<City> CitiesToShow
-        {
-            get { return TagActivitiesToShow.OrderBy(ta => ta.Cities.Count).Select(ta => ta.City).Distinct(); }
-        }
-
+        
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
 
@@ -299,8 +281,8 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                var tagActivities = Activities.OfType<TagActivity>().Where(ta => ta.Trip.ShowInSite);
-                IEnumerable<Tag> tags = tagActivities.GroupBy(ta => ta.Tag).OrderByDescending(g => g.Count()).Select(g => g.Key);
+                var placeActivities = Activities.OfType<PlaceActivity>().Where(ta => ta.Trip.ShowInSite);
+                IEnumerable<Tag> tags = placeActivities.Select(pa=>pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
                 return tags;
             }
         }
