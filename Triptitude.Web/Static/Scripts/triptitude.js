@@ -1,5 +1,8 @@
 ﻿$(function () {
-    moveScroller();
+    
+    if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
+        moveScroller();
+    }
 
     $('input').placeholder();
 
@@ -170,7 +173,7 @@ function CreateActivityModal(data, title, activityType) {
     if (dialog) {
         dialog.dialog('destroy');
     }
-
+    //$('#super-dialog').html(data);
     dialog = $(data);
     var activityId = $('[name="activityid"]', dialog).val();
 
@@ -188,6 +191,7 @@ function CreateActivityModal(data, title, activityType) {
     dialog.dialog({
         title: title,
         dialogClass: activityType + '-dialog',
+        modal: true,
         width: 450,
         resizable: false,
         position: ['center', 80],

@@ -51,6 +51,8 @@ namespace Triptitude.Web.Controllers
 
             #region Transportation Activities
 
+            var transportationDoesExtendBounds = !markers.Any();
+
             var transportationActivities = activities.OfType<TransportationActivity>();
             var toMarkers = from a in transportationActivities
                             let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
@@ -62,7 +64,7 @@ namespace Triptitude.Web.Controllers
                                            a.ToCity.Latitude,
                                            a.ToCity.Longitude,
                                            InfoHtml = infoHtml,
-                                           ExtendBounds = false
+                                           ExtendBounds = transportationDoesExtendBounds
                                        };
             markers.AddRange(toMarkers);
 
@@ -76,7 +78,7 @@ namespace Triptitude.Web.Controllers
                                              a.FromCity.Latitude,
                                              a.FromCity.Longitude,
                                              InfoHtml = infoHtml,
-                                             ExtendBounds = false
+                                             ExtendBounds = transportationDoesExtendBounds
                                          };
             markers.AddRange(fromMarkers);
 

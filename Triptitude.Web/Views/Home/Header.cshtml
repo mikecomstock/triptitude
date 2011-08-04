@@ -48,7 +48,6 @@
 </div>
 @if (currentUser.DefaultTrip != null)
 {     
-    
     <div id="trip-bar-container">
         <div id="trip-bar">
             <div id="trip-bar-menu">
@@ -74,6 +73,7 @@
                     You'll lose your trip unless you <a href="@Url.MySettings()">create an account</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
                 </div>
             }
+            <div id="super-dialog"></div>
         </div>
     </div>
 }

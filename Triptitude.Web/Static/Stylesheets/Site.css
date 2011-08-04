@@ -60,7 +60,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 /* Tripbar */
 #trip-bar-container { z-index:5; margin-top:10px; }
 #trip-bar-container.at-top { position:fixed; top:0; left:0; right:0; background-color: #262626; margin:0;}
-#trip-bar { width: 955px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); -moz-border-radius: 7px; }
+#trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); -moz-border-radius: 7px; }
 #trip-bar #create-trip-form {margin-top: 5px;}
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
@@ -78,6 +78,8 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
+
+#super-dialog { visibility:hidden; position:absolute; z-index:5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; height: 200px; background-color: #262626; -moz-border-radius:10px; }
 
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }
