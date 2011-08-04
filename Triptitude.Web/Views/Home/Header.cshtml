@@ -44,16 +44,11 @@
         </div>
     </div>
 </div>
-<div id="header-height-fill">
+<div id="scrollanchor">
 </div>
-@if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
-{
-    <div id="email-warning">
-        You'll lose your trip unless you <a href="@Url.MySettings()">create an account</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
-    </div>
-}
 @if (currentUser.DefaultTrip != null)
 {     
+    
     <div id="trip-bar-container">
         <div id="trip-bar">
             <div id="trip-bar-menu">
@@ -73,6 +68,12 @@
             <div id="trip-bar-title">
                 @currentUser.DefaultTrip.Name
             </div>
+            @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
+            {
+                <div id="email-warning">
+                    You'll lose your trip unless you <a href="@Url.MySettings()">create an account</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
+                </div>
+            }
         </div>
     </div>
 }

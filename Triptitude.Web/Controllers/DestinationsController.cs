@@ -36,8 +36,8 @@ namespace Triptitude.Web.Controllers
         {
             IDestination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
-            if (destination is City)
-                ViewBag.Trips = (destination as City).Activities.Select(a => a.Trip).Where(t => t.ShowInSite).Distinct();
+            //if (destination is City)
+            //    ViewBag.Trips = (destination as City).Activities.Select(a => a.Trip).Where(t => t.ShowInSite).Distinct();
             return View();
         }
 

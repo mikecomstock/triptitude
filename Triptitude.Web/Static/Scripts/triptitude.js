@@ -1,4 +1,5 @@
 ﻿$(function () {
+    moveScroller();
 
     $('input').placeholder();
 
@@ -189,7 +190,7 @@ function CreateActivityModal(data, title, activityType) {
         dialogClass: activityType + '-dialog',
         width: 450,
         resizable: false,
-        position: ['center',80],
+        position: ['center', 80],
         buttons: buttons
     });
 
@@ -273,4 +274,25 @@ function drawMap(container, mapData) {
     });
 
     map.fitBounds(bounds);
+}
+
+function moveScroller() {
+    var a = function () {
+        var b = $(window).scrollTop();
+        var sa = $("#scrollanchor");
+        var d = sa.offset().top;
+        var c = $("#trip-bar-container");
+        if (b > d) {
+            var height = c.outerHeight(true);
+            sa.css({ height: height + "px" });
+            c.addClass('at-top');
+        } else {
+            if (b <= d) {
+                c.removeClass('at-top');
+                sa.css({ height: "0" });
+            }
+        }
+    };
+    $(window).scroll(a);
+    a();
 }
