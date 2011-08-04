@@ -163,8 +163,14 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
+var dialog;
+
 function CreateActivityModal(data, title, activityType) {
-    var dialog = $(data);
+    if (dialog) {
+        dialog.dialog('destroy');
+    }
+
+    dialog = $(data);
     var activityId = $('[name="activityid"]', dialog).val();
 
     var buttons = [];
@@ -183,6 +189,7 @@ function CreateActivityModal(data, title, activityType) {
         dialogClass: activityType + '-dialog',
         width: 450,
         resizable: false,
+        position: ['center',80],
         buttons: buttons
     });
 
