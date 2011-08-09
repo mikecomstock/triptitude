@@ -16,7 +16,7 @@
     </style>
     <link href="@Url.Static("stylesheets/Site.css")" rel="stylesheet" type="text/css" />
 </head>
-<body class="@((((string)ViewContext.RouteData.DataTokens["area"]) ?? string.Empty).ToLower()) @ViewContext.Controller.ValueProvider.GetValue("controller").RawValue @ViewContext.Controller.ValueProvider.GetValue("action").RawValue">
+<body class="@Html.RouteCss()">
     <div class="fader">
         &nbsp;</div>
     <div id="background">

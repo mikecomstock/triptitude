@@ -45,7 +45,7 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public DateTime Created_On { get; set; }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSiteMap { get; set; }
@@ -177,7 +177,7 @@ namespace Triptitude.Biz.Models
         public string Name { get; set; }
         public virtual ICollection<Item> Items { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
-        
+
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
 
@@ -191,7 +191,9 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string URL { get; set; }
+        public string LinkURL { get; set; }
+        public string ImageURL { get; set; }
+        public string ASIN { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
 
@@ -282,7 +284,7 @@ namespace Triptitude.Biz.Models
             get
             {
                 var placeActivities = Activities.OfType<PlaceActivity>().Where(ta => ta.Trip.ShowInSite);
-                IEnumerable<Tag> tags = placeActivities.Select(pa=>pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
+                IEnumerable<Tag> tags = placeActivities.Select(pa => pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
                 return tags;
             }
         }

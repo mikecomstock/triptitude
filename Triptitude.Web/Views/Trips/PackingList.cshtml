@@ -14,20 +14,32 @@
         </div>
         <div class="panel-content">
             <div class="items">
-                @foreach (var tag in tags.Where(t=>t.Items.Any()))
+                @foreach (var tag in tags.Where(t => t.Items.Any()))
                 {
                     <div class="tag-group">
                         <div class="title">@tag.NiceName</div>
                         <ul class="items">
                             @foreach (var item in tag.Items)
                             {
-                                <li><input type="checkbox" disabled="disabled" /> @item.Name @*<a href="@item.URL">Buy on Amazon</a>*@</li>
+                                <li>
+                                    <input type="checkbox" disabled="disabled" />
+                                    @if (!string.IsNullOrWhiteSpace(item.ASIN))
+                                    {
+                                        <span><a href="@Url.ASINLink(item.ASIN)">@item.Name</a> </span>
+                                        <img src="@Url.ASINSmallImage(item.ASIN)" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            @item.Name
+                                        </span>
+                                    }
+                                </li>
                                 
                             }
                         </ul>
                     </div>
                 }
-
                 @*@foreach (var item in items)
                 {
                     <div class="item">

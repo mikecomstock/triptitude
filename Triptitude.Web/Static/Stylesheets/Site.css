@@ -4,13 +4,16 @@ h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: Trebuchet MS,Liberation
 h1 { font-size: 24px; }
 a, a:visited, a:hover, .link { color: #0077CC; text-decoration: none; cursor: pointer; }
 a:hover, .link:hover { text-decoration: underline; }
+a:focus { text-decoration: underline; outline: none; }
 img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
 
 /* Admin */
-.admin #content { background-color: #FFF; }
+.admin #content { background-color: #FFF; padding: 10px; }
 .admin #content tr:nth-child(odd) { background-color: #EEE; }
+.admin h2 { margin: 10px 0; }
+
 /* Utilities */
 .clear { clear: both; display: block; height: 0; overflow: hidden; visibility: hidden; width: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
@@ -38,7 +41,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #header-container { background-color: #262626; z-index: 5; }
 
 #header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
-#email-warning { background-color: #FE9FAA; font-size: 14px; text-align: center; padding: 3px; color: #000; font-weight: bold; -moz-border-radius: 4px; margin-top:3px; }
+#email-warning { background-color: #FE9FAA; font-size: 14px; text-align: center; padding: 3px; color: #000; font-weight: bold; -moz-border-radius: 4px; margin-top: 3px; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; -moz-border-radius: 0 0 7px 7px; background: -moz-linear-gradient(top,  #39B3FE,  #0190E9); }
 
 /* Search */
@@ -58,10 +61,10 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
 
 /* Tripbar */
-#trip-bar-container { z-index:5; margin-top:10px; }
-#trip-bar-container.at-top { position:fixed; top:0; left:0; right:0; background-color: #262626; margin:0;}
+#trip-bar-container { z-index: 5; margin-top: 10px; }
+#trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); -moz-border-radius: 7px; }
-#trip-bar #create-trip-form {margin-top: 5px;}
+#trip-bar #create-trip-form { margin-top: 5px; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 
@@ -79,7 +82,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
 
-#super-dialog { visibility:hidden; position:absolute; z-index:5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; height: 200px; background-color: #262626; -moz-border-radius:10px; }
+#super-dialog { visibility: hidden; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; height: 200px; background-color: #262626; -moz-border-radius: 10px; }
 
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }

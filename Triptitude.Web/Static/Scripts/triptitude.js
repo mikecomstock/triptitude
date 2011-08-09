@@ -1,10 +1,11 @@
 ﻿$(function () {
-    
+
     if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
         moveScroller();
     }
 
     $('input').placeholder();
+    $('.focus').first().focus();
 
     BindDestinationAutocomplete(null);
 

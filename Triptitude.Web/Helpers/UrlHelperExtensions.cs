@@ -9,6 +9,19 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
+        #region Amazon
+        public static string ASINLink(this UrlHelper url, string ASIN)
+        {
+            return string.Format("http://www.amazon.com/exec/obidos/ASIN/{0}/madbook-20", ASIN);
+        }
+
+        public static string ASINSmallImage(this UrlHelper url, string ASIN)
+        {
+            return string.Format("http://images.amazon.com/images/P/{0}.01.THUMBZZZ.jpg", ASIN);
+        }
+
+        #endregion
+
         public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name)
         {
             return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });
@@ -39,19 +52,9 @@ namespace Triptitude.Web.Helpers
 
         #region Admin
 
-        public static string Admin(this UrlHelper url, Trip trip)
+        public static string Admin(this UrlHelper url, string controller, string actionName, object id = null)
         {
-            return url.Action("trips", "admin", new { trip.Id });
-        }
-
-        public static string Admin(this UrlHelper url, Tag tag)
-        {
-            return url.Action("tag", "admin", new { tag.Id });
-        }
-
-        public static string Admin(this UrlHelper url, Item item)
-        {
-            return url.Action("item", "admin", new { item.Id });
+            return url.Action(actionName, "admin" + controller, new { id }, null);
         }
 
         #endregion
@@ -148,7 +151,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("editwebsite", "activities");
         }
-        
+
 
         public static string ItineraryAddPlace(this UrlHelper url)
         {

@@ -42,6 +42,12 @@
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib">
+      <HintPath>..\packages\MvcContrib.Mvc3-ci.3.0.81.0\lib\MvcContrib.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -88,7 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\TagsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminTagsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminTripsController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
@@ -124,6 +132,9 @@
     <Content Include="Static\Scripts\jquery.placeholder.js" />
     <Content Include="Static\Scripts\triptitude.js" />
     <Content Include="Static\Stylesheets\Site.css" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
     <None Include="Views\Activities\WorkingOnIt.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -239,19 +250,13 @@
     <Content Include="Views\Admin\Item.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Tags\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTags\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Tags\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTags\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Tags\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Tags\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Tags\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTags\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Destinations\Places.cshtml" />
@@ -270,12 +275,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-  
   <!-- Added by MC based on http://stackoverflow.com/questions/755645/asp-net-mvc-1-0-afterbuilding-views-fails-on-tfs-build -->
   <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>
-
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>

@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Admin Trips";
+}
+<h1>
+    Admin Trips</h1>
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            User
+        </th>
+        <th>
+            Created On
+        </th>
+        <th>
+            Moderated
+        </th>
+        <th>
+            Show In Site
+        </th>
+        <th>
+            Show In Sitemap
+        </th>
+    </tr>
+    @foreach (Trip trip in ViewBag.Trips)
+    {
+        <tr>
+            <td>
+                @trip.Id
+            </td>
+            <td>
+                <a href="@Url.Admin("trips", "details", trip.Id)">@trip.Name</a>
+            </td>
+            <td>
+                @trip.Created_On
+            </td>
+            <td>
+                @trip.User.Email
+            </td>
+            <td>
+                @trip.Moderated
+            </td>
+            <td>
+                @trip.ShowInSite
+            </td>
+            <td>
+                @trip.ShowInSiteMap
+            </td>
+        </tr>
+    }
+</table>
