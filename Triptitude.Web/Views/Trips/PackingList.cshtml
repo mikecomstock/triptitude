@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name;
+    ViewBag.Title = @ViewBag.Trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
     var items = (IEnumerable<Item>)ViewBag.Items;
     var tags = (IEnumerable<Tag>)ViewBag.Tags;
@@ -18,7 +18,7 @@
     <div class="panel">
         <div class="panel-title">
             <h1>
-                @ViewBag.Trip.Name - Packing List
+                @ViewBag.Title
             </h1>
         </div>
         <div class="panel-content">

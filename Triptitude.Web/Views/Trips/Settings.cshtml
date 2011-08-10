@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Trip Settings";
+    ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
 }
 @section Scripts{
     <script type="text/javascript">
@@ -11,7 +11,8 @@
     <div class="panel">
         <div class="panel-title">
             <h1>
-                Settings</h1>
+                @ViewBag.Title
+            </h1>
         </div>
         <div class="panel-content">
             <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form">

@@ -1,6 +1,6 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
-    ViewBag.Title = trip.Name;
+    ViewBag.Title = trip.Name + " - Itinerary";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
 }
 @section Scripts {
@@ -21,7 +21,7 @@
     <div class="panel">
         <div class="panel-title">
             <h1>
-                @trip.Name
+                @ViewBag.Title
             </h1>
         </div>
         <div class="panel-content">
