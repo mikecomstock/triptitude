@@ -4,60 +4,49 @@
     var items = (IEnumerable<Item>)ViewBag.Items;
     var tags = (IEnumerable<Tag>)ViewBag.Tags;
 }
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('.items').each(function () {
+                $('li', this).equalHeights();
+            });
+        });
+    </script>
+}
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
             <h1>
-                @ViewBag.Trip.Name
+                @ViewBag.Trip.Name - Packing List
             </h1>
         </div>
         <div class="panel-content">
-            <div class="items">
-                @foreach (var tag in tags.Where(t => t.Items.Any()))
-                {
-                    <div class="tag-group">
-                        <div class="title">@tag.NiceName</div>
-                        <ul class="items">
-                            @foreach (var item in tag.Items)
-                            {
-                                <li>
-                                    <input type="checkbox" disabled="disabled" />
-                                    @if (!string.IsNullOrWhiteSpace(item.ASIN))
-                                    {
-                                        <span><a href="@Url.ASINLink(item.ASIN)">@item.Name</a> </span>
-                                        <img src="@Url.ASINSmallImage(item.ASIN)" alt="" />
-                                    }
-                                    else
-                                    {
-                                        <span>
-                                            @item.Name
-                                        </span>
-                                    }
-                                </li>
-                                
-                            }
-                        </ul>
-                    </div>
-                }
-                @*@foreach (var item in items)
-                {
-                    <div class="item">
-                        @item.Name
-                        @if (!string.IsNullOrWhiteSpace(item.URL))
+            @foreach (var tag in tags.Where(t => t.Items.Any()))
+            {
+                <div class="tag-group">
+                    <div class="title">@tag.NiceName</div>
+                    <ul class="items">
+                        @foreach (var item in tag.Items)
                         {
-                            <a href="@item.URL">Buy on Amazon</a>
+                            <li>
+                                @if (!string.IsNullOrWhiteSpace(item.DetailPageURL))
+                                {
+                                    <a class="name" href="@item.DetailPageURL" target="_blank">@item.Name</a>
+                                }
+                                else
+                                {
+                                    <span class="name">@item.Name</span>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(item.SmallImageURL))
+                                {
+                                    <img height="@item.SmallImageHeight" width="@item.SmallImageWidth" src="@item.SmallImageURL" alt="" />
+                                }
+                            </li>                   
                         }
-                        <div class="item-tags">
-                            Tags:
-                            @foreach (var tag in tags.Where(t => t.Items.Contains(item)))
-                            {
-                                <a href="@Url.Details(tag)">@tag.Name</a>
-                            }
-                        </div>
-                    </div>
-                }*@
-            </div>
+                    </ul>
+                </div>
+            }
         </div>
     </div>
 </div>

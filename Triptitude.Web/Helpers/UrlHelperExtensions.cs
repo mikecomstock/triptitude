@@ -9,19 +9,6 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
-        #region Amazon
-        public static string ASINLink(this UrlHelper url, string ASIN)
-        {
-            return string.Format("http://www.amazon.com/exec/obidos/ASIN/{0}/madbook-20", ASIN);
-        }
-
-        public static string ASINSmallImage(this UrlHelper url, string ASIN)
-        {
-            return string.Format("http://images.amazon.com/images/P/{0}.01.THUMBZZZ.jpg", ASIN);
-        }
-
-        #endregion
-
         public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name)
         {
             return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Services;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
 {
@@ -59,11 +60,22 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             {
                 Item i = new Item
                              {
-                                 Name = form["newitem.Name"],
-                                 LinkURL = form["newitem.LinkURL"],
-                                 ImageURL = form["newitem.ImageURL"],
-                                 ASIN = form["newitem.ASIN"]
+                                 Name = form["newitem.Name"].Trim(),
+                                 DetailPageURL = form["newitem.DetailPageURL"].Trim(),
+                                 SmallImageURL = form["newitem.SmallImageURL"].Trim(),
+                                 ASIN = form["newitem.ASIN"].Trim()
                              };
+
+                if (!string.IsNullOrWhiteSpace(i.ASIN))
+                {
+                    var amazonService = new AmazonService();
+                    var product = amazonService.Find(i.ASIN);
+                    i.DetailPageURL = product.DetailPageURL;
+                    i.SmallImageURL = product.SmallImageURL;
+                    i.SmallImageHeight = product.SmallImageHeight;
+                    i.SmallImageWidth = product.SmallImageWidth;
+                }
+
                 t.Items.Add(i);
                 db.SaveChanges();
                 return RedirectToAction("edit", new { id });

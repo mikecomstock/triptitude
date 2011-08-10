@@ -191,9 +191,11 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string LinkURL { get; set; }
-        public string ImageURL { get; set; }
         public string ASIN { get; set; }
+        public string DetailPageURL { get; set; }
+        public string SmallImageURL { get; set; }
+        public decimal? SmallImageHeight { get; set; }
+        public decimal? SmallImageWidth { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
 

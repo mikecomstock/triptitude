@@ -61,6 +61,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -101,6 +103,12 @@
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
+    <Compile Include="Service References\Amazon.PAAPI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AmazonService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Repos\CountriesRepo.cs" />
     <Compile Include="Services\EmailService.cs" />
@@ -111,9 +119,78 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.BrowseNodeLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartAddResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartClearResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartCreateResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartGetResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartModifyResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CustomerContentLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CustomerContentSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.HelpResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ItemLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ItemSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ListLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ListSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.MultiOperationResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerListingLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerListingSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SimilarityLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.TagLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.TransactionLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehiclePartLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehiclePartSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehicleSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\AWSECommerceService.wsdl" />
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.BrowseNodeLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartAddResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartClearResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartCreateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartGetResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartModifyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.ItemLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.ItemSearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.SimilarityLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Amazon.PAAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
