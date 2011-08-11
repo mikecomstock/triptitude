@@ -110,6 +110,11 @@ namespace Triptitude.Web.Helpers
 
         #region Itinerary Items
 
+        public static string Delete(this UrlHelper url, int activityId)
+        {
+            return url.Action("delete", "activities", new { id = activityId });
+        }
+
         public static string ItineraryAddHotel(this UrlHelper url)
         {
             return url.Action("addhotel", "activities");

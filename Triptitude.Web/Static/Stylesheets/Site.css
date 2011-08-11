@@ -2,7 +2,7 @@
 body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 13px; margin: 0; background-color: #000000; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
 h1 { font-size: 24px; }
-a, a:visited, a:hover, .link { color: #0077CC; text-decoration: none; cursor: pointer; }
+a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
 a:hover, .link:hover { text-decoration: underline; }
 a:focus { text-decoration: underline; outline: none; }
 img { border: none; }
@@ -21,7 +21,7 @@ input.day-input { width: 30px; }
 
 /* Form Defaults */
 input[type="text"] { font-size: 14px; }
-input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 
 /* Panel Form Defaults */
 .panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
@@ -48,7 +48,7 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #search { float: right; margin: 10px 10px 10px 30px; }
 #search form { -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
 #search input[type="text"] { font-size: 16px; padding: 4px; border: none; width: 200px; }
-#search input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #FFFFFF; margin-left: -6px; }
+#search input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #000; margin-left: -6px; }
 
 /* User status */
 #user-status { color: #FFFFFF; float: right; text-align: right; margin: 10px; }
@@ -61,14 +61,14 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
 
 /* Tripbar */
-#trip-bar-container { z-index: 5; margin-top: 10px; }
+#trip-bar-container { z-index: 5; margin-top: 10px; position:relative; }
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); -moz-border-radius: 7px; }
 #trip-bar #create-trip-form { margin-top: 5px; }
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 
-#trip-bar-menu { float: right; clear: both; }
+#trip-bar-menu { float: right; clear: both; z-index: 6; position:relative; }
 #trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
 #trip-bar-menu a:hover, #trip-bar-menu .link:hover { text-decoration: none !important; }
 #trip-bar-menu a span { color: #BBB; font-weight: normal; display: block; padding: 5px 15px 15px 15px; font-size: 14px; }
@@ -81,8 +81,6 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 #trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
-
-#super-dialog { visibility: hidden; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; height: 200px; background-color: #262626; -moz-border-radius: 10px; }
 
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; clear: both; }
@@ -125,39 +123,18 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 
 
 /* Dialogs */
-.ui-dialog { background: none; padding: 0; -moz-border-radius: 6px; -moz-box-shadow: 0px 0px 80px rgba(0, 0, 0, 1); background-color: #FFFFFF; }
-.ui-dialog-titlebar { background: none; background-color: #E9BA26; border: none; -moz-border-radius: 5px 5px 0 0; padding: 15px !important; font-size: 14px; }
-.ui-dialog-content { overflow: visible !important; padding: 20px !important; }
-.ui-dialog-buttonpane { border: none !important; margin: 0 !important; padding: 15px !important; }
-.ui-widget-overlay { opacity: 0.5; }
+#super-dialog { display: none; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; background-color: #262626; -moz-border-radius: 10px; color: #000; -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 1);}
+#super-dialog-overlay { background: #FFF; position:fixed; top:0; left:0; bottom:0; right:0; z-index:2; opacity: 0.8; display:none;}
+#super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #EEE; border-top: 0; position:absolute; right:55px; top: -20px; }
+#super-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
+#super-dialog form label { display: block; float: left; width: 60px; }
+#super-dialog .buttons { text-align: right; }
+#super-dialog .buttons .delete { float: left; background-color: #E92553; }
+#super-dialog .place-map-container { float: right; width: 350px; border: 10px solid #EEE; }
+#super-dialog .place-map { height: 210px; background-color: #EEE; border: 1px solid #CCC; }
+#super-dialog .place-map-caption { padding: 3px; font-size: 12px; text-align: center; background-color: #0190E9; color: #FFF; }
+#super-dialog input.destination-autocomplete { width: 300px; }
 
-.transportation-dialog form { padding: 0 !important; }
-.transportation-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.transportation-dialog form label { display: block; float: left; width: 50px; }
-.transportation-dialog form input.destination-autocomplete { width: 300px; }
-
-.website-dialog form { padding: 0 !important; }
-.website-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.website-dialog form label { display: block; float: left; width: 100px; }
-.website-dialog form #url { width: 300px; }
-
-.hotel-dialog form { padding: 0 !important; }
-.hotel-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.hotel-dialog form label { display: block; float: left; width: 60px; }
-
-.place-dialog { width: 600px !important; }
-.place-dialog form { padding: 0 !important; }
-.place-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.place-dialog form label { display: block; float: left; width: 70px; }
-
-.place-dialog .place-map-container { float: right; width: 300px; margin: 10px 10px 0 0; border: 1px solid #CCC; }
-.place-dialog .place-map { height: 180px; background-color: #EEE; }
-.place-dialog .place-map-caption { padding: 3px; font-size: 12px; text-align: center; background-color: #4DBAFE; color: #FFF; }
-
-.destination-tag-dialog form { padding: 0 !important; }
-.destination-tag-dialog form p { background-color: #EEE; border-bottom: 1px solid #CCC; margin: 0; padding: 10px 15px !important; }
-.destination-tag-dialog form label { display: block; float: left; width: 120px; }
-.destination-tag-dialog form input.destination-autocomplete { width: 280px; }
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }
@@ -246,11 +223,11 @@ input[type="submit"] { font-size: 14px; padding: 5px; border: none; color: #FFFF
 /* Trips */
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
 .trips.details .trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
-.trips.details .trip-day > h3 { padding: 3px 6px; background: #4DBAFE; color: #FFF; }
+.trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
 .trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity { overflow: auto; cursor: pointer; }
 .trips.details .activity:hover { background-color: #EEE; }
-.trips.details .activity + .activity { border-top: 1px dashed #4DBAFE; }
+.trips.details .activity + .activity { border-top: 1px dashed #0190E9; }
 .trips.details .activity img { float: right; margin: 10px; }
 
 .trips.map #trip-map-container { width: 100%; height: 500px; }

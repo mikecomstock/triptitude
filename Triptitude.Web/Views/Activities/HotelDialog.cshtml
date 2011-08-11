@@ -18,4 +18,12 @@
     thru
     <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
 </p>
+<p class="buttons">
+    @if (form.ActivityId.HasValue)
+    {
+        <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
+    }
+    <input type="button" value="Cancel" class="cancel" />
+    <input type="submit" value="Save" />
+</p>
 </form>

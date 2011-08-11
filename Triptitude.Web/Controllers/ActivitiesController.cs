@@ -23,9 +23,9 @@ namespace Triptitude.Web.Controllers
             transportationTypesRepo = new TransportationTypesRepo();
         }
 
-        public ActionResult Delete(int activityId, User currentUser)
+        public ActionResult Delete(int id, User currentUser)
         {
-            var activity = activitiesRepo.Find(activityId);
+            var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");

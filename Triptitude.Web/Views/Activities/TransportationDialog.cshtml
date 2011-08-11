@@ -8,7 +8,7 @@
 <p>
     <label for="fromcityname">
         From</label>
-    <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete" value="@form.FromCityName" />
+    <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete focus" value="@form.FromCityName" />
     <input type="hidden" id="fromcityid" name="fromcityid" value="@form.FromCityId" />
 </p>
 <p>
@@ -29,5 +29,13 @@
     <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
     thru
     <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+</p>
+<p class="buttons">
+    @if (form.ActivityId.HasValue)
+    {
+        <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
+    }
+    <input type="button" value="Cancel" class="cancel" />
+    <input type="submit" value="Save" />
 </p>
 </form>

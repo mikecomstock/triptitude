@@ -1,18 +1,16 @@
-﻿$(function () {
+﻿var superDialog;
+
+$(function () {
 
     if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
         moveScroller();
     }
-        
+
     $('input').placeholder();
     $('.focus').first().focus();
 
     BindDestinationAutocomplete(null);
 
-    $('.confirm-delete').click(function (e) {
-        var test = confirm('Delete?');
-        if (!test) { e.preventDefault(); }
-    });
 
     $('#search').submit(function (e) {
         var destinationId = $('input[name="destinationid"]', $(this)).val();
@@ -27,6 +25,7 @@
         $(this).children('ul').hide();
     });
 
+
     //    $('.trip-length-slider').slider({
     //        range: true,
     //        values: [2, 10],
@@ -37,6 +36,26 @@
     //            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
     //        }
     //    });
+
+
+    /****************/
+    /* Super Dialog */
+    /****************/
+
+    superDialog = $('#super-dialog');
+    superDialogOverlay = $('#super-dialog-overlay');
+    $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
+    $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
+
+    $('.confirm-delete').live('click', function (e) {
+        var test = confirm('Delete?');
+        if (test) {
+            var data_url = $(this).attr('data-url');
+            window.location.replace(data_url);
+        } else {
+            e.preventDefault();
+        }
+    });
 
     /****************/
     /* Hotel Search */
@@ -168,52 +187,29 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-var dialog;
-
 function CreateActivityModal(data, title, activityType) {
-    if (dialog) {
-        dialog.dialog('destroy');
-    }
-    //$('#super-dialog').html(data);
-    dialog = $(data);
-    var activityId = $('[name="activityid"]', dialog).val();
 
-    var buttons = [];
-    if (activityId) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/activities/delete?activityid=" + activityId
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
+    $('#trip-bar-menu li').children('ul').hide();
 
-    dialog.dialog({
-        title: title,
-        dialogClass: activityType + '-dialog',
-        modal: true,
-        width: 450,
-        resizable: false,
-        position: ['center', 80],
-        buttons: buttons
-    });
-
-    $('input.day-input').attr('autocomplete', 'off');
-    BindDestinationAutocomplete(dialog);
+    $('.content', superDialog).html(data);
+    superDialog.show();
+    superDialogOverlay.show();
+    $('.focus', superDialog).focus();
+    $('input.day-input', superDialog).attr('autocomplete', 'off');
+    BindDestinationAutocomplete(superDialog);
 
     if (activityType == 'place')
-        drawPlaceDialogMap(dialog);
+        drawPlaceDialogMap();
 }
 
-function drawPlaceDialogMap(dialog) {
+function drawPlaceDialogMap() {
     var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
-    var map = new google.maps.Map($('.place-map', dialog).get(0), myOptions);
+    var map = new google.maps.Map($('.place-map', superDialog).get(0), myOptions);
     var bounds = new google.maps.LatLngBounds();
 
     var marker;
-    var currLat = $('#latitude', dialog).val();
-    var currLng = $('#longitude', dialog).val();
+    var currLat = $('#latitude', superDialog).val();
+    var currLng = $('#longitude', superDialog).val();
     if (currLat != '' && currLng != '') {
         var point = new google.maps.LatLng(currLat, currLng);
         marker = new google.maps.Marker({ position: point, map: map });
@@ -225,8 +221,8 @@ function drawPlaceDialogMap(dialog) {
     google.maps.event.addListener(map, 'click', function (event) {
         if (marker != null) marker.setMap(null);
         marker = new google.maps.Marker({ position: event.latLng, map: map });
-        $('#latitude', dialog).val(event.latLng.lat());
-        $('#longitude', dialog).val(event.latLng.lng());
+        $('#latitude', superDialog).val(event.latLng.lat());
+        $('#longitude', superDialog).val(event.latLng.lng());
     });
 }
 
