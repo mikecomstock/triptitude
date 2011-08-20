@@ -68,19 +68,19 @@ namespace Triptitude.Biz.Models
             get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
         }
 
-        public IEnumerable<City> Cities
-        {
-            get
-            {
-                IEnumerable<City> cities = Activities.SelectMany(a => a.Cities).ToList();
-                IEnumerable<City> grouped = from c in cities
-                                            group c by c into grp
-                                            let count = grp.Count()
-                                            orderby count
-                                            select grp.Key;
-                return grouped;
-            }
-        }
+        //public IEnumerable<City> Cities
+        //{
+        //    get
+        //    {
+        //        IEnumerable<City> cities = Activities.SelectMany(a => a.Cities).ToList();
+        //        IEnumerable<City> grouped = from c in cities
+        //                                    group c by c into grp
+        //                                    let count = grp.Count()
+        //                                    orderby count
+        //                                    select grp.Key;
+        //        return grouped;
+        //    }
+        //}
     }
 
     #region Activities
@@ -98,7 +98,7 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<Tag> Tags { get; set; }
 
         // From CityActivities view
-        public virtual ICollection<City> Cities { get; set; }
+     //   public virtual ICollection<City> Cities { get; set; }
     }
 
     [Table("TransportationActivities")]
@@ -268,8 +268,8 @@ namespace Triptitude.Biz.Models
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public virtual Region Region { get; set; }
+        // Not sure what this is from in the DB anymore... 8/19/2011
         public virtual IQueryable<Tag> Tags { get; set; }
-        public virtual ICollection<Activity> Activities { get; set; }
 
         public string FullName
         {
@@ -285,9 +285,10 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                var placeActivities = Activities.OfType<PlaceActivity>().Where(ta => ta.Trip.ShowInSite);
-                IEnumerable<Tag> tags = placeActivities.Select(pa => pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
-                return tags;
+                //var placeActivities = Activities.OfType<PlaceActivity>().Where(ta => ta.Trip.ShowInSite);
+                //IEnumerable<Tag> tags = placeActivities.Select(pa => pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
+                //return tags;
+                return null;
             }
         }
     }

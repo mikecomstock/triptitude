@@ -8,6 +8,19 @@ namespace Triptitude.Biz.Repos
 {
     public class TripsRepo : Repo<Trip>
     {
+        public IEnumerable<Trip> Search(TripSearchForm form)
+        {
+            int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
+
+            const string sql = @"select distinct t.* from PlacesNear(@p0,@p1,@p2) pn
+join PlaceActivities pa on pn.place_id = pa.Place_Id
+join Activities a on pa.Id = a.Id
+join Trips t on a.Trip_Id = t.Id
+";
+            var trips = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
+            return trips;
+        }
+
         public Trip Save(CreateTripForm form, User currentUser)
         {
             Trip trip = Generate(form, currentUser);

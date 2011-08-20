@@ -36,8 +36,14 @@ namespace Triptitude.Web.Controllers
         {
             IDestination destination = destinationsRepo.Find(id);
             ViewBag.Destination = destination;
-            //if (destination is City)
-            //    ViewBag.Trips = (destination as City).Activities.Select(a => a.Trip).Where(t => t.ShowInSite).Distinct();
+            if (destination is City)
+            {
+                City city = destination as City;
+                TripsRepo tripsRepo = new TripsRepo();
+                var trips = tripsRepo.Search(new TripSearchForm { Latitude = city.Latitude, Longitude = city.Longitude, RadiusInMiles = 50 });
+                trips = trips.Where(t => t.ShowInSite);
+                ViewBag.Trips = trips;
+            }
             return View();
         }
 
@@ -75,10 +81,6 @@ namespace Triptitude.Web.Controllers
             ViewBag.Destination = city;
             var placeSearchForm = new PlaceSearchForm { Latitude = city.Latitude, Longitude = city.Longitude, RadiusInMiles = 10 };
             ViewBag.PlaceSearchForm = placeSearchForm;
-            
-            var placesService = new PlacesService();
-            IEnumerable<Place> places = placesService.Search(placeSearchForm).ToList();
-            ViewBag.Places = places;
             return View();
         }
 

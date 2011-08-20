@@ -79,12 +79,14 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\ActivityForms.cs" />
+    <Compile Include="Forms\CitySearchForm.cs" />
     <Compile Include="Forms\ForgotPassForm.cs" />
     <Compile Include="Forms\HotelSearchForm.cs" />
     <Compile Include="Forms\LoginForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\CreateTripForm.cs" />
     <Compile Include="Forms\PlaceSearchForm.cs" />
+    <Compile Include="Forms\TripSearchForm.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
     <Compile Include="Forms\UserSettingsForm.cs" />
     <Compile Include="Models\Db.cs" />

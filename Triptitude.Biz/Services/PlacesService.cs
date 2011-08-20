@@ -13,11 +13,11 @@ namespace Triptitude.Biz.Services
 
         public IEnumerable<Place> Search(PlaceSearchForm form)
         {
+            if (string.IsNullOrWhiteSpace(form.Search))
+                yield break;
+
             string filters = string.Empty;
-            if (!string.IsNullOrWhiteSpace(form.Search))
-            {
-                filters += string.Format(@"""$search"":[""{0}""],", form.Search);
-            }
+            filters += string.Format(@"""$search"":[""{0}""],", form.Search);
             filters += string.Format(@"""$loc"":{{""$within_dist"":[{0},{1},{2}]}}", form.Latitude, form.Longitude, form.RadiusInKm);
             string sort = @"""factual_id"":1";
 

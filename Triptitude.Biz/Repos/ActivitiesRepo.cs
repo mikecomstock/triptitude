@@ -140,6 +140,7 @@ namespace Triptitude.Biz.Repos
             }
 
             Save();
+            new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.Place.Id);
 
             return activity;
         }

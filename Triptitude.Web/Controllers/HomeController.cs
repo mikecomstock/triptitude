@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
@@ -30,6 +32,17 @@ namespace Triptitude.Web.Controllers
             TripsRepo tripsRepo = new TripsRepo();
             IQueryable<Trip> trips = tripsRepo.FindAll().Where(t => t.ShowInSiteMap);
             ViewBag.Trips = trips;
+
+            List<City> allCities = new List<City>();
+            var places = trips.Where(t => t.ShowInSiteMap).SelectMany(t => t.Activities).OfType<PlaceActivity>().Select(pa => pa.Place).Where(p => p.Latitude != null && p.Longitude != null).Distinct();
+            CitiesRepo citiesRepo = new CitiesRepo();
+            foreach (var place in places)
+            {
+                IEnumerable<City> nearbyCities = citiesRepo.Search(new CitySearchForm { Latitude = place.Latitude.Value, Longitude = place.Longitude.Value, RadiusInMiles = 10 }).ToList();
+                allCities.AddRange(nearbyCities);
+            }
+            allCities = allCities.Distinct().ToList();
+            ViewBag.Destinations = allCities;
 
             Response.ContentType = "text/xml";
             return View();
