@@ -16,59 +16,68 @@
     <div class="place-map-caption">
         Click map to enter location</div>
 </div>
-<p>
-    <label for="tag">
-        Tag</label>
-    @Html.TextBox("tagname", @form.TagName, new { @class = "focus" })
-</p>
-@if (string.IsNullOrWhiteSpace(place.FactualId))
-{
+<fieldset>
+    <span>What</span>
     <p>
-        <label for="name">
-            Name</label>
-        @Html.TextBox("name", @form.Name)
+        <label for="tag">
+            Tag</label>
+        @Html.TextBox("tagname", @form.TagName, new { @class = "focus" })
     </p>
+</fieldset>
+<fieldset>
+    <span>Where</span>
+    @if (string.IsNullOrWhiteSpace(place.FactualId))
+    {
+        <p>
+            <label for="name">
+                Name</label>
+            @Html.TextBox("name", @form.Name)
+        </p>
+        <p>
+            <label for="address">
+                Address</label>
+            @Html.TextBox("address", @form.Address)
+        </p>
+        <p>
+            <label for="telephone">
+                Phone</label>
+            @Html.TextBox("telephone", @form.Telephone)
+        </p>
+        <p>
+            <label for="website">
+                Website</label>
+            @Html.TextBox("website", @form.Website)
+        </p>
+    }
+    else
+    {
+        <p>
+            <label>
+                Name</label>
+            @place.Name
+        </p>
+        <p>
+            <label>
+                Address</label>
+            @place.NiceAddress
+        </p>
+        <p>
+            <label>
+                Phone</label>
+            @place.Telephone
+        </p>
+    }
+</fieldset>
+<fieldset>
+    <span>When</span>
     <p>
-        <label for="address">
-            Address</label>
-        @Html.TextBox("address", @form.Address)
+        <label for="beginday">
+            Day</label>
+        <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+        thru
+        <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
     </p>
-    <p>
-        <label for="telephone">
-            Phone</label>
-        @Html.TextBox("telephone", @form.Telephone)
-    </p>
-    <p>
-        <label for="website">
-            Website</label>
-        @Html.TextBox("website", @form.Website)
-    </p>
-}
-else
-{
-    <p>
-        <label>
-            Name</label>
-        @place.Name
-    </p>
-    <p>
-        <label>
-            Address</label>
-        @place.NiceAddress
-    </p>
-    <p>
-        <label>
-            Phone</label>
-        @place.Telephone
-    </p>
-}
-<p>
-    <label for="beginday">
-        Day</label>
-    <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
-    thru
-    <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
-</p>
+</fieldset>
 <p class="buttons">
     @if (form.ActivityId.HasValue)
     {
