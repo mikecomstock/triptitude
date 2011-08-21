@@ -43,7 +43,7 @@
     {
         @RenderSection("Scripts")
     }
-    @if (Request.Url.Host.Contains("triptitude.com"))
+    @if (Request.Url.Host.Contains("triptitude.com") && HttpContext.Current.User.Identity.Name != "1|mikecomstock@gmail.com")
     {
         <script type="text/javascript">
 
