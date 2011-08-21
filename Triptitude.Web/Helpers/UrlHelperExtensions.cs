@@ -135,16 +135,6 @@ namespace Triptitude.Web.Helpers
         }
 
 
-        public static string ItineraryAddWebsite(this UrlHelper url)
-        {
-            return url.Action("addwebsite", "activities");
-        }
-        public static string ItineraryEditWebsite(this UrlHelper url)
-        {
-            return url.Action("editwebsite", "activities");
-        }
-
-
         public static string ItineraryAddPlace(this UrlHelper url)
         {
             return url.Action("addplace", "activities");
@@ -152,15 +142,6 @@ namespace Triptitude.Web.Helpers
         public static string ItineraryEditPlace(this UrlHelper url)
         {
             return url.Action("editplace", "activities");
-        }
-
-        #endregion
-
-        #region Websites
-
-        public static string WebsiteThumb(this UrlHelper url, WebsiteActivity websiteActivity, WebsiteActivity.ThumbSize thumbSize)
-        {
-            return ConfigurationManager.AppSettings["StaticFolderUrl"] + "/websitethumbs/" + WebsiteActivity.ThumbFilename(websiteActivity.Id, thumbSize);
         }
 
         #endregion

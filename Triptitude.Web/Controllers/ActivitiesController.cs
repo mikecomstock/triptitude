@@ -97,61 +97,6 @@ namespace Triptitude.Web.Controllers
 
         #endregion
 
-        #region Websites
-
-        public ActionResult AddWebsite(User currentUser)
-        {
-            WebsiteActivityForm form = new WebsiteActivityForm { TripId = currentUser.DefaultTrip.Id };
-            ViewBag.Form = form;
-            ViewBag.Action = Url.ItineraryAddWebsite();
-            return PartialView("websitedialog");
-        }
-
-        [HttpPost]
-        public ActionResult AddWebsite(WebsiteActivityForm form, User currentUser)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
-            activitiesRepo.Save(form);
-            return Redirect(Url.Details(trip));
-        }
-
-        public ActionResult EditWebsite(int activityId, User currentUser)
-        {
-            var activity = (WebsiteActivity)activitiesRepo.Find(activityId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
-            WebsiteActivityForm form = new WebsiteActivityForm
-            {
-                BeginDay = activity.BeginDay,
-                EndDay = activity.EndDay,
-                ActivityId = activityId,
-                TripId = activity.Trip.Id,
-                Url = activity.URL
-            };
-            ViewBag.Form = form;
-            ViewBag.Action = Url.ItineraryEditWebsite();
-            return PartialView("websitedialog");
-        }
-
-        [HttpPost]
-        public ActionResult EditWebsite(WebsiteActivityForm form, User currentUser)
-        {
-            var activity = activitiesRepo.Find(form.ActivityId.Value);
-            var oldTrip = activity.Trip;
-            var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
-
-            activitiesRepo.Save(form);
-            return Redirect(Url.Details(activity.Trip));
-        }
-
-        #endregion
-
         #region Transportation
 
         public ActionResult AddTransportation(User currentUser)

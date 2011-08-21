@@ -115,26 +115,6 @@ namespace Triptitude.Biz.Models
         public virtual Hotel Hotel { get; set; }
     }
 
-    [Table("WebsiteActivities")]
-    public class WebsiteActivity : Activity
-    {
-        public string URL { get; set; }
-        public string Title { get; set; }
-
-        public enum ThumbSize { Small, Medium, Large }
-
-        public static string ThumbFilename(int websiteId, ThumbSize thumbSize)
-        {
-            switch (thumbSize)
-            {
-                case ThumbSize.Small: return websiteId + "-small.jpg";
-                case ThumbSize.Medium: return websiteId + "-medium.jpg";
-                case ThumbSize.Large: return websiteId + "-large.jpg";
-                default: throw new Exception();
-            }
-        }
-    }
-
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {

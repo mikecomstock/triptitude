@@ -37,15 +37,6 @@
             </div>
         </div>
         }
-        else if (activity is WebsiteActivity)
-        {
-            var websiteActivity = activity as WebsiteActivity;
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="website" title="Click to visit">
-            <div class="title">
-                <a rel="nofollow" target="_blank" href="@websiteActivity.URL">@websiteActivity.Title</a> (link)
-            </div>
-        </div>
-        }
         else if (activity is PlaceActivity)
         {
             var placeActivity = activity as PlaceActivity;

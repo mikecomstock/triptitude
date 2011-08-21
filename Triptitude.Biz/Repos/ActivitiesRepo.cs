@@ -80,30 +80,6 @@ namespace Triptitude.Biz.Repos
             return activity;
         }
 
-        public Activity Save(WebsiteActivityForm form)
-        {
-            WebsiteActivity activity;
-
-            if (form.ActivityId.HasValue)
-            {
-                activity = (WebsiteActivity)Find(form.ActivityId.Value);
-            }
-            else
-            {
-                activity = new WebsiteActivity();
-                Add(activity);
-            }
-
-            SetBaseProperties(activity, form);
-
-            activity.URL = form.Url;
-            activity.Title = Util.GetWebsiteTitle(form.Url);
-
-            Save();
-
-            return activity;
-        }
-
         public Activity Save(PlaceActivityForm form)
         {
             PlaceActivity activity;

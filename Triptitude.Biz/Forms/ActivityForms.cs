@@ -25,11 +25,6 @@
         public int HotelId { get; set; }
     }
 
-    public class WebsiteActivityForm : ActivityForm
-    {
-        public string Url { get; set; }
-    }
-
     public class PlaceActivityForm : ActivityForm
     {
         public int? PlaceId { get; set; }
