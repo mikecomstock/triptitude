@@ -12,11 +12,17 @@ namespace Triptitude.Biz.Repos
         {
             int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
 
-            const string sql = @"select distinct t.* from PlacesNear(@p0,@p1,@p2) pn
+            const string sql = @"select distinct * from (
+select t.* from PlacesNear(@p0,@p1,@p2) pn
 join PlaceActivities pa on pn.place_id = pa.Place_Id
 join Activities a on pa.Id = a.Id
 join Trips t on a.Trip_Id = t.Id
-";
+union
+select t.* from HotelsNear(@p0,@p1,@p2) hn
+join HotelActivities ha on hn.Hotel_Id = ha.Hotel_Id
+join Activities a on ha.Id = a.Id
+join Trips t on a.Trip_Id = t.Id
+) a";
             var trips = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
             return trips;
         }

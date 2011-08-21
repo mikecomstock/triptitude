@@ -4,4 +4,5 @@ Disallow: /hotels/
 Disallow: /users/
 Disallow: /destinations/*/places
 Allow: /trips
+Disallow: /trips/create
 Sitemap: http://www.triptitude.com/sitemap.xml

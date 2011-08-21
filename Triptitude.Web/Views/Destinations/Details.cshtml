@@ -58,6 +58,9 @@
             </div>
             </form>*@
         </div>
+        <div class="panel-small-alert">
+            <a href="@Url.CreateTrip(to: destination)">Create a trip to @destination.ShortName</a>
+        </div>
         <div class="panel-content">
             @if (trips != null && trips.Any())
             {
@@ -67,9 +70,9 @@
             }
             else
             {
-                <div>
-                    No trips found! <a href="@Url.CreateTrip()">Create one here.</a>
-                </div>
+                <p>
+                    No trips found!
+                </p>
             }
         </div>
     </div>

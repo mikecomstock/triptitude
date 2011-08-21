@@ -81,9 +81,9 @@ namespace Triptitude.Web.Helpers
 
         #region Plan Trip
 
-        public static string CreateTrip(this UrlHelper url)
+        public static string CreateTrip(this UrlHelper url, IDestination to = null)
         {
-            return url.Action("create", "trips");
+            return url.Action("create", "trips", new { to = to == null ? string.Empty : to.GeoNameID.ToString() });
         }
 
         public static string SetDefaultTrip(this UrlHelper url, Trip trip)

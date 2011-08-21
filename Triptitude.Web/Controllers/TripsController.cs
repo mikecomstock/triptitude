@@ -116,9 +116,18 @@ namespace Triptitude.Web.Controllers
             }
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int? to)
         {
             var form = new CreateTripForm();
+
+            if (to.HasValue)
+            {
+                var destinationsRepo = new DestinationsRepo();
+                IDestination toDestination = destinationsRepo.Find(to.Value);
+                form.ToId = toDestination.GeoNameID;
+                form.ToName = toDestination.FullName;
+            }
+
             ViewBag.Form = form;
             return View();
         }
