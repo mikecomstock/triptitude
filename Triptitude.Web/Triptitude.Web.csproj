@@ -105,6 +105,7 @@
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MyController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
@@ -147,6 +148,7 @@
     <Content Include="_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="_Layout.cshtml" />
+    <Content Include="Views\Notes\NoteDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Amazon.PAAPI.WCF\Amazon.PAAPI.WCF.csproj">

@@ -2,6 +2,8 @@
     HotelActivityForm form = (HotelActivityForm)ViewBag.Form;
     Hotel hotel = (Hotel)ViewBag.Hotel;
 }
+<div class="title">
+    Hotel</div>
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="tripid" value="@form.TripId" />
 <input type="hidden" name="activityid" value="@form.ActivityId" />

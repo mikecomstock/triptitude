@@ -1,0 +1,18 @@
+﻿@{
+    NoteForm form = (NoteForm)ViewBag.Form;
+}
+<div class="title">
+    Note</div>
+<form action="@ViewBag.Action" method="post">
+<input type="hidden" name="tripid" value="@form.TripId" />
+<p>
+    @Html.SelectActivity((Trip)ViewBag.Trip)
+</p>
+<p>
+    <textarea class="focus note-text" name="text" id="text" value="@form.Text" />
+</p>
+<p class="buttons">
+    <input type="button" value="Cancel" class="cancel" />
+    <input type="submit" value="Save" />
+</p>
+</form>

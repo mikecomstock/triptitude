@@ -1,23 +1,40 @@
-﻿//using Triptitude.Biz.Forms;
-//using Triptitude.Biz.Models;
+﻿using System;
+using Triptitude.Biz.Forms;
+using Triptitude.Biz.Models;
 
-//namespace Triptitude.Biz.Repos
-//{
-//    public class NotesRepo : Repo<Note>
-//    {
-//        public Note Save(NoteForm form)
-//        {
-//            var note = Find(form.Id);
-//            note.Text = form.Text;
+namespace Triptitude.Biz.Repos
+{
+    public class NotesRepo : Repo<Note>
+    {
+        public Note Save(NoteForm form, User currentUser)
+        {
+            Note note;
+            if (form.NoteId.HasValue)
+            {
+                note = Find(form.NoteId.Value);
+            }
+            else
+            {
+                note = new Note { Created_On = DateTime.UtcNow, User = currentUser };
+                Add(note);
+            }
 
-//            if (string.IsNullOrWhiteSpace(note.Text))
-//            {
-//                Delete(note);
-//            }
-//            Save();
+            note.Text = form.Text;
+            note.Public = form.Public;
 
-//            // Should his return null if the note was deleted?
-//            return note;
-//        }
-//    }
-//}
+            if (form.ActivityId.HasValue)
+            {
+                var activitiesRepo = new ActivitiesRepo();
+                var activity = activitiesRepo.Find(form.ActivityId.Value);
+                note.Activity = activity;
+            }
+            else
+            {
+                note.Activity = null;
+            }
+
+            Save();
+            return note;
+        }
+    }
+}

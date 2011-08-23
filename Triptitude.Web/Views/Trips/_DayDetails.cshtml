@@ -3,53 +3,50 @@
         Day @ViewBag.DayNumber</h3>
     @foreach (Activity activity in ViewBag.Activities)
     {
-        if (activity is TransportationActivity)
-        {
-            var transportationActivity = activity as TransportationActivity;
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="transportation" title="Click for details">
-            <div class="title">
-                @transportationActivity.TransportationType.Name from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
-            </div>
-        </div>
-        }
-        else if (activity is HotelActivity)
-        {
-            var hotelActivity = activity as HotelActivity;
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="hotel" title="Click for details">
-            @if (ViewBag.DayNumber == hotelActivity.BeginDay)
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
+            @if (activity is TransportationActivity)
             {
-                <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
+                var transportationActivity = activity as TransportationActivity;
+                <div class="title">
+                    @transportationActivity.TransportationType.Name from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
+                </div>
             }
-            <div class="title">
-                @if (ViewBag.DayNumber == hotelActivity.BeginDay)
+            else if (activity is HotelActivity)
+            {
+                var hotelActivity = activity as HotelActivity;
+                if (ViewBag.DayNumber == hotelActivity.BeginDay)
                 {
-                    <p>
-                        Check in to <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a> for a @(hotelActivity.EndDay - hotelActivity.BeginDay)
-                        night stay
-                    </p>
+                <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
                 }
-                else
-                {
-                    <p>
-                        Check out of <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
-                    </p>
-                }
-            </div>
+                <div class="title">
+                    @if (ViewBag.DayNumber == hotelActivity.BeginDay)
+                    {
+                        <p>
+                            Check in to <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a> for a @(hotelActivity.EndDay - hotelActivity.BeginDay)
+                            night stay
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Check out of <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
+                        </p>
+                    }
+                </div>
+            }
+            else if (activity is PlaceActivity)
+            {
+                var placeActivity = activity as PlaceActivity;
+                <div class="title">
+                    @if (placeActivity.Tags.Any())
+                    {
+                        Tag tag = placeActivity.Tags.First();
+                        <text><a href="@Url.Details(tag)">@tag.NiceName</a> at</text>
+                    }
+                    @placeActivity.Place.Name
+                </div>
+            }
+            <div class="notes">@activity.Notes.Count() Notes</div>
         </div>
-        }
-        else if (activity is PlaceActivity)
-        {
-            var placeActivity = activity as PlaceActivity;
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="place" title="Click for details">
-            <div class="title">
-                @if (placeActivity.Tags.Any())
-                {
-                    Tag tag = placeActivity.Tags.First();
-                    <text><a href="@Url.Details(tag)">@tag.NiceName</a> at</text>
-                }
-                @placeActivity.Place.Name
-            </div>
-        </div>
-        }
     }
 </div>

@@ -21,6 +21,7 @@ input.day-input { width: 30px; }
 .ui-autocomplete { z-index: 10 !important; }
 
 /* Form Defaults */
+textarea { font-size: 14px; }
 input[type="text"] { font-size: 14px; }
 input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 
@@ -79,7 +80,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-bar-menu > ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; }
 #trip-bar-menu > ul > li { float: left; }
 #trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
-#trip-bar-menu > ul ul { display: none; position: absolute; margin-left: -175px; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
+#trip-bar-menu > ul ul { display: none; position: absolute; right:0; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
 #trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
 #trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
 
@@ -101,7 +102,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .panel-header h2 { padding: 10px 0; }
 
 .panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
-.panel-small-alert { padding: 5px 10px; background-color: #E9BA26;  }
+.panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
 
 .panel-content { padding: 10px; }
 .panel-content-not-padded { }
@@ -126,11 +127,12 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 /* Dialogs */
 #super-dialog { display: none; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; background-color: #262626; -moz-border-radius: 10px; color: #000; -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); }
 #super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; opacity: 0.8; display: none; }
-#super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #EEE; border-top: 0; position: absolute; right: 55px; top: -20px; }
-#super-dialog form { background-color: #EEE; }
-#super-dialog form p { margin: 0; padding: 3px 5px; }
+#super-dialog .title { background-color: #E9BA26; padding:10px; font-size:24px; border-bottom: 1px solid #CCC; }
+#super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
+#super-dialog form { background-color: #EEE; padding-top:10px; position:relative; }
+#super-dialog form p { margin: 0; padding: 3px 10px; }
 #super-dialog form label { display: block; float: left; width: 60px; line-height:22px; }
-#super-dialog .place-map-container { position:absolute; right:10px; top:10px; width: 350px; border: 10px solid #EEE; }
+#super-dialog .place-map-container { position:absolute; top:0; right:0; width: 350px; border: 10px solid #EEE; }
 #super-dialog .place-map { height: 210px; background-color: #EEE; border: 1px solid #CCC; }
 #super-dialog .place-map-caption { padding: 3px; font-size: 12px; text-align: center; background-color: #0190E9; color: #FFF; }
 #super-dialog input.destination-autocomplete { width: 300px; }
@@ -141,6 +143,9 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog fieldset { margin:0; padding:0; padding-top:5px; border:none; }
 #super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left:-20px; margin-bottom: 5px; position:relative; display:block; width: 50px; }
 #super-dialog fieldset > span:after{content:""; width:0; height:0; position:absolute; left:0; bottom:-10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
+
+#super-dialog .note-text { width: 100%; box-sizing: border-box; -moz-box-sizing: border-box;    -webkit-box-sizing: border-box;
+ }
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }

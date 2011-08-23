@@ -2,6 +2,8 @@
     Triptitude.Biz.Forms.TransportationActivityForm form = (Triptitude.Biz.Forms.TransportationActivityForm)ViewBag.Form;
     IEnumerable<TransportationType> transportationTypes = (IEnumerable<TransportationType>)ViewBag.TransportationTypes;
 }
+<div class="title">
+    Transportation</div>
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="activityid" value="@form.ActivityId" />
 <input type="hidden" name="tripid" value="@form.TripId" />

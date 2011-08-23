@@ -146,6 +146,10 @@ $(function () {
         }
     });
 
+    $('.add-note').live('click', function (clickData) {
+        $.get('/notes/create', function (data) { CreateActivityModal(data, "Note", "note") });
+    });
+
     $('.trip-day .activity').click(function () {
         var activityId = $(this).attr('data-activity-id');
         var activityType = $(this).attr('data-activity-type');

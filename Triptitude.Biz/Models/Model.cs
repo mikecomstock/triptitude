@@ -19,6 +19,7 @@ namespace Triptitude.Biz.Models
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
 
         public bool GuidIsExpired
         {
@@ -86,7 +87,7 @@ namespace Triptitude.Biz.Models
     #region Activities
 
     [Table("Activities")]
-    public class Activity
+    public abstract class Activity
     {
         public int Id { get; set; }
         public virtual Trip Trip { get; set; }
@@ -97,8 +98,11 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<Note> Notes { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
 
+        public abstract string Name { get; }
+        public abstract string ActivityTypeName { get; }
+
         // From CityActivities view
-     //   public virtual ICollection<City> Cities { get; set; }
+        //   public virtual ICollection<City> Cities { get; set; }
     }
 
     [Table("TransportationActivities")]
@@ -107,18 +111,39 @@ namespace Triptitude.Biz.Models
         public virtual TransportationType TransportationType { get; set; }
         public virtual City FromCity { get; set; }
         public virtual City ToCity { get; set; }
+
+        public override string Name
+        {
+            get { return string.Format("{0} from {1} to {2}", TransportationType.Name, FromCity.ShortName, ToCity.ShortName); }
+        }
+
+        public override string ActivityTypeName { get { return "transportation"; } }
     }
 
     [Table("HotelActivities")]
     public class HotelActivity : Activity
     {
         public virtual Hotel Hotel { get; set; }
+
+        public override string Name
+        {
+            get { return "Lodging at " + Hotel.Name; }
+        }
+
+        public override string ActivityTypeName { get { return "hotel"; } }
     }
 
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {
         public virtual Place Place { get; set; }
+
+        public override string Name
+        {
+            get { return (Tags.Any() ? String.Join(", ", Tags.Select(t => t.Name)) + " at " : string.Empty) + Place.Name; }
+        }
+
+        public override string ActivityTypeName { get { return "place"; } }
     }
 
     #endregion
@@ -145,7 +170,7 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public virtual Activity Activity { get; set; }
-        public int Created_By { get; set; }
+        public virtual User User { get; set; }
         public DateTime Created_On { get; set; }
         public string Text { get; set; }
         public bool Public { get; set; }

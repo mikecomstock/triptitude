@@ -2,6 +2,8 @@
     PlaceActivityForm form = (PlaceActivityForm)ViewBag.Form;
     Place place = (Place)ViewBag.Place;
 }
+<div class="title">
+    Place / Activity</div>
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="tripid" value="@form.TripId" />
 <input type="hidden" name="activityid" value="@form.ActivityId" />
