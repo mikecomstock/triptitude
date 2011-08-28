@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -24,8 +25,9 @@ namespace Triptitude.Web.Controllers
                                TripId = currentUser.DefaultTrip.Id,
                                Public = true
                            };
-            ViewBag.Trip = currentUser.DefaultTrip;
             ViewBag.Form = form;
+            ViewBag.Trip = currentUser.DefaultTrip;
+            ViewBag.Notes = currentUser.DefaultTrip.Activities.SelectMany(a => a.Notes).OrderBy(n=>n.Id);
             ViewBag.Action = Url.CreateNote();
             return PartialView("NoteDialog");
         }

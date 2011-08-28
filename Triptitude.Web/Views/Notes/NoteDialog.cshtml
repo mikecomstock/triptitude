@@ -1,5 +1,6 @@
 ﻿@{
     NoteForm form = (NoteForm)ViewBag.Form;
+    IEnumerable<Note> notes = (IEnumerable<Note>)ViewBag.Notes;
 }
 <div class="title">
     Note</div>
@@ -8,6 +9,14 @@
 <p>
     @Html.SelectActivity((Trip)ViewBag.Trip)
 </p>
+<div class="notes">
+    @foreach (var note in notes)
+    {
+        <div class="note">
+            @note.Text
+        </div>
+    }
+</div>
 <p>
     <textarea class="focus note-text" name="text" id="text" value="@form.Text" />
 </p>
