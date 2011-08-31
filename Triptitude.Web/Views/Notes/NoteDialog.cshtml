@@ -7,18 +7,17 @@
 <form action="@ViewBag.Action" method="post">
 <input type="hidden" name="tripid" value="@form.TripId" />
 <p>
-    @Html.SelectActivity((Trip)ViewBag.Trip)
+    <label for="activityid">
+        Note For</label>
+    @Html.SelectActivity((Trip)ViewBag.Trip, htmlAttributes: new { @class = "focus" })
 </p>
 <div class="notes">
-    @foreach (var note in notes)
-    {
-        <div class="note">
-            @note.Text
-        </div>
+    @{
+        Html.RenderAction("_NotesFor", "notes", new { activityId = form.ActivityId });
     }
 </div>
 <p>
-    <textarea class="focus note-text" name="text" id="text" value="@form.Text" />
+    <textarea class="note-text" name="text" id="text" value="@form.Text" />
 </p>
 <p class="buttons">
     <input type="button" value="Cancel" class="cancel" />

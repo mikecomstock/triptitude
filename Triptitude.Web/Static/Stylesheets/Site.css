@@ -145,7 +145,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
 
 #super-dialog .note-text { width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
-#super-dialog .notes { margin: 10px; padding-right:10px; max-height: 250px; overflow-y:scroll; }
+#super-dialog .notes { margin: 10px; padding-right:10px; max-height: 250px; overflow-y:auto; border-top: 1px dashed #CCC; }
 #super-dialog .note { margin: 4px 0; padding:2px 4px; font-size:12px; background-color: #9FDAFE; display:inline; clear:both; float:left; -moz-border-radius: 4px; }
 
 /* Create Trip Form */
@@ -235,6 +235,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 /* Trips */
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
 .trips.details .trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
+.trips.details .trip-day .notes { float:right; margin:10px;}
 .trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
 .trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity { overflow: auto; cursor: pointer; }

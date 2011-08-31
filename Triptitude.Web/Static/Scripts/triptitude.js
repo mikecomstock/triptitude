@@ -128,6 +128,16 @@ $(function () {
 
     /****************/
 
+    $('#super-dialog.note select').live('change', function () {
+        var select = $(this);
+        var activityId = select.val();
+        $.get('/notes/_notesfor?activityid=' + activityId, function (data) {
+            $('.notes', select.closest('form')).html(data);
+        });
+    });
+
+    /****************/
+
     $('.add-activity').live('click', function (clickData) {
         var activityType = $(this).attr('data-activity-type');
 
@@ -190,6 +200,7 @@ function CreateActivityModal(data, title, activityType) {
     $('#trip-bar-menu li').children('ul').hide();
 
     $('.content', superDialog).html(data);
+    superDialog.attr('class', activityType);
     superDialog.show();
     superDialogOverlay.show();
     $('.focus', superDialog).focus();

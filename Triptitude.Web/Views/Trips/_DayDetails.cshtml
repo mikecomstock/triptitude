@@ -4,6 +4,10 @@
     @foreach (Activity activity in ViewBag.Activities)
     {
         <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
+            @if (ViewBag.CurrentUserOwnsTrip && activity.Notes.Any())
+            {   
+                <div class="notes">@activity.Notes.Count() notes</div>
+            }
             @if (activity is TransportationActivity)
             {
                 var transportationActivity = activity as TransportationActivity;
@@ -46,7 +50,6 @@
                     @placeActivity.Place.Name
                 </div>
             }
-            <div class="notes">@activity.Notes.Count() Notes</div>
         </div>
     }
 </div>

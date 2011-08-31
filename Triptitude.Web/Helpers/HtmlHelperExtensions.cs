@@ -22,12 +22,12 @@ namespace Triptitude.Web.Helpers
             return html.DropDownList("transportationtypeid", options);
         }
 
-        public static MvcHtmlString SelectActivity(this HtmlHelper html, Trip trip)
+        public static MvcHtmlString SelectActivity(this HtmlHelper html, Trip trip, object htmlAttributes = null)
         {
             var options = from i in Enumerable.Range(1, trip.TotalDays)
                           select new GroupDropListItem
                                      {
-                                         Items = from n in trip.Activities.Where(a=>a.BeginDay == i)
+                                         Items = from n in trip.Activities.Where(a => a.BeginDay == i)
                                                  select new OptionItem
                                                             {
                                                                 Text = n.Name,
@@ -36,7 +36,7 @@ namespace Triptitude.Web.Helpers
                                          Name = "Day " + i
                                      };
 
-            return html.GroupDropList("activityid", options, null, null);
+            return html.GroupDropList("activityid", options, null, htmlAttributes);
         }
 
         public static string RouteCss(this HtmlHelper html)

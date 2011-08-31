@@ -66,6 +66,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = trip;
             ViewBag.Activities = trip.Activities.Where(a => a.BeginDay == dayNumber || a.EndDay == dayNumber);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
+            ViewBag.CurrentUserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             return PartialView("_DayDetails");
         }
 
