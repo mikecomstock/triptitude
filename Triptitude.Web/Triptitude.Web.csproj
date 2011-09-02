@@ -136,6 +136,7 @@
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
+    <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Views\Activities\WorkingOnIt.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

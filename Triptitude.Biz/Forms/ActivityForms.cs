@@ -1,4 +1,7 @@
-﻿namespace Triptitude.Biz.Forms
+﻿using System.Collections.Generic;
+using Triptitude.Biz.Models;
+
+namespace Triptitude.Biz.Forms
 {
     public class ActivityForm
     {
@@ -7,6 +10,13 @@
         public int? BeginDay { get; set; }
         public int? EndDay { get; set; }
         public string TagName { get; set; }
+        public string Note { get; set; }
+
+        // Used only for display purposes
+        public IEnumerable<Note> Notes { get; set; }
+        public Tabs SelectedTab { get; set; }
+
+        public enum Tabs { Details, Notes }
     }
 
     public class TransportationActivityForm : ActivityForm

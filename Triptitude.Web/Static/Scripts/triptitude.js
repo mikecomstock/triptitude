@@ -11,7 +11,6 @@ $(function () {
 
     BindDestinationAutocomplete(null);
 
-
     $('#search').submit(function (e) {
         var destinationId = $('input[name="destinationid"]', $(this)).val();
         if (destinationId == '') {
@@ -19,11 +18,10 @@ $(function () {
         }
     });
 
-    $('#trip-bar-menu li').hover(function (hoverData) {
-        $(this).children('ul').show();
-    }, function (hoverData) {
-        $(this).children('ul').hide();
-    });
+    $('#trip-bar-menu li').hover(
+        function () { $(this).children('ul').show(); },
+        function () { $(this).children('ul').hide(); }
+    );
 
 
     //    $('.trip-length-slider').slider({
@@ -47,6 +45,8 @@ $(function () {
     $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
 
+
+    /* Delete Confirmations */
     $('.confirm-delete').live('click', function (e) {
         var test = confirm('Delete?');
         if (test) {
@@ -131,52 +131,38 @@ $(function () {
     $('#super-dialog.note select').live('change', function () {
         var select = $(this);
         var activityId = select.val();
-        $.get('/notes/_notesfor?activityid=' + activityId, function (data) {
-            $('.notes', select.closest('form')).html(data);
-        });
+        CreateActivityModal('note', '/activities/edit/' + activityId + '?selectedtab=notes');
     });
 
     /****************/
 
-    $('.add-activity').live('click', function (clickData) {
+    $('.add-activity').live('click', function () {
         var activityType = $(this).attr('data-activity-type');
+        var url = '/activities/create?type=' + activityType;
 
         switch (activityType) {
             case 'transportation':
-                $.get('/activities/addtransportation', function (data) { CreateActivityModal(data, "Transportation", "transportation"); });
                 break;
             case 'place':
                 var placeId = $(this).attr('data-place-id') || '';
-                $.get('/activities/addplace?placeid=' + placeId, function (data) { CreateActivityModal(data, "Place", "place"); });
+                url += '&placeid=' + placeId;
                 break;
             case 'hotel':
                 var hotelId = $(this).attr('data-hotel-id');
-                $.get('/activities/addhotel?hotelid=' + hotelId, function (data) { CreateActivityModal(data, "Hotel", "hotel"); });
+                url += '&hotelid=' + hotelId;
                 break;
         }
+        CreateActivityModal(activityType, url);
     });
 
-    $('.add-note').live('click', function (clickData) {
-        $.get('/notes/create', function (data) { CreateActivityModal(data, "Note", "note") });
+    $('.add-note').live('click', function () {
+        CreateActivityModal("note", '/notes/create');
     });
 
     $('.trip-day .activity').click(function () {
         var activityId = $(this).attr('data-activity-id');
         var activityType = $(this).attr('data-activity-type');
-
-        switch (activityType) {
-            case 'transportation':
-                $.get('/activities/edittransportation?activityid=' + activityId, function (data) { CreateActivityModal(data, "Transportation", "transportation") });
-                break;
-            case 'place':
-                var placeId = $(this).attr('data-place-id');
-                $.get('/activities/editplace?activityid=' + activityId, function (data) { CreateActivityModal(data, "Place", "place"); });
-                break;
-            case 'hotel':
-                var hotelId = $(this).attr('data-hotel-id');
-                $.get('/activities/edithotel?activityid=' + activityId, function (data) { CreateActivityModal(data, "Hotel", "hotel"); });
-                break;
-        }
+        CreateActivityModal(activityType, '/activities/edit/' + activityId);
     });
 });
 
@@ -195,21 +181,30 @@ function BindDestinationAutocomplete(context) {
     });
 }
 
-function CreateActivityModal(data, title, activityType) {
+function CreateActivityModal(activityType, url) {
+    $.get(url, function (data) {
+        $('#trip-bar-menu li').children('ul').hide();
+        $('.content', superDialog).html(data);
+        superDialog.attr('class', activityType);
+        superDialog.show();
+        superDialogOverlay.show();
+        $('.focus', superDialog).focus();
+        $('input.day-input', superDialog).attr('autocomplete', 'off');
+        BindDestinationAutocomplete(superDialog);
 
-    $('#trip-bar-menu li').children('ul').hide();
-
-    $('.content', superDialog).html(data);
-    superDialog.attr('class', activityType);
-    superDialog.show();
-    superDialogOverlay.show();
-    $('.focus', superDialog).focus();
-    $('input.day-input', superDialog).attr('autocomplete', 'off');
-    BindDestinationAutocomplete(superDialog);
-
-    if (activityType == 'place')
-        drawPlaceDialogMap();
+        if ($('.place-map').length > 0)
+            drawPlaceDialogMap();
+    });
 }
+
+$('#dialog-menu li', superDialog).live('click', function (e) {
+    var dataPageName = $(this).attr('data-page');
+    var currentPage = $('li, .dialog-page');
+    currentPage.removeClass('selected-page');
+    var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
+    newPage.addClass('selected-page');
+    $('.focus', newPage).first().focus();
+});
 
 function drawPlaceDialogMap() {
     var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
@@ -249,8 +244,7 @@ function drawMap(container, mapData) {
 
         var point = new google.maps.LatLng(item.Latitude, item.Longitude);
         var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
-        marker.infoHtml = item.InfoHtml
-
+        marker.infoHtml = item.InfoHtml;
         if (item.ExtendBounds == true) bounds.extend(point);
 
         google.maps.event.addListener(marker, 'mouseover', function () {
@@ -339,5 +333,5 @@ function moveScroller() {
         return this.each(function () {
             $(this).height(tallest).css("overflow", "auto");
         });
-    }
+    };
 })(jQuery);

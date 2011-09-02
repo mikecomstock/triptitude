@@ -146,14 +146,14 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Notes
+        //#region Notes
 
-        public static string CreateNote(this UrlHelper url)
-        {
-            return url.Action("create", "notes");
-        }
+        //public static string CreateNote(this UrlHelper url)
+        //{
+        //    return url.Action("create", "notes");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Hotels
 

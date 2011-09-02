@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -35,9 +36,35 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
 
+        public ActionResult Edit(int id, User currentUser, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)
+        {
+            var activity = activitiesRepo.Find(id);
+            var trip = activity.Trip;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+
+            if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
+            if (activity is HotelActivity) return EditHotel(activity as HotelActivity, selectedTab);
+            if (activity is PlaceActivity) return EditPlace(activity as PlaceActivity, selectedTab);
+
+            throw new Exception("Activity type not supported");
+        }
+
+        public ActionResult Create(string type, User currentUser, string placeId, int? hotelId)
+        {
+            switch (type)
+            {
+                case "transportation": return AddTransportation(currentUser);
+                case "place": return AddPlace(placeId, currentUser);
+                case "hotel": return AddHotel(hotelId.Value, currentUser);
+            }
+
+            throw new Exception("Activity type not supported");
+        }
+
         #region Hotels
 
-        public ActionResult AddHotel(int hotelId, User currentUser)
+        private ActionResult AddHotel(int hotelId, User currentUser)
         {
             var hotel = hotelsRepo.Find(hotelId);
             HotelActivityForm form = new HotelActivityForm
@@ -58,23 +85,21 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
 
-            activitiesRepo.Save(form);
+            activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult EditHotel(int activityId, User currentUser)
+        private ActionResult EditHotel(HotelActivity activity, ActivityForm.Tabs selectedTab)
         {
-            HotelActivity activity = (HotelActivity)activitiesRepo.Find(activityId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
             var form = new HotelActivityForm
             {
-                ActivityId = activityId,
+                ActivityId = activity.Id,
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
-                HotelId = activity.Hotel.Id
+                HotelId = activity.Hotel.Id,
+                Notes = activity.Notes,
+                SelectedTab = selectedTab
             };
             ViewBag.Form = form;
             ViewBag.Hotel = activity.Hotel;
@@ -91,7 +116,7 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
 
-            activitiesRepo.Save(form);
+            activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));
         }
 
@@ -99,7 +124,7 @@ namespace Triptitude.Web.Controllers
 
         #region Transportation
 
-        public ActionResult AddTransportation(User currentUser)
+        private ActionResult AddTransportation(User currentUser)
         {
             var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
             TransportationActivityForm form = new TransportationActivityForm { TripId = currentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
@@ -116,27 +141,25 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            var transportation = activitiesRepo.Save(form);
+            var transportation = activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(transportation.Trip));
         }
 
-        public ActionResult EditTransportation(int activityId, User currentUser)
+        private ActionResult EditTransportation(TransportationActivity activity, ActivityForm.Tabs selectedTab)
         {
-            var transportation = (TransportationActivity)activitiesRepo.Find(activityId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, transportation.Trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
             TransportationActivityForm form = new TransportationActivityForm
             {
-                ActivityId = transportation.Id,
-                TransportationTypeId = transportation.TransportationType.Id,
-                TripId = transportation.Trip.Id,
-                FromCityId = transportation.FromCity.GeoNameID,
-                FromCityName = transportation.FromCity.FullName,
-                ToCityId = transportation.ToCity.GeoNameID,
-                ToCityName = transportation.ToCity.FullName,
-                BeginDay = transportation.BeginDay,
-                EndDay = transportation.EndDay
+                ActivityId = activity.Id,
+                TransportationTypeId = activity.TransportationType.Id,
+                TripId = activity.Trip.Id,
+                FromCityId = activity.FromCity.GeoNameID,
+                FromCityName = activity.FromCity.FullName,
+                ToCityId = activity.ToCity.GeoNameID,
+                ToCityName = activity.ToCity.FullName,
+                BeginDay = activity.BeginDay,
+                EndDay = activity.EndDay,
+                Notes = activity.Notes,
+                SelectedTab = selectedTab
             };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
@@ -153,7 +176,7 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
 
-            activitiesRepo.Save(form);
+            activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));
         }
 
@@ -164,7 +187,7 @@ namespace Triptitude.Web.Controllers
         /// <summary>
         /// Note that placeId refers to a FactualId. It is null when adding a custom place.
         /// </summary>
-        public ActionResult AddPlace(string placeId, User currentUser)
+        private ActionResult AddPlace(string placeId, User currentUser)
         {
             Place place;
             if (placeId == "")
@@ -196,19 +219,15 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
 
-            activitiesRepo.Save(form);
+            activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult EditPlace(int activityId, User currentUser)
+        private ActionResult EditPlace(PlaceActivity activity, ActivityForm.Tabs selectedTab)
         {
-            PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(activityId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, activity.Trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
             var form = new PlaceActivityForm()
             {
-                ActivityId = activityId,
+                ActivityId = activity.Id,
                 BeginDay = activity.BeginDay,
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
@@ -220,7 +239,9 @@ namespace Triptitude.Web.Controllers
                 Telephone = activity.Place.Telephone,
                 Website = activity.Place.Website,
                 Latitude = activity.Place.Latitude.HasValue ? activity.Place.Latitude.Value.ToString() : string.Empty,
-                Longitude = activity.Place.Longitude.HasValue ? activity.Place.Longitude.Value.ToString() : string.Empty
+                Longitude = activity.Place.Longitude.HasValue ? activity.Place.Longitude.Value.ToString() : string.Empty,
+                Notes = activity.Notes,
+                SelectedTab = selectedTab
             };
             ViewBag.Form = form;
             ViewBag.Place = activity.Place;
@@ -237,7 +258,7 @@ namespace Triptitude.Web.Controllers
             bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
             if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
 
-            activitiesRepo.Save(form);
+            activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));
         }
 

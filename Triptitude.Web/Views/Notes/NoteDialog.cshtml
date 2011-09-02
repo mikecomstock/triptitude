@@ -4,23 +4,23 @@
 }
 <div class="title">
     Note</div>
-<form action="@ViewBag.Action" method="post">
+<form action="@ViewBag.Action" method="post" class="note-selector">
 <input type="hidden" name="tripid" value="@form.TripId" />
 <p>
     <label for="activityid">
-        Note For</label>
+        Activity</label>
     @Html.SelectActivity((Trip)ViewBag.Trip, htmlAttributes: new { @class = "focus" })
 </p>
-<div class="notes">
+@*<div class="notes">
     @{
         Html.RenderAction("_NotesFor", "notes", new { activityId = form.ActivityId });
     }
 </div>
 <p>
     <textarea class="note-text" name="text" id="text" value="@form.Text" />
-</p>
+</p>*@
 <p class="buttons">
     <input type="button" value="Cancel" class="cancel" />
-    <input type="submit" value="Save" />
+    @*<input type="submit" value="Save" />*@
 </p>
 </form>

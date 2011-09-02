@@ -5,33 +5,36 @@
 <div class="title">
     Transportation</div>
 <form action="@ViewBag.Action" method="post">
-<input type="hidden" name="activityid" value="@form.ActivityId" />
 <input type="hidden" name="tripid" value="@form.TripId" />
-<p>
-    <label for="transportationtypeid">
-        Type</label>
-    @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
-</p>
-<p>
-    <label for="fromcityname">
-        From</label>
-    <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete focus" value="@form.FromCityName" />
-    <input type="hidden" id="fromcityid" name="fromcityid" value="@form.FromCityId" />
-</p>
-<p>
-    <label for="tocityname">
-        To</label>
-    <input type="text" name="tocityname" data-hidden-field-name="tocityid" class="destination-autocomplete" value="@form.ToCityName" />
-    <input type="hidden" id="tocityid" name="tocityid" value="@form.ToCityId" />
-</p>
-<p>
-    <label for="beginDay">
-        Day
-    </label>
-    <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
-    thru
-    <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
-</p>
+<input type="hidden" name="activityid" value="@form.ActivityId" />
+@Helpers.ActivityFormTabs(form)
+<div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+    <p>
+        <label for="transportationtypeid">
+            Type</label>
+        @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
+    </p>
+    <p>
+        <label for="fromcityname">
+            From</label>
+        <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete" value="@form.FromCityName" />
+        <input type="hidden" id="fromcityid" name="fromcityid" value="@form.FromCityId" />
+    </p>
+    <p>
+        <label for="tocityname">
+            To</label>
+        <input type="text" name="tocityname" data-hidden-field-name="tocityid" class="destination-autocomplete" value="@form.ToCityName" />
+        <input type="hidden" id="tocityid" name="tocityid" value="@form.ToCityId" />
+    </p>
+    <p>
+        <label for="beginDay">
+            Day
+        </label>
+        <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
+        thru
+        <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+    </p>
+</div>
 <p class="buttons">
     @if (form.ActivityId.HasValue)
     {

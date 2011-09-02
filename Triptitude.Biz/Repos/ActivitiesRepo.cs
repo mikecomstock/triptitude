@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -7,7 +8,7 @@ namespace Triptitude.Biz.Repos
 {
     public class ActivitiesRepo : Repo<Activity>
     {
-        private static void SetBaseProperties(Activity activity, ActivityForm form)
+        private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
         {
             activity.Trip = new TripsRepo().Find(form.TripId);
             activity.BeginDay = form.BeginDay.Value;
@@ -26,9 +27,22 @@ namespace Triptitude.Biz.Repos
                 Tag tag = new TagsRepo().FindOrInitializeByName(form.TagName);
                 activity.Tags = new List<Tag> { tag };
             }
+
+            if (!string.IsNullOrWhiteSpace(form.Note))
+            {
+                Note note = new Note
+                {
+                    Text = form.Note.Trim(),
+                    Created_On = DateTime.UtcNow,
+                    User = currentUser
+                };
+
+                if (activity.Notes == null) { activity.Notes = new List<Note>(); }
+                activity.Notes.Add(note);
+            }
         }
 
-        public Activity Save(TransportationActivityForm form)
+        public Activity Save(TransportationActivityForm form, User currentUser)
         {
             TransportationActivity activity;
 
@@ -42,7 +56,7 @@ namespace Triptitude.Biz.Repos
                 Add(activity);
             }
 
-            SetBaseProperties(activity, form);
+            SetBaseProperties(activity, form, currentUser);
 
             var type = new TransportationTypesRepo().Find(form.TransportationTypeId);
             activity.TransportationType = type;
@@ -56,7 +70,7 @@ namespace Triptitude.Biz.Repos
             return activity;
         }
 
-        public Activity Save(HotelActivityForm form)
+        public Activity Save(HotelActivityForm form, User currentUser)
         {
             HotelActivity activity;
 
@@ -70,7 +84,7 @@ namespace Triptitude.Biz.Repos
                 Add(activity);
             }
 
-            SetBaseProperties(activity, form);
+            SetBaseProperties(activity, form, currentUser);
 
             HotelsRepo hotelsRepo = new HotelsRepo();
             activity.Hotel = hotelsRepo.Find(form.HotelId);
@@ -80,7 +94,7 @@ namespace Triptitude.Biz.Repos
             return activity;
         }
 
-        public Activity Save(PlaceActivityForm form)
+        public Activity Save(PlaceActivityForm form, User currentUser)
         {
             PlaceActivity activity;
 
@@ -94,7 +108,7 @@ namespace Triptitude.Biz.Repos
                 Add(activity);
             }
 
-            SetBaseProperties(activity, form);
+            SetBaseProperties(activity, form, currentUser);
 
             PlacesRepo placesRepo = new PlacesRepo();
 

@@ -1,0 +1,25 @@
+﻿@helper ActivityFormTabs(Triptitude.Biz.Forms.ActivityForm form)
+    {
+    <ul id="dialog-menu">
+        <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">Details</li>
+        <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">Notes</li>
+    </ul>
+    <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">
+        @if (form.Notes != null && form.Notes.Any())
+        {
+            <div class="notes">
+                @foreach (var note in form.Notes)
+                {
+                    <div class="note">
+                        @note.Text
+                    </div>
+                }
+            </div>
+        }
+        <p>
+            <label for="note">
+                Add Note:</label>
+            <textarea class="note-text focus" name="note" id="note" value="@form.Note" />
+        </p>
+    </div>
+}
