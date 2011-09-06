@@ -194,6 +194,8 @@ function CreateActivityModal(activityType, url) {
 
         if ($('.place-map').length > 0)
             drawPlaceDialogMap();
+
+        scrollToBottom($('.notes', superDialog));
     });
 }
 
@@ -204,6 +206,7 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
     newPage.addClass('selected-page');
     $('.focus', newPage).first().focus();
+    scrollToBottom($('.notes', superDialog));
 });
 
 function drawPlaceDialogMap() {
@@ -335,3 +338,11 @@ function moveScroller() {
         });
     };
 })(jQuery);
+
+/***********************************************************/
+
+function scrollToBottom(jqueryElement) {
+    if (jqueryElement) {
+        jqueryElement.prop({ scrollTop: jqueryElement.prop('scrollHeight') });
+    }
+}
