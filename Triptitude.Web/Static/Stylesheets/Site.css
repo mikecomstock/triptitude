@@ -251,12 +251,14 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 .trips.map #trip-map-container { width: 100%; height: 500px; }
 
-
 /* Packing List */
-
 .trips.packinglist #content ul { list-style: none; }
 .trips.packinglist #content .tag-group + .tag-group { margin-top: 20px; }
 .trips.packinglist #content .tag-group .title { font-weight: bold; font-size: 16px; }
 .trips.packinglist #content .items { overflow: auto; }
 .trips.packinglist #content .items li { float: left; border: 1px solid #EEE; text-align: center; margin: 10px; }
 .trips.packinglist #content .items li .name { padding: 5px 5px 10px 5px; display: block; }
+
+/* Working On It */
+#working-on-it p { background-color: #EEE; font-size: 16px;margin: 0 !important;padding: 10px; }
+#working-on-it p +p { padding-top: 0; }
