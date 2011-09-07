@@ -1,0 +1,40 @@
+﻿@model Triptitude.Biz.Models.Tag
+@{
+    ViewBag.Title = "Edit " + Model.Name;
+}
+<h1>@ViewBag.Title</h1>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+ 
+    @Html.HiddenFor(model => model.Id)
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Name)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Name)
+    </div>
+    <div class="editor-field">
+        <h2>
+            Items</h2>
+        @foreach (Item item in new Db().Items.OrderBy(i => i.Name))
+        {
+            <div class="item-selector">
+                <input type="checkbox" name="items" value="@item.Id" @(Model.Items.Select(i => i.Id).Contains(item.Id) ? "checked=checked" : string.Empty) />
+                @item.Name - ASIN: @(item.ASIN ?? "none")
+                <a href="@item.DetailPageURL">Link</a> <a href="@item.SmallImageURL">Image</a>
+            </div>
+        }
+    </div>
+    <div>
+        <h2>
+            New Item</h2>
+        <input type="text" name="newitem.Name" placeholder="Name" class="focus" />
+        <input type="text" name="newitem.ASIN" placeholder="ASIN" />
+        <input type="text" name="newitem.DetailPageURL" placeholder="Detail URL (if no ASIN)" />
+        <input type="text" name="newitem.SmallImageURL" placeholder="Small Image URL (if no ASIN)" />
+    </div>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}

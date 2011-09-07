@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Triptitude.Biz.Models.Tag>
+@{
+    ViewBag.Title = "Tags";
+}
+<h1>@ViewBag.Title</h1>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "focus" })
+</p>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            # Activities
+        </th>
+        <th>
+            # Items
+        </th>
+        <th>
+        </th>
+    </tr>
+    @foreach (Tag tag in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(tag.Name, "edit", new { id = tag.Id })
+            </td>
+            <td>
+                @tag.Activities.Count()
+            </td>
+            <td>
+                @tag.Items.Count()
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "delete", new { id = tag.Id }, new { @class = "confirm-delete" })
+            </td>
+        </tr>
+    }
+</table>
