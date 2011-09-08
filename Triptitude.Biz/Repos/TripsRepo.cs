@@ -79,7 +79,7 @@ join Trips t on a.Trip_Id = t.Id
             var form = new TripSettingsForm
                            {
                                Name = trip.Name,
-                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToShortDateString() : string.Empty
+                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToString("MM/dd/yyyy") : string.Empty
                            };
             return form;
         }

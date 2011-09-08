@@ -40,6 +40,12 @@ namespace Triptitude.Biz.Models
                 return path;
             }
         }
+
+        public bool OwnsTrips(params Trip[] trips)
+        {
+            var userOwnsAllTrips = trips.All(t => t.User == this);
+            return userOwnsAllTrips;
+        }
     }
 
     public class Trip
@@ -82,6 +88,18 @@ namespace Triptitude.Biz.Models
         //        return grouped;
         //    }
         //}
+
+        public string NiceDay(int dayNumer, User currentUser)
+        {
+            if (BeginDate.HasValue && (BeginDate.Value.AddDays(TotalDays - 1) < DateTime.Today || currentUser.OwnsTrips(this)))
+            {
+                return string.Format("Day {0} - {1:dddd, MMM dd}", dayNumer, BeginDate.Value.AddDays(dayNumer - 1));
+            }
+            else
+            {
+                return string.Format("Day {0}", dayNumer);
+            }
+        }
     }
 
     #region Activities

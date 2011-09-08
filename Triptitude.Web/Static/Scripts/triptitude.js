@@ -8,6 +8,7 @@ $(function () {
 
     $('input').placeholder();
     $('.focus').first().focus();
+    $('.date-picker').datepicker();
 
     BindDestinationAutocomplete(null);
 

@@ -67,6 +67,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Activities = trip.Activities.Where(a => a.BeginDay == dayNumber || a.EndDay == dayNumber);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
             ViewBag.CurrentUserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            ViewBag.CurrentUser = currentUser;
             return PartialView("_DayDetails");
         }
 
@@ -100,12 +101,11 @@ namespace Triptitude.Web.Controllers
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            if (!userOwnsTrip) return Redirect("/");
 
             if (ModelState.IsValid)
             {
-                bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-                if (!userOwnsTrip) return Redirect("/");
-
                 tripRepo.Save(trip, form);
                 return Redirect(Url.Details(trip));
             }

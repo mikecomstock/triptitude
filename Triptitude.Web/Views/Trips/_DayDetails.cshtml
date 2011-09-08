@@ -1,6 +1,10 @@
-﻿<div class="trip-day">
+﻿@{
+    Trip trip = (Trip)ViewBag.Trip;
+}
+<div class="trip-day">
     <h3>
-        Day @ViewBag.DayNumber</h3>
+        @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
+    </h3>
     @foreach (Activity activity in ViewBag.Activities)
     {
         <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">

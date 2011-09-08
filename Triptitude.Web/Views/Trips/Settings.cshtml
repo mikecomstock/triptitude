@@ -23,11 +23,12 @@
                     Name your trip</label>
                 <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" />
             </p>
-            @*<p>
+            <p>
+                @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
-                <input type="text" name="begindate" value="@ViewBag.Form.BeginDate" />
-            </p>*@
+                <input type="text" name="begindate" class="date-picker" value="@ViewBag.Form.BeginDate" />
+            </p>
             <input type="submit" value="Save Settings" tabindex="2" />
             </form>
         </div>
