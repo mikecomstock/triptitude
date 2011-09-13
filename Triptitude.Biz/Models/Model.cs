@@ -362,6 +362,10 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string FactualId { get; set; }
+
+        public string GoogId { get; set; }
+        public string GoogReference { get; set; }
+
         public string Name { get; set; }
         public string Address { get; set; }
         public string AddressExtended { get; set; }
@@ -389,55 +393,55 @@ namespace Triptitude.Biz.Models
             }
         }
 
-        public static Place FromEntityJson(dynamic json)
-        {
-            Place p = new Place
-            {
-                Address = json.address,
-                AddressExtended = json.address_extended,
-                Category = json.category == null ? null : ((string)json.category).Trim('"'),
-                Country = json.country,
-                Email = json.email,
-                FactualId = json.factual_id,
-                Fax = json.fax,
-                Latitude = json.latitude,
-                Locality = json.locality,
-                Longitude = json.longitude,
-                Name = json.name,
-                POBox = json.po_box,
-                PostCode = json.postcode,
-                Region = json.region,
-                Status = json.status,
-                Telephone = json.tel,
-                Website = json.website
-            };
-            return p;
-        }
+        //public static Place FromEntityJson(dynamic json)
+        //{
+        //    Place p = new Place
+        //    {
+        //        Address = json.address,
+        //        AddressExtended = json.address_extended,
+        //        Category = json.category == null ? null : ((string)json.category).Trim('"'),
+        //        Country = json.country,
+        //        Email = json.email,
+        //        FactualId = json.factual_id,
+        //        Fax = json.fax,
+        //        Latitude = json.latitude,
+        //        Locality = json.locality,
+        //        Longitude = json.longitude,
+        //        Name = json.name,
+        //        POBox = json.po_box,
+        //        PostCode = json.postcode,
+        //        Region = json.region,
+        //        Status = json.status,
+        //        Telephone = json.tel,
+        //        Website = json.website
+        //    };
+        //    return p;
+        //}
 
-        public static Place FromSearchJson(dynamic json)
-        {
-            //"subject_key","factual_id","name","address","address_extended","po_box","locality","region","country","postcode","tel","fax","category","website","email","latitude","longitude","status"
-            Place p = new Place
-            {
-                FactualId = json[1],
-                Name = json[2],
-                Address = json[3],
-                AddressExtended = json[4],
-                POBox = json[5],
-                Locality = json[6],
-                Region = json[7],
-                Country = json[8],
-                PostCode = json[9],
-                Telephone = json[10],
-                Fax = json[11],
-                Category = json[12] == null ? null : ((string)json[12]).Trim('"'),
-                Website = json[13],
-                Email = json[14],
-                Latitude = json[15],
-                Longitude = json[16],
-                Status = json[17]
-            };
-            return p;
-        }
+        //public static Place FromSearchJson(dynamic json)
+        //{
+        //    //"subject_key","factual_id","name","address","address_extended","po_box","locality","region","country","postcode","tel","fax","category","website","email","latitude","longitude","status"
+        //    Place p = new Place
+        //    {
+        //        FactualId = json[1],
+        //        Name = json[2],
+        //        Address = json[3],
+        //        AddressExtended = json[4],
+        //        POBox = json[5],
+        //        Locality = json[6],
+        //        Region = json[7],
+        //        Country = json[8],
+        //        PostCode = json[9],
+        //        Telephone = json[10],
+        //        Fax = json[11],
+        //        Category = json[12] == null ? null : ((string)json[12]).Trim('"'),
+        //        Website = json[13],
+        //        Email = json[14],
+        //        Latitude = json[15],
+        //        Longitude = json[16],
+        //        Status = json[17]
+        //    };
+        //    return p;
+        //}
     }
 }

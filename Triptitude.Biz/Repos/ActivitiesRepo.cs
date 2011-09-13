@@ -113,21 +113,26 @@ namespace Triptitude.Biz.Repos
             PlacesRepo placesRepo = new PlacesRepo();
 
             // If this is a custom place:
-            if (string.IsNullOrWhiteSpace(form.FactualId))
-            {
-                Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
-                place.Name = form.Name;
-                place.Address = form.Address;
-                place.Telephone = form.Telephone;
-                place.Website = form.Website;
-                place.Latitude = string.IsNullOrWhiteSpace(form.Latitude) ? (decimal?)null : decimal.Parse(form.Latitude);
-                place.Longitude = string.IsNullOrWhiteSpace(form.Longitude) ? (decimal?)null : decimal.Parse(form.Longitude);
-                activity.Place = place;
-            }
-            else
-            {
-                activity.Place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
-            }
+            //if (string.IsNullOrWhiteSpace(form.FactualId))
+            //{
+            //    Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
+            //    place.Name = form.Name;
+            //    place.Address = form.Address;
+            //    place.Locality = form.City;
+            //    place.Region = form.State;
+            //    place.Country = form.Country;
+            //    place.Telephone = form.Telephone;
+            //    place.Website = form.Website;
+            //    place.Latitude = string.IsNullOrWhiteSpace(form.Latitude) ? (decimal?)null : decimal.Parse(form.Latitude);
+            //    place.Longitude = string.IsNullOrWhiteSpace(form.Longitude) ? (decimal?)null : decimal.Parse(form.Longitude);
+            //    activity.Place = place;
+            //}
+            //else
+            //{
+            //    activity.Place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
+            //}
+
+            activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogReference);
 
             Save();
             new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.Place.Id);

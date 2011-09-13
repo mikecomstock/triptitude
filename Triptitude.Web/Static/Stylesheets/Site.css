@@ -137,13 +137,14 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
 #super-dialog form { background-color: #EEE; position: relative; }
 #super-dialog form p { margin: 0; padding: 3px 10px; }
-#super-dialog form label { display: block; float: left; width: 60px; line-height: 22px; }
-#super-dialog .place-map-container { position: absolute; top: 0; right: 0; width: 350px; border: 10px solid #EEE; }
-#super-dialog .place-map { height: 210px; background-color: #EEE; border: 1px solid #CCC; }
-#super-dialog .place-map-caption { padding: 3px; font-size: 12px; text-align: center; background-color: #999; color: #FFF; }
+#super-dialog form label { display: block; float: left; width: 80px; line-height: 22px;white-space: nowrap; }
+#super-dialog .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE;border-width: 0 10px; }
+#super-dialog .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
 #super-dialog input.destination-autocomplete { width: 300px; }
+#super-dialog #map-search-input { width: 200px; }
 
-#super-dialog .buttons { text-align: right; padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; }
+#super-dialog .buttons { padding: 10px; margin-top: 10px; border-top: 1px solid #CCC;overflow: auto; }
+#super-dialog .buttons input { float: right;margin: 2px; }
 #super-dialog .buttons .delete { float: left; background-color: #E92553; }
 
 #super-dialog fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }

@@ -185,25 +185,24 @@ namespace Triptitude.Web.Controllers
         #region Places
 
         /// <summary>
-        /// Note that placeId refers to a FactualId. It is null when adding a custom place.
+        /// Note that placeId refers to a GooglReference. It is null when adding a custom place.
         /// </summary>
-        private ActionResult AddPlace(string placeId, User currentUser)
+        private ActionResult AddPlace(string referenceId, User currentUser)
         {
             Place place;
-            if (placeId == "")
+            if (string.IsNullOrWhiteSpace(referenceId))
             {
                 place = new Place();
-                place.Name = "test";
             }
             else
             {
                 var placesService = new PlacesService();
-                place = placesService.Find(placeId);
+                place = placesService.FindGoogle(referenceId);
             }
 
             PlaceActivityForm form = new PlaceActivityForm
                                          {
-                                             FactualId = placeId,
+                                             GoogReference = referenceId,
                                              TripId = currentUser.DefaultTrip.Id
                                          };
             ViewBag.Form = form;
@@ -232,10 +231,14 @@ namespace Triptitude.Web.Controllers
                 EndDay = activity.EndDay,
                 TripId = activity.Trip.Id,
                 TagName = activity.Tags.Any() ? activity.Tags.First().Name : string.Empty,
-                FactualId = activity.Place.FactualId,
+                //FactualId = activity.Place.FactualId,
+                GoogReference = activity.Place.GoogReference,
                 PlaceId = activity.Place.Id,
                 Name = activity.Place.Name,
                 Address = activity.Place.Address,
+                City = activity.Place.Locality,
+                State = activity.Place.Region,
+                Country = activity.Place.Country,
                 Telephone = activity.Place.Telephone,
                 Website = activity.Place.Website,
                 Latitude = activity.Place.Latitude.HasValue ? activity.Place.Latitude.Value.ToString() : string.Empty,

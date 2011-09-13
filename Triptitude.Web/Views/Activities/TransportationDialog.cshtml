@@ -36,11 +36,11 @@
     </p>
 </div>
 <p class="buttons">
+    <input type="submit" value="Save" />
+    <input type="button" value="Cancel" class="cancel" />
     @if (form.ActivityId.HasValue)
     {
         <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
     }
-    <input type="button" value="Cancel" class="cancel" />
-    <input type="submit" value="Save" />
 </p>
 </form>

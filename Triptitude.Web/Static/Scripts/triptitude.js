@@ -145,8 +145,8 @@ $(function () {
             case 'transportation':
                 break;
             case 'place':
-                var placeId = $(this).attr('data-place-id') || '';
-                url += '&placeid=' + placeId;
+                var referenceId = $(this).attr('data-reference-id') || '';
+                url += '&referenceid=' + referenceId;
                 break;
             case 'hotel':
                 var hotelId = $(this).attr('data-hotel-id');
@@ -193,8 +193,9 @@ function CreateActivityModal(activityType, url) {
         $('input.day-input', superDialog).attr('autocomplete', 'off');
         BindDestinationAutocomplete(superDialog);
 
-        if ($('.place-map').length > 0)
-            drawPlaceDialogMap();
+        if ($('.place-map').length > 0) {
+            $('.place-map-container').placeMap();
+        }
 
         scrollToBottom($('.notes', superDialog));
     });
@@ -210,29 +211,85 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     scrollToBottom($('.notes', superDialog));
 });
 
-function drawPlaceDialogMap() {
-    var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
-    var map = new google.maps.Map($('.place-map', superDialog).get(0), myOptions);
-    var bounds = new google.maps.LatLngBounds();
 
+(function($) {
+    var container;
+    var map;
+    var autocomplete;
     var marker;
-    var currLat = $('#latitude', superDialog).val();
-    var currLng = $('#longitude', superDialog).val();
-    if (currLat != '' && currLng != '') {
-        var point = new google.maps.LatLng(currLat, currLng);
-        marker = new google.maps.Marker({ position: point, map: map });
-        bounds.extend(point);
-    }
-    map.fitBounds(bounds);
-    map.setZoom(13);
 
-    google.maps.event.addListener(map, 'click', function (event) {
-        if (marker != null) marker.setMap(null);
-        marker = new google.maps.Marker({ position: event.latLng, map: map });
-        $('#latitude', superDialog).val(event.latLng.lat());
-        $('#longitude', superDialog).val(event.latLng.lng());
-    });
-}
+    $.fn.placeMap = function() {
+        return this.each(function() {
+            container = $(this);
+            var mapDivElement = $('.place-map', container).get(0);
+            var center = new google.maps.LatLng(25, -30);
+
+            map = new google.maps.Map(mapDivElement, { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+            marker = new google.maps.Marker({ map: map });
+
+            var input = $('#map-search-input');
+            input.keypress(function(e) {
+                if(e.which == 13)
+                    e.preventDefault();
+            });
+            
+            var options = {
+                types: ['establishment', 'political']
+            };
+            autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
+            autocomplete.bindTo('bounds', map);
+            google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
+        });
+    };
+
+    var placeChanged = function() {
+        var place = autocomplete.getPlace();
+        $('[name="googreference"]', container).val(place.reference);
+
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(16);
+        }
+        
+        marker.setPosition(place.geometry.location);
+    };
+    
+})(jQuery);
+
+//function drawPlaceDialogMap($container) {
+//    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
+//    var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP, center:pyrmont };
+//    var map = new google.maps.Map($('.place-map', superDialog).get(0), myOptions);
+//    var bounds = new google.maps.LatLngBounds();
+
+//    var marker;
+//    var currLat = $('#latitude', superDialog).val();
+//    var currLng = $('#longitude', superDialog).val();
+//    if (currLat != '' && currLng != '') {
+//        var point = new google.maps.LatLng(currLat, currLng);
+//        marker = new google.maps.Marker({ position: point, map: map });
+//        bounds.extend(point);
+//    }
+//    map.fitBounds(bounds);
+//    map.setZoom(13);
+
+//    google.maps.event.addListener(map, 'click', function (event) {
+//        if (marker != null) marker.setMap(null);
+//        marker = new google.maps.Marker({ position: event.latLng, map: map });
+//        $('#latitude', superDialog).val(event.latLng.lat());
+//        $('#longitude', superDialog).val(event.latLng.lng());
+//    });
+
+//    $('#map-search-button', $container).click(function () {
+//        var input = $('#map-search-input', $container);
+//        var term = input.val();
+//        
+//    });
+
+//    initialize();
+//}
 
 function drawMap(container, mapData) {
 

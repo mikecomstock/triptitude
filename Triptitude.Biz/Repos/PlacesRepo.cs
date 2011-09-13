@@ -6,13 +6,13 @@ namespace Triptitude.Biz.Repos
 {
     public class PlacesRepo : Repo<Place>
     {
-        public Place FindOrInitializeByFactualId(string factualId)
+        public Place FindOrInitializeByGoogReference(string googReference)
         {
-            Place place = FindAll().FirstOrDefault(p => p.FactualId == factualId);
+            Place place = FindAll().FirstOrDefault(p => p.GoogReference == googReference);
 
             if (place == null)
             {
-                place = new PlacesService().Find(factualId);
+                place = new PlacesService().FindGoogle(googReference);
             }
 
             return place;

@@ -9,68 +9,27 @@
 <input type="hidden" name="activityid" value="@form.ActivityId" />
 @Helpers.ActivityFormTabs(form)
 <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
-    <input type="hidden" name="factualid" value="@form.FactualId" />
     <input type="hidden" name="placeid" value="@form.PlaceId" />
-    @Html.Hidden("latitude", @form.Latitude)
-    @Html.Hidden("longitude", @form.Longitude)
     <div class="place-map-container">
         <div class="place-map">
-            map
         </div>
-        <div class="place-map-caption">
-            Click map to enter location</div>
+        <input type="hidden" name="googreference" value="@form.GoogReference" />
     </div>
+    <fieldset>
+        <span>Where</span>
+        <p>
+            <label for="googautocomplete">
+                Place Name</label>
+            <input type="text" name="googautocomplete" id="map-search-input" class="focus" value="@form.Name" />
+        </p>
+    </fieldset>
     <fieldset>
         <span>What</span>
         <p>
             <label for="tag">
                 Tag</label>
-            @Html.TextBox("tagname", @form.TagName, new { @class = "focus" })
+            @Html.TextBox("tagname", @form.TagName, new { @class = "" })
         </p>
-    </fieldset>
-    <fieldset>
-        <span>Where</span>
-        @if (string.IsNullOrWhiteSpace(place.FactualId))
-        {
-            <p>
-                <label for="name">
-                    Name</label>
-                @Html.TextBox("name", @form.Name)
-            </p>
-            <p>
-                <label for="address">
-                    Address</label>
-                @Html.TextBox("address", @form.Address)
-            </p>
-            <p>
-                <label for="telephone">
-                    Phone</label>
-                @Html.TextBox("telephone", @form.Telephone)
-            </p>
-            <p>
-                <label for="website">
-                    Website</label>
-                @Html.TextBox("website", @form.Website)
-            </p>
-        }
-        else
-        {
-            <p>
-                <label>
-                    Name</label>
-                @place.Name
-            </p>
-            <p>
-                <label>
-                    Address</label>
-                @place.NiceAddress
-            </p>
-            <p>
-                <label>
-                    Phone</label>
-                @place.Telephone
-            </p>
-        }
     </fieldset>
     <fieldset>
         <span>When</span>
@@ -84,11 +43,11 @@
     </fieldset>
 </div>
 <p class="buttons">
+    <input type="submit" value="Save" />
+    <input type="button" value="Cancel" class="cancel" />
     @if (form.ActivityId.HasValue)
     {
         <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
     }
-    <input type="button" value="Cancel" class="cancel" />
-    <input type="submit" value="Save" />
 </p>
 </form>
