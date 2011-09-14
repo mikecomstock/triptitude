@@ -60,11 +60,13 @@ namespace Triptitude.Web.Controllers
         }
 
         // partial only
-        public ActionResult DayDetails(Trip trip, int dayNumber, User currentUser)
+        public ActionResult DayDetails(Trip trip, int? dayNumber, User currentUser)
         {
+            // For unscheduled activities
+            dayNumber = dayNumber == -1 ? null : dayNumber;
+
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.Activities = trip.Activities.Where(a => a.BeginDay == dayNumber || a.EndDay == dayNumber);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
             ViewBag.CurrentUserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             ViewBag.CurrentUser = currentUser;

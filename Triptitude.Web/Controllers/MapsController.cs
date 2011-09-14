@@ -36,7 +36,7 @@ namespace Triptitude.Web.Controllers
             markers.AddRange(hotelMarkers);
 
             var placeActivities = activities.OfType<PlaceActivity>();
-            var placeMarkers = from a in placeActivities
+            var placeMarkers = from a in placeActivities.Where(a => a.Place != null)
                                let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
                                where a.Place.Latitude.HasValue && a.Place.Longitude.HasValue
                                select new

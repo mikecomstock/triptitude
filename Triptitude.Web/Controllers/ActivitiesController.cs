@@ -224,28 +224,16 @@ namespace Triptitude.Web.Controllers
 
         private ActionResult EditPlace(PlaceActivity activity, ActivityForm.Tabs selectedTab)
         {
-            var form = new PlaceActivityForm()
+            var form = new PlaceActivityForm();
+            form.SetBaseProps(activity);
+            form.SelectedTab = selectedTab;
+
+            if (activity.Place != null)
             {
-                ActivityId = activity.Id,
-                BeginDay = activity.BeginDay,
-                EndDay = activity.EndDay,
-                TripId = activity.Trip.Id,
-                TagName = activity.Tags.Any() ? activity.Tags.First().Name : string.Empty,
-                //FactualId = activity.Place.FactualId,
-                GoogReference = activity.Place.GoogReference,
-                PlaceId = activity.Place.Id,
-                Name = activity.Place.Name,
-                Address = activity.Place.Address,
-                City = activity.Place.Locality,
-                State = activity.Place.Region,
-                Country = activity.Place.Country,
-                Telephone = activity.Place.Telephone,
-                Website = activity.Place.Website,
-                Latitude = activity.Place.Latitude.HasValue ? activity.Place.Latitude.Value.ToString() : string.Empty,
-                Longitude = activity.Place.Longitude.HasValue ? activity.Place.Longitude.Value.ToString() : string.Empty,
-                Notes = activity.Notes,
-                SelectedTab = selectedTab
-            };
+                form.GoogReference = activity.Place.GoogReference;
+                form.Name = activity.Place.Name;
+            }
+
             ViewBag.Form = form;
             ViewBag.Place = activity.Place;
             ViewBag.Action = Url.ItineraryEditPlace();

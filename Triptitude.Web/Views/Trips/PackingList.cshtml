@@ -4,15 +4,6 @@
     var items = (IEnumerable<Item>)ViewBag.Items;
     var tags = (IEnumerable<Tag>)ViewBag.Tags;
 }
-@section Scripts {
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            $('.items').each(function () {
-                $('li', this).equalHeights();
-            });
-        });
-    </script>
-}
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
@@ -25,26 +16,8 @@
             @foreach (var tag in tags.Where(t => t.Items.Any()))
             {
                 <div class="tag-group">
-                    <div class="title">@tag.NiceName</div>
-                    <ul class="items">
-                        @foreach (var item in tag.Items)
-                        {
-                            <li>
-                                @if (!string.IsNullOrWhiteSpace(item.DetailPageURL))
-                                {
-                                    <a class="name" href="@item.DetailPageURL" target="_blank">@item.Name</a>
-                                }
-                                else
-                                {
-                                    <span class="name">@item.Name</span>
-                                }
-                                @if (!string.IsNullOrWhiteSpace(item.SmallImageURL))
-                                {
-                                    <img height="@item.SmallImageHeight" width="@item.SmallImageWidth" src="@item.SmallImageURL" alt="" />
-                                }
-                            </li>                   
-                        }
-                    </ul>
+                    <div class="title">@tag.Name</div>
+                    @Helpers.ItemList(Url, tag.Items)
                 </div>
             }
         </div>

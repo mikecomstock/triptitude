@@ -23,3 +23,44 @@
         </p>
     </div>
 }
+@using Triptitude.Biz.Models;
+@using System.Web.Helpers;
+@using System.Web.Mvc;
+@using Triptitude.Web.Helpers;
+@helper TagList(UrlHelper Url, IEnumerable<Tag> tags)
+    {
+        if (tags.Any())
+        {
+    <ul class="tags">
+        @foreach (Tag tag in tags)
+        {
+            <li><a class="tag" href="@Url.Details(tag)">@tag.Name</a> </li>
+        }
+    </ul>
+        }
+}
+@helper ItemList(UrlHelper Url, IEnumerable<Item> items)
+    {
+        if (items.Any())
+        {
+    <ul class="items">
+        @foreach (var item in items)
+        {
+            <li>
+                @if (!string.IsNullOrWhiteSpace(item.DetailPageURL))
+                {
+                    <a class="name" href="@item.DetailPageURL" target="_blank">@item.Name</a>
+                }
+                else
+                {
+                    <span class="name">@item.Name</span>
+                }
+                @if (!string.IsNullOrWhiteSpace(item.SmallImageURL))
+                {
+                    <img height="@item.SmallImageHeight" width="@item.SmallImageWidth" src="@item.SmallImageURL" alt="" />
+                }
+            </li>                   
+        }
+    </ul>
+        }
+}

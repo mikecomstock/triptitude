@@ -66,7 +66,8 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                return Activities.Any() ? Activities.Max(a => a.EndDay) : 1;
+                int? max = Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
+                return max ?? 1;
             }
         }
 
@@ -75,25 +76,31 @@ namespace Triptitude.Biz.Models
             get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
         }
 
-        //public IEnumerable<City> Cities
-        //{
-        //    get
-        //    {
-        //        IEnumerable<City> cities = Activities.SelectMany(a => a.Cities).ToList();
-        //        IEnumerable<City> grouped = from c in cities
-        //                                    group c by c into grp
-        //                                    let count = grp.Count()
-        //                                    orderby count
-        //                                    select grp.Key;
-        //        return grouped;
-        //    }
-        //}
-
-        public string NiceDay(int dayNumer, User currentUser)
+        public IEnumerable<Activity> ActivitiesOn(int? dayNumber)
         {
-            if (BeginDate.HasValue && (BeginDate.Value.AddDays(TotalDays - 1) < DateTime.Today || currentUser.OwnsTrips(this)))
+            return dayNumber.HasValue
+                ? Activities.Where(a => a.BeginDay == dayNumber || a.EndDay == dayNumber)
+                : Activities.Where(a => !a.BeginDay.HasValue && !a.EndDay.HasValue);
+        }
+
+        public IEnumerable<Tag> Tags
+        {
+            get
             {
-                return string.Format("Day {0} - {1:dddd, MMM dd}", dayNumer, BeginDate.Value.AddDays(dayNumer - 1));
+                var tags = Activities.SelectMany(a => a.Tags).Distinct();
+                return tags;
+            }
+        }
+
+        public string NiceDay(int? dayNumer, User currentUser)
+        {
+            if (!dayNumer.HasValue)
+            {
+                return "Unscheduled Activities";
+            }
+            else if (BeginDate.HasValue && (BeginDate.Value.AddDays(TotalDays - 1) < DateTime.Today || currentUser.OwnsTrips(this)))
+            {
+                return string.Format("Day {0} - {1:dddd, MMM dd}", dayNumer, BeginDate.Value.AddDays(dayNumer.Value - 1));
             }
             else
             {
@@ -108,19 +115,18 @@ namespace Triptitude.Biz.Models
     public abstract class Activity
     {
         public int Id { get; set; }
+        public string Title { get; set; }
         public virtual Trip Trip { get; set; }
-        public int BeginDay { get; set; }
+        public int? BeginDay { get; set; }
         public TimeSpan? BeginTime { get; set; }
-        public int EndDay { get; set; }
+        public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
 
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
-
-        // From CityActivities view
-        //   public virtual ICollection<City> Cities { get; set; }
     }
 
     [Table("TransportationActivities")]
@@ -204,9 +210,13 @@ namespace Triptitude.Biz.Models
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
 
-        public string NiceName
+        public IEnumerable<Trip> PublicTrips
         {
-            get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name); }
+            get
+            {
+                var trips = Activities.Select(a => a.Trip).Distinct().Where(t => t.ShowInSite);
+                return trips;
+            }
         }
     }
 

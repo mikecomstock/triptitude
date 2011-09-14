@@ -16,19 +16,24 @@
         <input type="hidden" name="googreference" value="@form.GoogReference" />
     </div>
     <fieldset>
+        <span>What</span>
+        <p>
+            <label for="title">
+                Title</label>
+            @Html.TextBox("title", @form.Title, new { @class = "focus", placeholder = "ex: Whale Watching Tour" })
+        </p>
+        <p>
+            <label for="tag">
+                Tags</label>
+            @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: whale watching, water, boat" })
+        </p>
+    </fieldset>
+    <fieldset>
         <span>Where</span>
         <p>
             <label for="googautocomplete">
                 Place Name</label>
-            <input type="text" name="googautocomplete" id="map-search-input" class="focus" value="@form.Name" />
-        </p>
-    </fieldset>
-    <fieldset>
-        <span>What</span>
-        <p>
-            <label for="tag">
-                Tag</label>
-            @Html.TextBox("tagname", @form.TagName, new { @class = "" })
+            <input type="text" name="googautocomplete" id="map-search-input" value="@form.Name" />
         </p>
     </fieldset>
     <fieldset>

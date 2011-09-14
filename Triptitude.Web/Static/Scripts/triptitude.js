@@ -23,8 +23,11 @@ $(function () {
         function () { $(this).children('ul').show(); },
         function () { $(this).children('ul').hide(); }
     );
-
-
+    
+    $('.items').each(function() {
+        $('li', this).equalHeights();
+    });
+    
     //    $('.trip-length-slider').slider({
     //        range: true,
     //        values: [2, 10],

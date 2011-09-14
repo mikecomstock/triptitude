@@ -5,7 +5,7 @@
     <h3>
         @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
     </h3>
-    @foreach (Activity activity in ViewBag.Activities)
+    @foreach (Activity activity in trip.ActivitiesOn(ViewBag.DayNumber))
     {
         <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
             @if (ViewBag.CurrentUserOwnsTrip && activity.Notes.Any())
@@ -46,14 +46,17 @@
             {
                 var placeActivity = activity as PlaceActivity;
                 <div class="title">
-                    @if (placeActivity.Tags.Any())
+                    @if (!string.IsNullOrWhiteSpace(placeActivity.Title))
                     {
-                        Tag tag = placeActivity.Tags.First();
-                        <text><a href="@Url.Details(tag)">@tag.NiceName</a> at</text>
+                        @(placeActivity.Title)
                     }
-                    @placeActivity.Place.Name
+                    @if (placeActivity.Place != null)
+                    {
+                        @(placeActivity.Place.Name)
+                    }
                 </div>
             }
+            @Helpers.TagList(Url, activity.Tags)
         </div>
     }
 </div>

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
@@ -7,15 +9,23 @@ namespace Triptitude.Biz.Repos
     {
         public Tag FindOrInitializeByName(string name)
         {
-            Tag tag = FindAll().FirstOrDefault(t => t.Name == name.Trim());
+            name = name.Trim();
+            name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+            Tag tag = FindAll().FirstOrDefault(t => t.Name == name);
 
             if (tag == null)
             {
-                tag = new Tag { Name = name.Trim() };
+                tag = new Tag { Name = name };
                 Add(tag);
             }
 
             return tag;
+        }
+
+        public IEnumerable<Tag> FindOrInitializeAll(string tagString)
+        {
+            var tokens = tagString.Split(',');
+            return tokens.Select(FindOrInitializeByName);
         }
     }
 }

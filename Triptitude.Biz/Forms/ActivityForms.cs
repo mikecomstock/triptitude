@@ -6,10 +6,11 @@ namespace Triptitude.Biz.Forms
     public class ActivityForm
     {
         public int? ActivityId { get; set; }
+        public string Title { get; set; }
         public int TripId { get; set; }
         public int? BeginDay { get; set; }
         public int? EndDay { get; set; }
-        public string TagName { get; set; }
+        public string TagString { get; set; }
         public string Note { get; set; }
 
         // Used only for display purposes
@@ -17,6 +18,17 @@ namespace Triptitude.Biz.Forms
         public Tabs SelectedTab { get; set; }
 
         public enum Tabs { Details, Notes }
+
+        public void SetBaseProps(Activity activity)
+        {
+            ActivityId = activity.Id;
+            Title = activity.Title;
+            BeginDay = activity.BeginDay;
+            EndDay = activity.EndDay;
+            TripId = activity.Trip.Id;
+            TagString = activity.TagString;
+            Notes = activity.Notes;
+        }
     }
 
     public class TransportationActivityForm : ActivityForm

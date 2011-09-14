@@ -11,21 +11,16 @@ namespace Triptitude.Biz.Repos
         private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
         {
             activity.Trip = new TripsRepo().Find(form.TripId);
-            activity.BeginDay = form.BeginDay.Value;
-            activity.EndDay = form.EndDay.Value;
+            activity.Title = string.IsNullOrWhiteSpace(form.Title) ? null : form.Title;
+            activity.BeginDay = form.BeginDay;
+            activity.EndDay = form.EndDay;
+            activity.TagString = form.TagString;
 
             if (activity.Tags != null)
+                activity.Tags.Clear();
+            if (!string.IsNullOrWhiteSpace(form.TagString))
             {
-                foreach (var tag in activity.Tags.ToList())
-                {
-                    activity.Tags.Remove(tag);
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(form.TagName))
-            {
-                Tag tag = new TagsRepo().FindOrInitializeByName(form.TagName);
-                activity.Tags = new List<Tag> { tag };
+                activity.Tags = new TagsRepo().FindOrInitializeAll(form.TagString).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(form.Note))
@@ -132,10 +127,17 @@ namespace Triptitude.Biz.Repos
             //    activity.Place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
             //}
 
-            activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogReference);
+            if (!string.IsNullOrWhiteSpace(form.GoogReference))
+            {
+                activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogReference);
+            }
 
             Save();
-            new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.Place.Id);
+
+            if (activity.Place != null)
+            {
+                new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.Place.Id);
+            }
 
             return activity;
         }

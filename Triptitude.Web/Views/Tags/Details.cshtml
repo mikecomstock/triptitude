@@ -11,7 +11,7 @@
             <h1>@tag.Name</h1>
         </div>
         <div class="panel-content">
-            <h2>
+            @*<h2>
                 Popular Cities</h2>
             <div class="cities">
                 @foreach (var city in tag.CitiesToShow)
@@ -20,17 +20,23 @@
                         <a href="@Url.Details(city)">@city.FullName</a>
                     </div>
                 }
+            </div>*@
+            <h2>@tag.Name - Trips</h2>
+            @if (tag.PublicTrips.Any())
+            {
+                Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips });
+            }
+            else
+            {
+                <div>
+                    No trips found</div>
+            }
+            @if (tag.Items.Any())
+            {
                 <h2>
                     Packing List</h2>
-                <div class="items">
-                    @foreach (var item in tag.Items)
-                    {
-                        <div class="item">
-                            @item.Name
-                        </div>
-                    }
-                </div>
-            </div>
+                @Helpers.ItemList(Url, tag.Items)
+            }
         </div>
     </div>
 </div>

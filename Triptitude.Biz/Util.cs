@@ -81,7 +81,7 @@ namespace Triptitude.Biz
             return result;
         }
 
-        public static string DateTimeRangeString(int beginDay, TimeSpan? beginTime, int endDay, TimeSpan? endTime)
+        public static string DateTimeRangeString(int? beginDay, TimeSpan? beginTime, int? endDay, TimeSpan? endTime)
         {
             string dateTimeString = string.Empty;
 
