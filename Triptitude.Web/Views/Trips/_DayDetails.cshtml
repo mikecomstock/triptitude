@@ -16,7 +16,15 @@
             {
                 var transportationActivity = activity as TransportationActivity;
                 <div class="title">
-                    @transportationActivity.TransportationType.Name from <a href="@Url.Details(transportationActivity.FromCity)">@transportationActivity.FromCity.ASCIIName</a> to <a href="@Url.Details(transportationActivity.ToCity)">@transportationActivity.ToCity.ASCIIName</a>
+                    @transportationActivity.TransportationType.Name
+                    @if (transportationActivity.FromPlace != null)
+                    {
+                        <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
+                    }
+                    @if (transportationActivity.ToPlace != null)
+                    {
+                        <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                    }
                 </div>
             }
             else if (activity is HotelActivity)
@@ -45,16 +53,24 @@
             else if (activity is PlaceActivity)
             {
                 var placeActivity = activity as PlaceActivity;
+
+                if (!string.IsNullOrWhiteSpace(placeActivity.Title))
+                {
                 <div class="title">
-                    @if (!string.IsNullOrWhiteSpace(placeActivity.Title))
-                    {
-                        @(placeActivity.Title)
-                    }
+                    @placeActivity.Title
                     @if (placeActivity.Place != null)
                     {
-                        @(placeActivity.Place.Name)
+                        <span>at <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a> </span>
                     }
                 </div>
+                }
+                else
+                {
+                <div class="title">
+                    <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                </div>
+                }
+
             }
             @Helpers.TagList(Url, activity.Tags)
         </div>

@@ -53,7 +53,8 @@ join Trips t on a.Trip_Id = t.Id
             Trip trip = new Trip { Name = "My trip to " + toCity.ShortName, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
 
             // Transportation to destination
-            trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = fly, FromCity = fromCity, ToCity = toCity });
+            //TODO: fix
+            //trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = fly, FromCity = fromCity, ToCity = toCity });
 
             // Hotels for each day
             var hotelsRepo = new HotelsRepo();
@@ -70,7 +71,8 @@ join Trips t on a.Trip_Id = t.Id
             }
 
             // Transportation home
-            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromCity = toCity, ToCity = fromCity });
+            //TODO: fix
+            //trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromCity = toCity, ToCity = fromCity });
             return trip;
         }
 

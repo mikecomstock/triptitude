@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Triptitude.Biz.Models
 {
@@ -133,12 +134,22 @@ namespace Triptitude.Biz.Models
     public class TransportationActivity : Activity
     {
         public virtual TransportationType TransportationType { get; set; }
-        public virtual City FromCity { get; set; }
-        public virtual City ToCity { get; set; }
+        public virtual Place FromPlace { get; set; }
+        public virtual Place ToPlace { get; set; }
 
         public override string Name
         {
-            get { return string.Format("{0} from {1} to {2}", TransportationType.Name, FromCity.ShortName, ToCity.ShortName); }
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormat(TransportationType.Name);
+
+                if (FromPlace != null)
+                    sb.AppendFormat(" From {0}", FromPlace.Name);
+                if (ToPlace != null)
+                    sb.AppendFormat(" To {0}", ToPlace.Name);
+                return sb.ToString();
+            }
         }
 
         public override string ActivityTypeName { get { return "transportation"; } }

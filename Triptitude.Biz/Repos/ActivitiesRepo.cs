@@ -56,12 +56,26 @@ namespace Triptitude.Biz.Repos
             var type = new TransportationTypesRepo().Find(form.TransportationTypeId);
             activity.TransportationType = type;
 
-            var citiesRepo = new CitiesRepo();
-            activity.FromCity = citiesRepo.Find(form.FromCityId);
-            activity.ToCity = citiesRepo.Find(form.ToCityId);
+            var placesRepo = new PlacesRepo();
+            if (!string.IsNullOrWhiteSpace(form.FromGoogReference))
+            {
+                activity.FromPlace = placesRepo.FindOrInitializeByGoogReference(form.FromGoogReference);
+            }
+            if (!string.IsNullOrWhiteSpace(form.ToGoogReference))
+            {
+                activity.ToPlace = placesRepo.FindOrInitializeByGoogReference(form.ToGoogReference);
+            }
 
             Save();
 
+            if (activity.FromPlace != null)
+            {
+                new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.FromPlace.Id);
+            }
+            if (activity.ToPlace != null)
+            {
+                new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", activity.ToPlace.Id);
+            }
             return activity;
         }
 

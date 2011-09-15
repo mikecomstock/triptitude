@@ -143,6 +143,15 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog.place .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
 #super-dialog.place .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
 
+#super-dialog.transportation .stops { overflow: auto; }
+#super-dialog.transportation .stops p { float: left; }
+#super-dialog.transportation .stops p + p { border-left: 5px dotted #999; }
+#super-dialog.transportation .stops label { float: none; }
+#super-dialog.transportation .stops input { float: none; width:260px; }
+#super-dialog.transportation .autocomplete-map { height: 120px;width: 260px;padding: 2px; }
+
+
+
 #super-dialog .buttons { padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; overflow: auto; }
 #super-dialog .buttons input { float: right; margin: 2px; }
 #super-dialog .buttons .delete { float: left; background-color: #E92553; }
@@ -155,6 +164,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog .notes { margin: 10px; padding-right: 10px; max-height: 250px; overflow-y: auto; border-top: 1px dashed #CCC; }
 #super-dialog .note { margin: 4px 0; padding: 2px 4px; font-size: 12px; background-color: #9FDAFE; display: inline; clear: both; float: left; -moz-border-radius: 4px; }
 #super-dialog form.note-selector { padding-top: 10px; }
+
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }

@@ -14,18 +14,20 @@
             Type</label>
         @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
     </p>
-    <p>
-        <label for="fromcityname">
-            From</label>
-        <input type="text" name="fromcityname" data-hidden-field-name="fromcityid" class="destination-autocomplete" value="@form.FromCityName" />
-        <input type="hidden" id="fromcityid" name="fromcityid" value="@form.FromCityId" />
-    </p>
-    <p>
-        <label for="tocityname">
-            To</label>
-        <input type="text" name="tocityname" data-hidden-field-name="tocityid" class="destination-autocomplete" value="@form.ToCityName" />
-        <input type="hidden" id="tocityid" name="tocityid" value="@form.ToCityId" />
-    </p>
+    <div class="stops">
+        <p>
+            <label for="fromcityname">
+                From</label>
+            <input type="hidden" name="fromgoogreference" value="@form.FromGoogReference" />
+            <input type="text" class="goog-autocomplete" data-value-field-name="fromgoogreference" value="@form.FromName" />
+        </p>
+        <p>
+            <label for="tocityname">
+                To</label>
+            <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
+            <input type="text" class="goog-autocomplete" data-value-field-name="togoogreference" value="@form.ToName" />
+        </p>
+    </div>
     <p>
         <label for="beginDay">
             Day

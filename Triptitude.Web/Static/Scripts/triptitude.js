@@ -199,6 +199,10 @@ function CreateActivityModal(activityType, url) {
         if ($('.place-map').length > 0) {
             $('.place-map-container').placeMap();
         }
+        
+        if(activityType=="transportation") {
+            $('.goog-autocomplete').each(function() { $(this).googAutocomplete(); });
+        }
 
         scrollToBottom($('.notes', superDialog));
     });
@@ -213,7 +217,6 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     $('.focus', newPage).first().focus();
     scrollToBottom($('.notes', superDialog));
 });
-
 
 (function($) {
     var container;
@@ -235,10 +238,8 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
                 if(e.which == 13)
                     e.preventDefault();
             });
-            
-            var options = {
-                types: ['establishment', 'political']
-            };
+
+            var options = { types: ['establishment', 'political'] };
             autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
             autocomplete.bindTo('bounds', map);
             google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
@@ -260,6 +261,42 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     };
     
 })(jQuery);
+
+(function ($) {
+
+    $.fn.googAutocomplete = function() {
+        var $input = this;
+        var $valueField = $('[name="'+$input.attr('data-value-field-name') + '"]');
+        console.log($valueField);
+        var $mapDiv = $('<div class="autocomplete-map">map</div>');
+        $input.parent().append($mapDiv);
+
+        $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+
+        var center = new google.maps.LatLng(25, -30);
+        var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+        var marker = new google.maps.Marker({ map: map });
+
+        var options = { types: ['establishment', 'political'] };
+        var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
+        autocomplete.bindTo('bounds', map);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            var place = autocomplete.getPlace();
+            $valueField.val(place.reference);
+            
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(16);
+            }
+
+            marker.setPosition(place.geometry.location);
+        });
+    };
+
+})(jQuery);
+
 
 //function drawPlaceDialogMap($container) {
 //    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);

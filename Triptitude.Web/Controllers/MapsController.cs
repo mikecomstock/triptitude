@@ -54,47 +54,47 @@ namespace Triptitude.Web.Controllers
             var transportationDoesExtendBounds = !markers.Any();
 
             var transportationActivities = activities.OfType<TransportationActivity>();
-            var toMarkers = from a in transportationActivities
-                            let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
+            var toMarkers = from a in transportationActivities.Where(ta => ta.ToPlace != null)
+                            let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
                             let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                             let infoHtml = infoTitle + "<br/>" + infoBody
                             select new
                                        {
-                                           Name = a.ToCity.ShortName,
-                                           a.ToCity.Latitude,
-                                           a.ToCity.Longitude,
+                                           Name = a.ToPlace.Name,
+                                           a.ToPlace.Latitude,
+                                           a.ToPlace.Longitude,
                                            InfoHtml = infoHtml,
                                            ExtendBounds = transportationDoesExtendBounds
                                        };
             markers.AddRange(toMarkers);
 
-            var fromMarkers = from a in transportationActivities
-                              let infoTitle = string.Format("<strong>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></strong>", a.TransportationType.Name, Url.Details(a.FromCity), a.FromCity.ShortName, Url.Details(a.ToCity), a.ToCity.ShortName)
+            var fromMarkers = from a in transportationActivities.Where(ta => ta.FromPlace != null)
+                              let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
                               let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                               let infoHtml = infoTitle + "<br/>" + infoBody
                               select new
                                          {
-                                             Name = a.FromCity.ShortName,
-                                             a.FromCity.Latitude,
-                                             a.FromCity.Longitude,
+                                             Name = a.FromPlace.Name,
+                                             a.FromPlace.Latitude,
+                                             a.FromPlace.Longitude,
                                              InfoHtml = infoHtml,
                                              ExtendBounds = transportationDoesExtendBounds
                                          };
             markers.AddRange(fromMarkers);
 
-            var transLines = from a in transportationActivities
+            var transLines = from a in transportationActivities.Where(ta => ta.ToPlace != null && ta.FromPlace != null)
                              select new
                                         {
                                             a.TransportationType.PathType,
                                             From = new
                                             {
-                                                a.FromCity.Latitude,
-                                                a.FromCity.Longitude
+                                                a.FromPlace.Latitude,
+                                                a.FromPlace.Longitude
                                             },
                                             To = new
                                             {
-                                                a.ToCity.Latitude,
-                                                a.ToCity.Longitude
+                                                a.ToPlace.Latitude,
+                                                a.ToPlace.Longitude
                                             }
                                         };
             polyLines.AddRange(transLines);

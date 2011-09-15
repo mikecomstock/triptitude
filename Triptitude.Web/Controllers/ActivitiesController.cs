@@ -147,20 +147,22 @@ namespace Triptitude.Web.Controllers
 
         private ActionResult EditTransportation(TransportationActivity activity, ActivityForm.Tabs selectedTab)
         {
-            TransportationActivityForm form = new TransportationActivityForm
+            TransportationActivityForm form = new TransportationActivityForm();
+            form.SetBaseProps(activity);
+            form.TransportationTypeId = activity.TransportationType.Id;
+            form.SelectedTab = selectedTab;
+
+            if (activity.FromPlace != null)
             {
-                ActivityId = activity.Id,
-                TransportationTypeId = activity.TransportationType.Id,
-                TripId = activity.Trip.Id,
-                FromCityId = activity.FromCity.GeoNameID,
-                FromCityName = activity.FromCity.FullName,
-                ToCityId = activity.ToCity.GeoNameID,
-                ToCityName = activity.ToCity.FullName,
-                BeginDay = activity.BeginDay,
-                EndDay = activity.EndDay,
-                Notes = activity.Notes,
-                SelectedTab = selectedTab
-            };
+                form.FromGoogReference = activity.FromPlace.GoogReference;
+                form.FromName = activity.FromPlace.Name;
+            }
+            if (activity.ToPlace != null)
+            {
+                form.ToGoogReference = activity.ToPlace.GoogReference;
+                form.ToName = activity.ToPlace.Name;
+            }
+
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.ItineraryEditTransportation();

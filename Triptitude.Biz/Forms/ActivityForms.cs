@@ -34,12 +34,13 @@ namespace Triptitude.Biz.Forms
     public class TransportationActivityForm : ActivityForm
     {
         public int TransportationTypeId { get; set; }
-        public int FromCityId { get; set; }
-        public int ToCityId { get; set; }
+        public string FromGoogReference { get; set; }
+        public string ToGoogReference { get; set; }
 
-        // Used only for display purposes
-        public string FromCityName { get; set; }
-        public string ToCityName { get; set; }
+        // For display only
+        public string FromName { get; set; }
+        public string ToName { get; set; }
+
     }
 
     public class HotelActivityForm : ActivityForm
