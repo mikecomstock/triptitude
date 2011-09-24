@@ -239,7 +239,7 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
                     e.preventDefault();
             });
 
-            var options = { types: ['establishment', 'political'] };
+            var options = {  };
             autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
             autocomplete.bindTo('bounds', map);
             google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
@@ -267,7 +267,7 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     $.fn.googAutocomplete = function() {
         var $input = this;
         var $valueField = $('[name="'+$input.attr('data-value-field-name') + '"]');
-        console.log($valueField);
+        
         var $mapDiv = $('<div class="autocomplete-map">map</div>');
         $input.parent().append($mapDiv);
 
@@ -277,7 +277,7 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
         var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
         var marker = new google.maps.Marker({ map: map });
 
-        var options = { types: ['establishment', 'political'] };
+        var options = { };
         var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
         autocomplete.bindTo('bounds', map);
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
