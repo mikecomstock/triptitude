@@ -100,7 +100,6 @@
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
@@ -195,9 +194,6 @@
     <Content Include="Views\Trips\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Destinations\Details.cshtml" />
-    <Content Include="Views\Destinations\Hotels.cshtml" />
-    <Content Include="Views\Destinations\_SidePanel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
     <Content Include="Views\My\_SidePanel.cshtml" />
@@ -225,9 +221,6 @@
     <Content Include="Views\Admin\Trips.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Destinations\Activities.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Activities\HotelDialog.cshtml" />
     <Content Include="Views\Activities\TransportationDialog.cshtml" />
   </ItemGroup>
@@ -239,9 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Tags\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Destinations\Activity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Trips\PackingList.cshtml" />
@@ -268,13 +258,7 @@
     <Content Include="Areas\Admin\Views\AdminTags\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Destinations\Places.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Activities\PlaceDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Places\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Activities\WorkingOnIt.cshtml">

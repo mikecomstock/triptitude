@@ -122,7 +122,7 @@ namespace Triptitude.Biz.Repos
             PlacesRepo placesRepo = new PlacesRepo();
 
             // If this is a custom place:
-            //if (string.IsNullOrWhiteSpace(form.FactualId))
+            //if (string.IsNullOrWhiteSpace...
             //{
             //    Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
             //    place.Name = form.Name;
@@ -138,7 +138,7 @@ namespace Triptitude.Biz.Repos
             //}
             //else
             //{
-            //    activity.Place = placesRepo.FindOrInitializeByFactualId(form.FactualId);
+            //    activity.Place = placesRepo.FindOrInitializeBy...
             //}
 
             if (!string.IsNullOrWhiteSpace(form.GoogReference))

@@ -1,10 +1,5 @@
 User-agent: *
-Disallow: /users/
-Disallow: /tags/
-Disallow: /questions/
-Disallow: /destinations/*/places
-Disallow: /destinations/*/activities
-Disallow: /destinations/*/hotels
 Allow: /trips
 Disallow: /trips/create
+Disallow: /login
 Sitemap: http://www.triptitude.com/sitemap.xml

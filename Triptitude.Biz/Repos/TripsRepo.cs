@@ -49,14 +49,10 @@ join Trips t on a.Trip_Id = t.Id
             var placesRepo = new PlacesRepo();
             var from = placesRepo.FindOrInitializeByGoogReference(form.FromId);
             var to = placesRepo.FindOrInitializeByGoogReference(form.ToId);
-
-            //var citiesRepo = new CitiesRepo();
-            //var fromCity = citiesRepo.Find(form.FromId.Value);
-            //var toCity = citiesRepo.Find(form.ToId.Value);
-
+            
             Trip trip = new Trip { Name = "My trip to " + to.Name, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
 
-            // Transportation to destination
+            // Transportation to place
             trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = fly, FromPlace = from, ToPlace = to });
 
             if (to.Latitude.HasValue && to.Longitude.HasValue)

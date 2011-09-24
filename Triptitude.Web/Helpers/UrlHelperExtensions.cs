@@ -164,45 +164,11 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Destinations
-
-        public static string DestinationSearch(this UrlHelper url)
-        {
-            return url.Action("search", "destinations");
-        }
-
-        public static string Details(this UrlHelper url, IDestination destination)
-        {
-            return SlugAction(url, "details", "destinations", destination.GeoNameID, destination.FullName);
-        }
-
-        public static string Hotels(this UrlHelper url, IDestination destination)
-        {
-            return SlugAction(url, "hotels", "destinations", destination.GeoNameID, destination.FullName);
-        }
-
-        public static string Activities(this UrlHelper url, IDestination destination)
-        {
-            return SlugAction(url, "activities", "destinations", destination.GeoNameID, destination.FullName);
-        }
-
-        public static string Places(this UrlHelper url, IDestination destination)
-        {
-            return SlugAction(url, "places", "destinations", destination.GeoNameID, destination.FullName);
-        }
-
-        #endregion
-
         #region Tags
 
         public static string Details(this UrlHelper url, Tag tag)
         {
             return SlugAction(url, "details", "tags", tag.Id, tag.Name);
-        }
-
-        public static string Tag(this UrlHelper url, IDestination destination, Tag tag)
-        {
-            return url.Action("activity", "destinations", new { idslug = destination.GeoNameID + "-" + destination.FullName.ToSlug(), tagidslug = tag.Id + "-" + tag.Name.ToSlug() });
         }
 
         #endregion

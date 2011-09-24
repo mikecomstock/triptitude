@@ -6,7 +6,6 @@ namespace Triptitude.Biz.Forms
 {
     public class CreateTripForm : IValidatableObject
     {
-        //public string Name { get; set; }
         public string FromName { get; set; }
         public string FromId { get; set; }
 
@@ -28,16 +27,10 @@ namespace Triptitude.Biz.Forms
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            //if (string.IsNullOrWhiteSpace(Name))
-            //    yield return new ValidationResult("Name is required.", new[] { "name" });
-
-            //if (Name != null && Name.Length > 50)
-            //    yield return new ValidationResult("Name is too long. Please use less than 50 characters.", new[] { "name" });
-
-            if (string.IsNullOrWhiteSpace(FromId))// || new DestinationsRepo().Find(FromId.Value) == null)
+            if (string.IsNullOrWhiteSpace(FromId))
                 yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "from" });
 
-            if (string.IsNullOrWhiteSpace(ToId))// || new DestinationsRepo().Find(ToId.Value) == null)
+            if (string.IsNullOrWhiteSpace(ToId))
                 yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "to" });
 
             int tmp;

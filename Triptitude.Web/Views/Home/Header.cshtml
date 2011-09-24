@@ -6,7 +6,7 @@
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form action="@Url.PlaceSearch()" method="post">
-            <input type="text" name="s" class="destination-autocomplete" data-value-field-name="googreference" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
+            <input type="text" name="s" class="place-autocomplete" data-value-field-name="googreference" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
             <input type="hidden" name="googreference" />
             <input type="submit" value="Go >" />
             </form>
@@ -92,11 +92,11 @@ else if (ViewBag.HideTripBar != true)
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
             <p>
-                <input type="text" name="fromname" data-value-field-name="fromid" class="destination-autocomplete" placeholder="From (any city)" />
+                <input type="text" name="fromname" data-value-field-name="fromid" class="place-autocomplete" placeholder="From (any city)" />
                 <input type="hidden" id="fromid" name="fromid" />
             </p>
             <p>
-                <input type="text" name="toname" data-value-field-name="toid" class="destination-autocomplete" placeholder="To (any city)" />
+                <input type="text" name="toname" data-value-field-name="toid" class="place-autocomplete" placeholder="To (any city)" />
                 <input type="hidden" id="toid" name="toid" />
             </p>
             <p>

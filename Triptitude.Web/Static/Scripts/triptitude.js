@@ -10,24 +10,22 @@ $(function () {
     $('.focus').first().focus();
     $('.date-picker').datepicker();
 
-    BindDestinationAutocomplete(null);
+    BindPlaceAutocomplete(null);
 
     $('#search').submit(function (e) {
-        var destinationId = $('input[name="destinationid"]', $(this)).val();
-        if (destinationId == '') {
-            e.preventDefault();
-        }
+        var val = $('input[name="googreference"]', $(this)).val();
+        if (val == '') e.preventDefault();
     });
 
     $('#trip-bar-menu li').hover(
         function () { $(this).children('ul').show(); },
         function () { $(this).children('ul').hide(); }
     );
-    
-    $('.items').each(function() {
+
+    $('.items').each(function () {
         $('li', this).equalHeights();
     });
-    
+
     //    $('.trip-length-slider').slider({
     //        range: true,
     //        values: [2, 10],
@@ -170,22 +168,9 @@ $(function () {
     });
 });
 
-function BindDestinationAutocomplete(context) {
-    var a = $('.destination-autocomplete', context);
+function BindPlaceAutocomplete(context) {
+    var a = $('.place-autocomplete', context);
     a.googAutocompleteNoMap();
-//    
-//    $('.destination-autocomplete', context).autocomplete({
-//        delay: 50,
-//        source: "/destinations/search",
-//        select: function (event, ui) {
-//            var hiddenFieldName = $(this).attr('data-value-field-name');
-//            $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
-//            var autoSubmit = $(this).attr('data-auto-submit');
-
-//            if (autoSubmit == 'true')
-//                $(this).closest("form").submit();
-//        }
-//    });
 }
 
 function CreateActivityModal(activityType, url) {
@@ -197,14 +182,14 @@ function CreateActivityModal(activityType, url) {
         superDialogOverlay.show();
         $('.focus', superDialog).focus();
         $('input.day-input', superDialog).attr('autocomplete', 'off');
-        BindDestinationAutocomplete(superDialog);
+        BindPlaceAutocomplete(superDialog);
 
         if ($('.place-map').length > 0) {
             $('.place-map-container').placeMap();
         }
-        
-        if(activityType=="transportation") {
-            $('.goog-autocomplete').each(function() { $(this).googAutocomplete(); });
+
+        if (activityType == "transportation") {
+            $('.goog-autocomplete').each(function () { $(this).googAutocomplete(); });
         }
 
         scrollToBottom($('.notes', superDialog));
@@ -267,24 +252,24 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
 
 (function ($) {
 
-    $.fn.googAutocomplete = function() {
-        this.each(function() {
+    $.fn.googAutocomplete = function () {
+        this.each(function () {
             var $input = $(this);
             var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
 
             var $mapDiv = $('<div class="autocomplete-map">map</div>');
             $input.parent().append($mapDiv);
 
-            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
 
             var center = new google.maps.LatLng(25, -30);
             var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
             var marker = new google.maps.Marker({ map: map });
 
-            var options = { };
+            var options = {};
             var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
             autocomplete.bindTo('bounds', map);
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 $valueField.val(place.reference);
 
@@ -304,19 +289,19 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
 
 (function ($) {
 
-    $.fn.googAutocompleteNoMap = function() {
-        this.each(function() {
+    $.fn.googAutocompleteNoMap = function () {
+        this.each(function () {
             var $input = $(this);
-            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
 
             var autocomplete = new google.maps.places.Autocomplete($input.get(0));
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
                 $valueField.val(place.reference);
 
                 var autosubmit = $input.attr('data-auto-submit') == 'true';
-                if (autosubmit)$input.closest('form').submit();
+                if (autosubmit) $input.closest('form').submit();
             });
         });
     };

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -244,103 +243,7 @@ namespace Triptitude.Biz.Models
         public decimal? SmallImageWidth { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
-
-    #region Destinations
-
-    // abstract!
-    public interface IDestination
-    {
-        int GeoNameID { get; set; }
-        string ShortName { get; }
-        string FullName { get; }
-        IQueryable<Tag> Tags { get; }
-    }
-
-    public class Country : IDestination
-    {
-        [Key]
-        public int GeoNameID { get; set; }
-        public string ISO { get; set; }
-        public string Name { get; set; }
-        public virtual ICollection<Region> Regions { get; set; }
-
-        public string FullName
-        {
-            get { return Name; }
-        }
-
-        public IQueryable<Tag> Tags
-        {
-            get { return Regions.SelectMany(r => r.Tags).AsQueryable(); }
-        }
-
-        public string ShortName
-        {
-            get { return Name; }
-        }
-
-    }
-
-    public class Region : IDestination
-    {
-        [Key]
-        public int GeoNameID { get; set; }
-        public string ASCIIName { get; set; }
-        public virtual Country Country { get; set; }
-        public virtual ICollection<City> Cities { get; set; }
-        public string GeoNameAdmin1Code { get; set; }
-
-        public string FullName
-        {
-            get { return ASCIIName + ", " + Country.FullName; }
-        }
-
-        public IQueryable<Tag> Tags
-        {
-            get { return Cities.SelectMany(c => c.Tags).AsQueryable(); }
-        }
-
-        public string ShortName
-        {
-            get { return ASCIIName; }
-        }
-    }
-
-    public class City : IDestination
-    {
-        [Key]
-        public int GeoNameID { get; set; }
-        public string ASCIIName { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        public virtual Region Region { get; set; }
-        // Not sure what this is from in the DB anymore... 8/19/2011
-        public virtual IQueryable<Tag> Tags { get; set; }
-
-        public string FullName
-        {
-            get { return ASCIIName + ", " + Region.FullName; }
-        }
-
-        public string ShortName
-        {
-            get { return ASCIIName; }
-        }
-
-        public IEnumerable<Tag> TagsToShow
-        {
-            get
-            {
-                //var placeActivities = Activities.OfType<PlaceActivity>().Where(ta => ta.Trip.ShowInSite);
-                //IEnumerable<Tag> tags = placeActivities.Select(pa => pa.Tags.First()).GroupBy(ta => ta).OrderByDescending(g => g.Count()).Select(g => g.Key);
-                //return tags;
-                return null;
-            }
-        }
-    }
-
-    #endregion
-
+    
     #region Hotels
 
     public class HotelPhoto

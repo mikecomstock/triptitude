@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -37,6 +36,7 @@ namespace Triptitude.Web
             routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldDestinations", "Destinations/{*Data}", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff
 
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
@@ -44,12 +44,9 @@ namespace Triptitude.Web
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
 
-            routes.MapSlugRoute("DestinationActivities", "destinations/{idslug}/activities/{tagidslug}", new { controller = "destinations", action = "activity" }, new { idslug = new SlugRouteConstraint(), tagidslug = new SlugRouteConstraint() });
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
-
-            routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
-
+            
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }
 

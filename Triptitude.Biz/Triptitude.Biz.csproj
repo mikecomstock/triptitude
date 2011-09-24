@@ -94,13 +94,10 @@
     <Compile Include="Models\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\ActivitiesRepo.cs" />
-    <Compile Include="Repos\CitiesRepo.cs" />
-    <Compile Include="Repos\DestinationsRepo.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\ItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
     <Compile Include="Repos\PlacesRepo.cs" />
-    <Compile Include="Repos\RegionsRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
@@ -112,10 +109,8 @@
     </Compile>
     <Compile Include="Services\AmazonService.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Repos\CountriesRepo.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ImportService.cs" />
-    <Compile Include="Services\LuceneService.cs" />
     <Compile Include="Services\PlacesService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

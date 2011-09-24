@@ -20,14 +20,14 @@
                 @Html.ValidationMessage("from")
                 <label for="fromname">
                     From</label>
-                <input type="text" name="fromname" id="fromname" data-value-field-name="fromid" class="destination-autocomplete focus" value="@ViewBag.Form.FromName" />
+                <input type="text" name="fromname" id="fromname" data-value-field-name="fromid" class="place-autocomplete focus" value="@ViewBag.Form.FromName" />
                 <input type="hidden" id="fromid" name="fromid" value="@ViewBag.Form.FromId" />
             </p>
             <p>
                 @Html.ValidationMessage("to")
                 <label for="toname">
                     To</label>
-                <input type="text" name="toname" id="toname" data-value-field-name="toid" class="destination-autocomplete" value="@ViewBag.Form.ToName" />
+                <input type="text" name="toname" id="toname" data-value-field-name="toid" class="place-autocomplete" value="@ViewBag.Form.ToName" />
                 <input type="hidden" id="toid" name="toid" value="@ViewBag.Form.ToId" />
             </p>
             <p>
