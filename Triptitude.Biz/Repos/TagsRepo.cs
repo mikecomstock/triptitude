@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
@@ -9,8 +10,13 @@ namespace Triptitude.Biz.Repos
     {
         public Tag FindOrInitializeByName(string name)
         {
-            name = name.Trim();
-            name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+            name = name.Replace('_', '-');
+            name = Regex.Replace(name, "[^a-zA-Z0-9-]+", "", RegexOptions.Compiled);
+
+            if (string.IsNullOrWhiteSpace(name))
+                return null;
+
+            name = name.ToLower();
             Tag tag = FindAll().FirstOrDefault(t => t.Name == name);
 
             if (tag == null)
@@ -24,8 +30,8 @@ namespace Triptitude.Biz.Repos
 
         public IEnumerable<Tag> FindOrInitializeAll(string tagString)
         {
-            var tokens = tagString.Split(',');
-            return tokens.Select(FindOrInitializeByName);
+            var tokens = tagString.Split(' ');
+            return tokens.Select(FindOrInitializeByName).Where(t => t != null);
         }
     }
 }
