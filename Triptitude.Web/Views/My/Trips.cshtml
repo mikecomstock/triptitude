@@ -10,13 +10,13 @@
                 My Trips</h1>
         </div>
         <div class="subtitle">
-            <a href="@Url.CreateTrip()">create a trip</a>
+            <a href="@Url.CreateTrip()">Create a trip</a>
         </div>
         <div class="panel-content">
             @if (trips.IsNullOrEmpty())
             {
                 <div>
-                    No trips found! <a href="@Url.CreateTrip()">Create a trip.</a>
+                    No trips found!
                 </div>
             }
             else

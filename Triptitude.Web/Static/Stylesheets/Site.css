@@ -43,7 +43,8 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #header-container { background-color: #262626; z-index: 5; }
 
 #header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
-#email-warning { background-color: #FE9FAA; font-size: 14px; text-align: center; padding: 3px; color: #000; font-weight: bold; -moz-border-radius: 4px; margin-top: 3px; }
+#email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; -moz-border-radius: 4px; margin-top: 3px; }
+#email-warning a { color: #FFF; font-weight: normal; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; -moz-border-radius: 0 0 7px 7px; background: -moz-linear-gradient(top,  #39B3FE,  #0190E9); }
 
 /* Search */
@@ -96,7 +97,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .panel h2 { color: #262626; font-size: 22px; padding: 10px 10px 0 10px; text-transform: lowercase; }
 
 .panel > .title, .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
-.panel > .subtitle { background-color: #F3ECB7;padding: 10px; }
+.panel > .subtitle { background-color: #F3ECB7; padding: 10px; }
 
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
@@ -239,10 +240,10 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }*/
 
 /* Tags */
-ul.tags { padding: 0; list-style: none; overflow: auto; margin: 0;height: 26px; }
+ul.tags { padding: 0; list-style: none; overflow: auto; margin: 0; height: 26px; }
 ul.tags > li { float: left; }
 ul.tags > li + li { margin-left: 5px; }
-.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block;height: 15px; }
+.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block; height: 15px; }
 .tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
 
 /* Items */
