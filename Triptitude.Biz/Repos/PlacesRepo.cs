@@ -17,5 +17,12 @@ namespace Triptitude.Biz.Repos
 
             return place;
         }
+        public Place FindOrCreateByGoogReference(string googReference)
+        {
+            Place place = FindOrInitializeByGoogReference(googReference);
+            Add(place);
+            Save();
+            return place;
+        }
     }
 }

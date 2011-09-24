@@ -1,5 +1,7 @@
 ﻿using System.Web.Mvc;
+using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
@@ -19,6 +21,12 @@ namespace Triptitude.Web.Controllers
         //    return PartialView();
         //}
 
+        [HttpPost]
+        public ActionResult Search(string googReference)
+        {
+            Place place = placesRepo.FindOrCreateByGoogReference(googReference);
+            return Redirect(Url.Details(place));
+        }
 
         public ActionResult Details(int id)
         {

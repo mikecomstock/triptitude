@@ -95,9 +95,9 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; padding: 10px 10px 0 10px; text-transform: lowercase; }
 
-.panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
-.panel-title h1 { float: left; }
-.panel-title a, .panel-title .link { float: right; background-color: #FFFFFF; padding: 5px; display: block; font-weight: bold; font-size: 16px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); -moz-border-radius: 5px; }
+.panel > .title, .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
+.panel > .subtitle { background-color: #F3ECB7;padding: 10px; }
+
 .panel-header { background-color: #F3ECB7; padding: 15px; -moz-border-radius: 5px 5px 0 0; }
 .panel-header h2 { padding: 10px 0; }
 

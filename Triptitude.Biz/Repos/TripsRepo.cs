@@ -46,33 +46,47 @@ join Trips t on a.Trip_Id = t.Id
             var transportationTypesRepo = new TransportationTypesRepo();
             var fly = transportationTypesRepo.Find("Fly");
 
-            var citiesRepo = new CitiesRepo();
-            var fromCity = citiesRepo.Find(form.FromId.Value);
-            var toCity = citiesRepo.Find(form.ToId.Value);
+            var placesRepo = new PlacesRepo();
+            var from = placesRepo.FindOrInitializeByGoogReference(form.FromId);
+            var to = placesRepo.FindOrInitializeByGoogReference(form.ToId);
 
-            Trip trip = new Trip { Name = "My trip to " + toCity.ShortName, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
+            //var citiesRepo = new CitiesRepo();
+            //var fromCity = citiesRepo.Find(form.FromId.Value);
+            //var toCity = citiesRepo.Find(form.ToId.Value);
+
+            Trip trip = new Trip { Name = "My trip to " + to.Name, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
 
             // Transportation to destination
-            //TODO: fix
-            //trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = fly, FromCity = fromCity, ToCity = toCity });
+            trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = fly, FromPlace = from, ToPlace = to });
 
-            // Hotels for each day
-            var hotelsRepo = new HotelsRepo();
-            var hotels = hotelsRepo.IncrementalSearch(new HotelSearchForm { Latitude = toCity.Latitude, Longitude = toCity.Longitude }, hotelsNeeded + 2).OrderBy(h => Guid.NewGuid()).ToList();
-
-            var beginHotelDay = 1;
-            while (beginHotelDay < form.NumDays)
+            if (to.Latitude.HasValue && to.Longitude.HasValue)
             {
-                var hotel = hotels.First();
-                hotels.Remove(hotel);
-                var daysInThisHotel = Math.Min(r.Next(minimumNightStay, minimumNightStay + 2), form.NumDays - beginHotelDay);
-                trip.Activities.Add(new HotelActivity { BeginDay = beginHotelDay, EndDay = beginHotelDay + daysInThisHotel, Hotel = hotel });
-                beginHotelDay += daysInThisHotel;
+                // Hotels for each day
+                var hotelsRepo = new HotelsRepo();
+                var hotels =
+                    hotelsRepo.IncrementalSearch(
+                        new HotelSearchForm { Latitude = to.Latitude.Value, Longitude = to.Longitude.Value },
+                        hotelsNeeded + 2).OrderBy(h => Guid.NewGuid()).ToList();
+
+                var beginHotelDay = 1;
+                while (beginHotelDay < form.NumDays)
+                {
+                    var hotel = hotels.First();
+                    hotels.Remove(hotel);
+                    var daysInThisHotel = Math.Min(r.Next(minimumNightStay, minimumNightStay + 2),
+                                                   form.NumDays - beginHotelDay);
+                    trip.Activities.Add(new HotelActivity
+                                            {
+                                                BeginDay = beginHotelDay,
+                                                EndDay = beginHotelDay + daysInThisHotel,
+                                                Hotel = hotel
+                                            });
+                    beginHotelDay += daysInThisHotel;
+                }
             }
 
             // Transportation home
-            //TODO: fix
-            //trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromCity = toCity, ToCity = fromCity });
+            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromPlace = from, ToPlace = to });
             return trip;
         }
 

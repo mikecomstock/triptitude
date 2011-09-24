@@ -5,10 +5,12 @@
 @Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
-            <a href="@Url.CreateTrip()">create a trip</a>
+        <div class="title">
             <h1>
                 My Trips</h1>
+        </div>
+        <div class="subtitle">
+            <a href="@Url.CreateTrip()">create a trip</a>
         </div>
         <div class="panel-content">
             @if (trips.IsNullOrEmpty())

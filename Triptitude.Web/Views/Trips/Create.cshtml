@@ -1,12 +1,6 @@
 ﻿@{
     ViewBag.Title = "Create a Trip";
 }
-@section Scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function () { document.getElementById('fromname').focus(); });
-    </script>
-}
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
@@ -26,14 +20,14 @@
                 @Html.ValidationMessage("from")
                 <label for="fromname">
                     From</label>
-                <input type="text" name="fromname" id="fromname" data-hidden-field-name="fromid" class="destination-autocomplete" value="@ViewBag.Form.FromName" />
+                <input type="text" name="fromname" id="fromname" data-value-field-name="fromid" class="destination-autocomplete focus" value="@ViewBag.Form.FromName" />
                 <input type="hidden" id="fromid" name="fromid" value="@ViewBag.Form.FromId" />
             </p>
             <p>
                 @Html.ValidationMessage("to")
                 <label for="toname">
                     To</label>
-                <input type="text" name="toname" id="toname" data-hidden-field-name="toid" class="destination-autocomplete" value="@ViewBag.Form.ToName" />
+                <input type="text" name="toname" id="toname" data-value-field-name="toid" class="destination-autocomplete" value="@ViewBag.Form.ToName" />
                 <input type="hidden" id="toid" name="toid" value="@ViewBag.Form.ToId" />
             </p>
             <p>

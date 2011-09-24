@@ -171,18 +171,21 @@ $(function () {
 });
 
 function BindDestinationAutocomplete(context) {
-    $('.destination-autocomplete', context).autocomplete({
-        delay: 50,
-        source: "/destinations/search",
-        select: function (event, ui) {
-            var hiddenFieldName = $(this).attr('data-hidden-field-name');
-            $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
-            var autoSubmit = $(this).attr('data-auto-submit');
+    var a = $('.destination-autocomplete', context);
+    a.googAutocompleteNoMap();
+//    
+//    $('.destination-autocomplete', context).autocomplete({
+//        delay: 50,
+//        source: "/destinations/search",
+//        select: function (event, ui) {
+//            var hiddenFieldName = $(this).attr('data-value-field-name');
+//            $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
+//            var autoSubmit = $(this).attr('data-auto-submit');
 
-            if (autoSubmit == 'true')
-                $(this).closest("form").submit();
-        }
-    });
+//            if (autoSubmit == 'true')
+//                $(this).closest("form").submit();
+//        }
+//    });
 }
 
 function CreateActivityModal(activityType, url) {
@@ -218,80 +221,103 @@ $('#dialog-menu li', superDialog).live('click', function (e) {
     scrollToBottom($('.notes', superDialog));
 });
 
-(function($) {
-    var container;
-    var map;
-    var autocomplete;
-    var marker;
+//(function($) {
+//    var container;
+//    var map;
+//    var autocomplete;
+//    var marker;
 
-    $.fn.placeMap = function() {
-        return this.each(function() {
-            container = $(this);
-            var mapDivElement = $('.place-map', container).get(0);
-            var center = new google.maps.LatLng(25, -30);
+//    $.fn.placeMap = function() {
+//        return this.each(function() {
+//            container = $(this);
+//            var mapDivElement = $('.place-map', container).get(0);
+//            var center = new google.maps.LatLng(25, -30);
 
-            map = new google.maps.Map(mapDivElement, { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
-            marker = new google.maps.Marker({ map: map });
+//            map = new google.maps.Map(mapDivElement, { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+//            marker = new google.maps.Marker({ map: map });
 
-            var input = $('#map-search-input');
-            input.keypress(function(e) {
-                if(e.which == 13)
-                    e.preventDefault();
-            });
+//            var input = $('#map-search-input');
+//            input.keypress(function(e) {
+//                if(e.which == 13)
+//                    e.preventDefault();
+//            });
 
-            var options = {  };
-            autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
-            autocomplete.bindTo('bounds', map);
-            google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
-        });
-    };
+//            var options = {  };
+//            autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
+//            autocomplete.bindTo('bounds', map);
+//            google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
+//        });
+//    };
 
-    var placeChanged = function() {
-        var place = autocomplete.getPlace();
-        $('[name="googreference"]', container).val(place.reference);
+//    var placeChanged = function() {
+//        var place = autocomplete.getPlace();
+//        $('[name="googreference"]', container).val(place.reference);
 
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(16);
-        }
-        
-        marker.setPosition(place.geometry.location);
-    };
-    
-})(jQuery);
+//        if (place.geometry.viewport) {
+//            map.fitBounds(place.geometry.viewport);
+//        } else {
+//            map.setCenter(place.geometry.location);
+//            map.setZoom(16);
+//        }
+//        
+//        marker.setPosition(place.geometry.location);
+//    };
+//    
+//})(jQuery);
 
 (function ($) {
 
     $.fn.googAutocomplete = function() {
-        var $input = this;
-        var $valueField = $('[name="'+$input.attr('data-value-field-name') + '"]');
-        
-        var $mapDiv = $('<div class="autocomplete-map">map</div>');
-        $input.parent().append($mapDiv);
+        this.each(function() {
+            var $input = $(this);
+            var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
 
-        $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+            var $mapDiv = $('<div class="autocomplete-map">map</div>');
+            $input.parent().append($mapDiv);
 
-        var center = new google.maps.LatLng(25, -30);
-        var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
-        var marker = new google.maps.Marker({ map: map });
+            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
 
-        var options = { };
-        var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
-        autocomplete.bindTo('bounds', map);
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            $valueField.val(place.reference);
-            
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(16);
-            }
+            var center = new google.maps.LatLng(25, -30);
+            var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+            var marker = new google.maps.Marker({ map: map });
 
-            marker.setPosition(place.geometry.location);
+            var options = { };
+            var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
+            autocomplete.bindTo('bounds', map);
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                $valueField.val(place.reference);
+
+                if (place.geometry.viewport) {
+                    map.fitBounds(place.geometry.viewport);
+                } else {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(16);
+                }
+
+                marker.setPosition(place.geometry.location);
+            });
+        });
+    };
+
+})(jQuery);
+
+(function ($) {
+
+    $.fn.googAutocompleteNoMap = function() {
+        this.each(function() {
+            var $input = $(this);
+            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+
+            var autocomplete = new google.maps.places.Autocomplete($input.get(0));
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+                var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
+                $valueField.val(place.reference);
+
+                var autosubmit = $input.attr('data-auto-submit') == 'true';
+                if (autosubmit)$input.closest('form').submit();
+            });
         });
     };
 

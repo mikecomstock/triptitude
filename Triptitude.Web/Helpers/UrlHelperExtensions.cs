@@ -81,9 +81,9 @@ namespace Triptitude.Web.Helpers
 
         #region Plan Trip
 
-        public static string CreateTrip(this UrlHelper url, IDestination to = null)
+        public static string CreateTrip(this UrlHelper url, Place to = null)
         {
-            return url.Action("create", "trips", new { to = to == null ? string.Empty : to.GeoNameID.ToString() });
+            return url.Action("create", "trips", new { to = to == null ? string.Empty : to.Id.ToString() });
         }
 
         public static string SetDefaultTrip(this UrlHelper url, Trip trip)
@@ -216,6 +216,10 @@ namespace Triptitude.Web.Helpers
         public static string Nearby(this UrlHelper url, Place place)
         {
             return SlugAction(url, "nearby", "places", place.Id, place.Name);
+        }
+        public static string PlaceSearch(this UrlHelper url)
+        {
+            return url.Action("search", "places");
         }
 
         #endregion

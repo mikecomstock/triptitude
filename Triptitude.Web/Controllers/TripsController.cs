@@ -125,10 +125,10 @@ namespace Triptitude.Web.Controllers
 
             if (to.HasValue)
             {
-                var destinationsRepo = new DestinationsRepo();
-                IDestination toDestination = destinationsRepo.Find(to.Value);
-                form.ToId = toDestination.GeoNameID;
-                form.ToName = toDestination.FullName;
+                var placesRepo = new PlacesRepo();
+                Place place = placesRepo.Find(to.Value);
+                form.ToId = place.GoogReference;
+                form.ToName = place.Name;
             }
 
             ViewBag.Form = form;

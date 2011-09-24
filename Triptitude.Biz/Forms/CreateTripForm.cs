@@ -8,10 +8,10 @@ namespace Triptitude.Biz.Forms
     {
         //public string Name { get; set; }
         public string FromName { get; set; }
-        public int? FromId { get; set; }
+        public string FromId { get; set; }
 
         public string ToName { get; set; }
-        public int? ToId { get; set; }
+        public string ToId { get; set; }
 
         public string NumberOfDays { get; set; }
         public int NumDays
@@ -34,11 +34,11 @@ namespace Triptitude.Biz.Forms
             //if (Name != null && Name.Length > 50)
             //    yield return new ValidationResult("Name is too long. Please use less than 50 characters.", new[] { "name" });
 
-            if (!FromId.HasValue || new DestinationsRepo().Find(FromId.Value) == null)
-                yield return new ValidationResult("Destination not found. Start typing a city name, and select from the options provided.", new[] { "from" });
+            if (string.IsNullOrWhiteSpace(FromId))// || new DestinationsRepo().Find(FromId.Value) == null)
+                yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "from" });
 
-            if (!ToId.HasValue || new DestinationsRepo().Find(ToId.Value) == null)
-                yield return new ValidationResult("Destination not found. Start typing a city name, and select from the options provided.", new[] { "to" });
+            if (string.IsNullOrWhiteSpace(ToId))// || new DestinationsRepo().Find(ToId.Value) == null)
+                yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "to" });
 
             int tmp;
             if (string.IsNullOrWhiteSpace(NumberOfDays) || !int.TryParse(NumberOfDays, out tmp) || tmp < 1 || tmp > 365)

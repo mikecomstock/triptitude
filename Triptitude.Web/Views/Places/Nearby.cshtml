@@ -2,13 +2,16 @@
     Place place = (Place)ViewBag.Place;
     ViewBag.Title = place.Name;
 }
-@Helpers.SidePanel(Url, place);
+@Helpers.SidePanel(Url, place)
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
+        <div class="title">
             <h1>
                 @ViewBag.Title
             </h1>
+        </div>
+        <div class="subtitle">
+            <a href="@Url.CreateTrip(to: place)">Create a trip to @place.Name</a>
         </div>
         <div class="panel-content">
             <h2>
