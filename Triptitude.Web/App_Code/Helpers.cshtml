@@ -64,3 +64,10 @@
     </ul>
         }
 }
+@helper SidePanel(UrlHelper url, Place place)
+    {
+    <div id="side-container">
+        <a href="@url.Details(place)">Details</a>
+        <a href="@url.Nearby(place)">Nearby</a>
+    </div>
+}

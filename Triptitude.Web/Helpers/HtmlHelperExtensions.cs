@@ -19,7 +19,7 @@ namespace Triptitude.Web.Helpers
         public static MvcHtmlString SelectTransportationTypeDropDownList(this HtmlHelper html, IEnumerable<TransportationType> transportationTypes, int selectedTypeId)
         {
             var options = transportationTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTypeId });
-            return html.DropDownList("transportationtypeid", options, new { @class = "focus" });
+            return html.DropDownList("transportationtypeid", options, new { @class = "" });
         }
 
         public static MvcHtmlString SelectActivity(this HtmlHelper html, Trip trip, object htmlAttributes = null)

@@ -1,0 +1,27 @@
+﻿@{
+    Place place = (Place)ViewBag.Place;
+    ViewBag.Title = place.Name;
+}
+@Helpers.SidePanel(Url, place);
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                @ViewBag.Title
+            </h1>
+        </div>
+        <div class="panel-content">
+            <h2>
+                Trips to @place.Name</h2>
+            @if (place.PublicTrips.Any())
+            {
+                Html.RenderAction("_rows", "Trips", new { trips = place.PublicTrips });
+            }
+            else
+            {
+                <div>
+                    No trips found</div>
+            }
+        </div>
+    </div>
+</div>

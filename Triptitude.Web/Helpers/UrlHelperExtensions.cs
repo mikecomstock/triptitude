@@ -211,7 +211,11 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, Place place)
         {
-            return url.Action("details", "places", new { id = place.FactualId });
+            return SlugAction(url, "details", "places", place.Id, place.Name);
+        }
+        public static string Nearby(this UrlHelper url, Place place)
+        {
+            return SlugAction(url, "nearby", "places", place.Id, place.Name);
         }
 
         #endregion

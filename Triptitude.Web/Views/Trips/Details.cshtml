@@ -31,7 +31,10 @@
                 Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
 
             }
-            @{Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });}
+            @if (trip.Activities.Any(a => a.IsUnscheduled))
+            {
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
+            }
         </div>
     </div>
 </div>

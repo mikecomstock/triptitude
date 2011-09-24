@@ -58,19 +58,15 @@
                 {
                 <div class="title">
                     @placeActivity.Title
-                    @if (placeActivity.Place != null)
-                    {
-                        <span>at <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a> </span>
-                    }
-                </div>
-                }
-                else
-                {
-                <div class="title">
-                    <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
                 </div>
                 }
 
+                if (placeActivity.Place != null)
+                {
+                <div class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
+                    <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                </div>
+                }
             }
             @Helpers.TagList(Url, activity.Tags)
         </div>

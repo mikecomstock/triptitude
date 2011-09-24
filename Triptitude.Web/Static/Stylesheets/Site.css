@@ -147,8 +147,8 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog.transportation .stops p { float: left; }
 #super-dialog.transportation .stops p + p { border-left: 5px dotted #999; }
 #super-dialog.transportation .stops label { float: none; }
-#super-dialog.transportation .stops input { float: none; width:260px; }
-#super-dialog.transportation .autocomplete-map { height: 120px;width: 260px;padding: 2px; }
+#super-dialog.transportation .stops input { float: none; width: 260px; }
+#super-dialog.transportation .autocomplete-map { height: 120px; width: 260px; padding: 2px; }
 
 
 
@@ -210,10 +210,10 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .trip-row p { margin: 5px 0; }
 
 .trip-row + .trip-row { border-top: 1px dashed #CCCCCC; }
-.trip-row-photo { float: left;margin: 5px; }
+.trip-row-photo { float: left; margin: 5px; }
 .trip-row-body { margin-top: 2px; }
 .trip-row-title { font-weight: bold; font-size: 16px; }
-.trip-row-map-link {float: right; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
+.trip-row-map-link { float: right; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
 .trip-row-map-link:hover { background-color: #AAA; -moz-border-radius: 3px; color: #FFF; }
 .trip-map-dialog-link { display: block; }
 
@@ -239,18 +239,18 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-search-form .ui-slider { margin-bottom: 10px; margin-top: 5px; }*/
 
 /* Tags */
-ul.tags {padding: 0; list-style: none; overflow: auto;margin: 0; }
-ul.tags > li {float: left; }
-ul.tags > li + li {margin-left: 5px; }
-.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%;display: block; }
+ul.tags { padding: 0; list-style: none; overflow: auto; margin: 0;height: 26px; }
+ul.tags > li { float: left; }
+ul.tags > li + li { margin-left: 5px; }
+.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block;height: 15px; }
 .tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
 
 /* Items */
-ul.items{padding: 0; list-style: none; overflow: auto; }
-ul.items> li {float: left; margin-left: 5px;}
+ul.items { padding: 0; list-style: none; overflow: auto; }
+ul.items > li { float: left; margin-left: 5px; }
 
-ul.items> li {border: 1px solid #EEE; text-align: center; margin: 10px; }
-ul.items> li .name { padding: 5px 5px 10px 5px; display: block; }
+ul.items > li { border: 1px solid #EEE; text-align: center; margin: 10px; }
+ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 
 /* Cities */
 .cities { }
@@ -258,9 +258,10 @@ ul.items> li .name { padding: 5px 5px 10px 5px; display: block; }
 .cities .city + .city { border-top: 1px dashed #CCCCCC; }
 
 /* Places */
-.place { padding: 5px; }
+/*.place { padding: 5px; }
 .place + .place { border-top: 1px dashed #CCCCCC; }
 .place-name { font-size: 16px; }
+*/
 
 /* Trips */
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
@@ -268,13 +269,16 @@ ul.items> li .name { padding: 5px 5px 10px 5px; display: block; }
 .trips.details .trip-day .notes { float: right; margin: 10px; }
 .trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
 .trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
+.trips.details .activity > .place { color: #333; margin: 10px; font-weight: bold; }
+.trips.details .activity > .place.with-title { font-weight: normal; }
+.trips.details .activity > .place.with-title:before { content: "at"; font-weight: normal; }
 .trips.details .activity { overflow: auto; cursor: pointer; }
 .trips.details .activity:hover { background-color: #EEE; }
 .trips.details .activity + .activity { border-top: 1px dashed #0190E9; }
 .trips.details .activity img { float: right; margin: 10px; }
 
 /* Trip Tags - see Tags, above */
-.trip-day .tags:before { content: "tags:"; float: left; color: #999;padding: 3px 0; }
+.trip-day .tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
 .trip-day .tags { margin: 10px; }
 
 .trips.map #trip-map-container { width: 100%; height: 500px; }

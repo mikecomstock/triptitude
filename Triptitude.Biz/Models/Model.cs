@@ -128,6 +128,8 @@ namespace Triptitude.Biz.Models
 
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
+
+        public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
     }
 
     [Table("TransportationActivities")]
@@ -404,6 +406,21 @@ namespace Triptitude.Biz.Models
         public decimal? Longitude { get; set; }
         public string Status { get; set; }
 
+        public virtual ICollection<PlaceActivity> PlaceActivities { get; set; }
+        public virtual ICollection<TransportationActivity> FromTransportationActivities { get; set; }
+        public virtual ICollection<TransportationActivity> ToTransportationActivities { get; set; }
+
+        public IEnumerable<Trip> PublicTrips
+        {
+            get
+            {
+                var placeActivityTrips = PlaceActivities.Select(pa => pa.Trip);
+                var fromTransportationActivityTrips = FromTransportationActivities.Select(pa => pa.Trip);
+                var toTransportationActivityTrips = ToTransportationActivities.Select(pa => pa.Trip);
+                return placeActivityTrips.Union(fromTransportationActivityTrips).Union(toTransportationActivityTrips).Distinct().Where(t => t.ShowInSite);
+            }
+        }
+
         public string NiceAddress
         {
             get
@@ -413,56 +430,5 @@ namespace Triptitude.Biz.Models
                 return full;
             }
         }
-
-        //public static Place FromEntityJson(dynamic json)
-        //{
-        //    Place p = new Place
-        //    {
-        //        Address = json.address,
-        //        AddressExtended = json.address_extended,
-        //        Category = json.category == null ? null : ((string)json.category).Trim('"'),
-        //        Country = json.country,
-        //        Email = json.email,
-        //        FactualId = json.factual_id,
-        //        Fax = json.fax,
-        //        Latitude = json.latitude,
-        //        Locality = json.locality,
-        //        Longitude = json.longitude,
-        //        Name = json.name,
-        //        POBox = json.po_box,
-        //        PostCode = json.postcode,
-        //        Region = json.region,
-        //        Status = json.status,
-        //        Telephone = json.tel,
-        //        Website = json.website
-        //    };
-        //    return p;
-        //}
-
-        //public static Place FromSearchJson(dynamic json)
-        //{
-        //    //"subject_key","factual_id","name","address","address_extended","po_box","locality","region","country","postcode","tel","fax","category","website","email","latitude","longitude","status"
-        //    Place p = new Place
-        //    {
-        //        FactualId = json[1],
-        //        Name = json[2],
-        //        Address = json[3],
-        //        AddressExtended = json[4],
-        //        POBox = json[5],
-        //        Locality = json[6],
-        //        Region = json[7],
-        //        Country = json[8],
-        //        PostCode = json[9],
-        //        Telephone = json[10],
-        //        Fax = json[11],
-        //        Category = json[12] == null ? null : ((string)json[12]).Trim('"'),
-        //        Website = json[13],
-        //        Email = json[14],
-        //        Latitude = json[15],
-        //        Longitude = json[16],
-        //        Status = json[17]
-        //    };
-        //    return p;
-        //}
     }
 }
