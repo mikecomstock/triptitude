@@ -59,11 +59,11 @@ namespace Triptitude.Biz.Repos
             var placesRepo = new PlacesRepo();
             if (!string.IsNullOrWhiteSpace(form.FromGoogReference))
             {
-                activity.FromPlace = placesRepo.FindOrInitializeByGoogReference(form.FromGoogReference);
+                activity.FromPlace = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
             }
             if (!string.IsNullOrWhiteSpace(form.ToGoogReference))
             {
-                activity.ToPlace = placesRepo.FindOrInitializeByGoogReference(form.ToGoogReference);
+                activity.ToPlace = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
             }
 
             Save();
@@ -143,7 +143,7 @@ namespace Triptitude.Biz.Repos
 
             if (!string.IsNullOrWhiteSpace(form.GoogReference))
             {
-                activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogReference);
+                activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
             }
 
             Save();

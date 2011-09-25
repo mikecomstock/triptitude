@@ -149,7 +149,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog.transportation .stops p + p { border-left: 5px dotted #999; }
 #super-dialog.transportation .stops label { float: none; }
 #super-dialog.transportation .stops input { float: none; width: 260px; }
-#super-dialog.transportation .autocomplete-map { height: 120px; width: 260px; padding: 2px; }
+#super-dialog.transportation .autocomplete-map { height: 120px; width: 260px; padding: 2px;display: block; }
 
 
 

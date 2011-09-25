@@ -11,9 +11,8 @@
 <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
     <input type="hidden" name="placeid" value="@form.PlaceId" />
     <div class="place-map-container">
-        <div class="place-map">
+        <div class="place-map" id="place-map">
         </div>
-        <input type="hidden" name="googreference" value="@form.GoogReference" />
     </div>
     <fieldset>
         <span>What</span>
@@ -33,7 +32,9 @@
         <p>
             <label for="googautocomplete">
                 Place Name</label>
-            <input type="text" name="googautocomplete" id="map-search-input" value="@form.Name" />
+            <input type="text" name="name" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-map-id="place-map"  id="map-search-input" value="@form.Name" />
+            <input type="hidden" name="googreference" value="@form.GoogReference" />
+            <input type="hidden" name="googid" value="@form.GoogId" />
         </p>
     </fieldset>
     <fieldset>

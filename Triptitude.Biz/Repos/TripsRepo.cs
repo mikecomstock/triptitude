@@ -47,9 +47,9 @@ join Trips t on a.Trip_Id = t.Id
             var fly = transportationTypesRepo.Find("Fly");
 
             var placesRepo = new PlacesRepo();
-            var from = placesRepo.FindOrInitializeByGoogReference(form.FromId);
-            var to = placesRepo.FindOrInitializeByGoogReference(form.ToId);
-            
+            var from = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
+            var to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
+
             Trip trip = new Trip { Name = "My trip to " + to.Name, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
 
             // Transportation to place
@@ -82,7 +82,7 @@ join Trips t on a.Trip_Id = t.Id
             }
 
             // Transportation home
-            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromPlace = from, ToPlace = to });
+            trip.Activities.Add(new TransportationActivity { BeginDay = form.NumDays, EndDay = form.NumDays, TransportationType = fly, FromPlace = to, ToPlace = from});
             return trip;
         }
 

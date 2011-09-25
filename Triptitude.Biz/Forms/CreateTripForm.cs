@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Forms
 {
     public class CreateTripForm : IValidatableObject
     {
         public string FromName { get; set; }
-        public string FromId { get; set; }
+        public string FromGoogReference { get; set; }
+        public string FromGoogId { get; set; }
 
         public string ToName { get; set; }
-        public string ToId { get; set; }
+        public string ToGoogReference { get; set; }
+        public string ToGoogId { get; set; }
 
         public string NumberOfDays { get; set; }
         public int NumDays
@@ -27,10 +28,10 @@ namespace Triptitude.Biz.Forms
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (string.IsNullOrWhiteSpace(FromId))
+            if (string.IsNullOrWhiteSpace(FromGoogReference))
                 yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "from" });
 
-            if (string.IsNullOrWhiteSpace(ToId))
+            if (string.IsNullOrWhiteSpace(ToGoogReference))
                 yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "to" });
 
             int tmp;

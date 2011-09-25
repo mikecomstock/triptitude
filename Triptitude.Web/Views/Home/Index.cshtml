@@ -13,12 +13,14 @@
         <h3>
             Try it out</h3>
         <p>
-            <input type="text" name="fromname" data-value-field-name="fromid" class="place-autocomplete"  />
-            <input type="hidden" id="fromid" name="fromid" />
+            <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" class="place-autocomplete" placeholder="From (any city)" />
+            <input type="hidden" name="fromgoogreference" />
+            <input type="hidden" name="fromgoogid" />
         </p>
         <p>
-            <input type="text" name="toname" data-value-field-name="toid" class="place-autocomplete" placeholder="To (any city)" />
-            <input type="hidden" id="toid" name="toid" />
+            <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" placeholder="To (any city)" />
+            <input type="hidden" name="togoogreference" />
+            <input type="hidden" name="togoogid" />
         </p>
         <p>
             <label for="numberofdays">

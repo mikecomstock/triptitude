@@ -6,8 +6,9 @@
         <a id="logo" href="/">Triptitude.com</a>
         <div id="search">
             <form action="@Url.PlaceSearch()" method="post">
-            <input type="text" name="s" class="place-autocomplete" data-value-field-name="googreference" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
+            <input type="text" name="s" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
             <input type="hidden" name="googreference" />
+            <input type="hidden" name="googid" />
             <input type="submit" value="Go >" />
             </form>
         </div>

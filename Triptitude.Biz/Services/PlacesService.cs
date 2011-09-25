@@ -9,7 +9,7 @@ namespace Triptitude.Biz.Services
     {
         private static string GoogleAPIKey { get { return ConfigurationManager.AppSettings["GoogleAPIKey"]; } }
         
-        public Place FindGoogle(string googleReference)
+        public Place CreateFromGoogle(string googleReference)
         {
             string path = string.Format("https://maps.googleapis.com/maps/api/place/details/json?reference={0}&sensor=true&key={1}", googleReference, GoogleAPIKey);
             dynamic json = GetJson(path).result;

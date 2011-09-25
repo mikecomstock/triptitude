@@ -50,7 +50,7 @@ namespace Triptitude.Web.Controllers
             throw new Exception("Activity type not supported");
         }
 
-        public ActionResult Create(string type, User currentUser, string placeId, int? hotelId)
+        public ActionResult Create(string type, User currentUser, int? placeId, int? hotelId)
         {
             switch (type)
             {
@@ -154,13 +154,15 @@ namespace Triptitude.Web.Controllers
 
             if (activity.FromPlace != null)
             {
-                form.FromGoogReference = activity.FromPlace.GoogReference;
                 form.FromName = activity.FromPlace.Name;
+                form.FromGoogReference = activity.FromPlace.GoogReference;
+                form.FromGoogId = activity.FromPlace.GoogId;
             }
             if (activity.ToPlace != null)
             {
-                form.ToGoogReference = activity.ToPlace.GoogReference;
                 form.ToName = activity.ToPlace.Name;
+                form.ToGoogReference = activity.ToPlace.GoogReference;
+                form.ToGoogId = activity.ToPlace.GoogId;
             }
 
             ViewBag.Form = form;
@@ -186,27 +188,27 @@ namespace Triptitude.Web.Controllers
 
         #region Places
 
-        /// <summary>
-        /// Note that placeId refers to a GooglReference. It is null when adding a custom place.
-        /// </summary>
-        private ActionResult AddPlace(string referenceId, User currentUser)
+        private ActionResult AddPlace(int? placeId, User currentUser)
         {
             Place place;
-            if (string.IsNullOrWhiteSpace(referenceId))
+
+            if (placeId.HasValue)
             {
-                place = new Place();
+                var placesRepo = new PlacesRepo();
+                place = placesRepo.Find(placeId.Value);
             }
             else
             {
-                var placesService = new PlacesService();
-                place = placesService.FindGoogle(referenceId);
+                place = new Place();
             }
 
             PlaceActivityForm form = new PlaceActivityForm
-                                         {
-                                             GoogReference = referenceId,
-                                             TripId = currentUser.DefaultTrip.Id
-                                         };
+            {
+                Name = place.Name,
+                GoogReference = place.GoogReference,
+                GoogId = place.GoogId,
+                TripId = currentUser.DefaultTrip.Id
+            };
             ViewBag.Form = form;
             ViewBag.Place = place;
             ViewBag.Action = Url.ItineraryAddPlace();
@@ -232,8 +234,9 @@ namespace Triptitude.Web.Controllers
 
             if (activity.Place != null)
             {
-                form.GoogReference = activity.Place.GoogReference;
                 form.Name = activity.Place.Name;
+                form.GoogReference = activity.Place.GoogReference;
+                form.GoogId = activity.Place.GoogId;
             }
 
             ViewBag.Form = form;

@@ -22,9 +22,9 @@ namespace Triptitude.Web.Controllers
         //}
 
         [HttpPost]
-        public ActionResult Search(string googReference)
+        public ActionResult Search(string googReference, string googId)
         {
-            Place place = placesRepo.FindOrCreateByGoogReference(googReference);
+            Place place = placesRepo.FindOrCreateByGoogReference(googId, googReference);
             return Redirect(Url.Details(place));
         }
 

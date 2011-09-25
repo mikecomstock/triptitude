@@ -35,7 +35,9 @@ namespace Triptitude.Biz.Forms
     {
         public int TransportationTypeId { get; set; }
         public string FromGoogReference { get; set; }
+        public string FromGoogId { get; set; }
         public string ToGoogReference { get; set; }
+        public string ToGoogId { get; set; }
 
         // For display only
         public string FromName { get; set; }
@@ -53,6 +55,7 @@ namespace Triptitude.Biz.Forms
         public int? PlaceId { get; set; }
         public string FactualId { get; set; }
         public string GoogReference { get; set; }
+        public string GoogId { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string City { get; set; }

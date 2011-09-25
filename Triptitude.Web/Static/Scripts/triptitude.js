@@ -47,6 +47,15 @@ $(function () {
     $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
 
+    $('#dialog-menu li', superDialog).live('click', function (e) {
+        var dataPageName = $(this).attr('data-page');
+        var currentPage = $('li, .dialog-page');
+        currentPage.removeClass('selected-page');
+        var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
+        newPage.addClass('selected-page');
+        $('.focus', newPage).first().focus();
+        scrollToBottom($('.notes', superDialog));
+    });
 
     /* Delete Confirmations */
     $('.confirm-delete').live('click', function (e) {
@@ -88,26 +97,26 @@ $(function () {
     /* Place Search */
     /****************/
 
-    $('.distance-slider', '.places #search-form').slider({
-        value: 10,
-        min: 1,
-        max: 50,
-        range: 'min',
-        step: 1,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-        },
-        change: function (event, ui) {
-            $(this).siblings('input').val(ui.value);
-        }
-    });
+//    $('.distance-slider', '.places #search-form').slider({
+//        value: 10,
+//        min: 1,
+//        max: 50,
+//        range: 'min',
+//        step: 1,
+//        slide: function (event, ui) {
+//            $(this).siblings('.label').html('within ' + ui.value + ' miles');
+//        },
+//        change: function (event, ui) {
+//            $(this).siblings('input').val(ui.value);
+//        }
+//    });
 
-    $('.places #search-form').submit(function (event) {
-        event.preventDefault();
-        $.get("/places/search", $(this).serialize(), function (data) {
-            $('.panel-content').html(data);
-        });
-    });
+//    $('.places #search-form').submit(function (event) {
+//        event.preventDefault();
+//        $.get("/places/search", $(this).serialize(), function (data) {
+//            $('.panel-content').html(data);
+//        });
+//    });
 
     /****************/
 
@@ -170,7 +179,7 @@ $(function () {
 
 function BindPlaceAutocomplete(context) {
     var a = $('.place-autocomplete', context);
-    a.googAutocompleteNoMap();
+    a.googAutocomplete();
 }
 
 function CreateActivityModal(activityType, url) {
@@ -182,165 +191,66 @@ function CreateActivityModal(activityType, url) {
         superDialogOverlay.show();
         $('.focus', superDialog).focus();
         $('input.day-input', superDialog).attr('autocomplete', 'off');
+
         BindPlaceAutocomplete(superDialog);
-
-        if ($('.place-map').length > 0) {
-            $('.place-map-container').placeMap();
-        }
-
-        if (activityType == "transportation") {
-            $('.goog-autocomplete').each(function () { $(this).googAutocomplete(); });
-        }
 
         scrollToBottom($('.notes', superDialog));
     });
 }
-
-$('#dialog-menu li', superDialog).live('click', function (e) {
-    var dataPageName = $(this).attr('data-page');
-    var currentPage = $('li, .dialog-page');
-    currentPage.removeClass('selected-page');
-    var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
-    newPage.addClass('selected-page');
-    $('.focus', newPage).first().focus();
-    scrollToBottom($('.notes', superDialog));
-});
-
-//(function($) {
-//    var container;
-//    var map;
-//    var autocomplete;
-//    var marker;
-
-//    $.fn.placeMap = function() {
-//        return this.each(function() {
-//            container = $(this);
-//            var mapDivElement = $('.place-map', container).get(0);
-//            var center = new google.maps.LatLng(25, -30);
-
-//            map = new google.maps.Map(mapDivElement, { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
-//            marker = new google.maps.Marker({ map: map });
-
-//            var input = $('#map-search-input');
-//            input.keypress(function(e) {
-//                if(e.which == 13)
-//                    e.preventDefault();
-//            });
-
-//            var options = {  };
-//            autocomplete = new google.maps.places.Autocomplete(input.get(0), options);
-//            autocomplete.bindTo('bounds', map);
-//            google.maps.event.addListener(autocomplete, 'place_changed', placeChanged);
-//        });
-//    };
-
-//    var placeChanged = function() {
-//        var place = autocomplete.getPlace();
-//        $('[name="googreference"]', container).val(place.reference);
-
-//        if (place.geometry.viewport) {
-//            map.fitBounds(place.geometry.viewport);
-//        } else {
-//            map.setCenter(place.geometry.location);
-//            map.setZoom(16);
-//        }
-//        
-//        marker.setPosition(place.geometry.location);
-//    };
-//    
-//})(jQuery);
 
 (function ($) {
 
     $.fn.googAutocomplete = function () {
         this.each(function () {
             var $input = $(this);
-            var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
-
-            var $mapDiv = $('<div class="autocomplete-map">map</div>');
-            $input.parent().append($mapDiv);
-
             $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
-
-            var center = new google.maps.LatLng(25, -30);
-            var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
-            var marker = new google.maps.Marker({ map: map });
-
-            var options = {};
-            var autocomplete = new google.maps.places.Autocomplete($input.get(0), options);
-            autocomplete.bindTo('bounds', map);
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                $valueField.val(place.reference);
-
-                if (place.geometry.viewport) {
-                    map.fitBounds(place.geometry.viewport);
-                } else {
-                    map.setCenter(place.geometry.location);
-                    map.setZoom(16);
-                }
-
-                marker.setPosition(place.geometry.location);
-            });
-        });
-    };
-
-})(jQuery);
-
-(function ($) {
-
-    $.fn.googAutocompleteNoMap = function () {
-        this.each(function () {
-            var $input = $(this);
-            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
-
             var autocomplete = new google.maps.places.Autocomplete($input.get(0));
+
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-                var $valueField = $('[name="' + $input.attr('data-value-field-name') + '"]');
-                $valueField.val(place.reference);
+
+                var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
+                var $googIdField = $('[name="' + $input.attr('data-goog-id-field') + '"]');
+
+                $googReferenceField.val(place.reference);
+                $googIdField.val(place.id);
 
                 var autosubmit = $input.attr('data-auto-submit') == 'true';
                 if (autosubmit) $input.closest('form').submit();
             });
+
+            var mapId = $input.attr('data-map-id');
+            if (mapId) {
+                $mapDiv = $('#' + mapId);
+
+                var center = new google.maps.LatLng(25, -30);
+                var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+                var marker = new google.maps.Marker({ map: map });
+                autocomplete.bindTo('bounds', map);
+                
+//                var currLat = $('#latitude', superDialog).val();
+//                var currLng = $('#longitude', superDialog).val();
+
+//                var point = new google.maps.LatLng(currLat, currLng);
+//                var marker = new google.maps.Marker({ position: point, map: map });
+                
+                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                        map.setZoom(16);
+                    }
+
+                    marker.setPosition(place.geometry.location);
+                });
+                
+            }
         });
     };
 
 })(jQuery);
-
-
-//function drawPlaceDialogMap($container) {
-//    var pyrmont = new google.maps.LatLng(-33.8665433, 151.1956316);
-//    var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP, center:pyrmont };
-//    var map = new google.maps.Map($('.place-map', superDialog).get(0), myOptions);
-//    var bounds = new google.maps.LatLngBounds();
-
-//    var marker;
-//    var currLat = $('#latitude', superDialog).val();
-//    var currLng = $('#longitude', superDialog).val();
-//    if (currLat != '' && currLng != '') {
-//        var point = new google.maps.LatLng(currLat, currLng);
-//        marker = new google.maps.Marker({ position: point, map: map });
-//        bounds.extend(point);
-//    }
-//    map.fitBounds(bounds);
-//    map.setZoom(13);
-
-//    google.maps.event.addListener(map, 'click', function (event) {
-//        if (marker != null) marker.setMap(null);
-//        marker = new google.maps.Marker({ position: event.latLng, map: map });
-//        $('#latitude', superDialog).val(event.latLng.lat());
-//        $('#longitude', superDialog).val(event.latLng.lng());
-//    });
-
-//    $('#map-search-button', $container).click(function () {
-//        var input = $('#map-search-input', $container);
-//        var term = input.val();
-//        
-//    });
-
-//    initialize();
-//}
 
 function drawMap(container, mapData) {
 
@@ -359,7 +269,7 @@ function drawMap(container, mapData) {
         marker.infoHtml = item.InfoHtml;
         if (item.ExtendBounds == true) bounds.extend(point);
 
-        google.maps.event.addListener(marker, 'mouseover', function () {
+        google.maps.event.addListener(marker, 'click', function () {
             infoWindow.setContent(marker.infoHtml);
             infoWindow.open(map, marker);
         });

@@ -127,7 +127,8 @@ namespace Triptitude.Web.Controllers
             {
                 var placesRepo = new PlacesRepo();
                 Place place = placesRepo.Find(to.Value);
-                form.ToId = place.GoogReference;
+                form.ToGoogReference = place.GoogReference;
+                form.ToGoogId = place.GoogId;
                 form.ToName = place.Name;
             }
 
