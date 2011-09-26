@@ -44,7 +44,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 #header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
 #email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; -moz-border-radius: 4px; margin-top: 3px; }
-#email-warning a { color: #FFF; font-weight: normal; }
+#email-warning a { color: #FFF; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; -moz-border-radius: 0 0 7px 7px; background: -moz-linear-gradient(top,  #39B3FE,  #0190E9); }
 
 /* Search */
