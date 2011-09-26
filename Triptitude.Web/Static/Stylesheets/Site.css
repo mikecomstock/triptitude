@@ -94,7 +94,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 .panel { -moz-border-radius: 6px; -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
-.panel h2 { color: #262626; font-size: 22px; padding: 10px 10px 0 10px; text-transform: lowercase; }
+.panel h2 { color: #262626; font-size: 22px; padding: 10px 0; text-transform: lowercase; }
 
 .panel > .title, .panel-title { background-color: #E9BA26; padding: 15px; -moz-border-radius: 5px 5px 0 0; overflow: auto; }
 .panel > .subtitle { background-color: #F3ECB7; padding: 10px; }
@@ -129,42 +129,43 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #dialog-menu { margin: 0; padding: 0; overflow: auto; position: relative; background-color: #F3ECB7; margin-bottom: 10px; }
 #dialog-menu li { cursor: pointer; margin: 0; padding: 4px 6px; color: #FFF; background-color: #0190E9; margin: 10px 0 10px 10px; float: left; display: block; text-align: center; width: 50px; }
 #dialog-menu li.selected-page { text-decoration: underline; }
-#super-dialog .dialog-page { display: none; position: relative; }
-#super-dialog .dialog-page.selected-page { display: block; }
 
 #super-dialog { display: none; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; background-color: #262626; -moz-border-radius: 10px; color: #000; -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); }
 #super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; opacity: 0.8; display: none; }
+
+#super-dialog .dialog-page { display: none; position: relative; }
+#super-dialog .dialog-page.selected-page { display: block; }
 #super-dialog .title { background-color: #E9BA26; padding: 10px; font-size: 24px; border-bottom: 1px solid #CCC; }
 #super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
+
 #super-dialog form { background-color: #EEE; position: relative; }
 #super-dialog form p { margin: 0; padding: 3px 10px; }
 #super-dialog form label { display: block; float: left; width: 80px; line-height: 22px; white-space: nowrap; }
-
-#super-dialog.place input[type="text"] { width: 200px; }
-#super-dialog.place .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
-#super-dialog.place .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
-
-#super-dialog.transportation .stops { overflow: auto; }
-#super-dialog.transportation .stops p { float: left; }
-#super-dialog.transportation .stops p + p { border-left: 5px dotted #999; }
-#super-dialog.transportation .stops label { float: none; }
-#super-dialog.transportation .stops input { float: none; width: 260px; }
-#super-dialog.transportation .autocomplete-map { height: 120px; width: 260px; padding: 2px;display: block; }
-
-
+#super-dialog fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }
+#super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
+#super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
 
 #super-dialog .buttons { padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; overflow: auto; }
 #super-dialog .buttons input { float: right; margin: 2px; }
 #super-dialog .buttons .delete { float: left; background-color: #E92553; }
 
-#super-dialog fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }
-#super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
-#super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
-
+/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
 #super-dialog .note-text { width: 100%; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
 #super-dialog .notes { margin: 10px; padding-right: 10px; max-height: 250px; overflow-y: auto; border-top: 1px dashed #CCC; }
 #super-dialog .note { margin: 4px 0; padding: 2px 4px; font-size: 12px; background-color: #9FDAFE; display: inline; clear: both; float: left; -moz-border-radius: 4px; }
-#super-dialog form.note-selector { padding-top: 10px; }
+
+#note-dialog form { padding-top: 10px; }
+
+#place-dialog input[type="text"] { width: 200px; }
+#place-dialog .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
+#place-dialog .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
+
+#transportation-dialog .stops { overflow: auto; }
+#transportation-dialog .stops p { float: left; }
+#transportation-dialog .stops p + p { border-left: 5px dotted #999; }
+#transportation-dialog .stops label { float: none; }
+#transportation-dialog .stops input { float: none; width: 260px; }
+#transportation-dialog .autocomplete-map { height: 120px; width: 260px; padding: 2px; display: block; }
 
 
 /* Create Trip Form */

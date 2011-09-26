@@ -2,58 +2,60 @@
     PlaceActivityForm form = (PlaceActivityForm)ViewBag.Form;
     Place place = (Place)ViewBag.Place;
 }
-<div class="title">
-    Place / Activity</div>
-<form action="@ViewBag.Action" method="post">
-<input type="hidden" name="tripid" value="@form.TripId" />
-<input type="hidden" name="activityid" value="@form.ActivityId" />
-@Helpers.ActivityFormTabs(form)
-<div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
-    <input type="hidden" name="placeid" value="@form.PlaceId" />
-    <div class="place-map-container">
-        <div class="place-map" id="place-map">
+<div id="place-dialog">
+    <div class="title">
+        Place / Activity</div>
+    <form action="@ViewBag.Action" method="post">
+    <input type="hidden" name="tripid" value="@form.TripId" />
+    <input type="hidden" name="activityid" value="@form.ActivityId" />
+    @Helpers.ActivityFormTabs(form)
+    <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+        <input type="hidden" name="placeid" value="@form.PlaceId" />
+        <div class="place-map-container">
+            <div class="place-map" id="place-map">
+            </div>
         </div>
+        <fieldset>
+            <span>What</span>
+            <p>
+                <label for="title">
+                    Title</label>
+                @Html.TextBox("title", @form.Title, new { @class = "focus", placeholder = "ex: Whale Watching Tour" })
+            </p>
+            <p>
+                <label for="tag">
+                    Tags</label>
+                @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: whale watching, water, boat" })
+            </p>
+        </fieldset>
+        <fieldset>
+            <span>Where</span>
+            <p>
+                <label for="googautocomplete">
+                    Place Name</label>
+                <input type="text" name="name" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-map-id="place-map"  id="map-search-input" value="@form.Name" />
+                <input type="hidden" name="googreference" value="@form.GoogReference" />
+                <input type="hidden" name="googid" value="@form.GoogId" />
+            </p>
+        </fieldset>
+        <fieldset>
+            <span>When</span>
+            <p>
+                <label for="beginday">
+                    Day</label>
+                <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+                thru
+                <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+            </p>
+        </fieldset>
     </div>
-    <fieldset>
-        <span>What</span>
-        <p>
-            <label for="title">
-                Title</label>
-            @Html.TextBox("title", @form.Title, new { @class = "focus", placeholder = "ex: Whale Watching Tour" })
-        </p>
-        <p>
-            <label for="tag">
-                Tags</label>
-            @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: whale watching, water, boat" })
-        </p>
-    </fieldset>
-    <fieldset>
-        <span>Where</span>
-        <p>
-            <label for="googautocomplete">
-                Place Name</label>
-            <input type="text" name="name" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-map-id="place-map"  id="map-search-input" value="@form.Name" />
-            <input type="hidden" name="googreference" value="@form.GoogReference" />
-            <input type="hidden" name="googid" value="@form.GoogId" />
-        </p>
-    </fieldset>
-    <fieldset>
-        <span>When</span>
-        <p>
-            <label for="beginday">
-                Day</label>
-            <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
-            thru
-            <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
-        </p>
-    </fieldset>
+    <p class="buttons">
+        <input type="submit" value="Save" />
+        <input type="button" value="Cancel" class="cancel" />
+        @if (form.ActivityId.HasValue)
+        {
+            <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
+        }
+    </p>
+    </form>
 </div>
-<p class="buttons">
-    <input type="submit" value="Save" />
-    <input type="button" value="Cancel" class="cancel" />
-    @if (form.ActivityId.HasValue)
-    {
-        <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
-    }
-</p>
-</form>

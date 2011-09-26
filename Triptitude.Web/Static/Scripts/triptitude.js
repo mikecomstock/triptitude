@@ -1,6 +1,6 @@
 ﻿var superDialog;
 
-$(function () {
+$(function() {
 
     if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
         moveScroller();
@@ -12,17 +12,17 @@ $(function () {
 
     BindPlaceAutocomplete(null);
 
-    $('#search').submit(function (e) {
+    $('#search').submit(function(e) {
         var val = $('input[name="googreference"]', $(this)).val();
         if (val == '') e.preventDefault();
     });
 
     $('#trip-bar-menu li').hover(
-        function () { $(this).children('ul').show(); },
-        function () { $(this).children('ul').hide(); }
+        function() { $(this).children('ul').show(); },
+        function() { $(this).children('ul').hide(); }
     );
 
-    $('.items').each(function () {
+    $('.items').each(function() {
         $('li', this).equalHeights();
     });
 
@@ -44,10 +44,10 @@ $(function () {
 
     superDialog = $('#super-dialog');
     superDialogOverlay = $('#super-dialog-overlay');
-    $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
-    $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
+    $('.cancel', superDialog).live('click', function(e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
+    $('*').live('keyup', function(e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
 
-    $('#dialog-menu li', superDialog).live('click', function (e) {
+    $('#dialog-menu li', superDialog).live('click', function(e) {
         var dataPageName = $(this).attr('data-page');
         var currentPage = $('li, .dialog-page');
         currentPage.removeClass('selected-page');
@@ -55,12 +55,13 @@ $(function () {
         newPage.addClass('selected-page');
         $('.focus', newPage).first().focus();
         scrollToBottom($('.notes', superDialog));
+        //BindPlaceAutocomplete(superDialog);
     });
 
     /* Delete Confirmations */
-    $('.confirm-delete').live('click', function (e) {
-        var test = confirm('Delete?');
-        if (test) {
+    $('.confirm-delete').live('click', function(e) {
+        var confirmed = confirm('Delete?');
+        if (confirmed) {
             var data_url = $(this).attr('data-url');
             window.location.replace(data_url);
         } else {
@@ -73,22 +74,22 @@ $(function () {
     /****************/
 
     $('.distance-slider', '.hotels #search-form').slider({
-        value: 10,
-        min: 1,
-        max: 50,
-        range: 'min',
-        step: 1,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-        },
-        change: function (event, ui) {
-            $(this).siblings('input').val(ui.value);
-            $(this).closest('form').submit();
-        }
-    });
-    $('.hotels #search-form').submit(function (event) {
+            value: 10,
+            min: 1,
+            max: 50,
+            range: 'min',
+            step: 1,
+            slide: function(event, ui) {
+                $(this).siblings('.label').html('within ' + ui.value + ' miles');
+            },
+            change: function(event, ui) {
+                $(this).siblings('input').val(ui.value);
+                $(this).closest('form').submit();
+            }
+        });
+    $('.hotels #search-form').submit(function(event) {
         event.preventDefault();
-        $.get("/hotels/search", $(this).serialize(), function (data) {
+        $.get("/hotels/search", $(this).serialize(), function(data) {
             $('.panel-content').html(data);
         });
     });
@@ -120,26 +121,26 @@ $(function () {
 
     /****************/
 
-    $('.trip-row-map-link').click(function () {
+    $('.trip-row-map-link').click(function() {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
 
         var container = $('<div></div>');
         container.dialog({
-            title: name,
-            width: 540,
-            height: 400,
-            resizable: false
-        });
+                title: name,
+                width: 540,
+                height: 400,
+                resizable: false
+            });
 
-        $.get('/maps/trip/' + tripId, function (mapData) {
+        $.get('/maps/trip/' + tripId, function(mapData) {
             drawMap(container, mapData);
         });
     });
 
     /****************/
 
-    $('#super-dialog.note select').live('change', function () {
+    $('#note-dialog select', superDialog).live('change', function() {
         var select = $(this);
         var activityId = select.val();
         CreateActivityModal('note', '/activities/edit/' + activityId + '?selectedtab=notes');
@@ -147,30 +148,30 @@ $(function () {
 
     /****************/
 
-    $('.add-activity').live('click', function () {
+    $('.add-activity').live('click', function() {
         var activityType = $(this).attr('data-activity-type');
         var url = '/activities/create?type=' + activityType;
 
         switch (activityType) {
-            case 'transportation':
-                break;
-            case 'place':
-                var referenceId = $(this).attr('data-reference-id') || '';
-                url += '&referenceid=' + referenceId;
-                break;
-            case 'hotel':
-                var hotelId = $(this).attr('data-hotel-id');
-                url += '&hotelid=' + hotelId;
-                break;
+        case 'transportation':
+            break;
+        case 'place':
+            var referenceId = $(this).attr('data-reference-id') || '';
+            url += '&referenceid=' + referenceId;
+            break;
+        case 'hotel':
+            var hotelId = $(this).attr('data-hotel-id');
+            url += '&hotelid=' + hotelId;
+            break;
         }
         CreateActivityModal(activityType, url);
     });
 
-    $('.add-note').live('click', function () {
+    $('.add-note').live('click', function() {
         CreateActivityModal("note", '/notes/create');
     });
 
-    $('.trip-day .activity').click(function () {
+    $('.trip-day .activity').click(function() {
         var activityId = $(this).attr('data-activity-id');
         var activityType = $(this).attr('data-activity-type');
         CreateActivityModal(activityType, '/activities/edit/' + activityId);
@@ -186,27 +187,24 @@ function CreateActivityModal(activityType, url) {
     $.get(url, function (data) {
         $('#trip-bar-menu li').children('ul').hide();
         $('.content', superDialog).html(data);
-        superDialog.attr('class', activityType);
         superDialog.show();
         superDialogOverlay.show();
         $('.focus', superDialog).focus();
         $('input.day-input', superDialog).attr('autocomplete', 'off');
-
         BindPlaceAutocomplete(superDialog);
-
         scrollToBottom($('.notes', superDialog));
     });
 }
 
-(function ($) {
+(function($) {
 
-    $.fn.googAutocomplete = function () {
-        this.each(function () {
+    $.fn.googAutocomplete = function() {
+        this.each(function() {
             var $input = $(this);
-            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
+            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
             var autocomplete = new google.maps.places.Autocomplete($input.get(0));
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
                 var place = autocomplete.getPlace();
 
                 var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
@@ -227,14 +225,13 @@ function CreateActivityModal(activityType, url) {
                 var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
                 var marker = new google.maps.Marker({ map: map });
                 autocomplete.bindTo('bounds', map);
-                
-//                var currLat = $('#latitude', superDialog).val();
-//                var currLng = $('#longitude', superDialog).val();
 
-//                var point = new google.maps.LatLng(currLat, currLng);
-//                var marker = new google.maps.Marker({ position: point, map: map });
-                
-                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                // var currLat = $('#latitude', superDialog).val();
+                // var currLng = $('#longitude', superDialog).val();
+                // var point = new google.maps.LatLng(currLat, currLng);
+                // var marker = new google.maps.Marker({ position: point, map: map });
+
+                google.maps.event.addListener(autocomplete, 'place_changed', function() {
                     var place = autocomplete.getPlace();
                     if (place.geometry.viewport) {
                         map.fitBounds(place.geometry.viewport);
@@ -245,7 +242,7 @@ function CreateActivityModal(activityType, url) {
 
                     marker.setPosition(place.geometry.location);
                 });
-                
+
             }
         });
     };
@@ -343,16 +340,16 @@ function moveScroller() {
 * 
 */
 
-(function ($) {
-    $.fn.equalHeights = function (minHeight, maxHeight) {
+(function($) {
+    $.fn.equalHeights = function(minHeight, maxHeight) {
         tallest = (minHeight) ? minHeight : 0;
-        this.each(function () {
+        this.each(function() {
             if ($(this).height() > tallest) {
                 tallest = $(this).height();
             }
         });
         if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
-        return this.each(function () {
+        return this.each(function() {
             $(this).height(tallest).css("overflow", "auto");
         });
     };

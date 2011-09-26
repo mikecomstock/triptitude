@@ -2,33 +2,35 @@
     HotelActivityForm form = (HotelActivityForm)ViewBag.Form;
     Hotel hotel = (Hotel)ViewBag.Hotel;
 }
-<div class="title">
-    Hotel</div>
-<form action="@ViewBag.Action" method="post">
-<input type="hidden" name="tripid" value="@form.TripId" />
-<input type="hidden" name="activityid" value="@form.ActivityId" />
-@Helpers.ActivityFormTabs(form)
-<div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
-    <input type="hidden" name="hotelid" value="@form.HotelId" />
-    <p>
-        <label>
-            Name</label>
-        <a href="@Url.Details(hotel)">@hotel.Name</a>
+<div id="hotel-dialog">
+    <div class="title">
+        Hotel</div>
+    <form action="@ViewBag.Action" method="post">
+    <input type="hidden" name="tripid" value="@form.TripId" />
+    <input type="hidden" name="activityid" value="@form.ActivityId" />
+    @Helpers.ActivityFormTabs(form)
+    <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+        <input type="hidden" name="hotelid" value="@form.HotelId" />
+        <p>
+            <label>
+                Name</label>
+            <a href="@Url.Details(hotel)">@hotel.Name</a>
+        </p>
+        <p>
+            <label for="beginday">
+                Day</label>
+            <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+            thru
+            <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+        </p>
+    </div>
+    <p class="buttons">
+        <input type="submit" value="Save" />
+        <input type="button" value="Cancel" class="cancel" />
+        @if (form.ActivityId.HasValue)
+        {
+            <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
+        }
     </p>
-    <p>
-        <label for="beginday">
-            Day</label>
-        <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
-        thru
-        <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
-    </p>
+    </form>
 </div>
-<p class="buttons">
-    <input type="submit" value="Save" />
-    <input type="button" value="Cancel" class="cancel" />
-    @if (form.ActivityId.HasValue)
-    {
-        <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
-    }
-</p>
-</form>

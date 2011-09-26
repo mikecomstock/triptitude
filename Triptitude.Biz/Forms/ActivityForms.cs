@@ -53,7 +53,6 @@ namespace Triptitude.Biz.Forms
     public class PlaceActivityForm : ActivityForm
     {
         public int? PlaceId { get; set; }
-        public string FactualId { get; set; }
         public string GoogReference { get; set; }
         public string GoogId { get; set; }
         public string Name { get; set; }

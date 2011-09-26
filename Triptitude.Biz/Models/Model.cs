@@ -287,7 +287,6 @@ namespace Triptitude.Biz.Models
     public class Place
     {
         public int Id { get; set; }
-        public string FactualId { get; set; }
 
         public string GoogId { get; set; }
         public string GoogReference { get; set; }
