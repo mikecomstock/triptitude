@@ -1,5 +1,3 @@
 User-agent: *
-Allow: /trips
-Disallow: /trips/create
-Disallow: /login
+Allow: /
 Sitemap: http://www.triptitude.com/sitemap.xml
