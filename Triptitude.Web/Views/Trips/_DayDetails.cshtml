@@ -1,5 +1,6 @@
 ﻿@{
     Trip trip = (Trip)ViewBag.Trip;
+    bool CurrentUserOwnsTrip = ViewBag.CurrentUserOwnsTrip;
 }
 <div class="trip-day">
     <h3>
@@ -8,10 +9,6 @@
     @foreach (Activity activity in trip.ActivitiesOn(ViewBag.DayNumber))
     {
         <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
-            @if (ViewBag.CurrentUserOwnsTrip && activity.Notes.Any())
-            {   
-                <div class="notes">@activity.Notes.Count() notes</div>
-            }
             @if (activity is TransportationActivity)
             {
                 var transportationActivity = activity as TransportationActivity;
@@ -69,6 +66,10 @@
                 }
             }
             @Helpers.TagList(Url, activity.Tags)
+            @if (CurrentUserOwnsTrip)
+            {
+                @Helpers.NoteList(Url, activity.Notes)
+            }
         </div>
     }
 </div>

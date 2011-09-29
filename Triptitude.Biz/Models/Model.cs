@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -222,6 +223,8 @@ namespace Triptitude.Biz.Models
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
 
+        public string NiceName { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name.Replace('-', ' ')); } }
+
         public IEnumerable<Trip> PublicTrips
         {
             get
@@ -243,7 +246,7 @@ namespace Triptitude.Biz.Models
         public decimal? SmallImageWidth { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
-    
+
     #region Hotels
 
     public class HotelPhoto

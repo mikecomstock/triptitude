@@ -8,7 +8,7 @@
     <form action="@ViewBag.Action" method="post">
     <input type="hidden" name="tripid" value="@form.TripId" />
     <input type="hidden" name="activityid" value="@form.ActivityId" />
-    @Helpers.ActivityFormTabs(form)
+    @Helpers.ActivityFormTabs(Url, form)
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
         <input type="hidden" name="placeid" value="@form.PlaceId" />
         <div class="place-map-container">

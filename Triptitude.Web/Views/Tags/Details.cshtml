@@ -1,6 +1,6 @@
 ﻿@{
-    ViewBag.Title = ViewBag.Tag.Name;
     Tag tag = (Tag)ViewBag.Tag;
+    ViewBag.Title = tag.Name;
 }
 <div id="side-container">
     <a href="@Url.Details(tag)">Details</a>
@@ -8,10 +8,11 @@
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
-            <h1>@tag.Name</h1>
+            <h1>@tag.NiceName
+            </h1>
         </div>
         <div class="panel-content">
-            <h2>@tag.Name - Trips</h2>
+            <h2>Trips</h2>
             @if (tag.PublicTrips.Any())
             {
                 Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips });

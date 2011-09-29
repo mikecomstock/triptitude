@@ -1,21 +1,15 @@
-﻿@helper ActivityFormTabs(Triptitude.Biz.Forms.ActivityForm form)
+﻿@using Triptitude.Biz.Models;
+@using System.Web.Helpers;
+@using System.Web.Mvc;
+@using Triptitude.Web.Helpers;
+@helper ActivityFormTabs(UrlHelper Url, Triptitude.Biz.Forms.ActivityForm form)
     {
     <ul id="dialog-menu">
         <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">Details</li>
         <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">Notes</li>
     </ul>
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">
-        @if (form.Notes != null && form.Notes.Any())
-        {
-            <div class="notes">
-                @foreach (var note in form.Notes)
-                {
-                    <div class="note">
-                        @note.Text
-                    </div>
-                }
-            </div>
-        }
+        @NoteList(Url, form.Notes)
         <p>
             <label for="note">
                 Add Note:</label>
@@ -23,10 +17,20 @@
         </p>
     </div>
 }
-@using Triptitude.Biz.Models;
-@using System.Web.Helpers;
-@using System.Web.Mvc;
-@using Triptitude.Web.Helpers;
+@helper NoteList(UrlHelper Url, IEnumerable<Note> notes)
+    {
+        if (notes != null && notes.Any())
+        {
+    <div class="notes">
+        @foreach (var note in notes)
+        {
+            <div class="note">
+                @note.Text
+            </div>
+        }
+    </div>
+        }    
+}
 @helper TagList(UrlHelper Url, IEnumerable<Tag> tags)
     {
         if (tags.Any())
@@ -49,7 +53,7 @@
             <li>
                 @if (!string.IsNullOrWhiteSpace(item.DetailPageURL))
                 {
-                    <a class="name" href="@item.DetailPageURL" target="_blank">@item.Name</a>
+                    <a class="name" href="@item.DetailPageURL" target="_blank" rel="nofollow" >@item.Name</a>
                 }
                 else
                 {
@@ -67,7 +71,6 @@
 @helper SidePanel(UrlHelper url, Place place)
     {
     <div id="side-container">
-        <a href="@url.Details(place)">Details</a>
-        <a href="@url.Nearby(place)">Nearby</a>
+        <a href="@url.Details(place)">Details</a> <a href="@url.Nearby(place)">Nearby</a>
     </div>
 }
