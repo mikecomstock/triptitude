@@ -30,13 +30,13 @@
                 </div>
                 <div id="user-status-menu">
                     <a href="@Url.CreateTrip()" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
-                    @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })
+                    @Html.RouteLink("log in", "login", null, new { id = "login-link" })
                 </div>
             }
             else
             {
                 <div id="user-status-header">
-                    @Html.RouteLink("Login", "Login", null, new { id = "login-link", rel = "nofollow" })
+                    @Html.RouteLink("Login", "Login", null, new { id = "login-link" })
                 </div>
                 <div id="start-here-link">
                     Hi, are you new? <a href="/">Start here</a>
@@ -71,7 +71,7 @@
             @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
             {
                 <div id="email-warning">
-                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link", rel = "nofollow" })!
+                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
                 </div>
             }
             <div id="super-dialog">
