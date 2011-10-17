@@ -16,8 +16,8 @@
     </div>
     <div class="editor-field">
         <h2>
-            Items</h2>
-        @foreach (Item item in new Db().Items.OrderBy(i => i.Name))
+            AmazonItems</h2>
+        @foreach (AmazonItem item in new Db().AmazonItems.OrderBy(i => i.Name))
         {
             <div class="item-selector">
                 <input type="checkbox" name="items" value="@item.Id" @(Model.Items.Select(i => i.Id).Contains(item.Id) ? "checked=checked" : string.Empty) />
@@ -28,7 +28,7 @@
     </div>
     <div>
         <h2>
-            New Item</h2>
+            New AmazonItem</h2>
         <input type="text" name="newitem.Name" placeholder="Name" class="focus" />
         <input type="text" name="newitem.ASIN" placeholder="ASIN" />
         <input type="text" name="newitem.DetailPageURL" placeholder="Detail URL (if no ASIN)" />

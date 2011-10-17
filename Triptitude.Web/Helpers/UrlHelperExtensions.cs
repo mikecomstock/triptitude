@@ -108,7 +108,7 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Itinerary Items
+        #region Itinerary AmazonItems
 
         public static string Delete(this UrlHelper url, int activityId)
         {

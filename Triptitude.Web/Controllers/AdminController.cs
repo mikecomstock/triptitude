@@ -22,25 +22,25 @@
 //            return Redirect("/admin/tags");
 //        }
 
-//        public ActionResult Items()
+//        public ActionResult AmazonItems()
 //        {
-//            ViewBag.Items = new ItemsRepo().FindAll();
+//            ViewBag.AmazonItems = new ItemsRepo().FindAll();
 //            return View();
 //        }
 
 //        [HttpGet]
-//        public ActionResult Item(int id)
+//        public ActionResult AmazonItem(int id)
 //        {
-//            ViewBag.Item = new ItemsRepo().Find(id);
+//            ViewBag.AmazonItem = new ItemsRepo().Find(id);
 //            ViewBag.AllTags = new TagsRepo().FindAll();
 //            return View();
 //        }
 
 //        [HttpPost]
-//        public ActionResult Item(int id, FormCollection form)
+//        public ActionResult AmazonItem(int id, FormCollection form)
 //        {
 //            var itemsRepo = new ItemsRepo();
-//            Item item = itemsRepo.Find(id);
+//            AmazonItem item = itemsRepo.Find(id);
 //            item.Name = form["item.Name"];
 //            item.URL = form["item.URL"];
 

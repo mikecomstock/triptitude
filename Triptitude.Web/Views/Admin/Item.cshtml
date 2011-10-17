@@ -1,13 +1,13 @@
 ﻿@{
     ViewBag.Title = ViewBag.Item.Name;
-    var item = (Item)ViewBag.Item;
+    var item = (AmazonItem)ViewBag.Item;
     var allTags = (IEnumerable<Tag>)ViewBag.AllTags;
     IEnumerable<SelectListItem> list = allTags.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }); 
 }
 <div class="panel">
     <div class="panel-title">
         <h1>
-            Admin - @item.Name (Item)</h1>
+            Admin - @item.Name (AmazonItem)</h1>
     </div>
     <div class="panel-content">
         <form action="@Url.Admin(item)" method="post">

@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
-    var items = (IEnumerable<Item>)ViewBag.Items;
+    var items = (IEnumerable<AmazonItem>)ViewBag.Items;
     var tags = (IEnumerable<Tag>)ViewBag.Tags;
 }
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })

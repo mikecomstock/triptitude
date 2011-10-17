@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Services;
+using AmazonItem = Triptitude.Biz.Models.AmazonItem;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
 {
@@ -51,14 +52,14 @@ namespace Triptitude.Web.Areas.Admin.Controllers
                 var itemIDs = form["items"].Split(',').Select(i => int.Parse(i));
                 foreach (var itemId in itemIDs)
                 {
-                    t.Items.Add(db.Items.Find(itemId));
+                    t.Items.Add(db.AmazonItems.Find(itemId));
                 }
             }
             db.SaveChanges();
 
             if (!string.IsNullOrWhiteSpace(form["newitem.name"]))
             {
-                Item i = new Item
+                AmazonItem i = new AmazonItem
                              {
                                  Name = form["newitem.Name"].Trim(),
                                  DetailPageURL = form["newitem.DetailPageURL"].Trim(),

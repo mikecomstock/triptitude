@@ -217,7 +217,7 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<AmazonItem> Items { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
 
         // Needed to make Html.ListBoxFor work in the admin section.
@@ -235,7 +235,7 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class Item
+    public class AmazonItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

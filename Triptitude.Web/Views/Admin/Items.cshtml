@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Items";
-    var Items = (IEnumerable<Item>)ViewBag.Items;
+    ViewBag.Title = "AmazonItems";
+    var Items = (IEnumerable<AmazonItem>)ViewBag.Items;
 }
 <div class="panel">
     <div class="panel-title">
         <h1>
-            Admin - Items</h1>
+            Admin - AmazonItems</h1>
     </div>
     <div class="panel-content">
         @foreach (var item in Items)

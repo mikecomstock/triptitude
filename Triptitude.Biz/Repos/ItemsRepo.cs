@@ -2,7 +2,7 @@
 
 namespace Triptitude.Biz.Repos
 {
-    public class ItemsRepo:Repo<Item>
+    public class ItemsRepo:Repo<AmazonItem>
     {
         
     }
