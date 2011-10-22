@@ -1,42 +1,61 @@
-﻿using System.Web.Mvc;
-using Triptitude.Biz.Models;
-using Triptitude.Biz.Repos;
+﻿//        public ActionResult Tags()
+//        {
+//            ViewBag.Tags = new TagsRepo().FindAll();
+//            return View();
+//        }
 
-namespace Triptitude.Web.Controllers
-{
-    [Authorize(Users = "1|mikecomstock@gmail.com")]
-    public class AdminController : Controller
-    {
-        private TripsRepo tripsRepo;
+//        [HttpGet]
+//        public ActionResult Tag(int id)
+//        {
+//            ViewBag.Tag = new TagsRepo().Find(id);
+//            return View();
+//        }
 
-        public AdminController()
-        {
-            tripsRepo = new TripsRepo();
-        }
+//        [HttpPost]
+//        public ActionResult Tag(int id, FormCollection form)
+//        {
+//            var tagsRepo = new TagsRepo();
+//            Tag tag = tagsRepo.Find(id);
+//            tag.Name = form["tag.Name"];
+//            tagsRepo.Save();
 
-        public ActionResult Index()
-        {
-            var trips = tripsRepo.FindAll();
-            ViewBag.Trips = trips;
-            return View();
-        }
+//            return Redirect("/admin/tags");
+//        }
 
-        [HttpGet]
-        public ActionResult Trips(int id)
-        {
-            var trip = tripsRepo.Find(id);
-            ViewBag.Trip = trip;
-            return View();
-        }
+//        public ActionResult AmazonItems()
+//        {
+//            ViewBag.AmazonItems = new ItemsRepo().FindAll();
+//            return View();
+//        }
 
-        [HttpPost]
-        public ActionResult Trips(int id, FormCollection form)
-        {
-            Trip trip = tripsRepo.Find(id);
-            trip.ShowInSiteMap = form["trip.ShowInSiteMap"].Split(',')[0] == "true";
-            tripsRepo.Save();
+//        [HttpGet]
+//        public ActionResult AmazonItem(int id)
+//        {
+//            ViewBag.AmazonItem = new ItemsRepo().Find(id);
+//            ViewBag.AllTags = new TagsRepo().FindAll();
+//            return View();
+//        }
 
-            return Redirect("/admin");
-        }
-    }
-}
+//        [HttpPost]
+//        public ActionResult AmazonItem(int id, FormCollection form)
+//        {
+//            var itemsRepo = new ItemsRepo();
+//            AmazonItem item = itemsRepo.Find(id);
+//            item.Name = form["item.Name"];
+//            item.URL = form["item.URL"];
+
+//            item.Tags.Clear();
+//            if (form["item.tags"] != null)
+//            {
+//                var tagsRepo = new TagsRepo();
+//                var tagIds = form["item.Tags"].Split(',').Select(i => int.Parse(i));
+//                var newTags = tagsRepo.FindAll().Where(t => tagIds.Contains(t.Id));
+//                item.Tags = newTags.ToList();
+//            }
+
+//            itemsRepo.Save();
+
+//            return Redirect("/admin/items");
+//        }
+//    }
+//}

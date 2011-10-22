@@ -60,18 +60,28 @@ namespace Triptitude.Web.Controllers
         }
 
         // partial only
-        public ActionResult DayDetails(Trip trip, int dayNumber, User currentUser)
+        public ActionResult DayDetails(Trip trip, int? dayNumber, User currentUser)
         {
+            // For unscheduled activities
+            dayNumber = dayNumber == -1 ? null : dayNumber;
+
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.Transportations = trip.Transportations.Where(t => t.BeginDay == dayNumber || t.EndDay == dayNumber);
-            var itineraryItems = trip.Itinerary.Where(i => dayNumber == i.BeginDay || dayNumber == i.EndDay).OrderBy(i => i.BeginDay);
-
-            ViewBag.Hotels = itineraryItems.Where(i => i.Hotel != null);
-            ViewBag.Websites = itineraryItems.Where(i => i.Website != null);
-            ViewBag.DestinationTags = itineraryItems.Where(i => i.DestinationTag != null);
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
+            ViewBag.CurrentUserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            ViewBag.CurrentUser = currentUser;
             return PartialView("_DayDetails");
+        }
+
+        public ActionResult PackingList(int id)
+        {
+            Trip trip = new TripsRepo().Find(id);
+            ViewBag.Trip = trip;
+            var tags = trip.Activities.SelectMany(a => a.Tags).Distinct();
+            ViewBag.Tags = tags;
+            var items = tags.SelectMany(t => t.Items);
+            ViewBag.Items = items;
+            return View();
         }
 
         public ActionResult Settings(int id, User currentUser)
@@ -88,29 +98,59 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Settings(int id, TripSettingsForm form, User currentUser)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             if (!userOwnsTrip) return Redirect("/");
 
-            tripRepo.Save(trip, form);
-            return Redirect(Url.Details(trip));
+            if (ModelState.IsValid)
+            {
+                tripRepo.Save(trip, form);
+                return Redirect(Url.Details(trip));
+            }
+            else
+            {
+                ViewBag.Trip = trip;
+                ViewBag.Form = form;
+                return View();
+            }
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int? to)
         {
+            var form = new CreateTripForm();
+
+            if (to.HasValue)
+            {
+                var placesRepo = new PlacesRepo();
+                Place place = placesRepo.Find(to.Value);
+                form.ToGoogReference = place.GoogReference;
+                form.ToGoogId = place.GoogId;
+                form.ToName = place.Name;
+            }
+
+            ViewBag.Form = form;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(TripCreate form, User currentUser)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CreateTripForm form, User currentUser)
         {
-            Trip trip = new TripsRepo().Save(form, currentUser.Id);
-            new UsersRepo().SetDefaultTrip(currentUser, trip);
-            return Redirect(Url.Details(trip));
+            if (ModelState.IsValid)
+            {
+                Trip trip = new TripsRepo().Save(form, currentUser);
+                new UsersRepo().SetDefaultTrip(currentUser, trip);
+                return Redirect(Url.Details(trip));
+            }
+            else
+            {
+                ViewBag.Form = form;
+                return View();
+            }
         }
     }
 }

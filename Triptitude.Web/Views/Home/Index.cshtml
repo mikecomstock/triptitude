@@ -1,39 +1,55 @@
 ﻿@{
     ViewBag.Title = "Plan your trip, with Triptitude.com";
     ViewBag.Description = "Easily create a custom travel itinerary. We'll suggest hotels and activities along the way.";
-    ViewBag.HideTripBar = true;
+    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
 }
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
         <h1>
-            We'll help you plan your next trip
+            We'll help you plan your next vacation
         </h1>
-        <form action="@Url.Signup()" method="post" id="start-here-form">
+        <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
+        @Html.AntiForgeryToken()
         <h3>
-            Try it out:</h3>
-        <input type="text" name="email" placeholder="Your email address..." />
-        <input type="text" name="tripname" placeholder="Name your trip..." />
-        <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
-        <input type="hidden" id="destinationid" name="destinationid" />
-        <input type="submit" value="Start Planning >" />
+            Try it out</h3>
+        <p>
+            <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" class="place-autocomplete" placeholder="From (any city)" />
+            <input type="hidden" name="fromgoogreference" />
+            <input type="hidden" name="fromgoogid" />
+        </p>
+        <p>
+            <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" placeholder="To (any city)" />
+            <input type="hidden" name="togoogreference" />
+            <input type="hidden" name="togoogid" />
+        </p>
+        <p>
+            <label for="numberofdays">
+                Number of days</label>
+            <input type="text" id="numberofdays" name="numberofdays" />
+        </p>
+        <p>
+            <input type="submit" value="Start Planning >" />
+        </p>
         </form>
-        <h2>
-            Organize your travel plans from start to finish</h2>
         <p>
             Planning a vacation isn't easy. You can book flights and hotels almost anywhere, but how do figure out what to do in the first place? And how do you keep track of it all? The answer: <strong>Triptitude</strong></p>
+        <h2>
+            Organize your travel plans from start to finish</h2>
         <ul>
             <li><strong>Search trips</strong> others have planned and <strong>get inspired</strong>.</li>
             <li><strong>Create</strong> an itinerary or <strong>customize</strong> one.</li>
-            <li><strong>Plan </strong>before you book to <strong>optimize</strong> your pleasure.</li>
+            <li><strong>Plan </strong>before you book to <strong>optimize</strong> your experience.</li>
             <li><strong>Print your itinerary</strong>, maps, and notes for stress-free travel.</li>
         </ul>
-        <div id="landing-steps">
-            <div class="landing-step">
-                1</div>
-            <div class="landing-step">
-                2</div>
-            <div class="landing-step">
-                3</div>
-        </div>
+        @if (trips != null && trips.Any())
+        {
+            <div id="trips">
+                <div class="panel-title">
+                    <h2>
+                        Recent Trips</h2>
+                </div>
+                @Html.Action("_rows", "trips", new { trips })
+            </div>
+        }
     </div>
 </div>

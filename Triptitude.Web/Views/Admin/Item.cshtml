@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = ViewBag.Item.Name;
+    var item = (AmazonItem)ViewBag.Item;
+    var allTags = (IEnumerable<Tag>)ViewBag.AllTags;
+    IEnumerable<SelectListItem> list = allTags.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }); 
+}
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            Admin - @item.Name (AmazonItem)</h1>
+    </div>
+    <div class="panel-content">
+        <form action="@Url.Admin(item)" method="post">
+        @Html.Editor("item", ViewData)
+        <p>
+            @Html.Label("item.tags")
+            @Html.ListBoxFor(i => item.Tags, list, new { style = "height:200px;" })
+        </p>
+        <input type="submit" value="Save" />
+        </form>
+    </div>
+</div>

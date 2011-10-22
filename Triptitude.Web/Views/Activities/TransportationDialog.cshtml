@@ -1,0 +1,54 @@
+﻿@{
+    Triptitude.Biz.Forms.TransportationActivityForm form = (Triptitude.Biz.Forms.TransportationActivityForm)ViewBag.Form;
+    IEnumerable<TransportationType> transportationTypes = (IEnumerable<TransportationType>)ViewBag.TransportationTypes;
+}
+<div id="transportation-dialog">
+    <div class="title">
+        Transportation</div>
+    <form action="@ViewBag.Action" method="post">
+    <input type="hidden" name="tripid" value="@form.TripId" />
+    <input type="hidden" name="activityid" value="@form.ActivityId" />
+    @Helpers.ActivityFormTabs(Url, form)
+    <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+        <p>
+            <label for="transportationtypeid">
+                Type</label>
+            @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
+        </p>
+        <div class="stops">
+            <p>
+                <label for="fromcityname">
+                    From</label>
+                <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" data-map-id="from-map" class="place-autocomplete focus" value="@form.FromName" />
+                <input type="hidden" name="fromgoogreference" value="@form.FromGoogReference" />
+                <input type="hidden" name="fromgoogid" value="@form.FromGoogId" />
+                <span class="autocomplete-map" id="from-map">map</span>
+            </p>
+            <p>
+                <label for="tocityname">
+                    To</label>
+                <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-map-id="to-map" class="place-autocomplete" value="@form.ToName" />
+                <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
+                <input type="hidden" name="togoogid" value="@form.ToGoogId" />
+                <span class="autocomplete-map" id="to-map">map</span>
+            </p>
+        </div>
+        <p>
+            <label for="beginDay">
+                Day
+            </label>
+            <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
+            thru
+            <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+        </p>
+    </div>
+    <p class="buttons">
+        <input type="submit" value="Save" />
+        <input type="button" value="Cancel" class="cancel" />
+        @if (form.ActivityId.HasValue)
+        {
+            <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(form.ActivityId.Value)" />
+        }
+    </p>
+    </form>
+</div>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Tags";
+    var tags = (IEnumerable<Tag>)ViewBag.Tags;
+}
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            Admin - Tags</h1>
+    </div>
+    <div class="panel-content">
+        @foreach (var tag in tags)
+        {
+            <div>
+                <a href="@Url.Admin(tag)">@tag.Name</a> - @tag.Items.Count() items
+            </div>
+        }
+    </div>
+</div>

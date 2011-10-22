@@ -1,19 +1,30 @@
 ﻿@{
     ViewBag.Title = "My Trips";
-    ICollection<Trip> trips = (ICollection<Trip>)ViewBag.User.Trips;
+    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.User.Trips;
 }
 @Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
-            <a href="@Url.CreateTrip()">create a trip</a>
+        <div class="title">
             <h1>
                 My Trips</h1>
         </div>
+        <div class="subtitle">
+            <a href="@Url.CreateTrip()">Create a trip</a>
+        </div>
         <div class="panel-content">
-            @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
+            @if (trips.IsNullOrEmpty())
             {
+                <div>
+                    No trips found!
+                </div>
+            }
+            else
+            {
+                foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
+                {
                 <a  class="my-trip-row" href="@Url.SetDefaultTrip(trip)"><span>Plan</span> @trip.Name</a>
+                }
             }
         </div>
     </div>

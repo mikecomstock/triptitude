@@ -1,53 +1,64 @@
-﻿<div id="header-container">
+﻿@{
+    User currentUser = (User)ViewBag.CurrentUser;
+}
+<div id="header-container">
     <div id="header">
         <a id="logo" href="/">Triptitude.com</a>
-        @if (!Request.Url.Host.Contains("triptitude.com") || Request.IsAuthenticated)
-        {
-            <div id="search">
-                <form action="@Url.DestinationSearch()" method="post">
-                <input type="text" name="s" class="destination-autocomplete" data-hidden-field-name="destinationid" data-auto-submit="true" placeholder="Where are you going?" />
-                <input type="hidden" name="destinationid" />
-                <input type="submit" value="Go >" />
-                </form>
-            </div>
-        }
+        <div id="search">
+            <form action="@Url.PlaceSearch()" method="post">
+            <input type="text" name="s" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
+            <input type="hidden" name="googreference" />
+            <input type="hidden" name="googid" />
+            <input type="submit" value="Go >" />
+            </form>
+        </div>
         <div id="user-status">
             @if (Request.IsAuthenticated)
             {
                 <div id="user-status-header">
-                    Welcome back, <a href="@Url.MyAccount()">@ViewBag.User.Email</a>
+                    Welcome, <a href="@Url.MyTrips()">@currentUser.Email</a>
                 </div>
                 <div id="user-status-menu">
-                    <a href="@Url.CreateTrip()">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
+                    <a href="@Url.CreateTrip()" accesskey="c">create a trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a>
                     @Html.RouteLink("sign out", "logout")
+                </div>
+            }
+            else if (currentUser.Trips != null && currentUser.Trips.Any())
+            {
+                <div id="user-status-header">
+                    Welcome, <a href="@Url.MyTrips()">anonymous user</a>
+                </div>
+                <div id="user-status-menu">
+                    <a href="@Url.CreateTrip()" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
+                    @Html.RouteLink("log in", "login", null, new { id = "login-link" })
                 </div>
             }
             else
             {
                 <div id="user-status-header">
-                    @Html.RouteLink("Login", "Login", null, new { id = "login-link", rel = "nofollow" })
+                    @Html.RouteLink("Login", "Login", null, new { id = "login-link" })
                 </div>
-                <div id="start-here">
+                <div id="start-here-link">
                     Hi, are you new? <a href="/">Start here</a>
                 </div>
             }
         </div>
     </div>
 </div>
-<div id="header-height-fill">
+<div id="scrollanchor">
 </div>
-@if (ViewBag.User != null && ViewBag.User.DefaultTrip != null)
+@if (currentUser.DefaultTrip != null)
 {     
     <div id="trip-bar-container">
         <div id="trip-bar">
             <div id="trip-bar-menu">
                 <ul>
-                    <li><a href="@Url.Details((Trip)ViewBag.User.DefaultTrip)">Itinerary</a></li>
+                    <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="i">Itinerary</a></li>
                     <li><span class="add-plans-link link">+ Add Plans</span>
                         <ul>
-                            <li><a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-transportation-link link">Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>
-                            <li><a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-website-link link">Website<span>Like <strong>http://www.some-travel-site.com</strong></a></li>
-                            <li><a data-trip-id="@ViewBag.User.DefaultTrip.Id" class="add-tag-link link">Activity<span>Like <strong>Whale Watching</strong> in <strong>Boston</strong></span></a></li>
+                            <li><a class="add-activity link" data-activity-type="transportation" accesskey="t">Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>
+                            <li><a class="add-activity link" data-activity-type="place" accesskey="p">Place / Activity<span>Like <strong>Whale Watching </strong>in <strong>Boston</strong></span></a></li>
+                            <li><a class="add-note link" accesskey="n">Note<span>Like <strong>Emily says this place has the best Pizza!</strong></span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -55,7 +66,19 @@
             <div id="trip-bar-pre-title">
                 currently planning...</div>
             <div id="trip-bar-title">
-                @ViewBag.User.DefaultTrip.Name
+                @currentUser.DefaultTrip.Name
+            </div>
+            @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
+            {
+                <div id="email-warning">
+                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
+                </div>
+            }
+            <div id="super-dialog">
+                <div class="arrow">
+                </div>
+                <div class="content">
+                </div>
             </div>
         </div>
     </div>
@@ -67,13 +90,31 @@ else if (ViewBag.HideTripBar != true)
             <div id="trip-bar-title">
                 Like to travel? Plan your next trip.
             </div>
-            <form action="@Url.Signup()" method="post" id="start-here-form">
-            <input type="text" name="email" placeholder="Your email address..." />
-            <input type="text" name="tripname" placeholder="Name your trip..." />
-            <input type="text" name="destinationname" data-hidden-field-name="destinationid" class="destination-autocomplete" placeholder="Where are you going?" />
-            <input type="hidden" id="destinationid" name="destinationid" />
-            <input type="submit" value="Start Planning >" />
+            <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
+            @Html.AntiForgeryToken()
+            <p>
+                <input type="text" name="fromname" data-value-field-name="fromid" class="place-autocomplete" placeholder="From (any city)" />
+                <input type="hidden" id="fromid" name="fromid" />
+            </p>
+            <p>
+                <input type="text" name="toname" data-value-field-name="toid" class="place-autocomplete" placeholder="To (any city)" />
+                <input type="hidden" id="toid" name="toid" />
+            </p>
+            <p>
+                <label for="numberofdays">
+                    Number of days</label>
+                <input type="text" id="numberofdays" name="numberofdays" />
+            </p>
+            <p>
+                <input type="submit" value="Start Planning >" />
+            </p>
             </form>
+            <div id="super-dialog">
+                <div class="arrow">
+                </div>
+                <div class="content">
+                </div>
+            </div>
         </div>
     </div>
 }

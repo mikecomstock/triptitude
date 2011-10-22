@@ -1,0 +1,33 @@
+﻿@{
+    Tag tag = (Tag)ViewBag.Tag;
+    ViewBag.Title = tag.Name;
+}
+<div id="side-container">
+    <a href="@Url.Details(tag)">Details</a>
+</div>
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>@tag.NiceName
+            </h1>
+        </div>
+        <div class="panel-content">
+            <h2>Trips</h2>
+            @if (tag.PublicTrips.Any())
+            {
+                Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips });
+            }
+            else
+            {
+                <div>
+                    No trips found</div>
+            }
+            @if (tag.Items.Any())
+            {
+                <h2>
+                    Packing List</h2>
+                @Helpers.ItemList(Url, tag.Items)
+            }
+        </div>
+    </div>
+</div>

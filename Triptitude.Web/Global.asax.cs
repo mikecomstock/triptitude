@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Web;
+using System.Linq;
 using System.Web.Mvc;
+using System.Web.Profile;
 using System.Web.Routing;
+using System.Web.Security;
 using Elmah;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 using Triptitude.Web.ModelBinders;
 
 namespace Triptitude.Web
@@ -24,7 +28,6 @@ namespace Triptitude.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
             // Old stuff that's gone
             routes.MapRoute("OldQuestions", "Questions/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldQuestions2", "Questions", new { controller = "Home", Action = "NotFound" });
@@ -32,22 +35,18 @@ namespace Triptitude.Web
             routes.MapRoute("OldIsers", "Users/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
-            routes.MapRoute("OldActivities", "Activities/{id}/{name}", new { controller = "Home", Action = "NotFound" });
-            routes.MapRoute("OldActivities2", "Activities", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldDestinations", "Destinations/{*Data}", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff
-
 
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
-            routes.MapRoute("Signup", "signup", new { controller = "home", action = "signup" });
+            routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
 
-            routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() });
+            routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
-
-            routes.MapRoute("DestinationsRedirect", "Destinations/{id}/{name}", new { controller = "destinations", action = "redirect" });
-
+            
             routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
         }
 
@@ -59,6 +58,13 @@ namespace Triptitude.Web
             RegisterModelBinders();
             RegisterRoutes(RouteTable.Routes);
         }
+
+        public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)
+        {
+            int userId = int.Parse(args.Context.User.Identity.Name.Split('|')[0]);
+            new UsersRepo().MigrateAnonymousUser(args.AnonymousID, userId);
+            AnonymousIdentificationModule.ClearAnonymousIdentifier();
+        }
     }
 
     public class SlugRouteConstraint : IRouteConstraint
@@ -66,10 +72,7 @@ namespace Triptitude.Web
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
             string idslug = (string)values[parameterName];
-            //if (!idslug.Contains("-")) return false;
-
             string id = idslug.Split('-')[0];
-
             int i;
             return int.TryParse(id, out i);
         }
@@ -82,16 +85,20 @@ namespace Triptitude.Web
         public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, IRouteHandler routeHandler) : base(url, defaults, constraints, routeHandler) { }
         public SlugRoute(string url, RouteValueDictionary defaults, RouteValueDictionary constraints, RouteValueDictionary dataTokens, IRouteHandler routeHandler) : base(url, defaults, constraints, dataTokens, routeHandler) { }
 
+
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
             RouteData data = base.GetRouteData(httpContext);
             if (data == null) return null;
 
-            if (data.Values.ContainsKey("idslug"))
+            var slugValues = data.Values.Where(v => v.Key.EndsWith("slug")).ToList();
+
+            foreach (var keyValuePair in slugValues)
             {
-                string idslug = (string)data.Values["idslug"];
-                string id = idslug.Split('-')[0];
-                data.Values.Add("id", id);
+                string value = (string)keyValuePair.Value;
+                string id = value.Split('-')[0];
+                string argName = keyValuePair.Key.Substring(0, keyValuePair.Key.Length - "slug".Length);
+                data.Values.Add(argName, id);
             }
 
             return data;
@@ -100,13 +107,15 @@ namespace Triptitude.Web
 
     public static class RouteCollectionExtensionHelper
     {
-        public static Route MapSlugRoute(this RouteCollection routes, string name, string url, object defaults, object constraints)
+        public static Route MapSlugRoute(this RouteCollection routes, string name, string url, object defaults, object constraints, object dataTokens = null)
         {
             var route = new SlugRoute(url,
                 new RouteValueDictionary(defaults),
                 new RouteValueDictionary(constraints),
+                new RouteValueDictionary(dataTokens),
                 new MvcRouteHandler());
             routes.Add(name, route);
+
             return route;
         }
     }

@@ -1,0 +1,28 @@
+﻿@{
+    NoteForm form = (NoteForm)ViewBag.Form;
+    IEnumerable<Note> notes = (IEnumerable<Note>)ViewBag.Notes;
+}
+<div id="note-dialog">
+    <div class="title">
+        Note</div>
+    <form action="@ViewBag.Action" method="post" class="note-selector-form">
+    <input type="hidden" name="tripid" value="@form.TripId" />
+    <p>
+        <label for="activityid">
+            Activity</label>
+        @Html.SelectActivity((Trip)ViewBag.Trip, htmlAttributes: new { @class = "focus" })
+    </p>
+    @*<div class="notes">
+    @{
+        Html.RenderAction("_NotesFor", "notes", new { activityId = form.ActivityId });
+    }
+</div>
+<p>
+    <textarea class="note-text" name="text" id="text" value="@form.Text" />
+</p>*@
+    <p class="buttons">
+        <input type="button" value="Cancel" class="cancel" />
+        @*<input type="submit" value="Save" />*@
+    </p>
+    </form>
+</div>

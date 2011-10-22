@@ -37,9 +37,16 @@
     <Reference Include="Elmah">
       <HintPath>..\packages\elmah.1.1\lib\Elmah.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc">
+      <HintPath>..\packages\Mvc3Futures.3.0.20105.0\lib\Microsoft.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcContrib">
+      <HintPath>..\packages\MvcContrib.Mvc3-ci.3.0.81.0\lib\MvcContrib.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -86,20 +93,26 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminTagsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminTripsController.cs" />
+    <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\DestinationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
-    <Compile Include="Controllers\ItineraryItemsController.cs" />
     <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MyController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
+    <Compile Include="Controllers\PlacesController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\WebsitesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\PermissionHelper.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
@@ -107,6 +120,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BingSiteAuth.xml" />
+    <Content Include="google398a80352917011f.html" />
     <Content Include="google650c6fbb6afb9905.html" />
     <Content Include="robots.txt" />
     <Content Include="Static\Backgrounds\background-fade.png" />
@@ -117,19 +132,32 @@
     <Content Include="Static\Scripts\jquery.placeholder.js" />
     <Content Include="Static\Scripts\triptitude.js" />
     <Content Include="Static\Stylesheets\Site.css" />
-    <Content Include="Web.config" />
+    <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
+    <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="_Layout.cshtml" />
+    <Content Include="Views\Notes\NoteDialog.cshtml" />
+    <Content Include="Views\Notes\_NotesFor.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Amazon.PAAPI.WCF\Amazon.PAAPI.WCF.csproj">
+      <Project>{D38B4A40-D315-4158-9BD1-34C1697668BB}</Project>
+      <Name>Amazon.PAAPI.WCF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Triptitude.Biz\Triptitude.Biz.csproj">
       <Project>{82A22680-3B8A-4609-98DB-B602837120EF}</Project>
       <Name>Triptitude.Biz</Name>
@@ -146,6 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Static\WebsiteThumbs\" />
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +194,6 @@
     <Content Include="Views\Trips\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Destinations\Details.cshtml" />
-    <Content Include="Views\Destinations\Hotels.cshtml" />
-    <Content Include="Views\Destinations\_SidePanel.cshtml" />
     <Content Include="Views\My\Account.cshtml" />
     <Content Include="Views\My\Trips.cshtml" />
     <Content Include="Views\My\_SidePanel.cshtml" />
@@ -177,18 +204,6 @@
     <Content Include="Views\Trips\_Row.cshtml" />
     <Content Include="Views\Trips\_Rows.cshtml" />
     <Content Include="Views\Trips\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\HotelDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\TransportationDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\WebsiteDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ItineraryItems\DestinationTagDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Sitemap.cshtml" />
@@ -206,10 +221,55 @@
     <Content Include="Views\Admin\Trips.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Signup.cshtml" />
+    <Content Include="Views\Activities\HotelDialog.cshtml" />
+    <Content Include="Views\Activities\TransportationDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Destinations\Activities.cshtml" />
+    <Content Include="Views\Hotels\Search.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Auth\ForgotPass.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tags\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Trips\PackingList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Tags.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Tag.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Items.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Item.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\AdminTags\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\AdminTags\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\AdminTags\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Activities\PlaceDialog.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Activities\WorkingOnIt.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Places\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Places\Nearby.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -219,6 +279,10 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <!-- Added by MC based on http://stackoverflow.com/questions/755645/asp-net-mvc-1-0-afterbuilding-views-fails-on-tfs-build -->
+  <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
   </Target>

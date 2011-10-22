@@ -1,0 +1,9 @@
+﻿@{
+    IEnumerable<Note> notes = (IEnumerable<Note>)ViewBag.Notes;
+}
+@foreach (var note in notes)
+{
+    <div class="note">
+        @note.Text
+    </div>
+}

@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Admin Trip Details";
+    Trip trip = ViewBag.Trip;
+}
+<h1>@ViewBag.Trip.Name</h1>
+<form action="@Url.Admin("trips", "edit", trip.Id)" method="post">
+@Html.Editor("trip", ViewData)
+<input type="submit" value="Save" />
+</form>
+<h2>
+    Itinerary</h2>
+@for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
+{
+    Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i, area = "" });
+}

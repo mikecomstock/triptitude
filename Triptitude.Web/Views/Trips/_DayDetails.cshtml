@@ -1,51 +1,75 @@
 ﻿@{
-    var hotels = (IEnumerable<ItineraryItem>)ViewBag.Hotels;
+    Trip trip = (Trip)ViewBag.Trip;
+    bool CurrentUserOwnsTrip = ViewBag.CurrentUserOwnsTrip;
 }
 <div class="trip-day">
     <h3>
-        Day @ViewBag.DayNumber</h3>
-    @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.EndDay == ViewBag.DayNumber))
+        @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
+    </h3>
+    @foreach (Activity activity in trip.ActivitiesOn(ViewBag.DayNumber))
     {
-        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
-            <h4>
-                Check out of <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
-            </h4>
+        <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
+            @if (activity is TransportationActivity)
+            {
+                var transportationActivity = activity as TransportationActivity;
+                <div class="title">
+                    @transportationActivity.TransportationType.Name
+                    @if (transportationActivity.FromPlace != null)
+                    {
+                        <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
+                    }
+                    @if (transportationActivity.ToPlace != null)
+                    {
+                        <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                    }
+                </div>
+            }
+            else if (activity is HotelActivity)
+            {
+                var hotelActivity = activity as HotelActivity;
+                if (ViewBag.DayNumber == hotelActivity.BeginDay)
+                {
+                <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
+                }
+                <div class="title">
+                    @if (ViewBag.DayNumber == hotelActivity.BeginDay)
+                    {
+                        <p>
+                            Check in to <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a> for a @(hotelActivity.EndDay - hotelActivity.BeginDay)
+                            night stay
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Check out of <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
+                        </p>
+                    }
+                </div>
+            }
+            else if (activity is PlaceActivity)
+            {
+                var placeActivity = activity as PlaceActivity;
+
+                if (!string.IsNullOrWhiteSpace(placeActivity.Title))
+                {
+                <div class="title">
+                    @placeActivity.Title
+                </div>
+                }
+
+                if (placeActivity.Place != null)
+                {
+                <div class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
+                    <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                </div>
+                }
+            }
+            @Helpers.TagList(Url, activity.Tags)
+            @if (CurrentUserOwnsTrip || true)
+            {
+                @Helpers.NoteList(Url, activity.Notes)
+            }
         </div>
-    }
-    @foreach (Transportation trans in ViewBag.Transportations)
-    {
-        <div class="trip-day-itinerary-item transportation" data-id="@trans.Id" title="Click for details">
-            <h4>
-                @trans.TransportationType.Name
-                from <a href="@Url.Details((City)trans.FromCity)">@trans.FromCity.ASCIIName</a>
-                to <a href="@Url.Details((City)trans.ToCity)">@trans.ToCity.ASCIIName</a>
-            </h4>
-        </div>            
-    }
-    @foreach (ItineraryItem itineraryItem in ViewBag.Websites)
-    {
-        <div class="trip-day-itinerary-item website" data-id="@itineraryItem.Id" title="Click for details">
-            @*<img src="@Url.WebsiteThumb(itineraryItem.Website, Website.ThumbSize.Small)" alt="" />*@
-            <h4>
-                <a rel="nofollow" target="_blank" href="@itineraryItem.Website.URL">@itineraryItem.Website.Title</a> (Website)
-            </h4>
-        </div>
-    }
-    @foreach (ItineraryItem itineraryItem in ViewBag.DestinationTags)
-    {
-        <div class="trip-day-itinerary-item destination-tag" data-id="@itineraryItem.Id" title="Click for details">
-            <h4>
-                @itineraryItem.DestinationTag.Tag.Name in <a href="@Url.Details((City)itineraryItem.DestinationTag.City)">@itineraryItem.DestinationTag.City.ASCIIName</a>
-            </h4>
-        </div>
-    }
-    @foreach (ItineraryItem itineraryItem in hotels.Where(h=>h.BeginDay == ViewBag.DayNumber))
-    {
-        <div class="trip-day-itinerary-item hotel" data-id="@itineraryItem.Id" title="Click for details">
-            <img src="@itineraryItem.Hotel.Photo.ThumbURL" alt="" />
-            <h4>
-                Check in to <a href="@Url.Details(itineraryItem.Hotel)">@itineraryItem.Hotel.Name</a>
-            </h4>
-        </div>        
     }
 </div>

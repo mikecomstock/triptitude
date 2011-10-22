@@ -1,319 +1,364 @@
-﻿$(function () {
+﻿var superDialog;
+
+$(function() {
+
+    if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
+        moveScroller();
+    }
 
     $('input').placeholder();
+    $('.focus').first().focus();
+    $('.date-picker').datepicker();
 
-    BindDestinationAutocomplete(null);
+    BindPlaceAutocomplete(null);
 
-    $('.confirm-delete').click(function (e) {
-        var test = confirm('Delete?');
-        if (!test) { e.preventDefault(); }
+    $('#search').submit(function(e) {
+        var val = $('input[name="googreference"]', $(this)).val();
+        if (val == '') e.preventDefault();
     });
 
-    $('#search').submit(function (e) {
-        var destinationId = $('#search input[name="destinationid"]').val();
-        if (destinationId == '') {
+    $('#trip-bar-menu li').hover(
+        function() { $(this).children('ul').show(); },
+        function() { $(this).children('ul').hide(); }
+    );
+
+    $('.items').each(function() {
+        $('li', this).equalHeights();
+    });
+
+    //    $('.trip-length-slider').slider({
+    //        range: true,
+    //        values: [2, 10],
+    //        min: 1,
+    //        max: 20,
+    //        step: 1,
+    //        slide: function (event, ui) {
+    //            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
+    //        }
+    //    });
+
+
+    /****************/
+    /* Super Dialog */
+    /****************/
+
+    superDialog = $('#super-dialog');
+    superDialogOverlay = $('#super-dialog-overlay');
+    $('.cancel', superDialog).live('click', function(e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
+    $('*').live('keyup', function(e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
+
+    $('#dialog-menu li', superDialog).live('click', function(e) {
+        var dataPageName = $(this).attr('data-page');
+        var currentPage = $('li, .dialog-page');
+        currentPage.removeClass('selected-page');
+        var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
+        newPage.addClass('selected-page');
+        $('.focus', newPage).first().focus();
+        scrollToBottom($('.notes', superDialog));
+        //BindPlaceAutocomplete(superDialog);
+    });
+
+    /* Delete Confirmations */
+    $('.confirm-delete').live('click', function(e) {
+        var confirmed = confirm('Delete?');
+        if (confirmed) {
+            var data_url = $(this).attr('data-url');
+            window.location.replace(data_url);
+        } else {
             e.preventDefault();
         }
     });
 
-    $('#trip-bar-menu li').hover(function (hoverData) {
-        $(this).children('ul').show();
+    /****************/
+    /* Hotel Search */
+    /****************/
 
-    }, function (hoverData) {
-        $(this).children('ul').hide();
-    });
-
-    $('.add-transportation-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/addtransportation?tripid=' + tripId, function (getData) {
-            CreateTransportationsModal(getData);
+    $('.distance-slider', '.hotels #search-form').slider({
+            value: 10,
+            min: 1,
+            max: 50,
+            range: 'min',
+            step: 1,
+            slide: function(event, ui) {
+                $(this).siblings('.label').html('within ' + ui.value + ' miles');
+            },
+            change: function(event, ui) {
+                $(this).siblings('input').val(ui.value);
+                $(this).closest('form').submit();
+            }
+        });
+    $('.hotels #search-form').submit(function(event) {
+        event.preventDefault();
+        $.get("/hotels/search", $(this).serialize(), function(data) {
+            $('.panel-content').html(data);
         });
     });
 
-    $('.add-website-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/addwebsite?tripid=' + tripId, function (getData) {
-            CreateWebsiteModal(getData);
-        });
-    });
+    /****************/
+    /* Place Search */
+    /****************/
 
-    $('.add-tag-link').click(function (clickData) {
-        var tripId = $(this).attr('data-trip-id');
-        $.get('/itineraryitems/adddestinationtag?tripid=' + tripId, function (getData) {
-            CreateDestinationTagModal(getData);
-        });
-    });
+//    $('.distance-slider', '.places #search-form').slider({
+//        value: 10,
+//        min: 1,
+//        max: 50,
+//        range: 'min',
+//        step: 1,
+//        slide: function (event, ui) {
+//            $(this).siblings('.label').html('within ' + ui.value + ' miles');
+//        },
+//        change: function (event, ui) {
+//            $(this).siblings('input').val(ui.value);
+//        }
+//    });
 
-    $('.add-hotel-link').click(function (clickData) {
-        var hotelId = $(this).attr('data-hotel-id');
-        $.get('/itineraryitems/addhotel?hotelid=' + hotelId, function (data) {
-            CreateHotelModal(data);
-        });
-    });
+//    $('.places #search-form').submit(function (event) {
+//        event.preventDefault();
+//        $.get("/places/search", $(this).serialize(), function (data) {
+//            $('.panel-content').html(data);
+//        });
+//    });
 
-    $('.trip-row-map-link').click(function () {
+    /****************/
+
+    $('.trip-row-map-link').click(function() {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
-        var linkUrl = $(this).attr('data-link-url');
 
         var container = $('<div></div>');
-        container.attr('data-trip-id', tripId);
         container.dialog({
-            title: name,
-            width: 540,
-            height: 400,
-            resizable: false
+                title: name,
+                width: 540,
+                height: 400,
+                resizable: false
+            });
+
+        $.get('/maps/trip/' + tripId, function(mapData) {
+            drawMap(container, mapData);
         });
-        drawMap(container);
     });
 
-    $('.distance-slider').slider({
-        value: 100,
-        min: 0,
-        max: 200,
-        range: 'min',
-        step: 10,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html('within ' + $(this).slider("value") + ' miles');
+    /****************/
+
+    $('#note-dialog select', superDialog).live('change', function() {
+        var select = $(this);
+        var activityId = select.val();
+        CreateActivityModal('note', '/activities/edit/' + activityId + '?selectedtab=notes');
+    });
+
+    /****************/
+
+    $('.add-activity').live('click', function() {
+        var activityType = $(this).attr('data-activity-type');
+        var url = '/activities/create?type=' + activityType;
+
+        switch (activityType) {
+        case 'transportation':
+            break;
+        case 'place':
+            var referenceId = $(this).attr('data-reference-id') || '';
+            url += '&referenceid=' + referenceId;
+            break;
+        case 'hotel':
+            var hotelId = $(this).attr('data-hotel-id');
+            url += '&hotelid=' + hotelId;
+            break;
         }
+        CreateActivityModal(activityType, url);
     });
 
-    $('.trip-length-slider').slider({
-        range: true,
-        values: [2, 10],
-        min: 1,
-        max: 20,
-        step: 1,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
-        }
+    $('.add-note').live('click', function() {
+        CreateActivityModal("note", '/notes/create');
     });
 
-    $('.trip-day-itinerary-item.transportation').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/edittransportation/' + id, function (data) {
-            CreateTransportationsModal(data);
-        });
-    });
-
-    $('.trip-day-itinerary-item.website').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/editwebsite?itineraryitemid=' + id, function (data) {
-            CreateWebsiteModal(data);
-        });
-    });
-
-    $('.trip-day-itinerary-item.hotel').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/edithotel?itineraryitemid=' + id, function (data) {
-            CreateHotelModal(data);
-        });
-    });
-
-    $('.trip-day-itinerary-item.destination-tag').click(function () {
-        var id = $(this).attr('data-id');
-        $.get('/itineraryitems/editdestinationtag?itineraryitemid=' + id, function (data) {
-            CreateDestinationTagModal(data);
-        });
+    $('.trip-day .activity').click(function() {
+        var activityId = $(this).attr('data-activity-id');
+        var activityType = $(this).attr('data-activity-type');
+        CreateActivityModal(activityType, '/activities/edit/' + activityId);
     });
 });
 
-function BrowserAutocompleteOff() {
-    $('input.day-input').attr('autocomplete', 'off');
+function BindPlaceAutocomplete(context) {
+    var a = $('.place-autocomplete', context);
+    a.googAutocomplete();
 }
 
-function BindDestinationAutocomplete(context) {
-    $('.destination-autocomplete', context).autocomplete({
-        source: "/destinations/search",
-        select: function (event, ui) {
-            var hiddenFieldName = $(this).attr('data-hidden-field-name');
-            $('input[name="' + hiddenFieldName + '"]', $(this).closest("form")).val(ui.item.id);
-            var autoSubmit = $(this).attr('data-auto-submit');
-
-            if (autoSubmit == 'true')
-                $(this).closest("form").submit();
-        }
+function CreateActivityModal(activityType, url) {
+    $.get(url, function (data) {
+        $('#trip-bar-menu li').children('ul').hide();
+        $('.content', superDialog).html(data);
+        superDialog.show();
+        superDialogOverlay.show();
+        $('.focus', superDialog).focus();
+        $('input.day-input', superDialog).attr('autocomplete', 'off');
+        BindPlaceAutocomplete(superDialog);
+        scrollToBottom($('.notes', superDialog));
     });
 }
 
-function CreateTransportationsModal(data) {
-    var dialog = $(data);
-    var id = $('[name="id"]', dialog).val();
+(function($) {
 
-    var buttons = [];
-    if (id) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/itineraryitems/deletetransportation/" + id
-        }
+    $.fn.googAutocomplete = function() {
+        this.each(function() {
+            var $input = $(this);
+            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+            var autocomplete = new google.maps.places.Autocomplete($input.get(0));
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var place = autocomplete.getPlace();
+
+                var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
+                var $googIdField = $('[name="' + $input.attr('data-goog-id-field') + '"]');
+
+                $googReferenceField.val(place.reference);
+                $googIdField.val(place.id);
+
+                var autosubmit = $input.attr('data-auto-submit') == 'true';
+                if (autosubmit) $input.closest('form').submit();
+            });
+
+            var mapId = $input.attr('data-map-id');
+            if (mapId) {
+                $mapDiv = $('#' + mapId);
+
+                var center = new google.maps.LatLng(25, -30);
+                var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+                var marker = new google.maps.Marker({ map: map });
+                autocomplete.bindTo('bounds', map);
+
+                // var currLat = $('#latitude', superDialog).val();
+                // var currLng = $('#longitude', superDialog).val();
+                // var point = new google.maps.LatLng(currLat, currLng);
+                // var marker = new google.maps.Marker({ position: point, map: map });
+
+                google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                    var place = autocomplete.getPlace();
+                    if (place.geometry.viewport) {
+                        map.fitBounds(place.geometry.viewport);
+                    } else {
+                        map.setCenter(place.geometry.location);
+                        map.setZoom(16);
+                    }
+
+                    marker.setPosition(place.geometry.location);
+                });
+
+            }
         });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
+    };
 
-    dialog.dialog({
-        title: 'Transportation',
-        dialogClass: 'transportation-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
-    BindDestinationAutocomplete(dialog);
-}
+})(jQuery);
 
-function CreateWebsiteModal(data) {
-    var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
-
-    var buttons = [];
-    if (itineraryitemid) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/itineraryitems/deletewebsite?itineraryitemid=" + itineraryitemid
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Website',
-        dialogClass: 'website-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
-}
-
-function CreateHotelModal(data) {
-    var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
-
-    var buttons = [];
-    if (itineraryitemid) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/itineraryitems/deletehotel?itineraryitemid=" + itineraryitemid
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Hotel',
-        dialogClass: 'hotel-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BrowserAutocompleteOff();
-}
-
-function CreateDestinationTagModal(data) {
-    var dialog = $(data);
-    var itineraryitemid = $('[name="itineraryitemid"]', dialog).val();
-
-    var buttons = [];
-    if (itineraryitemid) {
-        buttons.push({ text: 'Delete', click: function () {
-            var confirmed = confirm('Delete?');
-            if (confirmed)
-                window.location.href = "/itineraryitems/deletedestinationtag?itineraryitemid=" + itineraryitemid
-        }
-        });
-    }
-    buttons.push({ text: 'Save', click: function () { $(this).submit(); } });
-
-    dialog.dialog({
-        title: 'Activity',
-        dialogClass: 'destination-tag-dialog',
-        width: 450,
-        resizable: false,
-        buttons: buttons
-    });
-    BindDestinationAutocomplete(dialog);
-    BrowserAutocompleteOff();
-}
-
-function drawMap(container) {
+function drawMap(container, mapData) {
 
     var myOptions = { mapTypeId: google.maps.MapTypeId.ROADMAP };
     var map = new google.maps.Map(container.get(0), myOptions);
     var bounds = new google.maps.LatLngBounds();
-    var tripId = container.attr('data-trip-id');
     var infoWindow = new google.maps.InfoWindow();
 
     var directionsPolylineOptions = { strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5 };
     var directionsService = new google.maps.DirectionsService();
 
-    $.get('/maps/trip/' + tripId, function (mapData) {
+    $.each(mapData.markers, function (i, item) {
 
-        $.each(mapData.trans, function (i, item) {
+        var point = new google.maps.LatLng(item.Latitude, item.Longitude);
+        var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
+        marker.infoHtml = item.InfoHtml;
+        if (item.ExtendBounds == true) bounds.extend(point);
 
-            var fromPoint = new google.maps.LatLng(item.From.Lat, item.From.Lon);
-            var toPoint = new google.maps.LatLng(item.To.Lat, item.To.Lon);
-            var fromMarker = new google.maps.Marker({ position: fromPoint, map: map, title: item.From.Name });
-            fromMarker.infoHtml = item.From.InfoHtml;
-            var toMarker = new google.maps.Marker({ position: toPoint, map: map, title: item.To.Name });
-            toMarker.infoHtml = item.To.InfoHtml;
-
-            bounds.extend(fromPoint);
-            bounds.extend(toPoint);
-
-            if (item.PathType == 'road') {
-                var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
-                directionsService.route(request, function (result, status) {
-                    var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
-                    directionsDisplay.setMap(map);
-                    if (status == google.maps.DirectionsStatus.OK) {
-                        directionsDisplay.setDirections(result);
-                    }
-                });
-            } else {
-                var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
-                transPath.setMap(map);
-                transPath.infoHtml = 'path';
-            }
-
-            google.maps.event.addListener(fromMarker, 'mouseover', function () {
-                infoWindow.setContent(fromMarker.infoHtml);
-                infoWindow.open(map, fromMarker);
-            });
-            google.maps.event.addListener(toMarker, 'mouseover', function () {
-                infoWindow.setContent(toMarker.infoHtml);
-                infoWindow.open(map, toMarker);
-            });
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.setContent(marker.infoHtml);
+            infoWindow.open(map, marker);
         });
-
-        $.each(mapData.hotels, function (i, item) {
-
-            var hotelPoint = new google.maps.LatLng(item.Lat, item.Lon);
-            var hotelMarker = new google.maps.Marker({ position: hotelPoint, map: map, title: item.Name });
-            hotelMarker.infoHtml = item.InfoHtml
-            bounds.extend(hotelPoint);
-
-            google.maps.event.addListener(hotelMarker, 'mouseover', function () {
-                infoWindow.setContent(hotelMarker.infoHtml);
-                infoWindow.open(map, hotelMarker);
-            });
-        });
-
-        $.each(mapData.destinationTags, function (i, item) {
-
-            var point = new google.maps.LatLng(item.Lat, item.Lon);
-            var marker = new google.maps.Marker({ position: point, map: map, title: item.Name });
-            marker.infoHtml = item.InfoHtml
-            bounds.extend(point);
-
-            google.maps.event.addListener(marker, 'mouseover', function () {
-                infoWindow.setContent(marker.infoHtml);
-                infoWindow.open(map, marker);
-            });
-        });
-
-        map.fitBounds(bounds);
     });
+
+    $.each(mapData.polyLines, function (i, item) {
+
+        var fromPoint = new google.maps.LatLng(item.From.Latitude, item.From.Longitude);
+        var toPoint = new google.maps.LatLng(item.To.Latitude, item.To.Longitude);
+
+        if (item.From.ExtendBounds == true) bounds.extend(fromPoint);
+        if (item.To.ExtendBounds == true) bounds.extend(toPoint);
+
+        if (item.PathType == 'directions') {
+            var request = { origin: fromPoint, destination: toPoint, travelMode: google.maps.DirectionsTravelMode.DRIVING };
+            directionsService.route(request, function (result, status) {
+                var directionsDisplay = new google.maps.DirectionsRenderer({ suppressInfoWindows: true, suppressMarkers: true, polylineOptions: directionsPolylineOptions, preserveViewport: true });
+                directionsDisplay.setMap(map);
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(result);
+                }
+            });
+        } else {
+            var transPath = new google.maps.Polyline({ path: [fromPoint, toPoint], strokeColor: "#0066FF", strokeOpacity: 0.6, strokeWeight: 5, geodesic: true });
+            transPath.setMap(map);
+        }
+
+    });
+
+    map.fitBounds(bounds);
+}
+
+function moveScroller() {
+    var a = function () {
+        var b = $(window).scrollTop();
+        var sa = $("#scrollanchor");
+        var d = sa.offset().top;
+        var c = $("#trip-bar-container");
+        if (b > d) {
+            var height = c.outerHeight(true);
+            sa.css({ height: height + "px" });
+            c.addClass('at-top');
+        } else {
+            if (b <= d) {
+                c.removeClass('at-top');
+                sa.css({ height: "0" });
+            }
+        }
+    };
+    $(window).scroll(a);
+    a();
+}
+
+
+/**
+* Equal Heights Plugin
+* Equalize the heights of elements. Great for columns or any elements
+* that need to be the same size (floats, etc).
+* 
+* Version 1.0
+* Updated 12/10/2008
+*
+* Copyright (c) 2008 Rob Glazebrook (cssnewbie.com) 
+*
+* Usage: $(object).equalHeights([minHeight], [maxHeight]);
+* 
+* Example 1: $(".cols").equalHeights(); Sets all columns to the same height.
+* Example 2: $(".cols").equalHeights(400); Sets all cols to at least 400px tall.
+* Example 3: $(".cols").equalHeights(100,300); Cols are at least 100 but no more
+* than 300 pixels tall. Elements with too much content will gain a scrollbar.
+* 
+*/
+
+(function($) {
+    $.fn.equalHeights = function(minHeight, maxHeight) {
+        tallest = (minHeight) ? minHeight : 0;
+        this.each(function() {
+            if ($(this).height() > tallest) {
+                tallest = $(this).height();
+            }
+        });
+        if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
+        return this.each(function() {
+            $(this).height(tallest).css("overflow", "auto");
+        });
+    };
+})(jQuery);
+
+/***********************************************************/
+
+function scrollToBottom(jqueryElement) {
+    if (jqueryElement) {
+        jqueryElement.prop({ scrollTop: jqueryElement.prop('scrollHeight') });
+    }
 }

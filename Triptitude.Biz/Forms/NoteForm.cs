@@ -2,8 +2,10 @@
 {
     public class NoteForm
     {
-        public int Id { get; set; }
-        public int ItineraryItemId { get; set; }
+        public int? NoteId { get; set; }
+        public int TripId { get; set; }
+        public int? ActivityId { get; set; }
         public string Text { get; set; }
+        public bool Public { get; set; }
     }
 }

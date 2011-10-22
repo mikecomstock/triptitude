@@ -1,26 +1,35 @@
 ﻿@{
-    ViewBag.Title = "Trip Settings";
+    ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () { document.getElementById('name').focus(); });
+    </script>
 }
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
             <h1>
-                Settings</h1>
+                @ViewBag.Title
+            </h1>
         </div>
         <div class="panel-content">
-            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" class="trip-settings">
+            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form">
+            @Html.AntiForgeryToken()
             <p>
+                @Html.ValidationMessage("name")
                 <label for="name">
-                    Trip Name</label>
-                <input type="text" name="name" value="@ViewBag.Form.Name" />
+                    Name your trip</label>
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" />
             </p>
             <p>
+                @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
-                <input type="text" name="begindate" value="@ViewBag.Form.BeginDate" />
+                <input type="text" name="begindate" class="date-picker" value="@ViewBag.Form.BeginDate" />
             </p>
-            <input type="submit" value="Save Settings" />
+            <input type="submit" value="Save Settings" tabindex="2" />
             </form>
         </div>
     </div>

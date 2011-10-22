@@ -35,8 +35,10 @@
       <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.4.1.10311.0\lib\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.4.1.10331.0\lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Hammock">
+      <HintPath>..\packages\Hammock.1.2.4\lib\net40\Hammock.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -44,13 +46,28 @@
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\Lucene.2.9.2.2\lib\Lucene.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Postmark">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Postmark.dll</HintPath>
+    </Reference>
+    <Reference Include="Specifications">
+      <HintPath>..\packages\Postmark.1.0.6\lib\40\Specifications.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,42 +76,118 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Forms\DestinationTagForm.cs" />
-    <Compile Include="Forms\HotelForm.cs" />
+    <Compile Include="Forms\ActivityForms.cs" />
+    <Compile Include="Forms\CitySearchForm.cs" />
+    <Compile Include="Forms\ForgotPassForm.cs" />
+    <Compile Include="Forms\HotelSearchForm.cs" />
+    <Compile Include="Forms\LoginForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
-    <Compile Include="Forms\SignupForm.cs" />
-    <Compile Include="Forms\TransportationForm.cs" />
-    <Compile Include="Forms\TripCreate.cs" />
+    <Compile Include="Forms\CreateTripForm.cs" />
+    <Compile Include="Forms\PlaceSearchForm.cs" />
+    <Compile Include="Forms\TripSearchForm.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
-    <Compile Include="Forms\WebsiteForm.cs" />
+    <Compile Include="Forms\UserSettingsForm.cs" />
     <Compile Include="Models\Db.cs" />
     <Compile Include="Repo.cs" />
     <Compile Include="Models\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repos\CitiesRepo.cs" />
-    <Compile Include="Repos\DestinationsRepo.cs" />
-    <Compile Include="Repos\DestinationTagsRepo.cs" />
+    <Compile Include="Repos\ActivitiesRepo.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
-    <Compile Include="Repos\ItineraryItemsRepo.cs" />
+    <Compile Include="Repos\ItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
-    <Compile Include="Repos\RegionsRepo.cs" />
-    <Compile Include="Repos\SignupRepo.cs" />
+    <Compile Include="Repos\PlacesRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
-    <Compile Include="Repos\TransportationsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />
     <Compile Include="Repos\TripsRepo.cs" />
     <Compile Include="Repos\UsersRepo.cs" />
-    <Compile Include="Repos\WebsitesRepo.cs" />
+    <Compile Include="Service References\Amazon.PAAPI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AmazonService.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Repos\CountriesRepo.cs" />
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\ImportService.cs" />
-    <Compile Include="Services\LuceneService.cs" />
-    <Compile Include="Services\WebsiteService.cs" />
+    <Compile Include="Services\PlacesService.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.BrowseNodeLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartAddResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartClearResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartCreateResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartGetResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CartModifyResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CustomerContentLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.CustomerContentSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.HelpResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ItemLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ItemSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ListLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.ListSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.MultiOperationResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerListingLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerListingSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SellerLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.SimilarityLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.TagLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.TransactionLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehiclePartLookupResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehiclePartSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\Amazon.PAAPI.Amazon.PAAPI.VehicleSearchResponse.datasource" />
+    <None Include="Service References\Amazon.PAAPI\AWSECommerceService.wsdl" />
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.BrowseNodeLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartAddResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartClearResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartCreateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartGetResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.CartModifyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.ItemLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.ItemSearchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Amazon.PAAPI\Triptitude.Biz.Amazon.PAAPI.SimilarityLookupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Amazon.PAAPI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Amazon.PAAPI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Security;
+using Triptitude.Biz.Forms;
+using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
@@ -8,26 +12,50 @@ namespace Triptitude.Web.Controllers
     public class AuthController : Controller
     {
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(Guid? token, string returnUrl)
         {
+            if (token.HasValue)
+            {
+                var usersRepo = new UsersRepo();
+                User user = usersRepo.FindByToken(token.Value);
+
+                if (user != null && !user.GuidIsExpired)
+                {
+                    AuthHelper.SetAuthCookie(user);
+                    return string.IsNullOrWhiteSpace(returnUrl) ? Redirect(Url.MySettings()) : Redirect(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("credentials", "Your login link has expired. Use the 'Forgot Password' link to create a new one.");
+                }
+            }
+
+            ViewBag.Form = new LoginForm { ReturnUrl = returnUrl };
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(string email, string password)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginForm form)
         {
-            var user = new AuthService().Authenticate(email, password);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Form = form;
+                return View();
+            }
 
+            var user = new AuthService().Authenticate(form);
             if (user != null)
             {
-                string userName = user.Id + "|" + user.Email;
-                FormsAuthentication.SetAuthCookie(userName, true);
-                return Redirect(Url.MyAccount());
+                AuthHelper.SetAuthCookie(user);
+                return string.IsNullOrWhiteSpace(form.ReturnUrl) ? Redirect(Url.MyAccount()) : Redirect(form.ReturnUrl);
             }
             else
             {
-                ModelState.AddModelError("invalid", "Invalid credentials!");
-                return RedirectToRoute("Login");
+                ModelState.AddModelError("credentials", "Invalid credentials.");
+                Session["email"] = form.Email;
+                ViewBag.Form = form;
+                return View();
             }
         }
 
@@ -35,6 +63,37 @@ namespace Triptitude.Web.Controllers
         {
             FormsAuthentication.SignOut();
             return Redirect("~");
+        }
+
+        public ActionResult ForgotPass()
+        {
+            ViewBag.Sent = false;
+            ViewBag.Form = new ForgotPassForm
+                               {
+                                   Email = (string)Session["email"]
+                               };
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPass(ForgotPassForm form)
+        {
+            if (ModelState.IsValid)
+            {
+                var usersRepo = new UsersRepo();
+                User user = usersRepo.FindByEmail(form.Email);
+                usersRepo.SetNewGuidIfNeeded(user);
+                EmailService.SendForgotPassEmail(user);
+                ViewBag.Sent = true;
+            }
+            else
+            {
+                ViewBag.Sent = false;
+            }
+
+            ViewBag.Form = form;
+            return View();
         }
     }
 }

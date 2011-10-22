@@ -3,7 +3,6 @@
     Hotel hotel = ViewBag.Hotel;
 }
 @section Scripts {
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
         
@@ -19,36 +18,45 @@
     </script>
 }
 <div id="side-container">
-    <a href="#">Details</a> <a href="#">Map</a> <a href="#">Trips</a> <a href="#">Alternatives</a>
+    <a href="@Url.Details(hotel)">Details</a> @*<a href="#">Map</a> <a href="#">Trips</a> <a href="#">Alternatives</a>*@
 </div>
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
-            <div data-hotel-id="@hotel.Id" class="link add-hotel-link">
-                Add to Trip</div>
+        <div class="title">
             <h1>@hotel.Name</h1>
         </div>
-        <div class="panel-content-not-padded">
-            <div id="hotel-details-photo-list">
-                <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
-            </div>
+        <div class="subtitle">
+            <div data-hotel-id="@hotel.Id" class="add-activity link" data-activity-type="hotel">
+                Add to Trip</div>
+        </div>
+        <div class="panel-content">
+            <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
         </div>
     </div>
     <div class="panel">
-        <h2>
-            Map and Address</h2>
         <div class="panel-content">
+            <h2>
+                Map and Address</h2>
             <div id="hotel-details-map-container">
             </div>
         </div>
     </div>
     <div class="panel">
-        <h2>
-            Trips to @ViewBag.Hotel.Name</h2>
         <div class="panel-content">
-            <div id="hotel-details-related-trips">
-                @Html.Action("_rows", "trips", new { trips = hotel.Trips })
-            </div>
+            <h2>
+                Trips to @ViewBag.Hotel.Name</h2>
+            @if (hotel.Trips.Any())
+            {
+                <div id="hotel-details-related-trips">
+                    @Html.Action("_rows", "trips", new { trips = hotel.Trips })
+                </div>
+            }
+            else
+            {
+                <div>
+                    No trips found! <a href="@Url.CreateTrip()">Create one here.</a>
+                </div>
+            }
         </div>
     </div>
 </div>

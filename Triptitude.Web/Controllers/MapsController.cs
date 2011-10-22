@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz;
 using Triptitude.Biz.Models;
@@ -9,69 +10,98 @@ namespace Triptitude.Web.Controllers
 {
     public class MapsController : Controller
     {
-        //public ActionResult Hotel(int id)
-        //{
-        //    return Json(null);
-        //}
-
         public ActionResult Trip(int id)
         {
+            var markers = new List<object>();
+            var polyLines = new List<object>();
+
             Trip trip = new TripsRepo().Find(id);
+            var activities = trip.Activities;
 
-            var transportations = trip.Transportations;
-            var trans = from t in transportations
-                        let infoTitle = string.Format("<h3>{0} from <a href='{1}'>{2}</a> to <a href='{3}'>{4}</a></h3>", t.TransportationType.Name, Url.Details(t.FromCity), t.FromCity.ShortName, Url.Details(t.ToCity), t.ToCity.ShortName)
-                        let infoBody = Util.DateTimeRangeString(t.BeginDay, null, t.EndDay, null)
-                        let infoHtml = infoTitle + "<br/>" + infoBody
-                        select new
-                                   {
-                                       PathType = t.TransportationType.TravelMode,
-                                       From = new
+            var hotelActivities = activities.OfType<HotelActivity>();
+            var hotelMarkers = from a in hotelActivities
+                               let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(a.Hotel), a.Hotel.Name)
+                               let numNights = a.EndDay - a.BeginDay
+                               let nightsText = numNights == 1 ? "night" : "nights"
+                               let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
+                               let infoHtml = infoTitle + "<br/>" + infoBody
+                               select new
+                                          {
+                                              a.Hotel.Name,
+                                              a.Hotel.Latitude,
+                                              a.Hotel.Longitude,
+                                              InfoHtml = infoHtml,
+                                              ExtendBounds = true
+                                          };
+            markers.AddRange(hotelMarkers);
+
+            var placeActivities = activities.OfType<PlaceActivity>();
+            var placeMarkers = from a in placeActivities.Where(a => a.Place != null)
+                               let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
+                               where a.Place.Latitude.HasValue && a.Place.Longitude.HasValue
+                               select new
+                                          {
+                                              a.Place.Name,
+                                              a.Place.Latitude,
+                                              a.Place.Longitude,
+                                              InfoHtml = infoHtml,
+                                              ExtendBounds = true
+                                          };
+            markers.AddRange(placeMarkers);
+
+            #region Transportation Activities
+
+            var transportationDoesExtendBounds = !markers.Any();
+
+            var transportationActivities = activities.OfType<TransportationActivity>();
+            var toMarkers = from a in transportationActivities.Where(ta => ta.ToPlace != null)
+                            let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
+                            let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
+                            let infoHtml = infoTitle + "<br/>" + infoBody
+                            select new
                                        {
-                                           Name = t.FromCity.ShortName,
-                                           Lat = t.FromCity.Latitude,
-                                           Lon = t.FromCity.Longitude,
-                                           InfoHtml = infoHtml
-                                       },
-                                       To = new
-                                       {
-                                           Name = t.ToCity.ShortName,
-                                           Lat = t.ToCity.Latitude,
-                                           Lon = t.ToCity.Longitude,
-                                           InfoHtml = infoHtml
-                                       }
-                                   };
+                                           Name = a.ToPlace.Name,
+                                           a.ToPlace.Latitude,
+                                           a.ToPlace.Longitude,
+                                           InfoHtml = infoHtml,
+                                           ExtendBounds = transportationDoesExtendBounds
+                                       };
+            markers.AddRange(toMarkers);
 
-            var hotelItineraryItems = trip.Itinerary.Where(i => i.Hotel != null);
-            var hotels = from i in hotelItineraryItems
-                         let infoTitle = string.Format("<h3>Lodging at <a href='{0}'>{1}</a></h3>", Url.Details(i.Hotel), i.Hotel.Name)
-                         let numNights = i.EndDay - i.BeginDay
-                         let nightsText = numNights == 1 ? "night" : "nights"
-                         let infoBody = Util.DateTimeRangeString(i.BeginDay, i.BeginTime, i.EndDay, i.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
-                         let infoHtml = infoTitle + "<br/>" + infoBody
-                         select new
-                                    {
-                                        Name = i.Hotel.Name,
-                                        Lat = i.Hotel.Latitude,
-                                        Lon = i.Hotel.Longitude,
-                                        InfoHtml = infoHtml
-                                    };
+            var fromMarkers = from a in transportationActivities.Where(ta => ta.FromPlace != null)
+                              let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
+                              let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
+                              let infoHtml = infoTitle + "<br/>" + infoBody
+                              select new
+                                         {
+                                             Name = a.FromPlace.Name,
+                                             a.FromPlace.Latitude,
+                                             a.FromPlace.Longitude,
+                                             InfoHtml = infoHtml,
+                                             ExtendBounds = transportationDoesExtendBounds
+                                         };
+            markers.AddRange(fromMarkers);
 
-            var destinationTagItineraryItems = trip.Itinerary.Where(i => i.DestinationTag != null);
-            var destinationTags = from dt in destinationTagItineraryItems
-                                  let infoTitle = string.Format("<h3>{0} in <a href='{1}'>{2}</a></h3>", dt.DestinationTag.Tag.Name, Url.Details(dt.DestinationTag.City), dt.DestinationTag.City.ShortName)
-                                  let infoBody = Util.DateTimeRangeString(dt.BeginDay, dt.BeginTime, dt.EndDay, dt.EndTime)
-                                  let infoHtml = infoTitle + "<br/>" + infoBody
+            var transLines = from a in transportationActivities.Where(ta => ta.ToPlace != null && ta.FromPlace != null)
+                             select new
+                                        {
+                                            a.TransportationType.PathType,
+                                            From = new
+                                            {
+                                                a.FromPlace.Latitude,
+                                                a.FromPlace.Longitude
+                                            },
+                                            To = new
+                                            {
+                                                a.ToPlace.Latitude,
+                                                a.ToPlace.Longitude
+                                            }
+                                        };
+            polyLines.AddRange(transLines);
 
-                                  select new
-                                             {
-                                                 Name = dt.DestinationTag.City.ShortName,
-                                                 Lat = dt.DestinationTag.City.Latitude,
-                                                 Lon = dt.DestinationTag.City.Longitude,
-                                                 InfoHtml = infoHtml
-                                             };
+            #endregion
 
-            var jsonObject = new { trans, hotels, destinationTags };
+            var jsonObject = new { markers, polyLines };
 
             return Json(jsonObject, JsonRequestBehavior.AllowGet);
         }

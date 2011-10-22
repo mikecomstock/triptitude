@@ -1,19 +1,39 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name;
-    ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
+    Trip trip = ViewBag.Trip;
+    ViewBag.Title = trip.Name + " - Itinerary";
+    ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
 }
-@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function () {
+            var tripId = $('#trip-map-container').attr('data-trip-id');
+            $.get('/maps/trip/' + tripId, function (mapData) {
+                drawMap($('#trip-map-container'), mapData);
+            });
+        });
+
+    </script>
+}
+@Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
             <h1>
-                @ViewBag.Trip.Name
+                @ViewBag.Title
             </h1>
         </div>
         <div class="panel-content">
-            @for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
+            <div id="trip-map-container" data-trip-id="@trip.Id">
+            </div>
+            @for (int i = 1; i <= trip.TotalDays; i++)
             {
-                Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i });
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
+
+            }
+            @if (trip.Activities.Any(a => a.IsUnscheduled))
+            {
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
             }
         </div>
     </div>
