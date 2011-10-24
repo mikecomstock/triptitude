@@ -130,7 +130,8 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #dialog-menu li { cursor: pointer; margin: 0; padding: 4px 6px; color: #FFF; background-color: #0190E9; margin: 10px 0 10px 10px; float: left; display: block; text-align: center; width: 50px; }
 #dialog-menu li.selected-page { text-decoration: underline; }
 
-#super-dialog { display: none; position: absolute; z-index: 5; width: 600px; margin: 20px 0 0 325px; color: #FFF; padding: 10px; background-color: #262626; -moz-border-radius: 10px; color: #000; -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); }
+#super-dialog-container { position: relative; }
+#super-dialog { display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; -moz-border-radius: 10px; -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 1); }
 #super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; opacity: 0.8; display: none; }
 
 #super-dialog .dialog-page { display: none; position: relative; }
@@ -157,10 +158,12 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 #note-dialog form { padding-top: 10px; }
 
+#place-dialog { width: 600px; }
 #place-dialog input[type="text"] { width: 200px; }
 #place-dialog .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
 #place-dialog .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
 
+#transportation-dialog { width: 600px; }
 #transportation-dialog .stops { overflow: auto; }
 #transportation-dialog .stops p { float: left; }
 #transportation-dialog .stops p + p { border-left: 5px dotted #999; }
@@ -168,6 +171,8 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #transportation-dialog .stops input { float: none; width: 260px; }
 #transportation-dialog .autocomplete-map { height: 120px; width: 260px; padding: 2px; display: block; }
 
+#packing-item-dialog fieldset input { width: 250px; margin: 0; }
+#packing-item-dialog fieldset select { width: 250px; margin: 0; }
 
 /* Create Trip Form */
 #create-trip-form label { width: 150px; }
@@ -248,9 +253,9 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 /* Trips */
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
 .trips.details .trip-day { min-height: 25px; -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); margin-bottom: 10px; }
-.trips.details .trip-day .notes { margin: 10px;overflow: auto; }
-.trips.details .trip-day .notes:before { content: "notes:";float: left;color: #999; }
-.trips.details .trip-day .notes > .note {  }
+.trips.details .trip-day .notes { margin: 10px; overflow: auto; }
+.trips.details .trip-day .notes:before { content: "notes:"; float: left; color: #999; }
+.trips.details .trip-day .notes > .note { }
 .trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
 .trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity > .place { color: #333; margin: 10px; font-weight: bold; }
@@ -268,9 +273,18 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 .trips.map #trip-map-container { width: 100%; height: 500px; }
 
 /* Packing List */
-.trips.packinglist #content ul { list-style: none; }
+/*.trips.packinglist #content ul { list-style: none; }
 .trips.packinglist #content .tag-group + .tag-group { margin-top: 20px; }
-.trips.packinglist #content .tag-group .title { font-weight: bold; font-size: 16px; }
+.trips.packinglist #content .tag-group .title { font-weight: bold; font-size: 16px; }*/
+
+.packing-list-items { list-style: none; padding: 0; margin: 0; }
+.packing-list-items .packing-list-item { padding: 5px; overflow: auto; }
+.packing-list-items .packing-list-item:hover { background-color: #EEE; }
+.packing-list-items .packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
+.packing-list-items .packing-list-item .name { font-weight: bold; float: left; line-height: 26px; }
+.packing-list-items .packing-list-item .note { float: none; display: block; }
+.packing-list-items .tags { float: right; }
+.packing-list-items .tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
 
 /* Working On It */
 #working-on-it p { background-color: #EEE; font-size: 16px; margin: 0 !important; padding: 10px; }

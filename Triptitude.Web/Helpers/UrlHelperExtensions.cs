@@ -155,6 +155,20 @@ namespace Triptitude.Web.Helpers
 
         //#endregion
 
+        #region Packing
+
+        public static string CreatePackingItem(this UrlHelper url)
+        {
+            return url.Action("create", "packing");
+        }
+
+        public static string Delete(this UrlHelper url, PackingListItem pli)
+        {
+            return url.Action("delete", "packing", new { id = pli.Id });
+        }
+
+        #endregion
+
         #region Hotels
 
         public static string Details(this UrlHelper url, Hotel hotel)

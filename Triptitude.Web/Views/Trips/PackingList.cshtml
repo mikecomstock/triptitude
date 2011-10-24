@@ -1,10 +1,12 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name + " - Packing List";
-    ViewBag.ShowInSiteMap = @ViewBag.Trip.ShowInSiteMap;
-    var items = (IEnumerable<AmazonItem>)ViewBag.Items;
-    var tags = (IEnumerable<Tag>)ViewBag.Tags;
+    var trip = (Trip)ViewBag.Trip;
+    ViewBag.Title = trip.Name + " - Packing List";
+    ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
+
+    var packingListItems = trip.PackingListItems;
+    //var tags = (IEnumerable<Tag>)ViewBag.Tags;
 }
-@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
+@Html.Action("SidePanel", "Trips", new { Trip = trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
@@ -13,13 +15,26 @@
             </h1>
         </div>
         <div class="panel-content">
-            @foreach (var tag in tags.Where(t => t.Items.Any()))
+            <ul class="packing-list-items">
+                @foreach (PackingListItem pli in packingListItems)
+                {
+                    <li class="packing-list-item" data-id="@pli.Id">
+                        <div class="name">@pli.Name</div>
+                        @Helpers.TagList(Url, pli.Tags)
+                        @if (!string.IsNullOrEmpty(pli.Note))
+                        {
+                            <div class="note">@pli.Note</div>
+                        }
+                    </li>   
+                }
+            </ul>
+            @*@foreach (var tag in tags.Where(t => t.Items.Any()))
             {
                 <div class="tag-group">
                     <div class="title">@tag.Name</div>
                     @Helpers.ItemList(Url, tag.Items)
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>

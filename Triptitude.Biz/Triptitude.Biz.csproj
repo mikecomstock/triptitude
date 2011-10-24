@@ -85,6 +85,7 @@
     <Compile Include="Forms\LoginForm.cs" />
     <Compile Include="Forms\NoteForm.cs" />
     <Compile Include="Forms\CreateTripForm.cs" />
+    <Compile Include="Forms\PackingItemForm.cs" />
     <Compile Include="Forms\PlaceSearchForm.cs" />
     <Compile Include="Forms\TripSearchForm.cs" />
     <Compile Include="Forms\TripSettingsForm.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\ItemsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
+    <Compile Include="Repos\PackingListItemsRepo.cs" />
     <Compile Include="Repos\PlacesRepo.cs" />
     <Compile Include="Repos\TagsRepo.cs" />
     <Compile Include="Repos\TransportationTypesRepo.cs" />

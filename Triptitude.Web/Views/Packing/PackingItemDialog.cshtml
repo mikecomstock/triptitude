@@ -1,0 +1,45 @@
+﻿@{
+    PackingItemForm form = (PackingItemForm)ViewBag.Form;
+    Trip trip = (Trip)ViewBag.Trip;
+    PackingListItem packingListItem = (PackingListItem)ViewBag.PackingListItem;
+}
+<div id="packing-item-dialog">
+    <div class="title">
+        What to Pack</div>
+    <form action="@ViewBag.Action" method="post">
+    @Html.Hidden("tripid", form.TripId)
+    @Html.Hidden("packingitemid", form.PackingItemId)
+    <fieldset>
+        <span>What</span>
+        <p>
+            <label for="name">
+                Name</label>
+            @Html.TextBox("name", form.Name, new { @class = "focus" })
+        </p>
+    </fieldset>
+    <fieldset>
+        <span>Why</span>
+        <p>
+            <label for="tagstring">
+                Category</label>
+            @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: clothing, documents, hiking" })
+        </p>
+    </fieldset>
+    <fieldset>
+        <span>Note</span>
+        <p>
+            <label for="note">
+                Note</label>
+            @Html.TextBox("note", form.Note)
+        </p>
+    </fieldset>
+    <p class="buttons">
+        <input type="submit" value="Save" />
+        <input type="button" value="Cancel" class="cancel" />
+        @if (ViewBag.PackingListItem != null)
+        {
+            <input type="button" value="Delete" class="delete confirm-delete" data-url="@Url.Delete(packingListItem)" />
+        }
+    </p>
+    </form>
+</div>

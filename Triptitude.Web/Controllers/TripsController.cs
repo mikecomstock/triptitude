@@ -77,10 +77,10 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            var tags = trip.Activities.SelectMany(a => a.Tags).Distinct();
-            ViewBag.Tags = tags;
-            var items = tags.SelectMany(t => t.Items);
-            ViewBag.Items = items;
+            //var tags = trip.Activities.SelectMany(a => a.Tags).Distinct();
+            //ViewBag.Tags = tags;
+            //var items = tags.SelectMany(t => t.Items);
+            //ViewBag.Items = items;
             return View();
         }
 

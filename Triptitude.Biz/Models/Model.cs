@@ -62,6 +62,7 @@ namespace Triptitude.Biz.Models
 
         public IEnumerable<User> Users { get { return new[] { User }; } }
         public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
         public int TotalDays
         {
@@ -125,6 +126,7 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<Note> Notes { get; set; }
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
@@ -219,6 +221,7 @@ namespace Triptitude.Biz.Models
         public string Name { get; set; }
         public virtual ICollection<AmazonItem> Items { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
+        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
@@ -233,6 +236,18 @@ namespace Triptitude.Biz.Models
                 return trips;
             }
         }
+    }
+
+    public class PackingListItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual Trip Trip { get; set; }
+        public virtual Activity Activity { get; set; }
+        public string Note { get; set; }
+        public bool Public { get; set; }
+        public string TagString { get; set; }
+        public virtual ICollection<Tag> Tags { get; set; }
     }
 
     public class AmazonItem

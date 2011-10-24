@@ -16,8 +16,7 @@ namespace Triptitude.Biz.Repos
             activity.EndDay = form.EndDay;
             activity.TagString = form.TagString;
 
-            if (activity.Tags != null)
-                activity.Tags.Clear();
+            if (activity.Tags != null) activity.Tags.Clear();
             if (!string.IsNullOrWhiteSpace(form.TagString))
             {
                 activity.Tags = new TagsRepo().FindOrInitializeAll(form.TagString).ToList();
