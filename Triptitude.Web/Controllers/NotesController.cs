@@ -36,7 +36,7 @@ namespace Triptitude.Web.Controllers
             var form = new NoteForm
                            {
                                TripId = currentUser.DefaultTrip.Id,
-                               ActivityId = currentUser.DefaultTrip.Activities.First().Id,
+                               //ActivityId = currentUser.DefaultTrip.Activities.First().Id,
                                Public = true
                            };
             ViewBag.Form = form;
