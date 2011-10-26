@@ -73,14 +73,15 @@ namespace Triptitude.Web.Controllers
             return PartialView("_DayDetails");
         }
 
-        public ActionResult PackingList(int id)
+        public ActionResult PackingList(int id, User currentUser)
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            //var tags = trip.Activities.SelectMany(a => a.Tags).Distinct();
-            //ViewBag.Tags = tags;
-            //var items = tags.SelectMany(t => t.Items);
-            //ViewBag.Items = items;
+            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Public);
+            ViewBag.PackingListItems = packingListItems;
+            ViewBag.Tags = packingListItems.SelectMany(pli => pli.Tags).Distinct().ToList().OrderBy(t => t.NiceName);
+
             return View();
         }
 

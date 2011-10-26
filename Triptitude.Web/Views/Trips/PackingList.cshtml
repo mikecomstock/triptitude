@@ -1,10 +1,11 @@
 ﻿@{
     var trip = (Trip)ViewBag.Trip;
+    var tags = (IEnumerable<Tag>)ViewBag.Tags;
+    var packingListItems = (IEnumerable<PackingListItem>)ViewBag.PackingListItems;
+    var uncategorizedItems = packingListItems.Where(pli => !pli.Tags.Any());
+
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
-
-    var packingListItems = trip.PackingListItems;
-    //var tags = (IEnumerable<Tag>)ViewBag.Tags;
 }
 @Html.Action("SidePanel", "Trips", new { Trip = trip })
 <div id="main-container">
@@ -15,26 +16,42 @@
             </h1>
         </div>
         <div class="panel-content">
-            <ul class="packing-list-items">
-                @foreach (PackingListItem pli in packingListItems)
-                {
-                    <li class="packing-list-item" data-id="@pli.Id">
-                        <div class="name">@pli.Name</div>
-                        @Helpers.TagList(Url, pli.Tags)
-                        @if (!string.IsNullOrEmpty(pli.Note))
-                        {
-                            <div class="note">@pli.Note</div>
-                        }
-                    </li>   
-                }
-            </ul>
-            @*@foreach (var tag in tags.Where(t => t.Items.Any()))
+            @foreach (var tag in tags)
             {
-                <div class="tag-group">
-                    <div class="title">@tag.Name</div>
-                    @Helpers.ItemList(Url, tag.Items)
+                <div class="packing-list-tag-group">
+                    <h3 title="@tag.Name">
+                        <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
+                    <ul class="packing-list-items">
+                        @foreach (PackingListItem pli in packingListItems.Where(pli => pli.Tags.Contains(tag)))
+                        {
+                            @PackingListItem(pli)
+                        }
+                    </ul>
                 </div>
-            }*@
+            }
+            @if (uncategorizedItems.Any())
+            {
+                <div class="packing-list-tag-group">
+                    <h3 title="uncategorized items">
+                        Uncategorized Items</h3>
+                    <ul class="packing-list-items">
+                        @foreach (PackingListItem pli in uncategorizedItems)
+                        {
+                            @PackingListItem(pli)
+                        }
+                    </ul>
+                </div>
+            }
         </div>
     </div>
 </div>
+@helper PackingListItem(PackingListItem pli)
+    {
+    <li class="packing-list-item" data-id="@pli.Id">
+        <div class="name">@pli.Name</div>
+        @if (!string.IsNullOrEmpty(pli.Note))
+        {
+            <div class="packing-list-item-note">@pli.Note</div>
+        }
+    </li>      
+}

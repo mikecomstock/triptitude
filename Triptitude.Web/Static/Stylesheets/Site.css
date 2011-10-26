@@ -273,18 +273,15 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 .trips.map #trip-map-container { width: 100%; height: 500px; }
 
 /* Packing List */
-/*.trips.packinglist #content ul { list-style: none; }
-.trips.packinglist #content .tag-group + .tag-group { margin-top: 20px; }
-.trips.packinglist #content .tag-group .title { font-weight: bold; font-size: 16px; }*/
 
+.packing-list-tag-group + .packing-list-tag-group { margin-top: 10px; }
 .packing-list-items { list-style: none; padding: 0; margin: 0; }
-.packing-list-items .packing-list-item { padding: 5px; overflow: auto; }
-.packing-list-items .packing-list-item:hover { background-color: #EEE; }
-.packing-list-items .packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
-.packing-list-items .packing-list-item .name { font-weight: bold; float: left; line-height: 26px; }
-.packing-list-items .packing-list-item .note { float: none; display: block; }
-.packing-list-items .tags { float: right; }
-.packing-list-items .tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
+.packing-list-item { padding: 5px 0 5px 20px; overflow: auto; }
+.packing-list-item:hover { background-color: #EEE; }
+.packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
+.packing-list-item .name { float: left; }
+.packing-list-item .packing-list-item-note { float: left;margin-left: 5px;background-color: #9FDAFE;padding: 0 3px; }
+
 
 /* Working On It */
 #working-on-it p { background-color: #EEE; font-size: 16px; margin: 0 !important; padding: 10px; }
