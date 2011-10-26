@@ -78,6 +78,7 @@ namespace Triptitude.Web.Controllers
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            ViewBag.UserOwnsTrip = userOwnsTrip;
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Public);
             ViewBag.PackingListItems = packingListItems;
             ViewBag.Tags = packingListItems.SelectMany(pli => pli.Tags).Distinct().ToList().OrderBy(t => t.NiceName);

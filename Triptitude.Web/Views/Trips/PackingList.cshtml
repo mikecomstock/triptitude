@@ -16,8 +16,10 @@
             </h1>
         </div>
         <div class="panel-content">
-            @foreach (var tag in tags)
+            @if (packingListItems.Any())
             {
+                foreach (var tag in tags)
+                {
                 <div class="packing-list-tag-group">
                     <h3 title="@tag.Name">
                         <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
@@ -28,9 +30,9 @@
                         }
                     </ul>
                 </div>
-            }
-            @if (uncategorizedItems.Any())
-            {
+                }
+                if (uncategorizedItems.Any())
+                {
                 <div class="packing-list-tag-group">
                     <h3 title="uncategorized items">
                         Uncategorized Items</h3>
@@ -41,6 +43,13 @@
                         }
                     </ul>
                 </div>
+                }
+            }
+            else
+            {
+                <p>
+                    No items found. @(ViewBag.UserOwnsTrip ? "Use the \"+Add Plans\" button to add items." : string.Empty)
+                </p>
             }
         </div>
     </div>
