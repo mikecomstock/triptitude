@@ -31,9 +31,12 @@ namespace Triptitude.Web.Helpers
             return ddl;
         }
 
-        public static MvcHtmlString SelectTransportationTypeDropDownList(this HtmlHelper html, IEnumerable<TransportationType> transportationTypes, int selectedTypeId)
+        public static MvcHtmlString SelectTransportationTypeDropDownList(this HtmlHelper html, IEnumerable<TransportationType> transportationTypes, int? selectedTypeId)
         {
-            var options = transportationTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTypeId });
+            IList<SelectListItem> options = transportationTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }).ToList();
+            options.Insert(0, new SelectListItem { Text = "Select...", Value = "" });
+            if (selectedTypeId.HasValue)
+                options.Single(o => o.Value == selectedTypeId.Value.ToString()).Selected = true;
             return html.DropDownList("transportationtypeid", options, new { @class = "" });
         }
 

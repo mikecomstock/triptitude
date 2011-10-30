@@ -67,7 +67,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); -moz-border-radius: 7px; }
-#trip-bar #create-trip-form { margin-top: 5px; }
+#trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 

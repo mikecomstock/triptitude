@@ -11,33 +11,11 @@
         <div class="panel-content">
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
-            @*<p>
-                @Html.ValidationMessage("name")
-                <label for="name">
-                    Name your trip</label>
-                <input type="text" name="name" id="name" value="@form.Name" />
-            </p>*@
-            <p>
-                @Html.ValidationMessage("from")
-                <label for="fromname">
-                    From</label>
-                <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" class="place-autocomplete focus" value="@form.FromName" />
-                <input type="hidden" name="fromgoogreference" value="@form.FromGoogReference" />
-                <input type="hidden" name="fromgoogid" value="@form.FromGoogId" />
-            </p>
             <p>
                 @Html.ValidationMessage("to")
-                <label for="toname">
-                    To</label>
-                <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" value="@form.ToName" />
+                <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" value="@form.ToName" placeholder="Destination" />
                 <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
                 <input type="hidden" name="togoogid" value="@form.ToGoogId" />
-            </p>
-            <p>
-                @Html.ValidationMessage("numberofdays")
-                <label for="numberofdays">
-                    Number of days</label>
-                <input type="text" id="numberofdays" name="numberofdays" value="@form.NumberOfDays" />
             </p>
             <p>
                 <input type="submit" value="Start Planning >" />

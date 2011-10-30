@@ -85,7 +85,7 @@ namespace Triptitude.Web.Controllers
             var transLines = from a in transportationActivities.Where(ta => ta.ToPlace != null && ta.FromPlace != null)
                              select new
                                         {
-                                            a.TransportationType.PathType,
+                                            PathType = a.TransportationType == null ? "geodesic" : a.TransportationType.PathType,
                                             From = new
                                             {
                                                 a.FromPlace.Latitude,

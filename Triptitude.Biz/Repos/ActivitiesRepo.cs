@@ -52,8 +52,17 @@ namespace Triptitude.Biz.Repos
 
             SetBaseProperties(activity, form, currentUser);
 
-            var type = new TransportationTypesRepo().Find(form.TransportationTypeId);
-            activity.TransportationType = type;
+            if (form.TransportationTypeId.HasValue)
+            {
+                var type = new TransportationTypesRepo().Find(form.TransportationTypeId.Value);
+                activity.TransportationType = type;
+            }
+            else
+            {
+                // because EF4 is stupid
+                var tmp = activity.TransportationType;
+                activity.TransportationType = null;
+            }
 
             var placesRepo = new PlacesRepo();
             if (!string.IsNullOrWhiteSpace(form.FromGoogReference))

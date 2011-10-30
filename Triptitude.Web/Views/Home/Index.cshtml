@@ -11,21 +11,11 @@
         <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
         @Html.AntiForgeryToken()
         <h3>
-            Try it out</h3>
+            Get Started:</h3>
         <p>
-            <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" class="place-autocomplete" placeholder="From (any city)" />
-            <input type="hidden" name="fromgoogreference" />
-            <input type="hidden" name="fromgoogid" />
-        </p>
-        <p>
-            <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" placeholder="To (any city)" />
+            <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete" placeholder="Destination" />
             <input type="hidden" name="togoogreference" />
             <input type="hidden" name="togoogid" />
-        </p>
-        <p>
-            <label for="numberofdays">
-                Number of days</label>
-            <input type="text" id="numberofdays" name="numberofdays" />
         </p>
         <p>
             <input type="submit" value="Start Planning >" />
@@ -37,9 +27,9 @@
             Organize your travel plans from start to finish</h2>
         <ul>
             <li><strong>Search trips</strong> others have planned and <strong>get inspired</strong>.</li>
-            <li><strong>Create</strong> an itinerary or <strong>customize</strong> one.</li>
-            <li><strong>Plan </strong>before you book to <strong>optimize</strong> your experience.</li>
-            <li><strong>Print your itinerary</strong>, maps, and notes for stress-free travel.</li>
+            <li>Create an <strong>itinerary</strong> or customize one.</li>
+            <li>Create a <strong>packing list </strong>so you don't forget anything.</li>
+            <li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>
         </ul>
         @if (trips != null && trips.Any())
         {

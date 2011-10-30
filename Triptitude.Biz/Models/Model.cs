@@ -146,12 +146,12 @@ namespace Triptitude.Biz.Models
             get
             {
                 StringBuilder sb = new StringBuilder();
-                sb.AppendFormat(TransportationType.Name);
+                if (TransportationType != null) { sb.AppendFormat(TransportationType.Name); }
+                else { sb.Append("Transportation"); }
 
-                if (FromPlace != null)
-                    sb.AppendFormat(" From {0}", FromPlace.Name);
-                if (ToPlace != null)
-                    sb.AppendFormat(" To {0}", ToPlace.Name);
+                if (FromPlace != null) sb.AppendFormat(" From {0}", FromPlace.Name);
+                if (ToPlace != null) sb.AppendFormat(" To {0}", ToPlace.Name);
+
                 return sb.ToString();
             }
         }

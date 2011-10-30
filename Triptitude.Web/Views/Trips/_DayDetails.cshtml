@@ -13,7 +13,7 @@
             {
                 var transportationActivity = activity as TransportationActivity;
                 <div class="title">
-                    @transportationActivity.TransportationType.Name
+                    @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
                     @if (transportationActivity.FromPlace != null)
                     {
                         <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>

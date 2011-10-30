@@ -149,7 +149,7 @@ namespace Triptitude.Web.Controllers
         {
             TransportationActivityForm form = new TransportationActivityForm();
             form.SetBaseProps(activity);
-            form.TransportationTypeId = activity.TransportationType.Id;
+            form.TransportationTypeId = activity.TransportationType == null ? (int?)null : activity.TransportationType.Id;
             form.SelectedTab = selectedTab;
 
             if (activity.FromPlace != null)

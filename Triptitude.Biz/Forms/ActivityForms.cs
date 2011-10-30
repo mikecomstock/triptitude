@@ -33,7 +33,7 @@ namespace Triptitude.Biz.Forms
 
     public class TransportationActivityForm : ActivityForm
     {
-        public int TransportationTypeId { get; set; }
+        public int? TransportationTypeId { get; set; }
         public string FromGoogReference { get; set; }
         public string FromGoogId { get; set; }
         public string ToGoogReference { get; set; }
