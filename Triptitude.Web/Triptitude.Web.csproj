@@ -262,7 +262,7 @@
     <Content Include="Views\Activities\PlaceDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activities\WorkingOnIt.cshtml">
+    <Content Include="Views\Shared\WorkingOnIt.cshtml">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

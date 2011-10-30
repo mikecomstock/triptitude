@@ -126,7 +126,6 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<Note> Notes { get; set; }
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
-        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
@@ -219,9 +218,9 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual ICollection<AmazonItem> Items { get; set; }
+        public virtual ICollection<AmazonItem> AmazonItems { get; set; }
+        public virtual ICollection<ItemTag> ItemTags { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
-        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
@@ -238,16 +237,47 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class PackingListItem
+    public class Item
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool ShowInAutocomplete { get; set; }
+        public virtual ICollection<ItemTag> ItemTags { get; set; }
+        public DateTime? ModeratedOnUTC { get; set; }
+    }
+
+    public class ItemTag
+    {
+        public int Id { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual Tag Tag { get; set; }
+        public bool ShowInSite { get; set; }
+        public DateTime? ModeratedOnUTC { get; set; }
+        public virtual ICollection<PackingListItem> PackingListItems { get; set; }
+    }
+
+    //public class ItemTagCount
+    //{
+    //    public int Id { get; set; }
+    //    public virtual Tag Tag { get; set; }
+    //    public virtual Item Item { get; set; }
+    //    public int Count { get; set; }
+    //}
+
+    public class PackingListItem
+    {
+        public int Id { get; set; }
+        public virtual ItemTag ItemTag { get; set; }
         public virtual Trip Trip { get; set; }
-        public virtual Activity Activity { get; set; }
         public string Note { get; set; }
-        public bool Public { get; set; }
+        public int Visibility_Id { get; set; }
         public string TagString { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; }
+
+        public Visibility Visibility
+        {
+            get { return (Visibility)Visibility_Id; }
+            set { Visibility_Id = (int)value; }
+        }
     }
 
     public class AmazonItem
@@ -261,6 +291,16 @@ namespace Triptitude.Biz.Models
         public decimal? SmallImageWidth { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
     }
+
+    #region Visibility
+
+    public enum Visibility
+    {
+        Public = 0,
+        Private = 1
+    }
+
+    #endregion
 
     #region Hotels
 

@@ -20,6 +20,8 @@ td { vertical-align: top; padding: 0; }
 input.day-input { width: 30px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 
+
+
 /* Form Defaults */
 textarea { font-size: 14px; }
 input[type="text"] { font-size: 14px; }
@@ -280,7 +282,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 .packing-list-item:hover { background-color: #EEE; }
 .packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
 .packing-list-item .name { float: left; }
-.packing-list-item .packing-list-item-note { float: left;margin-left: 5px;background-color: #9FDAFE;padding: 0 3px; }
+.packing-list-item.visibility-private .name:after { content: "(private)"; color: #AAA; }
+.packing-list-item .packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
 
 
 /* Working On It */

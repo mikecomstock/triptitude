@@ -157,9 +157,9 @@ namespace Triptitude.Web.Helpers
 
         #region Packing
 
-        public static string CreatePackingItem(this UrlHelper url)
+        public static string SavePackingItem(this UrlHelper url)
         {
-            return url.Action("create", "packing");
+            return url.Action("save", "packing");
         }
 
         public static string Delete(this UrlHelper url, PackingListItem pli)

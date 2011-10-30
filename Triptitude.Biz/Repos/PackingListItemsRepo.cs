@@ -1,9 +1,39 @@
+using System.Globalization;
 using System.Linq;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
 {
+    public class ItemRepo : Repo<Item>
+    {
+        public Item FindOrInitialize(string name)
+        {
+            var item = FindAll().FirstOrDefault(i => i.Name == name);
+            if (item == null)
+            {
+                item = new Item { Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name) };
+            }
+            return item;
+        }
+    }
+
+    public class ItemTagRepo : Repo<ItemTag>
+    {
+        public ItemTag FindOrInitialize(Item item, Tag tag)
+        {
+            var query = FindAll().Where(it => it.Item.Id == item.Id);
+            query = tag == null ? query.Where(it => it.Tag == null) : query.Where(it => it.Tag.Id == tag.Id);
+            var itemTag = query.FirstOrDefault();
+            if (itemTag == null)
+            {
+                itemTag = new ItemTag { Item = item, Tag = tag, ShowInSite = true };
+                Add(itemTag);
+            }
+            return itemTag;
+        }
+    }
+
     public class PackingListItemsRepo : Repo<PackingListItem>
     {
         public PackingListItem Save(PackingItemForm form)
@@ -20,21 +50,30 @@ namespace Triptitude.Biz.Repos
                 Add(packingListItem);
             }
 
+            if (string.IsNullOrWhiteSpace(form.Name))
+            {
+                Delete(packingListItem);
+                Save();
+                return null;
+            }
+
             // once the trip is set, don't allow the it to change
-            if (packingListItem.Trip == null)
-                packingListItem.Trip = new TripsRepo().Find(form.TripId);
-
-            packingListItem.Activity = form.ActivityId.HasValue ? new ActivitiesRepo().Find(form.ActivityId.Value) : null;
-            packingListItem.Name = form.Name;
+            if (packingListItem.Trip == null) packingListItem.Trip = new TripsRepo().Find(form.TripId);
             packingListItem.Note = form.Note;
-            packingListItem.Public = form.Public;
-
+            packingListItem.Visibility_Id = form.Visibility_Id;
             packingListItem.TagString = form.TagString;
-            if (packingListItem.Tags != null) packingListItem.Tags.Clear();
+
+            var item = new ItemRepo().FindOrInitialize(form.Name);
+
+            Tag tag = null;
             if (!string.IsNullOrWhiteSpace(form.TagString))
             {
-                packingListItem.Tags = new TagsRepo().FindOrInitializeAll(form.TagString).ToList();
+                tag = new TagsRepo().FindOrInitializeAll(form.TagString).First();// TODO: this should maybe use .Single instead of .First.
             }
+
+            var itemTagRepo = new ItemTagRepo();
+            var itemTag = itemTagRepo.FindOrInitialize(item, tag);
+            packingListItem.ItemTag = itemTag;
 
             Save();
 
@@ -47,10 +86,9 @@ namespace Triptitude.Biz.Repos
 
             PackingItemForm form = new PackingItemForm
                                     {
-                                        ActivityId = packingListItem.Activity == null ? (int?)null : packingListItem.Activity.Id,
-                                        Name = packingListItem.Name,
+                                        Name = packingListItem.ItemTag.Item.Name,
                                         Note = packingListItem.Note,
-                                        Public = packingListItem.Public,
+                                        Visibility_Id = packingListItem.Visibility_Id,
                                         TripId = packingListItem.Trip.Id,
                                         PackingItemId = packingListItem.Id,
                                         TagString = packingListItem.TagString

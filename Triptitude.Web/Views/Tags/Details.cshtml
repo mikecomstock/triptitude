@@ -1,7 +1,7 @@
 ﻿@{
     Tag tag = (Tag)ViewBag.Tag;
     ViewBag.Title = tag.Name;
-    var packingListItemGroups = tag.PackingListItems.Public().GroupedAndOrderedByCountDesc().Take(20);
+    var items = (IEnumerable<Item>)ViewBag.Items;
 }
 <div id="side-container">
     <a href="@Url.Details(tag)">Details</a>
@@ -21,20 +21,25 @@
             }
             else
             {
-                <div>
-                    No trips found</div>
+                <p>
+                    No trips found.</p>
             }
-            @if (packingListItemGroups.Any())
+            <h2>
+                Packing List</h2>
+            @if (items.Any())
             {
-                <h2>
-                    Packing List</h2>
                 <ul class="packing-list-items">
-                    @foreach (var group in packingListItemGroups)
+                    @foreach (var item in items)
                     {
                         <li class="packing-list-item">
-                            @group.Key</li>
+                            @item.Name</li>
                     }
                 </ul>
+            }
+            else
+            {
+                <p>
+                    No items found.</p>
             }
         </div>
     </div>

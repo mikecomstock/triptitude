@@ -9,7 +9,6 @@
     <form action="@ViewBag.Action" method="post">
     @Html.Hidden("tripid", form.TripId)
     @Html.Hidden("packingitemid", form.PackingItemId)
-    @Html.Hidden("public", form.Public)
     <fieldset>
         <span>What</span>
         <p>
@@ -20,7 +19,7 @@
     </fieldset>
     <fieldset>
         <span>Why</span>
-        <p>
+        <p style="height: 22px;">
             <label for="tagstring">
                 Category</label>
             @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: clothing, documents, hiking" })
@@ -32,6 +31,14 @@
             <label for="note">
                 Note</label>
             @Html.TextBox("note", form.Note)
+        </p>
+    </fieldset>
+    <fieldset>
+        <span>Visibility</span>
+        <p>
+            <label for="visibility">
+                Visibility</label>
+            @Html.VisibilityDropDownList(form.Visibility_Id)
         </p>
     </fieldset>
     <p class="buttons">

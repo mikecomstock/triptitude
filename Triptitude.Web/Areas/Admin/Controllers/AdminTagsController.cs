@@ -46,13 +46,13 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             Tag t = db.Tags.Find(id);
             t.Name = form["name"];
 
-            t.Items.Clear();
+            t.AmazonItems.Clear();
             if (!string.IsNullOrWhiteSpace(form["items"]))
             {
                 var itemIDs = form["items"].Split(',').Select(i => int.Parse(i));
                 foreach (var itemId in itemIDs)
                 {
-                    t.Items.Add(db.AmazonItems.Find(itemId));
+                    t.AmazonItems.Add(db.AmazonItems.Find(itemId));
                 }
             }
             db.SaveChanges();
@@ -77,7 +77,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
                     i.SmallImageWidth = product.SmallImageWidth;
                 }
 
-                t.Items.Add(i);
+                t.AmazonItems.Add(i);
                 db.SaveChanges();
                 return RedirectToAction("edit", new { id });
             }
@@ -90,7 +90,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             Tag tag = db.Tags.Find(id);
-            tag.Items.Clear();
+            tag.AmazonItems.Clear();
             db.Tags.Remove(tag);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -2,7 +2,7 @@
     var trip = (Trip)ViewBag.Trip;
     var tags = (IEnumerable<Tag>)ViewBag.Tags;
     var packingListItems = (IEnumerable<PackingListItem>)ViewBag.PackingListItems;
-    var uncategorizedItems = packingListItems.Where(pli => !pli.Tags.Any());
+    var uncategorizedItems = (IEnumerable<PackingListItem>)ViewBag.UncategorizedItems;
 
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
@@ -24,7 +24,7 @@
                     <h3 title="@tag.Name">
                         <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
                     <ul class="packing-list-items">
-                        @foreach (PackingListItem pli in packingListItems.Where(pli => pli.Tags.Contains(tag)))
+                        @foreach (PackingListItem pli in packingListItems.Where(pli => pli.ItemTag.Tag == tag))
                         {
                             @PackingListItem(pli)
                         }
@@ -56,8 +56,10 @@
 </div>
 @helper PackingListItem(PackingListItem pli)
     {
-    <li class="packing-list-item" data-id="@pli.Id">
-        <div class="name">@pli.Name</div>
+    <li class="packing-list-item @pli.Visibility.GetClassName()" data-id="@pli.Id">
+        <div class="name">
+            @pli.ItemTag.Item.Name
+        </div>
         @if (!string.IsNullOrEmpty(pli.Note))
         {
             <div class="packing-list-item-note">@pli.Note</div>

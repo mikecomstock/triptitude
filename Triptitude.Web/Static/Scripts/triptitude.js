@@ -44,6 +44,7 @@ $(function () {
 
     superDialog = $('#super-dialog');
     superDialogOverlay = $('#super-dialog-overlay');
+    superDialogOverlay.click(function () { superDialog.hide(); superDialogOverlay.hide(); });
     $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
 

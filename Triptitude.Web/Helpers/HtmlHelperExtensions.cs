@@ -16,6 +16,21 @@ namespace Triptitude.Web.Helpers
             return html.DropDownList("id", trips.ToList().Select(t => new SelectListItem() { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTrip.Id }));
         }
 
+        public static MvcHtmlString VisibilityDropDownList(this HtmlHelper html, int? selectedValue)
+        {
+            var items = new[]
+                            {
+                                new SelectListItem{ Text = "Public", Value = ((int)Visibility.Public).ToString()},
+                                new SelectListItem{ Text = "Private", Value = ((int)Visibility.Private).ToString()}
+                            };
+
+            if (selectedValue.HasValue)
+                items.Single(i => i.Value == selectedValue.ToString()).Selected = true;
+
+            var ddl = html.DropDownList("visibility_id", items);
+            return ddl;
+        }
+
         public static MvcHtmlString SelectTransportationTypeDropDownList(this HtmlHelper html, IEnumerable<TransportationType> transportationTypes, int selectedTypeId)
         {
             var options = transportationTypes.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString(), Selected = t.Id == selectedTypeId });

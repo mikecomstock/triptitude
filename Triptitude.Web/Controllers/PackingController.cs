@@ -1,3 +1,4 @@
+using System;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -22,20 +23,19 @@ namespace Triptitude.Web.Controllers
             var form = new PackingItemForm
                            {
                                TripId = currentUser.DefaultTrip.Id,
-                               Public = true
+                               Visibility_Id = (int)Visibility.Public
                            };
             ViewBag.Form = form;
             ViewBag.Trip = currentUser.DefaultTrip;
-            ViewBag.Action = Url.CreatePackingItem();
+            ViewBag.Action = Url.SavePackingItem();
             return PartialView("PackingItemDialog");
         }
 
         [HttpPost]
-        public ActionResult Create(PackingItemForm form, User currentUser)
+        public ActionResult Save(PackingItemForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
 
             packingListItemsRepo.Save(form);
             return Redirect(Url.PackingList(trip));
@@ -45,13 +45,12 @@ namespace Triptitude.Web.Controllers
         {
             var packingListItem = packingListItemsRepo.Find(id);
             var trip = packingListItem.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
 
             ViewBag.PackingListItem = packingListItem;
             ViewBag.Form = packingListItemsRepo.GetForm(id);
             ViewBag.Trip = trip;
-            ViewBag.Action = Url.CreatePackingItem();
+            ViewBag.Action = Url.SavePackingItem();
             return PartialView("PackingItemDialog");
         }
 
@@ -59,8 +58,7 @@ namespace Triptitude.Web.Controllers
         {
             var packingListItem = packingListItemsRepo.Find(id);
             var trip = packingListItem.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
 
             packingListItemsRepo.Delete(packingListItem);
             packingListItemsRepo.Save();
