@@ -37,20 +37,35 @@ namespace Triptitude.Web.Helpers
             return html.DropDownList("transportationtypeid", options, new { @class = "" });
         }
 
-        public static MvcHtmlString SelectActivity(this HtmlHelper html, Trip trip, object htmlAttributes = null)
+        public static MvcHtmlString SelectActivity(this HtmlHelper html, Trip trip, object htmlAttributes = null, string selectedValue = null)
         {
-            var options = from i in Enumerable.Range(1, trip.TotalDays)
-                          select new GroupDropListItem
-                                     {
-                                         Items = from n in trip.Activities.Where(a => a.BeginDay == i)
-                                                 select new OptionItem
-                                                            {
-                                                                Text = n.Name,
-                                                                Value = n.Id.ToString()
-                                                            },
-                                         Name = "Day " + i
-                                     };
-            return html.GroupDropList("activityid", options, null, htmlAttributes, "Select...");
+            IList<GroupDropListItem> options = (from i in Enumerable.Range(1, trip.TotalDays)
+                                                select new GroupDropListItem
+                                                           {
+                                                               Items = from n in trip.Activities.Where(a => a.BeginDay == i)
+                                                                       select new OptionItem
+                                                                                  {
+                                                                                      Text = n.NiceName,
+                                                                                      Value = n.Id.ToString()
+                                                                                  },
+                                                               Name = "Day " + i
+                                                           }).ToList();
+
+            if (trip.Activities.Any(a => a.IsUnscheduled))
+            {
+                options.Add(new GroupDropListItem
+                                {
+                                    Items = from n in trip.Activities.Where(a => a.IsUnscheduled)
+                                            select new OptionItem
+                                                       {
+                                                           Text = n.NiceName,
+                                                           Value = n.Id.ToString()
+                                                       },
+                                    Name = "Unscheduled Activities"
+                                });
+            }
+
+            return html.GroupDropList("activityid", options, selectedValue, htmlAttributes, "Select...");
         }
 
         public static string RouteCss(this HtmlHelper html)

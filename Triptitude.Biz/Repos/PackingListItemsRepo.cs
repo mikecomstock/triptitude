@@ -57,18 +57,21 @@ namespace Triptitude.Biz.Repos
                 return null;
             }
 
-            // once the trip is set, don't allow the it to change
+            // once the trip is set, don't allow it to change
             if (packingListItem.Trip == null) packingListItem.Trip = new TripsRepo().Find(form.TripId);
             packingListItem.Note = form.Note;
             packingListItem.Visibility_Id = form.Visibility_Id;
             packingListItem.TagString = form.TagString;
 
-            var item = new ItemRepo().FindOrInitialize(form.Name);
+            // Must read .Activity so that we can set it to null, because Entity Framework is stupid.
+            Activity currentActivity = packingListItem.Activity;
+            packingListItem.Activity = form.ActivityId != null ? packingListItem.Trip.Activities.First(a => a.Id == form.ActivityId.Value) : null;
 
+            var item = new ItemRepo().FindOrInitialize(form.Name);
             Tag tag = null;
             if (!string.IsNullOrWhiteSpace(form.TagString))
             {
-                tag = new TagsRepo().FindOrInitializeAll(form.TagString).First();// TODO: this should maybe use .Single instead of .First.
+                tag = new TagsRepo().FindOrInitializeAll(form.TagString).First();
             }
 
             var itemTagRepo = new ItemTagRepo();
@@ -90,6 +93,7 @@ namespace Triptitude.Biz.Repos
                                         Note = packingListItem.Note,
                                         Visibility_Id = packingListItem.Visibility_Id,
                                         TripId = packingListItem.Trip.Id,
+                                        ActivityId = packingListItem.Activity == null ? (int?)null : packingListItem.Activity.Id,
                                         PackingItemId = packingListItem.Id,
                                         TagString = packingListItem.TagString
                                     };

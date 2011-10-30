@@ -1,6 +1,6 @@
 /* Html Tags */
 body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 13px; margin: 0; background-color: #000000; }
-h1, h2, h3, h4, h5 { margin: 0; padding: 0; font-family: Trebuchet MS,Liberation Sans,DejaVu Sans,sans-serif; }
+h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
 h1 { font-size: 24px; }
 a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
 a:hover, .link:hover { text-decoration: underline; }
@@ -19,8 +19,6 @@ td { vertical-align: top; padding: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 30px !important; }
 .ui-autocomplete { z-index: 10 !important; }
-
-
 
 /* Form Defaults */
 textarea { font-size: 14px; }
@@ -276,6 +274,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 
 /* Packing List */
 
+.packing-list-tag-group { margin-left: 20px; }
 .packing-list-tag-group + .packing-list-tag-group { margin-top: 10px; }
 .packing-list-items { list-style: none; padding: 0; margin: 0; }
 .packing-list-item { padding: 5px 0 5px 20px; overflow: auto; }

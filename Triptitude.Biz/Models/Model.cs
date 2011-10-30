@@ -130,6 +130,7 @@ namespace Triptitude.Biz.Models
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
 
+        public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : Name; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
     }
 
@@ -269,6 +270,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual ItemTag ItemTag { get; set; }
         public virtual Trip Trip { get; set; }
+        public virtual Activity Activity { get; set; }
         public string Note { get; set; }
         public int Visibility_Id { get; set; }
         public string TagString { get; set; }

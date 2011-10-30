@@ -24,6 +24,11 @@
                 Category</label>
             @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: clothing, documents, hiking" })
         </p>
+        <p>
+            <label for="activityid">
+                Activity</label>
+            @Html.SelectActivity(trip, selectedValue: form.ActivityId.ToString())
+        </p>
     </fieldset>
     <fieldset>
         <span>Note</span>

@@ -1,9 +1,7 @@
 ﻿@{
     var trip = (Trip)ViewBag.Trip;
-    var tags = (IEnumerable<Tag>)ViewBag.Tags;
     var packingListItems = (IEnumerable<PackingListItem>)ViewBag.PackingListItems;
-    var uncategorizedItems = (IEnumerable<PackingListItem>)ViewBag.UncategorizedItems;
-
+    var activities = (IEnumerable<Activity>)ViewBag.Activities;
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
 }
@@ -18,32 +16,28 @@
         <div class="panel-content">
             @if (packingListItems.Any())
             {
-                foreach (var tag in tags)
+                if (activities.Any())
                 {
-                <div class="packing-list-tag-group">
-                    <h3 title="@tag.Name">
-                        <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
-                    <ul class="packing-list-items">
-                        @foreach (PackingListItem pli in packingListItems.Where(pli => pli.ItemTag.Tag == tag))
-                        {
-                            @PackingListItem(pli)
-                        }
-                    </ul>
+                    foreach (var activity in activities)
+                    {
+                        var plis = packingListItems.Where(pli => pli.Activity == activity);
+                <div>
+                    <h2>@activity.NiceName</h2>
+                    @ByTag(plis)
+                </div>
+                    }
+                }
+
+                var plisNoActivity = packingListItems.Where(pli => pli.Activity == null);
+                if (plisNoActivity.Any())
+                {
+                <div>
+                    <h2>
+                        Other Activities</h2>
+                    @ByTag(plisNoActivity)
                 </div>
                 }
-                if (uncategorizedItems.Any())
-                {
-                <div class="packing-list-tag-group">
-                    <h3 title="uncategorized items">
-                        Uncategorized Items</h3>
-                    <ul class="packing-list-items">
-                        @foreach (PackingListItem pli in uncategorizedItems)
-                        {
-                            @PackingListItem(pli)
-                        }
-                    </ul>
-                </div>
-                }
+
             }
             else
             {
@@ -54,15 +48,42 @@
         </div>
     </div>
 </div>
-@helper PackingListItem(PackingListItem pli)
+@helper ByTag(IEnumerable<PackingListItem> plis)
     {
-    <li class="packing-list-item @pli.Visibility.GetClassName()" data-id="@pli.Id">
-        <div class="name">
-            @pli.ItemTag.Item.Name
-        </div>
-        @if (!string.IsNullOrEmpty(pli.Note))
+        var tags = plis.Select(pli => pli.ItemTag.Tag).Where(t => t != null).Distinct().ToList().OrderBy(t => t.NiceName);
+        foreach (var tag in tags)
         {
-            <div class="packing-list-item-note">@pli.Note</div>
+    <div class="packing-list-tag-group">
+        <h3 title="@tag.Name">
+            <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
+        @ItemList(plis.Where(pli => pli.ItemTag.Tag == tag))
+    </div>
         }
-    </li>      
+
+        var uncategorized = plis.Where(pli => pli.ItemTag.Tag == null);
+        if (uncategorized.Any())
+        {
+    <div class="packing-list-tag-group">
+        <h3 title="uncategorized items">
+            Uncategorized</h3>
+        @ItemList(uncategorized)
+    </div>
+        }    
+}
+@helper ItemList(IEnumerable<PackingListItem> plis)
+    {
+    <ul class="packing-list-items">
+        @foreach (PackingListItem pli in plis)
+        {
+            <li class="packing-list-item @pli.Visibility.GetClassName()" data-id="@pli.Id">
+                <div class="name">
+                    @pli.ItemTag.Item.Name
+                </div>
+                @if (!string.IsNullOrEmpty(pli.Note))
+                {
+                    <div class="packing-list-item-note">@pli.Note</div>
+                }
+            </li>         
+        }
+    </ul>
 }

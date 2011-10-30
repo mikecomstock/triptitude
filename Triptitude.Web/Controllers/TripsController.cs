@@ -79,10 +79,11 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = trip;
             bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
             ViewBag.UserOwnsTrip = userOwnsTrip;
+
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
             ViewBag.PackingListItems = packingListItems;
-            ViewBag.UncategorizedItems = packingListItems.Where(pli => pli.ItemTag.Tag == null);
-            ViewBag.Tags = packingListItems.Select(pli => pli.ItemTag.Tag).Where(t => t != null).Distinct().ToList().OrderBy(t => t.NiceName);
+            var activities = packingListItems.Select(pli => pli.Activity).Distinct().Where(a => a != null);//.OrderBy(a => a.BeginDay);
+            ViewBag.Activities = activities;
             return View();
         }
 

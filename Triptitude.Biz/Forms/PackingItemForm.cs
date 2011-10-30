@@ -6,6 +6,7 @@ namespace Triptitude.Biz.Forms
     {
         public int? PackingItemId { get; set; }
         public int TripId { get; set; }
+        public int? ActivityId { get; set; }
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
         public string Note { get; set; }
