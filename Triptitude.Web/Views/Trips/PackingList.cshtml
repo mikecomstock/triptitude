@@ -75,7 +75,7 @@
     <ul class="packing-list-items">
         @foreach (PackingListItem pli in plis)
         {
-            <li class="packing-list-item @pli.Visibility.GetClassName()" data-id="@pli.Id">
+            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id">
                 <div class="name">
                     @pli.ItemTag.Item.Name
                 </div>

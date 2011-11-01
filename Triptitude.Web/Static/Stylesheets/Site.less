@@ -194,7 +194,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-settings-form input[type="text"] { width: 400px; }
 
 /* Hotel Details */
-#hotel-details-map-container { width: 400px; height: 220px; }
+#hotel-details-map-container { width: 100%; height: 260px; }
 #hotel-details-related-trips { clear: both; }
 
 /* Hotel Rows */
@@ -237,21 +237,22 @@ ul.tags > li + li { margin-left: 5px; }
 .tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
 
 /* AmazonItems */
-ul.items { padding: 0; list-style: none; .clearfix; }
+/*ul.items { padding: 0; list-style: none; .clearfix; }
 ul.items > li { float: left; margin-left: 5px; border: 1px solid #EEE; text-align: center; margin: 10px; }
-ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
+ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 
 /* Trips */
+.trips.details .panel-content { background-color:#EEE; }
 .trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
-.trips.details .trip-day { min-height: 25px; .box-shadow(2px 2px 3px rgba(0, 0, 0, 0.3)); margin-bottom: 10px; }
+.trips.details .trip-day { min-height: 25px; .box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3)); margin-bottom: 10px; background-color:#FFF; }
 .trips.details .trip-day .notes { margin: 10px; .clearfix; }
 .trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
+.trips.details .activity { .clearfix;  }
 .trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity > .place { color: #333; margin: 10px; font-weight: bold; }
 .trips.details .activity > .place.with-title { font-weight: normal; }
 .trips.details .activity > .place.with-title:before { content: "at"; font-weight: normal; }
-.trips.details .activity { .clearfix; cursor: pointer; }
-.trips.details .activity:hover { background-color: #EEE; }
+.trips.details .activity.owned:hover { background-color: #F3F3F3; cursor: pointer; }
 .trips.details .activity + .activity { border-top: 1px dashed #0190E9; }
 .trips.details .activity img { float: right; margin: 10px; }
 
@@ -266,7 +267,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
 .packing-list-tag-group + .packing-list-tag-group { margin-top: 10px; }
 .packing-list-items { list-style: none; padding: 0; margin: 0; }
 .packing-list-item { padding: 5px 0 5px 20px; .clearfix; }
-.packing-list-item:hover { background-color: #EEE; }
+.packing-list-item.owned:hover { background-color: #EEE; cursor: pointer; }
 .packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
 .packing-list-item .name { float: left; }
 .packing-list-item.visibility-private .name:after { content: "(private)"; color: #AAA; }

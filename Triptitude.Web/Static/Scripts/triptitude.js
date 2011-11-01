@@ -22,21 +22,9 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-    $('.items').each(function () {
-        $('li', this).equalHeights();
-    });
-
-    //    $('.trip-length-slider').slider({
-    //        range: true,
-    //        values: [2, 10],
-    //        min: 1,
-    //        max: 20,
-    //        step: 1,
-    //        slide: function (event, ui) {
-    //            $(this).siblings('.label').html($(this).slider("values", 0) + ' - ' + $(this).slider("values", 1) + ' days');
-    //        }
-    //    });
-
+//    $('.items').each(function () {
+//        $('li', this).equalHeights();
+//    });
 
     /****************/
     /* Super Dialog */
@@ -69,11 +57,7 @@ $(function () {
             e.preventDefault();
         }
     });
-
-    /****************/
-    /* Hotel Search */
-    /****************/
-
+    
     $('.distance-slider', '.hotels #search-form').slider({
         value: 10,
         min: 1,
@@ -94,34 +78,7 @@ $(function () {
             $('.panel-content').html(data);
         });
     });
-
-    /****************/
-    /* Place Search */
-    /****************/
-
-    //    $('.distance-slider', '.places #search-form').slider({
-    //        value: 10,
-    //        min: 1,
-    //        max: 50,
-    //        range: 'min',
-    //        step: 1,
-    //        slide: function (event, ui) {
-    //            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-    //        },
-    //        change: function (event, ui) {
-    //            $(this).siblings('input').val(ui.value);
-    //        }
-    //    });
-
-    //    $('.places #search-form').submit(function (event) {
-    //        event.preventDefault();
-    //        $.get("/places/search", $(this).serialize(), function (data) {
-    //            $('.panel-content').html(data);
-    //        });
-    //    });
-
-    /****************/
-
+    
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
@@ -138,16 +95,12 @@ $(function () {
             drawMap(container, mapData);
         });
     });
-
-    /****************/
-
+    
     $('#note-dialog select', superDialog).live('change', function () {
         var select = $(this);
         var activityId = select.val();
         CreateActivityModal('note', '/activities/edit/' + activityId + '?selectedtab=notes');
     });
-
-    /****************/
 
     $('.add-activity').live('click', function () {
         var activityType = $(this).attr('data-activity-type');
@@ -176,12 +129,12 @@ $(function () {
         CreateActivityModal("packing-item", '/packing/create');
     });
 
-    $('.packing-list-item').click(function () {
+    $('.packing-list-item.owned').click(function () {
         var id = $(this).data('id');
         CreateActivityModal("packing-item", '/packing/edit/' + id);
     });
 
-    $('.trip-day .activity').click(function () {
+    $('.trip-day .activity.owned').click(function () {
         var activityId = $(this).attr('data-activity-id');
         var activityType = $(this).attr('data-activity-type');
         CreateActivityModal(activityType, '/activities/edit/' + activityId);
@@ -350,25 +303,25 @@ function moveScroller() {
 * 
 */
 
-(function ($) {
-    $.fn.equalHeights = function (minHeight, maxHeight) {
-        tallest = (minHeight) ? minHeight : 0;
-        this.each(function () {
-            if ($(this).height() > tallest) {
-                tallest = $(this).height();
-            }
-        });
-        if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
-        return this.each(function () {
-            $(this).height(tallest).css("overflow", "auto");
-        });
-    };
-})(jQuery);
+//(function ($) {
+//    $.fn.equalHeights = function (minHeight, maxHeight) {
+//        tallest = (minHeight) ? minHeight : 0;
+//        this.each(function () {
+//            if ($(this).height() > tallest) {
+//                tallest = $(this).height();
+//            }
+//        });
+//        if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
+//        return this.each(function () {
+//            $(this).height(tallest).css("overflow", "auto");
+//        });
+//    };
+//})(jQuery);
 
 /***********************************************************/
 
-function scrollToBottom(jqueryElement) {
-    if (jqueryElement) {
-        jqueryElement.prop({ scrollTop: jqueryElement.prop('scrollHeight') });
+function scrollToBottom($element) {
+    if ($element) {
+        $element.prop({ scrollTop: $element.prop('scrollHeight') });
     }
 }

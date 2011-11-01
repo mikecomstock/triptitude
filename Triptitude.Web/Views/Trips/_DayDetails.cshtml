@@ -8,7 +8,7 @@
     </h3>
     @foreach (Activity activity in trip.ActivitiesOn(ViewBag.DayNumber))
     {
-        <div class="activity" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName" title="Click for details">
+        <div class="activity @(CurrentUserOwnsTrip ? "owned" : string.Empty)" data-activity-id="@activity.Id" data-activity-type="@activity.ActivityTypeName">
             @if (activity is TransportationActivity)
             {
                 var transportationActivity = activity as TransportationActivity;
