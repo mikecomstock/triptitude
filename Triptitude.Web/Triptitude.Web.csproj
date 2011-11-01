@@ -243,9 +243,6 @@
     <Content Include="Views\Activities\TransportationDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Hotels\Search.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Auth\ForgotPass.cshtml" />
   </ItemGroup>
   <ItemGroup>

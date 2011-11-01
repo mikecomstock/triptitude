@@ -44,7 +44,6 @@ $(function () {
         newPage.addClass('selected-page');
         $('.focus', newPage).first().focus();
         scrollToBottom($('.notes', superDialog));
-        //BindPlaceAutocomplete(superDialog);
     });
 
     /* Delete Confirmations */
@@ -56,27 +55,6 @@ $(function () {
         } else {
             e.preventDefault();
         }
-    });
-    
-    $('.distance-slider', '.hotels #search-form').slider({
-        value: 10,
-        min: 1,
-        max: 50,
-        range: 'min',
-        step: 1,
-        slide: function (event, ui) {
-            $(this).siblings('.label').html('within ' + ui.value + ' miles');
-        },
-        change: function (event, ui) {
-            $(this).siblings('input').val(ui.value);
-            $(this).closest('form').submit();
-        }
-    });
-    $('.hotels #search-form').submit(function (event) {
-        event.preventDefault();
-        $.get("/hotels/search", $(this).serialize(), function (data) {
-            $('.panel-content').html(data);
-        });
     });
     
     $('.trip-row-map-link').click(function () {
