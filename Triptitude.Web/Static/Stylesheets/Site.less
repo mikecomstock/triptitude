@@ -1,0 +1,277 @@
+﻿@import "Mixins.less";
+
+/* Html Tags */
+body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 13px; margin: 0; background-color: #000000; }
+h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
+h1 { font-size: 24px; }
+a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
+a:hover, .link:hover { text-decoration: underline; }
+a:focus { text-decoration: underline; outline: none; }
+img { border: none; }
+table { width: 100%; }
+td { vertical-align: top; padding: 0; }
+
+/* Admin */
+.admin #content { background-color: #FFF; padding: 10px; }
+.admin #content tr:nth-child(odd) { background-color: #EEE; }
+.admin h2 { margin: 10px 0; }
+
+/* Utilities */
+.placeholder { font-weight: normal !important; color: #666666 !important; }
+input.day-input { width: 30px !important; }
+.ui-autocomplete { z-index: 10 !important; }
+
+/* Form Defaults */
+textarea { font-size: 14px; }
+input[type="text"] { font-size: 14px; }
+input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+
+/* Panel Form Defaults */
+.panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
+.panel form label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
+.panel form span { line-height: 33px; font-size: 16px; }
+.panel form input[type="checkbox"] { margin: 10px 0; }
+.panel form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
+.panel form input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
+
+/* Background - parts also defined in layout */
+#background { left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
+#background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
+#background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
+.fader { height: 420px; left: 0; position: fixed; width: 100%; z-index: -1; }
+
+/* Header */
+#header-container { background-color: #262626; z-index: 5; }
+
+#header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
+#email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; .border-radius(4px); margin-top: 3px; }
+#email-warning a { color: #FFF; }
+#logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; .border-radius(0,0,7px,7px); #gradient > .vertical(#39B3FE, #0190E9); }
+
+/* Search */
+#search { float: right; margin: 10px 10px 10px 30px; }
+#search form { .box-shadow(0 3px 5px rgba(0, 0, 0, 0.8)); }
+#search input[type="text"] { font-size: 16px; padding: 4px; border: none; width: 200px; }
+#search input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #000; margin-left: -6px; }
+
+/* User status */
+#user-status { color: #FFFFFF; float: right; text-align: right; margin: 10px; }
+#user-status a, #user-status a:visited { color: #66C3FE; }
+#user-status-header { margin-bottom: 5px; color: #8A8A8A; }
+#user-status-header a { font-weight: bold; font-size: 13px; }
+#user-status #start-here-link { font-size: 12px; font-weight: normal; }
+#user-status-menu { font-size: 12px; font-weight: normal; }
+#user-status-menu a { padding-left: 5px; margin: 0; }
+#user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
+
+/* Tripbar */
+#trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
+#trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; .box-shadow(0px 7px 10px rgba(0, 0, 0, 0.8)); }
+#trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); .border-radius(7px); }
+#trip-bar #create-trip-form { float: right;text-align: right;}
+#trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
+#trip-bar-pre-title { color: #BBB; }
+
+#trip-bar-menu { float: right; clear: both; z-index: 6; position: relative; }
+#trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
+#trip-bar-menu a:hover, #trip-bar-menu .link:hover { text-decoration: none !important; }
+#trip-bar-menu a span { color: #BBB; font-weight: normal; display: block; padding: 5px 15px 15px 15px; font-size: 14px; white-space: nowrap; }
+#trip-bar-menu a span strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
+#trip-bar-menu li:hover { background-color: #333; }
+#trip-bar-menu li li:hover { background-color: #444; }
+#trip-bar-menu > ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; }
+#trip-bar-menu > ul > li { float: left; }
+#trip-bar-menu > ul > li + li { border-left: 3px solid #FFF; }
+#trip-bar-menu > ul ul { display: none; position: absolute; right: 0; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
+#trip-bar-menu > ul ul a { padding: 15px 10px 0 15px !important; }
+#trip-bar-menu > ul ul li + li { border-top: 1px solid #555; }
+
+/* Page Sections */
+#content { width: 955px; margin: 10px auto; .clearfix; }
+
+#side-container { float: left; width: 220px; margin-top: 50px; text-transform: lowercase; }
+#side-container a { margin-bottom: 10px; background-color: #E9BA26; padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; .border-radius(4px); }
+#main-container { float: left; width: 710px; margin-left: 25px; }
+
+.panel { .border-radius(6px); .box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
+.panel + .panel { margin-top: 10px; }
+.panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
+.panel > .title, .panel-title { background-color: #E9BA26; padding: 15px; .clearfix; }
+.panel > .subtitle { background-color: #F3ECB7; padding: 10px; }
+
+.panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
+.panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
+
+.panel-content { padding: 10px; }
+.panel-content-not-padded { }
+
+/* Landing Page */
+#landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); .border-radius(7px); padding-bottom: 40px; }
+#landing-page-panel { margin: 10px 20px; padding: 20px 0; }
+#landing-page-panel h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
+#landing-page-panel h2 { font-size: 22px; margin: 20px 0 20px 0; }
+#landing-page-panel h3 { font-size: 24px !important; color: #333; }
+#landing-page-panel > p { color: #333; font-size: 17px; line-height: 1.5; margin: -10px 0 0 0; }
+#landing-page-panel > ul { margin: 0; padding-left: 40px; }
+#landing-page-panel > ul li { font-size: 16px; margin: 10px 0; }
+#landing-page-panel #trips { margin: 50px auto; width: 800px; .clearfix; background-color: rgba(243, 236, 183, 0.30); }
+#landing-page-panel #trips .panel-title { padding: 5px; }
+#landing-page-panel #trips .panel-title h2 { margin: 0; }
+#landing-page-panel .trip-row { float: left; width: 388px; border-top: 1px dashed #CCCCCC; }
+
+/* Footer */
+#footer { width: 955px; height: 100px; }
+
+/* Dialogs */
+#dialog-menu { margin: 0; padding: 0; .clearfix; position: relative; background-color: #F3ECB7; margin-bottom: 10px; }
+#dialog-menu li { cursor: pointer; margin: 0; padding: 4px 6px; color: #FFF; background-color: #0190E9; margin: 10px 0 10px 10px; float: left; display: block; text-align: center; width: 50px; }
+#dialog-menu li.selected-page { text-decoration: underline; }
+
+#super-dialog-container { position: relative; }
+#super-dialog { display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; .border-radius(10px); .box-shadow(0px 0px 20px rgba(0, 0, 0, 1)); }
+#super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; .opacity(80); display: none; }
+
+#super-dialog .dialog-page { display: none; position: relative; }
+#super-dialog .dialog-page.selected-page { display: block; }
+#super-dialog .title { background-color: #E9BA26; padding: 10px; font-size: 24px; border-bottom: 1px solid #CCC; }
+#super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
+
+#super-dialog form { background-color: #EEE; position: relative; }
+#super-dialog form p { margin: 0; padding: 3px 10px; }
+#super-dialog form label { display: block; float: left; width: 80px; line-height: 22px; white-space: nowrap; }
+#super-dialog fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }
+#super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
+#super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
+
+#super-dialog .buttons { padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; .clearfix; }
+#super-dialog .buttons input { float: right; margin: 2px; }
+#super-dialog .buttons .delete { float: left; background-color: #E92553; }
+
+/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
+#super-dialog .note-text { width: 100%; .border-box; }
+#super-dialog .notes { margin: 10px; padding-right: 10px; max-height: 250px; overflow-y: auto; border-top: 1px dashed #CCC; padding-top:6px; }
+
+.note { font-size: 12px; }
+.note + .note { margin-top: 6px; }
+.note:before { content: "note:"; color: #999; }
+
+#note-dialog form { padding-top: 10px; }
+
+#place-dialog { width: 600px; }
+#place-dialog input[type="text"] { width: 200px; }
+#place-dialog .place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
+#place-dialog .place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
+
+#transportation-dialog { width: 600px; }
+#transportation-dialog .stops { .clearfix; }
+#transportation-dialog .stops p { float: left; }
+#transportation-dialog .stops p + p { border-left: 5px dotted #999; }
+#transportation-dialog .stops label { float: none; }
+#transportation-dialog .stops input { float: none; width: 260px; }
+#transportation-dialog .autocomplete-map { height: 120px; width: 260px; padding: 2px; display: block; }
+
+#packing-item-dialog fieldset input { width: 250px; margin: 0; }
+#packing-item-dialog fieldset select { width: 250px; margin: 0; }
+
+/* Create Trip Form */
+#create-trip-form label { width: 150px; }
+#create-trip-form input[type="text"] { width: 400px; font-size: 18px; }
+#create-trip-form #numberofdays { width: 40px; }
+
+#landing-page-panel #create-trip-form { float: right; background-color: rgba(0, 130, 210, 0.5); padding: 20px; margin: 0 20px 20px 30px; .box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8)); }
+#landing-page-panel #create-trip-form h3 { font-size: 18px; margin-bottom: 15px; }
+#landing-page-panel #create-trip-form input[type="text"] { width: 300px; }
+#landing-page-panel #create-trip-form label { width: 110px; float: left; display: block; font-weight: bold; line-height: 26px; }
+#landing-page-panel #create-trip-form #numberofdays { width: 30px; }
+
+#trip-bar #create-trip-form p { display: inline; margin-right: 10px; }
+#trip-bar #create-trip-form input[type="text"] { width: 250px; }
+#trip-bar #create-trip-form label { color: #FFF; }
+#trip-bar #create-trip-form #numberofdays { width: 30px; }
+
+/* Trip Settings Form */
+#trip-settings-form label { width: 140px; }
+#trip-settings-form input[type="text"] { width: 400px; }
+
+/* Hotel Details */
+#hotel-details-map-container { width: 400px; height: 220px; }
+#hotel-details-related-trips { clear: both; }
+
+/* Hotel Rows */
+.hotel-rows { clear: both; }
+.hotel-row { font-weight: bold; padding: 5px; .clearfix; }
+.hotel-row + .hotel-row { border-top: 1px dashed #CCCCCC; }
+.hotel-row-photo { float: left; }
+.hotel-row-body { float: left; }
+.hotel-row-title { font-size: 16px; line-height: 70px; padding: 15px; }
+.hotel-photo { .box-shadow(4px 4px 8px rgba(0, 0, 0, 0.8)); }
+
+/* My Trips */
+.my-trip-row { display: block; padding: 15px; font-size: 16px; }
+.my-trip-row span { font-weight: bold; padding-right: 15px; }
+.my-trip-row + .my-trip-row { border-top: 1px dashed #CCCCCC; }
+
+/* Trip Row */
+.trip-rows { clear: both; }
+.trip-row { padding: 5px; .clearfix; }
+.trip-row p { margin: 5px 0; }
+
+.trip-row + .trip-row { border-top: 1px dashed #CCCCCC; }
+.trip-row-photo { float: left; margin: 5px; }
+.trip-row-body { margin-top: 2px; }
+.trip-row-title { font-weight: bold; font-size: 16px; }
+.trip-row-map-link { float: right; background-image: url("/static/icons/map.png"); background-repeat: no-repeat; background-position: 3px 3px; padding: 4px 6px 4px 24px; }
+.trip-row-map-link:hover { background-color: #AAA; .border-radius(3px); color: #FFF; }
+.trip-map-dialog-link { display: block; }
+
+/* Search forms */
+#search-form { font-weight: bold; color: #666; font-size: 14px; .clearfix; }
+#search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
+#search-form input[type="text"] { font-size: 14px; }
+
+/* Tags */
+ul.tags { padding: 0; list-style: none; .clearfix; margin: 0; height: 26px; }
+ul.tags > li { float: left; }
+ul.tags > li + li { margin-left: 5px; }
+.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block; height: 15px; }
+.tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
+
+/* AmazonItems */
+ul.items { padding: 0; list-style: none; .clearfix; }
+ul.items > li { float: left; margin-left: 5px; border: 1px solid #EEE; text-align: center; margin: 10px; }
+ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }
+
+/* Trips */
+.trips.details #trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
+.trips.details .trip-day { min-height: 25px; .box-shadow(2px 2px 3px rgba(0, 0, 0, 0.3)); margin-bottom: 10px; }
+.trips.details .trip-day .notes { margin: 10px; .clearfix; }
+.trips.details .trip-day > h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
+.trips.details .activity > .title { color: #333; margin: 10px; font-weight: bold; }
+.trips.details .activity > .place { color: #333; margin: 10px; font-weight: bold; }
+.trips.details .activity > .place.with-title { font-weight: normal; }
+.trips.details .activity > .place.with-title:before { content: "at"; font-weight: normal; }
+.trips.details .activity { .clearfix; cursor: pointer; }
+.trips.details .activity:hover { background-color: #EEE; }
+.trips.details .activity + .activity { border-top: 1px dashed #0190E9; }
+.trips.details .activity img { float: right; margin: 10px; }
+
+/* Trip Tags - see Tags, above */
+.trip-day .tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
+.trip-day .tags { margin: 10px; }
+
+.trips.map #trip-map-container { width: 100%; height: 500px; }
+
+/* Packing List */
+.packing-list-tag-group { margin-left: 20px; }
+.packing-list-tag-group + .packing-list-tag-group { margin-top: 10px; }
+.packing-list-items { list-style: none; padding: 0; margin: 0; }
+.packing-list-item { padding: 5px 0 5px 20px; .clearfix; }
+.packing-list-item:hover { background-color: #EEE; }
+.packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
+.packing-list-item .name { float: left; }
+.packing-list-item.visibility-private .name:after { content: "(private)"; color: #AAA; }
+.packing-list-item .packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
+
+/* Working On It */
+#working-on-it p { background-color: #EEE; font-size: 16px; margin: 0 !important; padding: 10px; }
+#working-on-it p + p { padding-top: 0; }
