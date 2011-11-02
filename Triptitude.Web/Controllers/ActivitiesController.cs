@@ -28,8 +28,7 @@ namespace Triptitude.Web.Controllers
         {
             var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Delete(activity);
             activitiesRepo.Save();
@@ -40,8 +39,7 @@ namespace Triptitude.Web.Controllers
         {
             var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
             if (activity is HotelActivity) return EditHotel(activity as HotelActivity, selectedTab);
@@ -82,8 +80,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult AddHotel(HotelActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(trip));
@@ -113,8 +110,7 @@ namespace Triptitude.Web.Controllers
             HotelActivity activity = (HotelActivity)activitiesRepo.Find(form.ActivityId.Value);
             var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));
@@ -138,8 +134,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult AddTransportation(TransportationActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             var transportation = activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(transportation.Trip));
@@ -177,8 +172,7 @@ namespace Triptitude.Web.Controllers
             var activity = (TransportationActivity)activitiesRepo.Find(form.ActivityId.Value);
             var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));
@@ -219,8 +213,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult AddPlace(PlaceActivityForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(trip));
@@ -251,8 +244,7 @@ namespace Triptitude.Web.Controllers
             PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(form.ActivityId.Value);
             var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            bool userOwnsTrips = PermissionHelper.UserOwnsTrips(currentUser, oldTrip, newTrip);
-            if (!userOwnsTrips) return PartialView("WorkingOnIt");// Redirect("/");
+            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
             return Redirect(Url.Details(activity.Trip));

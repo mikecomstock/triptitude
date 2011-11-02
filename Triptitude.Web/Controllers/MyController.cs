@@ -77,8 +77,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult DefaultTrip(User currentUser, int id)
         {
             Trip trip = new TripsRepo().Find(id);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             usersRepo.SetDefaultTrip(currentUser, trip);
             return Redirect(Url.Details(trip));
