@@ -23,9 +23,8 @@ namespace Triptitude.Web.Controllers
         //    Activity activity = activitiesRepo.Find(activityId);
 
         //    var trip = activity.Trip;
-        //    bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-        //    if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
+        //    if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+        
         //    var notes = activity.Notes.OrderBy(n => n.Id);
         //    ViewBag.Notes = notes;
         //    return PartialView("_NotesFor");
@@ -50,9 +49,8 @@ namespace Triptitude.Web.Controllers
         //public ActionResult Create(NoteForm form, User currentUser)
         //{
         //    var trip = tripsRepo.Find(form.TripId);
-        //    bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-        //    if (!userOwnsTrip) return PartialView("WorkingOnIt");// Redirect("/");
-
+        //    if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+        
         //    notesRepo.Save(form, currentUser);
         //    return Redirect(Url.Details(trip));
         //}

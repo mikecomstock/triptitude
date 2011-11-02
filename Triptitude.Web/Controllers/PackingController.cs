@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -35,7 +34,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Save(PackingItemForm form, User currentUser)
         {
             var trip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             packingListItemsRepo.Save(form);
             return Redirect(Url.PackingList(trip));
@@ -45,7 +44,7 @@ namespace Triptitude.Web.Controllers
         {
             var packingListItem = packingListItemsRepo.Find(id);
             var trip = packingListItem.Trip;
-            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             ViewBag.PackingListItem = packingListItem;
             ViewBag.Form = packingListItemsRepo.GetForm(id);
@@ -58,7 +57,7 @@ namespace Triptitude.Web.Controllers
         {
             var packingListItem = packingListItemsRepo.Find(id);
             var trip = packingListItem.Trip;
-            if (!currentUser.OwnsTrips(trip)) return PartialView("WorkingOnIt");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             packingListItemsRepo.Delete(packingListItem);
             packingListItemsRepo.Save();

@@ -1,7 +1,7 @@
 ﻿@import "Mixins.less";
 
 /* Html Tags */
-body { background: #498EC3; font-family: Arial,Liberation Sans,DejaVu Sans,sans-serif; font-size: 13px; margin: 0; background-color: #000000; }
+body { background: #498EC3;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #000; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
 h1 { font-size: 24px; }
 a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
@@ -27,25 +27,24 @@ input[type="text"] { font-size: 14px; }
 input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 
 /* Panel Form Defaults */
-.panel form .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
-.panel form label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
-.panel form span { line-height: 33px; font-size: 16px; }
-.panel form input[type="checkbox"] { margin: 10px 0; }
-.panel form input[type="text"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
-.panel form input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
+.panel form {
+	.field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
+	label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
+	span { line-height: 33px; font-size: 16px; }
+	input[type="checkbox"] { margin: 10px 0; }
+  	input[type="text"], input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
+}
 
-/* Background - parts also defined in layout */
-#background { left: 0; min-height: 950px; overflow: hidden; position: fixed; top: 0; width: 100%; z-index: -1; }
-#background img { left: 0; min-width: 1600px; position: absolute; top: 0; width: 100%; z-index: -2; }
-#background .fader { height: 100%; left: 0; position: absolute; width: 100%; z-index: 0; }
-.fader { height: 420px; left: 0; position: fixed; width: 100%; z-index: -1; }
+/* Dynamic parts of background are defined inline */
+#background {
+	position: fixed; top:0; left:0; right:0; overflow: hidden; z-index: -1;
+	img { width: 100%; z-index: -2; min-width: 1400px; }
+	.fader { width: 100%; height:100%; z-index: 0; position: absolute; }
+}
 
 /* Header */
 #header-container { background-color: #262626; z-index: 5; }
-
 #header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
-#email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; .border-radius(4px); margin-top: 3px; }
-#email-warning a { color: #FFF; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; .border-radius(0,0,7px,7px); #gradient > .vertical(#39B3FE, #0190E9); }
 
 /* Search */
@@ -60,9 +59,11 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #user-status-header { margin-bottom: 5px; color: #8A8A8A; }
 #user-status-header a { font-weight: bold; font-size: 13px; }
 #user-status #start-here-link { font-size: 12px; font-weight: normal; }
-#user-status-menu { font-size: 12px; font-weight: normal; }
-#user-status-menu a { padding-left: 5px; margin: 0; }
-#user-status-menu a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
+#user-status-menu {
+	font-size: 12px; font-weight: normal;
+	a { padding-left: 5px; margin: 0; }
+	a + a { border-left: 1px solid #8A8A8A; margin-left: 5px; }
+}
 
 /* Tripbar */
 #trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
@@ -71,6 +72,8 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
+#email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; .border-radius(4px); margin-top: 3px; }
+#email-warning a { color: #FFF; }
 
 #trip-bar-menu { float: right; clear: both; z-index: 6; position: relative; }
 #trip-bar-menu a, #trip-bar-menu .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
@@ -215,11 +218,6 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .trip-row-map-link:hover { background-color: #AAA; .border-radius(3px); color: #FFF; }
 .trip-map-dialog-link { display: block; }
 
-/* Search forms */
-#search-form { font-weight: bold; color: #666; font-size: 14px; .clearfix; }
-#search-form .ui-slider { margin-left: 10px; margin-bottom: 10px; margin-top: 5px; width: 200px; }
-#search-form input[type="text"] { font-size: 14px; }
-
 /* Tags */
 ul.tags { padding: 0; list-style: none; .clearfix; margin: 0; height: 26px; }
 ul.tags > li { float: left; }
@@ -263,7 +261,3 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 .packing-list-item .name { float: left; }
 .packing-list-item.visibility-private .name:after { content: "(private)"; color: #AAA; }
 .packing-list-item .packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
-
-/* Working On It */
-#working-on-it p { background-color: #EEE; font-size: 16px; margin: 0 !important; padding: 10px; }
-#working-on-it p + p { padding-top: 0; }

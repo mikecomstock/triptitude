@@ -131,7 +131,6 @@
     </Compile>
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
-    <Compile Include="Helpers\PermissionHelper.cs" />
     <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="ModelBinders\CurrentUserModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,7 +193,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Static\WebsiteThumbs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Trips\Settings.cshtml" />
@@ -274,11 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Activities\PlaceDialog.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\WorkingOnIt.cshtml">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Places\Details.cshtml" />

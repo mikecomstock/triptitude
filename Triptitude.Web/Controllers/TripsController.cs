@@ -14,7 +14,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult SidePanel(Trip trip, User currentUser)
         {
             ViewBag.Trip = trip;
-            ViewBag.UserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            ViewBag.UserOwnsTrip = currentUser.OwnsTrips(trip);
             return PartialView("_SidePanel");
         }
 
@@ -68,7 +68,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
             ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
-            ViewBag.CurrentUserOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            ViewBag.CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
             ViewBag.CurrentUser = currentUser;
             return PartialView("_DayDetails");
         }
@@ -77,7 +77,7 @@ namespace Triptitude.Web.Controllers
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
+            bool userOwnsTrip = currentUser.OwnsTrips(trip);
             ViewBag.UserOwnsTrip = userOwnsTrip;
 
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
@@ -91,9 +91,7 @@ namespace Triptitude.Web.Controllers
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             ViewBag.Trip = trip;
             ViewBag.Form = tripRepo.GetSettingsForm(trip);
@@ -106,8 +104,7 @@ namespace Triptitude.Web.Controllers
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-            bool userOwnsTrip = PermissionHelper.UserOwnsTrips(currentUser, trip);
-            if (!userOwnsTrip) return Redirect("/");
+            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             if (ModelState.IsValid)
             {
