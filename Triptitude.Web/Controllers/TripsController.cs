@@ -52,10 +52,11 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, User currentUser)
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
+            ViewBag.CurrentUser = currentUser;
             return View();
         }
 
@@ -79,6 +80,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = trip;
             bool userOwnsTrip = currentUser.OwnsTrips(trip);
             ViewBag.UserOwnsTrip = userOwnsTrip;
+            ViewBag.CurrentUser = currentUser;
 
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
             ViewBag.PackingListItems = packingListItems;
@@ -119,7 +121,7 @@ namespace Triptitude.Web.Controllers
             }
         }
 
-        public ActionResult Create(int? to)
+        public ActionResult Create(int? to, User currentUser)
         {
             var form = new CreateTripForm();
 
@@ -132,8 +134,15 @@ namespace Triptitude.Web.Controllers
                 form.ToName = place.Name;
             }
 
-            ViewBag.Form = form;
-            return View();
+            if (to.HasValue)
+            {
+                return Create(form, currentUser);
+            }
+            else
+            {
+                ViewBag.Form = form;
+                return View();
+            }
         }
 
         [HttpPost]

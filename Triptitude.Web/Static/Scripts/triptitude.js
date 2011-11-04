@@ -22,9 +22,9 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-//    $('.items').each(function () {
-//        $('li', this).equalHeights();
-//    });
+    //    $('.items').each(function () {
+    //        $('li', this).equalHeights();
+    //    });
 
     /****************/
     /* Super Dialog */
@@ -56,7 +56,7 @@ $(function () {
             e.preventDefault();
         }
     });
-    
+
     $('.trip-row-map-link').click(function () {
         var tripId = $(this).attr('data-trip-id');
         var name = $(this).attr('data-trip-name');
@@ -73,7 +73,7 @@ $(function () {
             drawMap(container, mapData);
         });
     });
-    
+
     $('#note-dialog select', superDialog).live('change', function () {
         var select = $(this);
         var activityId = select.val();
@@ -117,6 +117,12 @@ $(function () {
         var activityType = $(this).attr('data-activity-type');
         CreateActivityModal(activityType, '/activities/edit/' + activityId);
     });
+
+    $('.add-to-trip').live('click', function (e) {
+        e.preventDefault();
+        var place = $(e.target).data('place');
+        CreateActivityModal('place', '/activities/create?type=place', place);
+    });
 });
 
 function BindPlaceAutocomplete(context) {
@@ -124,7 +130,7 @@ function BindPlaceAutocomplete(context) {
     a.googAutocomplete();
 }
 
-function CreateActivityModal(activityType, url) {
+function CreateActivityModal(activityType, url, place) {
     $.get(url, function (data) {
         $('#trip-bar-menu li').children('ul').hide();
         $('.content', superDialog).html(data);
@@ -134,6 +140,12 @@ function CreateActivityModal(activityType, url) {
         $('input.day-input', superDialog).attr('autocomplete', 'off');
         BindPlaceAutocomplete(superDialog);
         scrollToBottom($('.notes', superDialog));
+
+        if (place) {
+            $('input[name="name"]', superDialog).val(place.name);
+            $('input[name="googid"]', superDialog).val(place.id);
+            $('input[name="googreference"]', superDialog).val(place.reference);
+        }
     });
 }
 

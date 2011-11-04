@@ -4,6 +4,7 @@
     var activities = (IEnumerable<Activity>)ViewBag.Activities;
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
+    User currentUser = (User)ViewBag.CurrentUser;
 }
 @Html.Action("SidePanel", "Trips", new { Trip = trip })
 <div id="main-container">
@@ -13,6 +14,12 @@
                 @ViewBag.Title
             </h1>
         </div>
+        @if (currentUser.DefaultTrip == trip)
+        {
+            <div class="subtitle">
+                Use the <strong>+Add Plans</strong> menu to items to your list.
+            </div>
+        }
         <div class="panel-content">
             @if (packingListItems.Any())
             {
@@ -42,7 +49,7 @@
             else
             {
                 <p>
-                    No items found. @(ViewBag.UserOwnsTrip ? "Use the \"+Add Plans\" button to add items." : string.Empty)
+                    No items found.
                 </p>
             }
         </div>

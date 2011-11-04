@@ -78,7 +78,7 @@ namespace Triptitude.Web.Helpers
                 tokens.Add(html.ViewContext.RouteData.DataTokens["area"].ToString().ToLower());
             tokens.Add(html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().Replace("admin", string.Empty).ToLower());
             tokens.Add(html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString().ToLower());
-            return String.Join(" ", tokens);
+            return String.Join("-", tokens);
         }
 
         #region Grouped Select List

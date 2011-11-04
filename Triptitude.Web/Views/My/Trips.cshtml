@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "My Trips";
-    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.User.Trips;
+    User currentUser = ViewBag.CurrentUser;
+    IEnumerable<Trip> trips = currentUser.Trips;
 }
 @Html.Action("SidePanel", "My")
 <div id="main-container">
@@ -10,21 +11,23 @@
                 My Trips</h1>
         </div>
         <div class="subtitle">
-            <a href="@Url.CreateTrip()">Create a trip</a>
+            Select a trip below to edit it.
         </div>
-        <div class="panel-content">
+        <div class="panel-content not-padded">
             @if (trips.IsNullOrEmpty())
             {
-                <div>
-                    No trips found!
+                <div class="none-found">
+                    No trips found.
                 </div>
             }
             else
             {
-                foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
-                {
-                <a  class="my-trip-row" href="@Url.SetDefaultTrip(trip)"><span>Plan</span> @trip.Name</a>
-                }
+                <ul class="my-trip-rows">
+                    @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
+                    {
+                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"  ><a href="@Url.SetDefaultTrip(trip)">@trip.Name</a></li>
+                    }
+                </ul>
             }
         </div>
     </div>

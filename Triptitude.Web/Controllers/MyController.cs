@@ -27,7 +27,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Trips(User currentUser)
         {
-            ViewBag.User = currentUser;
+            ViewBag.CurrentUser = currentUser;
             return View();
         }
 

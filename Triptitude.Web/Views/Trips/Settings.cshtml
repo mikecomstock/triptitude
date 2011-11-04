@@ -27,7 +27,7 @@
                 @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
-                <input type="text" name="begindate" class="date-picker" value="@ViewBag.Form.BeginDate" />
+                @Html.TextBox("begindate", ViewBag.Form.BeginDate as DateTime?, new { @class = "date-picker" })
             </p>
             <input type="submit" value="Save Settings" tabindex="2" />
             </form>

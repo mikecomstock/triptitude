@@ -2,6 +2,7 @@
     Trip trip = ViewBag.Trip;
     ViewBag.Title = trip.Name + " - Itinerary";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
+    User currentUser = ViewBag.CurrentUser;
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
@@ -23,6 +24,12 @@
                 @ViewBag.Title
             </h1>
         </div>
+        @if (currentUser.DefaultTrip == trip)
+        {
+            <div class="subtitle">
+                Use the <strong>+Add Plans</strong> menu to items to your itinerary.
+            </div>
+        }
         <div class="panel-content">
             <div id="trip-map-container" data-trip-id="@trip.Id">
             </div>
