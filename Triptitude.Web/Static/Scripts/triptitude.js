@@ -121,6 +121,13 @@ $(function () {
     $('.add-to-trip').live('click', function (e) {
         e.preventDefault();
         var place = $(e.target).data('place');
+        if (!place) {
+            place = {
+                id: $(this).data('id'),
+                reference: $(this).data('reference'),
+                name: $(this).data('name')
+            };
+        }
         CreateActivityModal('place', '/activities/create?type=place', place);
     });
 });

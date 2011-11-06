@@ -24,21 +24,29 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Search(string googReference, string googId)
         {
+            return Redirect(googReference, googId);
+        }
+
+        public ActionResult Redirect(string googReference, string googId)
+        {
             Place place = placesRepo.FindOrCreateByGoogReference(googId, googReference);
             return Redirect(Url.Details(place));
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, User currentUser)
         {
             var place = placesRepo.Find(id);
+            return Redirect(Url.Nearby(place));
             ViewBag.Place = place;
+            ViewBag.CurrentUser = currentUser;
             return View();
         }
 
-        public ActionResult Nearby(int id)
+        public ActionResult Nearby(int id, User currentUser)
         {
             var place = placesRepo.Find(id);
             ViewBag.Place = place;
+            ViewBag.CurrentUser = currentUser;
             return View();
         }
     }

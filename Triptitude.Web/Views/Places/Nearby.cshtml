@@ -1,6 +1,7 @@
 ﻿@{
-    Place place = (Place)ViewBag.Place;
+    Place place = ViewBag.Place;
     ViewBag.Title = place.Name;
+    User currentUser = ViewBag.CurrentUser;
 }
 @Helpers.SidePanel(Url, place)
 <div id="main-container">
@@ -9,10 +10,14 @@
             <h1>
                 @ViewBag.Title
             </h1>
+            <a rel="nofollow" class="add-to-trip" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
         </div>
-        <div class="subtitle">
-            <a href="@Url.CreateTrip(to: place)">Create a trip to @place.Name</a>
-        </div>
+        @if (currentUser.DefaultTrip == null)
+        {
+            <div class="subtitle">
+                <a href="@Url.CreateTrip(to: place)">Create a trip to @place.Name</a>
+            </div>
+        }
         <div class="panel-content">
             <h2>
                 Places Near @place.Name</h2>
@@ -28,40 +33,31 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
 
-        var map;
         var infowindow;
+        
         function initialize() {
             var centerOn = new google.maps.LatLng(@place.Latitude, @place.Longitude);
 
-            map = new google.maps.Map(document.getElementById('map'), {
+            var map = new google.maps.Map(document.getElementById('map'), {
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 center: centerOn,
                 zoom: 14
             });
 
-            var request = {
-                location: centerOn,
-                radius: 1000
-            };
             infowindow = new google.maps.InfoWindow();
+            
+            var options = { location: centerOn, radius: 1000 };
             var service = new google.maps.places.PlacesService(map);
-            service.search(request, callback);
-        }
-
-        function callback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
+            service.search(options, function (results, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
                 for (var i = 0; i < results.length; i++) {
-                    createMarker(results[i]);
+                    createMarker(results[i], map);
                 }
-            }
+            }});
         }
 
-        function createMarker(place) {
-            var placeLoc = place.geometry.location;
-            var marker = new google.maps.Marker({
-                map: map,
-                position: place.geometry.location
-            });
+        function createMarker(place, map) {
+            var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
 
             google.maps.event.addListener(marker, 'click', function () {
                 var infoWindowContent = getInfoWindowContent(place);
@@ -69,15 +65,17 @@
                 infowindow.open(map, this);
             });
 
-            var li = $('<li></li>');
-            $('<a class="add-to-trip"></a>').text(place.name).data('place', place).appendTo(li);
-            $('.place-rows').append(li);
+            var li = $('<li></li>').appendTo('.place-rows');
+            var nameLink = $('<a class="title" rel="nofollow"></a>').text(place.name).data('place', place).appendTo(li);
+            nameLink.attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id);
+            $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
         }
         
         function getInfoWindowContent(place) {
             var content = $('<div class="info-window"></div>');
-            content.append('<p>' + place.name + '</p>')
-            $('<a class="add-to-trip">Add to Trip</a>').data('place', place).appendTo(content);
+            var nameLink = $('<a class="title" rel="nofollow"></a>').text(place.name).data('place', place).appendTo(content);
+            nameLink.attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id);
+            $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
             return content;
         };
 

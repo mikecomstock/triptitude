@@ -67,7 +67,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 /* Tripbar */
 #trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
-#trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; .box-shadow(0px 7px 10px rgba(0, 0, 0, 0.8)); }
+#trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); .border-radius(7px); }
 #trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
@@ -105,7 +105,11 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 .panel { .border-radius(6px); .box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
-.panel > .title, .panel-title { background-color: #E9BA26; padding: 15px; .clearfix; }
+.panel > .title, .panel-title {
+	background-color: #E9BA26; padding: 15px; .clearfix; line-height: 30px;
+	h1 { float:left; }
+	.add-to-trip { float: right; }
+}
 .panel > .subtitle { background-color: #F3ECB7; padding: 10px; }
 
 .panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
@@ -134,6 +138,9 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 /* Map InfoWindows */
 .info-window {
 	p { margin: 0; }
+	a { display: block; }
+	a + a { margin-top:10px; }
+	.title { font-weight: bold; }
 }
 
 /* Dialogs */
@@ -294,7 +301,9 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 		li {
 			padding: 10px;
 			+ li { border-top: 1px solid #DDD; }
+			.add-to-trip { float:right; }
 		}
+		li:hover { background-color: #F3F3F3; }
 	}
 	.panel-content { position: relative; }
 	#map { height: 300px; }
