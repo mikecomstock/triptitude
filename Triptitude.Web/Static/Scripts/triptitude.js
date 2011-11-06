@@ -2,30 +2,6 @@
 
 $(function () {
 
-    if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
-        moveScroller();
-    }
-
-    $('input').placeholder();
-    $('.focus').first().focus();
-    $('.date-picker').datepicker();
-
-    BindPlaceAutocomplete(null);
-
-    $('#search').submit(function (e) {
-        var val = $('input[name="googreference"]', $(this)).val();
-        if (val == '') e.preventDefault();
-    });
-
-    $('#trip-bar-menu li').hover(
-        function () { $(this).children('ul').show(); },
-        function () { $(this).children('ul').hide(); }
-    );
-
-    //    $('.items').each(function () {
-    //        $('li', this).equalHeights();
-    //    });
-
     /****************/
     /* Super Dialog */
     /****************/
