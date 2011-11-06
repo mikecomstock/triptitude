@@ -151,11 +151,6 @@
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
-    <Content Include="Static\Scripts\triptitude2.js">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>triptitude2.coffee</DependentUpon>
-    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -294,12 +289,6 @@
     <Content Include="Static\Stylesheets\Site.less">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Static\Scripts\triptitude2.coffee">
-      <Generator>CoffeeScriptGenerator</Generator>
-      <LastGenOutput>triptitude2.js</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
