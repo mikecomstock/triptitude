@@ -13,7 +13,8 @@
             @Html.AntiForgeryToken()
             <p>
                 @Html.ValidationMessage("to")
-                <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" value="@form.ToName" placeholder="Destination" />
+                <label for="toname">Destination</label>
+                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete focus" value="@form.ToName" placeholder="Where do you want to go?" />
                 <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
                 <input type="hidden" name="togoogid" value="@form.ToGoogId" />
             </p>
