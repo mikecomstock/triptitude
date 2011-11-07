@@ -164,9 +164,13 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
 #super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
 
-#super-dialog .buttons { padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; .clearfix; }
-#super-dialog .buttons input { float: right; margin: 2px; }
-#super-dialog .buttons .delete { float: left; background-color: #E92553; }
+#super-dialog .buttons {
+	padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; .clearfix;
+	input { float: right; margin: 0 2px; }
+	.delete { float: left; background-color: #E92553; }
+	.saved { color: #FFF; background-color: #01B747; font-size: 14px; padding: 5px; text-align: center; }
+}
+
 
 /* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
 #super-dialog .note-text { width: 100%; .border-box; }
@@ -297,13 +301,14 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 /* Places */
 #places-nearby {
 	.place-rows {
-		list-style: none; margin: 0; padding: 0;
+		list-style: none; margin: 10px 0 0 0; padding: 0;
 		li {
 			padding: 10px;
 			+ li { border-top: 1px solid #DDD; }
 			.add-to-trip { float:right; }
 		}
-		li:hover { background-color: #F3F3F3; }
+		li.active { background-color: #EEE; }
+		li:hover { background-color: #EEE; }
 	}
 	.panel-content { position: relative; }
 	#map { height: 300px; }

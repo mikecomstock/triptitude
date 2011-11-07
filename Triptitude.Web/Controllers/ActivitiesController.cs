@@ -83,7 +83,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         private ActionResult EditHotel(HotelActivity activity, ActivityForm.Tabs selectedTab)
@@ -113,7 +114,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(activity.Trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         #endregion
@@ -136,8 +138,9 @@ namespace Triptitude.Web.Controllers
             var trip = tripsRepo.Find(form.TripId);
             if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
-            var transportation = activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(transportation.Trip));
+            activitiesRepo.Save(form, currentUser);
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         private ActionResult EditTransportation(TransportationActivity activity, ActivityForm.Tabs selectedTab)
@@ -175,7 +178,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(activity.Trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         #endregion
@@ -216,7 +220,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         private ActionResult EditPlace(PlaceActivity activity, ActivityForm.Tabs selectedTab)
@@ -247,7 +252,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, currentUser);
-            return Redirect(Url.Details(activity.Trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         #endregion

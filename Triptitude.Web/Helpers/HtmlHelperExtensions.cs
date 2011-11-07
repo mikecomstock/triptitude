@@ -81,6 +81,12 @@ namespace Triptitude.Web.Helpers
             return String.Join("-", tokens);
         }
 
+        public static string RouteId(this HtmlHelper html)
+        {
+            ValueProviderResult id = html.ViewContext.Controller.ValueProvider.GetValue("id");
+            return id == null ? string.Empty : id.RawValue.ToString();
+        }
+
         #region Grouped Select List
 
         /// <summary>

@@ -19,7 +19,7 @@
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
     @Assets.Stylesheets.Render()
 </head>
-<body id="@Html.RouteCss()">
+<body id="@Html.RouteCss()" data-id="@Html.RouteId()">
     <div id="background">
         <div class="fader" style="background: url('@Url.Static("backgrounds/background-fade.png")') repeat-x scroll left bottom transparent;">
             &nbsp;</div>

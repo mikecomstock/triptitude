@@ -37,7 +37,8 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             packingListItemsRepo.Save(form);
-            return Redirect(Url.PackingList(trip));
+            var response = new { status = "OK" };
+            return Json(response);
         }
 
         public ActionResult Edit(int id, User currentUser)

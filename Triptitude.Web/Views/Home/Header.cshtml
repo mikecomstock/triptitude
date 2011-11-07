@@ -50,7 +50,7 @@
 @if (currentUser.DefaultTrip != null)
 {     
     <div id="trip-bar-container">
-        <div id="trip-bar">
+        <div id="trip-bar" data-trip-id="@currentUser.DefaultTrip.Id" >
             <div id="trip-bar-menu">
                 <ul>
                     <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="i">Itinerary</a></li>

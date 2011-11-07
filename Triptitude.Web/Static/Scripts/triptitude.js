@@ -32,9 +32,8 @@ $(function () {
 
     superDialog = $('#super-dialog');
     superDialogOverlay = $('#super-dialog-overlay');
-    superDialogOverlay.click(function () { superDialog.hide(); superDialogOverlay.hide(); });
-    $('.cancel', superDialog).live('click', function (e) { e.preventDefault(); superDialog.hide(); superDialogOverlay.hide(); });
-    $('*').live('keyup', function (e) { if (e.which == 27) { superDialog.hide(); superDialogOverlay.hide(); } });
+    superDialogOverlay.click(function () { CloseSuperDialog(); });
+    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
     $('#dialog-menu li', superDialog).live('click', function (e) {
         var dataPageName = $(this).attr('data-page');
@@ -145,6 +144,7 @@ function CreateActivityModal(activityType, url, place) {
         superDialogOverlay.show();
         $('.focus', superDialog).focus();
         $('input.day-input', superDialog).attr('autocomplete', 'off');
+        $('.cancel', superDialog).click(function (e) { e.preventDefault(); CloseSuperDialog(); });
         BindPlaceAutocomplete(superDialog);
         scrollToBottom($('.notes', superDialog));
 
@@ -153,7 +153,50 @@ function CreateActivityModal(activityType, url, place) {
             $('input[name="googid"]', superDialog).val(place.id);
             $('input[name="googreference"]', superDialog).val(place.reference);
         }
+
+        $('form', superDialog).submit(function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var data = form.serialize();
+            var action = form.prop('action');
+            log(action); log(data);
+
+            $.post(action, data)
+                .success(function (response) {
+                    log(response);
+                    superDialog.data('changes', true);
+                    if (response.replace) {
+                        superDialog.html(response.replace);
+                    } else {
+                        var onPlanningPage = $('#trips-details, #trips-packinglist').size() > 0;
+                        if (onPlanningPage) {
+                            location.reload();
+                        } else if (response.redirect) {
+                            window.location.href = response.redirect;
+                        } else {
+                            $('.buttons').html('<div class="saved">Saved!</div>');
+                            setTimeout(function () { CloseSuperDialog(); }, 1000);
+                        }
+                    }
+                });
+
+        });
     });
+}
+
+function CloseSuperDialog() {
+    if(!superDialog.is(':visible')) return;
+    
+    var currentlyViewingTripId = $('body').data('id');
+    var currentlyEditingTripId = $('#trip-bar').data('trip-id');
+    
+    if (superDialog.data('changes') && (currentlyViewingTripId == currentlyEditingTripId)) {
+        location.reload();
+    } else {
+        superDialog.data('changes', false);
+        superDialog.hide();
+        superDialogOverlay.hide();
+    }
 }
 
 (function ($) {
@@ -179,10 +222,10 @@ function CreateActivityModal(activityType, url, place) {
 
             var mapId = $input.attr('data-map-id');
             if (mapId) {
-                $mapDiv = $('#' + mapId);
+                mapDiv = $('#' + mapId);
 
                 var center = new google.maps.LatLng(25, -30);
-                var map = new google.maps.Map($mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
+                var map = new google.maps.Map(mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
                 var marker = new google.maps.Marker({ map: map });
                 autocomplete.bindTo('bounds', map);
 
@@ -322,3 +365,9 @@ function scrollToBottom($element) {
         $element.prop({ scrollTop: $element.prop('scrollHeight') });
     }
 }
+
+log = function (a) {
+    if (window['console'] && console['log']) {
+        console.log(a);
+    }
+};
