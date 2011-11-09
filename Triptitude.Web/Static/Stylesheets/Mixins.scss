@@ -1,0 +1,59 @@
+﻿@mixin clearfix {
+ zoom:1;
+ &:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+ }
+ &:after {
+	display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+	clear: both;
+ }
+}
+
+@mixin border-radius($radius: 5px) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-shadow($shadow: 0 1px 3px rgba(0,0,0,.25)) {
+  -webkit-box-shadow: $shadow;
+     -moz-box-shadow: $shadow;
+          box-shadow: $shadow;
+}
+
+@mixin opacity($opacity: 100) {
+	/*filter: e(%("alpha(opacity=%d)", @opacity));*/
+	-khtml-opacity: $opacity / 100;
+	  -moz-opacity: $opacity / 100;
+	       opacity: $opacity / 100;
+}
+
+@mixin border-box {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+	-webkit-box-sizing:border-box; /* Safari */
+}
+
+@mixin transparent-background($color, $alpha) {
+	background-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
+}
+
+@mixin gradient($startColor, $endColor) {
+	background-color: $endColor;
+	background-repeat: repeat-x;
+	background-image: -khtml-gradient(linear, left top, left bottom, from($startColor), to($endColor)); // Konqueror
+	background-image: -moz-linear-gradient(top, $startColor, $endColor); // FF 3.6+
+	background-image: -ms-linear-gradient(top, $startColor, $endColor); // IE10
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $startColor), color-stop(100%, $endColor)); // Safari 4+, Chrome 2+
+	background-image: -webkit-linear-gradient(top, $startColor, $endColor); // Safari 5.1+, Chrome 10+
+	background-image: -o-linear-gradient(top, $startColor, $endColor); // Opera 11.10
+	background-image: linear-gradient(top, $startColor, $endColor); // The standard
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$startColor}', endColorstr='#{$endColor}'); // IE6 & IE7
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$startColor}', endColorstr='#{$endColor}')"; // IE8
+}

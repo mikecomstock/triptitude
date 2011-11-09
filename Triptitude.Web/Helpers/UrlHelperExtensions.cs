@@ -9,6 +9,8 @@ namespace Triptitude.Web.Helpers
 {
     public static class UrlHelperExtensions
     {
+        private readonly static string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name)
         {
             return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });
@@ -32,7 +34,7 @@ namespace Triptitude.Web.Helpers
         public static string Static(this UrlHelper url, string path)
         {
             if (path[0] == '/') throw new ArgumentException("Argument should not begin with a slash.", "path");
-            return Path.Combine("/static/", path);
+            return Path.Combine(string.Format("/v{0}/static/", version), path);
         }
 
         #endregion
