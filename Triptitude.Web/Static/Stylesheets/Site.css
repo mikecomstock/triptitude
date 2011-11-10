@@ -72,8 +72,7 @@ input[type="submit"], input[type="button"] {
   background-color: #0190E9;
   cursor: pointer; }
 
-/* Panel Form Defaults */
-.panel form .field-validation-error {
+.field-validation-error, .validator {
   display: block;
   padding: 5px;
   background-color: #E92553;
@@ -82,6 +81,11 @@ input[type="submit"], input[type="button"] {
   margin-bottom: 11px;
   font-size: 12px;
   line-height: 20px; }
+
+.validator {
+  display: none; }
+
+/* Panel Form Defaults */
 .panel form label {
   display: block;
   float: left;

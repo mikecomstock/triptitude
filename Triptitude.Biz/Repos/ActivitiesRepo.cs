@@ -65,11 +65,22 @@ namespace Triptitude.Biz.Repos
             }
 
             var placesRepo = new PlacesRepo();
-            if (!string.IsNullOrWhiteSpace(form.FromGoogReference))
+            if (string.IsNullOrWhiteSpace(form.FromGoogReference))
+            {
+                var tmp = activity.FromPlace;
+                activity.FromPlace = null;
+            }
+            else
             {
                 activity.FromPlace = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
             }
-            if (!string.IsNullOrWhiteSpace(form.ToGoogReference))
+
+            if (string.IsNullOrWhiteSpace(form.ToGoogReference))
+            {
+                var tmp = activity.ToPlace;
+                activity.ToPlace = null;
+            }
+            else
             {
                 activity.ToPlace = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
             }
@@ -129,27 +140,12 @@ namespace Triptitude.Biz.Repos
 
             PlacesRepo placesRepo = new PlacesRepo();
 
-            // If this is a custom place:
-            //if (string.IsNullOrWhiteSpace...
-            //{
-            //    Place place = form.PlaceId.HasValue ? placesRepo.Find(form.PlaceId.Value) : new Place();
-            //    place.Name = form.Name;
-            //    place.Address = form.Address;
-            //    place.Locality = form.City;
-            //    place.Region = form.State;
-            //    place.Country = form.Country;
-            //    place.Telephone = form.Telephone;
-            //    place.Website = form.Website;
-            //    place.Latitude = string.IsNullOrWhiteSpace(form.Latitude) ? (decimal?)null : decimal.Parse(form.Latitude);
-            //    place.Longitude = string.IsNullOrWhiteSpace(form.Longitude) ? (decimal?)null : decimal.Parse(form.Longitude);
-            //    activity.Place = place;
-            //}
-            //else
-            //{
-            //    activity.Place = placesRepo.FindOrInitializeBy...
-            //}
-
-            if (!string.IsNullOrWhiteSpace(form.GoogReference))
+            if (string.IsNullOrWhiteSpace(form.GoogReference))
+            {
+                var tmp = activity.Place;
+                activity.Place = null;
+            }
+            else
             {
                 activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
             }

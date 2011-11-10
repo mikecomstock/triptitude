@@ -9,6 +9,7 @@ $(function () {
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
+    //$('form.validatable').MCValidate();
 
     BindPlaceAutocomplete(null);
 
@@ -204,15 +205,19 @@ function CloseSuperDialog() {
     $.fn.googAutocomplete = function () {
         this.each(function () {
             var $input = $(this);
-            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
-            var autocomplete = new google.maps.places.Autocomplete($input.get(0));
+            var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
+            var $googIdField = $('[name="' + $input.attr('data-goog-id-field') + '"]');
 
+            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+
+            $input.change(function() {
+                $googIdField.val('');
+                $googReferenceField.val('');
+            });
+            
+            var autocomplete = new google.maps.places.Autocomplete($input.get(0));
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
-
-                var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
-                var $googIdField = $('[name="' + $input.attr('data-goog-id-field') + '"]');
-
                 $googReferenceField.val(place.reference);
                 $googIdField.val(place.id);
 
@@ -371,3 +376,26 @@ log = function (a) {
         console.log(a);
     }
 };
+
+//(function($) {
+//    $.fn.MCValidate = function() {
+//        this.each(function() {
+//            $(this).submit(function(e) {
+//                var form = $(this);
+//                $('.validator', form).each(function(i, validator) {
+//                    var $validator = $(validator);
+//                    var notEmptyId = $validator.data('not-empty-id');
+//                    if (notEmptyId) {
+//                        var element = $('#' + notEmptyId);
+//                        if ($.trim(element.val()) == '') {
+//                            e.preventDefault();
+//                            $validator.show();
+//                        } else {
+//                            $validator.hide();
+//                        }
+//                    }
+//                });
+//            });
+//        });
+//    };
+//})(jQuery);
