@@ -10,37 +10,50 @@
     <input type="hidden" name="activityid" value="@form.ActivityId" />
     @Helpers.ActivityFormTabs(Url, form)
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
-        <p>
-            <label for="transportationtypeid">
-                Type</label>
-            @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
-        </p>
-        <div class="stops">
+        <fieldset>
+            <span>How</span>
             <p>
-                <label for="fromcityname">
+                <label for="transportationtypeid">
+                    Type</label>
+                @Html.SelectTransportationTypeDropDownList(transportationTypes, form.TransportationTypeId)
+            </p>
+        </fieldset>
+        <fieldset>
+            <span>Where</span>
+            <p>
+                <span class="place-map-container">
+                    <img src="" alt="" class="place-map" id="from-map" />
+                </span>
+                <label for="fromname">
                     From</label>
-                <input type="text" name="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" data-map-id="from-map" class="place-autocomplete focus" value="@form.FromName" />
+                <input type="text" name="fromname" id="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" data-goog-name-field="fromgoogname" data-map-id="from-map" class="place-autocomplete focus" value="@form.FromName" />
                 <input type="hidden" name="fromgoogreference" value="@form.FromGoogReference" />
                 <input type="hidden" name="fromgoogid" value="@form.FromGoogId" />
-                <span class="autocomplete-map" id="from-map">map</span>
+                <input type="hidden" name="fromgoogname" value="@form.FromName" />
             </p>
             <p>
-                <label for="tocityname">
+                <span class="place-map-container">
+                    <img src="" alt="" class="place-map" id="to-map" />
+                </span>
+                <label for="toname">
                     To</label>
-                <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-map-id="to-map" class="place-autocomplete" value="@form.ToName" />
+                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-goog-name-field="togoogname" data-map-id="to-map" class="place-autocomplete" value="@form.ToName" />
                 <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
                 <input type="hidden" name="togoogid" value="@form.ToGoogId" />
-                <span class="autocomplete-map" id="to-map">map</span>
+                <input type="hidden" name="togoogname" value="@form.ToName" />
             </p>
-        </div>
-        <p>
-            <label for="beginDay">
-                Day
-            </label>
-            <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
-            thru
-            <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
-        </p>
+        </fieldset>
+        <fieldset>
+            <span>When</span>
+            <p>
+                <label for="beginDay">
+                    Day
+                </label>
+                <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
+                thru
+                <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+            </p>
+        </fieldset>
     </div>
     <p class="buttons">
         <input type="submit" value="Save" />

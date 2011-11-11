@@ -2,16 +2,11 @@
 
 $(function () {
 
-    if (navigator.platform != 'iPad' && navigator.platform != 'iPhone' && navigator.platform != 'iPod') {
-        moveScroller();
-    }
-
+    moveScroller();
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
-    //$('form.validatable').MCValidate();
-
-    BindPlaceAutocomplete(null);
+    $('.place-autocomplete').googAutocomplete();
 
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
@@ -23,34 +18,15 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-    //    $('.items').each(function () {
-    //        $('li', this).equalHeights();
-    //    });
-
-    /****************/
-    /* Super Dialog */
-    /****************/
-
     superDialog = $('#super-dialog');
     superDialogOverlay = $('#super-dialog-overlay');
     superDialogOverlay.click(function () { CloseSuperDialog(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
-    $('#dialog-menu li', superDialog).live('click', function (e) {
-        var dataPageName = $(this).attr('data-page');
-        var currentPage = $('li, .dialog-page');
-        currentPage.removeClass('selected-page');
-        var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
-        newPage.addClass('selected-page');
-        $('.focus', newPage).first().focus();
-        scrollToBottom($('.notes', superDialog));
-    });
-
-    /* Delete Confirmations */
     $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
-            var data_url = $(this).attr('data-url');
+            var data_url = $(this).data('url');
             window.location.replace(data_url);
         } else {
             e.preventDefault();
@@ -58,10 +34,10 @@ $(function () {
     });
 
     $('.trip-row-map-link').click(function () {
-        var tripId = $(this).attr('data-trip-id');
-        var name = $(this).attr('data-trip-name');
+        var tripId = $(this).data('trip-id');
+        var name = $(this).data('trip-name');
 
-        var container = $('<div></div>');
+        var container = $(document.createElement('div'));
         container.dialog({
             title: name,
             width: 540,
@@ -74,48 +50,22 @@ $(function () {
         });
     });
 
-    $('#note-dialog select', superDialog).live('change', function () {
-        var select = $(this);
-        var activityId = select.val();
-        CreateActivityModal('note', '/activities/edit/' + activityId + '?selectedtab=notes');
-    });
-
-    $('.add-activity').live('click', function () {
-        var activityType = $(this).attr('data-activity-type');
-        var url = '/activities/create?type=' + activityType;
-
-        switch (activityType) {
-            case 'transportation':
-                break;
-            case 'place':
-                var referenceId = $(this).attr('data-reference-id') || '';
-                url += '&referenceid=' + referenceId;
-                break;
-            case 'hotel':
-                var hotelId = $(this).attr('data-hotel-id');
-                url += '&hotelid=' + hotelId;
-                break;
-        }
-        CreateActivityModal(activityType, url);
-    });
-
-    $('.add-note').live('click', function () {
-        CreateActivityModal("note", '/notes/create');
-    });
-
-    $('.add-packing-item').live('click', function () {
-        CreateActivityModal("packing-item", '/packing/create');
+    $('.super-dialog-link').live('click', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        OpenSuperDialog(url);
     });
 
     $('.packing-list-item.owned').click(function () {
-        var id = $(this).data('id');
-        CreateActivityModal("packing-item", '/packing/edit/' + id);
+        if (e.target == this) {
+            var id = $(this).data('id');
+            OpenSuperDialog('/packing/edit/' + id);
+        }
     });
 
-    $('.trip-day .activity.owned').click(function () {
-        var activityId = $(this).attr('data-activity-id');
-        var activityType = $(this).attr('data-activity-type');
-        CreateActivityModal(activityType, '/activities/edit/' + activityId);
+    $('.trip-day .activity.owned').click(function (e) {
+        var activityId = $(this).data('activity-id');
+        OpenSuperDialog('/activities/edit/' + activityId);
     });
 
     $('.add-to-trip').live('click', function (e) {
@@ -128,43 +78,55 @@ $(function () {
                 name: $(this).data('name')
             };
         }
-        CreateActivityModal('place', '/activities/create?type=place', place);
+        OpenSuperDialog('/activities/create?type=place', place);
     });
 });
 
-function BindPlaceAutocomplete(context) {
-    var a = $('.place-autocomplete', context);
-    a.googAutocomplete();
-}
-
-function CreateActivityModal(activityType, url, place) {
-    $.get(url, function (data) {
+function OpenSuperDialog(url, place) {
+    $.get(url, function (result) {
         $('#trip-bar-menu li').children('ul').hide();
-        $('.content', superDialog).html(data);
+        superDialog.find('.content').html(result);
         superDialog.show();
         superDialogOverlay.show();
-        $('.focus', superDialog).focus();
-        $('input.day-input', superDialog).attr('autocomplete', 'off');
-        $('.cancel', superDialog).click(function (e) { e.preventDefault(); CloseSuperDialog(); });
-        BindPlaceAutocomplete(superDialog);
-        scrollToBottom($('.notes', superDialog));
+        superDialog.find('.focus').focus();
+        superDialog.find('input.day-input').attr('autocomplete', 'off');
+        superDialog.find('.cancel').click(function (e) { e.preventDefault(); CloseSuperDialog(); });
+        superDialog.find('.place-autocomplete').googAutocomplete();
+
+        scrollToBottom(superDialog.find('.notes'));
 
         if (place) {
-            $('input[name="name"]', superDialog).val(place.name);
-            $('input[name="googid"]', superDialog).val(place.id);
-            $('input[name="googreference"]', superDialog).val(place.reference);
+            var placeInputParagraph = superDialog.find('[name="name"]').parent();
+            placeInputParagraph.find('input[name="googid"]').val(place.id);
+            placeInputParagraph.find('input[name="googreference"]').val(place.reference);
+            placeInputParagraph.hide();
+            $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
         }
 
-        $('form', superDialog).submit(function (e) {
+        superDialog.find('#dialog-menu li').click(function (e) {
+            var dataPageName = $(this).data('page');
+            var currentPage = $('li, .dialog-page');
+            currentPage.removeClass('selected-page');
+            var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
+            newPage.addClass('selected-page');
+            $('.focus', newPage).first().focus();
+            scrollToBottom($('.notes', superDialog));
+        });
+
+        superDialog.find('#note-dialog select').change(function () {
+            var select = $(this);
+            var activityId = select.val();
+            OpenSuperDialog('/activities/edit/' + activityId + '?selectedtab=notes');
+        });
+
+        superDialog.find('form').submit(function (e) {
             e.preventDefault();
             var form = $(this);
-            var data = form.serialize();
-            var action = form.prop('action');
-            log(action); log(data);
+            var formData = form.serialize();
+            var formAction = form.prop('action');
 
-            $.post(action, data)
+            $.post(formAction, formData)
                 .success(function (response) {
-                    log(response);
                     superDialog.data('changes', true);
                     if (response.replace) {
                         superDialog.html(response.replace);
@@ -180,81 +142,87 @@ function CreateActivityModal(activityType, url, place) {
                         }
                     }
                 });
-
         });
     });
 }
 
 function CloseSuperDialog() {
-    if(!superDialog.is(':visible')) return;
-    
+    if (!superDialog.is(':visible')) return;
+
     var currentlyViewingTripId = $('body').data('id');
     var currentlyEditingTripId = $('#trip-bar').data('trip-id');
-    
+
     if (superDialog.data('changes') && (currentlyViewingTripId == currentlyEditingTripId)) {
         location.reload();
     } else {
         superDialog.data('changes', false);
         superDialog.hide();
         superDialogOverlay.hide();
+        superDialog.find('.content').empty();
     }
 }
 
 (function ($) {
-
     $.fn.googAutocomplete = function () {
         this.each(function () {
             var $input = $(this);
-            var $googReferenceField = $('[name="' + $input.attr('data-goog-reference-field') + '"]');
-            var $googIdField = $('[name="' + $input.attr('data-goog-id-field') + '"]');
+            var $googReferenceField = $('[name="' + $input.data('goog-reference-field') + '"]');
+            var $googIdField = $('[name="' + $input.data('goog-id-field') + '"]');
+            var $googNameField = $('[name="' + $input.data('goog-name-field') + '"]');
+            var mapDiv = $input.data('map-id') ? $('#' + $input.data('map-id')) : null;
 
-            $input.keypress(function(e) { if (e.which == 13) e.preventDefault(); });
+            $input.keypress(function (e) { if (e.which == 13) e.preventDefault(); });
 
-            $input.change(function() {
-                $googIdField.val('');
-                $googReferenceField.val('');
+            $input.change(function () {
+                if ($.trim($input.val()) == '' || $input.val() != $googNameField.val()) {
+                    $googIdField.val('');
+                    $googReferenceField.val('');
+                    $googNameField.val('');
+                    mapDiv.attr('src', '');
+                    setTimeout(function () { $input.val(''); }, 200);
+                }
             });
-            
+
+            $input.focus(function () {
+                if (mapDiv.attr('src') != '') {
+                    mapDiv.parent().show();
+                    mapDiv.parent().position({ my: 'left center', at: 'right center', of: $input, offset: '10px 0' });
+                }
+            });
+
+            $input.blur(function () { mapDiv.parent().hide(); });
+
             var autocomplete = new google.maps.places.Autocomplete($input.get(0));
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
+
                 var place = autocomplete.getPlace();
+
                 $googReferenceField.val(place.reference);
                 $googIdField.val(place.id);
+                $googNameField.val($input.val());
 
-                var autosubmit = $input.attr('data-auto-submit') == 'true';
-                if (autosubmit) $input.closest('form').submit();
-            });
-
-            var mapId = $input.attr('data-map-id');
-            if (mapId) {
-                mapDiv = $('#' + mapId);
-
-                var center = new google.maps.LatLng(25, -30);
-                var map = new google.maps.Map(mapDiv.get(0), { mapTypeId: google.maps.MapTypeId.ROADMAP, center: center, zoom: 1 });
-                var marker = new google.maps.Marker({ map: map });
-                autocomplete.bindTo('bounds', map);
-
-                // var currLat = $('#latitude', superDialog).val();
-                // var currLng = $('#longitude', superDialog).val();
-                // var point = new google.maps.LatLng(currLat, currLng);
-                // var marker = new google.maps.Marker({ position: point, map: map });
-
-                google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                    var place = autocomplete.getPlace();
-                    if (place.geometry.viewport) {
-                        map.fitBounds(place.geometry.viewport);
-                    } else {
-                        map.setCenter(place.geometry.location);
-                        map.setZoom(16);
+                var autosubmit = $input.data('auto-submit') == 'true';
+                if (autosubmit) {
+                    $input.closest('form').submit();
+                } else {
+                    if (mapDiv) {
+                        var href = 'http://maps.googleapis.com/maps/api/staticmap?sensor=false';
+                        href += '&size=' + mapDiv.width() + 'x' + mapDiv.height();
+                        href += '&center=' + place.geometry.location.toUrlValue();
+                        href += '&markers=size:mid%7Ccolor:blue%7C' + place.geometry.location.toUrlValue();
+                        if (place.geometry.viewport) {
+                            href += '&visible=' + place.geometry.viewport.getSouthWest().toUrlValue() + '|' + place.geometry.viewport.getNorthEast().toUrlValue();
+                        } else {
+                            href += '&zoom=15';
+                        }
+                        mapDiv.attr('src', href);
+                        mapDiv.parent().show();
+                        mapDiv.parent().position({ my: 'left center', at: 'right center', of: $input, offset: '10px 0' });
                     }
-
-                    marker.setPosition(place.geometry.location);
-                });
-
-            }
+                }
+            });
         });
     };
-
 })(jQuery);
 
 function drawMap(container, mapData) {
@@ -328,43 +296,6 @@ function moveScroller() {
     a();
 }
 
-
-/**
-* Equal Heights Plugin
-* Equalize the heights of elements. Great for columns or any elements
-* that need to be the same size (floats, etc).
-* 
-* Version 1.0
-* Updated 12/10/2008
-*
-* Copyright (c) 2008 Rob Glazebrook (cssnewbie.com) 
-*
-* Usage: $(object).equalHeights([minHeight], [maxHeight]);
-* 
-* Example 1: $(".cols").equalHeights(); Sets all columns to the same height.
-* Example 2: $(".cols").equalHeights(400); Sets all cols to at least 400px tall.
-* Example 3: $(".cols").equalHeights(100,300); Cols are at least 100 but no more
-* than 300 pixels tall. Elements with too much content will gain a scrollbar.
-* 
-*/
-
-//(function ($) {
-//    $.fn.equalHeights = function (minHeight, maxHeight) {
-//        tallest = (minHeight) ? minHeight : 0;
-//        this.each(function () {
-//            if ($(this).height() > tallest) {
-//                tallest = $(this).height();
-//            }
-//        });
-//        if ((maxHeight) && tallest > maxHeight) tallest = maxHeight;
-//        return this.each(function () {
-//            $(this).height(tallest).css("overflow", "auto");
-//        });
-//    };
-//})(jQuery);
-
-/***********************************************************/
-
 function scrollToBottom($element) {
     if ($element) {
         $element.prop({ scrollTop: $element.prop('scrollHeight') });
@@ -375,27 +306,4 @@ log = function (a) {
     if (window['console'] && console['log']) {
         console.log(a);
     }
-};
-
-//(function($) {
-//    $.fn.MCValidate = function() {
-//        this.each(function() {
-//            $(this).submit(function(e) {
-//                var form = $(this);
-//                $('.validator', form).each(function(i, validator) {
-//                    var $validator = $(validator);
-//                    var notEmptyId = $validator.data('not-empty-id');
-//                    if (notEmptyId) {
-//                        var element = $('#' + notEmptyId);
-//                        if ($.trim(element.val()) == '') {
-//                            e.preventDefault();
-//                            $validator.show();
-//                        } else {
-//                            $validator.hide();
-//                        }
-//                    }
-//                });
-//            });
-//        });
-//    };
-//})(jQuery);
+}

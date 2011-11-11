@@ -26,8 +26,7 @@
             <h1>@hotel.Name</h1>
         </div>
         <div class="subtitle">
-            <div data-hotel-id="@hotel.Id" class="add-activity link" data-activity-type="hotel">
-                Add to Trip</div>
+            <a class="super-dialog-link link" href="/activities/create?type=hotel&hotelid=@hotel.Id" >+ Add to Trip</a>
         </div>
         <div class="panel-content">
             <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />

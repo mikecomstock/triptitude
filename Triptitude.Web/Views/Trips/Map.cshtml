@@ -5,7 +5,7 @@
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function () {
-            var tripId = $('#trip-map-container').attr('data-trip-id');
+            var tripId = $('#trip-map-container').data('trip-id');
             $.get('/maps/trip/' + tripId, function (mapData) {
                 drawMap($('#trip-map-container'), mapData);
             });

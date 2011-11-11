@@ -72,7 +72,7 @@ input[type="submit"], input[type="button"] {
   background-color: #0190E9;
   cursor: pointer; }
 
-.field-validation-error, .validator {
+.field-validation-error {
   display: block;
   padding: 5px;
   background-color: #E92553;
@@ -81,9 +81,6 @@ input[type="submit"], input[type="button"] {
   margin-bottom: 11px;
   font-size: 12px;
   line-height: 20px; }
-
-.validator {
-  display: none; }
 
 /* Panel Form Defaults */
 .panel form label {
@@ -707,62 +704,45 @@ input[type="submit"], input[type="button"] {
 #note-dialog form {
   padding-top: 10px; }
 
+#super-dialog form .place-map {
+  height: 130px;
+  width: 170px; }
+#super-dialog form .place-map-container {
+  height: 130px;
+  width: 170px;
+  background-color: #EEE;
+  border: 5px solid #666;
+  position: relative;
+  position: absolute;
+  display: none; }
+#super-dialog form .place-map-container:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-right: 13px solid #666;
+  position: absolute;
+  left: -13px;
+  top: 52px; }
+
 #place-dialog {
-  width: 600px; }
+  width: 420px; }
   #place-dialog input[type="text"] {
-    width: 200px; }
-  #place-dialog .place-map-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 280px;
-    border: 10px solid #EEE;
-    border-width: 0 10px; }
-  #place-dialog .place-map {
-    height: 170px;
-    background-color: #EEE;
-    border: 1px solid #CCC; }
+    width: 300px; }
+  #place-dialog p.place {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333; }
 
 #transportation-dialog {
-  width: 600px; }
-
-#transportation-dialog .stops {
-  zoom: 1; }
-  #transportation-dialog .stops:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #transportation-dialog .stops:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-
-#transportation-dialog .stops p {
-  float: left; }
-
-#transportation-dialog .stops p + p {
-  border-left: 5px dotted #999; }
-
-#transportation-dialog .stops label {
-  float: none; }
-
-#transportation-dialog .stops input {
-  float: none;
-  width: 260px; }
-
-#transportation-dialog .autocomplete-map {
-  height: 120px;
-  width: 260px;
-  padding: 2px;
-  display: block; }
+  width: 420px; }
+  #transportation-dialog input[type="text"] {
+    width: 300px; }
 
 #packing-item-dialog fieldset input {
   width: 250px;
   margin: 0; }
-
 #packing-item-dialog fieldset select {
   width: 250px;
   margin: 0; }
@@ -1054,7 +1034,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 #places-nearby .place-rows {
   list-style: none;
   margin: 10px 0 0 0;
-  padding: 0; }
+  padding: 0;
+  cursor: pointer; }
   #places-nearby .place-rows li {
     padding: 10px; }
     #places-nearby .place-rows li + li {

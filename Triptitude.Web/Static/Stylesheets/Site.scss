@@ -28,7 +28,6 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 
 .field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
-.validator { @extend .field-validation-error; display:none; }
 
 /* Panel Form Defaults */
 .panel form {
@@ -185,23 +184,29 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 #note-dialog form { padding-top: 10px; }
 
-#place-dialog {
-	width: 600px;
-	input[type="text"] { width: 200px; }
-	.place-map-container { position: absolute; top: 0; right: 0; width: 280px; border: 10px solid #EEE; border-width: 0 10px; }
-	.place-map { height: 170px; background-color: #EEE; border: 1px solid #CCC; }
+#super-dialog form {
+	.place-map { height: 130px; width: 170px; }
+	.place-map-container { height:130px; width: 170px; background-color: #EEE; border: 5px solid #666; position:relative; position:absolute; display:none; }
+	.place-map-container:before { content:""; width: 0; height: 0; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-right:13px solid #666; position:absolute; left:-13px;top:52px; }
+	
 }
 
-#transportation-dialog { width: 600px; }
-#transportation-dialog .stops { @include clearfix; }
-#transportation-dialog .stops p { float: left; }
-#transportation-dialog .stops p + p { border-left: 5px dotted #999; }
-#transportation-dialog .stops label { float: none; }
-#transportation-dialog .stops input { float: none; width: 260px; }
-#transportation-dialog .autocomplete-map { height: 120px; width: 260px; padding: 2px; display: block; }
+#place-dialog {
+	width: 420px;
+	input[type="text"] { width: 300px; }
+	p.place { font-weight:bold; font-size: 18px; color: #333 }
+}
 
-#packing-item-dialog fieldset input { width: 250px; margin: 0; }
-#packing-item-dialog fieldset select { width: 250px; margin: 0; }
+#transportation-dialog {
+	width: 420px;
+	input[type="text"] { width: 300px; }
+}
+
+#packing-item-dialog {
+	fieldset input { width: 250px; margin: 0; }
+	fieldset select { width: 250px; margin: 0; }
+}
+
 
 /* Create Trip Form */
 #create-trip-form input[type="text"] { width: 400px; font-size: 18px; }
@@ -304,7 +309,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 /* Places */
 #places-nearby {
 	.place-rows {
-		list-style: none; margin: 10px 0 0 0; padding: 0;
+		list-style: none; margin: 10px 0 0 0; padding: 0; cursor: pointer;
 		li {
 			padding: 10px;
 			+ li { border-top: 1px solid #DDD; }
