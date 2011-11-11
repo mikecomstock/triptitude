@@ -122,17 +122,25 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 
 /* Landing Page */
 #landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); @include border-radius(7px); padding-bottom: 40px; }
-#landing-page-panel { margin: 10px 20px; padding: 20px 0; }
-#landing-page-panel h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
-#landing-page-panel h2 { font-size: 22px; margin: 20px 0 20px 0; }
-#landing-page-panel h3 { font-size: 24px !important; color: #333; }
-#landing-page-panel > p { color: #333; font-size: 17px; line-height: 1.5; margin: -10px 0 0 0; }
-#landing-page-panel > ul { margin: 0; padding-left: 40px; }
-#landing-page-panel > ul li { font-size: 16px; margin: 10px 0; }
-#landing-page-panel #trips { margin: 50px auto; width: 800px; @include clearfix; background-color: rgba(243, 236, 183, 0.30); }
-#landing-page-panel #trips .panel-title { padding: 5px; }
-#landing-page-panel #trips .panel-title h2 { margin: 0; }
-#landing-page-panel .trip-row { float: left; width: 388px; border-top: 1px dashed #CCCCCC; }
+#landing-page-panel {
+	margin: 10px 20px; padding: 20px 0;
+	h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
+	h2 { font-size: 22px; margin: 20px 0 20px 0; }
+	h3 { font-size: 24px !important; color: #333; }
+	> p { color: #333; font-size: 17px; line-height: 1.5; margin: -10px 0 0 0; }
+	> ul {
+		margin: 0; padding-left: 40px;
+		li { font-size: 16px; margin: 10px 0; }
+	}
+	#trips {
+		margin: 50px auto; width: 800px; @include clearfix; background-color: rgba(243, 236, 183, 0.30);
+		.panel-title {
+			padding: 5px;
+			h2 { margin: 0; }
+		}
+	}
+	.trip-row { float: left; width: 388px; border-top: 1px dashed #CCCCCC; }
+}
 
 /* Footer */
 #footer { width: 955px; height: 100px; }
@@ -150,46 +158,39 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 #dialog-menu li { cursor: pointer; margin: 0; padding: 4px 6px; color: #FFF; background-color: #0190E9; margin: 10px 0 10px 10px; float: left; display: block; text-align: center; width: 50px; }
 #dialog-menu li.selected-page { text-decoration: underline; }
 
-#super-dialog-container { position: relative; }
-#super-dialog { display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; @include border-radius(10px); @include box-shadow(0px 0px 20px rgba(0, 0, 0, 1)); }
 #super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; @include opacity(80); display: none; }
-
-#super-dialog .dialog-page { display: none; position: relative; }
-#super-dialog .dialog-page.selected-page { display: block; }
-#super-dialog .title { background-color: #E9BA26; padding: 10px; font-size: 24px; border-bottom: 1px solid #CCC; }
-#super-dialog .arrow { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
-
-#super-dialog form { background-color: #EEE; position: relative; }
-#super-dialog form p { margin: 0; padding: 3px 10px; }
-#super-dialog form label { display: block; float: left; width: 80px; line-height: 22px; white-space: nowrap; }
-#super-dialog fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }
-#super-dialog fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
-#super-dialog fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
-
-#super-dialog .buttons {
-	padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; @include clearfix;
-	input { float: right; margin: 0 2px; }
-	.delete { float: left; background-color: #E92553; }
-	.saved { color: #FFF; background-color: #01B747; font-size: 14px; padding: 5px; text-align: center; }
+#super-dialog-container { position: relative; }
+#super-dialog {
+	display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; @include border-radius(10px); @include box-shadow(0px 0px 20px rgba(0, 0, 0, 1));
+	.dialog-page { display: none; position: relative; }
+	.dialog-page.selected-page { display: block; }
+	.title { background-color: #E9BA26; padding: 10px; font-size: 24px; border-bottom: 1px solid #CCC; }
+	form { background-color: #EEE; position: relative; }
+	p { margin: 0; padding: 3px 10px; }
+	label { display: block; float: left; width: 80px; line-height: 22px; white-space: nowrap; }
+	fieldset { margin: 0; padding: 0; padding-top: 5px; border: none; }
+	fieldset > span { background: #E9BA26; font-size: 16px; padding: 5px 10px; margin-left: -20px; margin-bottom: 5px; position: relative; display: block; width: 50px; }
+	fieldset > span:after { content: ""; width: 0; height: 0; position: absolute; left: 0; bottom: -10px; border-top: 10px solid #B08B11; border-left: 10px solid transparent; }
+	.buttons {
+		padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; @include clearfix;
+		input { float: right; margin: 0 2px; }
+		.delete { float: left; background-color: #E92553; }
+		.saved { color: #FFF; background-color: #01B747; font-size: 14px; padding: 5px; text-align: center; }
+	}	
+	/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
+	.note-text { width: 100%; @include border-box; }
+	.notes { margin: 10px; padding-right: 10px; max-height: 250px; overflow-y: auto; border-top: 1px dashed #CCC; padding-top:6px; }
+	.place-map { height: 130px; width: 170px; }
+	.place-map-container { height:130px; width: 170px; background-color: #EEE; border: 5px solid #666; position:relative; position:absolute; display:none; }
+	.place-map-container:before { content:""; width: 0; height: 0; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-right:13px solid #666; position:absolute; left:-13px;top:52px; }
 }
-
-
-/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
-#super-dialog .note-text { width: 100%; @include border-box; }
-#super-dialog .notes { margin: 10px; padding-right: 10px; max-height: 250px; overflow-y: auto; border-top: 1px dashed #CCC; padding-top:6px; }
+#super-dialog:after { content:""; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
 
 .note { font-size: 12px; }
 .note + .note { margin-top: 6px; }
 .note:before { content: "note:"; color: #999; }
 
 #note-dialog form { padding-top: 10px; }
-
-#super-dialog form {
-	.place-map { height: 130px; width: 170px; }
-	.place-map-container { height:130px; width: 170px; background-color: #EEE; border: 5px solid #666; position:relative; position:absolute; display:none; }
-	.place-map-container:before { content:""; width: 0; height: 0; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-right:13px solid #666; position:absolute; left:-13px;top:52px; }
-	
-}
 
 #place-dialog {
 	width: 420px;

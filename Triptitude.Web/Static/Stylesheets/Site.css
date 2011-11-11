@@ -442,61 +442,51 @@ input[type="submit"], input[type="button"] {
 #landing-page-panel {
   margin: 10px 20px;
   padding: 20px 0; }
-
-#landing-page-panel h1 {
-  font-size: 40px;
-  margin: 0 0 30px 0;
-  color: #0190E9; }
-
-#landing-page-panel h2 {
-  font-size: 22px;
-  margin: 20px 0 20px 0; }
-
-#landing-page-panel h3 {
-  font-size: 24px !important;
-  color: #333; }
-
-#landing-page-panel > p {
-  color: #333;
-  font-size: 17px;
-  line-height: 1.5;
-  margin: -10px 0 0 0; }
-
-#landing-page-panel > ul {
-  margin: 0;
-  padding-left: 40px; }
-
-#landing-page-panel > ul li {
-  font-size: 16px;
-  margin: 10px 0; }
-
-#landing-page-panel #trips {
-  margin: 50px auto;
-  width: 800px;
-  zoom: 1;
-  background-color: rgba(243, 236, 183, 0.3); }
-  #landing-page-panel #trips:before {
-    display: table;
-    content: "";
+  #landing-page-panel h1 {
+    font-size: 40px;
+    margin: 0 0 30px 0;
+    color: #0190E9; }
+  #landing-page-panel h2 {
+    font-size: 22px;
+    margin: 20px 0 20px 0; }
+  #landing-page-panel h3 {
+    font-size: 24px !important;
+    color: #333; }
+  #landing-page-panel > p {
+    color: #333;
+    font-size: 17px;
+    line-height: 1.5;
+    margin: -10px 0 0 0; }
+  #landing-page-panel > ul {
+    margin: 0;
+    padding-left: 40px; }
+    #landing-page-panel > ul li {
+      font-size: 16px;
+      margin: 10px 0; }
+  #landing-page-panel #trips {
+    margin: 50px auto;
+    width: 800px;
     zoom: 1;
-    *display: inline; }
-  #landing-page-panel #trips:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-
-#landing-page-panel #trips .panel-title {
-  padding: 5px; }
-
-#landing-page-panel #trips .panel-title h2 {
-  margin: 0; }
-
-#landing-page-panel .trip-row {
-  float: left;
-  width: 388px;
-  border-top: 1px dashed #CCCCCC; }
+    background-color: rgba(243, 236, 183, 0.3); }
+    #landing-page-panel #trips:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #landing-page-panel #trips:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #landing-page-panel #trips .panel-title {
+      padding: 5px; }
+      #landing-page-panel #trips .panel-title h2 {
+        margin: 0; }
+  #landing-page-panel .trip-row {
+    float: left;
+    width: 388px;
+    border-top: 1px dashed #CCCCCC; }
 
 /* Footer */
 #footer {
@@ -548,6 +538,20 @@ input[type="submit"], input[type="button"] {
 #dialog-menu li.selected-page {
   text-decoration: underline; }
 
+#super-dialog-overlay {
+  background: #FFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  /*filter: e(%("alpha(opacity=%d)", @opacity));*/
+  -khtml-opacity: 0.8;
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  display: none; }
+
 #super-dialog-container {
   position: relative; }
 
@@ -564,36 +568,119 @@ input[type="submit"], input[type="button"] {
   border-radius: 10px;
   -webkit-box-shadow: 0px 0px 20px black;
   -moz-box-shadow: 0px 0px 20px black;
-  box-shadow: 0px 0px 20px black; }
+  box-shadow: 0px 0px 20px black;
+  /* Some Note styles apply to notes dialog AND notes sections of other dialogs. */ }
+  #super-dialog .dialog-page {
+    display: none;
+    position: relative; }
+  #super-dialog .dialog-page.selected-page {
+    display: block; }
+  #super-dialog .title {
+    background-color: #E9BA26;
+    padding: 10px;
+    font-size: 24px;
+    border-bottom: 1px solid #CCC; }
+  #super-dialog form {
+    background-color: #EEE;
+    position: relative; }
+  #super-dialog p {
+    margin: 0;
+    padding: 3px 10px; }
+  #super-dialog label {
+    display: block;
+    float: left;
+    width: 80px;
+    line-height: 22px;
+    white-space: nowrap; }
+  #super-dialog fieldset {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    border: none; }
+  #super-dialog fieldset > span {
+    background: #E9BA26;
+    font-size: 16px;
+    padding: 5px 10px;
+    margin-left: -20px;
+    margin-bottom: 5px;
+    position: relative;
+    display: block;
+    width: 50px; }
+  #super-dialog fieldset > span:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    border-top: 10px solid #B08B11;
+    border-left: 10px solid transparent; }
+  #super-dialog .buttons {
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #CCC;
+    zoom: 1; }
+    #super-dialog .buttons:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #super-dialog .buttons:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #super-dialog .buttons input {
+      float: right;
+      margin: 0 2px; }
+    #super-dialog .buttons .delete {
+      float: left;
+      background-color: #E92553; }
+    #super-dialog .buttons .saved {
+      color: #FFF;
+      background-color: #01B747;
+      font-size: 14px;
+      padding: 5px;
+      text-align: center; }
+  #super-dialog .note-text {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /* Firefox */
+    -webkit-box-sizing: border-box;
+    /* Safari */ }
+  #super-dialog .notes {
+    margin: 10px;
+    padding-right: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    border-top: 1px dashed #CCC;
+    padding-top: 6px; }
+  #super-dialog .place-map {
+    height: 130px;
+    width: 170px; }
+  #super-dialog .place-map-container {
+    height: 130px;
+    width: 170px;
+    background-color: #EEE;
+    border: 5px solid #666;
+    position: relative;
+    position: absolute;
+    display: none; }
+  #super-dialog .place-map-container:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid #666;
+    position: absolute;
+    left: -13px;
+    top: 52px; }
 
-#super-dialog-overlay {
-  background: #FFF;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2;
-  /*filter: e(%("alpha(opacity=%d)", @opacity));*/
-  -khtml-opacity: 0.8;
-  -moz-opacity: 0.8;
-  opacity: 0.8;
-  display: none; }
-
-#super-dialog .dialog-page {
-  display: none;
-  position: relative; }
-
-#super-dialog .dialog-page.selected-page {
-  display: block; }
-
-#super-dialog .title {
-  background-color: #E9BA26;
-  padding: 10px;
-  font-size: 24px;
-  border-bottom: 1px solid #CCC; }
-
-#super-dialog .arrow {
+#super-dialog:after {
+  content: "";
   width: 0;
   height: 0;
   border-left: 30px solid transparent;
@@ -603,93 +690,6 @@ input[type="submit"], input[type="button"] {
   position: absolute;
   right: 55px;
   top: -20px; }
-
-#super-dialog form {
-  background-color: #EEE;
-  position: relative; }
-
-#super-dialog form p {
-  margin: 0;
-  padding: 3px 10px; }
-
-#super-dialog form label {
-  display: block;
-  float: left;
-  width: 80px;
-  line-height: 22px;
-  white-space: nowrap; }
-
-#super-dialog fieldset {
-  margin: 0;
-  padding: 0;
-  padding-top: 5px;
-  border: none; }
-
-#super-dialog fieldset > span {
-  background: #E9BA26;
-  font-size: 16px;
-  padding: 5px 10px;
-  margin-left: -20px;
-  margin-bottom: 5px;
-  position: relative;
-  display: block;
-  width: 50px; }
-
-#super-dialog fieldset > span:after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  border-top: 10px solid #B08B11;
-  border-left: 10px solid transparent; }
-
-#super-dialog .buttons {
-  padding: 10px;
-  margin-top: 10px;
-  border-top: 1px solid #CCC;
-  zoom: 1; }
-  #super-dialog .buttons:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #super-dialog .buttons:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  #super-dialog .buttons input {
-    float: right;
-    margin: 0 2px; }
-  #super-dialog .buttons .delete {
-    float: left;
-    background-color: #E92553; }
-  #super-dialog .buttons .saved {
-    color: #FFF;
-    background-color: #01B747;
-    font-size: 14px;
-    padding: 5px;
-    text-align: center; }
-
-/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */
-#super-dialog .note-text {
-  width: 100%;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  /* Firefox */
-  -webkit-box-sizing: border-box;
-  /* Safari */ }
-
-#super-dialog .notes {
-  margin: 10px;
-  padding-right: 10px;
-  max-height: 250px;
-  overflow-y: auto;
-  border-top: 1px dashed #CCC;
-  padding-top: 6px; }
 
 .note {
   font-size: 12px; }
@@ -703,28 +703,6 @@ input[type="submit"], input[type="button"] {
 
 #note-dialog form {
   padding-top: 10px; }
-
-#super-dialog form .place-map {
-  height: 130px;
-  width: 170px; }
-#super-dialog form .place-map-container {
-  height: 130px;
-  width: 170px;
-  background-color: #EEE;
-  border: 5px solid #666;
-  position: relative;
-  position: absolute;
-  display: none; }
-#super-dialog form .place-map-container:before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 13px solid transparent;
-  border-bottom: 13px solid transparent;
-  border-right: 13px solid #666;
-  position: absolute;
-  left: -13px;
-  top: 52px; }
 
 #place-dialog {
   width: 420px; }

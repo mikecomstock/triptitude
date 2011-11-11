@@ -85,7 +85,7 @@ $(function () {
 function OpenSuperDialog(url, place) {
     $.get(url, function (result) {
         $('#trip-bar-menu li').children('ul').hide();
-        superDialog.find('.content').html(result);
+        superDialog.html(result);
         superDialog.show();
         superDialogOverlay.show();
         superDialog.find('.focus').focus();
@@ -158,7 +158,7 @@ function CloseSuperDialog() {
         superDialog.data('changes', false);
         superDialog.hide();
         superDialogOverlay.hide();
-        superDialog.find('.content').empty();
+        superDialog.empty();
     }
 }
 
