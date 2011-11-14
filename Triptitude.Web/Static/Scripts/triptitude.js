@@ -56,7 +56,7 @@ $(function () {
         OpenSuperDialog(url);
     });
 
-    $('.packing-list-item.owned').click(function () {
+    $('.packing-list-item.owned').click(function (e) {
         if (e.target == this) {
             var id = $(this).data('id');
             OpenSuperDialog('/packing/edit/' + id);
@@ -83,14 +83,14 @@ $(function () {
 });
 
 function OpenSuperDialog(url, place) {
-    $.get(url, function (result) {
+    $.get(url, function(result) {
         $('#trip-bar-menu li').children('ul').hide();
         superDialog.html(result);
         superDialog.show();
         superDialogOverlay.show();
         superDialog.find('.focus').focus();
         superDialog.find('input.day-input').attr('autocomplete', 'off');
-        superDialog.find('.cancel').click(function (e) { e.preventDefault(); CloseSuperDialog(); });
+        superDialog.find('.cancel').click(function(e) { e.preventDefault(); CloseSuperDialog(); });
         superDialog.find('.place-autocomplete').googAutocomplete();
 
         scrollToBottom(superDialog.find('.notes'));
@@ -103,7 +103,7 @@ function OpenSuperDialog(url, place) {
             $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
         }
 
-        superDialog.find('#dialog-menu li').click(function (e) {
+        superDialog.find('#dialog-menu li').click(function(e) {
             var dataPageName = $(this).data('page');
             var currentPage = $('li, .dialog-page');
             currentPage.removeClass('selected-page');
@@ -113,35 +113,52 @@ function OpenSuperDialog(url, place) {
             scrollToBottom($('.notes', superDialog));
         });
 
-        superDialog.find('#note-dialog select').change(function () {
+        superDialog.find('#note-dialog select').change(function() {
             var select = $(this);
             var activityId = select.val();
             OpenSuperDialog('/activities/edit/' + activityId + '?selectedtab=notes');
         });
 
-        superDialog.find('form').submit(function (e) {
+        superDialog.find('form').submit(function(e) {
             e.preventDefault();
             var form = $(this);
-            var formData = form.serialize();
-            var formAction = form.prop('action');
 
-            $.post(formAction, formData)
-                .success(function (response) {
-                    superDialog.data('changes', true);
-                    if (response.replace) {
-                        superDialog.html(response.replace);
-                    } else {
-                        var onPlanningPage = $('#trips-details, #trips-packinglist').size() > 0;
-                        if (onPlanningPage) {
-                            location.reload();
-                        } else if (response.redirect) {
-                            window.location.href = response.redirect;
+            var requiredFields = form.find('.required');
+            requiredFields.each(function() {
+                var field = $(this);
+                if (field.val().length == 0) {
+                    field.parent().addClass('invalid');
+                } else {
+                    field.parent().removeClass('invalid');
+                }
+            });
+
+            var invalidFields = form.find('.invalid');
+
+            if (invalidFields.size() > 0) {
+                var firstField = invalidFields.first().find('input[type="text"]');
+                firstField.focus();
+            } else {
+                var formData = form.serialize();
+                var formAction = form.prop('action');
+                $.post(formAction, formData)
+                    .success(function(response) {
+                        superDialog.data('changes', true);
+                        if (response.replace) {
+                            superDialog.html(response.replace);
                         } else {
-                            $('.buttons').html('<div class="saved">Saved!</div>');
-                            setTimeout(function () { CloseSuperDialog(); }, 1000);
+                            var onPlanningPage = $('#trips-details, #trips-packinglist').size() > 0;
+                            if (onPlanningPage) {
+                                location.reload();
+                            } else if (response.redirect) {
+                                window.location.href = response.redirect;
+                            } else {
+                                $('.buttons').html('<div class="saved">Saved!</div>');
+                                setTimeout(function() { CloseSuperDialog(); }, 1000);
+                            }
                         }
-                    }
-                });
+                    });
+            }
         });
     });
 }
@@ -184,13 +201,17 @@ function CloseSuperDialog() {
             });
 
             $input.focus(function () {
-                if (mapDiv.attr('src') != '') {
+                if (mapDiv && mapDiv.attr('src') != '') {
                     mapDiv.parent().show();
                     mapDiv.parent().position({ my: 'left center', at: 'right center', of: $input, offset: '10px 0' });
                 }
             });
 
-            $input.blur(function () { mapDiv.parent().hide(); });
+            $input.blur(function () {
+                if(mapDiv) {
+                    mapDiv.parent().hide();
+                }
+            });
 
             var autocomplete = new google.maps.places.Autocomplete($input.get(0));
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -201,7 +222,7 @@ function CloseSuperDialog() {
                 $googIdField.val(place.id);
                 $googNameField.val($input.val());
 
-                var autosubmit = $input.data('auto-submit') == 'true';
+                var autosubmit = $input.data('auto-submit');
                 if (autosubmit) {
                     $input.closest('form').submit();
                 } else {

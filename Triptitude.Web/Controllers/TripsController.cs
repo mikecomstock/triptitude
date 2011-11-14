@@ -84,8 +84,8 @@ namespace Triptitude.Web.Controllers
 
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
             ViewBag.PackingListItems = packingListItems;
-            var activities = packingListItems.Select(pli => pli.Activity).Distinct().Where(a => a != null);//.OrderBy(a => a.BeginDay);
-            ViewBag.Activities = activities;
+            var places = packingListItems.Select(pli => pli.Place).Distinct().Where(p => p != null);
+            ViewBag.Places = places;
             return View();
         }
 

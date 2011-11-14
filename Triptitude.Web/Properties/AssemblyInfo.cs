@@ -34,4 +34,4 @@ using System.Runtime.InteropServices;
 
 // See: http://stackoverflow.com/questions/1126880/how-can-i-auto-increment-the-c-sharp-assembly-version-via-our-ci-platform-hudso
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.*")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

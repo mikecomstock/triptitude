@@ -270,7 +270,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual ItemTag ItemTag { get; set; }
         public virtual Trip Trip { get; set; }
-        public virtual Activity Activity { get; set; }
+        public virtual Place Place { get; set; }
         public string Note { get; set; }
         public int Visibility_Id { get; set; }
         public string TagString { get; set; }

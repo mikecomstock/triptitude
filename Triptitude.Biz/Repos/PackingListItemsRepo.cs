@@ -63,9 +63,16 @@ namespace Triptitude.Biz.Repos
             packingListItem.Visibility_Id = form.Visibility_Id;
             packingListItem.TagString = form.TagString;
 
-            // Must read .Activity so that we can set it to null, because Entity Framework is stupid.
-            Activity currentActivity = packingListItem.Activity;
-            packingListItem.Activity = form.ActivityId != null ? packingListItem.Trip.Activities.First(a => a.Id == form.ActivityId.Value) : null;
+            if (string.IsNullOrWhiteSpace(form.GoogReference))
+            {
+                var tmp = packingListItem.Place; // Because Entity Framework is stupid...
+                packingListItem.Place = null;
+            }
+            else
+            {
+                var placesRepo = new PlacesRepo();
+                packingListItem.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
+            }
 
             var item = new ItemRepo().FindOrInitialize(form.Name);
             Tag tag = null;
@@ -93,7 +100,9 @@ namespace Triptitude.Biz.Repos
                                         Note = packingListItem.Note,
                                         Visibility_Id = packingListItem.Visibility_Id,
                                         TripId = packingListItem.Trip.Id,
-                                        ActivityId = packingListItem.Activity == null ? (int?)null : packingListItem.Activity.Id,
+                                        GoogId = packingListItem.Place == null ? null : packingListItem.Place.GoogId,
+                                        GoogReference = packingListItem.Place == null ? null : packingListItem.Place.GoogReference,
+                                        GoogName = packingListItem.Place == null ? null : packingListItem.Place.Name,
                                         PackingItemId = packingListItem.Id,
                                         TagString = packingListItem.TagString
                                     };

@@ -26,8 +26,8 @@ textarea { font-size: 14px; }
 input[type="text"] { font-size: 14px; }
 input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 
-
-.field-validation-error { display: block; padding: 5px; background-color: #E92553; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
+$invalid-color: #E92553;
+.field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
 /* Panel Form Defaults */
 .panel form {
@@ -183,6 +183,7 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 	.place-map { height: 130px; width: 170px; }
 	.place-map-container { height:130px; width: 170px; background-color: #EEE; border: 5px solid #666; position:relative; position:absolute; display:none; }
 	.place-map-container:before { content:""; width: 0; height: 0; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-right:13px solid #666; position:absolute; left:-13px;top:52px; }
+	select[name="visibility_id"] { width: 100px; }
 }
 #super-dialog:after { content:""; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
 
@@ -196,16 +197,32 @@ input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; bord
 	width: 420px;
 	input[type="text"] { width: 300px; }
 	p.place { font-weight:bold; font-size: 18px; color: #333 }
+	.invalid label { color: $invalid-color !important; }
 }
 
 #transportation-dialog {
 	width: 420px;
 	input[type="text"] { width: 300px; }
+	.invalid label { color: $invalid-color !important; }
 }
 
 #packing-item-dialog {
 	fieldset input { width: 250px; margin: 0; }
 	fieldset select { width: 250px; margin: 0; }
+	fieldset.sentence {
+		padding: 20px 0; font-weight: bold;
+		input:focus { outline: none; }
+		input { background: transparent; border: none; border-bottom: 2px dotted #999; font-size: 1.5em; color: #0190E9; text-align: center; }
+		input[name="name"] { width: 240px; }
+		input[name="tagstring"] { width: 170px; }
+	}
+	fieldset.inline {
+		#note { width: 450px; }
+		@include clearfix;
+		p { float: left; }
+		p * { float: left; }
+	}
+	.invalid input { border-bottom-color: $invalid-color !important; }
 }
 
 
@@ -297,15 +314,17 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 }
 
 /* Packing List */
-.packing-list-tag-group { margin-left: 20px; }
-.packing-list-tag-group + .packing-list-tag-group { margin-top: 10px; }
 .packing-list-items { list-style: none; padding: 0; margin: 0; }
-.packing-list-item { padding: 5px 0 5px 20px; @include clearfix; }
-.packing-list-item.owned:hover { background-color: #EEE; cursor: pointer; }
-.packing-list-item + .packing-list-item { border-top: 1px solid #DDD; }
-.packing-list-item .name { float: left; }
-.packing-list-item.visibility-private .name:after { content: "(private)"; color: #AAA; }
-.packing-list-item .packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
+.packing-list-item {
+	padding: 5px 0 5px 20px; @include clearfix; background-color: #F6F6F6;
+	.name { float: left; }
+	.packing-list-item-tag { float: right; }
+	.packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
+	+ .packing-list-item { border-top: 1px solid #DDD; }
+	&.owned:hover { background-color: #EEE; cursor: pointer; }
+	&.visibility-private .name:after { content: "(private)"; color: #AAA; }
+}
+.packing-list-place h2 { text-transform: none; }
 
 /* Places */
 #places-nearby {

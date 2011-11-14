@@ -9,39 +9,29 @@
     <form action="@ViewBag.Action" method="post">
     @Html.Hidden("tripid", form.TripId)
     @Html.Hidden("packingitemid", form.PackingItemId)
-    <fieldset>
-        <span>What</span>
+    <fieldset class="sentence">
         <p>
-            <label for="name">
-                Name</label>
-            @Html.TextBox("name", form.Name, new { @class = "focus" })
+            I need to bring <span>
+                @Html.TextBox("name", form.Name, new { @class = "focus required", placeholder = "item (required)" })
+            </span>for <span>
+                @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "activity (optional)" })
+            </span>at <span class="place-map-container">
+                <img src="" alt="" class="place-map" id="place-map" />
+            </span>
+            <input type="text" name="place" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.GoogName" placeholder="place (optional)" />
+            <input type="hidden" name="googreference" value="@form.GoogReference" />
+            <input type="hidden" name="googid" value="@form.GoogId" />
+            <input type="hidden" name="googname" value="@form.GoogName" />
         </p>
     </fieldset>
-    <fieldset>
-        <span>Why</span>
-        <p style="height: 22px;">
-            <label for="tagstring">
-                Category</label>
-            @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: clothing, documents, hiking" })
-        </p>
-        <p>
-            <label for="activityid">
-                Activity</label>
-            @Html.SelectActivity(trip, selectedValue: form.ActivityId.ToString())
-        </p>
-    </fieldset>
-    <fieldset>
-        <span>Note</span>
+    <fieldset class="inline">
         <p>
             <label for="note">
                 Note</label>
             @Html.TextBox("note", form.Note)
         </p>
-    </fieldset>
-    <fieldset>
-        <span>Visibility</span>
         <p>
-            <label for="visibility">
+            <label for="visibility_id">
                 Visibility</label>
             @Html.VisibilityDropDownList(form.Visibility_Id)
         </p>

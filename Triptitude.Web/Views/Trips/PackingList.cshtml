@@ -1,10 +1,11 @@
 ﻿@{
-    var trip = (Trip)ViewBag.Trip;
-    var packingListItems = (IEnumerable<PackingListItem>)ViewBag.PackingListItems;
-    var activities = (IEnumerable<Activity>)ViewBag.Activities;
+    Trip trip = ViewBag.Trip;
+    IEnumerable<PackingListItem> packingListItems = ViewBag.PackingListItems;
+    IEnumerable<PackingListItem> packingListItemsNoPlace = packingListItems.Where(pli => pli.Place == null);
+    IEnumerable<Place> places = ViewBag.Places;
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
-    User currentUser = (User)ViewBag.CurrentUser;
+    User currentUser = ViewBag.CurrentUser;
 }
 @Html.Action("SidePanel", "Trips", new { Trip = trip })
 <div id="main-container">
@@ -23,28 +24,30 @@
         <div class="panel-content">
             @if (packingListItems.Any())
             {
-                if (activities.Any())
+                if (packingListItemsNoPlace.Any())
                 {
-                    foreach (var activity in activities)
+                <div class="packing-list-place">
+                    @if (places.Any())
                     {
-                        var plis = packingListItems.Where(pli => pli.Activity == activity);
-                <div>
-                    <h2>@activity.NiceName</h2>
-                    @ByTag(plis)
+                        <h2>
+                            General Items</h2>
+                    }
+                    @ItemList(packingListItemsNoPlace)
+                </div>
+                }
+
+                if (places.Any())
+                {
+                    foreach (var place in places)
+                    {
+                <div class="packing-list-place">
+                    <h2>
+                        <a href="@Url.Details(place)">@place.Name</a>
+                    </h2>
+                    @ItemList(packingListItems.Where(pli => pli.Place == place))
                 </div>
                     }
                 }
-
-                var plisNoActivity = packingListItems.Where(pli => pli.Activity == null);
-                if (plisNoActivity.Any())
-                {
-                <div>
-                    <h2>
-                        Other Activities</h2>
-                    @ByTag(plisNoActivity)
-                </div>
-                }
-
             }
             else
             {
@@ -55,32 +58,10 @@
         </div>
     </div>
 </div>
-@helper ByTag(IEnumerable<PackingListItem> plis)
-    {
-        var tags = plis.Select(pli => pli.ItemTag.Tag).Where(t => t != null).Distinct().ToList().OrderBy(t => t.NiceName);
-        foreach (var tag in tags)
-        {
-    <div class="packing-list-tag-group">
-        <h3 title="@tag.Name">
-            <a href="@Url.Details(tag)">@tag.NiceName</a></h3>
-        @ItemList(plis.Where(pli => pli.ItemTag.Tag == tag))
-    </div>
-        }
-
-        var uncategorized = plis.Where(pli => pli.ItemTag.Tag == null);
-        if (uncategorized.Any())
-        {
-    <div class="packing-list-tag-group">
-        <h3 title="uncategorized items">
-            Uncategorized</h3>
-        @ItemList(uncategorized)
-    </div>
-        }    
-}
 @helper ItemList(IEnumerable<PackingListItem> plis)
     {
     <ul class="packing-list-items">
-        @foreach (PackingListItem pli in plis)
+        @foreach (PackingListItem pli in plis.OrderBy(pli => pli.ItemTag.Item.Name))
         {
             <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id">
                 <div class="name">
@@ -89,6 +70,10 @@
                 @if (!string.IsNullOrEmpty(pli.Note))
                 {
                     <div class="packing-list-item-note">@pli.Note</div>
+                }
+                @if (pli.ItemTag != null && pli.ItemTag.Tag != null)
+                {
+                    <a href="@Url.Details(pli.ItemTag.Tag)" class="packing-list-item-tag">@pli.ItemTag.Tag.NiceName</a>
                 }
             </li>         
         }

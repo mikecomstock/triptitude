@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 
@@ -148,6 +149,11 @@ namespace Triptitude.Biz.Repos
             else
             {
                 activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
+            }
+
+            if (activity.Place == null && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))
+            {
+                Delete(activity);
             }
 
             Save();
