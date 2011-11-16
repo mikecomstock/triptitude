@@ -226,7 +226,7 @@ namespace Triptitude.Biz.Models
         // Needed to make Html.ListBoxFor work in the admin section.
         public override string ToString() { return Id.ToString(); }
 
-        public string NiceName { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name.Replace('-', ' ')); } }
+        public string NiceName { get { return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Name); } }
 
         public IEnumerable<Trip> PublicTrips
         {

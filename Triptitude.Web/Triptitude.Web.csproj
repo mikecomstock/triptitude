@@ -99,7 +99,6 @@
     <Compile Include="Areas\Admin\Controllers\AdminTagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminTripsController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelsController.cs" />
