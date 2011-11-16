@@ -1,6 +1,6 @@
 ﻿var superDialog;
 
-$(function() {
+$(function () {
 
     moveScroller();
     $('input').placeholder();
@@ -8,22 +8,22 @@ $(function() {
     $('.date-picker').datepicker();
     $('.place-autocomplete').googAutocomplete();
 
-    $('#search').submit(function(e) {
+    $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
         if (val == '') e.preventDefault();
     });
 
     $('#trip-bar-menu li').hover(
-        function() { $(this).children('ul').show(); },
-        function() { $(this).children('ul').hide(); }
+        function () { $(this).children('ul').show(); },
+        function () { $(this).children('ul').hide(); }
     );
 
     superDialog = $('#super-dialog');
     superDialogOverlay = $('#super-dialog-overlay');
-    superDialogOverlay.click(function() { CloseSuperDialog(); });
-    $('*').live('keyup', function(e) { if (e.which == 27) { CloseSuperDialog(); } });
+    superDialogOverlay.click(function () { CloseSuperDialog(); });
+    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
-    $('.confirm-delete').live('click', function(e) {
+    $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
             var data_url = $(this).data('url');
@@ -33,47 +33,49 @@ $(function() {
         }
     });
 
-    $('.trip-row-map-link').click(function() {
+    $('.trip-row-map-link').click(function () {
         var tripId = $(this).data('trip-id');
         var name = $(this).data('trip-name');
 
         var container = $(document.createElement('div'));
         container.dialog({
-                title: name,
-                width: 540,
-                height: 400,
-                resizable: false
-            });
+            title: name,
+            width: 540,
+            height: 400,
+            resizable: false
+        });
 
-        $.get('/maps/trip/' + tripId, function(mapData) {
+        $.get('/maps/trip/' + tripId, function (mapData) {
             drawMap(container, mapData);
         });
     });
 
-    $('.super-dialog-link').live('click', function(e) {
+    $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
         OpenSuperDialog(url);
     });
 
-    $('.packing-list-item.owned').click(function(e) {
-        if (e.target == this) {
+    $('.packing-list-item.owned').click(function (e) {
+        if (!$(e.target).is('a')) {
             var id = $(this).data('id');
             OpenSuperDialog('/packing/edit/' + id);
         }
     });
 
-    $('.trip-day .activity.owned').click(function(e) {
-        var activityId = $(this).data('activity-id');
-        OpenSuperDialog('/activities/edit/' + activityId);
+    $('.trip-day .activity.owned').click(function (e) {
+        if (!$(e.target).is('a')) {
+            var activityId = $(this).data('activity-id');
+            OpenSuperDialog('/activities/edit/' + activityId);
+        }
     });
 
-    $('.add-to-trip').live('click', function(e) {
+    $('.add-to-trip').live('click', function (e) {
         e.preventDefault();
         var link = $(this);
         var type = link.data('type');
         if (type == 'packing-list-item') {
-            OpenSuperDialog('/packing/create', function() {
+            OpenSuperDialog('/packing/create', function () {
                 superDialog.find('input[name="name"]').val(link.data('name'));
                 superDialog.find('input[name="tagstring"]').val(link.data('tag'));
             });
@@ -86,7 +88,7 @@ $(function() {
                     name: $(this).data('name')
                 };
             }
-            OpenSuperDialog('/activities/create?type=place', function() {
+            OpenSuperDialog('/activities/create?type=place', function () {
                 var placeInputParagraph = superDialog.find('[name="name"]').parent();
                 placeInputParagraph.find('input[name="googid"]').val(place.id);
                 placeInputParagraph.find('input[name="googreference"]').val(place.reference);
@@ -98,21 +100,21 @@ $(function() {
 });
 
 function OpenSuperDialog(url, callback) {
-    $.get(url, function(result) {
+    $.get(url, function (result) {
         $('#trip-bar-menu li').children('ul').hide();
         superDialog.html(result);
         superDialog.show();
         superDialogOverlay.show();
         superDialog.find('.focus').focus();
         superDialog.find('input.day-input').attr('autocomplete', 'off');
-        superDialog.find('.cancel').click(function(e) { e.preventDefault(); CloseSuperDialog(); });
+        superDialog.find('.cancel').click(function (e) { e.preventDefault(); CloseSuperDialog(); });
         superDialog.find('.place-autocomplete').googAutocomplete();
 
         scrollToBottom(superDialog.find('.notes'));
-        
-        if(callback) callback();
 
-        superDialog.find('#dialog-menu li').click(function(e) {
+        if (callback) callback();
+
+        superDialog.find('#dialog-menu li').click(function (e) {
             var dataPageName = $(this).data('page');
             var currentPage = $('li, .dialog-page');
             currentPage.removeClass('selected-page');
@@ -122,18 +124,18 @@ function OpenSuperDialog(url, callback) {
             scrollToBottom($('.notes', superDialog));
         });
 
-        superDialog.find('#note-dialog select').change(function() {
+        superDialog.find('#note-dialog select').change(function () {
             var select = $(this);
             var activityId = select.val();
             OpenSuperDialog('/activities/edit/' + activityId + '?selectedtab=notes');
         });
 
-        superDialog.find('form').submit(function(e) {
+        superDialog.find('form').submit(function (e) {
             e.preventDefault();
             var form = $(this);
 
             var requiredFields = form.find('.required');
-            requiredFields.each(function() {
+            requiredFields.each(function () {
                 var field = $(this);
                 if (field.val().length == 0) {
                     field.parent().addClass('invalid');
@@ -151,7 +153,7 @@ function OpenSuperDialog(url, callback) {
                 var formData = form.serialize();
                 var formAction = form.prop('action');
                 $.post(formAction, formData)
-                    .success(function(response) {
+                    .success(function (response) {
                         superDialog.data('changes', true);
                         if (response.replace) {
                             superDialog.html(response.replace);
@@ -163,7 +165,7 @@ function OpenSuperDialog(url, callback) {
                                 window.location.href = response.redirect;
                             } else {
                                 $('.buttons').html('<div class="saved">Saved!</div>');
-                                setTimeout(function() { CloseSuperDialog(); }, 1000);
+                                setTimeout(function () { CloseSuperDialog(); }, 1000);
                             }
                         }
                     });
@@ -217,7 +219,7 @@ function CloseSuperDialog() {
             });
 
             $input.blur(function () {
-                if(mapDiv) {
+                if (mapDiv) {
                     mapDiv.parent().hide();
                 }
             });

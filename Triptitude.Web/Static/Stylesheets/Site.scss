@@ -318,14 +318,17 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 .packing-list-item {
 	padding: 5px 0 5px 20px; @include clearfix; background-color: #F6F6F6;
 	.name { float: left; }
-	.add-to-trip { float:right; }
-	.packing-list-item-tag { float: right; }
+	.add-to-trip { float: right; }
 	.packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
+	.packing-list-item-place {
+		color: #999 !important;
+		a { color: #999; }
+	}
 	+ .packing-list-item { border-top: 1px solid #DDD; }
 	&.owned:hover { background-color: #EEE; cursor: pointer; }
 	&.visibility-private .name:after { content: "(private)"; color: #AAA; }
 }
-.packing-list-place h2 { text-transform: none; }
+.packing-list-tag h2 { text-transform: none; }
 
 /* Places */
 #places-nearby {

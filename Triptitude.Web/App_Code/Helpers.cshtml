@@ -38,7 +38,7 @@
     <ul class="tags">
         @foreach (Tag tag in tags)
         {
-            <li><a class="tag" href="@Url.Details(tag)">@tag.Name</a> </li>
+            <li><a class="tag" href="@Url.Details(tag)">@tag.NiceName</a> </li>
         }
     </ul>
         }
@@ -70,7 +70,7 @@
 }
 @helper SidePanel(UrlHelper url, Place place)
     {
-    <div id="side-container">
+    @*<div id="side-container">
         <a href="@url.Details(place)">Details</a> <a href="@url.Nearby(place)">Nearby</a>
-    </div>
+    </div>*@
 }

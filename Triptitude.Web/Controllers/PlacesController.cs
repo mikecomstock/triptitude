@@ -36,7 +36,6 @@ namespace Triptitude.Web.Controllers
         public ActionResult Details(int id, User currentUser)
         {
             var place = placesRepo.Find(id);
-            return Redirect(Url.Nearby(place));
             ViewBag.Place = place;
             ViewBag.CurrentUser = currentUser;
             return View();
@@ -45,6 +44,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Nearby(int id, User currentUser)
         {
             var place = placesRepo.Find(id);
+            return Redirect(Url.Nearby(place));
             ViewBag.Place = place;
             ViewBag.CurrentUser = currentUser;
             return View();

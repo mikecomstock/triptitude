@@ -1029,13 +1029,15 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
     float: left; }
   .packing-list-item .add-to-trip {
     float: right; }
-  .packing-list-item .packing-list-item-tag {
-    float: right; }
   .packing-list-item .packing-list-item-note {
     float: left;
     margin-left: 5px;
     background-color: #9FDAFE;
     padding: 0 3px; }
+  .packing-list-item .packing-list-item-place {
+    color: #999 !important; }
+    .packing-list-item .packing-list-item-place a {
+      color: #999; }
   .packing-list-item + .packing-list-item {
     border-top: 1px solid #DDD; }
   .packing-list-item.owned:hover {
@@ -1045,7 +1047,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
     content: "(private)";
     color: #AAA; }
 
-.packing-list-place h2 {
+.packing-list-tag h2 {
   text-transform: none; }
 
 /* Places */

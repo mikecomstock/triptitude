@@ -9,14 +9,13 @@ namespace Triptitude.Biz.Repos
     {
         public Tag FindOrInitializeByName(string name)
         {
-            name = Regex.Replace(name, "[^a-zA-Z0-9-\\s]+", "", RegexOptions.Compiled);
+            name = Regex.Replace(name, "[^a-zA-Z0-9-()\\s]+", "", RegexOptions.Compiled);
             name = Regex.Replace(name, "\\s+", " ", RegexOptions.Compiled);
-            name = name.Trim();
 
             if (string.IsNullOrWhiteSpace(name))
                 return null;
 
-            name = name.ToLower();
+            name = name.ToLower().Trim();
             Tag tag = FindAll().FirstOrDefault(t => t.Name == name);
 
             if (tag == null)

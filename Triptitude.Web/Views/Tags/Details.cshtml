@@ -17,7 +17,7 @@
                 Trips</h2>
             @if (tag.PublicTrips.Any())
             {
-                Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips });
+                Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips.OrderByDescending(t => t.Id).Take(5) });
             }
             else
             {
@@ -29,13 +29,11 @@
             @if (items.Any())
             {
                 <ul class="packing-list-items">
-                    @foreach (var item in items)
+                    @foreach (var item in items.Take(50))
                     {
-                        <li class="packing-list-item">
-                            <div class="name">
-                                @item.Name
-                            </div>
-                            <a class="add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name">+ Add to Trip</a> </li>
+                        <li class="packing-list-item"><span class="name">
+                            @item.Name
+                        </span><a class="add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name">+ Add to Trip</a> </li>
                     }
                 </ul>
             }
