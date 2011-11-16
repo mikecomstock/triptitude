@@ -1027,6 +1027,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
     clear: both; }
   .packing-list-item .name {
     float: left; }
+  .packing-list-item .add-to-trip {
+    float: right; }
   .packing-list-item .packing-list-item-tag {
     float: right; }
   .packing-list-item .packing-list-item-note {

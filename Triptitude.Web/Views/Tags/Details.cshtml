@@ -32,7 +32,10 @@
                     @foreach (var item in items)
                     {
                         <li class="packing-list-item">
-                            @item.Name</li>
+                            <div class="name">
+                                @item.Name
+                            </div>
+                            <a class="add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name">+ Add to Trip</a> </li>
                     }
                 </ul>
             }

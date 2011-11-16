@@ -318,6 +318,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 .packing-list-item {
 	padding: 5px 0 5px 20px; @include clearfix; background-color: #F6F6F6;
 	.name { float: left; }
+	.add-to-trip { float:right; }
 	.packing-list-item-tag { float: right; }
 	.packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
 	+ .packing-list-item { border-top: 1px solid #DDD; }
