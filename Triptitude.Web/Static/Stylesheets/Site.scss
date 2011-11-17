@@ -78,19 +78,29 @@ $invalid-color: #E92553;
 #email-warning a { color: #FFF; }
 
 #trip-bar-menu {
-	float: right; clear: both; z-index: 6; position: relative;
-	a, .link { color: #66C3FE; padding: 5px 20px; margin: 0; display: block; }
-	a:hover, .link:hover { text-decoration: none !important; }
-	a span { color: #BBB; font-weight: normal; display: block; padding: 5px 15px 15px 15px; font-size: 14px; white-space: nowrap; }
-	a span strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
-	li:hover { background-color: #333; }
-	li li:hover { background-color: #444; }
-	> ul { margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; @include clearfix; }
-	> ul > li { float: left; }
-	> ul > li + li { border-left: 3px solid #FFF; }
-	> ul ul { display: none; position: absolute; right: 0; list-style: none; font-size: 14px; padding: 10px; background-color: inherit; z-index: 2; }
-	> ul ul a { padding: 15px 10px 0 15px !important; }
-	> ul ul li + li { border-top: 1px solid #555; }
+	float: right; z-index: 6; position: relative; margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; @include clearfix;
+	.link { cursor: default; }
+	a, .link {
+		color: #66C3FE; padding: 5px 20px; margin: 0; display: block;
+		&:hover { text-decoration: none !important; }
+		span {
+			color: #BBB; font-weight: normal; display: block; padding: 10px 5px 10px 15px; font-size: 14px; white-space: nowrap;
+			strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
+		}
+	}
+	> li {
+		float: left; position: relative;
+		&:hover { background-color: #333; }
+		&+ li { border-left: 1px solid #FFF; }
+		ul {
+			display: none; position: absolute; right: 0; list-style: none; font-size: 14px; padding: 10px; background-color: #333; z-index: 2;
+			li {
+				&:hover { background-color: #444; }
+				&+li { border-top: 1px solid #555; }
+				a, .link { padding: 5px; cursor: pointer; }
+			}
+		}
+	}
 }
 
 /* Page Sections */

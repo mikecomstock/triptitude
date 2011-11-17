@@ -265,66 +265,68 @@ input[type="submit"], input[type="button"] {
 
 #trip-bar-menu {
   float: right;
-  clear: both;
   z-index: 6;
-  position: relative; }
+  position: relative;
+  margin: 5px 0;
+  padding: 0;
+  list-style: none;
+  font-size: 20px;
+  font-weight: bold;
+  zoom: 1; }
+  #trip-bar-menu:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #trip-bar-menu:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #trip-bar-menu .link {
+    cursor: default; }
   #trip-bar-menu a, #trip-bar-menu .link {
     color: #66C3FE;
     padding: 5px 20px;
     margin: 0;
     display: block; }
-  #trip-bar-menu a:hover, #trip-bar-menu .link:hover {
-    text-decoration: none !important; }
-  #trip-bar-menu a span {
-    color: #BBB;
-    font-weight: normal;
-    display: block;
-    padding: 5px 15px 15px 15px;
-    font-size: 14px;
-    white-space: nowrap; }
-  #trip-bar-menu a span strong {
-    color: #FFF;
-    font-weight: normal;
-    letter-spacing: 1.5px; }
-  #trip-bar-menu li:hover {
-    background-color: #333; }
-  #trip-bar-menu li li:hover {
-    background-color: #444; }
-  #trip-bar-menu > ul {
-    margin: 5px 0;
-    padding: 0;
-    list-style: none;
-    font-size: 20px;
-    font-weight: bold;
-    zoom: 1; }
-    #trip-bar-menu > ul:before {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline; }
-    #trip-bar-menu > ul:after {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline;
-      clear: both; }
-  #trip-bar-menu > ul > li {
-    float: left; }
-  #trip-bar-menu > ul > li + li {
-    border-left: 3px solid #FFF; }
-  #trip-bar-menu > ul ul {
-    display: none;
-    position: absolute;
-    right: 0;
-    list-style: none;
-    font-size: 14px;
-    padding: 10px;
-    background-color: inherit;
-    z-index: 2; }
-  #trip-bar-menu > ul ul a {
-    padding: 15px 10px 0 15px !important; }
-  #trip-bar-menu > ul ul li + li {
-    border-top: 1px solid #555; }
+    #trip-bar-menu a:hover, #trip-bar-menu .link:hover {
+      text-decoration: none !important; }
+    #trip-bar-menu a span, #trip-bar-menu .link span {
+      color: #BBB;
+      font-weight: normal;
+      display: block;
+      padding: 10px 5px 10px 15px;
+      font-size: 14px;
+      white-space: nowrap; }
+      #trip-bar-menu a span strong, #trip-bar-menu .link span strong {
+        color: #FFF;
+        font-weight: normal;
+        letter-spacing: 1.5px; }
+  #trip-bar-menu > li {
+    float: left;
+    position: relative; }
+    #trip-bar-menu > li:hover {
+      background-color: #333; }
+    #trip-bar-menu > li + li {
+      border-left: 1px solid #FFF; }
+    #trip-bar-menu > li ul {
+      display: none;
+      position: absolute;
+      right: 0;
+      list-style: none;
+      font-size: 14px;
+      padding: 10px;
+      background-color: #333;
+      z-index: 2; }
+      #trip-bar-menu > li ul li:hover {
+        background-color: #444; }
+      #trip-bar-menu > li ul li + li {
+        border-top: 1px solid #555; }
+      #trip-bar-menu > li ul li a, #trip-bar-menu > li ul li .link {
+        padding: 5px;
+        cursor: pointer; }
 
 /* Page Sections */
 #content {
