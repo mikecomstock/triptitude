@@ -20,6 +20,7 @@ td { vertical-align: top; padding: 0; }
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 30px !important; }
 .ui-autocomplete { z-index: 10 !important; }
+.toggler { cursor: pointer; }
 
 /* Form Defaults */
 textarea { font-size: 14px; }
@@ -90,6 +91,10 @@ $invalid-color: #E92553;
 	}
 	> li {
 		float: left; position: relative;
+		> .link {
+			padding-right: 10px;
+			&:after { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-left:5px; position: relative; top:16px; }
+		}
 		&:hover { background-color: #333; }
 		&+ li { border-left: 1px solid #FFF; }
 		ul {
@@ -126,6 +131,10 @@ $invalid-color: #E92553;
 
 .panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
 .panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
+
+.panel-suggestions {
+	.title { background-color: #0190E9; color: #FFF; padding: 10px; }
+}
 
 .panel-content { padding: 10px; }
 .panel-content.not-padded { padding: 0 !important; }
@@ -259,7 +268,7 @@ $invalid-color: #E92553;
 #my-trips {
 	.none-found { padding:15px; }
 	.my-trip-rows {
-		list-style: none; padding: 0; margin: 0;
+		list-style: none; padding: 0; margin: 0; @include clearfix;
 		li {
 			display: block;
 			a { display: block; padding: 15px; font-size: 16px; }
@@ -324,13 +333,26 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 }
 
 /* Packing List */
-.packing-list-items { list-style: none; padding: 0; margin: 0; }
+.packing-list-items {
+	list-style: none; padding: 0; margin: 0;
+	&.suggestions {
+		li {
+			cursor: pointer; background-color: transparent;
+			&:hover { background-color: #EEE; }
+		}
+	}
+}
+.panel-suggestions {
+	.packing-list-items {
+		width: 95%; margin: 0 auto; border-top: none; @include transparent-background(#66C3FE,0.2);
+	}
+}
 .packing-list-item {
 	padding: 5px 0 5px 20px; @include clearfix; background-color: #F6F6F6;
 	.name { float: left; }
 	.add-to-trip { float: right; }
 	.packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
-	.packing-list-item-place {
+	.packing-list-item-place, .packing-list-item-tag {
 		color: #999 !important;
 		a { color: #999; }
 	}

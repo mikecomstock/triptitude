@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Triptitude.Biz.Forms;
@@ -31,6 +32,20 @@ namespace Triptitude.Biz.Repos
                 Add(itemTag);
             }
             return itemTag;
+        }
+
+        public IQueryable<ItemTag> MostPopular(int take, Tag tag = null)
+        {
+            var possibilities = FindAll();
+
+            if (tag != null)
+                possibilities = possibilities.Where(it => it.Tag.Id == tag.Id);
+
+            var itemTags = (from it in possibilities
+                            orderby it.PackingListItems.Count() descending, it.Item.Name
+                            where it.ShowInSite
+                            select it).Take(take);
+            return itemTags;
         }
     }
 

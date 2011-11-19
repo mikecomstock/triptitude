@@ -18,11 +18,7 @@ namespace Triptitude.Web.Controllers
             Tag tag = repo.Find(id);
             ViewBag.Tag = tag;
 
-            ViewBag.Items = (from it in tag.ItemTags
-                             orderby it.PackingListItems.Count() descending, it.Item.Name
-                             where it.ShowInSite && it.PackingListItems.Count() > 0
-                             select it.Item).Take(20).ToList();
-
+            ViewBag.Items = new ItemTagRepo().MostPopular(20, tag).Select(it => it.Item).ToList();
             return View();
         }
     }

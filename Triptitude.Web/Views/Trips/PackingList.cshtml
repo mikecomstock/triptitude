@@ -2,11 +2,21 @@
     Trip trip = ViewBag.Trip;
     IEnumerable<PackingListItem> packingListItems = ViewBag.PackingListItems;
     IEnumerable<PackingListItem> packingListItemsNoTag = packingListItems.Where(pli => pli.ItemTag.Tag == null);
-    //IEnumerable<Place> places = ViewBag.Places;
     IEnumerable<Tag> tags = ViewBag.Tags;
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
     User currentUser = ViewBag.CurrentUser;
+    IEnumerable<ItemTag> suggestions = ViewBag.Suggestions;
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.toggler').click(function () {
+                var selectorToToggle = $(this).data('selector-to-toggle');
+                $(selectorToToggle).toggle();
+            });
+        })
+    </script>
 }
 @Html.Action("SidePanel", "Trips", new { Trip = trip })
 <div id="main-container">
@@ -20,6 +30,25 @@
         {
             <div class="subtitle">
                 Use the <strong>+Add Plans</strong> menu to add items to your packing list.
+            </div>
+        }
+        @if (suggestions.Any() && ViewBag.UserOwnsTrip)
+        {
+            <div class="panel-suggestions">
+                <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
+                    + Popular Items</div>
+                <ul class="packing-list-items suggestions">
+                    @foreach (ItemTag itemTag in suggestions)
+                    {
+                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)"><span class="name">
+                            @itemTag.Item.Name
+                            @if (itemTag.Tag != null)
+                            {
+                                <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
+                            }
+                        </span></li>
+                    }
+                </ul>
             </div>
         }
         <div class="panel-content">
@@ -64,14 +93,13 @@
     <ul class="packing-list-items">
         @foreach (PackingListItem pli in plis.OrderBy(pli => pli.ItemTag.Item.Name))
         {
-            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id">
-                <span class="name">
-                    @pli.ItemTag.Item.Name
-                    @if (pli.Place != null)
-                    {
-                        <span class="packing-list-item-place" >for <a href="@Url.Details(pli.Place)">@pli.Place.Name</a> </span>
-                    }
-                </span>
+            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id"><span class="name">
+                @pli.ItemTag.Item.Name
+                @if (pli.Place != null)
+                {
+                    <span class="packing-list-item-place">for <a href="@Url.Details(pli.Place)">@pli.Place.Name</a> </span>
+                }
+            </span>
                 @if (!string.IsNullOrEmpty(pli.Note))
                 {
                     <div class="packing-list-item-note">@pli.Note</div>
