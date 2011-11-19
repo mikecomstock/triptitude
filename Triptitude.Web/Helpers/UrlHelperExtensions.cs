@@ -34,7 +34,9 @@ namespace Triptitude.Web.Helpers
         public static string Static(this UrlHelper url, string path)
         {
             if (path[0] == '/') throw new ArgumentException("Argument should not begin with a slash.", "path");
-            return Path.Combine(string.Format("/v{0}/static/", version), path);
+            string staticRoot = ConfigurationManager.AppSettings["StaticRoot"];
+            var result = Path.Combine(staticRoot, string.Format("v{0}/static/", version), path);
+            return result;
         }
 
         #endregion
