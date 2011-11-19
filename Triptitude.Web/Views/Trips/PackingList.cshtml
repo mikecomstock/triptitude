@@ -32,7 +32,7 @@
                 Use the <strong>+Add Plans</strong> menu to add items to your packing list.
             </div>
         }
-        @if (suggestions.Any() && ViewBag.UserOwnsTrip)
+        @if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
         {
             <div class="panel-suggestions">
                 <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
