@@ -16,6 +16,7 @@ td { vertical-align: top; padding: 0; }
 	#content {
 		background-color: #FFF; padding: 10px; @include border-box;
 		tr:nth-child(odd) { background-color: #EEE; }
+		tr:hover { background-color: #BBB; }
 		h2 { margin: 10px 0; }
 	}
 }

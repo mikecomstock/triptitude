@@ -1,0 +1,97 @@
+﻿@using Triptitude.Biz.Models;
+@using System.Web.Helpers;
+@using System.Web.Mvc;
+@using Triptitude.Web.Helpers;
+@helper TagTable(UrlHelper Url, IEnumerable<Tag> tags)
+    {
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                # Activities
+            </th>
+            <th>
+                # Items
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (Tag tag in tags)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Admin("tags", "edit", new { tag.Id })">@tag.Name</a>
+                </td>
+                <td>
+                    @tag.Activities.Count()
+                </td>
+                <td>
+                    @tag.ItemTags.Count()
+                </td>
+                <td>
+                    <a href="@Url.Admin("tags", "delete", new { tag.Id })" class="confirm-delete">delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+@helper CreateTag(UrlHelper Url)
+    {
+    <form action="@Url.Admin("tags", "create")">
+    <label for="tagname">
+        Tag Name</label>
+    <input type="text" name="tagname" id="tagname" />
+    <input type="submit" value="Create" />
+    </form>
+}
+@helper ItemTagTable(UrlHelper Url, IEnumerable<ItemTag> itemTags)
+    {
+    <table>
+        <tr>
+            <th>
+                Item
+            </th>
+            <th>
+                Tag
+            </th>
+            <th>
+                Moderated
+            </th>
+            <th>
+                Show In Site
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var itemTag in itemTags)
+        {
+            <tr>
+                <td>@itemTag.Item.Name
+                </td>
+                <td>@(itemTag.Tag == null ? "[no tag]" : itemTag.Tag.Name)
+                </td>
+                <td>@itemTag.ModeratedOnUTC
+                </td>
+                <td>@itemTag.ShowInSite
+                </td>
+                <td style="text-align: right;">
+                    <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = true })">show</a> / <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = false })">hide</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+@helper CreateItemTag(UrlHelper Url, string tagName = null, string itemNameClass = "focus")
+    {
+    <form action="@Url.Admin("itemtags", "create")">
+    <label for="itemname">
+        Item</label>
+    <input type="text" name="itemname" id="itemname" class="@itemNameClass" />
+    <label for="tagname">
+        Tag</label>
+    <input type="text" name="tagname" id="tagname" value="@tagName" />
+    <input type="submit" value="Submit" />
+    </form>
+}

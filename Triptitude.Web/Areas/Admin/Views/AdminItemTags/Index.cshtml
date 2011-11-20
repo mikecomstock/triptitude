@@ -6,56 +6,10 @@
     Item Tags</h1>
 <h2>
     Create</h2>
-<form action="@Url.Admin("itemtags", "create")">
-<input type="hidden" name="take" value="@take"/>
-<label for="itemname">
-    Item</label>
-<input type="text" name="itemname" id="itemname" class="focus" />
-<label for="tagname">
-    Tag</label>
-<input type="text" name="tagname" id="tagname" value="@ViewBag.TagName" />
-<input type="submit" value="Submit" />
-</form>
+@AdminHelpers.CreateItemTag(Url)
 <h2>
     Not Moderated</h2>
-@ItemTagTable(itemTags.Where(it => !it.ModeratedOnUTC.HasValue).OrderBy(it => it.Id), take)
+@AdminHelpers.ItemTagTable(Url, itemTags.Where(it => !it.ModeratedOnUTC.HasValue).OrderBy(it => it.Id).Take(take))
 <h2>
     Recently Moderated</h2>
-@ItemTagTable(itemTags.Where(it => it.ModeratedOnUTC.HasValue).OrderByDescending(it => it.ModeratedOnUTC), take)
-@helper ItemTagTable(IEnumerable<ItemTag> itemTags, int take)
-    {
-    <table>
-        <tr>
-            <th>
-                Item
-            </th>
-            <th>
-                Tag
-            </th>
-            <th>
-                Moderated
-            </th>
-            <th>
-                Show In Site
-            </th>
-            <th>
-            </th>
-        </tr>
-        @foreach (var itemTag in itemTags.Take(take))
-        {
-            <tr>
-                <td>@itemTag.Item.Name
-                </td>
-                <td>@(itemTag.Tag == null ? "[no tag]" : itemTag.Tag.Name)
-                </td>
-                <td>@itemTag.ModeratedOnUTC
-                </td>
-                <td>@itemTag.ShowInSite
-                </td>
-                <td style="text-align: right;">
-                    <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = true, take })">show</a> / <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = false, take })">hide</a>
-                </td>
-            </tr>
-        }
-    </table>
-}
+@AdminHelpers.ItemTagTable(Url, itemTags.Where(it => it.ModeratedOnUTC.HasValue).OrderByDescending(it => it.ModeratedOnUTC).Take(take))

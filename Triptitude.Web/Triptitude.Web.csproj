@@ -260,9 +260,6 @@
     <Content Include="Areas\Admin\Views\AdminTags\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\AdminTags\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\Admin\Views\AdminTags\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -279,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\AdminItemTags\Index.cshtml" />
+    <Content Include="App_Code\AdminHelpers.cshtml" />
     <None Include="Static\Stylesheets\Mixins.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Mixins.css</LastGenOutput>

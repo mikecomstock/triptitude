@@ -1,7 +1,6 @@
 using System;
 using System.Web.Mvc;
 using Triptitude.Biz.Repos;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
 {
@@ -22,7 +21,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Create(string itemName, string tagName, int take = 10)
+        public ActionResult Create(string itemName, string tagName)
         {
             var item = new ItemRepo().FindOrInitialize(itemName);
             var tag = new TagsRepo().FindOrInitializeByName(tagName);
@@ -30,17 +29,18 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             itemTag.ShowInSite = true;
             itemTag.ModeratedOnUTC = DateTime.UtcNow;
             itemTagRepo.Save();
-            return Redirect(Url.Admin("itemtags", "index", new { take }));
+
+            return Redirect(Request.UrlReferrer.AbsolutePath);
         }
 
-        public ActionResult Moderate(int id, bool show, int take = 10)
+        public ActionResult Moderate(int id, bool show)
         {
             var itemTag = itemTagRepo.Find(id);
             itemTag.ModeratedOnUTC = DateTime.UtcNow;
             itemTag.ShowInSite = show;
             itemTagRepo.Save();
 
-            return Redirect(Url.Admin("itemtags", "index", new { take }));
+            return Redirect(Request.UrlReferrer.AbsolutePath);
         }
     }
 }
