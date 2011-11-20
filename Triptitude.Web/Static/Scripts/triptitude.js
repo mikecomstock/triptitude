@@ -338,4 +338,124 @@ log = function (a) {
     if (window['console'] && console['log']) {
         console.log(a);
     }
-}
+};
+
+var T = {};
+
+T.NearbyPlaces = function () {
+
+    var map;
+    var searchService;
+    var infowindow;
+    var placeList = $('.place-rows');
+
+    function initialize() {
+        var m = $('#map');
+        var lat = m.data('lat');
+        var lng = m.data('lng');
+        var centerOn = new google.maps.LatLng(lat, lng);
+
+        map = new google.maps.Map(document.getElementById('map'), {
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            center: centerOn,
+            zoom: 14
+        });
+        google.maps.event.addListener(map, 'idle', function () { doSearch(); });
+
+        searchService = new google.maps.places.PlacesService(map);
+
+        infowindow = new google.maps.InfoWindow({ zIndex: 10000 });
+        google.maps.event.addListener(infowindow, 'closeclick', function () { clearActive(); });
+    }
+
+    function doSearch() {
+        var options = { bounds: map.getBounds() };
+        searchService.search(options, function (results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                placeList.find('li:not(.active)').each(function (i, li) {
+                    var $li = $(li);
+                    var place = $li.data('place');
+                    place.marker.setMap(null);
+                    $li.remove();
+                });
+
+                var activePlace = placeList.find('li.active').data('place');
+                $.each(results, function (i, place) {
+                    // Can't compare objects here, use IDs instead.
+                    if (activePlace == null || place.id != activePlace.id) {
+                        createMarker(place);
+                        createListItem(place);
+                    }
+                });
+            }
+        });
+    }
+
+    function createMarker(place) {
+        var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
+        google.maps.event.addListener(marker, 'click', function () { setActive(place); });
+        place.marker = marker;
+    }
+
+    function createListItem(place) {
+        var li = $(document.createElement('li')).appendTo('.place-rows')
+            .click(function (e) { if (e.target == this) { setActive(place); } })
+            .data('place', place);
+        place.li = li;
+        $('<a class="title" rel="nofollow"></a>')
+            .text(place.name)
+            .data('place', place)
+            .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
+            .appendTo(li);
+        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
+    }
+
+    function getInfoWindowContent(place) {
+        var content = $(document.createElement('div')).addClass('info-window');
+        $('<a class="title" rel="nofollow"></a>')
+            .text(place.name)
+            .data('place', place)
+            .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
+            .appendTo(content);
+        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
+        return content;
+    }
+
+    function setActive(place) {
+        clearActive();
+        placeList.find('li.active').removeClass('active');
+        place.li.addClass('active');
+
+        var infoWindowContent = getInfoWindowContent(place);
+        infowindow.setContent(infoWindowContent[0]);
+        infowindow.open(map, place.marker);
+    }
+
+    function clearActive() {
+        infowindow.close();
+        placeList.find('.active').removeClass('active');
+    }
+
+    var mapPinning = function () {
+        var b = $(window).scrollTop() + 90;
+        var sa = $("#mapanchor");
+        var d = sa.offset().top;
+        var c = $("#map");
+        c.width(c.width()); // fixes an overlay issue
+        if (b > d) {
+            var height = c.outerHeight(true);
+            sa.css({ height: height + "px" });
+            c.addClass('at-top');
+        } else {
+            if (b <= d) {
+                c.removeClass('at-top');
+                sa.css({ height: "0" });
+            }
+        }
+    };
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    $(window).scroll(mapPinning);
+    mapPinning();
+};
