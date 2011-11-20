@@ -12,10 +12,14 @@ table { width: 100%; }
 td { vertical-align: top; padding: 0; }
 
 /* Admin */
-.admin #content { background-color: #FFF; padding: 10px; }
-.admin #content tr:nth-child(odd) { background-color: #EEE; }
-.admin h2 { margin: 10px 0; }
-
+.admin-area {
+	#content {
+		background-color: #FFF; padding: 10px; @include border-box;
+		tr:nth-child(odd) { background-color: #EEE; }
+		h2 { margin: 10px 0; }
+	}
+}
+	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 30px !important; }

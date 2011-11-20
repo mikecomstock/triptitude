@@ -218,6 +218,7 @@ namespace Triptitude.Biz.Models
     public class Tag
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public virtual ICollection<AmazonItem> AmazonItems { get; set; }
         public virtual ICollection<ItemTag> ItemTags { get; set; }
@@ -241,6 +242,7 @@ namespace Triptitude.Biz.Models
     public class Item
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public bool ShowInAutocomplete { get; set; }
         public virtual ICollection<ItemTag> ItemTags { get; set; }

@@ -3,7 +3,7 @@
     Trip trip = ViewBag.Trip;
 }
 <h1>@ViewBag.Trip.Name</h1>
-<form action="@Url.Admin("trips", "edit", trip.Id)" method="post">
+<form action="@Url.Admin("trips", "edit", new { trip.Id })" method="post">
 @Html.Editor("trip", ViewData)
 <input type="submit" value="Save" />
 </form>

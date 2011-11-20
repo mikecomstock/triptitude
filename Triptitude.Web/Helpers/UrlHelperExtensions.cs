@@ -43,9 +43,9 @@ namespace Triptitude.Web.Helpers
 
         #region Admin
 
-        public static string Admin(this UrlHelper url, string controller = "home", string actionName = "index", object id = null)
+        public static string Admin(this UrlHelper url, string controller = "home", string actionName = "index", object routeValues = null)
         {
-            return url.Action(actionName, "admin" + controller, new { id }, null);
+            return url.Action(actionName, "admin" + controller, routeValues, null);
         }
 
         #endregion

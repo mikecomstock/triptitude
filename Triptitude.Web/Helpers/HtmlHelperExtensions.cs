@@ -71,7 +71,7 @@ namespace Triptitude.Web.Helpers
             return html.GroupDropList("activityid", options, selectedValue, htmlAttributes, "Select...");
         }
 
-        public static string RouteCss(this HtmlHelper html)
+        public static string RouteCssId(this HtmlHelper html)
         {
             List<string> tokens = new List<string>();
             if (html.ViewContext.RouteData.DataTokens["area"] != null)
@@ -79,6 +79,20 @@ namespace Triptitude.Web.Helpers
             tokens.Add(html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString().Replace("admin", string.Empty).ToLower());
             tokens.Add(html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString().ToLower());
             return String.Join("-", tokens);
+        }
+
+        public static string RouteCssClasses(this HtmlHelper html)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            //sb.AppendFormat("{0}-{1} ",
+            //    html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue,
+            //    html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue);
+
+            sb.AppendFormat(" {0}-area", html.ViewContext.RouteData.DataTokens["area"]);
+            sb.AppendFormat(" {0}-controller", html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue);
+            sb.AppendFormat(" {0}-action", html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue);
+            return sb.ToString().Trim().ToLower();
         }
 
         public static string RouteId(this HtmlHelper html)

@@ -34,7 +34,7 @@
                 @trip.Id
             </td>
             <td>
-                <a href="@Url.Admin("trips", "details", trip.Id)">@trip.Name</a>
+                <a href="@Url.Admin("trips", "details", new { trip.Id })">@trip.Name</a>
             </td>
             <td>
                 @trip.Created_On

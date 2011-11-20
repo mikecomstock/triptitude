@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminHomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminItemTagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminTagsController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminTripsController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
@@ -277,6 +278,7 @@
     <Content Include="Views\Packing\PackingItemDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Views\AdminItemTags\Index.cshtml" />
     <None Include="Static\Stylesheets\Mixins.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Mixins.css</LastGenOutput>

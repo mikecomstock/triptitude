@@ -11,7 +11,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
     {
         private readonly Db db = new Db();
 
-        public ViewResult Index()
+        public ActionResult Index()
         {
             return View(db.Tags.OrderBy(t => t.Name));
         }
