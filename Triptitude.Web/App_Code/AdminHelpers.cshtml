@@ -78,7 +78,11 @@
             <tr>
                 <td>@itemTag.Item.Name
                 </td>
-                <td>@(itemTag.Tag == null ? "[no tag]" : itemTag.Tag.Name)
+                <td>
+                    @if (itemTag.Tag != null)
+                    {
+                        <a href="@Url.Admin("tags", "edit", new { itemTag.Tag.Id })">@itemTag.Tag.Name</a>
+                    }
                 </td>
                 <td>@itemTag.PackingListItems.Count()
                 </td>
