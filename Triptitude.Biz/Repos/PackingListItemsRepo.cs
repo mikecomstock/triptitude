@@ -35,7 +35,7 @@ namespace Triptitude.Biz.Repos
 
         public IQueryable<ItemTag> MostPopular(int take, Tag tag = null)
         {
-            var possibilities = FindAll();
+            var possibilities = FindAll().Where(it => it.ShowInSearch);
 
             if (tag != null)
                 possibilities = possibilities.Where(it => it.Tag.Id == tag.Id);
