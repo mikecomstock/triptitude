@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/_Layout.cshtml";
+}
+<link href="@Url.Static("stylesheets/Admin.css")" rel="stylesheet" type="text/css" />
+<div>
+    <a href="@Url.Admin()">Home</a> | <a href="@Url.Admin("trips")">Trips</a> | <a href="@Url.Admin("tags")">Tags</a> | <a href="@Url.Admin("itemtags")">ItemTags</a>
+</div>
+@RenderBody()

@@ -136,6 +136,11 @@
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Static\Stylesheets\Admin.css">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Admin.scss</DependentUpon>
+    </Content>
     <Content Include="Static\Stylesheets\Mixins.css">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,7 +192,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Trips\Settings.cshtml" />
@@ -277,6 +281,12 @@
   <ItemGroup>
     <Content Include="Areas\Admin\Views\AdminItemTags\Index.cshtml" />
     <Content Include="App_Code\AdminHelpers.cshtml" />
+    <Content Include="Areas\Admin\Views\_AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <None Include="Static\Stylesheets\Admin.scss">
+      <Generator>ScssGenerator</Generator>
+      <LastGenOutput>Admin.css</LastGenOutput>
+    </None>
     <None Include="Static\Stylesheets\Mixins.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Mixins.css</LastGenOutput>

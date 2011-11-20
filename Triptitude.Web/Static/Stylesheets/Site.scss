@@ -10,16 +10,6 @@ a:focus { text-decoration: underline; outline: none; }
 img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
-
-/* Admin */
-.admin-area {
-	#content {
-		background-color: #FFF; padding: 10px; @include border-box;
-		tr:nth-child(odd) { background-color: #EEE; }
-		tr:hover { background-color: #BBB; }
-		h2 { margin: 10px 0; }
-	}
-}
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }

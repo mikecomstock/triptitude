@@ -35,22 +35,6 @@ td {
   vertical-align: top;
   padding: 0; }
 
-/* Admin */
-.admin-area #content {
-  background-color: #FFF;
-  padding: 10px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  /* Firefox */
-  -webkit-box-sizing: border-box;
-  /* Safari */ }
-  .admin-area #content tr:nth-child(odd) {
-    background-color: #EEE; }
-  .admin-area #content tr:hover {
-    background-color: #BBB; }
-  .admin-area #content h2 {
-    margin: 10px 0; }
-
 /* Utilities */
 .placeholder {
   font-weight: normal !important;

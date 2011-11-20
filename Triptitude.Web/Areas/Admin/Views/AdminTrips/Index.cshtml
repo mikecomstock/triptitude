@@ -1,13 +1,7 @@
-﻿@{
-    ViewBag.Title = "Admin Trips";
-}
-<h1>
-    Admin Trips</h1>
+﻿<h1>
+    Trips</h1>
 <table>
     <tr>
-        <th>
-            Id
-        </th>
         <th>
             Name
         </th>
@@ -15,13 +9,13 @@
             User
         </th>
         <th>
-            Created On
+            Created
         </th>
         <th>
             Moderated
         </th>
         <th>
-            Show In Site
+            Show In Site?
         </th>
         <th>
             Show In Sitemap
@@ -31,16 +25,13 @@
     {
         <tr>
             <td>
-                @trip.Id
-            </td>
-            <td>
                 <a href="@Url.Admin("trips", "details", new { trip.Id })">@trip.Name</a>
             </td>
             <td>
-                @trip.Created_On
+                @trip.User.Email
             </td>
             <td>
-                @trip.User.Email
+                @trip.Created_On
             </td>
             <td>
                 @trip.Moderated
