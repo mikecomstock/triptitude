@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -33,12 +34,11 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         public ActionResult Edit(int id, FormCollection form)
         {
             Trip trip = tripsRepo.Find(id);
-            trip.Moderated = form["trip.moderated"].Split(',')[0] == "true";
-            trip.ShowInSiteMap = form["trip.ShowInSiteMap"].Split(',')[0] == "true";
-            trip.ShowInSite = form["trip.ShowInSite"].Split(',')[0] == "true";
+            trip.ModeratedOnUTC = DateTime.UtcNow;
+            trip.ShowInSearch = form["trip.ShowInSearch"].Split(',')[0] == "true";
             tripsRepo.Save();
 
-            return Redirect(Url.Admin("trips", "index"));
+            return Redirect(Url.Admin("trips"));
         }
     }
 }

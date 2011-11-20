@@ -1,7 +1,7 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
     ViewBag.Title = trip.Name + " - Itinerary";
-    ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
+    ViewBag.ShowInSiteMap = @trip.ShowInSearch;
     User currentUser = ViewBag.CurrentUser;
 }
 @section Scripts {

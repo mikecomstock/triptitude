@@ -4,7 +4,7 @@
     IEnumerable<PackingListItem> packingListItemsNoTag = packingListItems.Where(pli => pli.ItemTag.Tag == null);
     IEnumerable<Tag> tags = ViewBag.Tags;
     ViewBag.Title = trip.Name + " - Packing List";
-    ViewBag.ShowInSiteMap = @trip.ShowInSiteMap;
+    ViewBag.ShowInSiteMap = @trip.ShowInSearch;
     User currentUser = ViewBag.CurrentUser;
     IEnumerable<ItemTag> suggestions = ViewBag.Suggestions;
 }

@@ -1,47 +1,65 @@
-﻿<h1>
+﻿@{
+    IEnumerable<Trip> trips = ViewBag.Trips;
+}
+<h1>
     Trips</h1>
-<table>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            User
-        </th>
-        <th>
-            Created
-        </th>
-        <th>
-            Moderated
-        </th>
-        <th>
-            Show In Site?
-        </th>
-        <th>
-            Show In Sitemap
-        </th>
-    </tr>
-    @foreach (Trip trip in ViewBag.Trips)
+<h2>
+    Not Moderated</h2>
+@TripTable(Url, trips.Where(t => !t.ModeratedOnUTC.HasValue).OrderBy(t => t.Id))
+<h2>
+    Recently Moderated</h2>
+@TripTable(Url, trips.Where(t => t.ModeratedOnUTC.HasValue).OrderByDescending(t => t.ModeratedOnUTC))
+@helper TripTable(UrlHelper Url, IEnumerable<Trip> trips)
     {
+    <table>
         <tr>
-            <td>
-                <a href="@Url.Admin("trips", "details", new { trip.Id })">@trip.Name</a>
-            </td>
-            <td>
-                @trip.User.Email
-            </td>
-            <td>
-                @trip.Created_On
-            </td>
-            <td>
-                @trip.Moderated
-            </td>
-            <td>
-                @trip.ShowInSite
-            </td>
-            <td>
-                @trip.ShowInSiteMap
-            </td>
+            <th>
+                Name
+            </th>
+            <th>
+                User
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Activities
+            </th>
+            <th>
+                List Items
+            </th>
+            <th>
+                Show In Search?
+            </th>
+            <th>
+                Moderated
+            </th>
         </tr>
-    }
-</table>
+        @foreach (Trip trip in trips)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Admin("trips", "details", new { trip.Id })">@trip.Name</a>
+                </td>
+                <td>
+                    @trip.User.Id|@trip.User.Email
+                </td>
+                <td>
+                    @trip.Created_On
+                </td>
+                <td>
+                    @trip.Activities.Count()
+                </td>
+                <td>
+                    @trip.PackingListItems.Count()
+                </td>
+                <td>
+                    @trip.ShowInSearch
+                </td>
+                <td>
+                    @trip.ModeratedOnUTC
+                </td>
+            </tr>
+        }
+    </table>   
+}

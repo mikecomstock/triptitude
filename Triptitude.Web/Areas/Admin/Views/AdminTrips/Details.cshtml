@@ -1,15 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Admin Trip Details";
     Trip trip = ViewBag.Trip;
 }
-<h1>@ViewBag.Trip.Name</h1>
+<h1>
+    <a href="@Url.Details(trip)">@trip.Name</a></h1>
 <form action="@Url.Admin("trips", "edit", new { trip.Id })" method="post">
-@Html.Editor("trip", ViewData)
+@Html.LabelFor(model => trip.ShowInSearch, "Show in Searches?")
+@Html.CheckBoxFor(model => trip.ShowInSearch)
 <input type="submit" value="Save" />
 </form>
 <h2>
     Itinerary</h2>
-@for (int i = 1; i <= ViewBag.Trip.TotalDays; i++)
-{
-    Html.RenderAction("daydetails", "trips", new { trip = (Trip)ViewBag.Trip, dayNumber = i, area = "" });
-}
+<div class="panel-content">
+    @for (int i = 1; i <= trip.TotalDays; i++)
+    {
+        Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i, area = "" });
+
+    }
+    @if (trip.Activities.Any(a => a.IsUnscheduled))
+    {
+        Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1, area = "" });
+    }
+</div>

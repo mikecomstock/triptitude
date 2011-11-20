@@ -56,9 +56,8 @@ namespace Triptitude.Biz.Models
         public virtual User User { get; set; }
         public DateTime Created_On { get; set; }
         public DateTime? BeginDate { get; set; }
-        public bool ShowInSiteMap { get; set; }
-        public bool Moderated { get; set; }
-        public bool ShowInSite { get; set; }
+        public bool ShowInSearch { get; set; }
+        public DateTime? ModeratedOnUTC { get; set; }
 
         public IEnumerable<User> Users { get { return new[] { User }; } }
         public virtual ICollection<Activity> Activities { get; set; }
@@ -237,7 +236,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                var trips = Activities.Select(a => a.Trip).Distinct().Where(t => t.ShowInSite);
+                var trips = Activities.Select(a => a.Trip).Distinct().Where(t => t.ShowInSearch);
                 return trips;
             }
         }
@@ -310,7 +309,7 @@ namespace Triptitude.Biz.Models
         public decimal ConsumerRating { get; set; }
         public virtual ICollection<HotelActivity> HotelActivities { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Where(t => t.ShowInSite).Distinct(); } }
+        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct(); } }
 
         public HotelPhoto Photo
         {
@@ -363,7 +362,7 @@ namespace Triptitude.Biz.Models
                 var placeActivityTrips = PlaceActivities.Select(pa => pa.Trip);
                 var fromTransportationActivityTrips = FromTransportationActivities.Select(pa => pa.Trip);
                 var toTransportationActivityTrips = ToTransportationActivities.Select(pa => pa.Trip);
-                return placeActivityTrips.Union(fromTransportationActivityTrips).Union(toTransportationActivityTrips).Distinct().Where(t => t.ShowInSite);
+                return placeActivityTrips.Union(fromTransportationActivityTrips).Union(toTransportationActivityTrips).Distinct().Where(t => t.ShowInSearch);
             }
         }
 
