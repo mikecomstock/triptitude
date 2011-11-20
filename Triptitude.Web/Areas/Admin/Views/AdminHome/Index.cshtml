@@ -1,11 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Admin Index";
+    IEnumerable<Trip> trips = ViewBag.Trips;
+    IEnumerable<Tag> tags = ViewBag.Tags;
+    IEnumerable<ItemTag> itemTags = ViewBag.ItemTags;
 }
 <h1>
     Admin Home</h1>
-<h2>
-    <a href="@Url.Admin("trips")">Trips</a></h2>
-<h2>
-    <a href="@Url.Admin("tags")">Tags</a></h2>
-<h2>
-    <a href="@Url.Admin("itemtags")">ItemTags</a></h2>
+<div>
+    <h2>
+        <a href="@Url.Admin("trips")">Trips</a></h2>
+    @trips.Where(t => !t.ModeratedOnUTC.HasValue).Count() Unmoderated |
+    @trips.Where(t => t.ModeratedOnUTC.HasValue).Count() Moderated
+</div>
+<div>
+    <h2>
+        <a href="@Url.Admin("tags")">Tags</a></h2>
+    @tags.Where(t => !t.ModeratedOnUTC.HasValue).Count() Unmoderated |
+    @tags.Where(t => t.ModeratedOnUTC.HasValue).Count() Moderated
+</div>
+<div>
+    <h2>
+        <a href="@Url.Admin("itemtags")">ItemTags</a></h2>
+    @itemTags.Where(t => !t.ModeratedOnUTC.HasValue).Count() Unmoderated |
+    @itemTags.Where(t => t.ModeratedOnUTC.HasValue).Count() Moderated
+</div>

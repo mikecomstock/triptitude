@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using Triptitude.Biz.Models;
+﻿using System.Web.Mvc;
 using Triptitude.Biz.Repos;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
 {
@@ -11,6 +8,9 @@ namespace Triptitude.Web.Areas.Admin.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Trips = new TripsRepo().FindAll();
+            ViewBag.Tags = new TagsRepo().FindAll();
+            ViewBag.ItemTags = new ItemTagRepo().FindAll();
             return View();
         }
 
