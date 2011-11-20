@@ -80,6 +80,9 @@ input[type="submit"], input[type="button"] {
   background-color: #0190E9;
   cursor: pointer; }
 
+input.delete {
+  background-color: #E92553; }
+
 .field-validation-error {
   display: block;
   padding: 5px;
@@ -662,8 +665,7 @@ input[type="submit"], input[type="button"] {
       float: right;
       margin: 0 2px; }
     #super-dialog .buttons .delete {
-      float: left;
-      background-color: #E92553; }
+      float: left; }
     #super-dialog .buttons .saved {
       color: #FFF;
       background-color: #01B747;

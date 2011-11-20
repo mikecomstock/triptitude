@@ -43,34 +43,9 @@
     </ul>
         }
 }
-@helper ItemList(UrlHelper Url, IEnumerable<AmazonItem> items)
-    {
-        if (items.Any())
-        {
-    <ul class="items">
-        @foreach (var item in items)
-        {
-            <li>
-                @if (!string.IsNullOrWhiteSpace(item.DetailPageURL))
-                {
-                    <a class="name" href="@item.DetailPageURL" target="_blank" rel="nofollow" >@item.Name</a>
-                }
-                else
-                {
-                    <span class="name">@item.Name</span>
-                }
-                @if (!string.IsNullOrWhiteSpace(item.SmallImageURL))
-                {
-                    <img height="@item.SmallImageHeight" width="@item.SmallImageWidth" src="@item.SmallImageURL" alt="" />
-                }
-            </li>                   
-        }
-    </ul>
-        }
-}
 @helper SidePanel(UrlHelper url, Place place)
     {
-    @*<div id="side-container">
+@*<div id="side-container">
         <a href="@url.Details(place)">Details</a> <a href="@url.Nearby(place)">Nearby</a>
     </div>*@
 }

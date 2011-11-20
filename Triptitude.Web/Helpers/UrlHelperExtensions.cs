@@ -11,9 +11,9 @@ namespace Triptitude.Web.Helpers
     {
         private readonly static string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name)
+        public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name, string area = null)
         {
-            return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug() });
+            return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug(), area });
         }
 
         #region General

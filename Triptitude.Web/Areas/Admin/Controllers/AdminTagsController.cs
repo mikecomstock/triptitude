@@ -36,7 +36,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string name)
+        public ActionResult Edit(int id, string name, bool ShowInSearch)
         {
             name = name.Trim().ToLower();
 
@@ -47,6 +47,8 @@ namespace Triptitude.Web.Areas.Admin.Controllers
 
             Tag tag = tagsRepo.Find(id);
             tag.Name = name;
+            tag.ModeratedOnUTC = DateTime.UtcNow;
+            tag.ShowInSearch = ShowInSearch;
             tagsRepo.Save();
 
             return Redirect(Request.UrlReferrer.AbsolutePath);

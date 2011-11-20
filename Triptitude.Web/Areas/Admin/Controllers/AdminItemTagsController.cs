@@ -26,7 +26,7 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             var item = new ItemRepo().FindOrInitialize(itemName);
             var tag = new TagsRepo().FindOrInitializeByName(tagName);
             var itemTag = itemTagRepo.FindOrInitialize(item, tag);
-            itemTag.ShowInSite = true;
+            itemTag.ShowInSearch = true;
             itemTag.ModeratedOnUTC = DateTime.UtcNow;
             itemTagRepo.Save();
 
@@ -37,7 +37,16 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         {
             var itemTag = itemTagRepo.Find(id);
             itemTag.ModeratedOnUTC = DateTime.UtcNow;
-            itemTag.ShowInSite = show;
+            itemTag.ShowInSearch = show;
+            itemTagRepo.Save();
+
+            return Redirect(Request.UrlReferrer.AbsolutePath);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var itemTag = itemTagRepo.Find(id);
+            itemTagRepo.Delete(itemTag);
             itemTagRepo.Save();
 
             return Redirect(Request.UrlReferrer.AbsolutePath);

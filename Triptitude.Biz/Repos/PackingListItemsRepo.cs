@@ -27,7 +27,7 @@ namespace Triptitude.Biz.Repos
             var itemTag = query.FirstOrDefault();
             if (itemTag == null)
             {
-                itemTag = new ItemTag { Item = item, Tag = tag, ShowInSite = true };
+                itemTag = new ItemTag { Item = item, Tag = tag, ShowInSearch = true };
                 Add(itemTag);
             }
             return itemTag;
@@ -42,7 +42,7 @@ namespace Triptitude.Biz.Repos
 
             var itemTags = (from it in possibilities
                             orderby it.PackingListItems.Count() descending, it.Item.Name
-                            where it.ShowInSite
+                            where it.ShowInSearch
                             select it).Take(take);
             return itemTags;
         }

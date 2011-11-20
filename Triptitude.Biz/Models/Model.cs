@@ -220,7 +220,11 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public virtual ICollection<AmazonItem> AmazonItems { get; set; }
+        public bool ShowInSearch { get; set; }
+        public DateTime? ModeratedOnUTC { get; set; }
+
+        //public virtual ICollection<AmazonItem> AmazonItems { get; set; }
+
         public virtual ICollection<ItemTag> ItemTags { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
 
@@ -244,9 +248,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public bool ShowInAutocomplete { get; set; }
         public virtual ICollection<ItemTag> ItemTags { get; set; }
-        public DateTime? ModeratedOnUTC { get; set; }
     }
 
     public class ItemTag
@@ -254,18 +256,10 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual Item Item { get; set; }
         public virtual Tag Tag { get; set; }
-        public bool ShowInSite { get; set; }
+        public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
         public virtual ICollection<PackingListItem> PackingListItems { get; set; }
     }
-
-    //public class ItemTagCount
-    //{
-    //    public int Id { get; set; }
-    //    public virtual Tag Tag { get; set; }
-    //    public virtual Item Item { get; set; }
-    //    public int Count { get; set; }
-    //}
 
     public class PackingListItem
     {
@@ -282,18 +276,6 @@ namespace Triptitude.Biz.Models
             get { return (Visibility)Visibility_Id; }
             set { Visibility_Id = (int)value; }
         }
-    }
-
-    public class AmazonItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string ASIN { get; set; }
-        public string DetailPageURL { get; set; }
-        public string SmallImageURL { get; set; }
-        public decimal? SmallImageHeight { get; set; }
-        public decimal? SmallImageWidth { get; set; }
-        public virtual ICollection<Tag> Tags { get; set; }
     }
 
     #region Visibility

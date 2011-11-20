@@ -20,7 +20,11 @@ namespace Triptitude.Biz.Repos
 
             if (tag == null)
             {
-                tag = new Tag { Name = name };
+                tag = new Tag
+                {
+                    Name = name,
+                    ShowInSearch = false
+                };
                 Add(tag);
             }
 

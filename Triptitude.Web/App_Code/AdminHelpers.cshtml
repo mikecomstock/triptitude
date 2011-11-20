@@ -16,6 +16,10 @@
                 # Items
             </th>
             <th>
+                Moderated
+            </th>
+            <th>
+                Show In Site
             </th>
         </tr>
         @foreach (Tag tag in tags)
@@ -30,8 +34,9 @@
                 <td>
                     @tag.ItemTags.Count()
                 </td>
-                <td>
-                    <a href="@Url.Admin("tags", "delete", new { tag.Id })" class="confirm-delete">delete</a>
+                <td>@tag.ModeratedOnUTC
+                </td>
+                <td>@tag.ShowInSearch
                 </td>
             </tr>
         }
@@ -43,7 +48,7 @@
     <label for="tagname">
         Tag Name</label>
     <input type="text" name="tagname" id="tagname" />
-    <input type="submit" value="Create" />
+    <input type="submit" value="Find or Create" />
     </form>
 }
 @helper ItemTagTable(UrlHelper Url, IEnumerable<ItemTag> itemTags)
@@ -55,6 +60,9 @@
             </th>
             <th>
                 Tag
+            </th>
+            <th>
+                # Lists
             </th>
             <th>
                 Moderated
@@ -72,12 +80,14 @@
                 </td>
                 <td>@(itemTag.Tag == null ? "[no tag]" : itemTag.Tag.Name)
                 </td>
+                <td>@itemTag.PackingListItems.Count()
+                </td>
                 <td>@itemTag.ModeratedOnUTC
                 </td>
-                <td>@itemTag.ShowInSite
+                <td>@itemTag.ShowInSearch
                 </td>
                 <td style="text-align: right;">
-                    <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = true })">show</a> / <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = false })">hide</a>
+                    <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = true })">show</a> / <a href="@Url.Admin("itemtags", "moderate", new { itemTag.Id, show = false })">hide</a> / <a href="@Url.Admin("itemtags", "delete", new { itemTag.Id, show = false })" class="confirm-delete">delete</a>
                 </td>
             </tr>
         }

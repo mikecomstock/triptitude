@@ -25,7 +25,6 @@ namespace Triptitude.Biz.Models
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemTag> ItemTags { get; set; }
         public DbSet<PackingListItem> PackingListItems { get; set; }
-        public DbSet<AmazonItem> AmazonItems { get; set; }
         public DbSet<TransportationType> TransportationTypes { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
     }

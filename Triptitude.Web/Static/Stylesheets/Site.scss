@@ -27,11 +27,12 @@ input.day-input { width: 30px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 .toggler { cursor: pointer; }
 
+
 /* Form Defaults */
 textarea { font-size: 14px; }
 input[type="text"] { font-size: 14px; }
 input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
-
+input.delete { background-color: #E92553; }
 $invalid-color: #E92553;
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
@@ -198,7 +199,7 @@ $invalid-color: #E92553;
 	.buttons {
 		padding: 10px; margin-top: 10px; border-top: 1px solid #CCC; @include clearfix;
 		input { float: right; margin: 0 2px; }
-		.delete { float: left; background-color: #E92553; }
+		.delete { float: left; }
 		.saved { color: #FFF; background-color: #01B747; font-size: 14px; padding: 5px; text-align: center; }
 	}	
 	/* Some Note styles apply to notes dialog AND notes sections of other dialogs. */

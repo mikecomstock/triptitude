@@ -32,7 +32,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trips = trips;
 
             var itemTagRepo = new ItemTagRepo();
-            var tags = itemTagRepo.FindAll().Where(it => it.ShowInSite).Select(it => it.Tag).Distinct().Where(t => t != null);
+            var tags = itemTagRepo.FindAll().Where(it => it.ShowInSearch).Select(it => it.Tag).Distinct().Where(t => t != null);
             ViewBag.Tags = tags;
 
             Response.ContentType = "text/xml";
