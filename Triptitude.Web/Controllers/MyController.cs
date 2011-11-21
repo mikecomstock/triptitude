@@ -51,6 +51,7 @@ namespace Triptitude.Web.Controllers
                 {
                     case UsersRepo.UserSaveAction.NewUserCreated:
                         {
+                            usersRepo.SetNewGuidIfNeeded(currentUser);
                             EmailService.SentSignupEmail(currentUser);
                             AuthHelper.SetAuthCookie(currentUser);
                             return Redirect(Url.MyTrips());
