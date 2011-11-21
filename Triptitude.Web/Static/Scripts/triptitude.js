@@ -7,6 +7,8 @@ $(function () {
     $('.focus').first().focus();
     $('.date-picker').datepicker();
     $('.place-autocomplete').googAutocomplete();
+    $('.tag-autocomplete').tagAutocomplete();
+    $('.item-autocomplete').itemAutocomplete();
 
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
@@ -109,6 +111,8 @@ function OpenSuperDialog(url, callback) {
         superDialog.find('input.day-input').attr('autocomplete', 'off');
         superDialog.find('.cancel').click(function (e) { e.preventDefault(); CloseSuperDialog(); });
         superDialog.find('.place-autocomplete').googAutocomplete();
+        superDialog.find('.tag-autocomplete').tagAutocomplete();
+        superDialog.find('.item-autocomplete').itemAutocomplete();
 
         scrollToBottom(superDialog.find('.notes'));
 
@@ -189,6 +193,33 @@ function CloseSuperDialog() {
         superDialog.empty();
     }
 }
+
+(function($) {
+    $.fn.tagAutocomplete = function() {
+        this.each(function() {
+            var input = $(this);
+            input.autocomplete({
+                    source: function (request, response) {
+                        $.getJSON('/tags/search', request, function(data) {
+                            response(data);
+                        });
+                    }
+                });
+        });
+    };
+    $.fn.itemAutocomplete = function() {
+        this.each(function() {
+            var input = $(this);
+            input.autocomplete({
+                    source: function (request, response) {
+                        $.getJSON('/items/search', request, function(data) {
+                            response(data);
+                        });
+                    }
+                });
+        });
+    };
+})(jQuery);
 
 (function ($) {
     $.fn.googAutocomplete = function () {

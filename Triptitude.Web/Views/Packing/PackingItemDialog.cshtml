@@ -12,9 +12,9 @@
     <fieldset class="sentence">
         <p>
             I need to bring <span>
-                @Html.TextBox("name", form.Name, new { @class = "focus required", placeholder = "item (required)" })
+                @Html.TextBox("name", form.Name, new { @class = "focus required item-autocomplete", placeholder = "item (required)" })
             </span>for <span>
-                @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "activity (optional)" })
+                @Html.TextBox("tagstring", @form.TagString, new { @class = "tag-autocomplete", placeholder = "activity (optional)" })
             </span>at <span class="place-map-container">
                 <img src="" alt="" class="place-map" id="place-map" />
             </span>

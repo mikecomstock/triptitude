@@ -35,7 +35,7 @@
             <p>
                 <label for="tagstring">
                     Tags</label>
-                @Html.TextBox("tagstring", @form.TagString, new { @class = "", placeholder = "ex: whale watching, water, boat" })
+                @Html.TextBox("tagstring", @form.TagString, new { @class = "tag-autocomplete", placeholder = "ex: whale watching, water, boat" })
             </p>
         </fieldset>
         <fieldset>

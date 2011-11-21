@@ -21,5 +21,12 @@ namespace Triptitude.Web.Controllers
             ViewBag.Items = new ItemTagRepo().MostPopular(20, tag).Select(it => it.Item).ToList();
             return View();
         }
+
+        public ActionResult Search(string term)
+        {
+            var tags = repo.FindAll().Where(t => t.ShowInSearch);
+            var result = tags.Where(t => t.Name.StartsWith(term)).OrderBy(t => t.Name).Take(5).ToList().Select(t => t.NiceName).ToArray();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }
