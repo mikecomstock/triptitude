@@ -67,7 +67,7 @@ $invalid-color: #E92553;
 /* Tripbar */
 #trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
-#trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; background-color: rgba(38, 38, 38, 0.85); @include border-radius(7px); }
+#trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px); }
 #trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
@@ -136,7 +136,7 @@ $invalid-color: #E92553;
 .panel-content.not-padded { padding: 0 !important; }
 
 /* Landing Page */
-#landing-page-panel-container { width: 955px; margin: 0 auto; background-color: rgba(255, 255, 255, 0.85); @include border-radius(7px); padding-bottom: 40px; }
+#landing-page-panel-container { width: 955px; margin: 0 auto; @include transparent-background(#FFF, 0.85); @include border-radius(7px); padding-bottom: 40px; }
 #landing-page-panel {
 	margin: 10px 20px; padding: 20px 0;
 	h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
@@ -148,7 +148,7 @@ $invalid-color: #E92553;
 		li { font-size: 16px; margin: 10px 0; }
 	}
 	#trips {
-		margin: 50px auto; width: 800px; @include clearfix; background-color: rgba(243, 236, 183, 0.30);
+		margin: 50px auto; width: 800px; @include clearfix; @include transparent-background(#F3ECB7,0.3);
 		.panel-title {
 			padding: 5px;
 			h2 { margin: 0; }
@@ -244,7 +244,7 @@ $invalid-color: #E92553;
 /* Create Trip Form */
 #create-trip-form input[type="text"] { width: 400px; font-size: 18px; }
 
-#landing-page-panel #create-trip-form { float: right; background-color: rgba(82, 188, 254, 0.7); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8)); }
+#landing-page-panel #create-trip-form { float: right; @include transparent-background(#52BCFE, 0.7); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8)); }
 #landing-page-panel #create-trip-form h3 { font-size: 18px; margin: 20px 20px 10px 20px; }
 #landing-page-panel #create-trip-form p { margin:10px 20px; }
 #landing-page-panel #create-trip-form input[type="text"] { width: 300px; }

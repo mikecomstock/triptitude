@@ -41,7 +41,8 @@
 }
 
 @mixin transparent-background($color, $alpha) {
-	background-color: hsla(hue($color), saturation($color), lightness($color), $alpha);
+	background: rgb(red($color), green($color), blue($color));
+	background: rgba(red($color), green($color), blue($color), $alpha);
 }
 
 @mixin gradient($startColor, $endColor) {

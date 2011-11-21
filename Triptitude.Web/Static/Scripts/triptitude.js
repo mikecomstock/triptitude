@@ -237,7 +237,7 @@ function CloseSuperDialog() {
                     $googIdField.val('');
                     $googReferenceField.val('');
                     $googNameField.val('');
-                    mapDiv.attr('src', '');
+                    if(mapDiv) mapDiv.attr('src', '');
                     setTimeout(function () { $input.val(''); }, 200);
                 }
             });

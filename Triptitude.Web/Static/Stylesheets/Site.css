@@ -224,7 +224,8 @@ input.delete {
   width: 935px;
   padding: 10px;
   margin: 0 auto 0 auto;
-  background-color: rgba(38, 38, 38, 0.85);
+  background: #262626;
+  background: rgba(38, 38, 38, 0.8);
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px; }
@@ -359,7 +360,8 @@ input.delete {
   text-transform: lowercase; }
   #side-container a {
     margin-bottom: 10px;
-    background-color: rgba(233, 186, 38, 0.7);
+    background: #e9ba26;
+    background: rgba(233, 186, 38, 0.7);
     padding: 10px;
     display: block;
     font-weight: bold;
@@ -447,7 +449,8 @@ input.delete {
 #landing-page-panel-container {
   width: 955px;
   margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.85);
+  background: white;
+  background: rgba(255, 255, 255, 0.85);
   -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
   border-radius: 7px;
@@ -481,7 +484,8 @@ input.delete {
     margin: 50px auto;
     width: 800px;
     zoom: 1;
-    background-color: rgba(243, 236, 183, 0.3); }
+    background: #f3ecb7;
+    background: rgba(243, 236, 183, 0.3); }
     #landing-page-panel #trips:before {
       display: table;
       content: "";
@@ -788,7 +792,8 @@ input.delete {
 
 #landing-page-panel #create-trip-form {
   float: right;
-  background-color: rgba(82, 188, 254, 0.7);
+  background: #52bcfe;
+  background: rgba(82, 188, 254, 0.7);
   margin: 0 20px 20px 30px;
   -webkit-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
@@ -1044,7 +1049,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
   width: 95%;
   margin: 0 auto;
   border-top: none;
-  background-color: rgba(102, 195, 254, 0.2); }
+  background: #66c3fe;
+  background: rgba(102, 195, 254, 0.2); }
 
 .packing-list-item {
   padding: 5px 0 5px 20px;
