@@ -6,42 +6,58 @@
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
-
-        $(document).ready(function () {
+        $(function () {
             var tripId = $('#trip-map-container').data('trip-id');
             $.get('/maps/trip/' + tripId, function (mapData) {
                 drawMap($('#trip-map-container'), mapData);
             });
-        });
 
+            $('.toggler').click(function () {
+                var selectorToToggle = $(this).data('selector-to-toggle');
+                $(selectorToToggle).toggle();
+            });
+        });
     </script>
 }
-@Html.Action("SidePanel", "Trips", new { trip })
-<div id="main-container">
-    <div class="panel">
-        <div class="panel-title">
-            <h1>
-                @ViewBag.Title
-            </h1>
+<article>
+    <header>
+        <h1>@trip.Name</h1>
+        <div class="subtitle">
+        <a href="#map">Map</a> | 
+        <a href="#itinerary">Itinerary</a> | 
+        <a href="#packinglist">Packing List</a>
         </div>
+    </header>
+    <section id="map">
+        <h2>
+            Map</h2>
+        <div id="trip-map-container" data-trip-id="@trip.Id">
+        </div>
+    </section>
+    <section id="itinerary">
+        <h2>
+            Itinerary</h2>
         @if (currentUser.DefaultTrip == trip)
         {
             <div class="subtitle">
                 Use the <strong>+Add Plans</strong> menu to add items to your itinerary.
             </div>
         }
-        <div class="panel-content">
-            <div id="trip-map-container" data-trip-id="@trip.Id">
-            </div>
-            @for (int i = 1; i <= trip.TotalDays; i++)
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
+        @for (int i = 1; i <= trip.TotalDays; i++)
+        {
+            Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
 
-            }
-            @if (trip.Activities.Any(a => a.IsUnscheduled))
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
-            }
-        </div>
-    </div>
-</div>
+        }
+        @if (trip.Activities.Any(a => a.IsUnscheduled))
+        {
+            Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
+        }
+    </section>
+    <section id="packinglist">
+        <h2>
+            Packing List</h2>
+        @{
+            Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
+        }
+    </section>
+</article>

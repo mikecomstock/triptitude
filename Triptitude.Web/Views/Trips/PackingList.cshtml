@@ -8,86 +8,64 @@
     User currentUser = ViewBag.CurrentUser;
     IEnumerable<ItemTag> suggestions = ViewBag.Suggestions;
 }
-@section Scripts {
-    <script type="text/javascript" charset="utf-8">
-        $(function () {
-            $('.toggler').click(function () {
-                var selectorToToggle = $(this).data('selector-to-toggle');
-                $(selectorToToggle).toggle();
-            });
-        })
-    </script>
-}
-@Html.Action("SidePanel", "Trips", new { Trip = trip })
-<div id="main-container">
-    <div class="panel">
-        <div class="panel-title">
-            <h1>
-                @ViewBag.Title
-            </h1>
-        </div>
-        @if (currentUser.DefaultTrip == trip)
-        {
-            <div class="subtitle">
-                Use the <strong>+Add Plans</strong> menu to add items to your packing list.
-            </div>
-        }
-        @if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
-        {
-            <div class="panel-suggestions">
-                <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
-                    + Popular Items</div>
-                <ul class="packing-list-items suggestions">
-                    @foreach (ItemTag itemTag in suggestions)
-                    {
-                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)"><span class="name">
-                            @itemTag.Item.Name
-                            @if (itemTag.Tag != null)
-                            {
-                                <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
-                            }
-                        </span></li>
-                    }
-                </ul>
-            </div>
-        }
-        <div class="panel-content">
-            @if (packingListItems.Any())
-            {
-                if (packingListItemsNoTag.Any())
-                {
-                <div class="packing-list-tag">
-                    @if (tags.Any())
-                    {
-                        <h2>
-                            General Items</h2>
-                    }
-                    @ItemList(packingListItemsNoTag)
-                </div>
-                }
-
-                if (tags.Any())
-                {
-                    foreach (var tag in tags)
-                    {
-                <div class="packing-list-tag">
-                    <h2>
-                        <a href="@Url.Details(tag)">@tag.NiceName</a>
-                    </h2>
-                    @ItemList(packingListItems.Where(pli => pli.ItemTag.Tag == tag))
-                </div>
-                    }
-                }
-            }
-            else
-            {
-                <p>
-                    No items found.
-                </p>
-            }
-        </div>
+@if (currentUser.DefaultTrip == trip)
+{
+    <div class="subtitle">
+        Use the <strong>+Add Plans</strong> menu to add items to your packing list.
     </div>
-</div>
+}
+@if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
+{
+    <div class="panel-suggestions">
+        <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
+            + Some things you might need</div>
+        <ul class="packing-list-items suggestions">
+            @foreach (ItemTag itemTag in suggestions)
+            {
+                <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)"><span class="name">
+                    @itemTag.Item.Name
+                    @if (itemTag.Tag != null)
+                    {
+                        <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
+                    }
+                </span></li>
+            }
+        </ul>
+    </div>
+}
+@if (packingListItems.Any())
+{
+    if (packingListItemsNoTag.Any())
+    {
+    <div class="packing-list-tag">
+        @if (tags.Any())
+        {
+            <h3>
+                General Items</h3>
+        }
+        @ItemList(packingListItemsNoTag)
+    </div>
+    }
+
+    if (tags.Any())
+    {
+        foreach (var tag in tags)
+        {
+    <div class="packing-list-tag">
+        <h3>
+            <a href="@Url.Details(tag)">@tag.NiceName</a>
+        </h3>
+        @ItemList(packingListItems.Where(pli => pli.ItemTag.Tag == tag))
+    </div>
+        }
+    }
+}
+else
+{
+    <p>
+        No items found.
+    </p>
+}
 @helper ItemList(IEnumerable<PackingListItem> plis)
     {
     <ul class="packing-list-items">

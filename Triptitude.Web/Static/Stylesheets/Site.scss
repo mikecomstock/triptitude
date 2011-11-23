@@ -3,7 +3,7 @@
 /* Html Tags */
 body { background: #498EC3;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #000; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
-h1 { font-size: 24px; }
+h1 { font-size: 28px; }
 a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
 a:hover, .link:hover { text-decoration: underline; }
 a:focus { text-decoration: underline; outline: none; }
@@ -115,6 +115,20 @@ $invalid-color: #E92553;
 
 #main-container { float: left; width: 710px; margin-left: 25px; }
 
+article {
+	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
+	header {
+		background-color: #E9BA26;
+		h1 { padding: 15px; }
+		.subtitle { background-color: #F3ECB7; padding: 10px; }
+	}
+	section {
+		padding: 20px 10px 0 10px;
+		h2 { color: #404040; font-size: 26px; margin-bottom: 10px; text-transform: none; }
+		.subtitle { background-color: #F3ECB7; padding: 5px; margin: 10px 0; }
+	}
+}
+
 .panel { @include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
@@ -129,7 +143,8 @@ $invalid-color: #E92553;
 .panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
 
 .panel-suggestions {
-	.title { background-color: #0190E9; color: #FFF; padding: 10px; }
+	margin: 10px 0;
+	.title { background-color: #0190E9; color: #FFF; padding: 5px; }
 }
 
 .panel-content { padding: 10px; }
@@ -303,7 +318,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 /* Trips */
 #trips-details {
 	.panel-content { background-color:#EEE; }
-	#trip-map-container { width: 100%; height: 200px; margin-bottom: 10px; }
+	#trip-map-container { width: 100%; height: 250px; margin-bottom: 10px; }
 	.trip-day {
 		min-height: 25px; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3)); margin-bottom: 10px; background-color:#FFF;
 		> h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
@@ -340,7 +355,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 }
 .panel-suggestions {
 	.packing-list-items {
-		width: 95%; margin: 0 auto; border-top: none; @include transparent-background(#66C3FE,0.2);
+		width: 95%; margin: 5px auto; border-top: none; @include clearfix;
+		li { float:left; width: 30%; border: 1px solid #FFF; @include transparent-background(#66C3FE,0.2); }
 	}
 }
 .packing-list-item {
@@ -356,7 +372,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 	&.owned:hover { background-color: #EEE; cursor: pointer; }
 	&.visibility-private .name:after { content: "(private)"; color: #AAA; }
 }
-.packing-list-tag h2 { text-transform: none; }
+.packing-list-tag h3 { text-transform: none; margin: 10px 0 5px 0; }
 
 /* Places */
 #places-nearby {

@@ -48,8 +48,9 @@ namespace Triptitude.Web.Controllers
         public ActionResult Map(int id)
         {
             Trip trip = new TripsRepo().Find(id);
-            ViewBag.Trip = trip;
-            return View();
+            return Redirect(Url.Details(trip) + "#map");
+            //ViewBag.Trip = trip;
+            //return View();
         }
 
         public ActionResult Details(int id, User currentUser)
@@ -77,6 +78,12 @@ namespace Triptitude.Web.Controllers
         public ActionResult PackingList(int id, User currentUser)
         {
             Trip trip = new TripsRepo().Find(id);
+            return Redirect(Url.Details(trip) + "#packinglist");
+        }
+
+        public ActionResult PackingListPartial(int id, User currentUser)
+        {
+            Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
             bool userOwnsTrip = currentUser.OwnsTrips(trip);
             ViewBag.UserOwnsTrip = userOwnsTrip;
@@ -88,8 +95,8 @@ namespace Triptitude.Web.Controllers
             ViewBag.Tags = tags;
 
             var itemIdsUsed = packingListItems.Select(pli => pli.ItemTag.Item.Id).Distinct();
-            ViewBag.Suggestions = new ItemTagRepo().MostPopular(10).Where(it => !itemIdsUsed.Contains(it.Item.Id));
-            return View();
+            ViewBag.Suggestions = new ItemTagRepo().MostPopular().Where(it => !itemIdsUsed.Contains(it.Item.Id)).Take(18);
+            return PartialView("PackingList");
         }
 
         public ActionResult Settings(int id, User currentUser)

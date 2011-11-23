@@ -14,7 +14,6 @@
     @for (int i = 1; i <= trip.TotalDays; i++)
     {
         Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i, area = "" });
-
     }
     @if (trip.Activities.Any(a => a.IsUnscheduled))
     {

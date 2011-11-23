@@ -33,17 +33,19 @@ namespace Triptitude.Biz.Repos
             return itemTag;
         }
 
-        public IQueryable<ItemTag> MostPopular(int take, Tag tag = null)
+        public IQueryable<ItemTag> MostPopular(int? take = null, Tag tag = null)
         {
             var possibilities = FindAll().Where(it => it.ShowInSearch);
 
             if (tag != null)
                 possibilities = possibilities.Where(it => it.Tag.Id == tag.Id);
 
-            var itemTags = (from it in possibilities
-                            orderby it.PackingListItems.Count() descending, it.Item.Name
-                            where it.ShowInSearch
-                            select it).Take(take);
+            var itemTags = from it in possibilities
+                           orderby it.PackingListItems.Count() descending, it.Item.Name
+                           where it.ShowInSearch
+                           select it;
+            if (take.HasValue)
+                itemTags = itemTags.Take(take.Value);
             return itemTags;
         }
     }

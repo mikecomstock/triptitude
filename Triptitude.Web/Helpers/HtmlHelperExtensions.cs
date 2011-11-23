@@ -84,12 +84,10 @@ namespace Triptitude.Web.Helpers
         public static string RouteCssClasses(this HtmlHelper html)
         {
             StringBuilder sb = new StringBuilder();
+            
+            if (!string.IsNullOrWhiteSpace(html.ViewContext.RouteData.DataTokens["area"] as String))
+                sb.AppendFormat(" {0}-area", html.ViewContext.RouteData.DataTokens["area"]);
 
-            //sb.AppendFormat("{0}-{1} ",
-            //    html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue,
-            //    html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue);
-
-            sb.AppendFormat(" {0}-area", html.ViewContext.RouteData.DataTokens["area"]);
             sb.AppendFormat(" {0}-controller", html.ViewContext.Controller.ValueProvider.GetValue("controller").RawValue);
             sb.AppendFormat(" {0}-action", html.ViewContext.Controller.ValueProvider.GetValue("action").RawValue);
             return sb.ToString().Trim().ToLower();
