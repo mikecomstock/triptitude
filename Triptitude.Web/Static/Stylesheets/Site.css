@@ -54,15 +54,13 @@ input.day-input {
   cursor: pointer; }
 
 /* Form Defaults */
-textarea {
+textarea, input, select {
   font-size: 14px; }
 
-input[type="text"] {
-  font-size: 14px; }
+input[type="submit"], input[type="button"], select {
+  padding: 5px; }
 
 input[type="submit"], input[type="button"] {
-  font-size: 14px;
-  padding: 5px;
   border: none;
   color: #FFFFFF;
   background-color: #0190E9;
@@ -1186,7 +1184,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
     zoom: 1;
     *display: inline;
     clear: both; }
-  #places-nearby #placeSearch input {
+  #places-nearby #placeSearch input, #places-nearby #placeSearch select {
     float: left;
     display: block;
     box-sizing: border-box;

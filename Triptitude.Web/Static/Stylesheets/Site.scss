@@ -22,10 +22,12 @@ input.day-input { width: 30px !important; }
 
 
 /* Form Defaults */
-textarea { font-size: 14px; }
-input[type="text"] { font-size: 14px; }
-input[type="submit"], input[type="button"] { font-size: 14px; padding: 5px; border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+textarea, input, select { font-size: 14px; }
+input[type="submit"], input[type="button"], select { padding: 5px; }
+input[type="submit"], input[type="button"] { border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+
 input.delete { background-color: #E92553; }
+
 $invalid-color: #E92553;
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
@@ -389,6 +391,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 	#map.at-top { position: fixed !important; top: 90px; }
 	#placeSearch {
 		@include clearfix; margin: 10px 0;
-		input { float: left; display: block; @include border-box; height: 30px; margin-right:5px; }
+		input, select { float: left; display: block; @include border-box; height: 30px; margin-right:5px; }
 	}
 }

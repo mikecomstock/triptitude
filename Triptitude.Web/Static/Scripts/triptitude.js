@@ -411,8 +411,11 @@ T.NearbyPlaces = function () {
     }
 
     function doSearch() {
+
         var keyword = searchForm.find('#keyword').val();
-        var options = { bounds: map.getBounds(), keyword: keyword };
+        var types = searchForm.find('#types').val() == "" ? null : [searchForm.find('#types').val()];
+        
+        var options = { bounds: map.getBounds(), keyword: keyword, types: types };
         searchService.search(options, function (results, status) {
 
             if (noResults) {
