@@ -274,9 +274,6 @@
     <Content Include="Views\Places\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Places\Nearby.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Packing\PackingItemDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>

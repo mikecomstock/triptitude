@@ -4,56 +4,50 @@
     User currentUser = ViewBag.CurrentUser;
 }
 @Helpers.SidePanel(Url, place)
-<div id="main-container">
-    <div class="panel">
-        <div class="title">
-            <h1>
-                @ViewBag.Title
-            </h1>
+<article>
+    <header>
+        <h1>@place.Name</h1>
+        <div class="subtitle">
+            @if (currentUser.DefaultTrip == null)
+            {
+                <text><a href="@Url.CreateTrip(place)">Create a trip to @place.Name</a> | </text>
+            }
             <a rel="nofollow" class="add-to-trip" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
         </div>
-        @if (currentUser.DefaultTrip == null)
+    </header>
+    <section id="trips">
+        <h2>
+            Trips to @place.Name</h2>
+        @if (place.PublicTrips.Any())
         {
-            <div class="subtitle">
-                <a href="@Url.CreateTrip(place)">Create a trip to @place.Name</a>
-            </div>
+            Html.RenderAction("_rows", "Trips", new { trips = place.PublicTrips.OrderByDescending(t => t.Id).Take(10) });
         }
-        <div class="panel-content">
-            <h2>
-                Trips to @place.Name</h2>
-            @if (place.PublicTrips.Any())
-            {
-                Html.RenderAction("_rows", "Trips", new { trips = place.PublicTrips.OrderByDescending(t => t.Id).Take(10) });
-            }
-            else
-            {
-                <div>
-                    No trips found</div>
-            }
+        else
+        {
+            <div>
+                No trips found</div>
+        }
+    </section>
+    <section id="places-nearby">
+        <h2>
+            Places Near @place.Name</h2>
+        <form id="placeSearch">
+        <input type="text" id="keyword" placeholder="What are you looking for?" />
+        <select id="types">
+            <option value="">Everything</option>
+            <option value="lodging">Lodging</option>
+            <option value="food">Restaurants</option>
+        </select>
+        <input type="submit" value="Search" />
+        </form>
+        <div id="mapanchor">
         </div>
-    </div>
-    <div class="panel" id="places-nearby">
-        <div class="panel-content">
-            <h2>
-                Places Near @place.Name</h2>
-            <form id="placeSearch">
-            <input type="text" id="keyword" />
-            <select id="types">
-                <option value="">Everything</option>
-                <option value="lodging">Lodging</option>
-                <option value="food">Restaurants</option>
-            </select>
-            <input type="submit" value="Search" />
-            </form>
-            <div id="mapanchor">
-            </div>
-            <div id="map" data-lat="@place.Latitude" data-lng="@place.Longitude">
-            </div>
-            <ul class="place-rows">
-            </ul>
+        <div id="map" data-lat="@place.Latitude" data-lng="@place.Longitude">
         </div>
-    </div>
-</div>
+        <ul id="place-rows">
+        </ul>
+    </section>
+</article>
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         T.NearbyPlaces();

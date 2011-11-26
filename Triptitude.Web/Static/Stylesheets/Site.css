@@ -1148,20 +1148,20 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
   margin: 10px 0 5px 0; }
 
 /* Places */
-#places-nearby .place-rows {
+#places-nearby #place-rows {
   list-style: none;
   margin: 10px 0 0 0;
   padding: 0;
   cursor: pointer; }
-  #places-nearby .place-rows li {
+  #places-nearby #place-rows li {
     padding: 10px; }
-    #places-nearby .place-rows li + li {
+    #places-nearby #place-rows li + li {
       border-top: 1px solid #DDD; }
-    #places-nearby .place-rows li .add-to-trip {
+    #places-nearby #place-rows li .add-to-trip {
       float: right; }
-  #places-nearby .place-rows li.active {
+  #places-nearby #place-rows li.active {
     background-color: #EEE; }
-  #places-nearby .place-rows li:hover {
+  #places-nearby #place-rows li:hover {
     background-color: #EEE; }
 #places-nearby .panel-content {
   position: relative; }
@@ -1194,3 +1194,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
     /* Safari */
     height: 30px;
     margin-right: 5px; }
+  #places-nearby #placeSearch #keyword {
+    width: 250px;
+    font-weight: bold; }

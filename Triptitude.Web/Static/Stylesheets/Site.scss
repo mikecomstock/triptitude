@@ -376,7 +376,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 
 /* Places */
 #places-nearby {
-	.place-rows {
+	#place-rows {
 		list-style: none; margin: 10px 0 0 0; padding: 0; cursor: pointer;
 		li {
 			padding: 10px;
@@ -392,5 +392,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 	#placeSearch {
 		@include clearfix; margin: 10px 0;
 		input, select { float: left; display: block; @include border-box; height: 30px; margin-right:5px; }
+		#keyword { width: 250px; font-weight: bold; }
 	}
 }

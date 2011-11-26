@@ -382,7 +382,7 @@ T.NearbyPlaces = function () {
     var searchService;
     var searchForm = $('#placeSearch');
     var infowindow;
-    var placeList = $('.place-rows');
+    var placeList = $('#place-rows');
     var noResults;
 
     function initialize() {
