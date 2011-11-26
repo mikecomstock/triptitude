@@ -22,7 +22,7 @@
         <ul class="packing-list-items suggestions">
             @foreach (ItemTag itemTag in suggestions)
             {
-                <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)"><span class="name">
+                <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
                     @itemTag.Item.Name
                     @if (itemTag.Tag != null)
                     {
@@ -63,7 +63,7 @@
 else
 {
     <p>
-        No items found.
+        No packing list items found.
     </p>
 }
 @helper ItemList(IEnumerable<PackingListItem> plis)
@@ -71,13 +71,14 @@ else
     <ul class="packing-list-items">
         @foreach (PackingListItem pli in plis.OrderBy(pli => pli.ItemTag.Item.Name))
         {
-            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id"><span class="name">
-                @pli.ItemTag.Item.Name
-                @if (pli.Place != null)
-                {
-                    <span class="packing-list-item-place">for <a href="@Url.Details(pli.Place)">@pli.Place.Name</a> </span>
-                }
-            </span>
+            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id" title="Click to edit">
+                <div class="name">
+                    @pli.ItemTag.Item.Name
+                    @if (pli.Place != null)
+                    {
+                        <span class="packing-list-item-place">for <a href="@Url.Details(pli.Place)">@pli.Place.Name</a> </span>
+                    }
+                </div>
                 @if (!string.IsNullOrEmpty(pli.Note))
                 {
                     <div class="packing-list-item-note">@pli.Note</div>

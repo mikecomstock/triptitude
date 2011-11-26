@@ -73,6 +73,9 @@ $(function () {
     });
 
     $('.add-to-trip').live('click', function (e) {
+
+        if (e.target != this && $(e.target).is('a')) return;
+
         e.preventDefault();
         var link = $(this);
         var type = link.data('type');
@@ -194,29 +197,29 @@ function CloseSuperDialog() {
     }
 }
 
-(function($) {
-    $.fn.tagAutocomplete = function() {
-        this.each(function() {
+(function ($) {
+    $.fn.tagAutocomplete = function () {
+        this.each(function () {
             var input = $(this);
             input.autocomplete({
-                    source: function (request, response) {
-                        $.getJSON('/tags/search', request, function(data) {
-                            response(data);
-                        });
-                    }
-                });
+                source: function (request, response) {
+                    $.getJSON('/tags/search', request, function (data) {
+                        response(data);
+                    });
+                }
+            });
         });
     };
-    $.fn.itemAutocomplete = function() {
-        this.each(function() {
+    $.fn.itemAutocomplete = function () {
+        this.each(function () {
             var input = $(this);
             input.autocomplete({
-                    source: function (request, response) {
-                        $.getJSON('/items/search', request, function(data) {
-                            response(data);
-                        });
-                    }
-                });
+                source: function (request, response) {
+                    $.getJSON('/items/search', request, function (data) {
+                        response(data);
+                    });
+                }
+            });
         });
     };
 })(jQuery);
@@ -237,7 +240,7 @@ function CloseSuperDialog() {
                     $googIdField.val('');
                     $googReferenceField.val('');
                     $googNameField.val('');
-                    if(mapDiv) mapDiv.attr('src', '');
+                    if (mapDiv) mapDiv.attr('src', '');
                     setTimeout(function () { $input.val(''); }, 200);
                 }
             });
@@ -377,8 +380,10 @@ T.NearbyPlaces = function () {
 
     var map;
     var searchService;
+    var searchForm = $('#placeSearch');
     var infowindow;
     var placeList = $('.place-rows');
+    var noResults;
 
     function initialize() {
         var m = $('#map');
@@ -397,28 +402,56 @@ T.NearbyPlaces = function () {
 
         infowindow = new google.maps.InfoWindow({ zIndex: 10000 });
         google.maps.event.addListener(infowindow, 'closeclick', function () { clearActive(); });
+
+        searchForm.submit(function (e) {
+            e.preventDefault();
+            clearActive();
+            doSearch();
+        });
     }
 
     function doSearch() {
-        var options = { bounds: map.getBounds() };
+        var keyword = searchForm.find('#keyword').val();
+        var options = { bounds: map.getBounds(), keyword: keyword };
         searchService.search(options, function (results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-                placeList.find('li:not(.active)').each(function (i, li) {
-                    var $li = $(li);
-                    var place = $li.data('place');
-                    place.marker.setMap(null);
-                    $li.remove();
-                });
+            if (noResults) {
+                noResults.remove();
+                noResults = null;
+            }
 
-                var activePlace = placeList.find('li.active').data('place');
-                $.each(results, function (i, place) {
-                    // Can't compare objects here, use IDs instead.
-                    if (activePlace == null || place.id != activePlace.id) {
-                        createMarker(place);
-                        createListItem(place);
+            placeList.find('li:not(.active)').each(function (i, li) {
+                var $li = $(li);
+                var place = $li.data('place');
+                place.marker.setMap(null);
+                $li.remove();
+            });
+
+            switch (status) {
+                case google.maps.places.PlacesServiceStatus.OK:
+                    {
+                        var activePlace = placeList.find('li.active').data('place');
+                        $.each(results, function (i, place) {
+                            // Can't compare objects here, use IDs instead.
+                            if (activePlace == null || place.id != activePlace.id) {
+                                createMarker(place);
+                                createListItem(place);
+                            }
+                        });
+                        break;
                     }
-                });
+                case google.maps.places.PlacesServiceStatus.ZERO_RESULTS:
+                    {
+                        noResults = $(document.createElement('div')).text('No results found');
+                        noResults.insertAfter(placeList);
+                        break;
+                    }
+                default:
+                    {
+                        noResults = $(document.createElement('div')).text('An error has occured. Please edit your search and try again.');
+                        noResults.insertAfter(placeList);
+                        break;
+                    }
             }
         });
     }
@@ -430,7 +463,7 @@ T.NearbyPlaces = function () {
     }
 
     function createListItem(place) {
-        var li = $(document.createElement('li')).appendTo('.place-rows')
+        var li = $(document.createElement('li')).appendTo(placeList)
             .click(function (e) { if (e.target == this) { setActive(place); } })
             .data('place', place);
         place.li = li;

@@ -31,9 +31,11 @@
                 <ul class="packing-list-items">
                     @foreach (var item in items.Take(50))
                     {
-                        <li class="packing-list-item"><span class="name">
-                            @item.Name
-                        </span><a class="add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name">+ Add to Trip</a> </li>
+                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name" title="Click to add to trip">
+                            <div class="name">
+                                @item.Name
+                            </div>
+                        </li>
                     }
                 </ul>
             }

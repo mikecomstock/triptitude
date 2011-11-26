@@ -15,7 +15,7 @@
         @if (currentUser.DefaultTrip == null)
         {
             <div class="subtitle">
-                <a href="@Url.CreateTrip(to: place)">Create a trip to @place.Name</a>
+                <a href="@Url.CreateTrip(place)">Create a trip to @place.Name</a>
             </div>
         }
         <div class="panel-content">
@@ -36,6 +36,10 @@
         <div class="panel-content">
             <h2>
                 Places Near @place.Name</h2>
+            <form id="placeSearch">
+            <input type="text" id="keyword" />
+            <input type="submit" value="Search" />
+            </form>
             <div id="mapanchor">
             </div>
             <div id="map" data-lat="@place.Latitude" data-lng="@place.Longitude">

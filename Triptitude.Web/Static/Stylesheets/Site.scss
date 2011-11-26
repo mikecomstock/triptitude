@@ -10,6 +10,9 @@ a:focus { text-decoration: underline; outline: none; }
 img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
+
+/* HTML5 Tags */
+article, aside, figure, footer, header, hgroup, menu, nav, section { display:block; }
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
@@ -345,33 +348,28 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 
 /* Packing List */
 .packing-list-items {
-	list-style: none; padding: 0; margin: 0;
+	list-style: none; padding: 0; margin: 0; @include clearfix;
+	li {
+		float: left; width: 30%; margin: 0 4px 4px 0; padding: 5px; @include clearfix; background-color: #F6F6F6;
+		.name { margin-right: 5px; }
+		.add-to-trip { float: right; }
+		.packing-list-item-note { clear: both; background-color: #9FDAFE; padding: 3px; margin-top: 3px; }
+		.packing-list-item-place, .packing-list-item-tag {
+			color: #999 !important;
+			a { color: #999; }
+		}
+		&:hover { background-color: #EEE; cursor: pointer; }
+		&.visibility-private .name:after { content: "(private)"; color: #888; }
+	}
 	&.suggestions {
+		margin: 5px auto; border-top: none; @include clearfix;
 		li {
-			cursor: pointer; background-color: transparent;
+			cursor: pointer; background-color: transparent; background-color: #E0F3FF;
 			&:hover { background-color: #EEE; }
 		}
 	}
 }
-.panel-suggestions {
-	.packing-list-items {
-		width: 95%; margin: 5px auto; border-top: none; @include clearfix;
-		li { float:left; width: 30%; border: 1px solid #FFF; @include transparent-background(#66C3FE,0.2); }
-	}
-}
-.packing-list-item {
-	padding: 5px 0 5px 20px; @include clearfix; background-color: #F6F6F6;
-	.name { float: left; }
-	.add-to-trip { float: right; }
-	.packing-list-item-note { float: left; margin-left: 5px; background-color: #9FDAFE; padding: 0 3px; }
-	.packing-list-item-place, .packing-list-item-tag {
-		color: #999 !important;
-		a { color: #999; }
-	}
-	+ .packing-list-item { border-top: 1px solid #DDD; }
-	&.owned:hover { background-color: #EEE; cursor: pointer; }
-	&.visibility-private .name:after { content: "(private)"; color: #AAA; }
-}
+
 .packing-list-tag h3 { text-transform: none; margin: 10px 0 5px 0; }
 
 /* Places */
@@ -389,4 +387,8 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 	.panel-content { position: relative; }
 	#map { height: 300px; }
 	#map.at-top { position: fixed !important; top: 90px; }
+	#placeSearch {
+		@include clearfix; margin: 10px 0;
+		input { float: left; display: block; @include border-box; height: 30px; margin-right:5px; }
+	}
 }
