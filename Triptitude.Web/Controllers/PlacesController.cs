@@ -30,7 +30,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Redirect(string googReference, string googId)
         {
             Place place = placesRepo.FindOrCreateByGoogReference(googId, googReference);
-            return Redirect(Url.Details(place));
+            return RedirectPermanent(Url.Details(place));
         }
 
         public ActionResult Details(int id, User currentUser)

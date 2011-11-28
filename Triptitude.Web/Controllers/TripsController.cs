@@ -48,7 +48,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Map(int id)
         {
             Trip trip = new TripsRepo().Find(id);
-            return Redirect(Url.Details(trip) + "#map");
+            return RedirectPermanent(Url.Details(trip) + "#map");
             //ViewBag.Trip = trip;
             //return View();
         }
@@ -78,7 +78,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult PackingList(int id, User currentUser)
         {
             Trip trip = new TripsRepo().Find(id);
-            return Redirect(Url.Details(trip) + "#packinglist");
+            return RedirectPermanent(Url.Details(trip) + "#packinglist");
         }
 
         public ActionResult PackingListPartial(int id, User currentUser)
