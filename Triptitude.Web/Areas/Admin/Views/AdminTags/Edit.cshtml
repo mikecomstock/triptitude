@@ -25,7 +25,7 @@
 }
 <h2>
     Add Item</h2>
-@AdminHelpers.CreateItemTag(Url, Model.Name, string.Empty)
+@AdminHelpers.CreateItemTag(Url, Model.Name, itemNameClass: "focus", tagNameClass: string.Empty)
 <h2>
     Items - Not Moderated</h2>
 @AdminHelpers.ItemTagTable(Url, Model.ItemTags.Where(it => !it.ModeratedOnUTC.HasValue).OrderBy(it => it.Id))

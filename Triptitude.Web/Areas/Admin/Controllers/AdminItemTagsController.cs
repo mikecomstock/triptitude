@@ -25,6 +25,8 @@ namespace Triptitude.Web.Areas.Admin.Controllers
         {
             var item = new ItemRepo().FindOrInitialize(itemName);
             var tag = new TagsRepo().FindOrInitializeByName(tagName);
+            tag.ModeratedOnUTC = DateTime.UtcNow;
+            tag.ShowInSearch = true;
             var itemTag = itemTagRepo.FindOrInitialize(item, tag);
             itemTag.ShowInSearch = true;
             itemTag.ModeratedOnUTC = DateTime.UtcNow;

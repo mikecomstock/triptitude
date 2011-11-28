@@ -42,12 +42,12 @@
         }
     </table>
 }
-@helper CreateTag(UrlHelper Url)
+@helper CreateTag(UrlHelper Url, string tagNameClass = "focus")
     {
     <form action="@Url.Admin("tags", "create")">
     <label for="tagname">
         Tag Name</label>
-    <input type="text" name="tagname" id="tagname" class="tag-autocomplete" />
+    <input type="text" name="tagname" id="tagname" class="tag-autocomplete @tagNameClass" />
     <input type="submit" value="Find or Create" />
     </form>
 }
@@ -97,15 +97,15 @@
         }
     </table>
 }
-@helper CreateItemTag(UrlHelper Url, string tagName = null, string itemNameClass = "focus")
+@helper CreateItemTag(UrlHelper Url, string tagName = null, string tagNameClass = "focus", string itemNameClass = "")
     {
     <form id="create-item-tag-form" action="@Url.Admin("itemtags", "create")">
-    <label for="itemname">
-        Item</label>
-    <input type="text" name="itemname" id="itemname" class="@itemNameClass item-autocomplete" />
     <label for="tagname">
         Tag</label>
-    <input type="text" name="tagname" id="tagname" value="@tagName" class="tag-autocomplete" />
+    <input type="text" name="tagname" id="tagname" value="@tagName" class="tag-autocomplete @tagNameClass" />
+    <label for="itemname">
+        Item</label>
+    <input type="text" name="itemname" id="itemname" class="item-autocomplete @itemNameClass" />
     <input type="submit" value="Submit" />
     </form>
 }
