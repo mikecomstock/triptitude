@@ -1,49 +1,41 @@
 ﻿@{
-    Tag tag = (Tag)ViewBag.Tag;
+    Tag tag = ViewBag.Tag;
     ViewBag.Title = tag.Name;
-    var items = (IEnumerable<Item>)ViewBag.Items;
+    IEnumerable<Item> items = ViewBag.Items;
 }
-<div id="side-container">
-    <a href="@Url.Details(tag)">Details</a>
-</div>
-<div id="main-container">
-    <div class="panel">
-        <div class="panel-title">
-            <h1>@tag.NiceName
-            </h1>
-        </div>
-        <div class="panel-content">
+<article>
+    <header>
+        <h1>@tag.NiceName
+        </h1>
+    </header>
+    @if (tag.PublicTrips.Any())
+    {
+        <section>
             <h2>
                 Trips</h2>
-            @if (tag.PublicTrips.Any())
-            {
-                Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips.OrderByDescending(t => t.Id).Take(5) });
-            }
-            else
-            {
-                <p>
-                    No trips found.</p>
-            }
+            @{Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips.OrderByDescending(t => t.Id).Take(5) });}
+        </section>
+    }
+    @if (items.Any())
+    {
+        <section>
             <h2>
                 Packing List</h2>
-            @if (items.Any())
-            {
-                <ul class="packing-list-items">
-                    @foreach (var item in items.Take(50))
-                    {
-                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name" title="Click to add to trip">
-                            <div class="name">
-                                @item.Name
-                            </div>
-                        </li>
-                    }
-                </ul>
-            }
-            else
-            {
-                <p>
-                    No items found.</p>
-            }
-        </div>
-    </div>
-</div>
+            <ul class="packing-list-items">
+                @foreach (var item in items.Take(50))
+                {
+                    <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name" title="Click to add to trip">
+                        <div class="name">
+                            @item.Name
+                        </div>
+                    </li>
+                }
+            </ul>
+        </section>
+    }
+    @if (!tag.PublicTrips.Any() && !items.Any())
+    {
+        <p>
+            No trips or packing list items found.</p>
+    }
+</article>
