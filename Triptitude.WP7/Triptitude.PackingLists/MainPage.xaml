@@ -18,9 +18,8 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--Pivot Control-->
         <controls:Pivot Title="Triptitude.com Packing Lists" x:Name="mainPivot" SelectionChanged="mainPivot_SelectionChanged">
-            <!--Pivot item one-->
+
             <controls:PivotItem Header="tags">
-                <!--Double line list with text wrapping-->
                 <ListBox x:Name="TagsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Tags}" SelectionChanged="TagsListBox_SelectionChanged" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -33,18 +32,17 @@
             </controls:PivotItem>
 
             <controls:PivotItem Header="items" x:Name="itemsPivotItem">
-                <StackPanel>
-                    <ListBox x:Name="ItemsListBox" Margin="0,0,-12,0">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,17">
-                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </StackPanel>
+                <ListBox x:Name="ItemsListBox" Margin="0,0,-12,0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
+
         </controls:Pivot>
     </Grid>
 

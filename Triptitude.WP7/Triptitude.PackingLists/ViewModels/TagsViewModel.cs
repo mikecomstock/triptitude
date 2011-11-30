@@ -3,19 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Triptitude.PackingLists.ViewModels
 {
@@ -23,7 +13,7 @@ namespace Triptitude.PackingLists.ViewModels
     {
         public bool IsDataLoaded { get; private set; }
         public ObservableCollection<Tag> Tags { get; private set; }
-
+        
         public TagsViewModel()
         {
             Tags = new ObservableCollection<Tag>();

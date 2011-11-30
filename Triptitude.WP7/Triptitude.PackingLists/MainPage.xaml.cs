@@ -31,7 +31,9 @@ namespace Triptitude.PackingLists
             if (mainPivot.SelectedItem == itemsPivotItem)
             {
                 if (TagsListBox.SelectedIndex != -1)
+                {
                     ItemsListBox.ItemsSource = App.TagsViewModel.Tags[TagsListBox.SelectedIndex].Items;
+                }
                 else
                 {
                     ItemsListBox.ItemsSource = App.TagsViewModel.Tags.SelectMany(t => t.Items).Distinct().OrderBy(i => i.Name);
