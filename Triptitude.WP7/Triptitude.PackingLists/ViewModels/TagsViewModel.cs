@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using Newtonsoft.Json;
 
 namespace Triptitude.PackingLists.ViewModels
 {
-    public class TagsViewModel : INotifyPropertyChanged
+    public class TagsViewModel
     {
         public bool IsDataLoaded { get; private set; }
         public ObservableCollection<Tag> Tags { get; private set; }
-        
+
         public TagsViewModel()
         {
             Tags = new ObservableCollection<Tag>();
@@ -22,42 +24,61 @@ namespace Triptitude.PackingLists.ViewModels
         private HttpWebRequest request;
         public void LoadData()
         {
+            TryLoadFromIsolatedStorage();
+
             request = WebRequest.Create(@"http://www.triptitude.com/api/v1/tags") as HttpWebRequest;
-            request.BeginGetResponse(AfterRequest, null);
+            request.BeginGetResponse(RequestCallback, null);
         }
 
-        private void AfterRequest(IAsyncResult result)
+        private void RequestCallback(IAsyncResult result)
         {
-            var response = request.EndGetResponse(result);
-            using (StreamReader sd = new StreamReader(response.GetResponseStream()))
+            try
             {
-                string json = sd.ReadToEnd();
-                APIResponse parsed = JsonConvert.DeserializeObject<APIResponse>(json);
-
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                string json;
+                using (var response = request.EndGetResponse(result))
+                using (StreamReader sd = new StreamReader(response.GetResponseStream()))
                 {
-                    foreach (var tag in parsed.Tags)
-                    {
-                        Tags.Add(tag);
-                    }
+                    json = sd.ReadToEnd();
+                }
 
-                });
-
-                response.Close();
+                SaveToIsolatedStorage(json);
+                TryLoadFromIsolatedStorage();
             }
-
-            NotifyPropertyChanged("Tags");
-            IsDataLoaded = true;
+            catch { }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String propertyName)
+        private void SaveToIsolatedStorage(string tagJson)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (null != handler)
+            var settings = IsolatedStorageSettings.ApplicationSettings;
+            settings["tagJson"] = tagJson;
+        }
+
+        private void TryLoadFromIsolatedStorage()
+        {
+            var settings = IsolatedStorageSettings.ApplicationSettings;
+            string tagJson;
+
+            if (!settings.TryGetValue("tagJson", out tagJson))
             {
-                handler(this, new PropertyChangedEventArgs(propertyName));
+                // Fallback to tags.json content file
+                var sri = Application.GetResourceStream(new Uri("ViewModels/tags.json", UriKind.Relative));
+                using (sri.Stream)
+                using (StreamReader streamReader = new StreamReader(sri.Stream))
+                {
+                    tagJson = streamReader.ReadToEnd();
+                }
             }
+
+            APIResponse parsed = JsonConvert.DeserializeObject<APIResponse>(tagJson);
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                Tags.Clear();
+                foreach (var tag in parsed.Tags.Where(t => t.Items.Count() > 1))
+                {
+                    Tags.Add(tag);
+                }
+            });
+            IsDataLoaded = true;
         }
     }
 

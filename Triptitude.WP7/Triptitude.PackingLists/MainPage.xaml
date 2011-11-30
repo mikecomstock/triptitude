@@ -11,7 +11,7 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -23,7 +23,7 @@
                 <ListBox x:Name="TagsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Tags}" SelectionChanged="TagsListBox_SelectionChanged" >
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                            <StackPanel Margin="0,0,0,17" Width="432" Height="60">
                                 <TextBlock Text="{Binding NiceName}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" />
                             </StackPanel>
                         </DataTemplate>

@@ -36,7 +36,12 @@ namespace Triptitude.PackingLists
                 }
                 else
                 {
-                    ItemsListBox.ItemsSource = App.TagsViewModel.Tags.SelectMany(t => t.Items).Distinct().OrderBy(i => i.Name);
+                    // Using GropuBy and Select instead of distinct (gets around having to deal with equality methods
+                    ItemsListBox.ItemsSource = App.TagsViewModel.Tags
+                        .SelectMany(t => t.Items)
+                        .GroupBy(i => i.Id)
+                        .Select(g => g.First())
+                        .OrderBy(i => i.Name);
                 }
             }
             else
