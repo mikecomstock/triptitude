@@ -28,7 +28,9 @@ namespace Triptitude.Web.Areas.API.Controllers
                                                            }
                                     };
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var j = new { tags = result };
+
+            return Json(j, JsonRequestBehavior.AllowGet);
         }
     }
 }
