@@ -56,6 +56,8 @@ namespace Triptitude.Web.Controllers
         public ActionResult Details(int id, User currentUser)
         {
             Trip trip = new TripsRepo().Find(id);
+            if (trip == null) return HttpNotFound();
+
             ViewBag.Trip = trip;
             ViewBag.CurrentUser = currentUser;
             return View();

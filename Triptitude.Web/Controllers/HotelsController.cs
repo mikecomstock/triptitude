@@ -10,6 +10,7 @@ namespace Triptitude.Web.Controllers
         {
             HotelsRepo hotelsRepo = new HotelsRepo();
             Hotel hotel = hotelsRepo.Find(id);
+            if (hotel == null) return HttpNotFound();
             ViewBag.Hotel = hotel;
             return View();
         }

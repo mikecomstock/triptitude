@@ -36,6 +36,7 @@ namespace Triptitude.Web.Controllers
         public ActionResult Details(int id, User currentUser)
         {
             var place = placesRepo.Find(id);
+            if (place == null) return HttpNotFound();
             ViewBag.Place = place;
             ViewBag.CurrentUser = currentUser;
             return View();

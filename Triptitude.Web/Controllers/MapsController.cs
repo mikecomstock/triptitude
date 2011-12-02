@@ -16,6 +16,8 @@ namespace Triptitude.Web.Controllers
             var polyLines = new List<object>();
 
             Trip trip = new TripsRepo().Find(id);
+            if (trip == null) return HttpNotFound();
+
             var activities = trip.Activities;
 
             var hotelActivities = activities.OfType<HotelActivity>();

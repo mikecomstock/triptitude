@@ -16,8 +16,9 @@ namespace Triptitude.Web.Controllers
         public ActionResult Details(int id)
         {
             Tag tag = repo.Find(id);
-            ViewBag.Tag = tag;
+            if (tag == null) return HttpNotFound();
 
+            ViewBag.Tag = tag;
             ViewBag.Items = new ItemTagRepo().MostPopular(20, tag).Select(it => it.Item).ToList();
             return View();
         }
