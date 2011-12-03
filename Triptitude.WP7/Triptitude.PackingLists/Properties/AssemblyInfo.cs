@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Triptitude.PackingLists")]
+[assembly: AssemblyTitle("Packing Lists by Triptitude")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Triptitude.PackingLists")]
+[assembly: AssemblyCompany("Triptitude.com")]
+[assembly: AssemblyProduct("Packing Lists by Triptitude")]
 [assembly: AssemblyCopyright("Copyright ©  2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

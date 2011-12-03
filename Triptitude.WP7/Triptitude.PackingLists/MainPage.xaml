@@ -15,12 +15,18 @@
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/dreamstimefree_524710.jpg" Stretch="UniformToFill" Opacity="0.7" />
+        </Grid.Background>
         <!--Pivot Control-->
-        <controls:Pivot Title="Triptitude.com Packing Lists" x:Name="mainPivot" SelectionChanged="mainPivot_SelectionChanged">
+        <controls:Pivot Title="Packing Lists by Triptitude" x:Name="mainPivot" SelectionChanged="mainPivot_SelectionChanged" Margin="0,0,0,10">
 
             <controls:PivotItem Header="tags">
-                <ListBox x:Name="TagsListBox" Margin="0,0,-12,0" ItemsSource="{Binding Tags}" SelectionChanged="TagsListBox_SelectionChanged" >
+                <ListBox x:Name="TagsListBox" ItemsSource="{Binding Tags}" SelectionChanged="TagsListBox_SelectionChanged" >
+                    <ListBox.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </ListBox.Background>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17" Width="432" Height="60">
@@ -32,7 +38,10 @@
             </controls:PivotItem>
 
             <controls:PivotItem Header="items" x:Name="itemsPivotItem">
-                <ListBox x:Name="ItemsListBox" Margin="0,0,-12,0">
+                <ListBox x:Name="ItemsListBox">
+                    <ListBox.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </ListBox.Background>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17">
