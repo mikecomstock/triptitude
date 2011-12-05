@@ -1,0 +1,21 @@
+﻿@using System.Globalization
+@{
+    string Category = ViewBag.Category;
+    ViewBag.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category + " Blog");
+    IQueryable<BlogPost> Posts = ViewBag.Posts;
+}
+<article>
+    <header>
+        <h1>@ViewBag.Title</h1>
+    </header>
+    <section>
+        <ul>
+            @foreach (var blogPost in Posts)
+            {
+                <li><a href="@Url.BlogPost(blogPost)">
+                    @blogPost.Title
+                </a></li>
+            }
+        </ul>
+    </section>
+</article>

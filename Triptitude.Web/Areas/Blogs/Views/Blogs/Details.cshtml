@@ -1,0 +1,16 @@
+﻿@using System.Globalization
+@{
+    BlogPost post = ViewBag.Post;
+    ViewBag.Title = post.Title;
+}
+<article>
+    <header>
+        <h1>@post.Title</h1>
+        <div class="subtitle">
+            @post.DisplayDate.ToString("D") | Mike Comstock | <a href="@Url.BlogsCategory(post.Category)">@CultureInfo.CurrentCulture.TextInfo.ToTitleCase(post.Category) Blog</a>
+        </div>
+    </header>
+    <section>
+        @post.Body
+    </section>
+</article>

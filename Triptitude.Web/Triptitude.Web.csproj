@@ -101,6 +101,8 @@
     <Compile Include="Areas\Admin\Controllers\AdminTripsController.cs" />
     <Compile Include="Areas\API\APIAreaRegistration.cs" />
     <Compile Include="Areas\API\Controllers\TagsController.cs" />
+    <Compile Include="Areas\Blogs\BlogsAreaRegistration.cs" />
+    <Compile Include="Areas\Blogs\Controllers\BlogsController.cs" />
     <Compile Include="Controllers\ActivitiesController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,6 +199,8 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\API\Models\" />
     <Folder Include="Areas\API\Views\Shared\" />
+    <Folder Include="Areas\Blogs\Models\" />
+    <Folder Include="Areas\Blogs\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Trips\Settings.cshtml" />
@@ -286,6 +290,9 @@
     <Content Include="Areas\Admin\Views\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\API\Views\Web.config" />
+    <Content Include="Areas\Blogs\Views\Blogs\Index.cshtml" />
+    <Content Include="Areas\Blogs\Views\Blogs\Details.cshtml" />
+    <Content Include="Areas\Blogs\Views\Blogs\Category.cshtml" />
     <None Include="Static\Stylesheets\Admin.scss">
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Admin.css</LastGenOutput>

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Models;
 
@@ -46,6 +47,20 @@ namespace Triptitude.Web.Helpers
         public static string Admin(this UrlHelper url, string controller = "home", string actionName = "index", object routeValues = null)
         {
             return url.Action(actionName, "admin" + controller, routeValues, null);
+        }
+
+        #endregion
+
+        #region Blogs
+
+        public static string BlogsCategory(this UrlHelper url, string category)
+        {
+            return url.RouteUrl("blogs_category", new { category });
+        }
+
+        public static string BlogPost(this UrlHelper url, BlogPost post)
+        {
+            return url.SlugAction("details", "blogs", post.Id, post.Title, "blogs");
         }
 
         #endregion
