@@ -98,31 +98,7 @@ namespace Triptitude.Biz.Repos
             }
             return activity;
         }
-
-        public Activity Save(HotelActivityForm form, User currentUser)
-        {
-            HotelActivity activity;
-
-            if (form.ActivityId.HasValue)
-            {
-                activity = (HotelActivity)Find(form.ActivityId.Value);
-            }
-            else
-            {
-                activity = new HotelActivity();
-                Add(activity);
-            }
-
-            SetBaseProperties(activity, form, currentUser);
-
-            HotelsRepo hotelsRepo = new HotelsRepo();
-            activity.Hotel = hotelsRepo.Find(form.HotelId);
-
-            Save();
-
-            return activity;
-        }
-
+        
         public Activity Save(PlaceActivityForm form, User currentUser)
         {
             PlaceActivity activity;

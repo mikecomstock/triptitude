@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
-using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -13,14 +12,12 @@ namespace Triptitude.Web.Controllers
     {
         private readonly TripsRepo tripsRepo;
         private readonly ActivitiesRepo activitiesRepo;
-        private readonly HotelsRepo hotelsRepo;
         private readonly TransportationTypesRepo transportationTypesRepo;
 
         public ActivitiesController()
         {
             tripsRepo = new TripsRepo();
             activitiesRepo = new ActivitiesRepo();
-            hotelsRepo = new HotelsRepo();
             transportationTypesRepo = new TransportationTypesRepo();
         }
 
@@ -42,83 +39,21 @@ namespace Triptitude.Web.Controllers
             if (!currentUser.OwnsTrips(trip)) return Redirect("/");
 
             if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
-            if (activity is HotelActivity) return EditHotel(activity as HotelActivity, selectedTab);
             if (activity is PlaceActivity) return EditPlace(activity as PlaceActivity, selectedTab);
 
             throw new Exception("Activity type not supported");
         }
 
-        public ActionResult Create(string type, User currentUser, int? placeId, int? hotelId)
+        public ActionResult Create(string type, User currentUser, int? placeId)
         {
             switch (type)
             {
                 case "transportation": return AddTransportation(currentUser);
                 case "place": return AddPlace(placeId, currentUser);
-                case "hotel": return AddHotel(hotelId.Value, currentUser);
             }
 
             throw new Exception("Activity type not supported");
         }
-
-        #region Hotels
-
-        private ActionResult AddHotel(int hotelId, User currentUser)
-        {
-            var hotel = hotelsRepo.Find(hotelId);
-            HotelActivityForm form = new HotelActivityForm
-            {
-                TripId = currentUser.DefaultTrip.Id,
-                HotelId = hotelId
-            };
-            ViewBag.Form = form;
-            ViewBag.Hotel = hotel;
-            ViewBag.Action = Url.ItineraryAddHotel();
-            return PartialView("HotelDialog");
-        }
-
-        [HttpPost]
-        public ActionResult AddHotel(HotelActivityForm form, User currentUser)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
-
-            activitiesRepo.Save(form, currentUser);
-            var response = new { status = "OK" };
-            return Json(response);
-        }
-
-        private ActionResult EditHotel(HotelActivity activity, ActivityForm.Tabs selectedTab)
-        {
-            var form = new HotelActivityForm
-            {
-                ActivityId = activity.Id,
-                BeginDay = activity.BeginDay,
-                EndDay = activity.EndDay,
-                TripId = activity.Trip.Id,
-                HotelId = activity.Hotel.Id,
-                Notes = activity.Notes,
-                SelectedTab = selectedTab
-            };
-            ViewBag.Form = form;
-            ViewBag.Hotel = activity.Hotel;
-            ViewBag.Action = Url.ItineraryEditHotel();
-            return PartialView("HotelDialog");
-        }
-
-        [HttpPost]
-        public ActionResult EditHotel(HotelActivityForm form, User currentUser)
-        {
-            HotelActivity activity = (HotelActivity)activitiesRepo.Find(form.ActivityId.Value);
-            var oldTrip = activity.Trip;
-            var newTrip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
-
-            activitiesRepo.Save(form, currentUser);
-            var response = new { status = "OK" };
-            return Json(response);
-        }
-
-        #endregion
 
         #region Transportation
 

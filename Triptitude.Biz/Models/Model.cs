@@ -72,10 +72,10 @@ namespace Triptitude.Biz.Models
             }
         }
 
-        public IEnumerable<HotelPhoto> Photos
-        {
-            get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
-        }
+        //public IEnumerable<HotelPhoto> Photos
+        //{
+        //    get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
+        //}
 
         public IEnumerable<Activity> ActivitiesOn(int? dayNumber)
         {
@@ -156,19 +156,6 @@ namespace Triptitude.Biz.Models
         }
 
         public override string ActivityTypeName { get { return "transportation"; } }
-    }
-
-    [Table("HotelActivities")]
-    public class HotelActivity : Activity
-    {
-        public virtual Hotel Hotel { get; set; }
-
-        public override string Name
-        {
-            get { return "Lodging at " + Hotel.Name; }
-        }
-
-        public override string ActivityTypeName { get { return "hotel"; } }
     }
 
     [Table("PlaceActivities")]
@@ -307,9 +294,6 @@ namespace Triptitude.Biz.Models
         public int Image_Id { get; set; }
         public int NumberOfReviews { get; set; }
         public decimal ConsumerRating { get; set; }
-        public virtual ICollection<HotelActivity> HotelActivities { get; set; }
-
-        public IEnumerable<Trip> Trips { get { return HotelActivities.Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct(); } }
 
         public HotelPhoto Photo
         {

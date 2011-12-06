@@ -37,6 +37,7 @@ namespace Triptitude.Web
             routes.MapRoute("OldIsers", "Users/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels", "Hotels/{id}/{name}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldHotels2", "Hotels", new { controller = "Home", Action = "NotFound" });
+            routes.MapRoute("OldHotels3", "Hotels/{*data}", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldDestinations", "Destinations/{*Data}", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff

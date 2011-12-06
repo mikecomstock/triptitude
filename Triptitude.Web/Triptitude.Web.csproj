@@ -245,7 +245,6 @@
     <Content Include="Views\Admin\Trips.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activities\HotelDialog.cshtml" />
     <Content Include="Views\Activities\TransportationDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -25,9 +25,6 @@
         <div class="title">
             <h1>@hotel.Name</h1>
         </div>
-        <div class="subtitle">
-            <a class="super-dialog-link link" href="/activities/create?type=hotel&hotelid=@hotel.Id" >+ Add to Trip</a>
-        </div>
         <div class="panel-content">
             <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
         </div>
@@ -36,26 +33,8 @@
         <div class="panel-content">
             <h2>
                 Map</h2>
-            <div id="hotel-details-map-container">
+            <div id="hotel-details-map-container" style="width: 100%; height: 260px;">
             </div>
-        </div>
-    </div>
-    <div class="panel">
-        <div class="panel-content">
-            <h2>
-                Trips to @ViewBag.Hotel.Name</h2>
-            @if (hotel.Trips.Any())
-            {
-                <div id="hotel-details-related-trips">
-                    @Html.Action("_rows", "trips", new { trips = hotel.Trips })
-                </div>
-            }
-            else
-            {
-                <div>
-                    No trips found! <a href="@Url.CreateTrip()">Create one here.</a>
-                </div>
-            }
         </div>
     </div>
 </div>

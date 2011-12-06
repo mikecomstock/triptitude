@@ -20,23 +20,6 @@ namespace Triptitude.Web.Controllers
 
             var activities = trip.Activities;
 
-            var hotelActivities = activities.OfType<HotelActivity>();
-            var hotelMarkers = from a in hotelActivities
-                               let infoTitle = string.Format("<strong>Lodging at <a href='{0}'>{1}</a></strong>", Url.Details(a.Hotel), a.Hotel.Name)
-                               let numNights = a.EndDay - a.BeginDay
-                               let nightsText = numNights == 1 ? "night" : "nights"
-                               let infoBody = Util.DateTimeRangeString(a.BeginDay, a.BeginTime, a.EndDay, a.EndTime) + string.Format(" ({0} {1})", numNights, nightsText)
-                               let infoHtml = infoTitle + "<br/>" + infoBody
-                               select new
-                                          {
-                                              a.Hotel.Name,
-                                              a.Hotel.Latitude,
-                                              a.Hotel.Longitude,
-                                              InfoHtml = infoHtml,
-                                              ExtendBounds = true
-                                          };
-            markers.AddRange(hotelMarkers);
-
             var placeActivities = activities.OfType<PlaceActivity>();
             var placeMarkers = from a in placeActivities.Where(a => a.Place != null)
                                let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)

@@ -127,23 +127,13 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region Itinerary AmazonItems
+        #region Itinerary
 
         public static string Delete(this UrlHelper url, int activityId)
         {
             return url.Action("delete", "activities", new { id = activityId });
         }
-
-        public static string ItineraryAddHotel(this UrlHelper url)
-        {
-            return url.Action("addhotel", "activities");
-        }
-        public static string ItineraryEditHotel(this UrlHelper url)
-        {
-            return url.Action("edithotel", "activities");
-        }
-
-
+        
         public static string ItineraryAddTransportation(this UrlHelper url)
         {
             return url.Action("addtransportation", "activities");
@@ -152,8 +142,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("edittransportation", "activities");
         }
-
-
+        
         public static string ItineraryAddPlace(this UrlHelper url)
         {
             return url.Action("addplace", "activities");
@@ -187,16 +176,7 @@ namespace Triptitude.Web.Helpers
         }
 
         #endregion
-
-        #region Hotels
-
-        public static string Details(this UrlHelper url, Hotel hotel)
-        {
-            return SlugAction(url, "details", "hotels", hotel.Id, hotel.Name);
-        }
-
-        #endregion
-
+        
         #region Tags
 
         public static string Details(this UrlHelper url, Tag tag)

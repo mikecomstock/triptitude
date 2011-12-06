@@ -24,29 +24,6 @@
                     }
                 </div>
             }
-            else if (activity is HotelActivity)
-            {
-                var hotelActivity = activity as HotelActivity;
-                if (ViewBag.DayNumber == hotelActivity.BeginDay)
-                {
-                <img src="@hotelActivity.Hotel.Photo.ThumbURL" alt="" />
-                }
-                <div class="title">
-                    @if (ViewBag.DayNumber == hotelActivity.BeginDay)
-                    {
-                        <p>
-                            Check in to <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a> for a @(hotelActivity.EndDay - hotelActivity.BeginDay)
-                            night stay
-                        </p>
-                    }
-                    else
-                    {
-                        <p>
-                            Check out of <a href="@Url.Details(hotelActivity.Hotel)">@hotelActivity.Hotel.Name</a>
-                        </p>
-                    }
-                </div>
-            }
             else if (activity is PlaceActivity)
             {
                 var placeActivity = activity as PlaceActivity;

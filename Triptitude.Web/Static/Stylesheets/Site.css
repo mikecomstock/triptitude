@@ -856,14 +856,6 @@ footer {
 #trip-settings-form input[type="text"] {
   width: 400px; }
 
-/* Hotel Details */
-#hotel-details-map-container {
-  width: 100%;
-  height: 260px; }
-
-#hotel-details-related-trips {
-  clear: both; }
-
 /* My Trips */
 #my-trips .none-found {
   padding: 15px; }

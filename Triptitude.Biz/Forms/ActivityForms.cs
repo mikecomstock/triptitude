@@ -45,11 +45,6 @@ namespace Triptitude.Biz.Forms
 
     }
 
-    public class HotelActivityForm : ActivityForm
-    {
-        public int HotelId { get; set; }
-    }
-
     public class PlaceActivityForm : ActivityForm
     {
         public int? PlaceId { get; set; }
