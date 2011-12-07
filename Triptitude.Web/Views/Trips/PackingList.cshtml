@@ -8,31 +8,35 @@
     User currentUser = ViewBag.CurrentUser;
     IEnumerable<ItemTag> suggestions = ViewBag.Suggestions;
 }
-@if (currentUser.DefaultTrip == trip)
-{
-    <div class="subtitle">
-        Use the <strong>+Add Plans</strong> menu to add items to your packing list.
-    </div>
-}
-@if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
-{
-    <div class="panel-suggestions">
-        <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
-            + Some things you might need</div>
-        <ul class="packing-list-items suggestions">
-            @foreach (ItemTag itemTag in suggestions)
-            {
-                <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
-                    @itemTag.Item.Name
-                    @if (itemTag.Tag != null)
-                    {
-                        <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
-                    }
-                </span></li>
-            }
-        </ul>
-    </div>
-}
+<header>
+    <h2>
+        Packing List</h2>
+    @if (currentUser.DefaultTrip == trip)
+    {
+        <div class="subtitle">
+            Use the <strong>+Add Plans</strong> menu to add items to your packing list.
+        </div>
+    }
+    @if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
+    {
+        <div class="panel-suggestions">
+            <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
+                + Popular items you might need</div>
+            <ul class="packing-list-items suggestions">
+                @foreach (ItemTag itemTag in suggestions)
+                {
+                    <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
+                        @itemTag.Item.Name
+                        @if (itemTag.Tag != null)
+                        {
+                            <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
+                        }
+                    </span></li>
+                }
+            </ul>
+        </div>
+    }
+</header>
 @if (packingListItems.Any())
 {
     <div class="packing-list-tags fluid">
@@ -72,14 +76,11 @@ else
     <ul class="packing-list-items">
         @foreach (PackingListItem pli in plis.OrderBy(pli => pli.ItemTag.Item.Name))
         {
-            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id" title="Click to edit">
-                <div class="name">
-                    @pli.ItemTag.Item.Name
-                    @if (pli.Place != null)
-                    {
-                        <span class="packing-list-item-place">for <a href="@Url.Details(pli.Place)">@pli.Place.Name</a> </span>
-                    }
-                </div>
+            <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id" title="Click to edit"><span class="name">@pli.ItemTag.Item.Name</span>
+                @if (pli.Place != null)
+                {
+                    <text>for <a class="packing-list-item-place" href="@Url.Details(pli.Place)">@pli.Place.Name</a></text>
+                }
                 @if (!string.IsNullOrEmpty(pli.Note))
                 {
                     <div class="packing-list-item-note">@pli.Note</div>

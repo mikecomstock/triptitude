@@ -1,52 +1,58 @@
 ﻿@{
     Trip trip = (Trip)ViewBag.Trip;
     bool CurrentUserOwnsTrip = ViewBag.CurrentUserOwnsTrip;
+    IEnumerable<Activity> activities = trip.ActivitiesOn(ViewBag.DayNumber);
 }
-<div class="trip-day">
+<div class="day">
     <h3>
         @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
     </h3>
-    @foreach (Activity activity in trip.ActivitiesOn(ViewBag.DayNumber))
+    @if (!activities.IsNullOrEmpty())
     {
-        <div class="activity @(CurrentUserOwnsTrip ? "owned" : string.Empty)" data-activity-id="@activity.Id">
-            @if (activity is TransportationActivity)
+        <ol class="activities">
+            @foreach (Activity activity in activities)
             {
-                var transportationActivity = activity as TransportationActivity;
-                <div class="title">
-                    @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
-                    @if (transportationActivity.FromPlace != null)
+                <li class="activity" data-activity-id="@activity.Id">
+                    @if (activity is TransportationActivity)
                     {
-                        <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
+                        var transportationActivity = activity as TransportationActivity;
+                        <p class="title">
+                            @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
+                            @if (transportationActivity.FromPlace != null)
+                            {
+                                <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
+                            }
+                            @if (transportationActivity.ToPlace != null)
+                            {
+                                <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                            }
+                        </p>
                     }
-                    @if (transportationActivity.ToPlace != null)
+                    else if (activity is PlaceActivity)
                     {
-                        <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                        var placeActivity = activity as PlaceActivity;
+                        
+                        if (!string.IsNullOrWhiteSpace(placeActivity.Title))
+                        {
+                        <p class="title">
+                            @placeActivity.Title
+                        </p>
+                        }
+
+                        if (placeActivity.Place != null)
+                        {
+                        <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
+                            <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                        </p>
+                        }
                     }
-                </div>
+                    @Helpers.TagList(Url, activity.Tags)
+                    @if (CurrentUserOwnsTrip || true)
+                    {
+                        @Helpers.NoteList(Url, activity.Notes)
+                    }
+                </li>
             }
-            else if (activity is PlaceActivity)
-            {
-                var placeActivity = activity as PlaceActivity;
-
-                if (!string.IsNullOrWhiteSpace(placeActivity.Title))
-                {
-                <div class="title">
-                    @placeActivity.Title
-                </div>
-                }
-
-                if (placeActivity.Place != null)
-                {
-                <div class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
-                    <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
-                </div>
-                }
-            }
-            @Helpers.TagList(Url, activity.Tags)
-            @if (CurrentUserOwnsTrip || true)
-            {
-                @Helpers.NoteList(Url, activity.Notes)
-            }
-        </div>
+        </ol>
     }
 </div>

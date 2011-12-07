@@ -10,6 +10,7 @@ a:focus { text-decoration: underline; outline: none; }
 img { border: none; }
 table { width: 100%; }
 td { vertical-align: top; padding: 0; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
 
 /* HTML5 Tags */
 article, aside, figure, footer, header, hgroup, menu, nav, section { display:block; }
@@ -74,13 +75,13 @@ $invalid-color: #E92553;
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px); }
 #trip-bar #create-trip-form { float: right;text-align: right;}
-#trip-bar-title { color: #FFFFFF; display: inline; font-size: 24px; font-weight: bold; }
+#trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; }
 #trip-bar-pre-title { color: #BBB; }
 #email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px; }
 #email-warning a { color: #FFF; }
 
 #trip-bar-menu {
-	float: right; z-index: 6; position: relative; margin: 5px 0; padding: 0; list-style: none; font-size: 20px; font-weight: bold; @include clearfix;
+	float: right; z-index: 6; position: relative; margin: 5px 0; font-size: 20px; font-weight: bold; @include clearfix;
 	.link { cursor: default; }
 	a, .link {
 		color: #66C3FE; padding: 5px 20px; margin: 0; display: block;
@@ -99,7 +100,7 @@ $invalid-color: #E92553;
 		&:hover { background-color: #333; }
 		&+ li { border-left: 1px solid #FFF; }
 		ul {
-			display: none; position: absolute; right: 0; list-style: none; font-size: 14px; padding: 10px; background-color: #333; z-index: 2;
+			display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 2;
 			li {
 				&:hover { background-color: #444; }
 				&+li { border-top: 1px solid #555; }
@@ -122,7 +123,7 @@ $invalid-color: #E92553;
 
 article {
 	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
-	header {
+	> header {
 		background-color: #E9BA26;
 		h1 { padding: 15px; }
 		.subtitle { background-color: #F3ECB7; padding: 10px; }
@@ -280,7 +281,7 @@ footer { width: 955px; height: 100px; }
 #my-trips {
 	.none-found { padding:15px; }
 	.my-trip-rows {
-		list-style: none; padding: 0; margin: 0; @include clearfix;
+		@include clearfix;
 		li {
 			display: block;
 			a { display: block; padding: 15px; font-size: 16px; }
@@ -305,39 +306,38 @@ footer { width: 955px; height: 100px; }
 }
 
 /* Tags */
-ul.tags { padding: 0; list-style: none; @include clearfix; margin: 0; height: 26px; }
+ul.tags { @include clearfix; height: 26px; }
 ul.tags > li { float: left; }
 ul.tags > li + li { margin-left: 5px; }
 .tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block; height: 15px; }
 .tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
 
-/* AmazonItems */
-/*ul.items { padding: 0; list-style: none; @include clearfix; }
-ul.items > li { float: left; margin-left: 5px; border: 1px solid #EEE; text-align: center; margin: 10px; }
-ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
-
 /* Trips */
 #trips-details {
 	.panel-content { background-color:#EEE; }
 	#trip-map-container { width: 100%; height: 250px; margin-bottom: 10px; }
-	.trip-day {
-		min-height: 25px; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3)); margin-bottom: 10px; background-color:#FFF;
-		> h3 { padding: 3px 6px; background: #0190E9; color: #FFF; }
-		.notes { margin: 10px; @include clearfix; }		
-		.tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
-		.tags { margin: 10px; }
+	#itinerary {
+		.day {
+			@include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3)); margin-bottom: 5px;
+			h3 {padding: 2px 6px; background-color: #0190E9; color: #FFF;  }
+			.activities {
+				.activity {
+					min-height: 10px;
+					.title { color: #333; margin: 10px; font-weight: bold; }
+					&+ .activity { border-top: 1px dashed #0190E9; }
+					.notes { margin: 10px; @include clearfix; }
+					.place { color: #333; margin: 10px; font-weight: bold; }
+					.place.with-title { font-weight: normal; }
+					.place.with-title:before { content: "at"; font-weight: normal; }
+					.tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
+					.tags { margin: 10px; }
+				}
+			}
+		}	
 	}
-	.activity {
-		min-height: 10px;
-		@include clearfix;
-		> .title { color: #333; margin: 10px; font-weight: bold; }
-		> .place { color: #333; margin: 10px; font-weight: bold; }
-		> .place.with-title { font-weight: normal; }
-		> .place.with-title:before { content: "at"; font-weight: normal; }
-		img { float: right; margin: 10px; }
-		+ .activity { border-top: 1px dashed #0190E9; }
-	}	
-	.activity.owned:hover { background-color: #F3F3F3; cursor: pointer; }
+	.editing {
+		.activity:hover { background-color: #F3F3F3; cursor: pointer; }	
+	}
 }
 
 #trips-map {
@@ -358,10 +358,9 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 }
 
 .packing-list-items {
-	list-style: none; padding: 0; margin: 0; @include clearfix;
+	@include clearfix;
 	li {
 		float: left; width: 30%; margin: 0 4px 4px 0; padding: 5px; @include clearfix; background-color: #F6F6F6;
-		.name { margin-right: 5px; }
 		.add-to-trip { float: right; }
 		.packing-list-item-note { clear: both; background-color: #9FDAFE; padding: 3px; margin-top: 3px; }
 		.packing-list-item-place, .packing-list-item-tag {
@@ -372,9 +371,9 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 		&.visibility-private .name:after { content: "(private)"; color: #888; }
 	}
 	&.suggestions {
-		margin: 5px auto; border-top: none; @include clearfix;
+		margin: 5px 20px; border-top: none; @include clearfix;
 		li {
-			cursor: pointer; background-color: transparent; background-color: #E0F3FF;
+			cursor: pointer; background-color: #E0F3FF;
 			&:hover { background-color: #EEE; }
 		}
 	}
@@ -385,7 +384,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 /* Places */
 #places-nearby {
 	#place-rows {
-		list-style: none; margin: 10px 0 0 0; padding: 0; cursor: pointer;
+		margin-top: 10px; cursor: pointer;
 		li {
 			padding: 10px;
 			+ li { border-top: 1px solid #DDD; }

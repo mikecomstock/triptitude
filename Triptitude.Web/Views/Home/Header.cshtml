@@ -71,9 +71,8 @@
             </ul>
             <div id="trip-bar-pre-title">
                 currently planning...</div>
-            <div id="trip-bar-title">
-                @currentUser.DefaultTrip.Name
-            </div>
+            <a id="trip-bar-title" href="@Url.Details(currentUser.DefaultTrip)">
+                @currentUser.DefaultTrip.Name</a>
             @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
             {
                 <div id="email-warning">

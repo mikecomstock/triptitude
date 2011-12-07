@@ -21,14 +21,14 @@
     {
         if (notes != null && notes.Any())
         {
-    <div class="notes">
+    <ul class="notes">
         @foreach (var note in notes)
         {
-            <div class="note">
+            <li class="note">
                 @note.Text
-            </div>
+            </li>
         }
-    </div>
+    </ul>
         }    
 }
 @helper TagList(UrlHelper Url, IEnumerable<Tag> tags)

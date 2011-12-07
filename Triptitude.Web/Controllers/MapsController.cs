@@ -20,9 +20,13 @@ namespace Triptitude.Web.Controllers
 
             var activities = trip.Activities;
 
+            #region Place Activities 
+
             var placeActivities = activities.OfType<PlaceActivity>();
             var placeMarkers = from a in placeActivities.Where(a => a.Place != null)
-                               let infoHtml = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
+                               let infoTitle = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
+                               let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
+                               let infoHtml = infoTitle + "<br/>" + infoBody
                                where a.Place.Latitude.HasValue && a.Place.Longitude.HasValue
                                select new
                                           {
@@ -33,6 +37,8 @@ namespace Triptitude.Web.Controllers
                                               ExtendBounds = true
                                           };
             markers.AddRange(placeMarkers);
+
+            #endregion
 
             #region Transportation Activities
 

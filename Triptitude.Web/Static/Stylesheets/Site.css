@@ -35,6 +35,11 @@ td {
   vertical-align: top;
   padding: 0; }
 
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
 /* HTML5 Tags */
 article, aside, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
@@ -137,9 +142,9 @@ input.delete {
   letter-spacing: 1px;
   margin-top: -10px;
   padding: 15px 10px 5px 10px;
-  -webkit-border-radius: 0 0 7px 7px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 0 0 7px 7px;
-  border-radius: 0 0 7px 7px;
+  /*          border-radius: $radius; */
   background-color: #0190e9;
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(#39b3fe), to(#0190e9));
@@ -228,9 +233,9 @@ input.delete {
   margin: 0 auto 0 auto;
   background: #262626;
   background: rgba(38, 38, 38, 0.8);
-  -webkit-border-radius: 7px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 7px;
-  border-radius: 7px; }
+  /*          border-radius: $radius; */ }
 
 #trip-bar #create-trip-form {
   float: right;
@@ -238,7 +243,6 @@ input.delete {
 
 #trip-bar-title {
   color: #FFFFFF;
-  display: inline;
   font-size: 24px;
   font-weight: bold; }
 
@@ -253,9 +257,9 @@ input.delete {
   text-align: center;
   padding: 3px;
   color: #000;
-  -webkit-border-radius: 4px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 4px;
-  border-radius: 4px;
+  /*          border-radius: $radius; */
   margin-top: 3px; }
 
 #email-warning a {
@@ -266,8 +270,6 @@ input.delete {
   z-index: 6;
   position: relative;
   margin: 5px 0;
-  padding: 0;
-  list-style: none;
   font-size: 20px;
   font-weight: bold;
   zoom: 1; }
@@ -325,7 +327,6 @@ input.delete {
       display: none;
       position: absolute;
       right: 0;
-      list-style: none;
       font-size: 14px;
       padding: 10px;
       background-color: #333;
@@ -369,9 +370,9 @@ input.delete {
     font-weight: bold;
     color: #000000;
     font-size: 16px;
-    -webkit-border-radius: 4px;
+    /*  -webkit-border-radius: $radius; */
     -moz-border-radius: 4px;
-    border-radius: 4px; }
+    /*          border-radius: $radius; */ }
   #side-container a:hover, #side-container a:focus {
     background-color: #E9BA26;
     text-decoration: none; }
@@ -382,20 +383,20 @@ input.delete {
   margin-left: 25px; }
 
 article {
-  -webkit-border-radius: 6px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 6px;
-  border-radius: 6px;
+  /*          border-radius: $radius; */
   /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   /*          box-shadow: $shadow; */
   background-color: #FFFFFF;
   overflow: hidden !important;
   padding-bottom: 10px; }
-  article header {
+  article > header {
     background-color: #E9BA26; }
-    article header h1 {
+    article > header h1 {
       padding: 15px; }
-    article header .subtitle {
+    article > header .subtitle {
       background-color: #F3ECB7;
       padding: 10px; }
   article section {
@@ -411,9 +412,9 @@ article {
       margin: 10px 0; }
 
 .panel {
-  -webkit-border-radius: 6px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 6px;
-  border-radius: 6px;
+  /*          border-radius: $radius; */
   /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   /*          box-shadow: $shadow; */
@@ -484,9 +485,9 @@ article {
   margin: 0 auto;
   background: white;
   background: rgba(255, 255, 255, 0.85);
-  -webkit-border-radius: 7px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 7px;
-  border-radius: 7px;
+  /*          border-radius: $radius; */
   padding-bottom: 40px; }
 
 #landing-page-panel {
@@ -614,9 +615,9 @@ footer {
   z-index: 5;
   padding: 10px;
   background-color: #262626;
-  -webkit-border-radius: 10px;
+  /*  -webkit-border-radius: $radius; */
   -moz-border-radius: 10px;
-  border-radius: 10px;
+  /*          border-radius: $radius; */
   /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0px 0px 20px black;
   /*          box-shadow: $shadow; */
@@ -860,9 +861,6 @@ footer {
 #my-trips .none-found {
   padding: 15px; }
 #my-trips .my-trip-rows {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   zoom: 1; }
   #my-trips .my-trip-rows:before {
     display: table;
@@ -925,19 +923,16 @@ footer {
     padding: 4px 6px 4px 24px; }
   .trip-row .trip-row-map-link:hover {
     background-color: #AAA;
-    -webkit-border-radius: 3px;
+    /*  -webkit-border-radius: $radius; */
     -moz-border-radius: 3px;
-    border-radius: 3px;
+    /*          border-radius: $radius; */
     color: #FFF; }
   .trip-row .trip-map-dialog-link {
     display: block; }
 
 /* Tags */
 ul.tags {
-  padding: 0;
-  list-style: none;
   zoom: 1;
-  margin: 0;
   height: 26px; }
   ul.tags:before {
     display: table;
@@ -976,10 +971,6 @@ ul.tags > li + li {
   color: #E0EAF1;
   text-decoration: none; }
 
-/* AmazonItems */
-/*ul.items { padding: 0; list-style: none; @include clearfix; }
-ul.items > li { float: left; margin-left: 5px; border: 1px solid #EEE; text-align: center; margin: 10px; }
-ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 /* Trips */
 #trips-details .panel-content {
   background-color: #EEE; }
@@ -987,71 +978,54 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
   width: 100%;
   height: 250px;
   margin-bottom: 10px; }
-#trips-details .trip-day {
-  min-height: 25px;
+#trips-details #itinerary .day {
   /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   /*          box-shadow: $shadow; */
-  margin-bottom: 10px;
-  background-color: #FFF; }
-  #trips-details .trip-day > h3 {
-    padding: 3px 6px;
-    background: #0190E9;
+  margin-bottom: 5px; }
+  #trips-details #itinerary .day h3 {
+    padding: 2px 6px;
+    background-color: #0190E9;
     color: #FFF; }
-  #trips-details .trip-day .notes {
-    margin: 10px;
-    zoom: 1; }
-    #trips-details .trip-day .notes:before {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline; }
-    #trips-details .trip-day .notes:after {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline;
-      clear: both; }
-  #trips-details .trip-day .tags:before {
-    content: "tags:";
-    float: left;
-    color: #999;
-    padding: 3px 0; }
-  #trips-details .trip-day .tags {
-    margin: 10px; }
-#trips-details .activity {
-  min-height: 10px;
-  zoom: 1; }
-  #trips-details .activity:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #trips-details .activity:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  #trips-details .activity > .title {
-    color: #333;
-    margin: 10px;
-    font-weight: bold; }
-  #trips-details .activity > .place {
-    color: #333;
-    margin: 10px;
-    font-weight: bold; }
-  #trips-details .activity > .place.with-title {
-    font-weight: normal; }
-  #trips-details .activity > .place.with-title:before {
-    content: "at";
-    font-weight: normal; }
-  #trips-details .activity img {
-    float: right;
-    margin: 10px; }
-  #trips-details .activity + .activity {
-    border-top: 1px dashed #0190E9; }
-#trips-details .activity.owned:hover {
+  #trips-details #itinerary .day .activities .activity {
+    min-height: 10px; }
+    #trips-details #itinerary .day .activities .activity .title {
+      color: #333;
+      margin: 10px;
+      font-weight: bold; }
+    #trips-details #itinerary .day .activities .activity + .activity {
+      border-top: 1px dashed #0190E9; }
+    #trips-details #itinerary .day .activities .activity .notes {
+      margin: 10px;
+      zoom: 1; }
+      #trips-details #itinerary .day .activities .activity .notes:before {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline; }
+      #trips-details #itinerary .day .activities .activity .notes:after {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline;
+        clear: both; }
+    #trips-details #itinerary .day .activities .activity .place {
+      color: #333;
+      margin: 10px;
+      font-weight: bold; }
+    #trips-details #itinerary .day .activities .activity .place.with-title {
+      font-weight: normal; }
+    #trips-details #itinerary .day .activities .activity .place.with-title:before {
+      content: "at";
+      font-weight: normal; }
+    #trips-details #itinerary .day .activities .activity .tags:before {
+      content: "tags:";
+      float: left;
+      color: #999;
+      padding: 3px 0; }
+    #trips-details #itinerary .day .activities .activity .tags {
+      margin: 10px; }
+#trips-details .editing .activity:hover {
   background-color: #F3F3F3;
   cursor: pointer; }
 
@@ -1091,9 +1065,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
         margin: 5px 0 0 0; }
 
 .packing-list-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   zoom: 1; }
   .packing-list-items:before {
     display: table;
@@ -1124,8 +1095,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
       zoom: 1;
       *display: inline;
       clear: both; }
-    .packing-list-items li .name {
-      margin-right: 5px; }
     .packing-list-items li .add-to-trip {
       float: right; }
     .packing-list-items li .packing-list-item-note {
@@ -1144,7 +1113,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
       content: "(private)";
       color: #888; }
   .packing-list-items.suggestions {
-    margin: 5px auto;
+    margin: 5px 20px;
     border-top: none;
     zoom: 1; }
     .packing-list-items.suggestions:before {
@@ -1160,7 +1129,6 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
       clear: both; }
     .packing-list-items.suggestions li {
       cursor: pointer;
-      background-color: transparent;
       background-color: #E0F3FF; }
       .packing-list-items.suggestions li:hover {
         background-color: #EEE; }
@@ -1171,9 +1139,7 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 
 /* Places */
 #places-nearby #place-rows {
-  list-style: none;
-  margin: 10px 0 0 0;
-  padding: 0;
+  margin-top: 10px;
   cursor: pointer; }
   #places-nearby #place-rows li {
     padding: 10px; }

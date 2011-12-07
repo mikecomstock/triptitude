@@ -58,14 +58,15 @@ $(function () {
         OpenSuperDialog(url);
     });
 
-    $('.packing-list-item.owned').click(function (e) {
-        if (!$(e.target).is('a')) {
-            var id = $(this).data('id');
-            OpenSuperDialog('/packing/edit/' + id);
-        }
+    $('.editing .packing-list-item').click(function(e) {
+        if ($(e.target).is('a')) return;
+        if ($(this).parent().is('.suggestions')) return;
+
+        var id = $(this).data('id');
+        OpenSuperDialog('/packing/edit/' + id);
     });
 
-    $('.trip-day .activity.owned').click(function (e) {
+    $('.editing .activity').click(function (e) {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             OpenSuperDialog('/activities/edit/' + activityId);
@@ -414,7 +415,7 @@ T.NearbyPlaces = function () {
 
         var keyword = searchForm.find('#keyword').val();
         var types = searchForm.find('#types').val() == "" ? null : [searchForm.find('#types').val()];
-        
+
         var options = { bounds: map.getBounds(), keyword: keyword, types: types };
         searchService.search(options, function (results, status) {
 

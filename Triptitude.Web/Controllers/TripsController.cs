@@ -97,7 +97,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.Tags = tags;
 
             var itemIdsUsed = packingListItems.Select(pli => pli.ItemTag.Item.Id).Distinct();
-            ViewBag.Suggestions = new ItemTagRepo().MostPopular().Where(it => !itemIdsUsed.Contains(it.Item.Id)).Take(18);
+            ViewBag.Suggestions = new ItemTagRepo().MostPopular().Where(it => !itemIdsUsed.Contains(it.Item.Id)).Take(9);
             return PartialView("PackingList");
         }
 
