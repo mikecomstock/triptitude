@@ -16,6 +16,10 @@
                 var selectorToToggle = $(this).data('selector-to-toggle');
                 $(selectorToToggle).toggle();
             });
+
+            $('.packing-list-tags.fluid').masonry({
+                    itemSelector: '.packing-list-tag'
+                });
         });
     </script>
 }

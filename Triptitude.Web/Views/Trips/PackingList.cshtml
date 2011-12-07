@@ -35,30 +35,31 @@
 }
 @if (packingListItems.Any())
 {
-    if (packingListItemsNoTag.Any())
-    {
-    <div class="packing-list-tag">
+    <div class="packing-list-tags fluid">
+        @if (packingListItemsNoTag.Any())
+        {
+            <div class="packing-list-tag">
+                @if (tags.Any())
+                {
+                    <h3>
+                        General Items</h3>
+                }
+                @ItemList(packingListItemsNoTag)
+            </div>
+        }
         @if (tags.Any())
         {
-            <h3>
-                General Items</h3>
+            foreach (var tag in tags)
+            {
+            <div class="packing-list-tag">
+                <h3>
+                    <a href="@Url.Details(tag)">@tag.NiceName</a>
+                </h3>
+                @ItemList(packingListItems.Where(pli => pli.ItemTag.Tag == tag))
+            </div>
+            }
         }
-        @ItemList(packingListItemsNoTag)
     </div>
-    }
-
-    if (tags.Any())
-    {
-        foreach (var tag in tags)
-        {
-    <div class="packing-list-tag">
-        <h3>
-            <a href="@Url.Details(tag)">@tag.NiceName</a>
-        </h3>
-        @ItemList(packingListItems.Where(pli => pli.ItemTag.Tag == tag))
-    </div>
-        }
-    }
 }
 else
 {

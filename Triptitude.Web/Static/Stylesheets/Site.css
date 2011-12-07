@@ -158,9 +158,9 @@ input.delete {
   margin: 10px 10px 10px 30px; }
 
 #search form {
-  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
+  /*          box-shadow: $shadow; */ }
 
 #search input[type="text"] {
   font-size: 16px;
@@ -385,9 +385,9 @@ article {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  /*          box-shadow: $shadow; */
   background-color: #FFFFFF;
   overflow: hidden !important;
   padding-bottom: 10px; }
@@ -414,9 +414,9 @@ article {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  /*          box-shadow: $shadow; */
   background-color: #FFFFFF;
   overflow: hidden !important; }
 
@@ -617,9 +617,9 @@ footer {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 20px black;
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 0px 0px 20px black;
-  box-shadow: 0px 0px 20px black;
+  /*          box-shadow: $shadow; */
   /* Some Note styles apply to notes dialog AND notes sections of other dialogs. */ }
   #super-dialog .dialog-page {
     display: none;
@@ -828,9 +828,9 @@ footer {
   background: #52bcfe;
   background: rgba(82, 188, 254, 0.7);
   margin: 0 20px 20px 30px;
-  -webkit-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
-  box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
+  /*          box-shadow: $shadow; */ }
 
 #landing-page-panel #create-trip-form h3 {
   font-size: 18px;
@@ -989,9 +989,9 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
   margin-bottom: 10px; }
 #trips-details .trip-day {
   min-height: 25px;
-  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  /*          box-shadow: $shadow; */
   margin-bottom: 10px;
   background-color: #FFF; }
   #trips-details .trip-day > h3 {
@@ -1060,6 +1060,36 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
   height: 500px; }
 
 /* Packing List */
+.packing-list-tags.fluid {
+  zoom: 1; }
+  .packing-list-tags.fluid:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  .packing-list-tags.fluid:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  .packing-list-tags.fluid .packing-list-tag {
+    width: 32%;
+    display: inline;
+    background-color: #E6E6E6;
+    margin: 0 10px 10px 0;
+    /*  -webkit-box-shadow: $shadow; */
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    /*          box-shadow: $shadow; */ }
+    .packing-list-tags.fluid .packing-list-tag h3 {
+      margin: 5px; }
+    .packing-list-tags.fluid .packing-list-tag .packing-list-items {
+      margin: 5px; }
+      .packing-list-tags.fluid .packing-list-tag .packing-list-items li {
+        float: none;
+        width: auto;
+        margin: 5px 0 0 0; }
+
 .packing-list-items {
   list-style: none;
   padding: 0;

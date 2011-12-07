@@ -345,6 +345,18 @@ ul.items > li .name { padding: 5px 5px 10px 5px; display: block; }*/
 }
 
 /* Packing List */
+.packing-list-tags.fluid {
+	@include clearfix;
+	.packing-list-tag {	
+		width: 32%; display: inline; background-color: #E6E6E6; margin: 0 10px 10px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+		h3 { margin: 5px }
+		.packing-list-items {
+			margin: 5px;
+			li { float: none; width: auto; margin: 5px 0 0 0; }
+		}
+	}
+}
+
 .packing-list-items {
 	list-style: none; padding: 0; margin: 0; @include clearfix;
 	li {
