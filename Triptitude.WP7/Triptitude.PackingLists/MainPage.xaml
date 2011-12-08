@@ -25,7 +25,7 @@
             <controls:PivotItem Header="tags">
                 <ListBox x:Name="TagsListBox" ItemsSource="{Binding Tags}" SelectionChanged="TagsListBox_SelectionChanged" >
                     <ListBox.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        <SolidColorBrush Color="{StaticResource PhoneBackgroundColor}" Opacity="0.5"/>
                     </ListBox.Background>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -40,7 +40,7 @@
             <controls:PivotItem Header="items" x:Name="itemsPivotItem">
                 <ListBox x:Name="ItemsListBox">
                     <ListBox.Background>
-                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        <SolidColorBrush Color="{StaticResource PhoneBackgroundColor}" Opacity="0.5"/>
                     </ListBox.Background>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
