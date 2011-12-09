@@ -125,12 +125,21 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<Note> Notes { get; set; }
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
 
         public abstract string Name { get; }
         public abstract string ActivityTypeName { get; }
 
         public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : Name; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
+    }
+
+    public class ActivityPlace
+    {
+        public int Id { get; set; }
+        public virtual Activity Activity { get; set; }
+        public int SortIndex { get; set; }
+        public virtual Place Place { get; set; }
     }
 
     [Table("TransportationActivities")]
@@ -338,6 +347,7 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<PlaceActivity> PlaceActivities { get; set; }
         public virtual ICollection<TransportationActivity> FromTransportationActivities { get; set; }
         public virtual ICollection<TransportationActivity> ToTransportationActivities { get; set; }
+        public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
 
         public IEnumerable<Trip> PublicTrips
         {

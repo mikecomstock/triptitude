@@ -21,6 +21,7 @@ namespace Triptitude.Biz.Models
         public DbSet<Trip> Trips { get; set; }
 
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityPlace> ActivityPlaces { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemTag> ItemTags { get; set; }

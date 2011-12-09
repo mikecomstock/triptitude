@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
@@ -7,6 +8,21 @@ using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Repos
 {
+    public class ActivityPlacesRepo : Repo<ActivityPlace>
+    {
+        public ActivityPlace FindOrInitialize(Activity activity, int sortIndex, Place place)
+        {
+            var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == sortIndex);
+            if (activityPlace == null)
+            {
+                activityPlace = new ActivityPlace { SortIndex = sortIndex };
+                activity.ActivityPlaces.Add(activityPlace);
+            }
+            activityPlace.Place = place;
+            return activityPlace;
+        }
+    }
+
     public class ActivitiesRepo : Repo<Activity>
     {
         private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
@@ -48,6 +64,7 @@ namespace Triptitude.Biz.Repos
             else
             {
                 activity = new TransportationActivity();
+                activity.ActivityPlaces = new EntityCollection<ActivityPlace>();
                 Add(activity);
             }
 
@@ -70,20 +87,29 @@ namespace Triptitude.Biz.Repos
             {
                 var tmp = activity.FromPlace;
                 activity.FromPlace = null;
+
+                var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
+
             }
             else
             {
                 activity.FromPlace = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
+                new ActivityPlacesRepo().FindOrInitialize(activity, 0, activity.FromPlace);
             }
 
             if (string.IsNullOrWhiteSpace(form.ToGoogReference))
             {
                 var tmp = activity.ToPlace;
                 activity.ToPlace = null;
+
+                var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
             }
             else
             {
                 activity.ToPlace = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
+                new ActivityPlacesRepo().FindOrInitialize(activity, 1, activity.ToPlace);
             }
 
             Save();
@@ -98,7 +124,7 @@ namespace Triptitude.Biz.Repos
             }
             return activity;
         }
-        
+
         public Activity Save(PlaceActivityForm form, User currentUser)
         {
             PlaceActivity activity;
@@ -110,6 +136,7 @@ namespace Triptitude.Biz.Repos
             else
             {
                 activity = new PlaceActivity();
+                activity.ActivityPlaces = new EntityCollection<ActivityPlace>();
                 Add(activity);
             }
 
@@ -121,10 +148,14 @@ namespace Triptitude.Biz.Repos
             {
                 var tmp = activity.Place;
                 activity.Place = null;
+
+                var activityPlace = activity.ActivityPlaces.FirstOrDefault();
+                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
             }
             else
             {
                 activity.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
+                new ActivityPlacesRepo().FindOrInitialize(activity, 0, activity.Place);
             }
 
             if (activity.Place == null && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))

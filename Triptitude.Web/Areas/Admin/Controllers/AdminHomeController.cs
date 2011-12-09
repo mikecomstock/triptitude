@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
+using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Areas.Admin.Controllers
@@ -12,6 +14,30 @@ namespace Triptitude.Web.Areas.Admin.Controllers
             ViewBag.Tags = new TagsRepo().FindAll();
             ViewBag.ItemTags = new ItemTagRepo().FindAll();
             return View();
+        }
+
+        // http://localhost:50025/admin/adminhome/FixActivityPlaces
+        public ActionResult FixActivityPlaces()
+        {
+            var activitiesRepo = new ActivitiesRepo();
+            var activityPlacesRepo = new ActivityPlacesRepo();
+
+            var activities = activitiesRepo.FindAll().ToList();
+
+            foreach (var activity in activities.OfType<TransportationActivity>())
+            {
+                if (activity.FromPlace != null) activityPlacesRepo.FindOrInitialize(activity, 0, activity.FromPlace);
+                if (activity.ToPlace != null) activityPlacesRepo.FindOrInitialize(activity, 1, activity.ToPlace);
+            }
+
+            foreach (var activity in activities.OfType<PlaceActivity>())
+            {
+                if (activity.Place != null) activityPlacesRepo.FindOrInitialize(activity, 0, activity.Place);
+            }
+
+            activitiesRepo.Save();
+
+            return Content("Done");
         }
 
         // This is pretty bad.. very slow because of all the .Save()ing going on.
