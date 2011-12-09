@@ -75,7 +75,7 @@ $invalid-color: #E92553;
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 #trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px); }
 #trip-bar #create-trip-form { float: right;text-align: right;}
-#trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; }
+#trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; display: inline; }
 #trip-bar-pre-title { color: #BBB; }
 #email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px; }
 #email-warning a { color: #FFF; }

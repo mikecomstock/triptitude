@@ -96,7 +96,7 @@ else if (ViewBag.HideTripBar != true)
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
             <p>
-                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Destination" />
+                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Your Destination..." />
                 <input type="hidden" name="togoogreference" />
                 <input type="hidden" name="togoogid" />
             </p>
