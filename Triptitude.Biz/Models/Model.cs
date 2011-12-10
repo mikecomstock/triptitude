@@ -113,7 +113,7 @@ namespace Triptitude.Biz.Models
     #region Activities
 
     [Table("Activities")]
-    public abstract class Activity
+    public class Activity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -126,9 +126,11 @@ namespace Triptitude.Biz.Models
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
-
-        public abstract string Name { get; }
-        public abstract string ActivityTypeName { get; }
+        
+        [NotMapped]
+        public virtual string Name { get; set; }
+        [NotMapped]
+        public virtual string ActivityTypeName { get; set; }
 
         public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : Name; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
@@ -145,9 +147,24 @@ namespace Triptitude.Biz.Models
     [Table("TransportationActivities")]
     public class TransportationActivity : Activity
     {
-        public virtual TransportationType TransportationType { get; set; }
-        public virtual Place FromPlace { get; set; }
-        public virtual Place ToPlace { get; set; }
+        public TransportationType TransportationType { get; set; }
+
+        public Place FromPlace
+        {
+            get
+            {
+                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+                return activityPlace != null ? activityPlace.Place : null;
+            }
+        }
+        public Place ToPlace
+        {
+            get
+            {
+                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+                return activityPlace != null ? activityPlace.Place : null;
+            }
+        }
 
         public override string Name
         {
@@ -170,7 +187,14 @@ namespace Triptitude.Biz.Models
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {
-        public virtual Place Place { get; set; }
+        public Place Place
+        {
+            get
+            {
+                var activityPlace = ActivityPlaces.FirstOrDefault();
+                return activityPlace != null ? activityPlace.Place : null;
+            }
+        }
 
         public override string Name
         {

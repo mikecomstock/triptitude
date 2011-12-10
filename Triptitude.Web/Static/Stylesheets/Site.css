@@ -982,22 +982,36 @@ ul.tags > li + li {
 #trips-details #itinerary .day {
   /*  -webkit-box-shadow: $shadow; */
   -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  /*          box-shadow: $shadow; */
-  margin-bottom: 5px; }
+  /*          box-shadow: $shadow; */ }
   #trips-details #itinerary .day h3 {
     padding: 2px 6px;
     background-color: #0190E9;
     color: #FFF; }
   #trips-details #itinerary .day .activities .activity {
-    min-height: 10px; }
-    #trips-details #itinerary .day .activities .activity .title {
-      color: #333;
-      margin: 10px;
-      font-weight: bold; }
+    min-height: 10px;
+    padding: 5px; }
     #trips-details #itinerary .day .activities .activity + .activity {
       border-top: 1px dashed #0190E9; }
+    #trips-details #itinerary .day .activities .activity .title {
+      color: #333;
+      font-weight: bold;
+      margin: 5px 0; }
+    #trips-details #itinerary .day .activities .activity .place {
+      color: #333;
+      margin: 5px 0; }
+      #trips-details #itinerary .day .activities .activity .place.with-title {
+        font-weight: normal; }
+        #trips-details #itinerary .day .activities .activity .place.with-title:before {
+          content: "at";
+          font-weight: normal; }
+      #trips-details #itinerary .day .activities .activity .place.no-title {
+        font-weight: bold; }
+    #trips-details #itinerary .day .activities .activity .tags:before {
+      content: "tags:";
+      float: left;
+      color: #999;
+      padding: 3px 0; }
     #trips-details #itinerary .day .activities .activity .notes {
-      margin: 10px;
       zoom: 1; }
       #trips-details #itinerary .day .activities .activity .notes:before {
         display: table;
@@ -1010,22 +1024,6 @@ ul.tags > li + li {
         zoom: 1;
         *display: inline;
         clear: both; }
-    #trips-details #itinerary .day .activities .activity .place {
-      color: #333;
-      margin: 10px;
-      font-weight: bold; }
-    #trips-details #itinerary .day .activities .activity .place.with-title {
-      font-weight: normal; }
-    #trips-details #itinerary .day .activities .activity .place.with-title:before {
-      content: "at";
-      font-weight: normal; }
-    #trips-details #itinerary .day .activities .activity .tags:before {
-      content: "tags:";
-      float: left;
-      color: #999;
-      padding: 3px 0; }
-    #trips-details #itinerary .day .activities .activity .tags {
-      margin: 10px; }
 #trips-details .editing .activity:hover {
   background-color: #F3F3F3;
   cursor: pointer; }

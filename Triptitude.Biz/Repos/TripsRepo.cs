@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -11,38 +12,40 @@ namespace Triptitude.Biz.Repos
         public IEnumerable<Trip> Search(TripSearchForm form)
         {
             throw new NotImplementedException();
-//            int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
+            //            int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
 
-//            const string sql = @"select distinct * from (
-//select t.* from PlacesNear(@p0,@p1,@p2) pn
-//join PlaceActivities pa on pn.place_id = pa.Place_Id
-//join Activities a on pa.Id = a.Id
-//join Trips t on a.Trip_Id = t.Id
-//union
-//select t.* from HotelsNear(@p0,@p1,@p2) hn
-//join HotelActivities ha on hn.Hotel_Id = ha.Hotel_Id
-//join Activities a on ha.Id = a.Id
-//join Trips t on a.Trip_Id = t.Id
-//) a";
-//            var trips = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
-//            return trips;
+            //            const string sql = @"select distinct * from (
+            //select t.* from PlacesNear(@p0,@p1,@p2) pn
+            //join PlaceActivities pa on pn.place_id = pa.Place_Id
+            //join Activities a on pa.Id = a.Id
+            //join Trips t on a.Trip_Id = t.Id
+            //union
+            //select t.* from HotelsNear(@p0,@p1,@p2) hn
+            //join HotelActivities ha on hn.Hotel_Id = ha.Hotel_Id
+            //join Activities a on ha.Id = a.Id
+            //join Trips t on a.Trip_Id = t.Id
+            //) a";
+            //            var trips = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
+            //            return trips;
         }
 
         public Trip Save(CreateTripForm form, User currentUser)
         {
             TransportationType transportationType = null;
             var placesRepo = new PlacesRepo();
-            Place from = null;
+            var activityPlacesRepo = new ActivityPlacesRepo();
             Place to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
 
             Trip trip = new Trip { Name = "My trip to " + to.Name, User = currentUser, Created_On = DateTime.UtcNow, Activities = new List<Activity>() };
-            trip.Activities.Add(new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = transportationType, FromPlace = from, ToPlace = to });
+            var activity = new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = transportationType, ActivityPlaces = new EntityCollection<ActivityPlace>() };
+            activityPlacesRepo.FindOrInitialize(activity, 1, to);
+            trip.Activities.Add(activity);
 
-            _db.Trips.Add(trip);
+            var tripsRepo = new TripsRepo();
+            tripsRepo.Add(trip);
+            tripsRepo.Save();
 
-            Save();
-
-            new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id = @p0", to.Id);
+            ActivitiesRepo.UpdateGeoPoints(activity);
 
             return trip;
         }

@@ -43,11 +43,8 @@
         @if (packingListItemsNoTag.Any())
         {
             <div class="packing-list-tag">
-                @if (tags.Any())
-                {
-                    <h3>
-                        General Items</h3>
-                }
+                <h3>
+                    General Items</h3>
                 @ItemList(packingListItemsNoTag)
             </div>
         }

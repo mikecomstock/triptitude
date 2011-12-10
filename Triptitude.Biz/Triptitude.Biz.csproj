@@ -94,6 +94,7 @@
     <Compile Include="Models\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repos\ActivitiesRepo.cs" />
+    <Compile Include="Repos\ActivityPlacesRepo.cs" />
     <Compile Include="Repos\BlogPostsRepo.cs" />
     <Compile Include="Repos\HotelsRepo.cs" />
     <Compile Include="Repos\NotesRepo.cs" />
