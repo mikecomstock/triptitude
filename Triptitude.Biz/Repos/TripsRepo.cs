@@ -9,9 +9,14 @@ namespace Triptitude.Biz.Repos
 {
     public class TripsRepo : Repo<Trip>
     {
-        public IEnumerable<Trip> Search(TripSearchForm form)
+        public IQueryable<Trip> Search(TripSearchForm form)
         {
-            throw new NotImplementedException();
+            var activitiesRepo = new ActivitiesRepo();
+            var activities = activitiesRepo.FindAll().Where(a => a.Tags.Select(t => t.Id).Contains(form.Tag_Id));
+
+            var trips = activities.Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
+            return trips;
+
             //            int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
 
             //            const string sql = @"select distinct * from (

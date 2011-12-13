@@ -17,14 +17,16 @@
     <link href="@Url.Static("stylesheets/Site.css")" rel="stylesheet" type="text/css" />
 </head>
 <body id="@Html.RouteCssId()" class="@Html.RouteCssClasses()" data-id="@Html.RouteId()">
-    <div id="background">
-        <div class="fader" style="background: url('@Url.Static("backgrounds/background-fade.png")') repeat-x scroll left bottom transparent;">
-            &nbsp;</div>
-        <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
-    </div>
-    <div id="super-dialog-overlay">
-    </div>
-    @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
+    <header>
+        <div id="background">
+            <div class="fader" style="background: url('@Url.Static("backgrounds/background-fade.png")') repeat-x scroll left bottom transparent;">
+                &nbsp;</div>
+            <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
+        </div>
+        <div id="super-dialog-overlay">
+        </div>
+        @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
+    </header>
     <div id="content">
         @RenderBody()
     </div>

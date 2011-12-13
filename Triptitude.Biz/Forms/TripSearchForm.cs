@@ -2,8 +2,10 @@
 {
     public class TripSearchForm
     {
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
-        public int RadiusInMiles { get; set; }
+        public int Tag_Id { get; set; }
+
+        //public decimal Latitude { get; set; }
+        //public decimal Longitude { get; set; }
+        //public int RadiusInMiles { get; set; }
     }
 }
