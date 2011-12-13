@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Models
 {
@@ -67,7 +68,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                int? max = Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
+                int? max = Activities.Count();// Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
                 return max ?? 1;
             }
         }
@@ -126,7 +127,7 @@ namespace Triptitude.Biz.Models
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
-        
+
         [NotMapped]
         public virtual string Name { get; set; }
         [NotMapped]
@@ -136,6 +137,7 @@ namespace Triptitude.Biz.Models
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
     }
 
+    [Table("ActivityPlaces")]
     public class ActivityPlace
     {
         public int Id { get; set; }
@@ -149,23 +151,6 @@ namespace Triptitude.Biz.Models
     {
         public TransportationType TransportationType { get; set; }
 
-        public Place FromPlace
-        {
-            get
-            {
-                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
-                return activityPlace != null ? activityPlace.Place : null;
-            }
-        }
-        public Place ToPlace
-        {
-            get
-            {
-                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
-                return activityPlace != null ? activityPlace.Place : null;
-            }
-        }
-
         public override string Name
         {
             get
@@ -174,8 +159,11 @@ namespace Triptitude.Biz.Models
                 if (TransportationType != null) { sb.AppendFormat(TransportationType.Name); }
                 else { sb.Append("Transportation"); }
 
-                if (FromPlace != null) sb.AppendFormat(" From {0}", FromPlace.Name);
-                if (ToPlace != null) sb.AppendFormat(" To {0}", ToPlace.Name);
+                var fromPlaceActivity = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+                if (fromPlaceActivity != null) sb.AppendFormat(" From {0}", fromPlaceActivity.Place.Name);
+
+                var toPlaceActivity = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+                if (toPlaceActivity != null) sb.AppendFormat(" To {0}", toPlaceActivity.Place.Name);
 
                 return sb.ToString();
             }
@@ -187,18 +175,15 @@ namespace Triptitude.Biz.Models
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {
-        public Place Place
+        public override string Name
         {
             get
             {
-                var activityPlace = ActivityPlaces.FirstOrDefault();
-                return activityPlace != null ? activityPlace.Place : null;
+                List<string> parts = new List<string>(2);
+                if (!Tags.IsNullOrEmpty()) parts.Add(String.Join(", ", Tags.Select(t => t.Name)));
+                if (!ActivityPlaces.IsNullOrEmpty()) parts.Add(string.Join(", ", ActivityPlaces.Select(ap => ap.Place.Name)));
+                return String.Join(" at ", parts);
             }
-        }
-
-        public override string Name
-        {
-            get { return (Tags.Any() ? String.Join(", ", Tags.Select(t => t.Name)) + " at " : string.Empty) + Place.Name; }
         }
 
         public override string ActivityTypeName { get { return "place"; } }
@@ -368,19 +353,14 @@ namespace Triptitude.Biz.Models
         public decimal? Longitude { get; set; }
         public string Status { get; set; }
 
-        public virtual ICollection<PlaceActivity> PlaceActivities { get; set; }
-        public virtual ICollection<TransportationActivity> FromTransportationActivities { get; set; }
-        public virtual ICollection<TransportationActivity> ToTransportationActivities { get; set; }
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
 
-        public IEnumerable<Trip> PublicTrips
+        public IQueryable<Trip> PublicTrips
         {
             get
             {
-                var placeActivityTrips = PlaceActivities.Select(pa => pa.Trip);
-                var fromTransportationActivityTrips = FromTransportationActivities.Select(pa => pa.Trip);
-                var toTransportationActivityTrips = ToTransportationActivities.Select(pa => pa.Trip);
-                return placeActivityTrips.Union(fromTransportationActivityTrips).Union(toTransportationActivityTrips).Distinct().Where(t => t.ShowInSearch);
+                var trips = ActivityPlaces.Select(ap => ap.Activity).Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
+                return trips;
             }
         }
 

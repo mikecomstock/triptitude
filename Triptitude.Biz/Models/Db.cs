@@ -9,12 +9,10 @@ namespace Triptitude.Biz.Models
         {
             modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey("DefaultTrip_Id"));
             modelBuilder.Entity<Activity>().HasMany(a => a.Tags).WithMany(t => t.Activities).Map(m => m.ToTable("ActivityTags"));
+            modelBuilder.Entity<Activity>().HasMany(a => a.ActivityPlaces).WithRequired(ap => ap.Activity).Map(m => m.ToTable("ActivityPlaces"));
 
             modelBuilder.Entity<Place>().Property(p => p.Latitude).HasPrecision(9, 6);
             modelBuilder.Entity<Place>().Property(p => p.Longitude).HasPrecision(9, 6);
-
-            modelBuilder.Entity<Place>().HasMany(p => p.FromTransportationActivities).WithOptional(ta => ta.FromPlace).Map(m => m.MapKey("FromPlace_Id"));
-            modelBuilder.Entity<Place>().HasMany(p => p.ToTransportationActivities).WithOptional(ta => ta.ToPlace).Map(m => m.MapKey("ToPlace_Id"));
         }
 
         public DbSet<User> Users { get; set; }

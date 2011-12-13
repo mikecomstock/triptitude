@@ -31,7 +31,7 @@
                     else if (activity is PlaceActivity)
                     {
                         var placeActivity = activity as PlaceActivity;
-                        
+
                         if (!string.IsNullOrWhiteSpace(placeActivity.Title))
                         {
                         <p class="title">
@@ -39,10 +39,11 @@
                         </p>
                         }
 
-                        if (placeActivity.Place != null)
+                        if (!activity.ActivityPlaces.IsNullOrEmpty())
                         {
+                            var place = activity.ActivityPlaces.First().Place;
                         <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
-                            <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                            <a href="@Url.Details(place)">@place.Name</a>
                         </p>
                         }
                     }

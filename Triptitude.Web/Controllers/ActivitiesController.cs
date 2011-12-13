@@ -85,17 +85,20 @@ namespace Triptitude.Web.Controllers
             form.TransportationTypeId = activity.TransportationType == null ? (int?)null : activity.TransportationType.Id;
             form.SelectedTab = selectedTab;
 
-            if (activity.FromPlace != null)
+            var fromPlaceActivity = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+            if (fromPlaceActivity != null)
             {
-                form.FromName = activity.FromPlace.Name;
-                form.FromGoogReference = activity.FromPlace.GoogReference;
-                form.FromGoogId = activity.FromPlace.GoogId;
+                form.FromName = fromPlaceActivity.Place.Name;
+                form.FromGoogReference = form.FromName = fromPlaceActivity.Place.GoogReference;
+                form.FromGoogId = form.FromName = fromPlaceActivity.Place.GoogId;
             }
-            if (activity.ToPlace != null)
+
+            var toPlaceActivity = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+            if (toPlaceActivity != null)
             {
-                form.ToName = activity.ToPlace.Name;
-                form.ToGoogReference = activity.ToPlace.GoogReference;
-                form.ToGoogId = activity.ToPlace.GoogId;
+                form.ToName = toPlaceActivity.Place.Name;
+                form.ToGoogReference = toPlaceActivity.Place.GoogReference;
+                form.ToGoogId = toPlaceActivity.Place.GoogId;
             }
 
             ViewBag.Form = form;
@@ -165,15 +168,16 @@ namespace Triptitude.Web.Controllers
             form.SetBaseProps(activity);
             form.SelectedTab = selectedTab;
 
-            if (activity.Place != null)
+            if (activity.ActivityPlaces.Any())
             {
-                form.Name = activity.Place.Name;
-                form.GoogReference = activity.Place.GoogReference;
-                form.GoogId = activity.Place.GoogId;
+                var place = activity.ActivityPlaces.First().Place;
+                form.Name = place.Name;
+                form.GoogReference = place.GoogReference;
+                form.GoogId = place.GoogId;
             }
 
             ViewBag.Form = form;
-            ViewBag.Place = activity.Place;
+            ViewBag.Place = activity.ActivityPlaces.Any() ? activity.ActivityPlaces.FirstOrDefault().Place : null;
             ViewBag.Action = Url.ItineraryEditPlace();
             return PartialView("PlaceDialog");
         }
