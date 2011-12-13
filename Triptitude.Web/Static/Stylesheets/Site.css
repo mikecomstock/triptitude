@@ -510,6 +510,7 @@ article {
     line-height: 1.5;
     margin: -10px 0 0 0; }
   #landing-page-panel > ul {
+    list-style: disc;
     margin: 0;
     padding-left: 40px; }
     #landing-page-panel > ul li {
