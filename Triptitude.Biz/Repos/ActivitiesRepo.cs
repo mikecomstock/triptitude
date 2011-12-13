@@ -127,7 +127,7 @@ namespace Triptitude.Biz.Repos
                 new ActivityPlacesRepo().FindOrInitialize(activity, 0, place);
             }
 
-            if (activity.ActivityPlaces.IsNullOrEmpty() && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))
+            if (activity.Place == null && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))
             {
                 Delete(activity);
             }

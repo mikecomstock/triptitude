@@ -6,7 +6,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Models
 {
@@ -68,7 +67,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                int? max = Activities.Count();// Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
+                int? max = Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
                 return max ?? 1;
             }
         }
@@ -137,7 +136,6 @@ namespace Triptitude.Biz.Models
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
     }
 
-    [Table("ActivityPlaces")]
     public class ActivityPlace
     {
         public int Id { get; set; }
@@ -151,6 +149,23 @@ namespace Triptitude.Biz.Models
     {
         public TransportationType TransportationType { get; set; }
 
+        public Place FromPlace
+        {
+            get
+            {
+                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+                return activityPlace != null ? activityPlace.Place : null;
+            }
+        }
+        public Place ToPlace
+        {
+            get
+            {
+                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+                return activityPlace != null ? activityPlace.Place : null;
+            }
+        }
+
         public override string Name
         {
             get
@@ -159,11 +174,8 @@ namespace Triptitude.Biz.Models
                 if (TransportationType != null) { sb.AppendFormat(TransportationType.Name); }
                 else { sb.Append("Transportation"); }
 
-                var fromPlaceActivity = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
-                if (fromPlaceActivity != null) sb.AppendFormat(" From {0}", fromPlaceActivity.Place.Name);
-
-                var toPlaceActivity = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
-                if (toPlaceActivity != null) sb.AppendFormat(" To {0}", toPlaceActivity.Place.Name);
+                if (FromPlace != null) sb.AppendFormat(" From {0}", FromPlace.Name);
+                if (ToPlace != null) sb.AppendFormat(" To {0}", ToPlace.Name);
 
                 return sb.ToString();
             }
@@ -175,15 +187,18 @@ namespace Triptitude.Biz.Models
     [Table("PlaceActivities")]
     public class PlaceActivity : Activity
     {
-        public override string Name
+        public Place Place
         {
             get
             {
-                List<string> parts = new List<string>(2);
-                if (!Tags.IsNullOrEmpty()) parts.Add(String.Join(", ", Tags.Select(t => t.Name)));
-                if (!ActivityPlaces.IsNullOrEmpty()) parts.Add(string.Join(", ", ActivityPlaces.Select(ap => ap.Place.Name)));
-                return String.Join(" at ", parts);
+                var activityPlace = ActivityPlaces.FirstOrDefault();
+                return activityPlace != null ? activityPlace.Place : null;
             }
+        }
+
+        public override string Name
+        {
+            get { return (Tags.Any() ? String.Join(", ", Tags.Select(t => t.Name)) + " at " : string.Empty) + Place.Name; }
         }
 
         public override string ActivityTypeName { get { return "place"; } }
@@ -359,7 +374,7 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                var trips = ActivityPlaces.Select(ap => ap.Activity).Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
+                var trips = ActivityPlaces.Select(ap => ap.Activity.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
                 return trips;
             }
         }

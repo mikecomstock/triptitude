@@ -20,20 +20,19 @@ namespace Triptitude.Web.Controllers
 
             var activities = trip.Activities;
 
-            #region Place Activities
+            #region Place Activities 
 
             var placeActivities = activities.OfType<PlaceActivity>();
-            var placeMarkers = from a in placeActivities.Where(a => a.ActivityPlaces.Any())
-                               let place = a.ActivityPlaces.First().Place
-                               let infoTitle = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(place), place.Name)
+            var placeMarkers = from a in placeActivities.Where(a => a.Place != null)
+                               let infoTitle = string.Format("<strong><a href='{0}'>{1}</a></strong>", Url.Details(a.Place), a.Place.Name)
                                let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                                let infoHtml = infoTitle + "<br/>" + infoBody
-                               where place.Latitude.HasValue && place.Longitude.HasValue
+                               where a.Place.Latitude.HasValue && a.Place.Longitude.HasValue
                                select new
                                           {
-                                              place.Name,
-                                              place.Latitude,
-                                              place.Longitude,
+                                              a.Place.Name,
+                                              a.Place.Latitude,
+                                              a.Place.Longitude,
                                               InfoHtml = infoHtml,
                                               ExtendBounds = true
                                           };
@@ -46,51 +45,47 @@ namespace Triptitude.Web.Controllers
             var transportationDoesExtendBounds = !markers.Any();
 
             var transportationActivities = activities.OfType<TransportationActivity>();
-            var toMarkers = from a in transportationActivities.Where(ta => ta.ActivityPlaces.Any(ap => ap.SortIndex == 1))
-                            let place = a.ActivityPlaces.First(ap => ap.SortIndex == 1).Place
+            var toMarkers = from a in transportationActivities.Where(ta => ta.ToPlace != null)
                             let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
                             let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                             let infoHtml = infoTitle + "<br/>" + infoBody
                             select new
                                        {
-                                           Name = place.Name,
-                                           place.Latitude,
-                                           place.Longitude,
+                                           Name = a.ToPlace.Name,
+                                           a.ToPlace.Latitude,
+                                           a.ToPlace.Longitude,
                                            InfoHtml = infoHtml,
                                            ExtendBounds = transportationDoesExtendBounds
                                        };
             markers.AddRange(toMarkers);
 
-            var fromMarkers = from a in transportationActivities.Where(ta => ta.ActivityPlaces.Any(ap => ap.SortIndex == 0))
-                              let place = a.ActivityPlaces.First(ap => ap.SortIndex == 0).Place
+            var fromMarkers = from a in transportationActivities.Where(ta => ta.FromPlace != null)
                               let infoTitle = string.Format("<strong>{0}</strong>", a.Name)
                               let infoBody = Util.DateTimeRangeString(a.BeginDay, null, a.EndDay, null)
                               let infoHtml = infoTitle + "<br/>" + infoBody
                               select new
                                          {
-                                             Name = place.Name,
-                                             place.Latitude,
-                                             place.Longitude,
+                                             Name = a.FromPlace.Name,
+                                             a.FromPlace.Latitude,
+                                             a.FromPlace.Longitude,
                                              InfoHtml = infoHtml,
                                              ExtendBounds = transportationDoesExtendBounds
                                          };
             markers.AddRange(fromMarkers);
 
-            var transLines = from a in transportationActivities.Where(ta => ta.ActivityPlaces.Any(ap => ap.SortIndex == 0) && ta.ActivityPlaces.Any(ap => ap.SortIndex == 1))
-                             let fromPlace = a.ActivityPlaces.First(ap => ap.SortIndex == 0).Place
-                             let toPlace = a.ActivityPlaces.First(ap => ap.SortIndex == 1).Place
+            var transLines = from a in transportationActivities.Where(ta => ta.ToPlace != null && ta.FromPlace != null)
                              select new
                                         {
                                             PathType = a.TransportationType == null ? "geodesic" : a.TransportationType.PathType,
                                             From = new
                                             {
-                                                fromPlace.Latitude,
-                                                fromPlace.Longitude
+                                                a.FromPlace.Latitude,
+                                                a.FromPlace.Longitude
                                             },
                                             To = new
                                             {
-                                                toPlace.Latitude,
-                                                toPlace.Longitude
+                                                a.ToPlace.Latitude,
+                                                a.ToPlace.Longitude
                                             }
                                         };
             polyLines.AddRange(transLines);
