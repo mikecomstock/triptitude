@@ -1,6 +1,6 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
-    ViewBag.Title = trip.Name + " - Itinerary";
+    ViewBag.Title = trip.Name;
     ViewBag.ShowInSiteMap = @trip.ShowInSearch;
     User currentUser = ViewBag.CurrentUser;
     bool CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
@@ -59,7 +59,6 @@
         }
     </section>
     <section id="packinglist">
-
         @{
             Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
         }
