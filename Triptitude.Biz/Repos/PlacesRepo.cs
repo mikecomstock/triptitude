@@ -26,6 +26,7 @@ namespace Triptitude.Biz.Repos
                 place = new PlacesService().CreateFromGoogle(googReference);
                 Add(place);
                 Save();
+                new Repo().ExecuteSql("update Places set GeoPoint = geography::Point(Latitude, Longitude, 4326) where Latitude is not null and Longitude is not null and Id in (@p0)", place.Id);
             }
 
             return place;
