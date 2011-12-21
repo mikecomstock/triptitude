@@ -1,14 +1,22 @@
 ﻿@{
     ViewBag.Title = "Trips";
+    TripSearchForm form = ViewBag.TripSearchForm;
 }
-
-
-    <div class="panel">
-        <div class="panel-title">
-            <h1>
-                Trips</h1>
-        </div>
-        <div class="panel-content">
-            @Html.Action("_rows", "trips", new { ViewBag.Trips })
-        </div>
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            Trips</h1>
     </div>
+    <div class="panel-content">
+        <form id="trip-search-form" action="/">
+        @Html.TextBox("tagstring", form.TagString, new { @class = "tag-autocomplete auto-submit", placeholder = "ex: whale watching, water, boat" })
+        near
+        <input type="text" name="place" class="place-autocomplete auto-submit" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.GoogName" placeholder="place (optional)" />
+        <input type="hidden" name="googreference" value="@form.GoogReference" />
+        <input type="hidden" name="googid" value="@form.GoogId" />
+        <input type="hidden" name="googname" value="@form.GoogName" />
+        <input type="submit" value="Search" />
+        </form>
+        @Html.Action("SearchResults", "Trips", new { form = form })
+    </div>
+</div>

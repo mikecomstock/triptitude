@@ -11,12 +11,12 @@ namespace Triptitude.Web.Controllers
     public class TripsController : Controller
     {
         // partial only
-        public ActionResult SidePanel(Trip trip, User currentUser)
-        {
-            ViewBag.Trip = trip;
-            ViewBag.UserOwnsTrip = currentUser.OwnsTrips(trip);
-            return PartialView("_SidePanel");
-        }
+        //public ActionResult SidePanel(Trip trip, User currentUser)
+        //{
+        //    ViewBag.Trip = trip;
+        //    ViewBag.UserOwnsTrip = currentUser.OwnsTrips(trip);
+        //    return PartialView("_SidePanel");
+        //}
 
         // partial only
         public ActionResult _Row(Trip trip)
@@ -25,7 +25,7 @@ namespace Triptitude.Web.Controllers
             return PartialView();
         }
 
-        // partial only
+        // partial
         public ActionResult _Rows(IEnumerable<Trip> trips)
         {
             ViewBag.Trips = trips;
@@ -34,8 +34,15 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Trips = new TripsRepo().FindAll().Where(t => t.ShowInSearch);
+            var tripSearchForm = new TripSearchForm();
+            ViewBag.TripSearchForm = tripSearchForm;
             return View();
+        }
+
+        public ActionResult SearchResults(TripSearchForm form)
+        {
+            ViewBag.Trips = form.Results;
+            return PartialView();
         }
 
         public ActionResult Print(int id)

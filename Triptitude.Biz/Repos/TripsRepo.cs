@@ -11,27 +11,36 @@ namespace Triptitude.Biz.Repos
     {
         public IQueryable<Trip> Search(TripSearchForm form)
         {
-            var activitiesRepo = new ActivitiesRepo();
-            var activities = activitiesRepo.FindAll().Where(a => a.Tags.Select(t => t.Id).Contains(form.Tag_Id));
+            IQueryable<Trip> trips;
 
-            var trips = activities.Select(a => a.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
-            return trips;
+            if (!string.IsNullOrWhiteSpace(form.GoogReference))
+            {
+                var placesRepo = new PlacesRepo();
+                var place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
 
-            //            int radiusInMeters = (int)(form.RadiusInMiles * 1609.344);
+                int radiusInMiles = 20;
+                int radiusInMeters = (int)(radiusInMiles * 1609.344);
+                const string sql = @"select t.*
+from PlacesNear(@p0,@p1,@p2) pn
+join ActivityPlaces ap on pn.Place_Id = ap.Place_Id
+join Activities a on ap.Activity_Id = a.Id
+join Trips t on a.Trip_Id = t.Id";
+                trips = Sql(sql, place.Latitude, place.Longitude, radiusInMeters).AsQueryable();
+            }
+            else
+            {
+                var tripsRepo = new TripsRepo();
+                trips = tripsRepo.FindAll();
+            }
 
-            //            const string sql = @"select distinct * from (
-            //select t.* from PlacesNear(@p0,@p1,@p2) pn
-            //join PlaceActivities pa on pn.place_id = pa.Place_Id
-            //join Activities a on pa.Id = a.Id
-            //join Trips t on a.Trip_Id = t.Id
-            //union
-            //select t.* from HotelsNear(@p0,@p1,@p2) hn
-            //join HotelActivities ha on hn.Hotel_Id = ha.Hotel_Id
-            //join Activities a on ha.Id = a.Id
-            //join Trips t on a.Trip_Id = t.Id
-            //) a";
-            //            var trips = Sql(sql, form.Latitude, form.Longitude, radiusInMeters);
-            //            return trips;
+            if (!string.IsNullOrWhiteSpace(form.TagString))
+            {
+                var tagsRepo = new TagsRepo();
+                var tag = tagsRepo.FindOrInitializeByName(form.TagString);
+                trips = trips.Where(t => t.Activities.Any(a => a.Tags.Select(ta => ta.Id).Contains(tag.Id)));
+            }
+
+            return trips.Distinct();
         }
 
         public Trip Save(CreateTripForm form, User currentUser)

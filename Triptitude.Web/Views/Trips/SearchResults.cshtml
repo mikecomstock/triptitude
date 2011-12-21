@@ -1,0 +1,14 @@
+﻿@{
+    IQueryable<Trip> trips = ViewBag.Trips;
+}
+<div id="trip-search-results">
+    @if (trips.Any())
+    {
+        @Html.Action("_rows", "trips", new { trips })
+    }
+    else
+    {
+        <p>
+            No trips found.</p>
+    }
+</div>

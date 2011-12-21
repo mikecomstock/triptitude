@@ -304,6 +304,7 @@
       <Generator>ScssGenerator</Generator>
       <LastGenOutput>Site.css</LastGenOutput>
     </None>
+    <Content Include="Views\Trips\SearchResults.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -2,18 +2,19 @@
     Tag tag = ViewBag.Tag;
     ViewBag.Title = tag.NiceName + " Trips & Vacations";
     IEnumerable<Item> items = ViewBag.Items;
+    TripSearchForm tripSearchForm = new TripSearchForm(tag: tag);
 }
 <article>
     <header>
         <h1>@tag.NiceName
         </h1>
     </header>
-    @if (tag.PublicTrips.Any())
+    @if (tripSearchForm.Results.Any())
     {
         <section>
             <h2>
                 Trips</h2>
-            @{Html.RenderAction("_rows", "Trips", new { trips = tag.PublicTrips.OrderByDescending(t => t.Id).Take(5) });}
+            @Html.Action("SearchResults", "Trips", new { form = tripSearchForm })
         </section>
     }
     @if (items.Any())
@@ -33,9 +34,9 @@
             </ul>
         </section>
     }
-    @if (!tag.PublicTrips.Any() && !items.Any())
+    @if (!tripSearchForm.Results.Any() && !items.Any())
     {
-        <p>
+        <p style="margin: 20px;">
             No trips or packing list items found.</p>
     }
 </article>

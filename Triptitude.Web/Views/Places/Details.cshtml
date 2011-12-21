@@ -2,6 +2,7 @@
     Place place = ViewBag.Place;
     ViewBag.Title = place.Name + " Trips & Vacations";
     User currentUser = ViewBag.CurrentUser;
+    TripSearchForm tripSearchForm = new TripSearchForm(place);
 }
 @Helpers.SidePanel(Url, place)
 <article>
@@ -15,19 +16,14 @@
             <a rel="nofollow" class="add-to-trip" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
         </div>
     </header>
-    <section id="trips">
-        <h2>
-            Trips to @place.Name</h2>
-        @if (place.PublicTrips.Any())
-        {
-            Html.RenderAction("_rows", "Trips", new { trips = place.PublicTrips.OrderByDescending(t => t.Id).Take(10) });
-        }
-        else
-        {
-            <div>
-                No trips found</div>
-        }
-    </section>
+    @if (tripSearchForm.Results.Any())
+    {
+        <section id="trips">
+            <h2>
+                Trips near @place.Name</h2>
+            @Html.Action("SearchResults", "Trips", new {form = tripSearchForm})
+        </section>
+    }
     <section id="places-nearby">
         <h2>
             Places Near @place.Name</h2>

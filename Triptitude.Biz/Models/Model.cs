@@ -370,15 +370,6 @@ namespace Triptitude.Biz.Models
 
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
 
-        public IQueryable<Trip> PublicTrips
-        {
-            get
-            {
-                var trips = ActivityPlaces.Select(ap => ap.Activity.Trip).Where(t => t.ShowInSearch).Distinct().AsQueryable();
-                return trips;
-            }
-        }
-
         public string NiceAddress
         {
             get

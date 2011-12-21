@@ -9,6 +9,7 @@ $(function () {
     $('.place-autocomplete').googAutocomplete();
     $('.tag-autocomplete').tagAutocomplete();
     $('.item-autocomplete').itemAutocomplete();
+    $('#trip-search-form').submit(T.TripSearchSubmit);
 
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
@@ -199,16 +200,21 @@ function CloseSuperDialog() {
 }
 
 (function ($) {
-    $.fn.tagAutocomplete = function () {
-        this.each(function () {
+    $.fn.tagAutocomplete = function() {
+        this.each(function() {
             var input = $(this);
             input.autocomplete({
-                source: function (request, response) {
-                    $.getJSON('/tags/search', request, function (data) {
-                        response(data);
-                    });
-                }
-            });
+                    source: function(request, response) {
+                        $.getJSON('/tags/search', request, function(data) {
+                            response(data);
+                        });
+                    },
+                    select: function() {
+                        if(input.is('.auto-submit')) {
+                            input.closest('form').submit();
+                        }
+                    }
+                });
         });
     };
     $.fn.itemAutocomplete = function () {
@@ -268,7 +274,7 @@ function CloseSuperDialog() {
                 $googIdField.val(place.id);
                 $googNameField.val($input.val());
 
-                var autosubmit = $input.data('auto-submit');
+                var autosubmit = $input.data('auto-submit') || $input.is('.auto-submit');
                 if (autosubmit) {
                     $input.closest('form').submit();
                 } else {
@@ -376,6 +382,17 @@ log = function (a) {
 };
 
 var T = {};
+
+T.TripSearchSubmit = function (e) {
+    e.preventDefault();
+    var form = $(this);
+    $.get('/trips/searchresults', form.serialize(), function(data) {
+        log(data);
+        $('#trip-search-results').html(data);
+    });
+    log('trip search');
+    log(form);
+};
 
 T.NearbyPlaces = function () {
 

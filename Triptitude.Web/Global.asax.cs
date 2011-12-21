@@ -48,9 +48,9 @@ namespace Triptitude.Web
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
 
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
-            routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() });
-            
-            routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional });
+            routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
+
+            routes.MapRoute("Default", "{controller}/{action}/{id}", new { controller = "home", action = "index", id = UrlParameter.Optional }, new string[] { "Triptitude.Web.Controllers" });
         }
 
         protected void Application_Start()
