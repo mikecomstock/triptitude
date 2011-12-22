@@ -14,10 +14,15 @@ namespace Triptitude.Biz.Forms
         public string GoogReference { get; set; }
         public string GoogName { get; set; } // for display only
 
-        // For ActionResult binding
-        public TripSearchForm() { }
+        public int Take { get; set; }
 
-        public TripSearchForm(Place place = null, Tag tag = null)
+        // For ActionResult binding
+        public TripSearchForm()
+        {
+            Take = 10;
+        }
+
+        public TripSearchForm(Place place = null, Tag tag = null, int take = 10)
         {
             if (place != null)
             {
@@ -30,6 +35,8 @@ namespace Triptitude.Biz.Forms
             {
                 TagString = tag.Name;
             }
+
+            Take = take;
         }
         
         private IQueryable<Trip> _Results;
@@ -41,7 +48,7 @@ namespace Triptitude.Biz.Forms
                 {
                     var trips = new TripsRepo().Search(this);
                     trips = trips.Where(t => t.ShowInSearch);
-                    _Results = trips;
+                    _Results = trips.Take(Take);
                 }
                 return _Results;
             }

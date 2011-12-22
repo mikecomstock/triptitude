@@ -170,13 +170,14 @@ article {
 		li { font-size: 16px; margin: 10px 0; }
 	}
 	#trips {
-		margin: 50px auto; width: 800px; @include clearfix; @include transparent-background(#F3ECB7,0.3);
+		margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);
 		.panel-title {
-			padding: 5px;
-			h2 { margin: 0; }
+			padding: 5px; @include clearfix;
+			h2 { margin: 0; float:left; }
+			a { float:right; }
 		}
+		#trip-search-form { padding: 5px; }
 	}
-	.trip-row { float: left; width: 388px; border-top: 1px dashed #CCCCCC; }
 }
 
 /* Footer */
@@ -277,6 +278,11 @@ footer { width: 955px; height: 100px; }
 /* Trip Settings Form */
 #trip-settings-form label { width: 140px; }
 #trip-settings-form input[type="text"] { width: 400px; }
+
+/* Trip Search Form */
+#trip-search-form {
+	font-size: 16px; margin-bottom:10px;
+}
 
 /* My Trips */
 #my-trips {

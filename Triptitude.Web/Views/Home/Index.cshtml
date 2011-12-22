@@ -38,8 +38,13 @@
                 <div class="panel-title">
                     <h2>
                         Recent Trips</h2>
+                    <a href="/trips">All Trips</a>
                 </div>
-                @Html.Action("_rows", "trips", new { trips })
+                @{
+            TripSearchForm form = new TripSearchForm();
+                }
+                @Helpers.TripSearchForm(form)
+                @Html.Action("SearchResults", "Trips", new { form = form })
             </div>
         }
     </div>

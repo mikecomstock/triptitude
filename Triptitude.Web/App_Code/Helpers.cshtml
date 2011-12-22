@@ -49,3 +49,16 @@
         <a href="@url.Details(place)">Details</a> <a href="@url.Nearby(place)">Nearby</a>
     </div>*@
 }
+@helper TripSearchForm(Triptitude.Biz.Forms.TripSearchForm form)
+    {
+    <form id="trip-search-form" action="/">
+    @*<input type="hidden" name="take" value="@form.Take"/>*@
+    <input type="text" name="tagstring" id="tagstring" value="@form.TagString" class="tag-autocomplete auto-submit" placeholder="ex: skiing" />
+    near
+    <input type="text" name="place" class="place-autocomplete auto-submit" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.GoogName" placeholder="place (optional)" />
+    <input type="hidden" name="googreference" value="@form.GoogReference" />
+    <input type="hidden" name="googid" value="@form.GoogId" />
+    <input type="hidden" name="googname" value="@form.GoogName" />
+    <input type="submit" value="Search" />
+    </form>
+}

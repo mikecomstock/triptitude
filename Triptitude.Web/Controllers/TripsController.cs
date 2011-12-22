@@ -34,7 +34,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Index()
         {
-            var tripSearchForm = new TripSearchForm();
+            var tripSearchForm = new TripSearchForm(take:100);
             ViewBag.TripSearchForm = tripSearchForm;
             return View();
         }
