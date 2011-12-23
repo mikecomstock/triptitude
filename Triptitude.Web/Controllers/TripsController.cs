@@ -8,13 +8,13 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class TripsController : Controller
+    public class TripsController : TriptitudeController
     {
         // partial only
-        //public ActionResult SidePanel(Trip trip, User currentUser)
+        //public ActionResult SidePanel(Trip trip)
         //{
         //    ViewBag.Trip = trip;
-        //    ViewBag.UserOwnsTrip = currentUser.OwnsTrips(trip);
+        //    ViewBag.UserOwnsTrip = CurrentUser.OwnsTrips(trip);
         //    return PartialView("_SidePanel");
         //}
 
@@ -34,7 +34,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Index()
         {
-            var tripSearchForm = new TripSearchForm(take:100);
+            var tripSearchForm = new TripSearchForm(take: 100);
             ViewBag.TripSearchForm = tripSearchForm;
             return View();
         }
@@ -60,43 +60,43 @@ namespace Triptitude.Web.Controllers
             //return View();
         }
 
-        public ActionResult Details(int id, User currentUser)
+        public ActionResult Details(int id)
         {
             Trip trip = new TripsRepo().Find(id);
             if (trip == null) return HttpNotFound();
 
             ViewBag.Trip = trip;
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 
         // partial only
-        public ActionResult DayDetails(Trip trip, int? dayNumber, User currentUser)
+        public ActionResult DayDetails(Trip trip, int? dayNumber)
         {
             // For unscheduled activities
             dayNumber = dayNumber == -1 ? null : dayNumber;
 
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
-            ViewBag.Editing = currentUser != null && currentUser.DefaultTrip == trip;
-            ViewBag.CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.Editing = CurrentUser.DefaultTrip == trip;
+            ViewBag.CurrentUserOwnsTrip = CurrentUser.OwnsTrips(trip);
+            ViewBag.CurrentUser = CurrentUser;
             return PartialView("_DayDetails");
         }
 
-        public ActionResult PackingList(int id, User currentUser)
+        public ActionResult PackingList(int id)
         {
             Trip trip = new TripsRepo().Find(id);
             return RedirectPermanent(Url.Details(trip) + "#packinglist");
         }
 
-        public ActionResult PackingListPartial(int id, User currentUser)
+        public ActionResult PackingListPartial(int id)
         {
             Trip trip = new TripsRepo().Find(id);
             ViewBag.Trip = trip;
-            bool userOwnsTrip = currentUser.OwnsTrips(trip);
+            bool userOwnsTrip = CurrentUser.OwnsTrips(trip);
             ViewBag.UserOwnsTrip = userOwnsTrip;
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
 
             var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
             ViewBag.PackingListItems = packingListItems;
@@ -108,11 +108,11 @@ namespace Triptitude.Web.Controllers
             return PartialView("PackingList");
         }
 
-        public ActionResult Settings(int id, User currentUser)
+        public ActionResult Settings(int id)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             ViewBag.Trip = trip;
             ViewBag.Form = tripRepo.GetSettingsForm(trip);
@@ -121,11 +121,11 @@ namespace Triptitude.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Settings(int id, TripSettingsForm form, User currentUser)
+        public ActionResult Settings(int id, TripSettingsForm form)
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             if (ModelState.IsValid)
             {
@@ -140,7 +140,7 @@ namespace Triptitude.Web.Controllers
             }
         }
 
-        public ActionResult Create(int? to, User currentUser)
+        public ActionResult Create(int? to)
         {
             var form = new CreateTripForm();
 
@@ -155,7 +155,7 @@ namespace Triptitude.Web.Controllers
 
             if (to.HasValue)
             {
-                return Create(form, currentUser);
+                return Create(form);
             }
             else
             {
@@ -166,12 +166,12 @@ namespace Triptitude.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateTripForm form, User currentUser)
+        public ActionResult Create(CreateTripForm form)
         {
             if (ModelState.IsValid)
             {
-                Trip trip = new TripsRepo().Save(form, currentUser);
-                new UsersRepo().SetDefaultTrip(currentUser, trip);
+                Trip trip = new TripsRepo().Save(form, CurrentUser);
+                new UsersRepo().SetDefaultTrip(CurrentUser, trip);
                 return Redirect(Url.Details(trip));
             }
             else

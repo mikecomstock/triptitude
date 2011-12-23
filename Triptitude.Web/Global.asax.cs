@@ -138,5 +138,4 @@ namespace Triptitude.Web
             ErrorSignal.FromContext(context).Raise(e, context);
         }
     }
-
 }

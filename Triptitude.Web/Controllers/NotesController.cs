@@ -6,7 +6,7 @@ using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Controllers
 {
-    public class NotesController : Controller
+    public class NotesController : TriptitudeController
     {
         private readonly TripsRepo tripsRepo;
         //private readonly NotesRepo notesRepo;
@@ -17,29 +17,29 @@ namespace Triptitude.Web.Controllers
             //notesRepo = new NotesRepo();
         }
 
-        //public ActionResult _NotesFor(User currentUser, int activityId)
+        //public ActionResult _NotesFor(int activityId)
         //{
         //    var activitiesRepo = new ActivitiesRepo();
         //    Activity activity = activitiesRepo.Find(activityId);
 
         //    var trip = activity.Trip;
-        //    if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
         
         //    var notes = activity.Notes.OrderBy(n => n.Id);
         //    ViewBag.Notes = notes;
         //    return PartialView("_NotesFor");
         //}
 
-        public ActionResult Create(User currentUser)
+        public ActionResult Create()
         {
             var form = new NoteForm
                            {
-                               TripId = currentUser.DefaultTrip.Id,
+                               TripId = CurrentUser.DefaultTrip.Id,
                                //ActivityId = currentUser.DefaultTrip.Activities.First().Id,
                                Public = true
                            };
             ViewBag.Form = form;
-            ViewBag.Trip = currentUser.DefaultTrip;
+            ViewBag.Trip = CurrentUser.DefaultTrip;
             //ViewBag.Notes = currentUser.DefaultTrip.Activities.SelectMany(a => a.Notes).OrderBy(n => n.Id);
             ViewBag.Action = string.Empty;// Url.CreateNote();
             return PartialView("NoteDialog");

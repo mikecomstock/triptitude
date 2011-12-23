@@ -7,7 +7,7 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class MyController : Controller
+    public class MyController : TriptitudeController
     {
         private readonly UsersRepo usersRepo;
         public MyController()
@@ -25,35 +25,35 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Trips(User currentUser)
+        public ActionResult Trips()
         {
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 
-        public ActionResult Settings(User currentUser)
+        public ActionResult Settings()
         {
-            var form = usersRepo.GetSettingsForm(currentUser);
+            var form = usersRepo.GetSettingsForm(CurrentUser);
             ViewBag.Form = form;
-            ViewBag.User = currentUser;
+            ViewBag.User = CurrentUser;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Settings(UserSettingsForm form, User currentUser)
+        public ActionResult Settings(UserSettingsForm form)
         {
             if (ModelState.IsValid)
             {
                 UsersRepo.UserSaveAction userSaveAction;
-                usersRepo.Save(form, currentUser, out userSaveAction);
+                usersRepo.Save(form, CurrentUser, out userSaveAction);
 
                 switch (userSaveAction)
                 {
                     case UsersRepo.UserSaveAction.NewUserCreated:
                         {
-                            usersRepo.SetNewGuidIfNeeded(currentUser);
-                            EmailService.SentSignupEmail(currentUser);
-                            AuthHelper.SetAuthCookie(currentUser);
+                            usersRepo.SetNewGuidIfNeeded(CurrentUser);
+                            EmailService.SentSignupEmail(CurrentUser);
+                            AuthHelper.SetAuthCookie(CurrentUser);
                             return Redirect(Url.MyTrips());
                         }
                     case UsersRepo.UserSaveAction.EmailAlreadyTaken:
@@ -70,17 +70,17 @@ namespace Triptitude.Web.Controllers
             }
 
             ViewBag.Form = form;
-            ViewBag.User = currentUser;
+            ViewBag.User = CurrentUser;
             return View();
         }
 
         // CSRF vulnerable here. Shouldn't matter though...
-        public ActionResult DefaultTrip(User currentUser, int id)
+        public ActionResult DefaultTrip(int id)
         {
             Trip trip = new TripsRepo().Find(id);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            usersRepo.SetDefaultTrip(currentUser, trip);
+            usersRepo.SetDefaultTrip(CurrentUser, trip);
             return Redirect(Url.Details(trip));
         }
     }

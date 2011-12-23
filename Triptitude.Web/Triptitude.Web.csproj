@@ -115,6 +115,7 @@
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
+    <Compile Include="Controllers\TriptitudeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

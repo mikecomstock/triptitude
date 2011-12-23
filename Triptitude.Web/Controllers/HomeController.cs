@@ -5,7 +5,7 @@ using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : TriptitudeController
     {
         public ActionResult Index()
         {
@@ -17,9 +17,9 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Header(User currentUser, bool? hideTripBar)
+        public ActionResult Header(bool? hideTripBar)
         {
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
             ViewBag.HideTripBar = hideTripBar;
             return PartialView();
         }

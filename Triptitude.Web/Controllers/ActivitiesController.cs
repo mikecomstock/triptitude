@@ -8,7 +8,7 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class ActivitiesController : Controller
+    public class ActivitiesController : TriptitudeController
     {
         private readonly TripsRepo tripsRepo;
         private readonly ActivitiesRepo activitiesRepo;
@@ -21,22 +21,22 @@ namespace Triptitude.Web.Controllers
             transportationTypesRepo = new TransportationTypesRepo();
         }
 
-        public ActionResult Delete(int id, User currentUser)
+        public ActionResult Delete(int id)
         {
             var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             activitiesRepo.Delete(activity);
             activitiesRepo.Save();
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult Edit(int id, User currentUser, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)
+        public ActionResult Edit(int id, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)
         {
             var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
             if (activity is PlaceActivity) return EditPlace(activity as PlaceActivity, selectedTab);
@@ -44,12 +44,12 @@ namespace Triptitude.Web.Controllers
             throw new Exception("Activity type not supported");
         }
 
-        public ActionResult Create(string type, User currentUser, int? placeId)
+        public ActionResult Create(string type, int? placeId)
         {
             switch (type)
             {
-                case "transportation": return AddTransportation(currentUser);
-                case "place": return AddPlace(placeId, currentUser);
+                case "transportation": return AddTransportation();
+                case "place": return AddPlace(placeId);
             }
 
             throw new Exception("Activity type not supported");
@@ -57,10 +57,10 @@ namespace Triptitude.Web.Controllers
 
         #region Transportation
 
-        private ActionResult AddTransportation(User currentUser)
+        private ActionResult AddTransportation()
         {
             var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
-            TransportationActivityForm form = new TransportationActivityForm { TripId = currentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
+            TransportationActivityForm form = new TransportationActivityForm { TripId = CurrentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
             ViewBag.Form = form;
             ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
             ViewBag.Action = Url.ItineraryAddTransportation();
@@ -68,12 +68,12 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTransportation(TransportationActivityForm form, User currentUser)
+        public ActionResult AddTransportation(TransportationActivityForm form)
         {
             var trip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            activitiesRepo.Save(form, currentUser);
+            activitiesRepo.Save(form, CurrentUser);
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -105,14 +105,14 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTransportation(TransportationActivityForm form, User currentUser)
+        public ActionResult EditTransportation(TransportationActivityForm form)
         {
             var activity = (TransportationActivity)activitiesRepo.Find(form.ActivityId.Value);
             var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
-            activitiesRepo.Save(form, currentUser);
+            activitiesRepo.Save(form, CurrentUser);
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -121,7 +121,7 @@ namespace Triptitude.Web.Controllers
 
         #region Places
 
-        private ActionResult AddPlace(int? placeId, User currentUser)
+        private ActionResult AddPlace(int? placeId)
         {
             Place place;
 
@@ -140,7 +140,7 @@ namespace Triptitude.Web.Controllers
                 Name = place.Name,
                 GoogReference = place.GoogReference,
                 GoogId = place.GoogId,
-                TripId = currentUser.DefaultTrip.Id
+                TripId = CurrentUser.DefaultTrip.Id
             };
             ViewBag.Form = form;
             ViewBag.Place = place;
@@ -149,12 +149,12 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddPlace(PlaceActivityForm form, User currentUser)
+        public ActionResult AddPlace(PlaceActivityForm form)
         {
             var trip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            activitiesRepo.Save(form, currentUser);
+            activitiesRepo.Save(form, CurrentUser);
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -179,14 +179,14 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditPlace(PlaceActivityForm form, User currentUser)
+        public ActionResult EditPlace(PlaceActivityForm form)
         {
             PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(form.ActivityId.Value);
             var oldTrip = activity.Trip;
             var newTrip = tripsRepo.Find(form.TripId);
-            if (!currentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
+            if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
-            activitiesRepo.Save(form, currentUser);
+            activitiesRepo.Save(form, CurrentUser);
             var response = new { status = "OK" };
             return Json(response);
         }

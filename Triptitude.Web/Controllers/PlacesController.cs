@@ -5,7 +5,7 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class PlacesController : Controller
+    public class PlacesController : TriptitudeController
     {
         private PlacesRepo placesRepo;
         public PlacesController()
@@ -33,21 +33,21 @@ namespace Triptitude.Web.Controllers
             return RedirectPermanent(Url.Details(place));
         }
 
-        public ActionResult Details(int id, User currentUser)
+        public ActionResult Details(int id)
         {
             var place = placesRepo.Find(id);
             if (place == null) return HttpNotFound();
             ViewBag.Place = place;
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 
-        public ActionResult Nearby(int id, User currentUser)
+        public ActionResult Nearby(int id)
         {
             var place = placesRepo.Find(id);
             return Redirect(Url.Nearby(place));
             ViewBag.Place = place;
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
     }
