@@ -21,7 +21,7 @@
         <section id="trips">
             <h2>
                 Trips near @place.Name</h2>
-            @Html.Action("SearchResults", "Trips", new {form = tripSearchForm})
+            @Html.Action("SearchResults", "Trips", new { form = tripSearchForm })
         </section>
     }
     <section id="places-nearby">
@@ -46,6 +46,8 @@
 </article>
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
-        T.NearbyPlaces();
+        $(function () {
+            T.NearbyPlaces();
+        });
     </script>
 }

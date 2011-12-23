@@ -135,7 +135,6 @@
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
     <Content Include="Static\Icons\map.png" />
-    <Content Include="Static\Scripts\jquery.pjax.js" />
     <Content Include="Static\Scripts\jquery.placeholder.js" />
     <Content Include="Static\Scripts\triptitude.js" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -170,11 +169,9 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="_Layout.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="_Layout.cshtml" />
     <Content Include="Views\Notes\NoteDialog.cshtml" />
     <Content Include="Views\Notes\_NotesFor.cshtml" />
   </ItemGroup>
@@ -308,7 +305,6 @@
       <LastGenOutput>Site.css</LastGenOutput>
     </None>
     <Content Include="Views\Trips\SearchResults.cshtml" />
-    <Content Include="_PJAXLayout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
