@@ -2,6 +2,8 @@
 
 $(function () {
 
+    $('#content a:not(.add-to-trip)').pjax('#content');
+
     moveScroller();
     $('input').placeholder();
     $('.focus').first().focus();
@@ -36,7 +38,7 @@ $(function () {
         }
     });
 
-    $('.trip-row-map-link').click(function () {
+    $('.trip-row-map-link').live('click', function () {
         var tripId = $(this).data('trip-id');
         var name = $(this).data('trip-name');
 
@@ -59,7 +61,7 @@ $(function () {
         OpenSuperDialog(url);
     });
 
-    $('.editing .packing-list-item').click(function(e) {
+    $('.editing .packing-list-item').click(function (e) {
         if ($(e.target).is('a')) return;
         if ($(this).parent().is('.suggestions')) return;
 
@@ -540,7 +542,7 @@ T.NearbyPlaces = function () {
         }
     };
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+    initialize();
     $(window).scroll(mapPinning);
     mapPinning();
 };
