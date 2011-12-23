@@ -484,15 +484,12 @@ T.NearbyPlaces = function () {
     }
 
     function createListItem(place) {
-        var li = $(document.createElement('li')).appendTo(placeList)
-            .click(function (e) { if (e.target == this) { setActive(place); } })
+        var li = $(document.createElement('li'))
+            .text(place.name)
+            .appendTo(placeList)
+            .click(function(e) { if (e.target == this) { setActive(place); } })
             .data('place', place);
         place.li = li;
-        $('<a class="title" rel="nofollow"></a>')
-            .text(place.name)
-            .data('place', place)
-            .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
-            .appendTo(li);
         $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
     }
 
