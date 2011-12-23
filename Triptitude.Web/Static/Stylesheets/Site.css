@@ -540,8 +540,6 @@ article {
         float: left; }
       #landing-page-panel #trips .panel-title a {
         float: right; }
-    #landing-page-panel #trips #trip-search-form {
-      padding: 5px; }
 
 /* Footer */
 footer {
@@ -1164,21 +1162,24 @@ ul.tags > li + li {
 #places-nearby #map.at-top {
   position: fixed !important;
   top: 90px; }
-#places-nearby #placeSearch {
+#places-nearby #placeSearch #keyword {
+  width: 250px; }
+
+.search-form {
   zoom: 1;
   margin: 10px 0; }
-  #places-nearby #placeSearch:before {
+  .search-form:before {
     display: table;
     content: "";
     zoom: 1;
     *display: inline; }
-  #places-nearby #placeSearch:after {
+  .search-form:after {
     display: table;
     content: "";
     zoom: 1;
     *display: inline;
     clear: both; }
-  #places-nearby #placeSearch input, #places-nearby #placeSearch select {
+  .search-form input, .search-form select, .search-form span {
     float: left;
     display: block;
     box-sizing: border-box;
@@ -1186,8 +1187,11 @@ ul.tags > li + li {
     /* Firefox */
     -webkit-box-sizing: border-box;
     /* Safari */
-    height: 30px;
+    height: 26px;
     margin-right: 5px; }
-  #places-nearby #placeSearch #keyword {
-    width: 250px;
+  .search-form input[type="text"] {
     font-weight: bold; }
+  .search-form select {
+    padding: 3px; }
+  .search-form span {
+    line-height: 26px; }

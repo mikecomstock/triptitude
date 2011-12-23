@@ -51,10 +51,10 @@
 }
 @helper TripSearchForm(Triptitude.Biz.Forms.TripSearchForm form)
     {
-    <form id="trip-search-form" action="/">
+    <form id="trip-search-form" class="search-form" action="/">
     @*<input type="hidden" name="take" value="@form.Take"/>*@
     <input type="text" name="tagstring" id="tagstring" value="@form.TagString" class="tag-autocomplete auto-submit" placeholder="ex: skiing" />
-    near
+    <span>near</span>
     <input type="text" name="place" class="place-autocomplete auto-submit" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.GoogName" placeholder="place (optional)" />
     <input type="hidden" name="googreference" value="@form.GoogReference" />
     <input type="hidden" name="googid" value="@form.GoogId" />

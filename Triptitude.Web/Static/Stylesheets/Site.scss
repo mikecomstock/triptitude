@@ -176,7 +176,6 @@ article {
 			h2 { margin: 0; float:left; }
 			a { float:right; }
 		}
-		#trip-search-form { padding: 5px; }
 	}
 }
 
@@ -409,8 +408,14 @@ ul.tags > li + li { margin-left: 5px; }
 	#map { height: 300px; }
 	#map.at-top { position: fixed !important; top: 90px; }
 	#placeSearch {
-		@include clearfix; margin: 10px 0;
-		input, select { float: left; display: block; @include border-box; height: 30px; margin-right:5px; }
-		#keyword { width: 250px; font-weight: bold; }
+		#keyword { width: 250px; }
 	}
+}
+
+.search-form {
+	@include clearfix; margin: 10px 0;
+	input, select, span { float: left; display: block; @include border-box; height: 26px; margin-right:5px; }
+	input[type="text"] { font-weight: bold; }
+	select { padding: 3px; }
+	span { line-height: 26px; }	
 }
