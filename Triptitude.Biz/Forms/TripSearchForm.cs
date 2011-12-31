@@ -48,7 +48,7 @@ namespace Triptitude.Biz.Forms
                 {
                     var trips = new TripsRepo().Search(this);
                     trips = trips.Where(t => t.ShowInSearch);
-                    _Results = trips.Take(Take);
+                    _Results = trips.OrderByDescending(t=>t.Id).Take(Take);
                 }
                 return _Results;
             }

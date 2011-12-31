@@ -1,11 +1,8 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
+    TripSettingsForm form = ViewBag.Form;
 }
-@section Scripts{
-    <script type="text/javascript">
-        $(document).ready(function () { document.getElementById('name').focus(); });
-    </script>
-}
+
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
 <div id="main-container">
     <div class="panel">
@@ -21,13 +18,13 @@
                 @Html.ValidationMessage("name")
                 <label for="name">
                     Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" />
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="focus" />
             </p>
             <p>
                 @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
-                @Html.TextBox("begindate", ViewBag.Form.BeginDate as DateTime?, new { @class = "date-picker" })
+                @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
             </p>
             <input type="submit" value="Save Settings" tabindex="2" />
             </form>

@@ -147,7 +147,7 @@ namespace Triptitude.Biz.Models
     [Table("TransportationActivities")]
     public class TransportationActivity : Activity
     {
-        public TransportationType TransportationType { get; set; }
+        public virtual TransportationType TransportationType { get; set; }
 
         public Place FromPlace
         {
