@@ -136,6 +136,7 @@
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
     <Content Include="Static\Icons\map.png" />
+    <Content Include="Static\Images\ActivityBackgroundLine.png" />
     <Content Include="Static\Scripts\jquery.placeholder.js" />
     <Content Include="Static\Scripts\triptitude.js" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />

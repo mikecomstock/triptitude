@@ -994,9 +994,11 @@ ul.tags > li + li {
     color: #FFF; }
   #trips-details #itinerary .day .activities .activity {
     min-height: 10px;
-    padding: 5px; }
+    padding: 5px;
+    padding-left: 35px;
+    background: url("/static/images/activitybackgroundline.png") repeat-y 20px; }
     #trips-details #itinerary .day .activities .activity + .activity {
-      border-top: 1px dashed #0190E9; }
+      border-top: 1px solid #CCC; }
     #trips-details #itinerary .day .activities .activity .title {
       color: #333;
       font-weight: bold;
