@@ -1,58 +1,57 @@
 ﻿@{
     Trip trip = (Trip)ViewBag.Trip;
-    bool CurrentUserOwnsTrip = ViewBag.CurrentUserOwnsTrip;
+    User currentUser = ViewBag.CurrentUser;
+    //bool CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
     IEnumerable<Activity> activities = trip.ActivitiesOn(ViewBag.DayNumber);
 }
-<div class="day">
-    <h3>
-        @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
-    </h3>
-    @if (!activities.IsNullOrEmpty())
-    {
-        <ol class="activities">
-            @foreach (Activity activity in activities)
-            {
-                <li class="activity" data-activity-id="@activity.Id">
-                    @if (activity is TransportationActivity)
-                    {
-                        var transportationActivity = activity as TransportationActivity;
-                        <p class="title">
-                            @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
-                            @if (transportationActivity.FromPlace != null)
-                            {
-                                <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
-                            }
-                            @if (transportationActivity.ToPlace != null)
-                            {
-                                <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
-                            }
-                        </p>
-                    }
-                    else if (activity is PlaceActivity)
-                    {
-                        var placeActivity = activity as PlaceActivity;
-                        
-                        if (!string.IsNullOrWhiteSpace(placeActivity.Title))
-                        {
-                        <p class="title">
-                            @placeActivity.Title
-                        </p>
-                        }
-
-                        if (placeActivity.Place != null)
-                        {
-                        <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
-                            <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
-                        </p>
-                        }
-                    }
-                    @Helpers.TagList(Url, activity.Tags)
-                    @if (CurrentUserOwnsTrip || true)
-                    {
-                        @Helpers.NoteList(Url, activity.Notes)
-                    }
-                </li>
-            }
-        </ol>
-    }
+<div class="day-header">
+<h3>
+    @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
+</h3>
 </div>
+@if (!activities.IsNullOrEmpty())
+{
+    foreach (Activity activity in activities)
+    {
+    <div class="activity" data-activity-id="@activity.Id">
+        @if (activity is TransportationActivity)
+        {
+            var transportationActivity = activity as TransportationActivity;
+            <p>
+                @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
+                @if (transportationActivity.FromPlace != null)
+                {
+                    <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
+                }
+                @if (transportationActivity.ToPlace != null)
+                {
+                    <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                }
+            </p>
+        }
+        else if (activity is PlaceActivity)
+        {
+            var placeActivity = activity as PlaceActivity;
+
+            if (!string.IsNullOrWhiteSpace(placeActivity.Title))
+            {
+            <p>
+                @placeActivity.Title
+            </p>
+            }
+
+            if (placeActivity.Place != null)
+            {
+            <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
+                <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+            </p>
+            }
+        }
+        @Helpers.TagList(Url, activity.Tags)
+ @*       @if (CurrentUserOwnsTrip || true)
+        {*@
+            @Helpers.NoteList(Url, activity.Notes)
+        @*}*@
+    </div>
+    }
+}

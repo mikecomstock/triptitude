@@ -984,48 +984,88 @@ ul.tags > li + li {
   width: 100%;
   height: 250px;
   margin-bottom: 10px; }
-#trips-details #itinerary .day {
-  /*  -webkit-box-shadow: $shadow; */
-  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  /*          box-shadow: $shadow; */ }
-  #trips-details #itinerary .day h3 {
-    padding: 2px 6px;
-    background-color: #0190E9;
-    color: #FFF; }
-  #trips-details #itinerary .day .activities .activity {
-    min-height: 10px;
-    padding: 5px;
-    padding-left: 35px;
-    background: url("/static/images/activitybackgroundline.png") repeat-y 20px; }
-    #trips-details #itinerary .day .activities .activity + .activity {
-      border-top: 1px solid #CCC; }
-    #trips-details #itinerary .day .activities .activity .title {
-      color: #333;
+#trips-details #itinerary .activities {
+  padding: 10px 0;
+  zoom: 1;
+  background: url("/static/images/activitybackgroundline.png") repeat-y 20px; }
+  #trips-details #itinerary .activities:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #trips-details #itinerary .activities:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #trips-details #itinerary .activities .day-header {
+    zoom: 1;
+    position: relative; }
+    #trips-details #itinerary .activities .day-header:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #trips-details #itinerary .activities .day-header:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #trips-details #itinerary .activities .day-header:before {
+      border-top: 1px solid #F3F3F3;
+      display: block;
+      position: absolute;
+      top: 12px;
+      left: 0;
+      right: 0;
+      z-index: 1; }
+    #trips-details #itinerary .activities .day-header h3 {
+      padding: 2px 5px;
+      background-color: #999;
+      color: #FFF;
+      float: left;
+      clear: both;
+      /*  -webkit-border-radius: $radius; */
+      -moz-border-radius: 4px;
+      /*          border-radius: $radius; */
+      font-size: 12px;
+      margin: 3px 0;
+      z-index: 2;
+      position: relative; }
+  #trips-details #itinerary .activities .activity {
+    padding: 8px;
+    padding-left: 40px;
+    clear: both;
+    margin: 0; }
+    #trips-details #itinerary .activities .activity > *:first-child {
       font-weight: bold;
-      margin: 5px 0; }
-    #trips-details #itinerary .day .activities .activity .place {
-      color: #333;
-      margin: 5px 0; }
-      #trips-details #itinerary .day .activities .activity .place.with-title {
+      color: #333; }
+    #trips-details #itinerary .activities .activity > * {
+      margin: 0; }
+      #trips-details #itinerary .activities .activity > * + * {
+        margin-top: 5px; }
+    #trips-details #itinerary .activities .activity + .activity {
+      border-top: 1px solid #CCC; }
+    #trips-details #itinerary .activities .activity .place {
+      color: #333; }
+      #trips-details #itinerary .activities .activity .place.with-title:before {
+        content: "at";
         font-weight: normal; }
-        #trips-details #itinerary .day .activities .activity .place.with-title:before {
-          content: "at";
-          font-weight: normal; }
-      #trips-details #itinerary .day .activities .activity .place.no-title {
-        font-weight: bold; }
-    #trips-details #itinerary .day .activities .activity .tags:before {
+    #trips-details #itinerary .activities .activity .tags:before {
       content: "tags:";
       float: left;
       color: #999;
       padding: 3px 0; }
-    #trips-details #itinerary .day .activities .activity .notes {
+    #trips-details #itinerary .activities .activity .notes {
       zoom: 1; }
-      #trips-details #itinerary .day .activities .activity .notes:before {
+      #trips-details #itinerary .activities .activity .notes:before {
         display: table;
         content: "";
         zoom: 1;
         *display: inline; }
-      #trips-details #itinerary .day .activities .activity .notes:after {
+      #trips-details #itinerary .activities .activity .notes:after {
         display: table;
         content: "";
         zoom: 1;

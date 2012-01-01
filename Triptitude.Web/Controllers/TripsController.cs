@@ -79,7 +79,6 @@ namespace Triptitude.Web.Controllers
             ViewBag.DayNumber = dayNumber;
             ViewBag.Trip = trip;
             ViewBag.Editing = CurrentUser.DefaultTrip == trip;
-            ViewBag.CurrentUserOwnsTrip = CurrentUser.OwnsTrips(trip);
             ViewBag.CurrentUser = CurrentUser;
             return PartialView("_DayDetails");
         }
