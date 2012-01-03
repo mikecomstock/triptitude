@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -15,6 +16,19 @@ namespace Triptitude.Web.Controllers
         {
             tripsRepo = new TripsRepo();
             packingListItemsRepo = new PackingListItemsRepo();
+        }
+
+        public ActionResult Index()
+        {
+            var tags = packingListItemsRepo.FindAll()
+                .Where(pli=>pli.ItemTag.ShowInSearch)
+                .GroupBy(pli => pli.ItemTag.Tag)
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key)
+                .Where(t => t.ShowInSearch);
+
+            ViewBag.Tags = tags;
+            return View();
         }
 
         public ActionResult Create()

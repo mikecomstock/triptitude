@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Packing List Items";
+    IEnumerable<Tag> tags = ViewBag.Tags;
+}
+@section Scripts{
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
+
+            $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
+            $('#item-search').submit(function (e) {
+                e.preventDefault();
+
+                var term = $.trim($(this).find('input').val().toLowerCase());
+                console.log(term);
+
+                var items = $('.packing-list-item');
+                items.each(function (i, element) {
+                    var item = $(element);
+                    var matches = item.data('name').toLowerCase().indexOf(term) != -1;
+                    if (matches) {
+                        show(item);
+                    } else {
+                        hide(item);
+                    }
+                });
+
+                var tags = $('.packing-list-tag');
+                tags.each(function (i, element) {
+                    var tag = $(element);
+                    var hasVisibleItems = tag.find('.packing-list-item').not('.hidden').length > 0;
+                    if (hasVisibleItems) {
+                        show(tag);
+                    } else {
+                        hide(tag);
+                    }
+                });
+
+                tags.each(function (i, element) {
+                    var tag = $(element);
+                    var matches = tag.data('name').toLowerCase().indexOf(term) != -1;
+                    if (matches) {
+                        show(tag);
+                        tag.find('.packing-list-item').each(function (i, e2) { show($(e2)); });
+                    }
+                });
+
+                $('.packing-list-tags').masonry('reload');
+            });
+
+            var hide = function (element) {
+                element.addClass('hidden');
+                element.hide();
+            };
+
+            var show = function (element) {
+                element.removeClass('hidden');
+                element.show();
+            };
+        });
+    </script>
+}
+<article>
+    <header>
+        <h1>
+            Packing List Items</h1>
+        <div class="subtitle">
+            <form id="item-search">
+            <label for="term">
+                Search:
+            </label>
+            <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
+            </form>
+        </div>
+    </header>
+    <section>
+        <div class="packing-list-tags fluid">
+            @foreach (Tag tag in tags)
+            {
+                <div class="packing-list-tag" data-name="@tag.NiceName">
+                    <h3>
+                        <a href="@Url.Details(tag)">@tag.NiceName</a>
+                    </h3>
+                    @ItemList(tag)
+                </div>
+            }
+            @helper ItemList(Tag tag)
+                {
+                <ul class="packing-list-items">
+                    @foreach (Item item in tag.Items)
+                    {
+                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name" title="Click to add to trip">@item.Name</li>
+                    }
+                </ul>
+            }
+        </div>
+    </section>
+</article>

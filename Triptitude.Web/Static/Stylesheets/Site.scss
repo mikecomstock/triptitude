@@ -20,7 +20,7 @@ article, aside, figure, footer, header, hgroup, menu, nav, section { display:blo
 input.day-input { width: 30px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 .toggler { cursor: pointer; }
-
+.subtitle { background-color: #F3ECB7; padding: 10px; }
 
 /* Form Defaults */
 textarea, input, select { font-size: 14px; }
@@ -126,12 +126,14 @@ article {
 	> header {
 		background-color: #E9BA26;
 		h1 { padding: 15px; }
-		.subtitle { background-color: #F3ECB7; padding: 10px; }
 	}
 	section {
 		padding: 20px 10px 0 10px;
-		h2 { color: #404040; font-size: 26px; margin-bottom: 10px; text-transform: none; }
-		.subtitle { background-color: #F3ECB7; padding: 5px; margin: 10px 0; }
+		h2 {
+			color: #404040; font-size: 26px; margin-bottom: 10px; text-transform: none;
+			span { font-size: 12px; }
+		}
+		.subtitle { padding: 5px; margin: 10px 0; }
 	}
 }
 
@@ -143,7 +145,6 @@ article {
 	h1 { float:left; }
 	.add-to-trip { float: right; }
 }
-.panel > .subtitle { background-color: #F3ECB7; padding: 10px; }
 
 .panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
 .panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
@@ -361,11 +362,13 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 /* Packing List */
+.packing-list-tag h3 { text-transform: none; margin: 10px 0 5px 0; }
 .packing-list-tags.fluid {
 	@include clearfix;
 	.packing-list-tag {	
 		width: 32%; display: inline; background-color: #E6E6E6; margin: 0 10px 10px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
 		h3 { margin: 5px }
+		&.hidden { width: 0; height: 0; margin: 0; left: 0; top: 0; display: none; position: hidden; }
 		.packing-list-items {
 			margin: 5px;
 			li { float: none; width: auto; margin: 5px 0 0 0; }
@@ -384,18 +387,16 @@ ul.tags > li + li { margin-left: 5px; }
 			a { color: #999; }
 		}
 		&:hover { background-color: #EEE; cursor: pointer; }
-		&.visibility-private .name:after { content: "(private)"; color: #888; }
+		&.visibility-private .name:after { content: "(private)"; color: #888; margin-left: 2px; }
 	}
 	&.suggestions {
-		margin: 5px 20px; border-top: none; @include clearfix;
+		margin: 5px 20px; border-top: none; @include clearfix; display: none;
 		li {
 			cursor: pointer; background-color: #E0F3FF;
 			&:hover { background-color: #EEE; }
 		}
 	}
 }
-
-.packing-list-tag h3 { text-transform: none; margin: 10px 0 5px 0; }
 
 /* Places */
 #places-nearby {

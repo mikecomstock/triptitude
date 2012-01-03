@@ -165,6 +165,11 @@ namespace Triptitude.Web.Helpers
 
         #region Packing
 
+        public static string PackingListIndex(this UrlHelper url)
+        {
+            return url.Action("index", "packing");
+        }
+
         public static string SavePackingItem(this UrlHelper url)
         {
             return url.Action("save", "packing");

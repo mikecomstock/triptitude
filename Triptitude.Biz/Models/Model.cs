@@ -242,8 +242,6 @@ namespace Triptitude.Biz.Models
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
 
-        //public virtual ICollection<AmazonItem> AmazonItems { get; set; }
-
         public virtual ICollection<ItemTag> ItemTags { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
 
@@ -258,6 +256,15 @@ namespace Triptitude.Biz.Models
             {
                 var trips = Activities.Select(a => a.Trip).Distinct().Where(t => t.ShowInSearch);
                 return trips;
+            }
+        }
+
+        public IEnumerable<Item> Items
+        {
+            get
+            {
+                var items = ItemTags.Where(it => it.ShowInSearch).OrderByDescending(it => it.PackingListItems.Count()).Select(it => it.Item);
+                return items;
             }
         }
     }

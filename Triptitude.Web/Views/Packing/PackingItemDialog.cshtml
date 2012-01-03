@@ -6,6 +6,9 @@
 <div id="packing-item-dialog">
     <div class="title">
         What to Pack</div>
+    <div class="subtitle">
+        <a href="@Url.PackingListIndex()">Search Items</a>
+    </div>
     <form action="@ViewBag.Action" method="post">
     @Html.Hidden("tripid", form.TripId)
     @Html.Hidden("packingitemid", form.PackingItemId)

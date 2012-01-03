@@ -58,6 +58,10 @@ input.day-input {
 .toggler {
   cursor: pointer; }
 
+.subtitle {
+  background-color: #F3ECB7;
+  padding: 10px; }
+
 /* Form Defaults */
 textarea, input, select {
   font-size: 14px; }
@@ -397,9 +401,6 @@ article {
     background-color: #E9BA26; }
     article > header h1 {
       padding: 15px; }
-    article > header .subtitle {
-      background-color: #F3ECB7;
-      padding: 10px; }
   article section {
     padding: 20px 10px 0 10px; }
     article section h2 {
@@ -407,8 +408,9 @@ article {
       font-size: 26px;
       margin-bottom: 10px;
       text-transform: none; }
+      article section h2 span {
+        font-size: 12px; }
     article section .subtitle {
-      background-color: #F3ECB7;
       padding: 5px;
       margin: 10px 0; }
 
@@ -451,10 +453,6 @@ article {
     float: left; }
   .panel > .title .add-to-trip, .panel-title .add-to-trip {
     float: right; }
-
-.panel > .subtitle {
-  background-color: #F3ECB7;
-  padding: 10px; }
 
 .panel-alert {
   padding: 10px;
@@ -1080,6 +1078,10 @@ ul.tags > li + li {
   height: 500px; }
 
 /* Packing List */
+.packing-list-tag h3 {
+  text-transform: none;
+  margin: 10px 0 5px 0; }
+
 .packing-list-tags.fluid {
   zoom: 1; }
   .packing-list-tags.fluid:before {
@@ -1103,6 +1105,14 @@ ul.tags > li + li {
     /*          box-shadow: $shadow; */ }
     .packing-list-tags.fluid .packing-list-tag h3 {
       margin: 5px; }
+    .packing-list-tags.fluid .packing-list-tag.hidden {
+      width: 0;
+      height: 0;
+      margin: 0;
+      left: 0;
+      top: 0;
+      display: none;
+      position: hidden; }
     .packing-list-tags.fluid .packing-list-tag .packing-list-items {
       margin: 5px; }
       .packing-list-tags.fluid .packing-list-tag .packing-list-items li {
@@ -1157,11 +1167,13 @@ ul.tags > li + li {
       cursor: pointer; }
     .packing-list-items li.visibility-private .name:after {
       content: "(private)";
-      color: #888; }
+      color: #888;
+      margin-left: 2px; }
   .packing-list-items.suggestions {
     margin: 5px 20px;
     border-top: none;
-    zoom: 1; }
+    zoom: 1;
+    display: none; }
     .packing-list-items.suggestions:before {
       display: table;
       content: "";
@@ -1178,10 +1190,6 @@ ul.tags > li + li {
       background-color: #E0F3FF; }
       .packing-list-items.suggestions li:hover {
         background-color: #EEE; }
-
-.packing-list-tag h3 {
-  text-transform: none;
-  margin: 10px 0 5px 0; }
 
 /* Places */
 #places-nearby #place-rows {

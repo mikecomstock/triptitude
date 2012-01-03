@@ -19,9 +19,7 @@
                 $(selectorToToggle).toggle();
             });
 
-            $('.packing-list-tags.fluid').masonry({
-                itemSelector: '.packing-list-tag'
-            });
+            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
         });
     </script>
 }
@@ -41,13 +39,12 @@
     <section id="itinerary">
         <header>
             <h2>
-                Itinerary</h2>
-            @if (currentUser.DefaultTrip == trip)
-            {
-                <div class="subtitle">
-                    Use the <strong>+Add Plans</strong> menu to add items to your itinerary.
-                </div>
-            }
+                Itinerary
+                @if (currentUser.DefaultTrip == trip)
+                {
+                    <span class="link add-to-trip">+Add Plans</span>
+                }
+            </h2>
         </header>
         <div class="activities">
             @for (int i = 1; i <= trip.TotalDays; i++)

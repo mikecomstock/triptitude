@@ -25,7 +25,7 @@ $(function () {
     superDialogOverlay = $('#super-dialog-overlay');
     superDialogOverlay.click(function () { CloseSuperDialog(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
-
+    
     $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
