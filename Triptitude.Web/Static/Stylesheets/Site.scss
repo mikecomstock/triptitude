@@ -379,7 +379,8 @@ ul.tags > li + li { margin-left: 5px; }
 .packing-list-items {
 	@include clearfix;
 	li {
-		float: left; width: 30%; margin: 0 4px 4px 0; padding: 5px; @include clearfix; background-color: #F6F6F6;
+		float: left; width: 30%; margin: 0 4px 4px 0; padding: 5px; @include clearfix; background-color: #F6F6F6; @include border-box;
+		&.added { background: url("/static/icons/check.png") #F6F6F6 no-repeat right center; padding-right:30px; }
 		.add-to-trip { float: right; }
 		.packing-list-item-note { clear: both; background-color: #9FDAFE; padding: 3px; margin-top: 3px; }
 		.packing-list-item-place, .packing-list-item-tag {

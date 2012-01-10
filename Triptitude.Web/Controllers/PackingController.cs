@@ -20,6 +20,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.CurrentUser = CurrentUser;
             var tags = packingListItemsRepo.FindAll()
                 .Where(pli=>pli.ItemTag.ShowInSearch)
                 .GroupBy(pli => pli.ItemTag.Tag)

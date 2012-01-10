@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Packing List Items";
     IEnumerable<Tag> tags = ViewBag.Tags;
+    User currentUser = ViewBag.CurrentUser;
 }
 @section Scripts{
     <script type="text/javascript" charset="utf-8">
@@ -65,12 +66,15 @@
         <h1>
             Packing List Items</h1>
         <div class="subtitle">
+            
             <form id="item-search">
-            <label for="term">
-                Search:
-            </label>
-            <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
+                <label for="term">
+                    Search:
+                </label>
+                <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
+                <a class="link add-to-trip" data-type="packing-list-item" href="#">+Add an Item</a>
             </form>
+            
         </div>
     </header>
     <section>
@@ -81,17 +85,8 @@
                     <h3>
                         <a href="@Url.Details(tag)">@tag.NiceName</a>
                     </h3>
-                    @ItemList(tag)
+                    @Helpers.ItemList(tag, currentUser)
                 </div>
-            }
-            @helper ItemList(Tag tag)
-                {
-                <ul class="packing-list-items">
-                    @foreach (Item item in tag.Items)
-                    {
-                        <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@item.Name" data-tag="@tag.Name" title="Click to add to trip">@item.Name</li>
-                    }
-                </ul>
             }
         </div>
     </section>

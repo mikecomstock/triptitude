@@ -1139,7 +1139,12 @@ ul.tags > li + li {
     margin: 0 4px 4px 0;
     padding: 5px;
     zoom: 1;
-    background-color: #F6F6F6; }
+    background-color: #F6F6F6;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    /* Firefox */
+    -webkit-box-sizing: border-box;
+    /* Safari */ }
     .packing-list-items li:before {
       display: table;
       content: "";
@@ -1151,6 +1156,9 @@ ul.tags > li + li {
       zoom: 1;
       *display: inline;
       clear: both; }
+    .packing-list-items li.added {
+      background: url("/static/icons/check.png") #f6f6f6 no-repeat right center;
+      padding-right: 30px; }
     .packing-list-items li .add-to-trip {
       float: right; }
     .packing-list-items li .packing-list-item-note {

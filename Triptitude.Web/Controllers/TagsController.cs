@@ -5,7 +5,7 @@ using Triptitude.Biz.Repos;
 
 namespace Triptitude.Web.Controllers
 {
-    public class TagsController : Controller
+    public class TagsController : TriptitudeController
     {
         private TagsRepo repo;
         public TagsController()
@@ -20,6 +20,7 @@ namespace Triptitude.Web.Controllers
 
             ViewBag.Tag = tag;
             ViewBag.Items = new ItemTagRepo().MostPopular(20, tag).Select(it => it.Item).ToList();
+            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 

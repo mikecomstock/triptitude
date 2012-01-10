@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Globalization;
@@ -46,6 +47,16 @@ namespace Triptitude.Biz.Models
         {
             var userOwnsAllTrips = trips.All(t => t.User == this);
             return userOwnsAllTrips;
+        }
+
+        public IEnumerable<Item> DefaultTripItems
+        {
+            get
+            {
+                return DefaultTrip == null
+                    ? new List<Item>()
+                    : DefaultTrip.PackingListItems.Select(pli => pli.ItemTag.Item).Distinct();
+            }
         }
     }
 
