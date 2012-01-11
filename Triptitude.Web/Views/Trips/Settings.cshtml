@@ -2,32 +2,28 @@
     ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
     TripSettingsForm form = ViewBag.Form;
 }
-
-@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
-<div id="main-container">
-    <div class="panel">
-        <div class="panel-title">
-            <h1>
-                @ViewBag.Title
-            </h1>
-        </div>
-        <div class="panel-content">
-            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form">
-            @Html.AntiForgeryToken()
-            <p>
-                @Html.ValidationMessage("name")
-                <label for="name">
-                    Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="focus" />
-            </p>
-            <p>
-                @Html.ValidationMessage("begindate")
-                <label for="begindate">
-                    Start Date</label>
-                @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
-            </p>
-            <input type="submit" value="Save Settings" tabindex="2" />
-            </form>
-        </div>
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            @ViewBag.Title
+        </h1>
+    </div>
+    <div class="panel-content">
+        <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form">
+        @Html.AntiForgeryToken()
+        <p>
+            @Html.ValidationMessage("name")
+            <label for="name">
+                Name your trip</label>
+            <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="focus" />
+        </p>
+        <p>
+            @Html.ValidationMessage("begindate")
+            <label for="begindate">
+                Start Date</label>
+            @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
+        </p>
+        <input type="submit" value="Save Settings" tabindex="2" />
+        </form>
     </div>
 </div>

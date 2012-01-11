@@ -11,14 +11,6 @@ namespace Triptitude.Web.Controllers
     public class TripsController : TriptitudeController
     {
         // partial only
-        public ActionResult SidePanel(Trip trip)
-        {
-            ViewBag.Trip = trip;
-            ViewBag.UserOwnsTrip = CurrentUser.OwnsTrips(trip);
-            return PartialView("_SidePanel");
-        }
-
-        // partial only
         public ActionResult _Row(Trip trip)
         {
             ViewBag.Trip = trip;

@@ -255,17 +255,17 @@ input.delete {
   color: #BBB; }
 
 #email-warning {
+  float: right;
   background-color: #E92553;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 1px;
   font-weight: bold;
-  text-align: center;
   padding: 3px;
   color: #000;
   /*  -webkit-border-radius: $radius; */
-  -moz-border-radius: 4px;
+  -moz-border-radius: 0 0 4px 4px;
   /*          border-radius: $radius; */
-  margin-top: 3px; }
+  margin: -10px 0 0 0; }
 
 #email-warning a {
   color: #FFF; }
@@ -344,6 +344,65 @@ input.delete {
         padding: 5px;
         cursor: pointer; }
 
+#trip-nav > ul {
+  zoom: 1;
+  margin-top: 3px;
+  background: #0190E9;
+  /*  -webkit-border-radius: $radius; */
+  -moz-border-radius: 4px;
+  /*          border-radius: $radius; */ }
+  #trip-nav > ul:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #trip-nav > ul:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #trip-nav > ul a {
+    color: #FFF; }
+  #trip-nav > ul > li {
+    float: left;
+    display: block;
+    padding: 5px 10px;
+    display: relative; }
+    #trip-nav > ul > li > div {
+      background-color: #333;
+      color: #FFF;
+      position: absolute;
+      margin: 5px 0 0 -10px;
+      overflow: hidden;
+      height: 0;
+      z-index: 10;
+      -webkit-transition: all 200ms; }
+      #trip-nav > ul > li > div a {
+        color: #66C3FE;
+        padding: 5px;
+        margin: 0;
+        display: block; }
+        #trip-nav > ul > li > div a:hover {
+          text-decoration: none !important;
+          background-color: #444; }
+        #trip-nav > ul > li > div a span {
+          color: #BBB;
+          font-weight: normal;
+          display: block;
+          padding: 5px 5px 3px 15px;
+          font-size: 14px;
+          white-space: nowrap; }
+          #trip-nav > ul > li > div a span strong {
+            color: #FFF;
+            font-weight: normal;
+            letter-spacing: 1.5px; }
+  #trip-nav > ul > li:hover > div, #trip-nav > ul li:active > div {
+    padding: 10px;
+    display: block;
+    height: auto;
+    overflow: visible; }
+
 /* Page Sections */
 #content {
   width: 955px;
@@ -401,6 +460,8 @@ article {
     background-color: #E9BA26; }
     article > header h1 {
       padding: 15px; }
+  article.editing > header {
+    display: none; }
   article section {
     padding: 20px 10px 0 10px; }
     article section h2 {

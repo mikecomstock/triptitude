@@ -222,7 +222,6 @@
     <Content Include="Views\My\_SidePanel.cshtml" />
     <Content Include="Views\My\Settings.cshtml" />
     <Content Include="Views\Trips\Print.cshtml" />
-    <Content Include="Views\Trips\_SidePanel.cshtml" />
     <Content Include="Views\Trips\Map.cshtml" />
     <Content Include="Views\Trips\_Row.cshtml" />
     <Content Include="Views\Trips\_Rows.cshtml" />

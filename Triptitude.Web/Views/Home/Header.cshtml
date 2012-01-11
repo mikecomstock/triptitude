@@ -51,7 +51,36 @@
 {     
     <div id="trip-bar-container">
         <div id="trip-bar" data-trip-id="@currentUser.DefaultTrip.Id" >
-            <ul id="trip-bar-menu">
+            @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
+            {
+                <div id="email-warning">
+                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
+                </div>
+            }
+            <div id="trip-bar-pre-title">
+                currently planning...</div>
+            <a id="trip-bar-title" href="@Url.Details(currentUser.DefaultTrip)">
+                @currentUser.DefaultTrip.Name</a>
+            <nav id="trip-nav">
+                <ul>
+                    <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="i">Itinerary</a>
+                        <div>
+                            <ul>
+                                <li><a class="super-dialog-link" href="/activities/create?type=transportation" accesskey="t">Add Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>
+                                <li><a class="super-dialog-link" href="/activities/create?type=place" accesskey="a">Add Place / Activity<span>Like <strong>Whale Watching </strong>in <strong>Boston</strong></span></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="@Url.Map(currentUser.DefaultTrip)">Map</a></li>
+                    <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List</a>
+                        <div>
+                            <a class="super-dialog-link" href="/packing/create" accesskey="p">Add Packing Item<span>Like pack your <strong>sunglasses</strong> and <strong>phone charger</strong></span></a>
+                        </div>
+                    </li>
+                    <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings</a></li>
+                </ul>
+            </nav>
+            @*<ul id="trip-bar-menu">
                 <li><span class="link">Details</span>
                     <ul>
                         <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
@@ -68,17 +97,7 @@
                         <li><a class="super-dialog-link link" href="/packing/create" accesskey="p">Packing List<span>Like pack your <strong>sunglasses</strong> and <strong>phone charger</strong></span></a></li>
                     </ul>
                 </li>
-            </ul>
-            <div id="trip-bar-pre-title">
-                currently planning...</div>
-            <a id="trip-bar-title" href="@Url.Details(currentUser.DefaultTrip)">
-                @currentUser.DefaultTrip.Name</a>
-            @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
-            {
-                <div id="email-warning">
-                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
-                </div>
-            }
+            </ul>*@
             <div id="super-dialog-container">
                 <div id="super-dialog">
                 </div>

@@ -77,7 +77,7 @@ $invalid-color: #E92553;
 #trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; display: inline; }
 #trip-bar-pre-title { color: #BBB; }
-#email-warning { background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px; }
+#email-warning { float:right; background-color: #E92553; font-size: 12px; letter-spacing: 1px; font-weight: bold; padding: 3px; color: #000; @include border-radius(0 0 4px 4px); margin: -10px 0 0 0; }
 #email-warning a { color: #FFF; }
 
 #trip-bar-menu {
@@ -110,6 +110,31 @@ $invalid-color: #E92553;
 	}
 }
 
+#trip-nav {
+	> ul {
+		@include clearfix; margin-top:3px; background: #0190E9; @include border-radius(4px);
+		a { color: #FFF; }
+		> li {
+			float:left; display:block; padding: 5px 10px; display: relative; 
+			> div {
+				background-color: #333; color: #FFF; position:absolute; margin: 5px 0 0 -10px; overflow: hidden; height:0; z-index: 10;
+				-webkit-transition: all 200ms;
+				a {
+					color: #66C3FE; padding: 5px; margin: 0; display: block;
+					&:hover { text-decoration: none !important; background-color: #444; }
+					span {
+						color: #BBB; font-weight: normal; display: block; padding: 5px 5px 3px 15px; font-size: 14px; white-space: nowrap;
+						strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
+					}
+				}
+			}
+		}
+		> li:hover, li:active {
+			> div { padding: 10px; display:block; height: auto; overflow: visible; }
+		}
+	}
+}
+
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; @include clearfix; }
 
@@ -127,6 +152,7 @@ article {
 		background-color: #E9BA26;
 		h1 { padding: 15px; }
 	}
+	&.editing > header { display: none;}
 	section {
 		padding: 20px 10px 0 10px;
 		h2 {
