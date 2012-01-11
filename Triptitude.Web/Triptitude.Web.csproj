@@ -135,6 +135,7 @@
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
+    <Content Include="Static\Icons\check.png" />
     <Content Include="Static\Icons\map.png" />
     <Content Include="Static\Images\ActivityBackgroundLine.png" />
     <Content Include="Static\Scripts\jquery.placeholder.js" />
@@ -178,10 +179,6 @@
     <Content Include="Views\Notes\_NotesFor.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Amazon.PAAPI.WCF\Amazon.PAAPI.WCF.csproj">
-      <Project>{D38B4A40-D315-4158-9BD1-34C1697668BB}</Project>
-      <Name>Amazon.PAAPI.WCF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Triptitude.Biz\Triptitude.Biz.csproj">
       <Project>{82A22680-3B8A-4609-98DB-B602837120EF}</Project>
       <Name>Triptitude.Biz</Name>
