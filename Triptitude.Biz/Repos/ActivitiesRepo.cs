@@ -15,7 +15,9 @@ namespace Triptitude.Biz.Repos
             activity.Trip = new TripsRepo().Find(form.TripId);
             activity.Title = string.IsNullOrWhiteSpace(form.Title) ? null : form.Title;
             activity.BeginDay = form.BeginDay;
+            activity.BeginTime = string.IsNullOrWhiteSpace(form.BeginTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.BeginTime)).TimeOfDay;
             activity.EndDay = form.EndDay;
+            activity.EndTime = string.IsNullOrWhiteSpace(form.EndTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.EndTime)).TimeOfDay;
             activity.TagString = form.TagString;
 
             if (activity.Tags != null) activity.Tags.Clear();

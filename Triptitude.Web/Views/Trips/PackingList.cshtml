@@ -73,10 +73,6 @@ else
         @foreach (PackingListItem pli in plis.OrderBy(pli => pli.ItemTag.Item.Name))
         {
             <li class="packing-list-item @pli.Visibility.GetClassName() @(ViewBag.UserOwnsTrip ? "owned" : string.Empty)" data-id="@pli.Id" title="Click to edit"><span class="name">@pli.ItemTag.Item.Name</span>
-                @if (pli.Place != null)
-                {
-                    <text>for <a class="packing-list-item-place" href="@Url.Details(pli.Place)">@pli.Place.Name</a></text>
-                }
                 @if (!string.IsNullOrEmpty(pli.Note))
                 {
                     <div class="packing-list-item-note">@pli.Note</div>

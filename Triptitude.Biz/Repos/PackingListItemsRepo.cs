@@ -78,18 +78,7 @@ namespace Triptitude.Biz.Repos
             packingListItem.Note = form.Note;
             packingListItem.Visibility_Id = form.Visibility_Id;
             packingListItem.TagString = form.TagString;
-
-            if (string.IsNullOrWhiteSpace(form.GoogReference))
-            {
-                var tmp = packingListItem.Place; // Because Entity Framework is stupid...
-                packingListItem.Place = null;
-            }
-            else
-            {
-                var placesRepo = new PlacesRepo();
-                packingListItem.Place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
-            }
-
+            
             var item = new ItemRepo().FindOrInitialize(form.Name);
             Tag tag = null;
             if (!string.IsNullOrWhiteSpace(form.TagString))
@@ -116,9 +105,6 @@ namespace Triptitude.Biz.Repos
                                         Note = packingListItem.Note,
                                         Visibility_Id = packingListItem.Visibility_Id,
                                         TripId = packingListItem.Trip.Id,
-                                        GoogId = packingListItem.Place == null ? null : packingListItem.Place.GoogId,
-                                        GoogReference = packingListItem.Place == null ? null : packingListItem.Place.GoogReference,
-                                        GoogName = packingListItem.Place == null ? null : packingListItem.Place.Name,
                                         PackingItemId = packingListItem.Id,
                                         TagString = packingListItem.TagString
                                     };

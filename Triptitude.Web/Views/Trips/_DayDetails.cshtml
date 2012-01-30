@@ -3,15 +3,16 @@
     User currentUser = ViewBag.CurrentUser;
     //bool CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
     IEnumerable<Activity> activities = trip.ActivitiesOn(ViewBag.DayNumber);
+    int? day = ViewBag.DayNumber;
 }
 <div class="day-header">
-<h3>
-    @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
-</h3>
+    <h3>
+        @trip.NiceDay(ViewBag.DayNumber, ViewBag.CurrentUser)
+    </h3>
 </div>
 @if (!activities.IsNullOrEmpty())
 {
-    foreach (Activity activity in activities)
+    foreach (Activity activity in activities.OrderBy(a => a.TimeForSort(day)))
     {
     <div class="activity" data-activity-id="@activity.Id">
         @if (activity is TransportationActivity)
@@ -47,10 +48,32 @@
             </p>
             }
         }
+        <div class="when">
+            @if (activity.BeginDay == activity.EndDay && activity.BeginTime.HasValue)
+            {
+                <text>@DateTime.Today.Add(activity.BeginTime.Value).ToShortTimeString()</text>
+                if (activity.EndTime.HasValue && activity.EndTime.Value.CompareTo(activity.BeginTime.Value) != 0)
+                {
+                <text> - @DateTime.Today.Add(activity.EndTime.Value).ToShortTimeString()</text>
+                <text> (@activity.Duration) </text>
+                }
+            }
+            @if (activity.BeginDay != activity.EndDay)
+            {
+                if (activity.BeginDay == day && activity.BeginTime.HasValue)
+                {
+                <text>@DateTime.Today.Add(activity.BeginTime.Value).ToShortTimeString()</text>
+                }
+                if (day == activity.EndDay && activity.EndTime.HasValue)
+                {
+                <text>@DateTime.Today.Add(activity.EndTime.Value).ToShortTimeString() (end - @activity.Duration)</text>
+                }
+            }
+        </div>
         @Helpers.TagList(Url, activity.Tags)
- @*       @if (CurrentUserOwnsTrip || true)
+        @*       @if (CurrentUserOwnsTrip || true)
         {*@
-            @Helpers.NoteList(Url, activity.Notes)
+        @Helpers.NoteList(Url, activity.Notes)
         @*}*@
     </div>
     }

@@ -7,7 +7,7 @@
     <div class="title">
         What to Pack</div>
     <div class="subtitle">
-        <a href="@Url.PackingListIndex()">Search Items</a>
+        <a href="@Url.PackingListIndex()">Search for items</a>
     </div>
     <form action="@ViewBag.Action" method="post">
     @Html.Hidden("tripid", form.TripId)
@@ -18,13 +18,7 @@
                 @Html.TextBox("name", form.Name, new { @class = "focus required item-autocomplete", placeholder = "item (required)" })
             </span>for <span>
                 @Html.TextBox("tagstring", @form.TagString, new { @class = "tag-autocomplete", placeholder = "activity (optional)" })
-            </span>at <span class="place-map-container">
-                <img src="" alt="" class="place-map" id="place-map" />
             </span>
-            <input type="text" name="place" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.GoogName" placeholder="place (optional)" />
-            <input type="hidden" name="googreference" value="@form.GoogReference" />
-            <input type="hidden" name="googid" value="@form.GoogId" />
-            <input type="hidden" name="googname" value="@form.GoogName" />
         </p>
     </fieldset>
     <fieldset class="inline">

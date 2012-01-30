@@ -46,12 +46,13 @@
         <fieldset>
             <span>When</span>
             <p>
-                <label for="beginDay">
-                    Day
-                </label>
-                <input type="text" class="day-input" id="beginDay" name="beginDay" value="@form.BeginDay" />
-                thru
-                <input type="text" class="day-input" id="endDay" name="endDay" value="@form.EndDay" />
+                <label for="beginday">
+                    Day</label>
+                <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
+                at <input type="text" class="time-input" name="begintime" id="begintime" value="@form.BeginTime" placeholder="begin time" />
+                -
+                <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
+                at <input type="text" class="time-input" name="endtime" id="endtime" value="@form.EndTime" placeholder="end time" />
             </p>
         </fieldset>
     </div>

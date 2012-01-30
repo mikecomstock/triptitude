@@ -145,6 +145,45 @@ namespace Triptitude.Biz.Models
 
         public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : Name; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
+
+        public TimeSpan? TimeForSort(int? day)
+        {
+            TimeSpan? result = null;
+            if (day == BeginDay) result = BeginTime;
+            else if (day == EndDay) result = EndTime;
+
+            return result ?? TimeSpan.MaxValue;
+        }
+
+        public string Duration
+        {
+            get
+            {
+                if ((BeginDay.HasValue && !EndDay.HasValue) || (!BeginDay.HasValue && EndDay.HasValue)) return null;
+                if ((BeginTime.HasValue && !EndTime.HasValue) || (!BeginTime.HasValue && EndTime.HasValue)) return null;
+
+                DateTime begin = DateTime.Today;
+                DateTime end = DateTime.Today;
+
+                if (BeginDay.HasValue) begin = begin.AddDays(BeginDay.Value);
+                if (EndDay.HasValue) end = end.AddDays(EndDay.Value);
+
+                if (BeginTime.HasValue) begin = begin.Add(BeginTime.Value);
+                if (EndTime.HasValue) end = end.Add(EndTime.Value);
+
+                TimeSpan duration = end - begin;
+
+                List<string> parts = new List<string>(3);
+                if (duration.Days == 1) parts.Add(duration.Days + "day");
+                if (duration.Days > 1) parts.Add(duration.Days + "days");
+                if (duration.Hours == 1) parts.Add(duration.Hours + " hour");
+                if (duration.Hours > 1) parts.Add(duration.Hours + " hours");
+                if (duration.Minutes == 1) parts.Add(duration.Minutes + " minute");
+                if (duration.Minutes > 1) parts.Add(duration.Minutes + " minutes");
+
+                return string.Join(", ", parts);
+            }
+        }
     }
 
     public class ActivityPlace
@@ -303,7 +342,6 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public virtual ItemTag ItemTag { get; set; }
         public virtual Trip Trip { get; set; }
-        public virtual Place Place { get; set; }
         public string Note { get; set; }
         public int Visibility_Id { get; set; }
         public string TagString { get; set; }

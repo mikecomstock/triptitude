@@ -52,6 +52,9 @@ article, aside, figure, footer, header, hgroup, menu, nav, section {
 input.day-input {
   width: 30px !important; }
 
+input.time-input {
+  width: 75px !important; }
+
 .ui-autocomplete {
   z-index: 10 !important; }
 
@@ -791,7 +794,7 @@ footer {
     border-bottom: 2px dotted #999;
     font-size: 1.5em;
     color: #0190E9;
-    text-align: center; }
+    margin: 0 5px; }
   #packing-item-dialog fieldset.sentence input[name="name"] {
     width: 240px; }
   #packing-item-dialog fieldset.sentence input[name="tagstring"] {
@@ -799,7 +802,9 @@ footer {
 #packing-item-dialog fieldset.inline {
   zoom: 1; }
   #packing-item-dialog fieldset.inline #note {
-    width: 450px; }
+    width: 240px; }
+  #packing-item-dialog fieldset.inline select {
+    padding: 1px 0; }
   #packing-item-dialog fieldset.inline:before {
     display: table;
     content: "";
@@ -1166,9 +1171,9 @@ ul.tags > li + li {
       background-color: #9FDAFE;
       padding: 3px;
       margin-top: 3px; }
-    .packing-list-items li .packing-list-item-place, .packing-list-items li .packing-list-item-tag {
+    .packing-list-items li .packing-list-item-tag {
       color: #999 !important; }
-      .packing-list-items li .packing-list-item-place a, .packing-list-items li .packing-list-item-tag a {
+      .packing-list-items li .packing-list-item-tag a {
         color: #999; }
     .packing-list-items li:hover {
       background-color: #EEE;

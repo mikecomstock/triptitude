@@ -18,6 +18,7 @@ article, aside, figure, footer, header, hgroup, menu, nav, section { display:blo
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
 input.day-input { width: 30px !important; }
+input.time-input { width: 75px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 .toggler { cursor: pointer; }
 .subtitle { background-color: #F3ECB7; padding: 10px; }
@@ -250,12 +251,13 @@ footer { width: 955px; height: 100px; }
 	fieldset.sentence {
 		padding: 20px 0; font-weight: bold;
 		input:focus { outline: none; }
-		input { background: transparent; border: none; border-bottom: 2px dotted #999; font-size: 1.5em; color: #0190E9; text-align: center; }
+		input { background: transparent; border: none; border-bottom: 2px dotted #999; font-size: 1.5em; color: #0190E9; margin: 0 5px; }
 		input[name="name"] { width: 240px; }
 		input[name="tagstring"] { width: 170px; }
 	}
 	fieldset.inline {
-		#note { width: 450px; }
+		#note { width: 240px; }
+		select { padding: 1px 0; }
 		@include clearfix;
 		p { float: left; }
 		p * { float: left; }
@@ -383,7 +385,7 @@ ul.tags > li + li { margin-left: 5px; }
 		&.added { background: url("/static/icons/check.png") #F6F6F6 no-repeat right center; padding-right:30px; }
 		.add-to-trip { float: right; }
 		.packing-list-item-note { clear: both; background-color: #9FDAFE; padding: 3px; margin-top: 3px; }
-		.packing-list-item-place, .packing-list-item-tag {
+		.packing-list-item-tag {
 			color: #999 !important;
 			a { color: #999; }
 		}

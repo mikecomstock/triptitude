@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Forms
@@ -9,7 +10,9 @@ namespace Triptitude.Biz.Forms
         public string Title { get; set; }
         public int TripId { get; set; }
         public int? BeginDay { get; set; }
+        public string BeginTime { get; set; }
         public int? EndDay { get; set; }
+        public string EndTime { get; set; }
         public string TagString { get; set; }
         public string Note { get; set; }
 
@@ -24,7 +27,9 @@ namespace Triptitude.Biz.Forms
             ActivityId = activity.Id;
             Title = activity.Title;
             BeginDay = activity.BeginDay;
+            BeginTime = activity.BeginTime.HasValue ? DateTime.Today.Add(activity.BeginTime.Value).ToShortTimeString() : null;
             EndDay = activity.EndDay;
+            EndTime = activity.EndTime.HasValue ? DateTime.Today.Add(activity.EndTime.Value).ToShortTimeString() : null;
             TripId = activity.Trip.Id;
             TagString = activity.TagString;
             Notes = activity.Notes;
