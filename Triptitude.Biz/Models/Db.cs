@@ -11,9 +11,12 @@ namespace Triptitude.Biz.Models
 
             modelBuilder.Entity<Place>().Property(p => p.Latitude).HasPrecision(9, 6);
             modelBuilder.Entity<Place>().Property(p => p.Longitude).HasPrecision(9, 6);
+
+            modelBuilder.Entity<UserTrip>().Property(p => p.Status).HasColumnName("Status");
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserTrip> UserTrips { get; set; }
         public DbSet<Trip> Trips { get; set; }
 
         public DbSet<Activity> Activities { get; set; }

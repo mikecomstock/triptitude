@@ -11,13 +11,13 @@
                 My Trips</h1>
         </div>
         <div class="subtitle">
-            Select a trip below to edit it.
+            Select a trip below to plan it.
         </div>
         <div class="panel-content not-padded">
             @if (trips.IsNullOrEmpty())
             {
                 <div class="none-found">
-                    No trips found.
+                    No trips found. <a href="@Url.CreateTrip()">Create a trip.</a>
                 </div>
             }
             else
@@ -25,7 +25,17 @@
                 <ul class="my-trip-rows">
                     @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
                     {
-                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"  ><a href="@Url.SetDefaultTrip(trip)">@trip.Name</a></li>
+                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a href="@Url.SetDefaultTrip(trip)">
+                            @trip.Name
+                        </a>
+                            @if (trip.Users.Except(new[] { currentUser }).Any())
+                            {
+                                <div class="travelers">
+                                    with
+                                    @string.Join(", ", trip.UserTrips.Where(ut => ut.User != currentUser).Select(ut => ut.User.FullName))
+                                </div>
+                            }
+                        </li>
                     }
                 </ul>
             }

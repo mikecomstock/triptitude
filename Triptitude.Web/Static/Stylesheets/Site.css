@@ -872,30 +872,33 @@ footer {
 /* My Trips */
 #my-trips .none-found {
   padding: 15px; }
-#my-trips .my-trip-rows {
+#my-trips .my-trip-rows li {
+  display: block;
   zoom: 1; }
-  #my-trips .my-trip-rows:before {
+  #my-trips .my-trip-rows li:before {
     display: table;
     content: "";
     zoom: 1;
     *display: inline; }
-  #my-trips .my-trip-rows:after {
+  #my-trips .my-trip-rows li:after {
     display: table;
     content: "";
     zoom: 1;
     *display: inline;
     clear: both; }
-  #my-trips .my-trip-rows li {
-    display: block; }
-    #my-trips .my-trip-rows li a {
-      display: block;
-      padding: 15px;
-      font-size: 16px; }
-    #my-trips .my-trip-rows li + li {
-      border-top: 1px dashed #CCCCCC; }
-  #my-trips .my-trip-rows li.current a:after {
-    content: "< currently planning";
-    margin-left: 10px; }
+  #my-trips .my-trip-rows li a {
+    font-size: 16px;
+    margin: 15px;
+    display: block;
+    float: left; }
+  #my-trips .my-trip-rows li .travelers {
+    float: right;
+    margin: 15px; }
+  #my-trips .my-trip-rows li + li {
+    border-top: 1px dashed #CCCCCC; }
+#my-trips .my-trip-rows li.current a:after {
+  content: "(currently planning)";
+  margin-left: 10px; }
 
 /* Trip Row */
 .trip-rows {

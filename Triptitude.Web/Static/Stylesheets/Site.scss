@@ -294,13 +294,13 @@ footer { width: 955px; height: 100px; }
 #my-trips {
 	.none-found { padding:15px; }
 	.my-trip-rows {
-		@include clearfix;
 		li {
-			display: block;
-			a { display: block; padding: 15px; font-size: 16px; }
-			+ li { border-top: 1px dashed #CCCCCC; }
+			display: block; @include clearfix;
+			a { font-size: 16px; margin: 15px; display: block; float: left; }
+			.travelers {float: right; margin: 15px; }
+			&+ li { border-top: 1px dashed #CCCCCC; }
 		}
-		li.current a:after { content: "< currently planning"; margin-left:10px; }
+		li.current a:after { content: "(currently planning)"; margin-left:10px; }
 	}
 }
 

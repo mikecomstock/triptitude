@@ -98,7 +98,7 @@ namespace Triptitude.Biz.Repos
             if (anonymousUser != null)
             {
                 //TODO: do this for every table that has a user_id
-                anonymousUser.Trips.ToList().ForEach(t => t.User = registeredUser);
+                anonymousUser.UserTrips.ToList().ForEach(ut=>ut.User = registeredUser);
 
                 if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
             }

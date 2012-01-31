@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Triptitude.Biz.Models
@@ -21,8 +22,10 @@ namespace Triptitude.Biz.Models
         public DateTime? GuidCreatedOnUtc { get; set; }
 
         public virtual Trip DefaultTrip { get; set; }
-        public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+
+        public IEnumerable<Trip> Trips { get { return UserTrips.Select(ut => ut.Trip); } }
 
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
@@ -48,7 +51,7 @@ namespace Triptitude.Biz.Models
 
         public bool OwnsTrips(params Trip[] trips)
         {
-            var userOwnsAllTrips = trips.All(t => t.User == this);
+            var userOwnsAllTrips = trips.All(t => t.Users.Contains(this));
             return userOwnsAllTrips;
         }
 
@@ -63,17 +66,34 @@ namespace Triptitude.Biz.Models
         }
     }
 
+    public class UserTrip
+    {
+        public int Id { get; set; }
+        public virtual User User { get; set; }
+        public virtual Trip Trip { get; set; }
+        public bool IsCreator { get; set; }
+        public UserTripStatus Status { get; set; }
+        public DateTime StatusUpdatedOnUTC { get; set; }
+    }
+
+    public enum UserTripStatus
+    {
+        Attending = 1,
+        Invited = 2,
+        NotAttending = 3
+    }
+
     public class Trip
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual User User { get; set; }
+        public virtual ICollection<UserTrip> UserTrips { get; set; }
         public DateTime Created_On { get; set; }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
 
-        public IEnumerable<User> Users { get { return new[] { User }; } }
+        public IEnumerable<User> Users { get { return UserTrips.Select(ut => ut.User); } }
         public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<PackingListItem> PackingListItems { get; set; }
 
