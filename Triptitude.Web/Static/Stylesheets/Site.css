@@ -237,7 +237,7 @@ input.delete {
 #trip-bar {
   width: 935px;
   padding: 10px;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
   background: #262626;
   background: rgba(38, 38, 38, 0.8);
   /*  -webkit-border-radius: $radius; */
@@ -412,7 +412,8 @@ article {
       margin-bottom: 10px;
       text-transform: none; }
       article section h2 span {
-        font-size: 12px; }
+        font-size: 12px;
+        font-weight: normal; }
     article section .subtitle {
       padding: 5px;
       margin: 10px 0; }
@@ -517,6 +518,8 @@ article {
     #landing-page-panel > ul li {
       font-size: 16px;
       margin: 10px 0; }
+      #landing-page-panel > ul li a {
+        font-weight: bold; }
   #landing-page-panel #trips {
     margin: 50px auto;
     width: 800px;

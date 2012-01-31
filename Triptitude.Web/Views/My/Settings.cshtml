@@ -18,13 +18,25 @@
         <div class="panel-content">
             <form id="my-settings-form" action="@Url.MySettings()" method="post">
             <p>
+                @Html.ValidationMessage("firstname")
+                <label for="firstname">
+                    First Name</label>
+                <input type="text" name="firstname" id="firstname" value="@form.FirstName" class="focus" tabindex="1"/>
+            </p>
+            <p>
+                @Html.ValidationMessage("lastname")
+                <label for="lastname">
+                    Last Name</label>
+                <input type="text" name="lastname" id="lastname" value="@form.LastName" tabindex="2"/>
+            </p>
+            <p>
                 @Html.ValidationMessage("email")
                 <label for="email">
                     Email
                 </label>
                 @if (string.IsNullOrWhiteSpace(user.Email))
                 {
-                    <input type="text" name="email" id="email" value="@form.Email" tabindex="1" />
+                    <input type="text" name="email" id="email" value="@form.Email" tabindex="3" />
                 }
                 else
                 {
@@ -37,9 +49,9 @@
                 <label for="password">
                     Password
                 </label>
-                <input type="password" name="password" id="password" value="@form.Password" tabindex="2" />
+                <input type="password" name="password" id="password" value="@form.Password" tabindex="4" />
             </p>
-            <input type="submit" value="Save Settings" tabindex="3" />
+            <input type="submit" value="Save Settings" tabindex="5" />
             </form>
         </div>
     </div>

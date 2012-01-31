@@ -27,9 +27,9 @@
         <h2>
             Organize your travel plans from start to finish</h2>
         <ul>
-            <li><strong>Search trips</strong> others have planned and get inspired.</li>
-            <li>Create an <strong>itinerary</strong> or customize one.</li>
-            <li>Create a <strong>packing list </strong>so you don't forget anything.</li>
+            <li><a href="/trips">Search trips</a> others have planned and get inspired.</li>
+            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>
+            <li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>
             @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@
         </ul>
         @if (trips != null && trips.Any())

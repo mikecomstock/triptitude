@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Globalization;
@@ -13,6 +12,8 @@ namespace Triptitude.Biz.Models
     public class User
     {
         public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string HashedPassword { get; set; }
         public string AnonymousId { get; set; }
@@ -22,6 +23,8 @@ namespace Triptitude.Biz.Models
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+
+        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
 
         public bool GuidIsExpired
         {

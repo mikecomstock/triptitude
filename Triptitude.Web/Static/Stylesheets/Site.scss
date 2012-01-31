@@ -74,7 +74,7 @@ $invalid-color: #E92553;
 /* Tripbar */
 #trip-bar-container { z-index: 5; margin-top: 10px; position: relative; }
 #trip-bar-container.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
-#trip-bar { width: 935px; padding: 10px; margin: 0 auto 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px); }
+#trip-bar { width: 935px; padding: 10px; margin: 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px); }
 #trip-bar #create-trip-form { float: right;text-align: right;}
 #trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; display: inline; }
 #trip-bar-pre-title { color: #BBB; }
@@ -132,7 +132,7 @@ article {
 		padding: 20px 10px 0 10px;
 		h2 {
 			color: #404040; font-size: 26px; margin-bottom: 10px; text-transform: none;
-			span { font-size: 12px; }
+			span { font-size: 12px; font-weight: normal; }
 		}
 		.subtitle { padding: 5px; margin: 10px 0; }
 	}
@@ -165,11 +165,15 @@ article {
 	h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; }
 	h2 { font-size: 22px; margin: 20px 0 20px 0; }
 	h3 { font-size: 24px !important; color: #333; }
+
 	> p { color: #333; font-size: 17px; line-height: 1.5; margin: -10px 0 0 0; }
 	> ul {
 		list-style: disc;
 		margin: 0; padding-left: 40px;
-		li { font-size: 16px; margin: 10px 0; }
+		li {
+			font-size: 16px; margin: 10px 0;
+			a { font-weight: bold; }
+		}
 	}
 	#trips {
 		margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);

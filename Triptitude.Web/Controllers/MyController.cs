@@ -33,7 +33,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings()
         {
-            var form = usersRepo.GetSettingsForm(CurrentUser);
+            var form = UserSettingsForm.CreateFrom(CurrentUser);
             ViewBag.Form = form;
             ViewBag.User = CurrentUser;
             return View();

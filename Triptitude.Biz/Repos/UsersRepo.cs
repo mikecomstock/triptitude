@@ -35,13 +35,7 @@ namespace Triptitude.Biz.Repos
             User user = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousId) ?? new User { AnonymousId = anonymousId };
             return user;
         }
-
-        public UserSettingsForm GetSettingsForm(User user)
-        {
-            UserSettingsForm form = new UserSettingsForm { Email = user.Email };
-            return form;
-        }
-
+        
         public enum UserSaveAction
         {
             NoAction, NewUserCreated, EmailAlreadyTaken
@@ -60,6 +54,8 @@ namespace Triptitude.Biz.Repos
             // Set users properties
             if (userSaveAction != UserSaveAction.EmailAlreadyTaken)
             {
+                user.FirstName = form.FirstName;
+                user.LastName = form.LastName;
                 // For new users only (don't allow changes, just to simplify code for now)
                 user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email : user.Email;
 

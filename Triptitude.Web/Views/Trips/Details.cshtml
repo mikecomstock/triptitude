@@ -57,9 +57,12 @@
             }
         </div>
     </section>
-    <section id="packinglist">
-        @{
-            Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
-        }
-    </section>
+    @if (trip.PackingListItems.Any() || CurrentUserOwnsTrip)
+    {
+        <section id="packinglist">
+            @{
+        Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
+            }
+        </section>
+    }
 </article>

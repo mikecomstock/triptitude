@@ -16,7 +16,7 @@
             @if (Request.IsAuthenticated)
             {
                 <div id="user-status-header">
-                    Welcome, <a href="@Url.MyTrips()">@currentUser.Email</a>
+                    Welcome, <a href="@Url.MyTrips()">@currentUser.FullName</a>
                 </div>
                 <div id="user-status-menu">
                     <a href="@Url.CreateTrip()" accesskey="c">create a trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a>
