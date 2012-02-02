@@ -1,8 +1,6 @@
 ﻿var superDialog;
 
-$(function () {
-
-    moveScroller();
+function SetBindings() {
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
@@ -10,6 +8,15 @@ $(function () {
     $('.tag-autocomplete').tagAutocomplete();
     $('.item-autocomplete').itemAutocomplete();
     $('#trip-search-form').submit(T.TripSearchSubmit);
+};
+
+$(function () {
+
+    $('a:not(.nojax)').pjax('#content');
+    $(document).bind('pjax:end', function () { SetBindings(); });
+
+    moveScroller();
+    SetBindings();
 
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
@@ -25,7 +32,7 @@ $(function () {
     superDialogOverlay = $('#super-dialog-overlay');
     superDialogOverlay.click(function () { CloseSuperDialog(); });
     $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
-    
+
     $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
@@ -36,7 +43,7 @@ $(function () {
         }
     });
 
-    $('.trip-row-map-link').click(function () {
+    $('.trip-row-map-link').live('click', function () {
         var tripId = $(this).data('trip-id');
         var name = $(this).data('trip-name');
 
@@ -59,7 +66,7 @@ $(function () {
         OpenSuperDialog(url);
     });
 
-    $('.editing .packing-list-item').click(function(e) {
+    $('.editing .packing-list-item').live('click', function (e) {
         if ($(e.target).is('a')) return;
         if ($(this).parent().is('.suggestions')) return;
 
@@ -67,7 +74,7 @@ $(function () {
         OpenSuperDialog('/packing/edit/' + id);
     });
 
-    $('.editing .activity').click(function (e) {
+    $('.editing .activity').live('click', function (e) {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             OpenSuperDialog('/activities/edit/' + activityId);
@@ -200,21 +207,21 @@ function CloseSuperDialog() {
 }
 
 (function ($) {
-    $.fn.tagAutocomplete = function() {
-        this.each(function() {
+    $.fn.tagAutocomplete = function () {
+        this.each(function () {
             var input = $(this);
             input.autocomplete({
-                    source: function(request, response) {
-                        $.getJSON('/tags/search', request, function(data) {
-                            response(data);
-                        });
-                    },
-                    select: function() {
-                        if(input.is('.auto-submit')) {
-                            input.closest('form').submit();
-                        }
+                source: function (request, response) {
+                    $.getJSON('/tags/search', request, function (data) {
+                        response(data);
+                    });
+                },
+                select: function () {
+                    if (input.is('.auto-submit')) {
+                        input.closest('form').submit();
                     }
-                });
+                }
+            });
         });
     };
     $.fn.itemAutocomplete = function () {
@@ -386,7 +393,7 @@ var T = {};
 T.TripSearchSubmit = function (e) {
     e.preventDefault();
     var form = $(this);
-    $.get('/trips/searchresults', form.serialize(), function(data) {
+    $.get('/trips/searchresults', form.serialize(), function (data) {
         log(data);
         $('#trip-search-results').html(data);
     });
@@ -487,20 +494,20 @@ T.NearbyPlaces = function () {
         var li = $(document.createElement('li'))
             .text(place.name)
             .appendTo(placeList)
-            .click(function(e) { if (e.target == this) { setActive(place); } })
+            .click(function (e) { if (e.target == this) { setActive(place); } })
             .data('place', place);
         place.li = li;
-        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
+        $('<a class="add-to-trip nojax" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
     }
 
     function getInfoWindowContent(place) {
         var content = $(document.createElement('div')).addClass('info-window');
-        $('<a class="title" rel="nofollow"></a>')
+        $('<a class="title nojax" rel="nofollow"></a>')
             .text(place.name)
             .data('place', place)
             .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
             .appendTo(content);
-        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
+        $('<a class="add-to-trip nojax" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
         return content;
     }
 
@@ -537,7 +544,7 @@ T.NearbyPlaces = function () {
         }
     };
 
-    google.maps.event.addDomListener(window, 'load', initialize);
+    initialize();
     $(window).scroll(mapPinning);
     mapPinning();
 };

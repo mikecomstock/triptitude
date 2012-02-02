@@ -13,7 +13,7 @@
             {
                 <text><a href="@Url.CreateTrip(place)">Create a trip to @place.Name</a> | </text>
             }
-            <a rel="nofollow" class="add-to-trip" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
+            <a rel="nofollow" class="add-to-trip nojax" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
         </div>
     </header>
     @if (tripSearchForm.Results.Any())
@@ -21,7 +21,7 @@
         <section id="trips">
             <h2>
                 Trips near @place.Name</h2>
-            @Html.Action("SearchResults", "Trips", new { form = tripSearchForm })
+            @Html.Action("SearchResults", "Trips", new {form = tripSearchForm})
         </section>
     }
     <section id="places-nearby">
@@ -46,8 +46,6 @@
 </article>
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
-        $(function () {
-            T.NearbyPlaces();
-        });
+        T.NearbyPlaces();
     </script>
 }

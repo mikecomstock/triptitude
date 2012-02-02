@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using DevOne.Security.Cryptography.BCrypt;
 using Triptitude.Biz.Forms;
@@ -32,10 +33,10 @@ namespace Triptitude.Biz.Repos
         public User FindOrInitialize(string anonymousId)
         {
             if (string.IsNullOrWhiteSpace(anonymousId)) throw new ArgumentNullException("anonymousId");
-            User user = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousId) ?? new User { AnonymousId = anonymousId };
+            User user = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousId) ?? new User { AnonymousId = anonymousId, UserTrips = new Collection<UserTrip>() };
             return user;
         }
-        
+
         public enum UserSaveAction
         {
             NoAction, NewUserCreated, EmailAlreadyTaken
@@ -98,7 +99,7 @@ namespace Triptitude.Biz.Repos
             if (anonymousUser != null)
             {
                 //TODO: do this for every table that has a user_id
-                anonymousUser.UserTrips.ToList().ForEach(ut=>ut.User = registeredUser);
+                anonymousUser.UserTrips.ToList().ForEach(ut => ut.User = registeredUser);
 
                 if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
             }

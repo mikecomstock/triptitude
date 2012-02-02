@@ -1,3 +1,7 @@
 ﻿@{
-    Layout = "~/_Layout.cshtml";
+  if (Request.Headers["X-PJAX"] != null) {
+      Layout = "~/_PJAXLayout.cshtml";
+  } else {
+      Layout = "~/_Layout.cshtml";
+  }
 }

@@ -25,10 +25,24 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return UserTrips.Select(ut => ut.Trip); } }
+        public IEnumerable<Trip> Trips { get { return UserTrips == null ? null : UserTrips.Select(ut => ut.Trip); } }
 
-        public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
-        public string FirstNameLastInitial { get { return string.Format("{0} {1}.", FirstName, LastName[0]); } }
+        public string FullName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
+                return string.Format("{0} {1}", FirstName, LastName);
+            }
+        }
+        public string FirstNameLastInitial
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
+                return string.Format("{0} {1}.", FirstName, LastName[0]);
+            }
+        }
 
         public bool GuidIsExpired
         {
