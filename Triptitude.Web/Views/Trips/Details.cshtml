@@ -25,7 +25,8 @@
 }
 <article class="@(Editing ? "editing" : string.Empty)">
     <header>
-        <h1>@trip.Name</h1>
+        <h1>@trip.Name<span class="right">by @trip.Creator.FirstNameLastInitial </span>
+        </h1>
         <div class="subtitle">
             <a href="#map">Map</a> | <a href="#itinerary">Itinerary</a> | <a href="#packinglist">Packing List</a>
         </div>

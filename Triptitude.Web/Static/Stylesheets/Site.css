@@ -404,6 +404,11 @@ article {
     background-color: #E9BA26; }
     article > header h1 {
       padding: 15px; }
+      article > header h1 span.right {
+        float: right;
+        font-size: 16px;
+        line-height: 34px;
+        font-weight: normal; }
   article section {
     padding: 20px 10px 0 10px; }
     article section h2 {

@@ -28,6 +28,7 @@ namespace Triptitude.Biz.Models
         public IEnumerable<Trip> Trips { get { return UserTrips.Select(ut => ut.Trip); } }
 
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
+        public string FirstNameLastInitial { get { return string.Format("{0} {1}.", FirstName, LastName[0]); } }
 
         public bool GuidIsExpired
         {
@@ -72,11 +73,11 @@ namespace Triptitude.Biz.Models
         public virtual User User { get; set; }
         public virtual Trip Trip { get; set; }
         public bool IsCreator { get; set; }
-        public UserTripStatus Status { get; set; }
+        public byte Status { get; set; }
         public DateTime StatusUpdatedOnUTC { get; set; }
     }
 
-    public enum UserTripStatus
+    public enum UserTripStatus : byte
     {
         Attending = 1,
         Invited = 2,
@@ -89,6 +90,7 @@ namespace Triptitude.Biz.Models
         public string Name { get; set; }
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public DateTime Created_On { get; set; }
+        public User Creator { get { return UserTrips.First(ut => ut.IsCreator).User; } }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
