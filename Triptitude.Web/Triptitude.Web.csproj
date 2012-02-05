@@ -306,6 +306,8 @@
     <Content Include="Views\Trips\SearchResults.cshtml" />
     <Content Include="Views\Packing\Index.cshtml" />
     <Content Include="_PJAXLayout.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Trips\History.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

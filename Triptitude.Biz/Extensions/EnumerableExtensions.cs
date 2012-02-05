@@ -23,5 +23,11 @@ namespace Triptitude.Biz.Extensions
         {
             return items.Where(e => e.Visibility_Id == 0);
         }
+
+        public static IEnumerable<Trip> Public(this IEnumerable<Trip> trips)
+        {
+            //TODO: make setting for public/private trips
+            return trips.Where(t => true);
+        }
     }
 }

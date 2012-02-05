@@ -10,6 +10,12 @@ namespace Triptitude.Web.Controllers
 {
     public class TripsController : TriptitudeController
     {
+        private TripsRepo repo;
+        public TripsController()
+        {
+            repo = new TripsRepo();
+        }
+
         // partial only
         public ActionResult SidePanel(Trip trip)
         {
@@ -129,6 +135,7 @@ namespace Triptitude.Web.Controllers
             if (ModelState.IsValid)
             {
                 tripRepo.Save(trip, form);
+                new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Modified, HistoryTable.Trips, trip.Id);
                 return Redirect(Url.Details(trip));
             }
             else
@@ -171,6 +178,7 @@ namespace Triptitude.Web.Controllers
             {
                 Trip trip = new TripsRepo().Save(form, CurrentUser);
                 new UsersRepo().SetDefaultTrip(CurrentUser, trip);
+                new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);
                 return Redirect(Url.Details(trip));
             }
             else
@@ -178,6 +186,15 @@ namespace Triptitude.Web.Controllers
                 ViewBag.Form = form;
                 return View();
             }
+        }
+
+        public ActionResult History(int id)
+        {
+            Trip trip = repo.Find(id);
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+
+            ViewBag.Trip = repo.Find(id);
+            return View();
         }
     }
 }

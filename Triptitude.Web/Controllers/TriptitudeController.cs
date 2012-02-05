@@ -6,6 +6,12 @@ namespace Triptitude.Web.Controllers
 {
     public class TriptitudeController : Controller
     {
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            ViewBag.CurrentUser = CurrentUser;
+            base.OnActionExecuting(filterContext);
+        }
+
         private User _CurrentUser;
         public User CurrentUser
         {
@@ -14,7 +20,7 @@ namespace Triptitude.Web.Controllers
                 if (_CurrentUser == null)
                 {
                     var usersRepo = new UsersRepo();
-                    
+
                     if (HttpContext.Request.IsAuthenticated)
                     {
                         int userId = int.Parse(HttpContext.User.Identity.Name.Split('|')[0]);

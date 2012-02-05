@@ -299,11 +299,11 @@ footer { width: 955px; height: 100px; }
 	.my-trip-rows {
 		li {
 			display: block; @include clearfix;
-			a { font-size: 16px; margin: 15px; display: block; float: left; }
+			a.nojax { font-size: 16px; margin: 15px; display: block; float: left; }
 			.travelers {float: right; margin: 15px; }
 			&+ li { border-top: 1px dashed #CCCCCC; }
 		}
-		li.current a:after { content: "(currently planning)"; margin-left:10px; }
+		li.current a.nojax:after { content: "(currently planning)"; margin-left:10px; }
 	}
 }
 
@@ -368,6 +368,16 @@ ul.tags > li + li { margin-left: 5px; }
 
 #trips-map {
 	#trip-map-container { width: 100%; height: 500px; }
+}
+
+#trips-history {
+	.histories {
+		h3 { margin: 10px 0; }
+		.history {
+			padding: 8px;
+			+.history { border-top: 1px solid #F3F3F3; }
+		}
+	}
 }
 
 /* Packing List */

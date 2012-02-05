@@ -5,7 +5,6 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 
 namespace Triptitude.Biz.Models
@@ -81,6 +80,32 @@ namespace Triptitude.Biz.Models
         }
     }
 
+    public class History
+    {
+        public int Id { get; set; }
+        public DateTime CreatedOnUTC { get; set; }
+        public User User { get; set; }
+        public Trip Trip { get; set; }
+        public byte Action { get; set; }
+        public byte TableName { get; set; }
+        public int TableId { get; set; }
+
+        public HistoryTable HistoryTable { get { return (HistoryTable)Enum.Parse(typeof(HistoryTable), TableName.ToString()); } }
+        public HistoryAction HistoryAction { get { return (HistoryAction)Enum.Parse(typeof(HistoryAction), Action.ToString()); } }
+    }
+
+    public enum HistoryAction : byte
+    {
+        Created = 0,
+        Modified = 1,
+        Deleted = 2
+    }
+
+    public enum HistoryTable : byte
+    {
+        Trips = 0, Activities = 1, PackingListItems = 2
+    }
+
     public class UserTrip
     {
         public int Id { get; set; }
@@ -112,6 +137,7 @@ namespace Triptitude.Biz.Models
         public IEnumerable<User> Users { get { return UserTrips.Select(ut => ut.User); } }
         public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<PackingListItem> PackingListItems { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
 
         public int TotalDays
         {

@@ -65,7 +65,16 @@ namespace Triptitude.Web.Helpers
 
         #endregion
 
-        #region User pages
+        #region Users
+
+        public static string Details(this UrlHelper url, User user)
+        {
+            return url.SlugAction("details", "users", user.Id, user.FirstNameLastInitial);
+        }
+
+        #endregion
+
+        #region 'My' pages
 
         public static string MyAccount(this UrlHelper url)
         {
@@ -133,7 +142,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("delete", "activities", new { id = activityId });
         }
-        
+
         public static string ItineraryAddTransportation(this UrlHelper url)
         {
             return url.Action("addtransportation", "activities");
@@ -142,7 +151,7 @@ namespace Triptitude.Web.Helpers
         {
             return url.Action("edittransportation", "activities");
         }
-        
+
         public static string ItineraryAddPlace(this UrlHelper url)
         {
             return url.Action("addplace", "activities");
@@ -181,7 +190,7 @@ namespace Triptitude.Web.Helpers
         }
 
         #endregion
-        
+
         #region Tags
 
         public static string Details(this UrlHelper url, Tag tag)

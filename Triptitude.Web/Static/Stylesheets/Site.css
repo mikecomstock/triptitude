@@ -891,7 +891,7 @@ footer {
     zoom: 1;
     *display: inline;
     clear: both; }
-  #my-trips .my-trip-rows li a {
+  #my-trips .my-trip-rows li a.nojax {
     font-size: 16px;
     margin: 15px;
     display: block;
@@ -901,7 +901,7 @@ footer {
     margin: 15px; }
   #my-trips .my-trip-rows li + li {
     border-top: 1px dashed #CCCCCC; }
-#my-trips .my-trip-rows li.current a:after {
+#my-trips .my-trip-rows li.current a.nojax:after {
   content: "(currently planning)";
   margin-left: 10px; }
 
@@ -1092,6 +1092,13 @@ ul.tags > li + li {
 #trips-map #trip-map-container {
   width: 100%;
   height: 500px; }
+
+#trips-history .histories h3 {
+  margin: 10px 0; }
+#trips-history .histories .history {
+  padding: 8px; }
+  #trips-history .histories .history + .history {
+    border-top: 1px solid #F3F3F3; }
 
 /* Packing List */
 .packing-list-tag h3 {

@@ -1,0 +1,22 @@
+﻿@{
+    User user = ViewBag.User;
+    User currentUser = ViewBag.CurrentUser;
+    ViewBag.Title = user.FirstNameLastInitial;
+    IEnumerable<Trip> trips = (user == currentUser) ? user.Trips : user.Trips.Public();
+}
+<div class="panel">
+    <div class="panel-title">
+        <h1>
+            @ViewBag.Title</h1>
+    </div>
+    <div class="panel-content">
+        @if (trips.Any())
+        {
+            <section>
+                <h2>
+                    Trips</h2>
+                @Html.Action("_rows", "trips", new { trips })
+            </section>
+        }
+    </div>
+</div>

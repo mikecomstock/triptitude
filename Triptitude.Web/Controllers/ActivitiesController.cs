@@ -29,6 +29,9 @@ namespace Triptitude.Web.Controllers
 
             activitiesRepo.Delete(activity);
             activitiesRepo.Save();
+
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Activities, activity.Id);
+
             return Redirect(Url.Details(trip));
         }
 
@@ -73,7 +76,9 @@ namespace Triptitude.Web.Controllers
             var trip = tripsRepo.Find(form.TripId);
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            activitiesRepo.Save(form, CurrentUser);
+            Activity activity = activitiesRepo.Save(form, CurrentUser);
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
+
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -113,6 +118,7 @@ namespace Triptitude.Web.Controllers
             if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, CurrentUser);
+            new HistoriesRepo().Create(CurrentUser, newTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -154,7 +160,9 @@ namespace Triptitude.Web.Controllers
             var trip = tripsRepo.Find(form.TripId);
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            activitiesRepo.Save(form, CurrentUser);
+            Activity activity = activitiesRepo.Save(form, CurrentUser);
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
+
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -187,6 +195,8 @@ namespace Triptitude.Web.Controllers
             if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
             activitiesRepo.Save(form, CurrentUser);
+            new HistoriesRepo().Create(CurrentUser, oldTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
+
             var response = new { status = "OK" };
             return Json(response);
         }

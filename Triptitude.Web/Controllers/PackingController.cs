@@ -22,7 +22,7 @@ namespace Triptitude.Web.Controllers
         {
             ViewBag.CurrentUser = CurrentUser;
             var tags = packingListItemsRepo.FindAll()
-                .Where(pli=>pli.ItemTag.ShowInSearch)
+                .Where(pli => pli.ItemTag.ShowInSearch)
                 .GroupBy(pli => pli.ItemTag.Tag)
                 .OrderByDescending(g => g.Count())
                 .Select(g => g.Key)
@@ -51,7 +51,9 @@ namespace Triptitude.Web.Controllers
             var trip = tripsRepo.Find(form.TripId);
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            packingListItemsRepo.Save(form);
+            PackingListItem packingListItem = packingListItemsRepo.Save(form);
+            new HistoriesRepo().Create(CurrentUser, trip, form.PackingItemId.HasValue ? HistoryAction.Modified : HistoryAction.Created, HistoryTable.PackingListItems, packingListItem.Id);
+
             var response = new { status = "OK" };
             return Json(response);
         }
@@ -77,6 +79,8 @@ namespace Triptitude.Web.Controllers
 
             packingListItemsRepo.Delete(packingListItem);
             packingListItemsRepo.Save();
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.PackingListItems, packingListItem.Id);
+
             return Redirect(Url.PackingList(trip));
         }
     }
