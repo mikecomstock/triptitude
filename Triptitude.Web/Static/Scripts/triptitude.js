@@ -12,21 +12,6 @@ function SetBindings() {
 
 $(function () {
 
-    var connection = $.connection('/echo');
-
-    connection.received(function (data) {
-        console.log('websocket received: ' + data);
-    });
-
-    connection.start();
-
-    $(document).click(function () {
-        connection.send('mouse was clicked');
-    });
-
-
-
-
     $('a:not(.nojax)').pjax('#content', { timeout: 6000 });
     $(document).bind('pjax:end', function () { SetBindings(); });
 

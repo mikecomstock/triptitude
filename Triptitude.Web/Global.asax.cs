@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,8 +6,6 @@ using System.Web.Profile;
 using System.Web.Routing;
 using System.Web.Security;
 using Elmah;
-using SignalR;
-using SignalR.Hosting.AspNet.Routing;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Web.ModelBinders;
@@ -29,8 +26,6 @@ namespace Triptitude.Web
 
         public static void RegisterRoutes(RouteCollection routes)
         {
-            RouteTable.Routes.MapConnection<MyConnection>("echo", "echo/{*operation}");
-
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
@@ -65,8 +60,6 @@ namespace Triptitude.Web
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterModelBinders();
             RegisterRoutes(RouteTable.Routes);
-
-
         }
 
         public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)
@@ -143,20 +136,6 @@ namespace Triptitude.Web
         {
             var context = HttpContext.Current;
             ErrorSignal.FromContext(context).Raise(e, context);
-        }
-    }
-
-    public class MyConnection : PersistentConnection
-    {
-        protected override Task OnConnectedAsync(SignalR.Hosting.IRequest request, System.Collections.Generic.IEnumerable<string> groups, string connectionId)
-        {
-            Connection.Broadcast("client connected: " + connectionId);
-            return base.OnConnectedAsync(request, groups, connectionId);
-        }
-        protected override Task OnReceivedAsync(string clientId, string data)
-        {
-            // Broadcast data to all clients
-            return Connection.Broadcast("message from " + clientId + ": " + data);
         }
     }
 }
