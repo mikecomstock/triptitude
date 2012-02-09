@@ -9,6 +9,7 @@ namespace Triptitude.Web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             ViewBag.CurrentUser = CurrentUser;
+            //connection = (SignalR.PersistentConnection)HttpContext.Application["SignalR"];
             base.OnActionExecuting(filterContext);
         }
 
@@ -34,5 +35,12 @@ namespace Triptitude.Web.Controllers
                 return _CurrentUser;
             }
         }
+
+        //private SignalR.PersistentConnection connection;
+
+        //public void Send(string s)
+        //{
+        //    connection.Connection.Broadcast(s);
+        //}
     }
 }

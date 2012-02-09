@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using SignalR;
+using SignalR.Hosting.AspNet;
+using SignalR.Hubs;
+using SignalR.Infrastructure;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -196,6 +200,8 @@ namespace Triptitude.Web.Controllers
 
             activitiesRepo.Save(form, CurrentUser);
             new HistoriesRepo().Create(CurrentUser, oldTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
+            SocketHelper.Send("edited activity " + activity.Name);
+            //SocketHelper.connection.a
 
             var response = new { status = "OK" };
             return Json(response);
