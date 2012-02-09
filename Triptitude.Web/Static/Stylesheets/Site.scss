@@ -22,6 +22,7 @@ input.time-input { width: 75px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 .toggler { cursor: pointer; }
 .subtitle { background-color: #F3ECB7; padding: 10px; }
+.hidden { display: none; }
 
 /* Form Defaults */
 textarea, input, select { font-size: 14px; }
@@ -200,17 +201,23 @@ footer { width: 955px; height: 100px; }
 }
 
 /* Dialogs */
-#dialog-menu { margin: 0; padding: 0; @include clearfix; position: relative; background-color: #F3ECB7; margin-bottom: 10px; }
-#dialog-menu li { cursor: pointer; margin: 0; padding: 4px 6px; color: #FFF; background-color: #0190E9; margin: 10px 0 10px 10px; float: left; display: block; text-align: center; width: 50px; }
-#dialog-menu li.selected-page { text-decoration: underline; }
-
-#super-dialog-overlay { background: #FFF; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; @include opacity(80); display: none; }
+#super-dialog-overlay { background: #333; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; @include opacity(30); display: none; }
 #super-dialog-container { position: relative; }
 #super-dialog {
 	display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; @include border-radius(10px); @include box-shadow(0px 0px 20px rgba(0, 0, 0, 1));
 	.dialog-page { display: none; position: relative; }
 	.dialog-page.selected-page { display: block; }
-	.title { background-color: #E9BA26; padding: 10px; font-size: 24px; border-bottom: 1px solid #CCC; }
+	header {
+		padding: 0; margin: 0; @include clearfix; background-color: #E9BA26;
+		h3 { float: left;  margin: 0; padding: 10px; font-size: 24px; font-weight: normal; }
+		#dialog-menu {
+			float:right; @include clearfix;
+			li {
+				cursor: pointer; padding: 4px 6px; color: #FFF; background-color: #666; margin: 12px 12px 12px 0; float: left; display: block; text-align: center;
+				&.selected-page { text-decoration: underline; }
+			}
+		}
+	}
 	form { background-color: #EEE; position: relative; }
 	p { margin: 0; padding: 3px 10px; }
 	label { display: block; float: left; width: 80px; line-height: 22px; white-space: nowrap; }
@@ -230,6 +237,7 @@ footer { width: 955px; height: 100px; }
 	.place-map-container { height:130px; width: 170px; background-color: #EEE; border: 5px solid #666; position:relative; position:absolute; display:none; }
 	.place-map-container:before { content:""; width: 0; height: 0; border-top: 13px solid transparent; border-bottom: 13px solid transparent; border-right:13px solid #666; position:absolute; left:-13px;top:52px; }
 	select[name="visibility_id"] { width: 100px; }
+	#change-title { padding: 4px 10px !important; background-color: #F3ECB7; }
 }
 #super-dialog:after { content:""; width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 30px solid #E9BA26; border-top: 0; position: absolute; right: 55px; top: -20px; }
 

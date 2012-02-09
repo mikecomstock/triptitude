@@ -8,6 +8,9 @@
         <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">Details</li>
         <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">Notes</li>
     </ul>
+}
+@helper ActivityFormNotes(UrlHelper Url, Triptitude.Biz.Forms.ActivityForm form)
+    {
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Notes ? "selected-page" : string.Empty)" data-page="notes">
         @NoteList(Url, form.Notes)
         <p>

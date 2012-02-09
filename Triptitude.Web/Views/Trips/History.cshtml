@@ -25,6 +25,8 @@
 </div>
 @helper History(History h)
     {
+        try
+        {
     <div class="history">
         @h.CreatedOnUTC.ToShortTimeString() <a href="@Url.Details(h.User)">@h.User.FirstNameLastInitial</a>
         @if (h.HistoryTable == HistoryTable.Trips)
@@ -50,4 +52,9 @@
             <text>the packing list</text>
         }
     </div>
+        }
+        catch
+        {
+    @Html.Raw("something</div>");
+        }
 }

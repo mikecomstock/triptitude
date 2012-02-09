@@ -3,8 +3,10 @@
     IEnumerable<Note> notes = (IEnumerable<Note>)ViewBag.Notes;
 }
 <div id="note-dialog">
-    <div class="title">
-        Note</div>
+    <header>
+        <h3>
+            Note</h3>
+    </header>
     <form action="@ViewBag.Action" method="post" class="note-selector-form">
     <input type="hidden" name="tripid" value="@form.TripId" />
     <p>

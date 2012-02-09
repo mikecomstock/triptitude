@@ -3,14 +3,36 @@
     Place place = (Place)ViewBag.Place;
 }
 <div id="place-dialog">
-    <div class="title">
-        Place / Activity</div>
+    <header>
+        <h3>
+            Place / Activity</h3>
+        @Helpers.ActivityFormTabs(Url, form)
+    </header>
     <form action="@ViewBag.Action" method="post">
     <input type="hidden" name="tripid" value="@form.TripId" />
     <input type="hidden" name="activityid" value="@form.ActivityId" />
-    @Helpers.ActivityFormTabs(Url, form)
+    @Helpers.ActivityFormNotes(Url, form)
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+        <div id="change-title">
+            <a href="#" class="nojax">chanage title</a>
+        </div>
         <input type="hidden" name="placeid" value="@form.PlaceId" />
+        <fieldset class="hidden" id="title-fieldset">
+            <span>Title</span>
+            <p>
+                <label for="title">
+                    Title</label>
+                @Html.TextBox("title", @form.Title, new { placeholder = "ex: Whale Watching Tour" })
+            </p>
+        </fieldset>
+        <fieldset>
+            <span>What</span>
+            <p>
+                <label for="tagstring">
+                    Activity/Tags</label>
+                @Html.TextBox("tagstring", @form.TagString, new { @class = "tag-autocomplete focus", placeholder = "ex: whale watching, water, boat" })
+            </p>
+        </fieldset>
         <fieldset>
             <span>Where</span>
             <p>
@@ -19,23 +41,10 @@
                 </span>
                 <label for="map-search-input">
                     Place Name</label>
-                <input type="text" name="name" class="place-autocomplete focus" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.Name" />
+                <input type="text" name="name" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-goog-name-field="googname" data-map-id="place-map"  id="map-search-input" value="@form.Name" />
                 <input type="hidden" name="googreference" value="@form.GoogReference" />
                 <input type="hidden" name="googid" value="@form.GoogId" />
-                <input type="hidden" name="googname" value="@form.Name" />
-            </p>
-        </fieldset>
-        <fieldset>
-            <span>What</span>
-            <p>
-                <label for="title">
-                    Activity Title</label>
-                @Html.TextBox("title", @form.Title, new { placeholder = "ex: Whale Watching Tour" })
-            </p>
-            <p>
-                <label for="tagstring">
-                    Tags</label>
-                @Html.TextBox("tagstring", @form.TagString, new { @class = "tag-autocomplete", placeholder = "ex: whale watching, water, boat" })
+                <input type="hidden" name="googname" id="googname" value="@form.Name" />
             </p>
         </fieldset>
         <fieldset>
@@ -44,10 +53,12 @@
                 <label for="beginday">
                     Day</label>
                 <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
-                at <input type="text" class="time-input" name="begintime" id="begintime" value="@form.BeginTime" placeholder="begin time" />
+                at
+                <input type="text" class="time-input" name="begintime" id="begintime" value="@form.BeginTime" placeholder="begin time" />
                 -
                 <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
-                at <input type="text" class="time-input" name="endtime" id="endtime" value="@form.EndTime" placeholder="end time" />
+                at
+                <input type="text" class="time-input" name="endtime" id="endtime" value="@form.EndTime" placeholder="end time" />
             </p>
         </fieldset>
     </div>

@@ -15,6 +15,12 @@
     foreach (Activity activity in activities.OrderBy(a => a.TimeForSort(day)))
     {
     <div class="activity" data-activity-id="@activity.Id">
+        @if (!string.IsNullOrWhiteSpace(activity.Title))
+        {
+            <p>
+                @activity.Title
+            </p>
+        }
         @if (activity is TransportationActivity)
         {
             var transportationActivity = activity as TransportationActivity;
@@ -33,14 +39,6 @@
         else if (activity is PlaceActivity)
         {
             var placeActivity = activity as PlaceActivity;
-
-            if (!string.IsNullOrWhiteSpace(placeActivity.Title))
-            {
-            <p>
-                @placeActivity.Title
-            </p>
-            }
-
             if (placeActivity.Place != null)
             {
             <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">

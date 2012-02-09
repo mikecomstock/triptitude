@@ -3,13 +3,27 @@
     IEnumerable<TransportationType> transportationTypes = (IEnumerable<TransportationType>)ViewBag.TransportationTypes;
 }
 <div id="transportation-dialog">
-    <div class="title">
-        Transportation</div>
+    <header>
+        <h3>
+            Transportation</h3>
+        @Helpers.ActivityFormTabs(Url, form)
+    </header>
     <form action="@ViewBag.Action" method="post">
     <input type="hidden" name="tripid" value="@form.TripId" />
     <input type="hidden" name="activityid" value="@form.ActivityId" />
-    @Helpers.ActivityFormTabs(Url, form)
+    @Helpers.ActivityFormNotes(Url, form)
     <div class="dialog-page @(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">
+        <div id="change-title">
+            <a href="#" class="nojax">chanage title</a>
+        </div>
+        <fieldset class="hidden" id="title-fieldset">
+            <span>Title</span>
+            <p>
+                <label for="title">
+                    Title</label>
+                @Html.TextBox("title", @form.Title, new { placeholder = "ex: Whale Watching Tour" })
+            </p>
+        </fieldset>
         <fieldset>
             <span>How</span>
             <p>
@@ -29,7 +43,7 @@
                 <input type="text" name="fromname" id="fromname" data-goog-reference-field="fromgoogreference" data-goog-id-field="fromgoogid" data-goog-name-field="fromgoogname" data-map-id="from-map" class="place-autocomplete focus" value="@form.FromName" />
                 <input type="hidden" name="fromgoogreference" value="@form.FromGoogReference" />
                 <input type="hidden" name="fromgoogid" value="@form.FromGoogId" />
-                <input type="hidden" name="fromgoogname" value="@form.FromName" />
+                <input type="hidden" name="fromgoogname" id="fromgoogname" value="@form.FromName" />
             </p>
             <p>
                 <span class="place-map-container">
@@ -40,7 +54,7 @@
                 <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-goog-name-field="togoogname" data-map-id="to-map" class="place-autocomplete" value="@form.ToName" />
                 <input type="hidden" name="togoogreference" value="@form.ToGoogReference" class="required" />
                 <input type="hidden" name="togoogid" value="@form.ToGoogId" />
-                <input type="hidden" name="togoogname" value="@form.ToName" />
+                <input type="hidden" name="togoogname" id="togoogname" value="@form.ToName" />
             </p>
         </fieldset>
         <fieldset>
@@ -49,10 +63,12 @@
                 <label for="beginday">
                     Day</label>
                 <input type="text" class="day-input" name="beginday" id="beginday" value="@form.BeginDay" />
-                at <input type="text" class="time-input" name="begintime" id="begintime" value="@form.BeginTime" placeholder="begin time" />
+                at
+                <input type="text" class="time-input" name="begintime" id="begintime" value="@form.BeginTime" placeholder="begin time" />
                 -
                 <input type="text" class="day-input" name="endday" id="endday" value="@form.EndDay" />
-                at <input type="text" class="time-input" name="endtime" id="endtime" value="@form.EndTime" placeholder="end time" />
+                at
+                <input type="text" class="time-input" name="endtime" id="endtime" value="@form.EndTime" placeholder="end time" />
             </p>
         </fieldset>
     </div>

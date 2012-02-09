@@ -65,6 +65,9 @@ input.time-input {
   background-color: #F3ECB7;
   padding: 10px; }
 
+.hidden {
+  display: none; }
+
 /* Form Defaults */
 textarea, input, select {
   font-size: 14px; }
@@ -566,42 +569,8 @@ footer {
   font-weight: bold; }
 
 /* Dialogs */
-#dialog-menu {
-  margin: 0;
-  padding: 0;
-  zoom: 1;
-  position: relative;
-  background-color: #F3ECB7;
-  margin-bottom: 10px; }
-  #dialog-menu:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #dialog-menu:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-
-#dialog-menu li {
-  cursor: pointer;
-  margin: 0;
-  padding: 4px 6px;
-  color: #FFF;
-  background-color: #0190E9;
-  margin: 10px 0 10px 10px;
-  float: left;
-  display: block;
-  text-align: center;
-  width: 50px; }
-
-#dialog-menu li.selected-page {
-  text-decoration: underline; }
-
 #super-dialog-overlay {
-  background: #FFF;
+  background: #333;
   position: fixed;
   top: 0;
   left: 0;
@@ -609,9 +578,9 @@ footer {
   right: 0;
   z-index: 2;
   /*filter: e(%("alpha(opacity=%d)", @opacity));*/
-  -khtml-opacity: 0.8;
-  -moz-opacity: 0.8;
-  opacity: 0.8;
+  -khtml-opacity: 0.3;
+  -moz-opacity: 0.3;
+  opacity: 0.3;
   display: none; }
 
 #super-dialog-container {
@@ -637,11 +606,53 @@ footer {
     position: relative; }
   #super-dialog .dialog-page.selected-page {
     display: block; }
-  #super-dialog .title {
-    background-color: #E9BA26;
-    padding: 10px;
-    font-size: 24px;
-    border-bottom: 1px solid #CCC; }
+  #super-dialog header {
+    padding: 0;
+    margin: 0;
+    zoom: 1;
+    background-color: #E9BA26; }
+    #super-dialog header:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #super-dialog header:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #super-dialog header h3 {
+      float: left;
+      margin: 0;
+      padding: 10px;
+      font-size: 24px;
+      font-weight: normal; }
+    #super-dialog header #dialog-menu {
+      float: right;
+      zoom: 1; }
+      #super-dialog header #dialog-menu:before {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline; }
+      #super-dialog header #dialog-menu:after {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline;
+        clear: both; }
+      #super-dialog header #dialog-menu li {
+        cursor: pointer;
+        padding: 4px 6px;
+        color: #FFF;
+        background-color: #666;
+        margin: 12px 12px 12px 0;
+        float: left;
+        display: block;
+        text-align: center; }
+        #super-dialog header #dialog-menu li.selected-page {
+          text-decoration: underline; }
   #super-dialog form {
     background-color: #EEE;
     position: relative; }
@@ -741,6 +752,9 @@ footer {
     top: 52px; }
   #super-dialog select[name="visibility_id"] {
     width: 100px; }
+  #super-dialog #change-title {
+    padding: 4px 10px !important;
+    background-color: #F3ECB7; }
 
 #super-dialog:after {
   content: "";
