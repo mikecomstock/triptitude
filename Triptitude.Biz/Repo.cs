@@ -30,7 +30,7 @@ namespace Triptitude.Biz
             DbProvider._db.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             DbProvider._db.Set<T>().Remove(entity);
         }

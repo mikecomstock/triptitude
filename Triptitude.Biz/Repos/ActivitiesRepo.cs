@@ -10,6 +10,11 @@ namespace Triptitude.Biz.Repos
 {
     public class ActivitiesRepo : Repo<Activity>
     {
+        public override void Delete(Activity entity)
+        {
+            entity.Deleted = true;
+        }
+
         private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
         {
             activity.Trip = new TripsRepo().Find(form.TripId);

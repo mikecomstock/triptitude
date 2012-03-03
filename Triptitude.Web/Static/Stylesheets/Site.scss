@@ -14,6 +14,12 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 
 /* HTML5 Tags */
 article, aside, figure, footer, header, hgroup, menu, nav, section { display:block; }
+
+/* Colors */
+$invalid-color: #E92553;
+
+$warning-color-bg: #E92553;
+$warning-color-fg: #FFF;
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
@@ -22,16 +28,20 @@ input.time-input { width: 75px !important; }
 .ui-autocomplete { z-index: 10 !important; }
 .toggler { cursor: pointer; }
 .subtitle { background-color: #F3ECB7; padding: 10px; }
+.subtitle.warning {
+	background-color: $warning-color-bg; color: $warning-color-fg; font-weight: bold;
+	a { color: $warning-color-fg; text-decoration: underline; }
+}
 .hidden { display: none; }
 
 /* Form Defaults */
 textarea, input, select { font-size: 14px; }
 input[type="submit"], input[type="button"], select { padding: 5px; }
 input[type="submit"], input[type="button"] { border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
+input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabled"] { display: none; }
 
 input.delete { background-color: #E92553; }
 
-$invalid-color: #E92553;
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
 /* Panel Form Defaults */

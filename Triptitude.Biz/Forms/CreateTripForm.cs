@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Forms
 {
@@ -8,6 +9,7 @@ namespace Triptitude.Biz.Forms
         public string ToName { get; set; }
         public string ToGoogReference { get; set; }
         public string ToGoogId { get; set; }
+        public Trip.TripVisibility Visibility { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Triptitude.Biz.Models;
 
 namespace Triptitude.Biz.Forms
 {
@@ -8,6 +9,7 @@ namespace Triptitude.Biz.Forms
     {
         public string Name { get; set; }
         public string BeginDate { get; set; }
+        public Trip.TripVisibility Visibility { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

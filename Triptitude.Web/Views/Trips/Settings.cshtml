@@ -1,9 +1,19 @@
 ﻿@{
     ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
     TripSettingsForm form = ViewBag.Form;
+    User currentUser = ViewBag.CurrentUser;
+    Trip trip = ViewBag.Trip;
 }
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
 
-@Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
+        $(document).ready(function () {
+            $('form.disabled').find('input,select').attr('disabled', 'disabled');
+        });
+        
+    </script>
+}
+@Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
         <div class="panel-title">
@@ -11,20 +21,37 @@
                 @ViewBag.Title
             </h1>
         </div>
+        @if (!currentUser.CreatedTrips(trip))
+        {
+            <div class="subtitle warning">
+                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FirstNameLastInitial</a> can change the settings for this trip.
+            </div>
+        }
+        @if (TempData["saved"] != null)
+        {
+            <div class="subtitle">
+                Trip settings have been saved.
+            </div>
+        }
         <div class="panel-content">
-            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form">
+            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" class="@(currentUser.CreatedTrips(trip) ? string.Empty : "disabled")">
             @Html.AntiForgeryToken()
             <p>
                 @Html.ValidationMessage("name")
                 <label for="name">
                     Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="focus" />
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="@(currentUser.CreatedTrips(trip) ? "focus" : string.Empty)" />
             </p>
             <p>
                 @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
                 @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
+            </p>
+            <p>
+                <label for="visibility">
+                    Visibility</label>
+                @Html.DropDownList("visibility", form.Visibility.ToSelectList())
             </p>
             <input type="submit" value="Save Settings" tabindex="2" />
             </form>

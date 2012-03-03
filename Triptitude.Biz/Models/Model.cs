@@ -69,6 +69,12 @@ namespace Triptitude.Biz.Models
             return userOwnsAllTrips;
         }
 
+        public bool CreatedTrips(params Trip[] trips)
+        {
+            var userCreatedAllTrips = trips.All(t => t.Creator == this);
+            return userCreatedAllTrips;
+        }
+
         public IEnumerable<Item> DefaultTripItems
         {
             get
@@ -113,6 +119,7 @@ namespace Triptitude.Biz.Models
         public virtual Trip Trip { get; set; }
         public bool IsCreator { get; set; }
         public byte Status { get; set; }
+        public bool Archived { get; set; }
         public DateTime StatusUpdatedOnUTC { get; set; }
     }
 
@@ -133,6 +140,13 @@ namespace Triptitude.Biz.Models
         public DateTime? BeginDate { get; set; }
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
+        public byte Visibility { get; set; }
+
+        public enum TripVisibility : byte
+        {
+            Public = 0,
+            Private = 1
+        }
 
         public IEnumerable<User> Users { get { return UserTrips.Select(ut => ut.User); } }
         public virtual ICollection<Activity> Activities { get; set; }
@@ -143,28 +157,23 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                int? max = Activities.Select(a => a.BeginDay).Union(Activities.Select(a => a.EndDay)).Max();
+                int? max = Activities.Where(a => !a.Deleted).Select(a => a.BeginDay).Union(Activities.Where(a => !a.Deleted).Select(a => a.EndDay)).Max();
                 return max ?? 1;
             }
         }
 
-        //public IEnumerable<HotelPhoto> Photos
-        //{
-        //    get { return Activities.OfType<HotelActivity>().Select(ha => ha.Hotel).Select(h => h.Photo); }
-        //}
-
         public IEnumerable<Activity> ActivitiesOn(int? dayNumber)
         {
             return dayNumber.HasValue
-                ? Activities.Where(a => a.BeginDay == dayNumber || a.EndDay == dayNumber)
-                : Activities.Where(a => !a.BeginDay.HasValue && !a.EndDay.HasValue);
+                ? Activities.Where(a => !a.Deleted && (a.BeginDay == dayNumber || a.EndDay == dayNumber))
+                : Activities.Where(a => !a.Deleted && !a.BeginDay.HasValue && !a.EndDay.HasValue);
         }
 
         public IEnumerable<Tag> Tags
         {
             get
             {
-                var tags = Activities.SelectMany(a => a.Tags).Distinct();
+                var tags = Activities.Where(a => !a.Deleted).SelectMany(a => a.Tags).Distinct();
                 return tags;
             }
         }
@@ -202,6 +211,7 @@ namespace Triptitude.Biz.Models
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
+        public bool Deleted { get; set; }
 
         [NotMapped]
         public virtual string Name { get; set; }

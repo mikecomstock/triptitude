@@ -38,7 +38,7 @@ join Trips t on a.Trip_Id = t.Id";
             {
                 var tagsRepo = new TagsRepo();
                 var tag = tagsRepo.FindOrInitializeByName(form.TagString);
-                trips = trips.Where(t => t.Activities.Any(a => a.Tags.Select(ta => ta.Id).Contains(tag.Id)));
+                trips = trips.Where(t => t.Activities.Where(a => !a.Deleted).Any(a => a.Tags.Select(ta => ta.Id).Contains(tag.Id)));
             }
 
             return trips.Distinct();
@@ -51,7 +51,14 @@ join Trips t on a.Trip_Id = t.Id";
             var activityPlacesRepo = new ActivityPlacesRepo();
             Place to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
 
-            Trip trip = new Trip { Name = "My trip to " + to.Name, Created_On = DateTime.UtcNow, Activities = new List<Activity>(), UserTrips = new Collection<UserTrip>() };
+            Trip trip = new Trip
+            {
+                Name = "My trip to " + to.Name,
+                Created_On = DateTime.UtcNow,
+                Visibility = (byte)form.Visibility,
+                Activities = new List<Activity>(),
+                UserTrips = new Collection<UserTrip>()
+            };
             UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = currentUser };
             trip.UserTrips.Add(userTrip);
 
@@ -73,7 +80,8 @@ join Trips t on a.Trip_Id = t.Id";
             var form = new TripSettingsForm
                            {
                                Name = trip.Name,
-                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToString("MM/dd/yyyy") : string.Empty
+                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToString("MM/dd/yyyy") : string.Empty,
+                               Visibility = (Trip.TripVisibility)Enum.Parse(typeof(Trip.TripVisibility), trip.Visibility.ToString())
                            };
             return form;
         }
@@ -81,7 +89,7 @@ join Trips t on a.Trip_Id = t.Id";
         public void Save(Trip trip, TripSettingsForm form)
         {
             trip.Name = form.Name;
-
+            trip.Visibility = (byte)form.Visibility;
             DateTime parsedDate;
             if (DateTime.TryParse(form.BeginDate, out parsedDate))
                 trip.BeginDate = parsedDate;

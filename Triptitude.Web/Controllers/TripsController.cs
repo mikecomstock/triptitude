@@ -130,13 +130,14 @@ namespace Triptitude.Web.Controllers
         {
             var tripRepo = new TripsRepo();
             Trip trip = tripRepo.Find(id);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+            if (!CurrentUser.CreatedTrips(trip)) return Redirect("/");
 
             if (ModelState.IsValid)
             {
                 tripRepo.Save(trip, form);
                 new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Modified, HistoryTable.Trips, trip.Id);
-                return Redirect(Url.Details(trip));
+                TempData["saved"] = true;
+                return Redirect(Url.Settings(trip));
             }
             else
             {
@@ -148,7 +149,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Create(int? to)
         {
-            var form = new CreateTripForm();
+            var form = new CreateTripForm { Visibility = Trip.TripVisibility.Public };
 
             if (to.HasValue)
             {
@@ -157,10 +158,6 @@ namespace Triptitude.Web.Controllers
                 form.ToGoogReference = place.GoogReference;
                 form.ToGoogId = place.GoogId;
                 form.ToName = place.Name;
-            }
-
-            if (to.HasValue)
-            {
                 return Create(form);
             }
             else

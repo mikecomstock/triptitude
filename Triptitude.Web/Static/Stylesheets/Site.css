@@ -44,6 +44,7 @@ ul, ol {
 article, aside, figure, footer, header, hgroup, menu, nav, section {
   display: block; }
 
+/* Colors */
 /* Utilities */
 .placeholder {
   font-weight: normal !important;
@@ -65,6 +66,14 @@ input.time-input {
   background-color: #F3ECB7;
   padding: 10px; }
 
+.subtitle.warning {
+  background-color: #e92553;
+  color: white;
+  font-weight: bold; }
+  .subtitle.warning a {
+    color: white;
+    text-decoration: underline; }
+
 .hidden {
   display: none; }
 
@@ -80,6 +89,9 @@ input[type="submit"], input[type="button"] {
   color: #FFFFFF;
   background-color: #0190E9;
   cursor: pointer; }
+
+input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabled"] {
+  display: none; }
 
 input.delete {
   background-color: #E92553; }
@@ -152,9 +164,9 @@ input.delete {
   letter-spacing: 1px;
   margin-top: -10px;
   padding: 15px 10px 5px 10px;
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 0 0 7px 7px;
   -moz-border-radius: 0 0 7px 7px;
-  /*          border-radius: $radius; */
+  border-radius: 0 0 7px 7px;
   background-color: #0190e9;
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(#39b3fe), to(#0190e9));
@@ -173,9 +185,9 @@ input.delete {
   margin: 10px 10px 10px 30px; }
 
 #search form {
-  /*  -webkit-box-shadow: $shadow; */
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
-  /*          box-shadow: $shadow; */ }
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
 
 #search input[type="text"] {
   font-size: 16px;
@@ -243,9 +255,9 @@ input.delete {
   margin: 0 auto;
   background: #262626;
   background: rgba(38, 38, 38, 0.8);
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
-  /*          border-radius: $radius; */ }
+  border-radius: 7px; }
 
 #trip-bar #create-trip-form {
   float: right;
@@ -268,9 +280,9 @@ input.delete {
   text-align: center;
   padding: 3px;
   color: #000;
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  /*          border-radius: $radius; */
+  border-radius: 4px;
   margin-top: 3px; }
 
 #email-warning a {
@@ -381,9 +393,9 @@ input.delete {
     font-weight: bold;
     color: #000000;
     font-size: 16px;
-    /*  -webkit-border-radius: $radius; */
+    -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    /*          border-radius: $radius; */ }
+    border-radius: 4px; }
   #side-container a:hover, #side-container a:focus {
     background-color: #E9BA26;
     text-decoration: none; }
@@ -394,12 +406,12 @@ input.delete {
   margin-left: 25px; }
 
 article {
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
-  /*          border-radius: $radius; */
-  /*  -webkit-box-shadow: $shadow; */
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  /*          box-shadow: $shadow; */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   background-color: #FFFFFF;
   overflow: hidden !important;
   padding-bottom: 10px; }
@@ -427,12 +439,12 @@ article {
       margin: 10px 0; }
 
 .panel {
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
-  /*          border-radius: $radius; */
-  /*  -webkit-box-shadow: $shadow; */
+  border-radius: 6px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  /*          box-shadow: $shadow; */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
   background-color: #FFFFFF;
   overflow: hidden !important; }
 
@@ -496,9 +508,9 @@ article {
   margin: 0 auto;
   background: white;
   background: rgba(255, 255, 255, 0.85);
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 7px;
   -moz-border-radius: 7px;
-  /*          border-radius: $radius; */
+  border-radius: 7px;
   padding-bottom: 40px; }
 
 #landing-page-panel {
@@ -594,12 +606,12 @@ footer {
   z-index: 5;
   padding: 10px;
   background-color: #262626;
-  /*  -webkit-border-radius: $radius; */
+  -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
-  /*          border-radius: $radius; */
-  /*  -webkit-box-shadow: $shadow; */
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 20px black;
   -moz-box-shadow: 0px 0px 20px black;
-  /*          box-shadow: $shadow; */
+  box-shadow: 0px 0px 20px black;
   /* Some Note styles apply to notes dialog AND notes sections of other dialogs. */ }
   #super-dialog .dialog-page {
     display: none;
@@ -855,9 +867,9 @@ footer {
   background: #52bcfe;
   background: rgba(82, 188, 254, 0.7);
   margin: 0 20px 20px 30px;
-  /*  -webkit-box-shadow: $shadow; */
+  -webkit-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
-  /*          box-shadow: $shadow; */ }
+  box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
 
 #landing-page-panel #create-trip-form h3 {
   font-size: 18px;
@@ -957,9 +969,9 @@ footer {
     padding: 4px 6px 4px 24px; }
   .trip-row .trip-row-map-link:hover {
     background-color: #AAA;
-    /*  -webkit-border-radius: $radius; */
+    -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    /*          border-radius: $radius; */
+    border-radius: 3px;
     color: #FFF; }
   .trip-row .trip-map-dialog-link {
     display: block; }
@@ -1055,9 +1067,9 @@ ul.tags > li + li {
       color: #FFF;
       float: left;
       clear: both;
-      /*  -webkit-border-radius: $radius; */
+      -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
-      /*          border-radius: $radius; */
+      border-radius: 4px;
       font-size: 12px;
       margin: 3px 0;
       z-index: 2;
@@ -1137,9 +1149,9 @@ ul.tags > li + li {
     display: inline;
     background-color: #E6E6E6;
     margin: 0 10px 10px 0;
-    /*  -webkit-box-shadow: $shadow; */
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    /*          box-shadow: $shadow; */ }
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); }
     .packing-list-tags.fluid .packing-list-tag h3 {
       margin: 5px; }
     .packing-list-tags.fluid .packing-list-tag.hidden {
