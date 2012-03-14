@@ -32,6 +32,11 @@
     <footer>
     </footer>
     <script type="text/javascript" src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            T.init();
+        });
+    </script>
     <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
 
     @if (IsSectionDefined("Scripts"))
