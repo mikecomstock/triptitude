@@ -2,6 +2,7 @@
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Profile;
 using System.Web.Routing;
 using System.Web.Security;
@@ -60,6 +61,19 @@ namespace Triptitude.Web
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterModelBinders();
             RegisterRoutes(RouteTable.Routes);
+
+            BundleTable.Bundles.Add(new DynamicFolderBundle("css", new CssMinify(), "*.css", true));
+
+            Bundle js = new Bundle("~/Scripts/js");
+            js.AddFile("~/Scripts/jquery-1.7.1.min.js");
+            js.AddFile("~/Scripts/jquery-ui-1.8.18.min.js");
+            js.AddFile("~/Scripts/underscore.min.js");
+            js.AddFile("~/Scripts/backbone.min.js");
+            js.AddFile("~/Scripts/jquery.pjax.js");
+            js.AddFile("~/Scripts/jquery.placeholder.js");
+
+            js.AddDirectory("~/Scripts/app", "*.js", true);
+            BundleTable.Bundles.Add(js);
         }
 
         public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)
