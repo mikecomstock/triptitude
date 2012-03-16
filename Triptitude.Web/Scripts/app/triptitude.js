@@ -12,7 +12,7 @@ function SetBindings() {
 
 $(function () {
 
-    $('a:not(.nojax)').pjax('#content', { timeout: 6000 });
+    $('a:not(.nojax):not(.ui-state-default)').pjax('#content', { timeout: 6000 });
     $(document).bind('pjax:end', function () { SetBindings(); });
 
     moveScroller();
