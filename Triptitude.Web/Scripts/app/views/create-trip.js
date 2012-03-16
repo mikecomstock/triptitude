@@ -1,4 +1,4 @@
-﻿T.Views.CreateTrip = Backbone.View.extend({
+﻿TT.Views.CreateTrip = Backbone.View.extend({
     initialize: function () {
     },
     render: function () {

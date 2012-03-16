@@ -1,4 +1,4 @@
-﻿var T = {
+﻿var TT = {
     Models: {},
     Collections: {},
     Helpers: {},
