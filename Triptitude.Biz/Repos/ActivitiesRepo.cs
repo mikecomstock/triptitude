@@ -45,104 +45,104 @@ namespace Triptitude.Biz.Repos
             }
         }
 
-        public Activity Save(TransportationActivityForm form, User currentUser)
-        {
-            TransportationActivity activity;
+        //public Activity Save(TransportationActivityForm form, User currentUser)
+        //{
+        //    TransportationActivity activity;
 
-            if (form.ActivityId.HasValue)
-            {
-                activity = (TransportationActivity)Find(form.ActivityId.Value);
-            }
-            else
-            {
-                activity = new TransportationActivity
-                {
-                    ActivityPlaces = new EntityCollection<ActivityPlace>()
-                };
-                Add(activity);
-            }
+        //    if (form.ActivityId.HasValue)
+        //    {
+        //        activity = (TransportationActivity)Find(form.ActivityId.Value);
+        //    }
+        //    else
+        //    {
+        //        activity = new TransportationActivity
+        //        {
+        //            ActivityPlaces = new EntityCollection<ActivityPlace>()
+        //        };
+        //        Add(activity);
+        //    }
 
-            SetBaseProperties(activity, form, currentUser);
+        //    SetBaseProperties(activity, form, currentUser);
 
-            if (form.TransportationTypeId.HasValue)
-            {
-                var type = new TransportationTypesRepo().Find(form.TransportationTypeId.Value);
-                activity.TransportationType = type;
-            }
-            else
-            {
-                // because EF4 is stupid
-                var tmp = activity.TransportationType;
-                activity.TransportationType = null;
-            }
+        //    if (form.TransportationTypeId.HasValue)
+        //    {
+        //        var type = new TransportationTypesRepo().Find(form.TransportationTypeId.Value);
+        //        activity.TransportationType = type;
+        //    }
+        //    else
+        //    {
+        //        // because EF4 is stupid
+        //        var tmp = activity.TransportationType;
+        //        activity.TransportationType = null;
+        //    }
 
-            var placesRepo = new PlacesRepo();
-            if (string.IsNullOrWhiteSpace(form.FromGoogReference))
-            {
-                var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
-                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
-            }
-            else
-            {
-                var place = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
-                new ActivityPlacesRepo().FindOrInitialize(activity, 0, place);
-            }
+        //    var placesRepo = new PlacesRepo();
+        //    if (string.IsNullOrWhiteSpace(form.FromGoogReference))
+        //    {
+        //        var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+        //        if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
+        //    }
+        //    else
+        //    {
+        //        var place = placesRepo.FindOrInitializeByGoogReference(form.FromGoogId, form.FromGoogReference);
+        //        new ActivityPlacesRepo().FindOrInitialize(activity, 0, place);
+        //    }
 
-            if (string.IsNullOrWhiteSpace(form.ToGoogReference))
-            {
-                var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
-                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
-            }
-            else
-            {
-                var place = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
-                new ActivityPlacesRepo().FindOrInitialize(activity, 1, place);
-            }
+        //    if (string.IsNullOrWhiteSpace(form.ToGoogReference))
+        //    {
+        //        var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+        //        if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
+        //    }
+        //    else
+        //    {
+        //        var place = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
+        //        new ActivityPlacesRepo().FindOrInitialize(activity, 1, place);
+        //    }
 
-            Save();
-            UpdateGeoPoints(activity);
-            return activity;
-        }
+        //    Save();
+        //    UpdateGeoPoints(activity);
+        //    return activity;
+        //}
 
-        public Activity Save(PlaceActivityForm form, User currentUser)
-        {
-            PlaceActivity activity;
+        //public Activity Save(PlaceActivityForm form, User currentUser)
+        //{
+        //    PlaceActivity activity;
 
-            if (form.ActivityId.HasValue)
-            {
-                activity = (PlaceActivity)Find(form.ActivityId.Value);
-            }
-            else
-            {
-                activity = new PlaceActivity();
-                activity.ActivityPlaces = new EntityCollection<ActivityPlace>();
-                Add(activity);
-            }
+        //    if (form.ActivityId.HasValue)
+        //    {
+        //        activity = (PlaceActivity)Find(form.ActivityId.Value);
+        //    }
+        //    else
+        //    {
+        //        activity = new PlaceActivity();
+        //        activity.ActivityPlaces = new EntityCollection<ActivityPlace>();
+        //        Add(activity);
+        //    }
 
-            SetBaseProperties(activity, form, currentUser);
+        //    SetBaseProperties(activity, form, currentUser);
 
-            PlacesRepo placesRepo = new PlacesRepo();
+        //    PlacesRepo placesRepo = new PlacesRepo();
 
-            if (string.IsNullOrWhiteSpace(form.GoogReference))
-            {
-                var activityPlace = activity.ActivityPlaces.FirstOrDefault();
-                if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
-            }
-            else
-            {
-                var place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
-                new ActivityPlacesRepo().FindOrInitialize(activity, 0, place);
-            }
+        //    if (string.IsNullOrWhiteSpace(form.GoogReference))
+        //    {
+        //        var activityPlace = activity.ActivityPlaces.FirstOrDefault();
+        //        if (activityPlace != null) new ActivityPlacesRepo().Delete(activityPlace);
+        //    }
+        //    else
+        //    {
+        //        var place = placesRepo.FindOrInitializeByGoogReference(form.GoogId, form.GoogReference);
+        //        new ActivityPlacesRepo().FindOrInitialize(activity, 0, place);
+        //    }
 
-            if (activity.Place == null && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))
-            {
-                Delete(activity);
-            }
+        //    if (activity.Place == null && activity.Tags.IsNullOrEmpty() && string.IsNullOrEmpty(activity.Title))
+        //    {
+        //        Delete(activity);
+        //    }
 
-            Save();
-            UpdateGeoPoints(activity);
-            return activity;
-        }
+        //    Save();
+        //    UpdateGeoPoints(activity);
+        //    return activity;
+        //}
 
         public static void UpdateGeoPoints(Activity activity)
         {

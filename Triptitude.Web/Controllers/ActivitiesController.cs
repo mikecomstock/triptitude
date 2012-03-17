@@ -35,171 +35,171 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Details(trip));
         }
 
-        public ActionResult Edit(int id, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)
-        {
-            var activity = activitiesRepo.Find(id);
-            var trip = activity.Trip;
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //public ActionResult Edit(int id, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)
+        //{
+        //    var activity = activitiesRepo.Find(id);
+        //    var trip = activity.Trip;
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
-            if (activity is PlaceActivity) return EditPlace(activity as PlaceActivity, selectedTab);
+        //    if (activity is TransportationActivity) return EditTransportation(activity as TransportationActivity, selectedTab);
+        //    if (activity is PlaceActivity) return EditPlace(activity as PlaceActivity, selectedTab);
 
-            throw new Exception("Activity type not supported");
-        }
+        //    throw new Exception("Activity type not supported");
+        //}
 
-        public ActionResult Create(string type, int? placeId)
-        {
-            switch (type)
-            {
-                case "transportation": return AddTransportation();
-                case "place": return AddPlace(placeId);
-            }
+        //public ActionResult Create(string type, int? placeId)
+        //{
+        //    switch (type)
+        //    {
+        //        case "transportation": return AddTransportation();
+        //        case "place": return AddPlace(placeId);
+        //    }
 
-            throw new Exception("Activity type not supported");
-        }
+        //    throw new Exception("Activity type not supported");
+        //}
 
         #region Transportation
 
-        private ActionResult AddTransportation()
-        {
-            var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
-            TransportationActivityForm form = new TransportationActivityForm { TripId = CurrentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
-            ViewBag.Form = form;
-            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
-            ViewBag.Action = Url.ItineraryAddTransportation();
-            return PartialView("TransportationDialog");
-        }
+        //private ActionResult AddTransportation()
+        //{
+        //    var fly = transportationTypesRepo.FindAll().First(tt => tt.Name == "Fly");
+        //    TransportationActivityForm form = new TransportationActivityForm { TripId = CurrentUser.DefaultTrip.Id, TransportationTypeId = fly.Id };
+        //    ViewBag.Form = form;
+        //    ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
+        //    ViewBag.Action = Url.ItineraryAddTransportation();
+        //    return PartialView("TransportationDialog");
+        //}
 
-        [HttpPost]
-        public ActionResult AddTransportation(TransportationActivityForm form)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //[HttpPost]
+        //public ActionResult AddTransportation(TransportationActivityForm form)
+        //{
+        //    var trip = tripsRepo.Find(form.TripId);
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            Activity activity = activitiesRepo.Save(form, CurrentUser);
-            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
+        //    Activity activity = activitiesRepo.Save(form, CurrentUser);
+        //    new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
 
-            var response = new { status = "OK" };
-            return Json(response);
-        }
+        //    var response = new { status = "OK" };
+        //    return Json(response);
+        //}
 
-        private ActionResult EditTransportation(TransportationActivity activity, ActivityForm.Tabs selectedTab)
-        {
-            TransportationActivityForm form = new TransportationActivityForm();
-            form.SetBaseProps(activity);
-            form.TransportationTypeId = activity.TransportationType == null ? (int?)null : activity.TransportationType.Id;
-            form.SelectedTab = selectedTab;
+        //private ActionResult EditTransportation(TransportationActivity activity, ActivityForm.Tabs selectedTab)
+        //{
+        //    TransportationActivityForm form = new TransportationActivityForm();
+        //    form.SetBaseProps(activity);
+        //    form.TransportationTypeId = activity.TransportationType == null ? (int?)null : activity.TransportationType.Id;
+        //    form.SelectedTab = selectedTab;
 
-            if (activity.FromPlace != null)
-            {
-                form.FromName = activity.FromPlace.Name;
-                form.FromGoogReference = activity.FromPlace.GoogReference;
-                form.FromGoogId = activity.FromPlace.GoogId;
-            }
-            if (activity.ToPlace != null)
-            {
-                form.ToName = activity.ToPlace.Name;
-                form.ToGoogReference = activity.ToPlace.GoogReference;
-                form.ToGoogId = activity.ToPlace.GoogId;
-            }
+        //    if (activity.FromPlace != null)
+        //    {
+        //        form.FromName = activity.FromPlace.Name;
+        //        form.FromGoogReference = activity.FromPlace.GoogReference;
+        //        form.FromGoogId = activity.FromPlace.GoogId;
+        //    }
+        //    if (activity.ToPlace != null)
+        //    {
+        //        form.ToName = activity.ToPlace.Name;
+        //        form.ToGoogReference = activity.ToPlace.GoogReference;
+        //        form.ToGoogId = activity.ToPlace.GoogId;
+        //    }
 
-            ViewBag.Form = form;
-            ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
-            ViewBag.Action = Url.ItineraryEditTransportation();
-            return PartialView("TransportationDialog");
-        }
+        //    ViewBag.Form = form;
+        //    ViewBag.TransportationTypes = transportationTypesRepo.FindAll().OrderBy(t => t.Name);
+        //    ViewBag.Action = Url.ItineraryEditTransportation();
+        //    return PartialView("TransportationDialog");
+        //}
 
-        [HttpPost]
-        public ActionResult EditTransportation(TransportationActivityForm form)
-        {
-            var activity = (TransportationActivity)activitiesRepo.Find(form.ActivityId.Value);
-            var oldTrip = activity.Trip;
-            var newTrip = tripsRepo.Find(form.TripId);
-            if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
+        //[HttpPost]
+        //public ActionResult EditTransportation(TransportationActivityForm form)
+        //{
+        //    var activity = (TransportationActivity)activitiesRepo.Find(form.ActivityId.Value);
+        //    var oldTrip = activity.Trip;
+        //    var newTrip = tripsRepo.Find(form.TripId);
+        //    if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
-            activitiesRepo.Save(form, CurrentUser);
-            new HistoriesRepo().Create(CurrentUser, newTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
-            var response = new { status = "OK" };
-            return Json(response);
-        }
+        //    activitiesRepo.Save(form, CurrentUser);
+        //    new HistoriesRepo().Create(CurrentUser, newTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
+        //    var response = new { status = "OK" };
+        //    return Json(response);
+        //}
 
         #endregion
 
         #region Places
 
-        private ActionResult AddPlace(int? placeId)
-        {
-            Place place;
+        //private ActionResult AddPlace(int? placeId)
+        //{
+        //    Place place;
 
-            if (placeId.HasValue)
-            {
-                var placesRepo = new PlacesRepo();
-                place = placesRepo.Find(placeId.Value);
-            }
-            else
-            {
-                place = new Place();
-            }
+        //    if (placeId.HasValue)
+        //    {
+        //        var placesRepo = new PlacesRepo();
+        //        place = placesRepo.Find(placeId.Value);
+        //    }
+        //    else
+        //    {
+        //        place = new Place();
+        //    }
 
-            PlaceActivityForm form = new PlaceActivityForm
-            {
-                Name = place.Name,
-                GoogReference = place.GoogReference,
-                GoogId = place.GoogId,
-                TripId = CurrentUser.DefaultTrip.Id
-            };
-            ViewBag.Form = form;
-            ViewBag.Place = place;
-            ViewBag.Action = Url.ItineraryAddPlace();
-            return PartialView("PlaceDialog");
-        }
+        //    PlaceActivityForm form = new PlaceActivityForm
+        //    {
+        //        Name = place.Name,
+        //        GoogReference = place.GoogReference,
+        //        GoogId = place.GoogId,
+        //        TripId = CurrentUser.DefaultTrip.Id
+        //    };
+        //    ViewBag.Form = form;
+        //    ViewBag.Place = place;
+        //    ViewBag.Action = Url.ItineraryAddPlace();
+        //    return PartialView("PlaceDialog");
+        //}
 
-        [HttpPost]
-        public ActionResult AddPlace(PlaceActivityForm form)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //[HttpPost]
+        //public ActionResult AddPlace(PlaceActivityForm form)
+        //{
+        //    var trip = tripsRepo.Find(form.TripId);
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            Activity activity = activitiesRepo.Save(form, CurrentUser);
-            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
+        //    Activity activity = activitiesRepo.Save(form, CurrentUser);
+        //    new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Activities, activity.Id);
 
-            var response = new { status = "OK" };
-            return Json(response);
-        }
+        //    var response = new { status = "OK" };
+        //    return Json(response);
+        //}
 
-        private ActionResult EditPlace(PlaceActivity activity, ActivityForm.Tabs selectedTab)
-        {
-            var form = new PlaceActivityForm();
-            form.SetBaseProps(activity);
-            form.SelectedTab = selectedTab;
+        //private ActionResult EditPlace(PlaceActivity activity, ActivityForm.Tabs selectedTab)
+        //{
+        //    var form = new PlaceActivityForm();
+        //    form.SetBaseProps(activity);
+        //    form.SelectedTab = selectedTab;
 
-            if (activity.Place != null)
-            {
-                form.Name = activity.Place.Name;
-                form.GoogReference = activity.Place.GoogReference;
-                form.GoogId = activity.Place.GoogId;
-            }
+        //    if (activity.Place != null)
+        //    {
+        //        form.Name = activity.Place.Name;
+        //        form.GoogReference = activity.Place.GoogReference;
+        //        form.GoogId = activity.Place.GoogId;
+        //    }
 
-            ViewBag.Form = form;
-            ViewBag.Place = activity.Place;
-            ViewBag.Action = Url.ItineraryEditPlace();
-            return PartialView("PlaceDialog");
-        }
+        //    ViewBag.Form = form;
+        //    ViewBag.Place = activity.Place;
+        //    ViewBag.Action = Url.ItineraryEditPlace();
+        //    return PartialView("PlaceDialog");
+        //}
 
-        [HttpPost]
-        public ActionResult EditPlace(PlaceActivityForm form)
-        {
-            PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(form.ActivityId.Value);
-            var oldTrip = activity.Trip;
-            var newTrip = tripsRepo.Find(form.TripId);
-            if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
+        //[HttpPost]
+        //public ActionResult EditPlace(PlaceActivityForm form)
+        //{
+        //    PlaceActivity activity = (PlaceActivity)activitiesRepo.Find(form.ActivityId.Value);
+        //    var oldTrip = activity.Trip;
+        //    var newTrip = tripsRepo.Find(form.TripId);
+        //    if (!CurrentUser.OwnsTrips(oldTrip, newTrip)) return Redirect("/");
 
-            activitiesRepo.Save(form, CurrentUser);
-            new HistoriesRepo().Create(CurrentUser, oldTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
+        //    activitiesRepo.Save(form, CurrentUser);
+        //    new HistoriesRepo().Create(CurrentUser, oldTrip, HistoryAction.Modified, HistoryTable.Activities, activity.Id);
 
-            var response = new { status = "OK" };
-            return Json(response);
-        }
+        //    var response = new { status = "OK" };
+        //    return Json(response);
+        //}
 
         #endregion
     }

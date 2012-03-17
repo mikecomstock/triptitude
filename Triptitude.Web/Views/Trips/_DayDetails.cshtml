@@ -21,28 +21,36 @@
                 @activity.Title
             </p>
         }
-        @if (activity is TransportationActivity)
+        @if (!activity.ActivityPlaces.IsNullOrEmpty())
         {
-            var transportationActivity = activity as TransportationActivity;
+            if (activity.IsTransportation)
+            {
+                var places = activity.ActivityPlaces.OrderBy(ap => ap.SortIndex).Select(ap => ap.Place);
+
             <p>
-                @(transportationActivity.TransportationType != null ? transportationActivity.TransportationType.Name : "Transportation")
-                @if (transportationActivity.FromPlace != null)
+                @(activity.TransportationType != null ? activity.TransportationType.Name + ":" : "Transportation:")
+                @foreach (var place in places)
                 {
-                    <text>from <a href="@Url.Details(transportationActivity.FromPlace)">@transportationActivity.FromPlace.Name</a></text>
-                }
-                @if (transportationActivity.ToPlace != null)
-                {
-                    <text>to <a href="@Url.Details(transportationActivity.ToPlace)">@transportationActivity.ToPlace.Name</a></text>
+                    <text><a href="@Url.Details(place)">@place.Name</a></text>                    
                 }
             </p>
-        }
-        else if (activity is PlaceActivity)
-        {
-            var placeActivity = activity as PlaceActivity;
-            if (placeActivity.Place != null)
+@*<p>
+                @(activity.TransportationType != null ? activity.TransportationType.Name : "Transportation")
+                @if (activity.FromPlace != null)
+                {
+                    <text>from <a href="@Url.Details(activity.FromPlace)">@activity.FromPlace.Name</a></text>
+                }
+                @if (activity.ToPlace != null)
+                {
+                    <text>to <a href="@Url.Details(activity.ToPlace)">@activity.ToPlace.Name</a></text>
+                }
+            </p>*@
+            }
+            else
             {
-            <p class="place @(string.IsNullOrWhiteSpace(placeActivity.Title) ? "no-title" : "with-title")">
-                <a href="@Url.Details(placeActivity.Place)">@placeActivity.Place.Name</a>
+                var place = activity.ActivityPlaces.First().Place;
+            <p class="place @(string.IsNullOrWhiteSpace(activity.Title) ? "no-title" : "with-title")">
+                <a href="@Url.Details(place)">@place.Name</a>
             </p>
             }
         }

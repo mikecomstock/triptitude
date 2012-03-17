@@ -46,7 +46,6 @@ join Trips t on a.Trip_Id = t.Id";
 
         public Trip Save(CreateTripForm form, User currentUser)
         {
-            TransportationType transportationType = null;
             var placesRepo = new PlacesRepo();
             var activityPlacesRepo = new ActivityPlacesRepo();
             Place to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
@@ -62,7 +61,7 @@ join Trips t on a.Trip_Id = t.Id";
             UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = currentUser };
             trip.UserTrips.Add(userTrip);
 
-            var activity = new TransportationActivity { BeginDay = 1, EndDay = 1, TransportationType = transportationType, ActivityPlaces = new EntityCollection<ActivityPlace>() };
+            var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>() };
             activityPlacesRepo.FindOrInitialize(activity, 1, to);
             trip.Activities.Add(activity);
 

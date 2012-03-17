@@ -213,12 +213,21 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<ActivityPlace> ActivityPlaces { get; set; }
         public bool Deleted { get; set; }
 
-        [NotMapped]
-        public virtual string Name { get; set; }
-        [NotMapped]
-        public virtual string ActivityTypeName { get; set; }
+        public bool IsTransportation { get; set; }
+        public virtual TransportationType TransportationType { get; set; }
 
-        public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : Name; } }
+
+        //[NotMapped]
+        //public virtual string Name { get; set; }
+        //[NotMapped]
+        //public virtual string ActivityTypeName { get; set; }
+
+        public string GeneratedTitle
+        {
+            get { return "Generated Title"; }
+        }
+
+        public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : GeneratedTitle; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
 
         public TimeSpan? TimeForSort(int? day)
@@ -269,65 +278,65 @@ namespace Triptitude.Biz.Models
         public virtual Place Place { get; set; }
     }
 
-    [Table("TransportationActivities")]
-    public class TransportationActivity : Activity
-    {
-        public virtual TransportationType TransportationType { get; set; }
+    //[Table("TransportationActivities")]
+    //public class TransportationActivity : Activity
+    //{
+    //    public virtual TransportationType TransportationType { get; set; }
 
-        public Place FromPlace
-        {
-            get
-            {
-                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
-                return activityPlace != null ? activityPlace.Place : null;
-            }
-        }
-        public Place ToPlace
-        {
-            get
-            {
-                var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
-                return activityPlace != null ? activityPlace.Place : null;
-            }
-        }
+    //    public Place FromPlace
+    //    {
+    //        get
+    //        {
+    //            var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 0);
+    //            return activityPlace != null ? activityPlace.Place : null;
+    //        }
+    //    }
+    //    public Place ToPlace
+    //    {
+    //        get
+    //        {
+    //            var activityPlace = ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == 1);
+    //            return activityPlace != null ? activityPlace.Place : null;
+    //        }
+    //    }
 
-        public override string Name
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                if (TransportationType != null) { sb.AppendFormat(TransportationType.Name); }
-                else { sb.Append("Transportation"); }
+    //    public override string Name
+    //    {
+    //        get
+    //        {
+    //            StringBuilder sb = new StringBuilder();
+    //            if (TransportationType != null) { sb.AppendFormat(TransportationType.Name); }
+    //            else { sb.Append("Transportation"); }
 
-                if (FromPlace != null) sb.AppendFormat(" From {0}", FromPlace.Name);
-                if (ToPlace != null) sb.AppendFormat(" To {0}", ToPlace.Name);
+    //            if (FromPlace != null) sb.AppendFormat(" From {0}", FromPlace.Name);
+    //            if (ToPlace != null) sb.AppendFormat(" To {0}", ToPlace.Name);
 
-                return sb.ToString();
-            }
-        }
+    //            return sb.ToString();
+    //        }
+    //    }
 
-        public override string ActivityTypeName { get { return "transportation"; } }
-    }
+    //    public override string ActivityTypeName { get { return "transportation"; } }
+    //}
 
-    [Table("PlaceActivities")]
-    public class PlaceActivity : Activity
-    {
-        public Place Place
-        {
-            get
-            {
-                var activityPlace = ActivityPlaces.FirstOrDefault();
-                return activityPlace != null ? activityPlace.Place : null;
-            }
-        }
+    //[Table("PlaceActivities")]
+    //public class PlaceActivity : Activity
+    //{
+    //    public Place Place
+    //    {
+    //        get
+    //        {
+    //            var activityPlace = ActivityPlaces.FirstOrDefault();
+    //            return activityPlace != null ? activityPlace.Place : null;
+    //        }
+    //    }
 
-        public override string Name
-        {
-            get { return (Tags.Any() ? String.Join(", ", Tags.Select(t => t.Name)) + " at " : string.Empty) + Place.Name; }
-        }
+    //    public override string Name
+    //    {
+    //        get { return (Tags.Any() ? String.Join(", ", Tags.Select(t => t.Name)) + " at " : string.Empty) + Place.Name; }
+    //    }
 
-        public override string ActivityTypeName { get { return "place"; } }
-    }
+    //    public override string ActivityTypeName { get { return "place"; } }
+    //}
 
     #endregion
 
