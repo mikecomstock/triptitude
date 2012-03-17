@@ -5,6 +5,6 @@
     Routers: {},
     Views: {},
     init: function () {
-        var header = new T.Views.Header({ el: $('#header') });
+        //var header = new T.Views.Header({ el: $('#header') });
     }
 };

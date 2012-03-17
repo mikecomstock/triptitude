@@ -18,6 +18,10 @@ $(function () {
     moveScroller();
     SetBindings();
 
+    $('.place-search-input').each(function () {
+        var v = new TT.Views.PlaceSearchInput({ el: this });
+    });
+
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
         if (val == '') e.preventDefault();
@@ -138,7 +142,7 @@ function OpenSuperDialog(url, callback) {
         initializeActivityDialog();
         initializeTransportationDialog();
         initializeNoteDialog();
-        
+
         if (callback) callback();
 
         superDialog.find('#dialog-menu li').click(function (e) {
@@ -150,7 +154,7 @@ function OpenSuperDialog(url, callback) {
             $('.focus', newPage).first().focus();
             scrollToBottom($('.notes', superDialog));
         });
-        
+
         superDialog.find('form').submit(function (e) {
             e.preventDefault();
             var form = $(this);
@@ -230,7 +234,7 @@ function initializeActivityDialog() {
     };
     if (dialog.find('input#title').val() != '') showTitleFieldset();
 
-    var updateTitle = function() {
+    var updateTitle = function () {
         var tagVal = dialog.find('#tagstring').val();
         var googVal = dialog.find('#googname').val();
 
@@ -294,7 +298,7 @@ function initializeNoteDialog() {
     var dialog = superDialog.find('#note-dialog');
     if (dialog.length == 0) return;
 
-    dialog.on('change', 'select', function() {
+    dialog.on('change', 'select', function () {
         var activityId = $(this).val();
         OpenSuperDialog('/activities/edit/' + activityId + '?selectedtab=notes');
     });
