@@ -69,9 +69,7 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/jquery-ui-1.8.18.min.js");
             js.AddFile("~/Scripts/underscore.min.js");
             js.AddFile("~/Scripts/backbone.min.js");
-            js.AddFile("~/Scripts/jquery.pjax.js");
             js.AddFile("~/Scripts/jquery.placeholder.js");
-
             js.AddFile("~/Scripts/app/triptitude.js");
             js.AddFile("~/Scripts/app/T.js");
             js.AddDirectory("~/Scripts/app", "*.js", true);

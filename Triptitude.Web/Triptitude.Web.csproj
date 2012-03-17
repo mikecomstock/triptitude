@@ -182,7 +182,6 @@
     <Content Include="Static\Icons\check.png" />
     <Content Include="Static\Icons\map.png" />
     <Content Include="Static\Images\ActivityBackgroundLine.png" />
-    <Content Include="Scripts\jquery.pjax.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\app\triptitude.js" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
@@ -369,7 +368,6 @@
     </None>
     <Content Include="Views\Trips\SearchResults.cshtml" />
     <Content Include="Views\Packing\Index.cshtml" />
-    <Content Include="_PJAXLayout.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Trips\History.cshtml" />
   </ItemGroup>
