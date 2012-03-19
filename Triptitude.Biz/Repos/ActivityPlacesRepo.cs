@@ -5,6 +5,7 @@ namespace Triptitude.Biz.Repos
 {
     public class ActivityPlacesRepo : Repo<ActivityPlace>
     {
+        // TODO: move this into Activity model
         public ActivityPlace FindOrInitialize(Activity activity, int sortIndex, Place place)
         {
             var activityPlace = activity.ActivityPlaces.FirstOrDefault(ap => ap.SortIndex == sortIndex);

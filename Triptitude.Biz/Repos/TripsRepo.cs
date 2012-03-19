@@ -61,7 +61,7 @@ join Trips t on a.Trip_Id = t.Id";
             UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = currentUser };
             trip.UserTrips.Add(userTrip);
 
-            var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>() };
+            var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>(), IsTransportation = true };
             activityPlacesRepo.FindOrInitialize(activity, 1, to);
             trip.Activities.Add(activity);
 

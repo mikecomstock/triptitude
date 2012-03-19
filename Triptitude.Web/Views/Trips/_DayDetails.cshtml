@@ -25,26 +25,23 @@
         {
             if (activity.IsTransportation)
             {
-                var places = activity.ActivityPlaces.OrderBy(ap => ap.SortIndex).Select(ap => ap.Place);
+                var activityPlaces = activity.ActivityPlaces.OrderBy(ap => ap.SortIndex);
 
             <p>
-                @(activity.TransportationType != null ? activity.TransportationType.Name + ":" : "Transportation:")
-                @foreach (var place in places)
+                @(activity.TransportationType != null ? activity.TransportationType.Name : "Transportation")
+                @foreach (var activityPlace in activityPlaces)
                 {
-                    <text><a href="@Url.Details(place)">@place.Name</a></text>                    
+                    if (activityPlace.SortIndex == 0)
+                    {
+                    <text> from </text>
+                    }
+                    else
+                    {
+                    <text> to </text>
+                    }
+                    <text><a href="@Url.Details(activityPlace.Place)">@activityPlace.Place.Name</a></text>
                 }
             </p>
-@*<p>
-                @(activity.TransportationType != null ? activity.TransportationType.Name : "Transportation")
-                @if (activity.FromPlace != null)
-                {
-                    <text>from <a href="@Url.Details(activity.FromPlace)">@activity.FromPlace.Name</a></text>
-                }
-                @if (activity.ToPlace != null)
-                {
-                    <text>to <a href="@Url.Details(activity.ToPlace)">@activity.ToPlace.Name</a></text>
-                }
-            </p>*@
             }
             else
             {

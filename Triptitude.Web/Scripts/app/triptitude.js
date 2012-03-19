@@ -63,8 +63,14 @@ $(function () {
 
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
-        var url = $(this).attr('href');
-        OpenSuperDialog(url);
+        //        var url = $(this).attr('href');
+        //        OpenSuperDialog(url);
+
+        var activity = new TT.Models.Activity();
+        var dialog = new TT.Views.ActivityDialog({ model: activity });
+        dialog.render();
+        $('#trip-bar').append(dialog.el);
+
     });
 
     $('.editing .packing-list-item').live('click', function (e) {
@@ -592,17 +598,17 @@ T.NearbyPlaces = function () {
             .click(function (e) { if (e.target == this) { setActive(place); } })
             .data('place', place);
         place.li = li;
-        $('<a class="add-to-trip nojax" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
+        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
     }
 
     function getInfoWindowContent(place) {
         var content = $(document.createElement('div')).addClass('info-window');
-        $('<a class="title nojax" rel="nofollow"></a>')
+        $('<a class="title" rel="nofollow"></a>')
             .text(place.name)
             .data('place', place)
             .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
             .appendTo(content);
-        $('<a class="add-to-trip nojax" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
+        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
         return content;
     }
 

@@ -592,14 +592,12 @@ footer {
   /*filter: e(%("alpha(opacity=%d)", @opacity));*/
   -khtml-opacity: 0.3;
   -moz-opacity: 0.3;
-  opacity: 0.3;
-  display: none; }
+  opacity: 0.3; }
 
 #super-dialog-container {
   position: relative; }
 
 #super-dialog {
-  display: none;
   position: absolute;
   right: -10px;
   top: 15px;
@@ -917,7 +915,7 @@ footer {
     zoom: 1;
     *display: inline;
     clear: both; }
-  #my-trips .my-trip-rows li a.nojax {
+  #my-trips .my-trip-rows li a {
     font-size: 16px;
     margin: 15px;
     display: block;
@@ -927,7 +925,7 @@ footer {
     margin: 15px; }
   #my-trips .my-trip-rows li + li {
     border-top: 1px dashed #CCCCCC; }
-#my-trips .my-trip-rows li.current a.nojax:after {
+#my-trips .my-trip-rows li.current a:after {
   content: "(currently planning)";
   margin-left: 10px; }
 

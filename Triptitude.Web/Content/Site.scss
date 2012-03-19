@@ -211,10 +211,10 @@ footer { width: 955px; height: 100px; }
 }
 
 /* Dialogs */
-#super-dialog-overlay { background: #333; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; @include opacity(30); display: none; }
+#super-dialog-overlay { background: #333; position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 2; @include opacity(30); }
 #super-dialog-container { position: relative; }
 #super-dialog {
-	display: none; position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; @include border-radius(10px); @include box-shadow(0px 0px 20px rgba(0, 0, 0, 1));
+	position: absolute; right: -10px; top: 15px; z-index: 5; padding: 10px; background-color: #262626; @include border-radius(10px); @include box-shadow(0px 0px 20px rgba(0, 0, 0, 1));
 	.dialog-page { display: none; position: relative; }
 	.dialog-page.selected-page { display: block; }
 	header {
@@ -317,11 +317,11 @@ footer { width: 955px; height: 100px; }
 	.my-trip-rows {
 		li {
 			display: block; @include clearfix;
-			a.nojax { font-size: 16px; margin: 15px; display: block; float: left; }
+			a { font-size: 16px; margin: 15px; display: block; float: left; }
 			.travelers {float: right; margin: 15px; }
 			&+ li { border-top: 1px dashed #CCCCCC; }
 		}
-		li.current a.nojax:after { content: "(currently planning)"; margin-left:10px; }
+		li.current a:after { content: "(currently planning)"; margin-left:10px; }
 	}
 }
 

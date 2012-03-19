@@ -24,7 +24,7 @@
             <ul class="packing-list-items suggestions">
                 @foreach (ItemTag itemTag in suggestions)
                 {
-                    <li class="packing-list-item add-to-trip nojax" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
+                    <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
                         @itemTag.Item.Name
                         @if (itemTag.Tag != null)
                         {

@@ -25,7 +25,7 @@
                 <ul class="my-trip-rows">
                     @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
                     {
-                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a class="nojax" href="@Url.SetDefaultTrip(trip)">
+                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a href="@Url.SetDefaultTrip(trip)">
                             @trip.Name
                         </a>
                             @if (trip.Users.Except(new[] { currentUser }).Any())

@@ -13,7 +13,7 @@
             {
                 <text><a href="@Url.CreateTrip(place)">Create a trip to @place.Name</a> | </text>
             }
-            <a rel="nofollow" class="add-to-trip nojax" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
+            <a rel="nofollow" class="add-to-trip" data-id="@place.GoogId" data-name="@place.Name" data-reference="@place.GoogReference" >+ Add to Trip</a>
         </div>
     </header>
     @if (tripSearchForm.Results.Any())
