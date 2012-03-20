@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Triptitude.com</title>
+    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/editor")" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body { background: rgba(100,100,100,0.3); position: fixed; top: 0; left: 0; bottom: 0; right: 0; }
+        #editor { background-color: #FFF; width: 960px; margin: 50px auto; }
+    </style>
+</head>
+<body>
+    <div id="editor">
+        <h1>
+            This is a test! Edit goes here</h1>
+        <div>
+            test
+        </div>
+        <p>
+            URL: @ViewBag.URL
+        </p>
+    </div>
+</body>
+</html>

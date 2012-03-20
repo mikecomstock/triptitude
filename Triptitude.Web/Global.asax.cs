@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -47,6 +48,8 @@ namespace Triptitude.Web
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
+            routes.MapRoute("Tripmarklet", "tripmarklet", new { controller = "home", action = "tripmarklet" });
+            routes.MapRoute("TripmarkletJS", "tripmarklet.js", new { controller = "home", action = "tripmarkletJS" });
 
             routes.MapSlugRoute("Details", "{controller}/{idslug}", new { action = "details" }, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
             routes.MapSlugRoute("Slug", "{controller}/{idslug}/{action}", null, new { idslug = new SlugRouteConstraint() }, new { namespaces = new[] { "Triptitude.Web.Controllers" } });
@@ -74,6 +77,16 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/app/TT.js");
             js.AddDirectory("~/Scripts/app", "*.js", true);
             BundleTable.Bundles.Add(js);
+
+            /* Trip Editor */
+            Bundle editor = new Bundle("~/Content/editor", new CssMinify());
+            editor.AddFile("~/Content/Editor.css");
+            BundleTable.Bundles.Add(editor);
+
+            /* Tripmarklet (with string replace) */
+            Bundle tripmarklet = new Bundle("~/Scripts/tripmarklet.js", new JsReplaceMinify());
+            tripmarklet.AddFile("~/Scripts/tripmarklet_template.js");
+            BundleTable.Bundles.Add(tripmarklet);
         }
 
         public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)
@@ -81,6 +94,16 @@ namespace Triptitude.Web
             int userId = int.Parse(args.Context.User.Identity.Name.Split('|')[0]);
             new UsersRepo().MigrateAnonymousUser(args.AnonymousID, userId);
             AnonymousIdentificationModule.ClearAnonymousIdentifier();
+        }
+    }
+
+    public class JsReplaceMinify : JsMinify
+    {
+        public override void Process(BundleContext context, BundleResponse response)
+        {
+            string siteRoot = ConfigurationManager.AppSettings["RootUrl"];
+            response.Content = response.Content.Replace("{siteRoot}", siteRoot);
+            base.Process(context, response);
         }
     }
 

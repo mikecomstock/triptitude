@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
+using System.Web.Razor.Parser;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
@@ -17,6 +19,12 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Tripmarklet(string url)
+        {
+            ViewBag.URL = url;
+            return View();
+        }
+        
         public ActionResult Header(bool? hideTripBar)
         {
             ViewBag.CurrentUser = CurrentUser;

@@ -132,6 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BingSiteAuth.xml" />
+    <Content Include="Content\Editor.css">
+      <DependentUpon>Editor.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
@@ -178,6 +181,7 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.min.js" />
+    <Content Include="Scripts\tripmarklet_template.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Static\Backgrounds\background-fade.png" />
@@ -216,6 +220,8 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\Tripmarklet.cshtml" />
+    <None Include="Content\Editor.scss" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />
