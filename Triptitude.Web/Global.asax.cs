@@ -71,9 +71,9 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/jquery-1.7.1.min.js");
             js.AddFile("~/Scripts/jquery-ui-1.8.18.min.js");
             js.AddFile("~/Scripts/underscore.min.js");
-            js.AddFile("~/Scripts/backbone.min.js");
+            js.AddFile("~/Scripts/backbone.js");
             js.AddFile("~/Scripts/jquery.placeholder.js");
-            js.AddFile("~/Scripts/app/triptitude.js");
+            js.AddFile("~/Scripts/triptitude.js");
             js.AddFile("~/Scripts/app/TT.js");
             js.AddDirectory("~/Scripts/app", "*.js", true);
             BundleTable.Bundles.Add(js);
@@ -87,6 +87,19 @@ namespace Triptitude.Web
             Bundle tripmarklet = new Bundle("~/Scripts/tripmarklet.js", new JsReplaceMinify());
             tripmarklet.AddFile("~/Scripts/tripmarklet_template.js");
             BundleTable.Bundles.Add(tripmarklet);
+
+            /* Editor (used by tripmarklet) */
+            Bundle editorJs = new Bundle("~/Scripts/editor");
+            editorJs.AddFile("~/Scripts/jquery-1.7.1.min.js");
+            editorJs.AddFile("~/Scripts/jquery-ui-1.8.18.min.js");
+            editorJs.AddFile("~/Scripts/underscore.js");
+            editorJs.AddFile("~/Scripts/backbone.js");
+            editorJs.AddFile("~/Scripts/app/TT.js");
+            editorJs.AddDirectory("~/Scripts/app/models", "*.js", true);
+            editorJs.AddDirectory("~/Scripts/app/collections", "*.js", true);
+            editorJs.AddDirectory("~/Scripts/app/views", "*.js", true);
+            editorJs.AddDirectory("~/Scripts/app", "*.js", true);
+            BundleTable.Bundles.Add(editorJs);
         }
 
         public void Profile_OnMigrateAnonymous(object sender, ProfileMigrateEventArgs args)

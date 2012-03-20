@@ -1,2 +1,42 @@
-h1 {
-  background-color: #CCC; }
+#editor {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  background-color: #FFF;
+  width: 960px;
+  margin: 50px auto;
+  max-height: 80%;
+  border: 1px solid red;
+  zoom: 1; }
+  #editor:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #editor:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #editor > header {
+    border-bottom: 2px solid #999; }
+  #editor ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+
+#editor-itinerary .activities {
+  float: left;
+  width: 200px; }
+  #editor-itinerary .activities li {
+    background-color: #EEE;
+    padding: 15px; }
+    #editor-itinerary .activities li h4 {
+      margin: 0; }
+    #editor-itinerary .activities li.selected {
+      background-color: #0190E9; }
+  #editor-itinerary .activities li:hover {
+    background-color: #0190E9;
+    cursor: pointer; }
+  #editor-itinerary .activities li + li {
+    border-top: 1px dashed #AAA; }

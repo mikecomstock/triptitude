@@ -168,10 +168,11 @@
     <Content Include="google398a80352917011f.html" />
     <Content Include="google650c6fbb6afb9905.html" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\app\models\activity.js" />
+    <Content Include="Scripts\app\models\models.js" />
     <Content Include="Scripts\app\TT.js" />
     <Content Include="Scripts\app\views\activity-dialog.js" />
     <Content Include="Scripts\app\views\create-trip.js" />
+    <Content Include="Scripts\app\views\editor.js" />
     <Content Include="Scripts\app\views\header.js" />
     <Content Include="Scripts\app\views\place-search-input.js" />
     <Content Include="Scripts\backbone.js" />
@@ -192,7 +193,7 @@
     <Content Include="Static\Icons\map.png" />
     <Content Include="Static\Images\ActivityBackgroundLine.png" />
     <Content Include="Scripts\jquery.placeholder.js" />
-    <Content Include="Scripts\app\triptitude.js" />
+    <Content Include="Scripts\triptitude.js" />
     <Content Include="Areas\Admin\Views\AdminHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
@@ -269,6 +270,7 @@
     <Folder Include="Areas\API\Views\Shared\" />
     <Folder Include="Areas\Blogs\Models\" />
     <Folder Include="Areas\Blogs\Views\Shared\" />
+    <Folder Include="Scripts\app\collections\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Trips\Settings.cshtml" />

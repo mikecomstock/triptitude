@@ -3,7 +3,9 @@
     Collections: {},
     Helpers: {},
     Routers: {},
-    Views: {},
+    Views: {
+        Editor: {}
+    },
     init: function () {
         //var header = new T.Views.Header({ el: $('#header') });
     }
