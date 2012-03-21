@@ -1,14 +1,43 @@
 ﻿TT.Models.Activity = Backbone.Model.extend({
-    idAttribute: "ID",
-    defaults: {
-        'Title': 'some activity title'
+    idAttribute: 'ID',
+    initialize: function () {
+        var placeCollection = new TT.Collections.Places(this.get('Places'));
+        this.set('Places', placeCollection);
+    },
+    createTitle: function () {
+        if (this.get('Title'))
+            return this.get('Title');
+
+        if (this.get('IsTransportation')) {
+            var title = this.get('TransportationTypeName') ? this.get('TransportationTypeName') : 'Transportation';
+            this.get('Places').each(function (place) {
+                title += place.get('SortIndex') == 0 ? ' from ' : ' to ';
+                title += place.get('Name');
+            });
+            return title;
+        }
+        return 'created title';
     }
 });
 
-TT.Collections.Activities = Backbone.Collection.extend({ model: TT.Models.Activity });
+TT.Collections.Activities = Backbone.Collection.extend({
+    model: TT.Models.Activity,
+    url: '/activities'
+});
+
+TT.Models.Place = Backbone.Model.extend({
+    idAttribute: 'ID'
+});
+
+TT.Collections.Places = Backbone.Collection.extend({ model: TT.Models.Place });
 
 TT.Models.Trip = Backbone.Model.extend({
-    idAttribute: "ID"
+    idAttribute: 'ID',
+    initialize: function () {
+        // convert object array into collection
+        var activitiesCollection = new TT.Collections.Activities(this.get('Activities'));
+        this.set('Activities', activitiesCollection);
+    }
 });
 
 TT.Collections.Trips = Backbone.Collection.extend({
@@ -16,8 +45,13 @@ TT.Collections.Trips = Backbone.Collection.extend({
 });
 
 TT.Models.User = Backbone.Model.extend({
-    idAttribute: "ID",
+    idAttribute: 'ID',
+    initialize: function () {
+        // convert object array into collection
+        var tripsCollection = new TT.Collections.Trips(this.get('Trips'));
+        this.set('Trips', tripsCollection);
+    },
     getCurrentTrip: function () {
-        return this.get('Trips').get(this.get('CurrentTripID'));
+        return this.get('Trips').get(this.get('DefaultTripID'));
     }
 });

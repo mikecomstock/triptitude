@@ -153,6 +153,11 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<PackingListItem> PackingListItems { get; set; }
         public virtual ICollection<History> Histories { get; set; }
 
+        public IEnumerable<Activity> NonDeletedActivities
+        {
+            get { return Activities.Where(a => !a.Deleted); }
+        }
+
         public int TotalDays
         {
             get

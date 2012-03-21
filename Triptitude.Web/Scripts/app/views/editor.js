@@ -14,16 +14,17 @@
 
     },
     render: function () {
-        console.log('render');
-        this.$el.text('');
+
+        this.$el.empty();
 
         this.$el.append(this.Header.render().el);
 
+        var tabContainer = $(this.make('div', { class: 'tab-container' })).appendTo(this.el);
         var self = this;
         _.each(this.Tabs, function (tab) {
             tab.render();
             tab.$el.hide();
-            self.$el.append(tab.el);
+            tabContainer.append(tab.el);
         });
 
         this.CurrentTab.$el.show();
@@ -36,7 +37,7 @@ TT.Views.Editor.Header = Backbone.View.extend({
     tagName: 'header',
     render: function () {
         var currentTrip = this.model.getCurrentTrip();
-        var tripName= currentTrip.get('Name');
+        var tripName = currentTrip.get('Name');
         $('<h1>').text(tripName).appendTo(this.el);
         $('<p>').text(this.model.get('Email')).appendTo(this.el);
         return this;
@@ -48,6 +49,9 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     initialize: function () {
         this.ActivityForm = new TT.Views.Editor.ActivityForm();
         this.activityList = $(this.make('ul', { class: 'activities' }));
+
+        this.activities = this.model.getCurrentTrip().get('Activities');
+        this.activities.on('all', this.renderActivityList, this);
     },
     events: {
         'click .activity': 'activitySelected'
@@ -55,9 +59,8 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     activitySelected: function (e) {
         this.activityList.find('.selected').removeClass('selected');
         var li = $(e.currentTarget).addClass('selected');
-        
         var activity = li.data('activity');
-        
+
         //todo: change this:
         this.ActivityForm.remove();
         console.log('this.ActivityForm');
@@ -68,24 +71,48 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
     },
     render: function () {
+        this.renderActivityList();
+        return this;
+    },
+    renderActivityList: function () {
+        this.activityList.empty();
         var self = this;
-
-        var activities = this.model.getCurrentTrip().get('Activities');
-        activities.each(function (activity) {
+        this.activities.each(function (activity) {
             var li = $(self.make('li', { class: 'activity' })).appendTo(self.activityList);
             li.data('activity', activity);
-            li.append(self.make('h4', null, activity.get('Title')));
+            li.append(self.make('h4', null, activity.createTitle()));
         });
-        this.activityList.appendTo(this.el);
-
-        return this;
+        this.activityList.prependTo(this.el);
     }
 });
 
 TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
+    initialize: function () {
+        this.TitleInput = $(this.make('input', { name: 'Title' }));
+        this.SaveButton = $(this.make('button', { type: 'submit', class: 'save' }, 'Save'));
+        this.DeleteButton = $(this.make('button', { type: 'submit', class: 'delete' }, 'Delete'));
+    },
+    events: {
+        'click .save': 'save',
+        'click .delete': 'destroy'
+    },
+    save: function () {
+        this.model.set('Title', this.TitleInput.val());
+        console.log(this.model);
+        this.model.save();
+        console.log('save!');
+    },
+    destroy: function () {
+        console.log('destroy!');
+        this.model.destroy();
+    },
     render: function () {
         this.$el.text(this.model.get('Title'));
+        this.TitleInput.val(this.model.get('Title')).appendTo(this.el);
+
+        this.SaveButton.appendTo(this.el);
+        this.DeleteButton.appendTo(this.el);
         return this;
     }
 });

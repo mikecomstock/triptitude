@@ -25,26 +25,15 @@
     <script type="text/javascript">
         $(function () {
 
-            var currentUser = new TT.Models.User({
-                Email: 'mikecomstock@gmail.com',
-                CurrentTripID: 4,
-                Trips: new TT.Collections.Trips([
-                    new TT.Models.Trip({ ID: 1, Name: 'Not Current Trip 1' }),
-                    new TT.Models.Trip({ ID: 2, Name: 'Not Current Trip 2' }),
-                    new TT.Models.Trip({ ID: 3, Name: 'Not Current Trip 3' }),
-                    new TT.Models.Trip({
-                        ID: 4,
-                        Name: 'Trip to Costa Rica',
-                        Activities: new TT.Collections.Activities([
-                            { Title: 'Zipline Tour' },
-                            { Title: 'Hike to waterfall' },
-                            { Title: 'Stay at Hotel XYZ' },
-                        ])
-                    })
-                ])
-            });
+            var currentUserData = @Html.Raw(Json.Encode(ViewBag.CurrentUserData));
+            var currentUserModel = new TT.Models.User(currentUserData);
 
-            var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUser });
+            var currentTrip = currentUserModel.getCurrentTrip();
+            var newActivity = new TT.Models.Activity({ Title: '@ViewBag.ParsedTitle', TripID: currentTrip.id });
+            currentTrip.get('Activities').add(newActivity);
+            
+
+            var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel });
             editor.render();
         });
     </script>

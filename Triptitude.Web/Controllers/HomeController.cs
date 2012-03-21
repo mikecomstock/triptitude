@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Razor.Parser;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 
@@ -19,12 +21,44 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Tripmarklet(string url)
+        public ActionResult Tripmarklet(string url, string title)
         {
             ViewBag.URL = url;
+            ViewBag.ParsedTitle = title;
+
+            var currentUserData = new
+                                  {
+                                      Email = CurrentUser.Email,
+                                      DefaultTripID = CurrentUser.DefaultTrip.Id,
+                                      Trips = from t in CurrentUser.Trips
+                                              select new
+                                                         {
+                                                             ID = t.Id,
+                                                             Name = t.Name,
+                                                             Activities = from a in t.NonDeletedActivities
+                                                                          select new
+                                                                                     {
+                                                                                         ID = a.Id,
+                                                                                         Title = a.Title,
+                                                                                         a.IsTransportation,
+                                                                                         TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
+                                                                                         Places = from p in a.ActivityPlaces
+                                                                                                  select new
+                                                                                                             {
+                                                                                                                 p.SortIndex,
+                                                                                                                 p.Place.Id,
+                                                                                                                 p.Place.Name
+                                                                                                             }
+                                                                                     }
+                                                         }
+                                  };
+
+            ViewBag.CurrentUserData = currentUserData;
+            //ViewBag.CurrentUserAsString = JsonConvert.SerializeObject(currentUser);
+
             return View();
         }
-        
+
         public ActionResult Header(bool? hideTripBar)
         {
             ViewBag.CurrentUser = CurrentUser;

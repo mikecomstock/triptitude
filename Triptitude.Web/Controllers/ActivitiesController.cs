@@ -21,18 +21,56 @@ namespace Triptitude.Web.Controllers
             transportationTypesRepo = new TransportationTypesRepo();
         }
 
+        [HttpPost]
+        public ActionResult Create(ActivityForm form)
+        {
+            var trip = tripsRepo.Find(form.TripID);
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+
+            Activity activity = new Activity
+                                    {
+                                        Title = form.Title,
+                                        Trip = trip
+                                    };
+            activitiesRepo.Add(activity);
+            activitiesRepo.Save();
+
+            ////todo: only return public properties
+            return Json(form);
+        }
+
+        public class ActivityForm
+        {
+            public int TripID { get; set; }
+            public string Title { get; set; }
+        }
+
+        [HttpPut]
+        public ActionResult Update(int id, ActivityForm form)
+        {
+            var activity = activitiesRepo.Find(id);
+            var trip = activity.Trip;
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+
+            activity.Title = form.Title;
+            activitiesRepo.Save();
+
+            ////todo: only return public properties
+            return Json(form);
+        }
+
+
         public ActionResult Delete(int id)
         {
             var activity = activitiesRepo.Find(id);
             var trip = activity.Trip;
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            activitiesRepo.Delete(activity);
+            activity.Deleted = true;
             activitiesRepo.Save();
 
             new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Activities, activity.Id);
-
-            return Redirect(Url.Details(trip));
+            return Content("success");
         }
 
         //public ActionResult Edit(int id, ActivityForm.Tabs selectedTab = ActivityForm.Tabs.Details)

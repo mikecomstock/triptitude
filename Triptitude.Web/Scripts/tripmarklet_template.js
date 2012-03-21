@@ -14,6 +14,6 @@
     i.style.height = '100%';
     i.style.top = '0';
     i.style.left = '0';
-    i.src = '{siteRoot}Tripmarklet?url=' + document.URL;
+    i.src = '{siteRoot}Tripmarklet?url=' + encodeURIComponent(document.URL) + '&title=' + encodeURIComponent(document.title);
     document.body.appendChild(i);
 })();
