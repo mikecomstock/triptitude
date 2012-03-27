@@ -9,7 +9,7 @@
     var i = document.createElement('iframe');
     i.setAttribute('id', id);
     i.style.position = 'fixed';
-    i.style.zIndex = 9999999999;
+    i.style.zIndex = 999999999;
     i.style.width = '100%';
     i.style.height = '100%';
     i.style.top = '0';

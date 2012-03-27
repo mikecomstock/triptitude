@@ -85,6 +85,9 @@ namespace Triptitude.Web
             /* Trip Editor */
             Bundle editor = new Bundle("~/Content/editor", new CssMinify());
             editor.AddFile("~/Content/Editor.css");
+            editor.AddFile("~/Content/themes/base/jquery.ui.core.css");
+            editor.AddFile("~/Content/themes/base/jquery.ui.datepicker.css");
+            editor.AddFile("~/Content/themes/base/jquery.ui.theme.css");
             BundleTable.Bundles.Add(editor);
 
             /* Tripmarklet (with string replace) */

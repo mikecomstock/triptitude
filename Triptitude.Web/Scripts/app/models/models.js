@@ -4,6 +4,13 @@
         var placeCollection = new TT.Collections.Places(this.get('Places'));
         this.set('Places', placeCollection);
     },
+    parse: function (resp, xhr) {
+        console.log('activity.parse', resp);
+        var placeCollection = new TT.Collections.Places(resp.Places);
+        this.set('Places', placeCollection);
+        delete resp.Places;
+        return resp;
+    },
     createTitle: function () {
         if (this.get('Title'))
             return this.get('Title');

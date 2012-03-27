@@ -27,11 +27,12 @@ namespace Triptitude.Web.Controllers
             var trip = tripsRepo.Find(form.TripID);
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            Activity activity = new Activity
-                                    {
-                                        Title = form.Title,
-                                        Trip = trip
-                                    };
+            Activity activity = new Activity { Trip = trip };
+            activity.Title = form.Title;
+            activity.BeginAt = form.BeginAt;
+            activity.EndAt = form.EndAt;
+            activity.SourceURL = form.SourceURL;
+
             activitiesRepo.Add(activity);
             activitiesRepo.Save();
 
@@ -43,6 +44,9 @@ namespace Triptitude.Web.Controllers
         {
             public int TripID { get; set; }
             public string Title { get; set; }
+            public DateTime? BeginAt { get; set; }
+            public DateTime? EndAt { get; set; }
+            public string SourceURL { get; set; }
         }
 
         [HttpPut]
@@ -53,10 +57,31 @@ namespace Triptitude.Web.Controllers
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             activity.Title = form.Title;
+            activity.BeginAt = form.BeginAt;
+            activity.EndAt = form.EndAt;
+            activity.SourceURL = form.SourceURL;
             activitiesRepo.Save();
 
             ////todo: only return public properties
-            return Json(form);
+            var a = activity;
+            var result = new
+            {
+                ID = a.Id,
+                Title = a.Title,
+                a.IsTransportation,
+                BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
+                EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
+                TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
+                SourceURL = a.SourceURL,
+                Places = from p in a.ActivityPlaces
+                         select new
+                         {
+                             p.SortIndex,
+                             p.Place.Id,
+                             p.Place.Name
+                         }
+            };
+            return Json(result);
         }
 
 

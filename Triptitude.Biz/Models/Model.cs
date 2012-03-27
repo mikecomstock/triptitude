@@ -209,9 +209,11 @@ namespace Triptitude.Biz.Models
         public string Title { get; set; }
         public virtual Trip Trip { get; set; }
         public int? BeginDay { get; set; }
+        public DateTime? BeginAt { get; set; }
         public TimeSpan? BeginTime { get; set; }
         public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
+        public DateTime? EndAt { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
@@ -220,7 +222,7 @@ namespace Triptitude.Biz.Models
 
         public bool IsTransportation { get; set; }
         public virtual TransportationType TransportationType { get; set; }
-
+        public string SourceURL { get; set; }
 
         //[NotMapped]
         //public virtual string Name { get; set; }

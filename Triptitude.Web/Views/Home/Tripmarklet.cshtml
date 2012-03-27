@@ -29,11 +29,13 @@
             var currentUserModel = new TT.Models.User(currentUserData);
 
             var currentTrip = currentUserModel.getCurrentTrip();
-            var newActivity = new TT.Models.Activity({ Title: '@ViewBag.ParsedTitle', TripID: currentTrip.id });
+            var newActivity = new TT.Models.Activity({ Title: '@ViewBag.ParsedTitle', TripID: currentTrip.id, SourceURL: '@ViewBag.URL' });
             currentTrip.get('Activities').add(newActivity);
             
-
-            var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel });
+            var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel, edit: newActivity });
+            editor.on('close', function() {
+                $(document).empty().hide();
+            });
             editor.render();
         });
     </script>

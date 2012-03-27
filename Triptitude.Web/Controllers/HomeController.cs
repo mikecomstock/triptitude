@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Razor.Parser;
@@ -30,7 +31,7 @@ namespace Triptitude.Web.Controllers
                                   {
                                       Email = CurrentUser.Email,
                                       DefaultTripID = CurrentUser.DefaultTrip.Id,
-                                      Trips = from t in CurrentUser.Trips
+                                      Trips = from t in CurrentUser.Trips.Where(t => t.Id == 194)
                                               select new
                                                          {
                                                              ID = t.Id,
@@ -41,7 +42,10 @@ namespace Triptitude.Web.Controllers
                                                                                          ID = a.Id,
                                                                                          Title = a.Title,
                                                                                          a.IsTransportation,
+                                                                                         BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
+                                                                                         EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
                                                                                          TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
+                                                                                         SourceURL = a.SourceURL,
                                                                                          Places = from p in a.ActivityPlaces
                                                                                                   select new
                                                                                                              {

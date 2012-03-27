@@ -5,7 +5,8 @@
   width: 960px;
   margin: 50px auto;
   border: 1px solid red;
-  zoom: 1; }
+  zoom: 1;
+  position: relative; }
   #editor:before {
     display: table;
     content: "";
@@ -17,6 +18,15 @@
     zoom: 1;
     *display: inline;
     clear: both; }
+  #editor > .close {
+    position: absolute;
+    border: 1px solid #999;
+    right: 0;
+    margin: 10px;
+    height: 15px;
+    width: 15px;
+    text-align: center;
+    cursor: pointer; }
   #editor > header {
     border-bottom: 2px solid #999; }
   #editor .tab-container {
@@ -52,18 +62,92 @@
     zoom: 1;
     *display: inline;
     clear: both; }
-  #editor-itinerary .activities {
+
+#editor-itinerary .activities {
+  float: left;
+  width: 200px; }
+  #editor-itinerary .activities li {
+    background-color: #EEE;
+    padding: 15px;
+    position: relative; }
+    #editor-itinerary .activities li h4 {
+      margin: 0; }
+    #editor-itinerary .activities li.selected {
+      background-color: #0190E9; }
+    #editor-itinerary .activities li.selected:after {
+      content: "";
+      width: 0;
+      height: 0;
+      border: 20px solid transparent;
+      border-left: 20px solid #0190E9;
+      position: absolute;
+      right: -35px;
+      top: 4px; }
+  #editor-itinerary .activities li:hover {
+    background-color: #0190E9;
+    cursor: pointer; }
+  #editor-itinerary .activities li + li {
+    border-top: 1px dashed #AAA; }
+
+#editor-itinerary .activity-form {
+  zoom: 1;
+  float: right;
+  width: 725px;
+  margin-right: 20px; }
+  #editor-itinerary .activity-form:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #editor-itinerary .activity-form:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #editor-itinerary .activity-form label {
+    width: 70px;
+    display: block;
     float: left;
-    width: 200px; }
-    #editor-itinerary .activities li {
-      background-color: #EEE;
-      padding: 15px; }
-      #editor-itinerary .activities li h4 {
-        margin: 0; }
-      #editor-itinerary .activities li.selected {
-        background-color: #0190E9; }
-    #editor-itinerary .activities li:hover {
-      background-color: #0190E9;
-      cursor: pointer; }
-    #editor-itinerary .activities li + li {
-      border-top: 1px dashed #AAA; }
+    text-align: right;
+    padding: 3px 10px 3px 0;
+    margin: 2px 0; }
+  #editor-itinerary .activity-form > p {
+    zoom: 1; }
+    #editor-itinerary .activity-form > p:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #editor-itinerary .activity-form > p:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #editor-itinerary .activity-form > p.title input {
+      width: 600px; }
+    #editor-itinerary .activity-form > p.when input {
+      width: 100px;
+      margin-right: 8px; }
+    #editor-itinerary .activity-form > p.source-url input {
+      width: 600px; }
+  #editor-itinerary .activity-form .buttons {
+    clear: both;
+    margin-top: 100px; }
+  #editor-itinerary .activity-form .msg.success {
+    background-color: #E6EFC2;
+    border: 1px solid #C6D880;
+    color: #529214;
+    padding: 15px;
+    font-size: 16px;
+    float: left;
+    margin: 10px 0; }
+  #editor-itinerary .activity-form .msg.error {
+    background: #FBE3E4;
+    border: 1px solid #FBC2C4;
+    color: #D12F19;
+    padding: 15px;
+    font-size: 16px;
+    float: left;
+    margin: 10px 0; }
