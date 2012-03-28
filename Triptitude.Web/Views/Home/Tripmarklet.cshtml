@@ -34,7 +34,7 @@
             
             var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel, edit: newActivity });
             editor.on('close', function() {
-                $(document).empty().hide();
+                console.log('editor.on close');
             });
             editor.render();
         });
