@@ -17,4 +17,16 @@ namespace Triptitude.Biz.Forms
                 yield return new ValidationResult("Place not found. Start typing and select from the options provided.", new[] { "to" });
         }
     }
+
+    public class NewCreateTripForm : IValidatableObject
+    {
+        public string Name { get; set; }
+        public Trip.TripVisibility Visibility { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.IsNullOrWhiteSpace(Name))
+                yield return new ValidationResult("Please enter a name for your trip.", new[] { "name" });
+        }
+    }
 }

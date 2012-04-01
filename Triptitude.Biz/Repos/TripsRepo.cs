@@ -65,12 +65,29 @@ join Trips t on a.Trip_Id = t.Id";
             activityPlacesRepo.FindOrInitialize(activity, 1, to);
             trip.Activities.Add(activity);
 
+            // TODO: don't create a new one, use this one
             var tripsRepo = new TripsRepo();
             tripsRepo.Add(trip);
             tripsRepo.Save();
 
             ActivitiesRepo.UpdateGeoPoints(activity);
 
+            return trip;
+        }
+
+        public Trip Save(NewCreateTripForm form, User creator)
+        {
+            Trip trip = new Trip
+                            {
+                                Name = form.Name,
+                                Created_On = DateTime.UtcNow,
+                                Activities = new List<Activity>(),
+                                UserTrips = new Collection<UserTrip>()
+                            };
+            UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = creator };
+            trip.UserTrips.Add(userTrip);
+            Add(trip);
+            Save();
             return trip;
         }
 

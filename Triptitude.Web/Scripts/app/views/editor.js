@@ -43,7 +43,8 @@ TT.Views.Editor.Header = Backbone.View.extend({
         var currentTrip = this.model.getCurrentTrip();
         var tripName = currentTrip.get('Name');
         $('<h1>').text(tripName).appendTo(this.el);
-        $('<p>').text(this.model.get('Email')).appendTo(this.el);
+        if (this.model.get('Email'))
+            $('<p>').text(this.model.get('Email')).appendTo(this.el);
         return this;
     }
 });

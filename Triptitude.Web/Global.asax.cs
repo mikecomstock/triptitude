@@ -79,6 +79,9 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/jquery.placeholder.js");
             js.AddFile("~/Scripts/triptitude.js");
             js.AddFile("~/Scripts/app/TT.js");
+            js.AddDirectory("~/Scripts/app/models", "*.js", true);
+            js.AddDirectory("~/Scripts/app/collections", "*.js", true);
+            js.AddDirectory("~/Scripts/app/views", "*.js", true);
             js.AddDirectory("~/Scripts/app", "*.js", true);
             BundleTable.Bundles.Add(js);
 

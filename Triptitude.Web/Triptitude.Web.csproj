@@ -121,6 +121,7 @@
     <Compile Include="Controllers\PackingController.cs" />
     <Compile Include="Controllers\PlacesController.cs" />
     <Compile Include="Controllers\TagsController.cs" />
+    <Compile Include="Controllers\TripmarkletController.cs" />
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\TriptitudeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -225,8 +226,9 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Home\Tripmarklet.cshtml" />
+    <Content Include="Views\Tripmarklet\Tripmarklet.cshtml" />
     <None Include="Content\Editor.scss" />
+    <Content Include="Views\Tripmarklet\CreateTrip.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

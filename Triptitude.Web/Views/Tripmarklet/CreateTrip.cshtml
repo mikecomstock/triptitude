@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create a Trip</title>
+</head>
+<body>
+    @{
+        NewCreateTripForm form = (NewCreateTripForm)ViewBag.Form;
+    }
+    <form method="post" id="create-trip-form">
+    @Html.AntiForgeryToken()
+    <p>
+        @Html.ValidationMessage("name")
+        <input type="text" name="name" value="@form.Name" />
+        @Html.DropDownList("visibility", form.Visibility.ToSelectList())
+    </p>
+    <p>
+        <input type="submit" value="Create Trip" />
+    </p>
+    </form>
+</body>
+</html>

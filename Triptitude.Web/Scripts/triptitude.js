@@ -84,7 +84,8 @@ $(function () {
     $('.editing .activity').live('click', function (e) {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
-            OpenSuperDialog('/activities/edit/' + activityId);
+            //OpenSuperDialog('/activities/edit/' + activityId);
+            alert('open backbone editor here');
         }
     });
 

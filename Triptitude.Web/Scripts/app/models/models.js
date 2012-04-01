@@ -54,6 +54,8 @@ TT.Collections.Trips = Backbone.Collection.extend({
 TT.Models.User = Backbone.Model.extend({
     idAttribute: 'ID',
     initialize: function () {
+
+        //TODO: move this to parse, and call parse from init
         // convert object array into collection
         var tripsCollection = new TT.Collections.Trips(this.get('Trips'));
         this.set('Trips', tripsCollection);
