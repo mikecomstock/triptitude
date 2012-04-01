@@ -2,8 +2,7 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   background-color: #FFF;
-  width: 960px;
-  margin: 50px auto;
+  margin: 0;
   border: 1px solid red;
   zoom: 1;
   position: relative; }
@@ -31,8 +30,8 @@
     border-bottom: 2px solid #999; }
   #editor .tab-container {
     zoom: 1;
-    overflow: auto;
-    max-height: 80%; }
+    max-height: 500px;
+    overflow: auto; }
     #editor .tab-container:before {
       display: table;
       content: "";
@@ -92,7 +91,7 @@
 #editor-itinerary .activity-form {
   zoom: 1;
   float: right;
-  width: 725px;
+  width: 705px;
   margin-right: 20px; }
   #editor-itinerary .activity-form:before {
     display: table;

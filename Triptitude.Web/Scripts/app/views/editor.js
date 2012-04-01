@@ -3,7 +3,6 @@
     initialize: function () {
 
         this.Header = new TT.Views.Editor.Header({ model: this.model });
-        this.CloseButton = $(this.make('div', { class: 'close', title: 'Close' }, 'X'));
 
         this.Tabs = {
             Itinerary: new TT.Views.Editor.Itinerary({ model: this.model, edit: this.options.edit }),
@@ -14,13 +13,6 @@
         this.CurrentTab = this.Tabs.Itinerary;
 
     },
-    events: {
-        'click .close': 'close'
-    },
-    close: function () {
-        this.trigger('close');
-        this.remove();
-    },
     edit: function (activity) {
         // TODO: add code to switch to the Itinerary tab
         this.Tabs.Itinerary.edit(activity);
@@ -28,8 +20,6 @@
     render: function () {
 
         this.$el.empty();
-
-        this.CloseButton.appendTo(this.el);
 
         this.$el.append(this.Header.render().el);
 

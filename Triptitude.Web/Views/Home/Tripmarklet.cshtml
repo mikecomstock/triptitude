@@ -7,7 +7,7 @@
     <title>Triptitude.com</title>
     <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/editor")" rel="stylesheet" type="text/css" />
     <style type="text/css">
-        body { background: rgba(100,100,100,0.3); position: fixed; top: 0; left: 0; bottom: 0; right: 0; }
+        body { margin: 0; }
     </style>
 </head>
 <body>
@@ -33,9 +33,6 @@
             currentTrip.get('Activities').add(newActivity);
             
             var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel, edit: newActivity });
-            editor.on('close', function() {
-                console.log('editor.on close');
-            });
             editor.render();
         });
     </script>
