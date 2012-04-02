@@ -1108,9 +1108,9 @@ ul.tags > li + li {
         zoom: 1;
         *display: inline;
         clear: both; }
-#trips-details .editing .activity:hover {
-  background-color: #F3F3F3;
-  cursor: pointer; }
+    #trips-details #itinerary .activities .activity:hover {
+      background-color: #F3F3F3;
+      cursor: pointer; }
 
 #trips-map #trip-map-container {
   width: 100%;

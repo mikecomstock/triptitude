@@ -376,11 +376,9 @@ ul.tags > li + li { margin-left: 5px; }
 				.tags { }
 				.tags:before { content: "tags:"; float: left; color: #999; padding: 3px 0; }
 				.notes { @include clearfix; }
+				&:hover { background-color: #F3F3F3; cursor: pointer; }	
 			}
 		}
-	}
-	.editing {
-		.activity:hover { background-color: #F3F3F3; cursor: pointer; }	
 	}
 }
 

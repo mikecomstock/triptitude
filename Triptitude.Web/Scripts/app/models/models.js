@@ -1,14 +1,18 @@
 ﻿TT.Models.Activity = Backbone.Model.extend({
     idAttribute: 'ID',
+    urlRoot: '/activities',
     initialize: function () {
-        var placeCollection = new TT.Collections.Places(this.get('Places'));
-        this.set('Places', placeCollection);
+        //this.parse();
+        //        var placeCollection = new TT.Collections.Places(this.get('Places'));
+        //        this.set('Places', placeCollection);
     },
     parse: function (resp, xhr) {
-        console.log('activity.parse', resp);
-        var placeCollection = new TT.Collections.Places(resp.Places);
-        this.set('Places', placeCollection);
-        delete resp.Places;
+        console.log('activity.parse', 'resp:', resp, 'xhr:', xhr);
+
+        //        var placeCollection = new TT.Collections.Places(resp.Places);
+        //        this.set('Places', placeCollection);
+
+        //        delete resp.Places;
         return resp;
     },
     createTitle: function () {
@@ -40,10 +44,16 @@ TT.Collections.Places = Backbone.Collection.extend({ model: TT.Models.Place });
 
 TT.Models.Trip = Backbone.Model.extend({
     idAttribute: 'ID',
+    urlRoot: '/trips',
     initialize: function () {
         // convert object array into collection
         var activitiesCollection = new TT.Collections.Activities(this.get('Activities'));
         this.set('Activities', activitiesCollection);
+    },
+    parse: function (resp, xhr) {
+        var activitiesCollection = new TT.Collections.Activities(resp.Activities);
+        resp.Activities = activitiesCollection;
+        return resp;
     }
 });
 
@@ -62,5 +72,11 @@ TT.Models.User = Backbone.Model.extend({
     },
     getCurrentTrip: function () {
         return this.get('Trips').get(this.get('DefaultTripID'));
+    },
+    ownsActivity: function (activity) {
+        console.log('user.ownsActivity', activity);
+        var tripId = activity.get('Trip').id;
+        console.log('tripId:', tripId);
+        return true;
     }
 });

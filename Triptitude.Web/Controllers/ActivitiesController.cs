@@ -12,13 +12,21 @@ namespace Triptitude.Web.Controllers
     {
         private readonly TripsRepo tripsRepo;
         private readonly ActivitiesRepo activitiesRepo;
+        private readonly ActivitiesRepo repo;
         private readonly TransportationTypesRepo transportationTypesRepo;
 
         public ActivitiesController()
         {
             tripsRepo = new TripsRepo();
             activitiesRepo = new ActivitiesRepo();
+            repo = new ActivitiesRepo();
             transportationTypesRepo = new TransportationTypesRepo();
+        }
+
+        public JsonResult Details(int id)
+        {
+            var activity = repo.Find(id);
+            return Json(activity.Json(CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

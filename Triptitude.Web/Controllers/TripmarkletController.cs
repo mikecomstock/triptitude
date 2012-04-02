@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -12,44 +11,12 @@ namespace Triptitude.Web.Controllers
         {
             if (CurrentUser.DefaultTrip == null)
                 return Redirect("/tripmarklet/createtrip");
-
-
+            
             ViewBag.URL = url;
             ViewBag.ParsedTitle = title;
 
-            var currentUserData = new
-                                      {
-                                          Email = CurrentUser.Email,
-                                          DefaultTripID = CurrentUser.DefaultTrip.Id,
-                                          Trips = from t in CurrentUser.Trips//.Where(t => t.Id == 194)
-                                                  select new
-                                                             {
-                                                                 ID = t.Id,
-                                                                 Name = t.Name,
-                                                                 Activities = from a in t.NonDeletedActivities
-                                                                              select new
-                                                                                         {
-                                                                                             ID = a.Id,
-                                                                                             Title = a.Title,
-                                                                                             a.IsTransportation,
-                                                                                             BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
-                                                                                             EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
-                                                                                             TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
-                                                                                             SourceURL = a.SourceURL,
-                                                                                             Places = from p in a.ActivityPlaces
-                                                                                                      select new
-                                                                                                                 {
-                                                                                                                     p.SortIndex,
-                                                                                                                     p.Place.Id,
-                                                                                                                     p.Place.Name
-                                                                                                                 }
-                                                                                         }
-                                                             }
-                                      };
-
+            var currentUserData = CurrentUser.Json(CurrentUser);
             ViewBag.CurrentUserData = currentUserData;
-            //ViewBag.CurrentUserAsString = JsonConvert.SerializeObject(currentUser);
-
             return View();
         }
 

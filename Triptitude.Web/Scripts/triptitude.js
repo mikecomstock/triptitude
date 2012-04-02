@@ -81,11 +81,63 @@ $(function () {
         OpenSuperDialog('/packing/edit/' + id);
     });
 
-    $('.editing .activity').live('click', function (e) {
+    var openEditor = function (trip, activity) {
+        console.log('openEditor');
+        var body = $('body');
+
+        var close = function () {
+            overlay.remove();
+            editorContent.remove();
+        };
+
+        var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);
+        var editorContent = $('<div id="editor-container">').appendTo(body);
+        $('<div id="editor-close">').text('×').attr('title', 'Close').on('click', close).appendTo(editorContent);
+        var editorElement = $('<div id="editor">').appendTo(editorContent);
+        editorElement.text('loading...');
+        
+        var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: trip, edit: activity });
+        editor.render();
+    };
+
+    $('.activity').live('click', function (e) {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
+            var activity = new TT.Models.Activity({ ID: activityId });
+            activity.fetch({
+                success: function (model, response) {
+                    console.log('activity.fetch success', 'model', model, 'response', response);
+                    var userOwnsTrip = model.get('Trip').UserOwnsTrip;
+                    console.log('userOwnsTrip?', userOwnsTrip);
+                    if (userOwnsTrip) {
+                        var trip = new TT.Models.Trip({ ID: activity.get('Trip').ID });
+                        console.log('user owns trip, so now going to load trip', trip);
+
+                        trip.fetch({
+                            success: function (model, response) {
+                                console.log('trip.fetch success', model);
+
+                                var editing = model.get('Activities').get(activityId);
+                                console.log('editing:', editing, 'for trip:', model);
+                                openEditor(model, editing);
+
+
+                            },
+                            error: function (model, response) {
+                                console.log('error!', 'model:', model, 'response:', response);
+                            }
+                        });
+
+                        //                        var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel, edit: newActivity });
+                        //editor.render();
+                    } else {
+                        alert("you don't own this activity!");
+                    }
+                }
+            });
+
             //OpenSuperDialog('/activities/edit/' + activityId);
-            alert('open backbone editor here');
+            //openEditor(activityId);
         }
     });
 

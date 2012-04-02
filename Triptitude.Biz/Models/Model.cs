@@ -84,6 +84,16 @@ namespace Triptitude.Biz.Models
                     : DefaultTrip.PackingListItems.Select(pli => pli.ItemTag.Item).Distinct();
             }
         }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+                       {
+                           Email = Email,
+                           DefaultTripID = DefaultTrip.Id,
+                           Trips = Trips.Select(t => t.Json(forUser))
+                       };
+        }
     }
 
     public class History
@@ -198,6 +208,16 @@ namespace Triptitude.Biz.Models
                 return string.Format("Day {0}", dayNumer);
             }
         }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+            {
+                ID = Id,
+                Name,
+                Activities = NonDeletedActivities.Select(a => a.Json(forUser))
+            };
+        }
     }
 
     #region Activities
@@ -274,6 +294,33 @@ namespace Triptitude.Biz.Models
 
                 return string.Join(", ", parts);
             }
+        }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+                       {
+                           ID = Id,
+                           Title = Title,
+                           IsTransportation,
+                           BeginAt = BeginAt.HasValue ? BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
+                           EndAt = EndAt.HasValue ? EndAt.Value.ToString("MM/dd/yy") : string.Empty,
+                           TransportationTypeName = TransportationType == null ? string.Empty : TransportationType.Name,
+                           SourceURL = SourceURL,
+                           Trip = new
+                                      {
+                                          ID = Trip.Id,
+                                          Trip.Name,
+                                          UserOwnsTrip = forUser.OwnsTrips(Trip)
+                                      },
+                           Places = from p in ActivityPlaces
+                                    select new
+                                    {
+                                        p.SortIndex,
+                                        p.Place.Id,
+                                        p.Place.Name
+                                    }
+                       };
         }
     }
 

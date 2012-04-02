@@ -68,13 +68,26 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            Trip trip = new TripsRepo().Find(id);
+            var trip = repo.Find(id);
+            if (Request.IsAjaxRequest())
+                return Json(trip.Json(CurrentUser), JsonRequestBehavior.AllowGet);
+
+            //TODO: is this still needed?
             if (trip == null) return HttpNotFound();
 
             ViewBag.Trip = trip;
             ViewBag.CurrentUser = CurrentUser;
             return View();
         }
+
+        //public JsonResult Find(int activity_id)
+        //{
+        //    var activity = new ActivitiesRepo().Find(activity_id);
+        //    var trip = activity.Trip;
+        //    var json = trip.Json(CurrentUser);
+
+        //    return Json(json, JsonRequestBehavior.AllowGet);
+        //}
 
         // partial only
         public ActionResult DayDetails(Trip trip, int? dayNumber)

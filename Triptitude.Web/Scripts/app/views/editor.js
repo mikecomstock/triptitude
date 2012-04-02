@@ -40,8 +40,7 @@
 TT.Views.Editor.Header = Backbone.View.extend({
     tagName: 'header',
     render: function () {
-        var currentTrip = this.model.getCurrentTrip();
-        var tripName = currentTrip.get('Name');
+        var tripName = this.model.get('Name');
         $('<h1>').text(tripName).appendTo(this.el);
         if (this.model.get('Email'))
             $('<p>').text(this.model.get('Email')).appendTo(this.el);
@@ -56,7 +55,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.ActivityForm = new TT.Views.Editor.ActivityForm();
         this.activityList = $(this.make('ul', { class: 'activities' }));
 
-        this.activities = this.model.getCurrentTrip().get('Activities');
+        this.activities = this.model.get('Activities');
         this.editing = this.options.edit || this.activities.first();
 
         this.activities.on('destroy', this.activityDestroyed, this);
