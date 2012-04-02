@@ -32,11 +32,13 @@
 
 #editor-itinerary .activity-form {
 	@include clearfix; float: right; width: 705px; margin-right: 20px;
-	label { width: 70px; display: block; float: left; text-align:right; padding: 3px 10px 3px 0; margin: 2px 0; }
+	label { width: 70px; display: block; float: left; text-align:right; padding: 3px 10px 3px 0; margin: 2px 0; color: #555; }
 	> p {
 		@include clearfix;
 		&.title {
-			input { width: 600px; }
+			margin-bottom: 30px;
+			label { float: none; display: inline; width: auto; }
+			input { width: 100%; display: block; font-size: 24px; }
 		}
 		&.when {
 			input { width: 100px; margin-right: 8px; }

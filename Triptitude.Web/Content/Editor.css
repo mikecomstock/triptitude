@@ -156,7 +156,8 @@
     float: left;
     text-align: right;
     padding: 3px 10px 3px 0;
-    margin: 2px 0; }
+    margin: 2px 0;
+    color: #555; }
   #editor-itinerary .activity-form > p {
     zoom: 1; }
     #editor-itinerary .activity-form > p:before {
@@ -170,8 +171,16 @@
       zoom: 1;
       *display: inline;
       clear: both; }
-    #editor-itinerary .activity-form > p.title input {
-      width: 600px; }
+    #editor-itinerary .activity-form > p.title {
+      margin-bottom: 30px; }
+      #editor-itinerary .activity-form > p.title label {
+        float: none;
+        display: inline;
+        width: auto; }
+      #editor-itinerary .activity-form > p.title input {
+        width: 100%;
+        display: block;
+        font-size: 24px; }
     #editor-itinerary .activity-form > p.when input {
       width: 100px;
       margin-right: 8px; }

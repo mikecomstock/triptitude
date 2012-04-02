@@ -1,8 +1,12 @@
 ﻿(function () {
     var overlayId = 'triptitude_overlay';
+    var contentId = 'triptitude_content';
 
-    var existing = document.getElementById(overlayId);
-    if (existing) existing.parentNode.removeChild(existing);
+    var existingOverlay = document.getElementById(overlayId);
+    if (existingOverlay) existingOverlay.parentNode.removeChild(existingOverlay);
+
+    var existingContent = document.getElementById(contentId);
+    if (existingContent) existingContent.parentNode.removeChild(existingContent);
 
     var close = function () {
         overlay.parentNode.removeChild(overlay);
@@ -16,6 +20,7 @@
     document.body.appendChild(overlay);
 
     var contentContainer = document.createElement('div');
+    contentContainer.setAttribute('id', contentId);
     contentContainer.style.cssText = 'position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 960px; margin: 60px auto 0 auto; z-index: 8675311;';
     document.body.appendChild(contentContainer);
 

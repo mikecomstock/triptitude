@@ -112,10 +112,11 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     initialize: function () {
 
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title' }));
+        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
+        
         this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date' }));
         this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
-        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
-
+        
         this.SaveButton = $(this.make('button', { type: 'submit', class: 'save' }, 'Save'));
         this.DeleteButton = $(this.make('button', { type: 'submit', class: 'delete' }, 'Delete'));
 
@@ -128,11 +129,10 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         var self = this;
 
         this.model.set('Title', this.TitleInput.val());
+        this.model.set('SourceURL', this.SourceURLInput.val());
         this.model.set('BeginAt', this.BeginDateInput.val());
         this.model.set('EndAt', this.EndDateInput.val());
-        this.model.set('SourceURL', this.SourceURLInput.val());
 
-        //console.log('saving model', this.model);
         this.model.save(null, {
             success: function () {
                 var msg = $(self.make('div', { class: 'msg success' }, "Activity Saved!")).appendTo(self.el);
@@ -145,7 +145,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         });
     },
     destroy: function () {
-        //console.log('destroying model', this.model);
         this.model.destroy();
     },
     render: function () {
@@ -160,6 +159,11 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         p.Title = newP('title');
         $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
+
+        p.SourceURL = newP('source-url');
+        var sourceURL = this.model.get('SourceURL');
+        $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
+        this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
 
         p.When = newP('when');
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When')).appendTo(p.When);
@@ -177,11 +181,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         };
         this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', beginDate);
         this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
-
-        p.SourceURL = newP('source-url');
-        var sourceURL = this.model.get('SourceURL');
-        $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
-        this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
 
         var buttonContainer = $(this.make('div', { 'class': 'buttons' })).appendTo(this.el);
         this.SaveButton.appendTo(buttonContainer);
