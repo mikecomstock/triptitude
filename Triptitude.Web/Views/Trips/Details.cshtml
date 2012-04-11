@@ -7,7 +7,7 @@
     bool Editing = currentUser.DefaultTrip == trip;
 }
 @section Scripts {
-    <script type="text/javascript" charset="utf-8">
+    @*<script type="text/javascript" charset="utf-8">
         $(function () {
             var tripId = $('#trip-map-container').data('trip-id');
             $.get('/maps/trip/' + tripId, function (mapData) {
@@ -21,7 +21,7 @@
 
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
         });
-    </script>
+    </script>*@
 }
 <article class="@(Editing ? "editing" : string.Empty)">
     <header>

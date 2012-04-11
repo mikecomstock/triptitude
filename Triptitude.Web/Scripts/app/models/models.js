@@ -30,7 +30,10 @@
 
 TT.Collections.Activities = Backbone.Collection.extend({
     model: TT.Models.Activity,
-    url: '/activities'
+    url: '/activities',
+    comparator: function (activity) {
+        return activity.get('OrderNumber');
+    }
 });
 
 TT.Models.Place = Backbone.Model.extend({

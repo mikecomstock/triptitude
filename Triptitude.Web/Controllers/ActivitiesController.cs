@@ -54,6 +54,7 @@ namespace Triptitude.Web.Controllers
             public string Title { get; set; }
             public DateTime? BeginAt { get; set; }
             public DateTime? EndAt { get; set; }
+            public int OrderNumber { get; set; }
             public string SourceURL { get; set; }
         }
 
@@ -67,29 +68,31 @@ namespace Triptitude.Web.Controllers
             activity.Title = form.Title;
             activity.BeginAt = form.BeginAt;
             activity.EndAt = form.EndAt;
+            activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
             activitiesRepo.Save();
 
             ////todo: only return public properties
-            var a = activity;
-            var result = new
-            {
-                ID = a.Id,
-                Title = a.Title,
-                a.IsTransportation,
-                BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
-                EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
-                TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
-                SourceURL = a.SourceURL,
-                Places = from p in a.ActivityPlaces
-                         select new
-                         {
-                             p.SortIndex,
-                             p.Place.Id,
-                             p.Place.Name
-                         }
-            };
-            return Json(result);
+            return Json(activity.Json(CurrentUser));
+            //var a = activity;
+            //var result = new
+            //{
+            //    ID = a.Id,
+            //    Title = a.Title,
+            //    a.IsTransportation,
+            //    BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
+            //    EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
+            //    TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
+            //    SourceURL = a.SourceURL,
+            //    Places = from p in a.ActivityPlaces
+            //             select new
+            //             {
+            //                 p.SortIndex,
+            //                 p.Place.Id,
+            //                 p.Place.Name
+            //             }
+            //};
+            //return Json(result);
         }
 
 
@@ -100,6 +103,7 @@ namespace Triptitude.Web.Controllers
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             activity.Deleted = true;
+            activity.OrderNumber = 0;
             activitiesRepo.Save();
 
             new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Activities, activity.Id);

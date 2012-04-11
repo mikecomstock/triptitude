@@ -115,26 +115,27 @@
   height: 500px;
   overflow-y: auto;
   overflow-x: hidden; }
-  #editor-itinerary .activity-list li {
+  #editor-itinerary .activity-list .activity {
     background-color: #EEE;
     padding: 15px;
     position: relative; }
-    #editor-itinerary .activity-list li h4 {
-      margin: 0; }
-    #editor-itinerary .activity-list li.selected {
+    #editor-itinerary .activity-list .activity h4 {
+      margin: 0;
+      font-size: 12px;
+      font-weight: normal; }
+    #editor-itinerary .activity-list .activity.selected {
       background-color: #0190E9; }
-    #editor-itinerary .activity-list li.selected:after {
-      content: "";
-      width: 0;
-      height: 0;
-      border: 20px solid transparent;
-      border-left: 20px solid #0190E9;
-      position: absolute;
-      right: -35px;
-      top: 4px; }
-  #editor-itinerary .activity-list li:hover {
-    background-color: #0190E9;
-    cursor: pointer; }
+    #editor-itinerary .activity-list .activity:hover {
+      background-color: #0190E9;
+      cursor: pointer; }
+  #editor-itinerary .activity-list .date {
+    background-color: #F3ECB7;
+    padding: 3px 15px; }
+  #editor-itinerary .activity-list .sort-placeholder {
+    height: 50px;
+    background-color: #66C3FE; }
+  #editor-itinerary .activity-list .ui-sortable-helper {
+    opacity: 0.8; }
   #editor-itinerary .activity-list li + li {
     border-top: 1px dashed #AAA; }
 

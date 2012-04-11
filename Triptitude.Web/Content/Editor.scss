@@ -20,13 +20,19 @@
 #editor-itinerary { @include clearfix; overflow: hidden; }
 #editor-itinerary .activity-list {
 	float: left; width: 250px; height: 500px; overflow-y: auto; overflow-x: hidden;
-	li {
+	.activity {
 		background-color: #EEE; padding: 15px; position: relative;
-		h4 { margin: 0;  }
+		h4 { margin: 0; font-size: 12px; font-weight: normal; }
 		&.selected { background-color: #0190E9; }
-		&.selected:after { content:""; width: 0; height: 0; border: 20px solid transparent; border-left: 20px solid #0190E9; position: absolute; right:-35px; top:4px; }
+		&:hover { background-color: #0190E9; cursor: pointer; }
 	}
-	li:hover { background-color: #0190E9; cursor: pointer; }
+	.date {
+		background-color: #F3ECB7; padding: 3px 15px;
+	}
+	.sort-placeholder {
+		height: 50px; background-color: #66C3FE;
+	}
+	.ui-sortable-helper { opacity: 0.8; }
 	li + li { border-top: 1px dashed #AAA; }
 }
 

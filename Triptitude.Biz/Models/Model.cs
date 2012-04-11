@@ -163,9 +163,14 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<PackingListItem> PackingListItems { get; set; }
         public virtual ICollection<History> Histories { get; set; }
 
+        public IEnumerable<Activity> Ordered
+        {
+            get { return Activities.OrderBy(a => a.OrderNumber); }
+        }
+
         public IEnumerable<Activity> NonDeletedActivities
         {
-            get { return Activities.Where(a => !a.Deleted); }
+            get { return Activities.Where(a => !a.Deleted).OrderBy(a=>a.OrderNumber); }
         }
 
         public int TotalDays
@@ -234,6 +239,7 @@ namespace Triptitude.Biz.Models
         public int? EndDay { get; set; }
         public TimeSpan? EndTime { get; set; }
         public DateTime? EndAt { get; set; }
+        public int OrderNumber { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public string TagString { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
@@ -308,6 +314,7 @@ namespace Triptitude.Biz.Models
                            TransportationTypeName = TransportationType == null ? string.Empty : TransportationType.Name,
                            SourceURL = SourceURL,
                            TagString,
+                           OrderNumber,
                            Trip = new
                                       {
                                           ID = Trip.Id,
