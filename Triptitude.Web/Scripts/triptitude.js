@@ -95,15 +95,20 @@ $(function () {
         $('<div id="editor-close">').text('×').attr('title', 'Close').on('click', close).appendTo(editorContent);
         var editorElement = $('<div id="editor">').appendTo(editorContent);
         editorElement.text('loading...');
-        
+
         var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: trip, edit: activity });
         editor.render();
     };
 
+
     $('.activity').live('click', function (e) {
+
+        if ($(this).parents('#editor').length > 0) return;
+
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             var activity = new TT.Models.Activity({ ID: activityId });
+            console.log('activity to fetch:', activity, 'with id:', activityId);
             activity.fetch({
                 success: function (model, response) {
                     //console.log('activity.fetch success', 'model', model, 'response', response);

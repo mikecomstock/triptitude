@@ -1,37 +1,25 @@
 ﻿TT.Views.Editor.Main = Backbone.View.extend({
     id: 'editor',
     initialize: function () {
-
         this.Header = new TT.Views.Editor.Header({ model: this.model });
-
         this.Tabs = {
             Itinerary: new TT.Views.Editor.Itinerary({ model: this.model, edit: this.options.edit }),
             PackingList: new TT.Views.Editor.PackingList({ model: this.model }),
             Settings: new TT.Views.Editor.Settings({ model: this.model })
         };
-
         this.CurrentTab = this.Tabs.Itinerary;
-
     },
-    //    edit: function (activity) {
-    //        // TODO: add code to switch to the Itinerary tab
-    //        this.Tabs.Itinerary.edit(activity);
-    //    },
     render: function () {
-
+        var self = this;
         this.$el.empty();
-
         this.$el.append(this.Header.render().el);
 
         var tabContainer = $(this.make('div', { class: 'tab-container' })).appendTo(this.el);
-
         _.each(this.Tabs, function (tab) {
             tab.render();
-            tab.$el.hide();
+            if (tab != self.CurrentTab) tab.$el.hide();
             tabContainer.append(tab.el);
         });
-
-        this.CurrentTab.$el.show();
 
         return this;
     }
@@ -42,8 +30,6 @@ TT.Views.Editor.Header = Backbone.View.extend({
     render: function () {
         var tripName = this.model.get('Name');
         $('<h1>').text(tripName).appendTo(this.el);
-        if (this.model.get('Email'))
-            $('<p>').text(this.model.get('Email')).appendTo(this.el);
         return this;
     }
 });
@@ -82,7 +68,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 this.editing = this.activities.at(options.index - 1);
             else
                 this.editing = null;
-            
+
             this.renderForm();
         }
 
@@ -95,7 +81,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.ActivityForm.render().$el.appendTo(this.el);
     },
     render: function () {
-        console.log('render');
         this.renderForm();
         this.renderActivityList();
 
@@ -105,7 +90,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     },
     renderActivityList: function () {
         var top = this.activityList.scrollTop();
-        console.log('top', top);
         this.activityList.empty();
         var self = this;
         this.activities.each(function (activity) {
@@ -117,14 +101,10 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 li.addClass('selected');
         });
         this.activityList.prependTo(this.el);
-        console.log('restoring top to', top);
         this.activityList.scrollTop(top);
     },
     scrollToActive: function () {
-        console.log('now scroll...');
         var editingElement = this.activityList.find('.selected');
-        console.log('editingElement', editingElement);
-        console.log('offset', editingElement.offset().top - 300);
         this.activityList.scrollTop(editingElement.offset().top - 300);
     }
 });
