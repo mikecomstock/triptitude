@@ -13,10 +13,10 @@
         this.CurrentTab = this.Tabs.Itinerary;
 
     },
-    edit: function (activity) {
-        // TODO: add code to switch to the Itinerary tab
-        this.Tabs.Itinerary.edit(activity);
-    },
+    //    edit: function (activity) {
+    //        // TODO: add code to switch to the Itinerary tab
+    //        this.Tabs.Itinerary.edit(activity);
+    //    },
     render: function () {
 
         this.$el.empty();
@@ -53,13 +53,15 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     initialize: function () {
 
         this.ActivityForm = new TT.Views.Editor.ActivityForm();
-        this.activityList = $(this.make('ul', { class: 'activities' }));
+        this.activityList = $(this.make('ul', { class: 'activity-list' }));
 
         this.activities = this.model.get('Activities');
         this.editing = this.options.edit || this.activities.first();
 
-        this.activities.on('destroy', this.activityDestroyed, this);
+        this.activities.on('remove', this.activityRemoved, this);
         this.activities.on('change', this.renderActivityList, this);
+
+        _.bindAll(this);
     },
     events: {
         'click .activity': 'activitySelected'
@@ -71,11 +73,19 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.editing = activity;
         this.renderForm();
     },
-    activityDestroyed: function (activity) {
+    activityRemoved: function (activity, collection, options) {
+        activity.destroy();
         if (activity == this.editing) {
-            this.editing = this.activities.last();
+            if (this.activities.at(options.index))
+                this.editing = this.activities.at(options.index);
+            else if (this.activities.at(options.index - 1))
+                this.editing = this.activities.at(options.index - 1);
+            else
+                this.editing = null;
+            
             this.renderForm();
         }
+
         this.renderActivityList();
     },
     renderForm: function () {
@@ -88,11 +98,14 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         console.log('render');
         this.renderForm();
         this.renderActivityList();
+
+        setTimeout(this.scrollToActive, 50);
+
         return this;
     },
     renderActivityList: function () {
-        //console.log('renderactivitylist');
-
+        var top = this.activityList.scrollTop();
+        console.log('top', top);
         this.activityList.empty();
         var self = this;
         this.activities.each(function (activity) {
@@ -104,6 +117,15 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 li.addClass('selected');
         });
         this.activityList.prependTo(this.el);
+        console.log('restoring top to', top);
+        this.activityList.scrollTop(top);
+    },
+    scrollToActive: function () {
+        console.log('now scroll...');
+        var editingElement = this.activityList.find('.selected');
+        console.log('editingElement', editingElement);
+        console.log('offset', editingElement.offset().top - 300);
+        this.activityList.scrollTop(editingElement.offset().top - 300);
     }
 });
 
@@ -113,13 +135,16 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title' }));
         this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
-        
+
         this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date' }));
         this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
-        
+
+        this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
+        this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
+        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', placeholder: 'add a note...' }));
+
         this.SaveButton = $(this.make('button', { type: 'submit', class: 'save' }, 'Save'));
         this.DeleteButton = $(this.make('button', { type: 'submit', class: 'delete' }, 'Delete'));
-
     },
     events: {
         'click .save': 'save',
@@ -145,23 +170,29 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         });
     },
     destroy: function () {
-        this.model.destroy();
+        this.model.collection.remove(this.model);
     },
     render: function () {
         var self = this;
+
+        if (!this.model) {
+            this.$el.html('<h1>No Activity Selected!</h1>');
+            return this;
+        }
+
         var decodedTitle = $('<div>').html(this.model.get('Title')).text();
         var beginDate = this.model.get('BeginAt');
         var endDate = this.model.get('EndAt');
 
         var p = {};
-        var newP = function (cssClass) { return $('<p>').appendTo(self.el).addClass(cssClass); };
+        var newP = function (cssClass) { return $('<div>').appendTo(self.el).addClass(cssClass); };
 
         p.Title = newP('title');
         $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
 
         p.SourceURL = newP('source-url');
-        var sourceURL = this.model.get('SourceURL');
+        var sourceURL = this.model.get('SourceURL') || '';
         $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
         this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
 
@@ -169,7 +200,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When')).appendTo(p.When);
         var options = {
             onSelect: function (selectedDate) {
-                console.log('onSelect', this);
                 var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
                     instance = $(this).data("datepicker"),
                     date = $.datepicker.parseDate(
@@ -181,6 +211,37 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         };
         this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', beginDate);
         this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
+
+        p.Tags = newP('tags');
+        $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);
+        this.TagsInput.val(this.model.get('TagString') || '').appendTo(p.Tags);
+
+        p.Places = newP('places');
+        $(self.make('label', { 'for': '' }, 'Places')).appendTo(p.Places);
+        var placesUL = $(this.make('ul')).appendTo(p.Places);
+        var places = this.model.get('Places');
+        places.each(function (place) {
+            $(self.make('li')).text(place.get('Name')).appendTo(placesUL);
+        });
+        var placeInputLI = $('<li>').append(this.PlacesInput.val('')).appendTo(placesUL);
+        this.PlacesInput.on('keydown', function (e) {
+            if (e.which != 13) return;
+            var placeText = self.PlacesInput.val();
+            $(self.make('li')).text(placeText).insertBefore(placeInputLI);
+            self.PlacesInput.val('');
+        });
+
+        p.Notes = newP('notes');
+        $(self.make('label', { 'for': this.NotesInput.attr('id') }, 'Notes')).appendTo(p.Notes);
+        var NotesUL = $(this.make('ul')).appendTo(p.Notes);
+        var Notes = this.model.get('Notes');
+        var noteLITemplate = '<a class="who" href="/users/<%= note.get("User").ID %>" target="blank"><%= note.get("User").Email %></a> <div><%= note.get("Text") %></div>';
+        Notes.each(function (note) {
+            var noteHTML = _.template(noteLITemplate, { note: note });
+            $(self.make('li', null, noteHTML)).appendTo(NotesUL);
+        });
+
+        $('<li>').append(this.NotesInput.val('')).appendTo(NotesUL);
 
         var buttonContainer = $(this.make('div', { 'class': 'buttons' })).appendTo(this.el);
         this.SaveButton.appendTo(buttonContainer);

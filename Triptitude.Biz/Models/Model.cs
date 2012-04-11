@@ -307,6 +307,7 @@ namespace Triptitude.Biz.Models
                            EndAt = EndAt.HasValue ? EndAt.Value.ToString("MM/dd/yy") : string.Empty,
                            TransportationTypeName = TransportationType == null ? string.Empty : TransportationType.Name,
                            SourceURL = SourceURL,
+                           TagString,
                            Trip = new
                                       {
                                           ID = Trip.Id,
@@ -319,7 +320,20 @@ namespace Triptitude.Biz.Models
                                         p.SortIndex,
                                         p.Place.Id,
                                         p.Place.Name
-                                    }
+                                    },
+                           Notes = from n in Notes
+                                   select new
+                                              {
+                                                  ID = n.Id,
+                                                  n.Text,
+                                                  n.Public,
+                                                  n.Created_On,
+                                                  User = new
+                                                                    {
+                                                                        n.User.Email,
+                                                                        ID = n.User.Id
+                                                                    }
+                                              }
                        };
         }
     }
@@ -420,6 +434,18 @@ namespace Triptitude.Biz.Models
         public DateTime Created_On { get; set; }
         public string Text { get; set; }
         public bool Public { get; set; }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+                       {
+                           User = User.Json(forUser),
+                           Text,
+                           Created_On,
+                           Public,
+                           Id
+                       };
+        }
     }
 
     public class Tag

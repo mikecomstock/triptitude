@@ -2,17 +2,13 @@
     idAttribute: 'ID',
     urlRoot: '/activities',
     initialize: function () {
-        //this.parse();
-        //        var placeCollection = new TT.Collections.Places(this.get('Places'));
-        //        this.set('Places', placeCollection);
+        this.set('Places', new TT.Collections.Places(this.get('Places')));
+        this.set('Notes', new TT.Collections.Notes(this.get('Notes')));
     },
     parse: function (resp, xhr) {
+        resp.Places = new TT.Collections.Places(resp.Places);
+        resp.Notes = new TT.Collections.Notes(resp.Notes);
         console.log('activity.parse', 'resp:', resp, 'xhr:', xhr);
-
-        //        var placeCollection = new TT.Collections.Places(resp.Places);
-        //        this.set('Places', placeCollection);
-
-        //        delete resp.Places;
         return resp;
     },
     createTitle: function () {
@@ -21,10 +17,11 @@
 
         if (this.get('IsTransportation')) {
             var title = this.get('TransportationTypeName') ? this.get('TransportationTypeName') : 'Transportation';
-            this.get('Places').each(function (place) {
-                title += place.get('SortIndex') == 0 ? ' from ' : ' to ';
-                title += place.get('Name');
-            });
+            if (this.has('Places'))
+                this.get('Places').each(function (place) {
+                    title += place.get('SortIndex') == 0 ? ' from ' : ' to ';
+                    title += place.get('Name');
+                });
             return title;
         }
         return 'created title';
@@ -41,6 +38,9 @@ TT.Models.Place = Backbone.Model.extend({
 });
 
 TT.Collections.Places = Backbone.Collection.extend({ model: TT.Models.Place });
+
+TT.Models.Note = Backbone.Model.extend({ idAttribute: 'ID' });
+TT.Collections.Notes = Backbone.Collection.extend({ model: TT.Models.Note });
 
 TT.Models.Trip = Backbone.Model.extend({
     idAttribute: 'ID',

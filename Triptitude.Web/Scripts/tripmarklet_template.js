@@ -25,7 +25,7 @@
     document.body.appendChild(contentContainer);
 
     var c = document.createElement('div');
-    c.style.cssText = 'position: absolute; right: -8px; top: -8px; z-index: 8675312; cursor: pointer; font-family: Tahoma,Arial,sans-serif; font-size: 22px; height: 22px; width: 22px; line-height: 21px; text-align: center; font-weight: bold; font-style: normal; color: #FFF; background-color: #A00; border: 1px solid #700; box-shadow: 1px 1px 5px #888; border-radius: 50px; display: block;';
+    c.style.cssText = 'position: absolute; right: -8px; top: -8px; z-index: 8675312; cursor: pointer; font-family: Tahoma,Arial,sans-serif; font-size: 22px; height: 22px; width: 22px; line-height: 21px; text-align: center; font-weight: bold; font-style: normal; color: #FFF; background-color: #A00; border: 2px solid #700; box-shadow: 1px 1px 5px #888; border-radius: 50px; display: block;';
     c.textContent = '×';
     c.setAttribute('title', 'Close');
     c.onclick = close;

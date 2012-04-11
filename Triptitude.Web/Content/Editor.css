@@ -33,7 +33,7 @@
   font-style: normal;
   color: #FFF;
   background-color: #A00;
-  border: 1px solid #700;
+  border: 2px solid #700;
   box-shadow: 1px 1px 5px #888;
   border-radius: 50px;
   display: block; }
@@ -95,7 +95,8 @@
     margin: 0; }
 
 #editor-itinerary {
-  zoom: 1; }
+  zoom: 1;
+  overflow: hidden; }
   #editor-itinerary:before {
     display: table;
     content: "";
@@ -108,18 +109,21 @@
     *display: inline;
     clear: both; }
 
-#editor-itinerary .activities {
+#editor-itinerary .activity-list {
   float: left;
-  width: 200px; }
-  #editor-itinerary .activities li {
+  width: 250px;
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  #editor-itinerary .activity-list li {
     background-color: #EEE;
     padding: 15px;
     position: relative; }
-    #editor-itinerary .activities li h4 {
+    #editor-itinerary .activity-list li h4 {
       margin: 0; }
-    #editor-itinerary .activities li.selected {
+    #editor-itinerary .activity-list li.selected {
       background-color: #0190E9; }
-    #editor-itinerary .activities li.selected:after {
+    #editor-itinerary .activity-list li.selected:after {
       content: "";
       width: 0;
       height: 0;
@@ -128,17 +132,20 @@
       position: absolute;
       right: -35px;
       top: 4px; }
-  #editor-itinerary .activities li:hover {
+  #editor-itinerary .activity-list li:hover {
     background-color: #0190E9;
     cursor: pointer; }
-  #editor-itinerary .activities li + li {
+  #editor-itinerary .activity-list li + li {
     border-top: 1px dashed #AAA; }
 
 #editor-itinerary .activity-form {
   zoom: 1;
   float: right;
-  width: 705px;
-  margin-right: 20px; }
+  width: 660px;
+  padding-right: 20px;
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden; }
   #editor-itinerary .activity-form:before {
     display: table;
     content: "";
@@ -158,34 +165,56 @@
     padding: 3px 10px 3px 0;
     margin: 2px 0;
     color: #555; }
-  #editor-itinerary .activity-form > p {
-    zoom: 1; }
-    #editor-itinerary .activity-form > p:before {
+  #editor-itinerary .activity-form > div {
+    zoom: 1;
+    margin: 15px 0; }
+    #editor-itinerary .activity-form > div:before {
       display: table;
       content: "";
       zoom: 1;
       *display: inline; }
-    #editor-itinerary .activity-form > p:after {
+    #editor-itinerary .activity-form > div:after {
       display: table;
       content: "";
       zoom: 1;
       *display: inline;
       clear: both; }
-    #editor-itinerary .activity-form > p.title {
+    #editor-itinerary .activity-form > div.title {
       margin-bottom: 30px; }
-      #editor-itinerary .activity-form > p.title label {
+      #editor-itinerary .activity-form > div.title label {
         float: none;
         display: inline;
         width: auto; }
-      #editor-itinerary .activity-form > p.title input {
+      #editor-itinerary .activity-form > div.title input {
         width: 100%;
         display: block;
-        font-size: 24px; }
-    #editor-itinerary .activity-form > p.when input {
+        font-size: 28px; }
+    #editor-itinerary .activity-form > div.when input {
       width: 100px;
       margin-right: 8px; }
-    #editor-itinerary .activity-form > p.source-url input {
-      width: 600px; }
+    #editor-itinerary .activity-form > div.tags input {
+      width: 550px; }
+    #editor-itinerary .activity-form > div.source-url input {
+      width: 550px; }
+    #editor-itinerary .activity-form > div.places > ul {
+      float: left; }
+      #editor-itinerary .activity-form > div.places > ul > li {
+        margin: 5px 0; }
+    #editor-itinerary .activity-form > div.notes label {
+      float: none;
+      display: inline;
+      width: auto; }
+    #editor-itinerary .activity-form > div.notes > ul > li {
+      margin: 5px 0; }
+      #editor-itinerary .activity-form > div.notes > ul > li .who {
+        float: left;
+        background-color: #999;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        padding: 0 2px;
+        margin-right: 5px;
+        color: #FFF; }
   #editor-itinerary .activity-form .buttons {
     clear: both;
     margin-top: 100px; }

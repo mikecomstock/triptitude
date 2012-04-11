@@ -13,7 +13,7 @@ function SetBindings() {
 $(function () {
 
     moveScroller();
-    SetBindings();
+    //SetBindings();
 
     $('.place-search-input').each(function () {
         var v = new TT.Views.PlaceSearchInput({ el: this });
@@ -106,19 +106,19 @@ $(function () {
             var activity = new TT.Models.Activity({ ID: activityId });
             activity.fetch({
                 success: function (model, response) {
-                    console.log('activity.fetch success', 'model', model, 'response', response);
+                    //console.log('activity.fetch success', 'model', model, 'response', response);
                     var userOwnsTrip = model.get('Trip').UserOwnsTrip;
-                    console.log('userOwnsTrip?', userOwnsTrip);
+                    //console.log('userOwnsTrip?', userOwnsTrip);
                     if (userOwnsTrip) {
                         var trip = new TT.Models.Trip({ ID: activity.get('Trip').ID });
-                        console.log('user owns trip, so now going to load trip', trip);
+                        //console.log('user owns trip, so now going to load trip', trip);
 
                         trip.fetch({
                             success: function (model, response) {
-                                console.log('trip.fetch success', model);
+                                console.log('trip.fetch success, results is:', model);
 
                                 var editing = model.get('Activities').get(activityId);
-                                console.log('editing:', editing, 'for trip:', model);
+                                console.log('editing activity:', editing, 'for trip:', model);
                                 openEditor(model, editing);
 
 

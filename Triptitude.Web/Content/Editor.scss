@@ -2,7 +2,7 @@
 
 #editor-overlay { position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 8675310; background-color: rgba(242,242,242,0.7); }
 #editor-container { position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 960px; margin: 60px auto 0 auto; z-index: 8675311; }
-#editor-close { position: absolute; right: -8px; top: -8px; z-index: 8675312; cursor: pointer; font-family: Tahoma,Arial,sans-serif; font-size: 22px; height: 22px; width: 22px; line-height: 21px; text-align: center; font-weight: bold; font-style: normal; color: #FFF; background-color: #A00; border: 1px solid #700; box-shadow: 1px 1px 5px #888; border-radius: 50px; display: block; }
+#editor-close { position: absolute; right: -8px; top: -8px; z-index: 8675312; cursor: pointer; font-family: Tahoma,Arial,sans-serif; font-size: 22px; height: 22px; width: 22px; line-height: 21px; text-align: center; font-weight: bold; font-style: normal; color: #FFF; background-color: #A00; border: 2px solid #700; box-shadow: 1px 1px 5px #888; border-radius: 50px; display: block; }
 
 #editor {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; background-color: #FFF; margin: 0; border: 5px dashed #AAA;
@@ -17,9 +17,9 @@
 }
 
 
-#editor-itinerary { @include clearfix; }
-#editor-itinerary .activities {
-	float: left; width: 200px;
+#editor-itinerary { @include clearfix; overflow: hidden; }
+#editor-itinerary .activity-list {
+	float: left; width: 250px; height: 500px; overflow-y: auto; overflow-x: hidden;
 	li {
 		background-color: #EEE; padding: 15px; position: relative;
 		h4 { margin: 0;  }
@@ -31,20 +31,38 @@
 }
 
 #editor-itinerary .activity-form {
-	@include clearfix; float: right; width: 705px; margin-right: 20px;
+	@include clearfix; float: right; width: 660px; padding-right: 20px; height: 500px; overflow-y: auto; overflow-x: hidden;
 	label { width: 70px; display: block; float: left; text-align:right; padding: 3px 10px 3px 0; margin: 2px 0; color: #555; }
-	> p {
-		@include clearfix;
+	> div {
+		@include clearfix; margin: 15px 0;
 		&.title {
 			margin-bottom: 30px;
 			label { float: none; display: inline; width: auto; }
-			input { width: 100%; display: block; font-size: 24px; }
+			input { width: 100%; display: block; font-size: 28px; }
 		}
 		&.when {
 			input { width: 100px; margin-right: 8px; }
 		}
+		&.tags {
+			input { width: 550px; }
+		}
 		&.source-url {
-			input { width: 600px; }
+			input { width: 550px; }
+		}
+		&.places {
+			> ul {
+				float: left;
+				> li { margin: 5px 0;  }
+			}
+		}
+		&.notes {
+			label { float: none; display: inline; width: auto; }
+			> ul {
+				> li {
+					margin: 5px 0;
+					.who { float: left; background-color: #999; @include border-radius(3px); padding: 0 2px; margin-right: 5px; color: #FFF; }
+				}
+			}
 		}
 	}
 	.buttons { clear: both; margin-top: 100px; }
