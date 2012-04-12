@@ -13,7 +13,7 @@ function SetBindings() {
 $(function () {
 
     moveScroller();
-    //SetBindings();
+    SetBindings();
 
     $('.place-search-input').each(function () {
         var v = new TT.Views.PlaceSearchInput({ el: this });
@@ -108,7 +108,7 @@ $(function () {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             var activity = new TT.Models.Activity({ ID: activityId });
-            console.log('activity to fetch:', activity, 'with id:', activityId);
+//            console.log('activity to fetch:', activity, 'with id:', activityId);
             activity.fetch({
                 success: function (model, response) {
                     //console.log('activity.fetch success', 'model', model, 'response', response);
@@ -121,12 +121,9 @@ $(function () {
                         trip.fetch({
                             success: function (model, response) {
                                 console.log('trip.fetch success, results is:', model);
-
                                 var editing = model.get('Activities').get(activityId);
                                 console.log('editing activity:', editing, 'for trip:', model);
                                 openEditor(model, editing);
-
-
                             },
                             error: function (model, response) {
                                 console.log('error!', 'model:', model, 'response:', response);

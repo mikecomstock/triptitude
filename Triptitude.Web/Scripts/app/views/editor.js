@@ -102,24 +102,24 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         var top = this.activityList.scrollTop();
         this.activityList.empty();
 
-        var lastDate = null;
-        this.activities.sort().each(function (activity) {
+        var dates = this.activities.dates();
+        _.each(dates, function (date) {
+            var dateLi = $(this.make('li', { class: 'date' })).appendTo(this.activityList);
+            var dateText = date ? TT.Util.FormatDate(date) : 'Unscheduled Activities';
+            dateLi.text(dateText + ' - ' + $.datepicker.formatDate('D', date));
 
-            var date = activity.get('BeginAt');
-            if (date != lastDate) {
-                var dateLi = $(self.make('li', { class: 'date' })).appendTo(self.activityList);
-                var dateText = date || 'Not Scheduled';
-                dateLi.text(dateText);
-                lastDate = date;
-            }
+            var dateActivities = self.activities.onDate(date);
+            _.sortBy(dateActivities, function (a) { return a.get('OrderNumber'); });
+            _.each(dateActivities, function (activity) {
+                var li = $(this.make('li', { class: 'activity' })).appendTo(this.activityList);
+                li.data('activity', activity);
+                li.append(this.make('h4', null, activity.createTitle() + '- order ' + activity.get('OrderNumber')));
 
-            var li = $(self.make('li', { class: 'activity' })).appendTo(self.activityList);
-            li.data('activity', activity);
-            li.append(self.make('h4', null, activity.createTitle() + '- order ' + activity.get('OrderNumber')));
+                if (activity == self.editing)
+                    li.addClass('selected');
+            }, this);
 
-            if (activity == self.editing)
-                li.addClass('selected');
-        });
+        }, this);
 
         this.activityList.prependTo(this.el);
         this.activityList.scrollTop(top);
@@ -145,7 +145,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     initialize: function () {
-        console.log('1 callbacks', this._callbacks);
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title' }));
         this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
 
