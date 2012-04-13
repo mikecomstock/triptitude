@@ -40,6 +40,8 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.activityList = $(this.make('ul', { 'class': 'activity-list' }))
             .sortable({ placeholder: 'sort-placeholder' });
 
+        this.AddToTripButton = $(this.make('div', { 'class': 'add-activity' }, '+ Add an Activity'));
+
         this.activities = this.model.get('Activities').on('remove', this.activityRemoved, this);
         this.editing = this.options.edit || this.activities.first();
 
@@ -47,6 +49,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     },
     events: {
         'click .activity': 'activitySelected',
+        'click .add-activity': 'addActivity',
         'sortupdate': 'sortUpdate'
     },
     activitySelected: function (e) {
@@ -65,7 +68,15 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
         this.renderActivityList();
     },
+    addActivity: function () {
+        var newActivity = new TT.Models.Activity({ TripID: this.model.id });
+        this.model.get('Activities').add(newActivity).moveToEnd(newActivity);
+        this.editing = newActivity;
+        this.renderActivityList();
+        this.renderForm();
+    },
     render: function () {
+        this.AddToTripButton.prependTo(this.el);
         this.renderForm();
         this.renderActivityList();
         setTimeout(this.scrollToActive, 50);
@@ -77,7 +88,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
         this.ActivityForm = new TT.Views.Editor.ActivityForm({ model: this.editing })
             .on('activitysaved', this.renderActivityList)
-            .render().$el.appendTo(this.el);
+            .render().$el.prependTo(this.el);
     },
     renderActivityList: function () {
         var self = this;
@@ -98,7 +109,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
             _.each(dateActivities, function (activity) {
                 var li = $(this.make('li', { 'class': 'activity' })).appendTo(this.activityList);
                 li.data('activity', activity);
-                li.append(this.make('h4', null, activity.createTitle() + '- order ' + activity.get('OrderNumber')));
+                li.append(this.make('h4', null, activity.createTitle()));
 
                 if (activity == self.editing)
                     li.addClass('selected');
@@ -106,7 +117,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
         }, this);
 
-        this.activityList.prependTo(this.el);
+        this.activityList.insertAfter(this.AddToTripButton);
         this.activityList.scrollTop(top);
 
     },
@@ -140,15 +151,17 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     initialize: function () {
-        this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title' }));
+        this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', placeholder: 'enter a title for your activity' }));
         this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
 
         this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date' }));
         this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
 
-        this.model.on('change:BeginAt', function () {
-            this.BeginDateInput.datepicker('setDate', this.model.get('BeginAt'));
-        }, this);
+        if (this.model) {
+            this.model.on('change:BeginAt', function () {
+                this.BeginDateInput.datepicker('setDate', this.model.get('BeginAt'));
+            }, this);
+        }
 
         this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
         this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
@@ -197,7 +210,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     },
     render: function () {
         var self = this;
-
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');
             return this;
@@ -213,6 +225,9 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         p.Title = newP('title');
         $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
+        setTimeout(function () {
+            self.TitleInput.focus();
+        }, 50);
 
         p.SourceURL = newP('source-url');
         var sourceURL = this.model.get('SourceURL') || '';

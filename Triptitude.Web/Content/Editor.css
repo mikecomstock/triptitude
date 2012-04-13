@@ -76,8 +76,8 @@
       padding: 0; }
   #editor .tab-container {
     zoom: 1;
-    max-height: 500px;
-    overflow: auto; }
+    max-height: 536px;
+    overflow: hidden; }
     #editor .tab-container:before {
       display: table;
       content: "";
@@ -108,9 +108,19 @@
     zoom: 1;
     *display: inline;
     clear: both; }
+  #editor-itinerary > .add-activity {
+    float: left;
+    width: 250px;
+    height: 36px;
+    line-height: 36px;
+    border-right: 1px solid #CCC;
+    text-align: center;
+    background-color: #999;
+    cursor: pointer; }
 
 #editor-itinerary .activity-list {
   float: left;
+  clear: left;
   width: 250px;
   height: 500px;
   overflow-y: auto;
@@ -146,7 +156,7 @@
   float: right;
   width: 660px;
   padding-right: 20px;
-  height: 500px;
+  height: 536px;
   overflow-y: auto;
   overflow-x: hidden; }
   #editor-itinerary .activity-form:before {
@@ -220,7 +230,7 @@
         color: #FFF; }
   #editor-itinerary .activity-form .buttons {
     clear: both;
-    margin-top: 100px; }
+    margin-top: 20px; }
   #editor-itinerary .activity-form .msg.success {
     background-color: #E6EFC2;
     border: 1px solid #C6D880;

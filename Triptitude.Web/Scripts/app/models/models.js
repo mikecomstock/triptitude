@@ -1,7 +1,7 @@
 ﻿TT.Models.Activity = Backbone.Model.extend({
     idAttribute: 'ID',
     urlRoot: '/activities',
-    defaults: { 'OrderNumber': 0 },
+    defaults: { Title:'', 'OrderNumber': 0 },
     initialize: function () {
         this.set('BeginAt', TT.Util.ParseDate(this.get('BeginAt')));
         this.set('Places', new TT.Collections.Places(this.get('Places')));
@@ -27,7 +27,7 @@
                 });
             return title;
         }
-        return 'created title';
+        return 'Untitled Activity';
     }
 });
 

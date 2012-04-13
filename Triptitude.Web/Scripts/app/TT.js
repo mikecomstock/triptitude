@@ -7,7 +7,8 @@
             return $.datepicker.formatDate('MM dd, yy', date);
         },
         DatePart: function (date) {
-            return !date ? date : new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            if (_.isDate(date)) return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            else return null;
         },
         SameDate: function (date1, date2) {
             if (_.isDate(date1) && _.isDate(date2))
