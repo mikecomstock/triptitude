@@ -1,9 +1,9 @@
 ﻿TT.Models.Activity = Backbone.Model.extend({
     idAttribute: 'ID',
     urlRoot: '/activities',
-    defaults: { Title:'', 'OrderNumber': 0 },
+    defaults: { Title: '', 'OrderNumber': 0 },
     initialize: function () {
-        this.set('BeginAt', TT.Util.ParseDate(this.get('BeginAt')));
+        if (!_.isDate(this.get('BeginAt'))) this.set('BeginAt', TT.Util.ParseDate(this.get('BeginAt')));
         this.set('Places', new TT.Collections.Places(this.get('Places')));
         this.set('Notes', new TT.Collections.Notes(this.get('Notes')));
     },

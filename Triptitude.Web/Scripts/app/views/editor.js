@@ -68,8 +68,10 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
         this.renderActivityList();
     },
-    addActivity: function () {
-        var newActivity = new TT.Models.Activity({ TripID: this.model.id });
+    addActivity: function (e) {
+        var date = $(e.currentTarget).data('date');
+        
+        var newActivity = new TT.Models.Activity({ TripID: this.model.id, BeginAt: date });
         this.model.get('Activities').add(newActivity).moveToEnd(newActivity);
         this.editing = newActivity;
         this.renderActivityList();
@@ -103,6 +105,8 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 .appendTo(this.activityList);
             var dateText = date ? TT.Util.FormatDate(date) : 'Unscheduled Activities';
             dateLi.text(dateText + ' - ' + $.datepicker.formatDate('D', date));
+
+            $(this.make('div', { 'class': 'add-activity' }, '+')).prependTo(dateLi).data('date', date);
 
             var dateActivities = self.activities.onDate(date);
             dateActivities = _.sortBy(dateActivities, function (a) { return a.get('OrderNumber'); });

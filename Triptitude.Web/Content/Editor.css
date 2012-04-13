@@ -143,6 +143,15 @@
     background-color: #F3ECB7;
     padding: 3px 15px;
     cursor: move; }
+    #editor-itinerary .activity-list .date .add-activity {
+      cursor: pointer;
+      float: right;
+      text-align: center;
+      background-color: #999;
+      border-radius: 99px;
+      width: 16px;
+      height: 16px;
+      line-height: 16px; }
   #editor-itinerary .activity-list .sort-placeholder {
     height: 50px;
     background-color: #66C3FE; }
