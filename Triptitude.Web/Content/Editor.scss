@@ -19,7 +19,7 @@
 
 #editor-itinerary { @include clearfix; overflow: hidden; }
 #editor-itinerary .activity-list {
-	float: left; width: 250px; height: 500px; overflow-y: auto; overflow-x: hidden;
+	float: left; width: 250px; height: 500px; overflow-y: auto; overflow-x: hidden; border-right: 1px solid #CCC;
 	.activity {
 		background-color: #EEE; padding: 15px; position: relative;
 		h4 { margin: 0; font-size: 12px; font-weight: normal; }
@@ -27,7 +27,7 @@
 		&:hover { background-color: #0190E9; cursor: pointer; }
 	}
 	.date {
-		background-color: #F3ECB7; padding: 3px 15px;
+		background-color: #F3ECB7; padding: 3px 15px; cursor: move;
 	}
 	.sort-placeholder {
 		height: 50px; background-color: #66C3FE;

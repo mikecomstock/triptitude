@@ -10,35 +10,35 @@ namespace Triptitude.Biz.Repos
 {
     public class ActivitiesRepo : Repo<Activity>
     {
-        private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
-        {
-            activity.Trip = new TripsRepo().Find(form.TripId);
-            activity.Title = string.IsNullOrWhiteSpace(form.Title) ? null : form.Title;
-            activity.BeginDay = form.BeginDay;
-            activity.BeginTime = string.IsNullOrWhiteSpace(form.BeginTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.BeginTime)).TimeOfDay;
-            activity.EndDay = form.EndDay;
-            activity.EndTime = string.IsNullOrWhiteSpace(form.EndTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.EndTime)).TimeOfDay;
-            activity.TagString = form.TagString;
+        //private static void SetBaseProperties(Activity activity, ActivityForm form, User currentUser)
+        //{
+        //    activity.Trip = new TripsRepo().Find(form.TripId);
+        //    activity.Title = string.IsNullOrWhiteSpace(form.Title) ? null : form.Title;
+        //    activity.BeginDay = form.BeginDay;
+        //    activity.BeginTime = string.IsNullOrWhiteSpace(form.BeginTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.BeginTime)).TimeOfDay;
+        //    activity.EndDay = form.EndDay;
+        //    activity.EndTime = string.IsNullOrWhiteSpace(form.EndTime) ? (TimeSpan?)null : DateTime.Parse(string.Format("{0} {1}", DateTime.Today.ToShortDateString(), form.EndTime)).TimeOfDay;
+        //    activity.TagString = form.TagString;
 
-            if (activity.Tags != null) activity.Tags.Clear();
-            if (!string.IsNullOrWhiteSpace(form.TagString))
-            {
-                activity.Tags = new TagsRepo().FindOrInitializeAll(form.TagString).ToList();
-            }
+        //    if (activity.Tags != null) activity.Tags.Clear();
+        //    if (!string.IsNullOrWhiteSpace(form.TagString))
+        //    {
+        //        activity.Tags = new TagsRepo().FindOrInitializeAll(form.TagString).ToList();
+        //    }
 
-            if (!string.IsNullOrWhiteSpace(form.Note))
-            {
-                Note note = new Note
-                {
-                    Text = form.Note.Trim(),
-                    Created_On = DateTime.UtcNow,
-                    User = currentUser
-                };
+        //    if (!string.IsNullOrWhiteSpace(form.Note))
+        //    {
+        //        Note note = new Note
+        //        {
+        //            Text = form.Note.Trim(),
+        //            Created_On = DateTime.UtcNow,
+        //            User = currentUser
+        //        };
 
-                if (activity.Notes == null) { activity.Notes = new List<Note>(); }
-                activity.Notes.Add(note);
-            }
-        }
+        //        if (activity.Notes == null) { activity.Notes = new List<Note>(); }
+        //        activity.Notes.Add(note);
+        //    }
+        //}
 
         //public Activity Save(TransportationActivityForm form, User currentUser)
         //{

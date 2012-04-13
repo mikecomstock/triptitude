@@ -1,6 +1,7 @@
 ﻿TT.Models.Activity = Backbone.Model.extend({
     idAttribute: 'ID',
     urlRoot: '/activities',
+    defaults: { 'OrderNumber': 0 },
     initialize: function () {
         this.set('BeginAt', TT.Util.ParseDate(this.get('BeginAt')));
         this.set('Places', new TT.Collections.Places(this.get('Places')));
@@ -36,13 +37,19 @@ TT.Collections.Activities = Backbone.Collection.extend({
     comparator: function (activity) {
         return activity.get('OrderNumber');
     },
+    moveToEnd: function (activity) {
+        activity.set('OrderNumber', 0, { silent: true });
+        var activityDate = activity.get('BeginAt');
+        var activitiesOnDate = this.onDate(activityDate);
+        var maxOrder = activitiesOnDate.length == 0 ? 0 : _.max(activitiesOnDate, function (a) { return a.get('OrderNumber'); }).get('OrderNumber');
+        activity.set('OrderNumber', maxOrder + 1);
+    },
     dates: function () {
 
         var allBeginAts = this.pluck('BeginAt');
         var nonNull = _.reject(allBeginAts, function (d) { return !d; });
-        var min = _.min(nonNull), max = _.max(nonNull);
-        min = new Date(min.getFullYear(), min.getMonth(), min.getDate());
-        max = new Date(max.getFullYear(), max.getMonth(), max.getDate());
+        var min = TT.Util.DatePart(_.min(nonNull)),
+            max = TT.Util.DatePart(_.max(nonNull));
 
         var dates = [];
         for (var d = new Date(min); d <= max; d.setDate(d.getDate() + 1)) {
@@ -55,18 +62,9 @@ TT.Collections.Activities = Backbone.Collection.extend({
         return dates;
     },
     onDate: function (d) {
-
-        if (!d) {
-            return this.models.filter(function (activity) {
-                var aDate = activity.get('BeginAt');
-                return !aDate;
-            });
-        }
-
-        var year = d.getFullYear(), month = d.getMonth(), date = d.getDate();
         return this.models.filter(function (activity) {
             var aDate = activity.get('BeginAt');
-            return aDate ? aDate.getFullYear() == year && aDate.getMonth() == month && aDate.getDate() == date : false;
+            return TT.Util.SameDate(d, aDate);
         });
     }
 });
@@ -85,12 +83,10 @@ TT.Models.Trip = Backbone.Model.extend({
     urlRoot: '/trips',
     initialize: function () {
         // convert object array into collection
-        var activitiesCollection = new TT.Collections.Activities(this.get('Activities'));
-        this.set('Activities', activitiesCollection);
+        this.set('Activities', new TT.Collections.Activities(this.get('Activities')));
     },
     parse: function (resp, xhr) {
-        var activitiesCollection = new TT.Collections.Activities(resp.Activities);
-        resp.Activities = activitiesCollection;
+        resp.Activities = new TT.Collections.Activities(resp.Activities);
         return resp;
     }
 });
@@ -102,11 +98,9 @@ TT.Collections.Trips = Backbone.Collection.extend({
 TT.Models.User = Backbone.Model.extend({
     idAttribute: 'ID',
     initialize: function () {
-
-        //TODO: move this to parse, and call parse from init
+        //TODO: do this same thing in parse
         // convert object array into collection
-        var tripsCollection = new TT.Collections.Trips(this.get('Trips'));
-        this.set('Trips', tripsCollection);
+        this.set('Trips', new TT.Collections.Trips(this.get('Trips')));
     },
     getCurrentTrip: function () {
         return this.get('Trips').get(this.get('DefaultTripID'));

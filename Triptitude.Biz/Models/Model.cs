@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Globalization;
@@ -230,6 +231,11 @@ namespace Triptitude.Biz.Models
     [Table("Activities")]
     public class Activity
     {
+        public Activity()
+        {
+            ActivityPlaces = new Collection<ActivityPlace>();
+            Notes = new Collection<Note>();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
         public virtual Trip Trip { get; set; }

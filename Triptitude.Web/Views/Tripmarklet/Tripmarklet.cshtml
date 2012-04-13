@@ -30,7 +30,7 @@
 
             var currentTrip = currentUserModel.getCurrentTrip();
             var newActivity = new TT.Models.Activity({ Title: '@ViewBag.ParsedTitle', TripID: currentTrip.id, SourceURL: '@ViewBag.URL' });
-            currentTrip.get('Activities').add(newActivity);
+            currentTrip.get('Activities').add(newActivity).moveToEnd(newActivity);
             
             var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentTrip, edit: newActivity });
             editor.render();

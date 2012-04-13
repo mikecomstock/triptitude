@@ -2,7 +2,7 @@
 @using System.Web.Helpers;
 @using System.Web.Mvc;
 @using Triptitude.Web.Helpers;
-@helper ActivityFormTabs(UrlHelper Url, Triptitude.Biz.Forms.ActivityForm form)
+@*@helper ActivityFormTabs(UrlHelper Url, Triptitude.Biz.Forms.ActivityForm form)
     {
     <ul id="dialog-menu">
         <li class="@(form.SelectedTab == Triptitude.Biz.Forms.ActivityForm.Tabs.Details ? "selected-page" : string.Empty)" data-page="details">Details</li>
@@ -19,7 +19,7 @@
             <textarea class="note-text focus" name="note" id="note" value="@form.Note" />
         </p>
     </div>
-}
+}*@
 @helper NoteList(UrlHelper Url, IEnumerable<Note> notes)
     {
         if (notes != null && notes.Any())

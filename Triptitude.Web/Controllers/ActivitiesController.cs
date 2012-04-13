@@ -39,13 +39,13 @@ namespace Triptitude.Web.Controllers
             activity.Title = form.Title;
             activity.BeginAt = form.BeginAt;
             activity.EndAt = form.EndAt;
+            activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 
             activitiesRepo.Add(activity);
-            activitiesRepo.Save();
 
-            ////todo: only return public properties
-            return Json(form);
+            activitiesRepo.Save();
+            return Json(activity.Json(CurrentUser));
         }
 
         public class ActivityForm
@@ -70,29 +70,9 @@ namespace Triptitude.Web.Controllers
             activity.EndAt = form.EndAt;
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
-            activitiesRepo.Save();
 
-            ////todo: only return public properties
+            activitiesRepo.Save();
             return Json(activity.Json(CurrentUser));
-            //var a = activity;
-            //var result = new
-            //{
-            //    ID = a.Id,
-            //    Title = a.Title,
-            //    a.IsTransportation,
-            //    BeginAt = a.BeginAt.HasValue ? a.BeginAt.Value.ToString("MM/dd/yy") : string.Empty,
-            //    EndAt = a.EndAt.HasValue ? a.EndAt.Value.ToString("MM/dd/yy") : string.Empty,
-            //    TransportationTypeName = a.TransportationType == null ? string.Empty : a.TransportationType.Name,
-            //    SourceURL = a.SourceURL,
-            //    Places = from p in a.ActivityPlaces
-            //             select new
-            //             {
-            //                 p.SortIndex,
-            //                 p.Place.Id,
-            //                 p.Place.Name
-            //             }
-            //};
-            //return Json(result);
         }
 
 

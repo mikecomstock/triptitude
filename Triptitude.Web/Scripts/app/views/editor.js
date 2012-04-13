@@ -41,7 +41,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.activityList = $(this.make('ul', { class: 'activity-list' }));
 
         this.activityList.sortable({
-            cancel: '.date',
             placeholder: 'sort-placeholder'
         });
 
@@ -49,7 +48,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.editing = this.options.edit || this.activities.first();
 
         this.activities.on('remove', this.activityRemoved, this);
-        //this.activities.on('change', this.renderActivityList, this);
 
         _.bindAll(this);
     },
@@ -67,34 +65,25 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     activityRemoved: function (activity, collection, options) {
         activity.destroy();
         if (activity == this.editing) {
-            if (this.activities.at(options.index))
-                this.editing = this.activities.at(options.index);
-            else if (this.activities.at(options.index - 1))
-                this.editing = this.activities.at(options.index - 1);
-            else
-                this.editing = null;
-
+            this.editing = null;
             this.renderForm();
         }
 
         this.renderActivityList();
     },
-    renderForm: function () {
-        //todo: change this! creates a zombie from the old form. TODO: unbind the zombie (though normall unbinding zombies gets you eaten)
-        if (this.ActivityForm)
-            this.ActivityForm.remove();
-        this.ActivityForm = new TT.Views.Editor.ActivityForm({ model: this.editing });
-        this.ActivityForm.on('activitysaved', this.renderActivityList);
-
-        this.ActivityForm.render().$el.appendTo(this.el);
-    },
     render: function () {
         this.renderForm();
         this.renderActivityList();
-
         setTimeout(this.scrollToActive, 50);
-
         return this;
+    },
+    renderForm: function () {
+        //TODO: unbind the zombie form before removing (though normally unbinding zombies gets you eaten)
+        if (this.ActivityForm) this.ActivityForm.remove();
+
+        this.ActivityForm = new TT.Views.Editor.ActivityForm({ model: this.editing })
+            .on('activitysaved', this.renderActivityList)
+            .render().$el.appendTo(this.el);
     },
     renderActivityList: function () {
         var self = this;
@@ -104,12 +93,14 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
         var dates = this.activities.dates();
         _.each(dates, function (date) {
-            var dateLi = $(this.make('li', { class: 'date' })).appendTo(this.activityList);
+            var dateLi = $(this.make('li', { class: 'date' }))
+                .data('date', date)
+                .appendTo(this.activityList);
             var dateText = date ? TT.Util.FormatDate(date) : 'Unscheduled Activities';
             dateLi.text(dateText + ' - ' + $.datepicker.formatDate('D', date));
 
             var dateActivities = self.activities.onDate(date);
-            _.sortBy(dateActivities, function (a) { return a.get('OrderNumber'); });
+            dateActivities = _.sortBy(dateActivities, function (a) { return a.get('OrderNumber'); });
             _.each(dateActivities, function (activity) {
                 var li = $(this.make('li', { class: 'activity' })).appendTo(this.activityList);
                 li.data('activity', activity);
@@ -126,15 +117,28 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 
     },
     sortUpdate: function () {
-        var elements = this.activityList.find('.activity');
-        elements.each(function (index) {
-            var orderNumber = index + 1;
-            var activity = $(this).data('activity');
-            activity.save({ OrderNumber: orderNumber });
-        });
 
+        var firstDate = this.activityList.children('.date').first();
+        var tmpDate = new Date(firstDate.data('date'));
+        tmpDate.setDate(tmpDate.getDate() - 1);
+        var tmpOrderNumber = 1;
+
+        _.each(this.activityList.children('li'), function (activityLI) {
+            var $li = $(activityLI);
+            if ($li.is('.date')) {
+                tmpDate = $li.data('date');
+                tmpOrderNumber = 1;
+            } else if ($li.is('.activity')) {
+                var activity = $li.data('activity');
+
+                activity.set({ BeginAt: tmpDate, OrderNumber: tmpOrderNumber++ });
+                activity.save();
+            }
+        }, this);
+
+        this.renderActivityList();
         //TODO: remove this it's for debug!
-        setTimeout(this.renderActivityList, 1000);
+        //setTimeout(this.renderActivityList, 1000);
     },
     scrollToActive: function () {
         var editingElement = this.activityList.find('.selected');
@@ -160,22 +164,26 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         _.bindAll(this);
     },
-    edit: function (activity) {
-        this.model = activity;
-    },
     events: {
         'click .save': 'save',
-        'click .delete': 'destroy'
+        'click .delete': 'deleteActivity'
     },
     save: function () {
         var self = this;
 
+        var currentBeginDate = TT.Util.DatePart(this.model.get('BeginAt'));
+        var newBeginDate = TT.Util.DatePart(this.BeginDateInput.datepicker('getDate'));
+
         this.model.set({
             Title: this.TitleInput.val(),
             SourceURL: this.SourceURLInput.val(),
-            BeginAt: this.BeginDateInput.val(),
-            EndAt: this.EndDateInput.val()
+            BeginAt: newBeginDate,
+            EndAt: this.EndDateInput.datepicker('getDate')
         });
+
+        if (!TT.Util.SameDate(currentBeginDate, newBeginDate)) {
+            this.model.collection.moveToEnd(this.model);
+        }
 
         this.model.save(null, {
             success: function () {
@@ -189,14 +197,14 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             }
         });
     },
-    destroy: function () {
+    deleteActivity: function () {
         this.model.collection.remove(this.model);
     },
     render: function () {
         var self = this;
 
         if (!this.model) {
-            this.$el.html('<h1>No Activity Selected!</h1>');
+            this.$el.html('<h3>No Activity Selected</h3>');
             return this;
         }
 
