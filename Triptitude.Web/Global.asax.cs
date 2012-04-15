@@ -80,7 +80,6 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/triptitude.js");
             js.AddFile("~/Scripts/app/TT.js");
             js.AddDirectory("~/Scripts/app/models", "*.js", true);
-            js.AddDirectory("~/Scripts/app/collections", "*.js", true);
             js.AddDirectory("~/Scripts/app/views", "*.js", true);
             js.AddDirectory("~/Scripts/app", "*.js", true);
             BundleTable.Bundles.Add(js);
@@ -106,7 +105,6 @@ namespace Triptitude.Web
             editorJs.AddFile("~/Scripts/backbone.js");
             editorJs.AddFile("~/Scripts/app/TT.js");
             editorJs.AddDirectory("~/Scripts/app/models", "*.js", true);
-            editorJs.AddDirectory("~/Scripts/app/collections", "*.js", true);
             editorJs.AddDirectory("~/Scripts/app/views", "*.js", true);
             editorJs.AddDirectory("~/Scripts/app", "*.js", true);
             BundleTable.Bundles.Add(editorJs);
