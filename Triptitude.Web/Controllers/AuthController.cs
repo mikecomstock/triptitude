@@ -35,7 +35,6 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginForm form)
         {
             if (!ModelState.IsValid)
