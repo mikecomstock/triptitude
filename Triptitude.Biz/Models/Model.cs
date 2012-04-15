@@ -171,7 +171,7 @@ namespace Triptitude.Biz.Models
 
         public IEnumerable<Activity> NonDeletedActivities
         {
-            get { return Activities.Where(a => !a.Deleted).OrderBy(a=>a.OrderNumber); }
+            get { return Activities.Where(a => !a.Deleted).OrderBy(a => a.OrderNumber); }
         }
 
         public int TotalDays
@@ -183,11 +183,43 @@ namespace Triptitude.Biz.Models
             }
         }
 
+        public IEnumerable<DateTime?> Dates
+        {
+            get
+            {
+                var beginAts = Activities.Select(a => a.BeginAt);
+                var withValues = beginAts.Where(d => d.HasValue);
+                if (withValues.Any())
+                {
+                    var min = withValues.Min(d => d.Value.Date);
+                    var max = withValues.Max(d => d.Value.Date);
+
+                    for (DateTime i = min; i < max; i = i.AddDays(1))
+                    {
+                        yield return i;
+                    }
+                }
+                // Take care of 'unscheduled' activities
+                if (beginAts.Any(d => !d.HasValue))
+                    yield return null;
+            }
+        }
+
         public IEnumerable<Activity> ActivitiesOn(int? dayNumber)
         {
             return dayNumber.HasValue
                 ? Activities.Where(a => !a.Deleted && (a.BeginDay == dayNumber || a.EndDay == dayNumber))
                 : Activities.Where(a => !a.Deleted && !a.BeginDay.HasValue && !a.EndDay.HasValue);
+        }
+
+        public IEnumerable<Activity> ActivitiesOnDate(DateTime? date)
+        {
+            if (!date.HasValue)
+                return NonDeletedActivities.Where(a => !a.BeginAt.HasValue);
+            else
+            {
+                return NonDeletedActivities.Where(a => a.BeginAt.HasValue && a.BeginAt.Value.Date == date);
+            }
         }
 
         public IEnumerable<Tag> Tags
@@ -263,7 +295,7 @@ namespace Triptitude.Biz.Models
 
         public string GeneratedTitle
         {
-            get { return "Generated Title"; }
+            get { return string.IsNullOrWhiteSpace(Title) ? "Generated Title" : Title; }
         }
 
         public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : GeneratedTitle; } }

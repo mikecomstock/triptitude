@@ -23,6 +23,57 @@
         });
     </script>*@
 }
+<article>
+    <header>
+        <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FirstNameLastInitial</a></span>
+        </h1>
+    </header>
+    <section id="itinerary">
+        <header>
+            <h2>
+                Itinerary
+            </h2>
+        </header>
+        <ul class="activities2">
+            @{ int dayNumber = 0; }
+            @foreach (DateTime? date in trip.Dates)
+            {
+                dayNumber++;
+                var activities = trip.ActivitiesOnDate(date).OrderBy(a => a.OrderNumber);
+
+                if (!activities.Any())
+                {
+                    continue;
+                }
+
+                if (!date.HasValue)
+                {
+                <li class="date">Unscheduled Activities</li>
+                }
+                else
+                {
+                <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")
+                </li>   
+                }
+
+                foreach (var activity in activities)
+                {
+                <li class="activity" data-activity-id="@activity.Id">
+                    @activity.GeneratedTitle
+                </li>
+                }
+            }
+        </ul>
+    </section>
+    @if (trip.PackingListItems.Any() || CurrentUserOwnsTrip)
+    {
+        <section id="packinglist">
+            @{
+        Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
+            }
+        </section>
+    }
+</article>
 <article class="@(Editing ? "editing" : string.Empty)">
     <header>
         <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FirstNameLastInitial</a></span>
@@ -31,7 +82,7 @@
             <a href="#map">Map</a> | <a href="#itinerary">Itinerary</a> | <a href="#packinglist">Packing List</a>
         </div>
     </header>
-@*    <section id="map">
+    @*    <section id="map">
         <h2>
             Map</h2>
         <div id="trip-map-container" data-trip-id="@trip.Id">
