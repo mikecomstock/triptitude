@@ -28,7 +28,7 @@
         try
         {
     <div class="history">
-        @h.CreatedOnUTC.ToShortTimeString() <a href="@Url.Details(h.User)">@h.User.FirstNameLastInitial</a>
+        @h.CreatedOnUTC.ToShortTimeString() <a href="@Url.Details(h.User)">@h.User.FullName</a>
         @if (h.HistoryTable == HistoryTable.Trips)
         {
             var trip = new TripsRepo().Find(h.TableId);

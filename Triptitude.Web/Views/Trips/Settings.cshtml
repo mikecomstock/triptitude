@@ -24,7 +24,7 @@
         @if (!currentUser.CreatedTrips(trip))
         {
             <div class="subtitle warning">
-                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FirstNameLastInitial</a> can change the settings for this trip.
+                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a> can change the settings for this trip.
             </div>
         }
         @if (TempData["saved"] != null)

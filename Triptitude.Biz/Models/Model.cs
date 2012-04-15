@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Models
 {
@@ -33,14 +33,6 @@ namespace Triptitude.Biz.Models
             {
                 if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
                 return string.Format("{0} {1}", FirstName, LastName);
-            }
-        }
-        public string FirstNameLastInitial
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
-                return string.Format("{0} {1}.", FirstName, LastName[0]);
             }
         }
 
@@ -83,6 +75,15 @@ namespace Triptitude.Biz.Models
                 return DefaultTrip == null
                     ? new List<Item>()
                     : DefaultTrip.PackingListItems.Select(pli => pli.ItemTag.Item).Distinct();
+            }
+        }
+
+        public string PhotoURL
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Email)) return string.Empty;
+                return "http://www.gravatar.com/avatar/" + Email.Trim().ToLower().Md5Hash();
             }
         }
 
@@ -171,7 +172,7 @@ namespace Triptitude.Biz.Models
 
         public IEnumerable<Activity> NonDeletedActivities
         {
-            get { return Activities.Where(a => !a.Deleted).OrderBy(a=>a.OrderNumber); }
+            get { return Activities.Where(a => !a.Deleted).OrderBy(a => a.OrderNumber); }
         }
 
         public int TotalDays
@@ -183,11 +184,43 @@ namespace Triptitude.Biz.Models
             }
         }
 
+        public IEnumerable<DateTime?> Dates
+        {
+            get
+            {
+                var beginAts = Activities.Select(a => a.BeginAt);
+                var withValues = beginAts.Where(d => d.HasValue);
+                if (withValues.Any())
+                {
+                    var min = withValues.Min(d => d.Value.Date);
+                    var max = withValues.Max(d => d.Value.Date);
+
+                    for (DateTime i = min; i < max; i = i.AddDays(1))
+                    {
+                        yield return i;
+                    }
+                }
+                // Take care of 'unscheduled' activities
+                if (beginAts.Any(d => !d.HasValue))
+                    yield return null;
+            }
+        }
+
         public IEnumerable<Activity> ActivitiesOn(int? dayNumber)
         {
             return dayNumber.HasValue
                 ? Activities.Where(a => !a.Deleted && (a.BeginDay == dayNumber || a.EndDay == dayNumber))
                 : Activities.Where(a => !a.Deleted && !a.BeginDay.HasValue && !a.EndDay.HasValue);
+        }
+
+        public IEnumerable<Activity> ActivitiesOnDate(DateTime? date)
+        {
+            if (!date.HasValue)
+                return NonDeletedActivities.Where(a => !a.BeginAt.HasValue);
+            else
+            {
+                return NonDeletedActivities.Where(a => a.BeginAt.HasValue && a.BeginAt.Value.Date == date);
+            }
         }
 
         public IEnumerable<Tag> Tags
@@ -263,7 +296,7 @@ namespace Triptitude.Biz.Models
 
         public string GeneratedTitle
         {
-            get { return "Generated Title"; }
+            get { return string.IsNullOrWhiteSpace(Title) ? "Generated Title" : Title; }
         }
 
         public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : GeneratedTitle; } }

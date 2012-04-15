@@ -88,6 +88,7 @@ $(function () {
         var close = function () {
             overlay.remove();
             editorContent.remove();
+            location.reload();
         };
 
         var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);
@@ -108,13 +109,11 @@ $(function () {
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             var activity = new TT.Models.Activity({ ID: activityId });
-//            console.log('activity to fetch:', activity, 'with id:', activityId);
+            //            console.log('activity to fetch:', activity, 'with id:', activityId);
             activity.fetch({
                 success: function (model, response) {
                     //console.log('activity.fetch success', 'model', model, 'response', response);
-                    var userOwnsTrip = model.get('Trip').UserOwnsTrip;
-                    //console.log('userOwnsTrip?', userOwnsTrip);
-                    if (userOwnsTrip) {
+                    if (model.get('Trip').UserOwnsTrip) {
                         var trip = new TT.Models.Trip({ ID: activity.get('Trip').ID });
                         //console.log('user owns trip, so now going to load trip', trip);
 
