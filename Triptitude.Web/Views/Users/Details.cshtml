@@ -1,13 +1,15 @@
 ﻿@{
     User user = ViewBag.User;
     User currentUser = ViewBag.CurrentUser;
-    ViewBag.Title = user.FirstNameLastInitial;
+    ViewBag.Title = user.FullName;
     IEnumerable<Trip> trips = (user == currentUser) ? user.Trips : user.Trips.Public();
 }
 <div class="panel">
     <div class="panel-title">
+        <img src="@user.PhotoURL"/>
         <h1>
             @ViewBag.Title</h1>
+        
     </div>
     <div class="panel-content">
         @if (trips.Any())

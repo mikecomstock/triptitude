@@ -69,7 +69,7 @@ namespace Triptitude.Web.Helpers
 
         public static string Details(this UrlHelper url, User user)
         {
-            return url.SlugAction("details", "users", user.Id, user.FirstNameLastInitial);
+            return url.SlugAction("details", "users", user.Id, user.FullName);
         }
 
         #endregion

@@ -1334,3 +1334,8 @@ ul.tags > li + li {
     padding: 3px; }
   .search-form span {
     line-height: 26px; }
+
+#users-details img {
+  float: left; }
+#users-details h1 {
+  float: left; }

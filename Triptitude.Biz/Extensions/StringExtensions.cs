@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Triptitude.Biz.Extensions
@@ -10,7 +12,7 @@ namespace Triptitude.Biz.Extensions
         /// </summary>
         public static string ToSlug(this string s)
         {
-            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            if (String.IsNullOrWhiteSpace(s)) return String.Empty;
             byte[] bytes = Encoding.GetEncoding("Cyrillic").GetBytes(s);
             s = Encoding.ASCII.GetString(bytes);
 
@@ -23,6 +25,18 @@ namespace Triptitude.Biz.Extensions
             str = Regex.Replace(str, @"\s", "-"); // hyphens  
 
             return str;
+        }
+        
+        public static string Md5Hash(this string input)
+        {
+            MD5 md5Hasher = MD5.Create();
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+            StringBuilder sBuilder = new StringBuilder();
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
         }
     }
 }

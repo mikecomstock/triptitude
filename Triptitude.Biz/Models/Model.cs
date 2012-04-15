@@ -6,7 +6,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
+using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Models
 {
@@ -33,14 +33,6 @@ namespace Triptitude.Biz.Models
             {
                 if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
                 return string.Format("{0} {1}", FirstName, LastName);
-            }
-        }
-        public string FirstNameLastInitial
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
-                return string.Format("{0} {1}.", FirstName, LastName[0]);
             }
         }
 
@@ -83,6 +75,15 @@ namespace Triptitude.Biz.Models
                 return DefaultTrip == null
                     ? new List<Item>()
                     : DefaultTrip.PackingListItems.Select(pli => pli.ItemTag.Item).Distinct();
+            }
+        }
+
+        public string PhotoURL
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(Email)) return string.Empty;
+                return "http://www.gravatar.com/avatar/" + Email.Trim().ToLower().Md5Hash();
             }
         }
 
