@@ -16,7 +16,7 @@
             <span><a href="@Url.PackingListIndex()">Search Items</a></span>
         }
     </h2>
-    @if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
+    @*@if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
     {
         <div class="panel-suggestions">
             <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
@@ -34,7 +34,7 @@
                 }
             </ul>
         </div>
-    }
+    }*@
 </header>
 @if (packingListItems.Any())
 {

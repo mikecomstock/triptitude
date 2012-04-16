@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
@@ -68,15 +70,14 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
+            //TODO: check permissions
             var trip = repo.Find(id);
+            if (trip == null) return HttpNotFound();
+
             if (Request.IsAjaxRequest())
                 return Json(trip.Json(CurrentUser), JsonRequestBehavior.AllowGet);
 
-            //TODO: is this still needed?
-            if (trip == null) return HttpNotFound();
-
             ViewBag.Trip = trip;
-            ViewBag.CurrentUser = CurrentUser;
             return View();
         }
 
@@ -162,31 +163,38 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Create(int? to)
         {
-            var form = new CreateTripForm { Visibility = Trip.TripVisibility.Public };
+            var form = new NewCreateTripForm{ Visibility = Trip.TripVisibility.Public };
 
             if (to.HasValue)
             {
                 var placesRepo = new PlacesRepo();
                 Place place = placesRepo.Find(to.Value);
-                form.ToGoogReference = place.GoogReference;
-                form.ToGoogId = place.GoogId;
-                form.ToName = place.Name;
-                return Create(form);
+                form.Name = "Trip to " + place.Name;
             }
-            else
-            {
-                ViewBag.Form = form;
-                return View();
-            }
+
+            ViewBag.Form = form;
+            return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateTripForm form)
+        public ActionResult Create(NewCreateTripForm form)
         {
             if (ModelState.IsValid)
             {
-                Trip trip = new TripsRepo().Save(form, CurrentUser);
+                Trip trip = new Trip
+                {
+                    Name = form.Name,
+                    Created_On = DateTime.UtcNow,
+                    Visibility = (byte)form.Visibility
+                };
+
+                repo.Add(trip);
+
+                UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = CurrentUser };
+                trip.UserTrips.Add(userTrip);
+
+                repo.Save();
+
                 new UsersRepo().SetDefaultTrip(CurrentUser, trip);
                 new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);
                 return Redirect(Url.Details(trip));

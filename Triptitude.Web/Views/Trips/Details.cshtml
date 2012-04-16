@@ -7,21 +7,21 @@
     bool Editing = currentUser.DefaultTrip == trip;
 }
 @section Scripts {
-    @*<script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" charset="utf-8">
         $(function () {
-            var tripId = $('#trip-map-container').data('trip-id');
-            $.get('/maps/trip/' + tripId, function (mapData) {
-                drawMap($('#trip-map-container'), mapData);
-            });
+            //            var tripId = $('#trip-map-container').data('trip-id');
+            //            $.get('/maps/trip/' + tripId, function (mapData) {
+            //                drawMap($('#trip-map-container'), mapData);
+            //            });
 
-            $('.toggler').click(function () {
-                var selectorToToggle = $(this).data('selector-to-toggle');
-                $(selectorToToggle).toggle();
-            });
+            //            $('.toggler').click(function () {
+            //                var selectorToToggle = $(this).data('selector-to-toggle');
+            //                $(selectorToToggle).toggle();
+            //            });
 
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
         });
-    </script>*@
+    </script>
 }
 <article>
     <header>
@@ -34,36 +34,45 @@
                 Itinerary
             </h2>
         </header>
-        <ul class="activities2">
-            @{ int dayNumber = 0; }
-            @foreach (DateTime? date in trip.Dates)
-            {
-                dayNumber++;
-                var activities = trip.ActivitiesOnDate(date).OrderBy(a => a.OrderNumber);
+        @if (trip.NonDeletedActivities.Any())
+        {
+            <ul class="activities2">
+                @{ int dayNumber = 0; }
+                @foreach (DateTime? date in trip.Dates)
+                {
+                    dayNumber++;
+                    var activities = trip.ActivitiesOnDate(date).OrderBy(a => a.OrderNumber);
 
-                if (!activities.Any())
-                {
-                    continue;
-                }
+                    if (!activities.Any())
+                    {
+                        continue;
+                    }
 
-                if (!date.HasValue)
-                {
-                <li class="date">Unscheduled Activities</li>
-                }
-                else
-                {
-                <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")
-                </li>   
-                }
+                    if (!date.HasValue)
+                    {
+                    <li class="date">Unscheduled Activities</li>
+                    }
+                    else
+                    {
+                    <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")
+                    </li>   
+                    }
 
-                foreach (var activity in activities)
-                {
-                <li class="activity" data-activity-id="@activity.Id">
-                    @activity.GeneratedTitle
-                </li>
+                    foreach (var activity in activities)
+                    {
+                    <li class="activity" data-activity-id="@activity.Id">
+                        @activity.GeneratedTitle
+                    </li>
+                    }
                 }
-            }
-        </ul>
+            </ul>
+        }
+        else
+        {
+            <p>
+                No activities found.
+            </p>
+        }
     </section>
     @if (trip.PackingListItems.Any() || CurrentUserOwnsTrip)
     {
@@ -73,31 +82,15 @@
             }
         </section>
     }
-</article>
-<article class="@(Editing ? "editing" : string.Empty)">
-    <header>
-        <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a></span>
-        </h1>
-        <div class="subtitle">
-            <a href="#map">Map</a> | <a href="#itinerary">Itinerary</a> | <a href="#packinglist">Packing List</a>
-        </div>
-    </header>
-    @*    <section id="map">
+@*    <section id="map">
         <h2>
             Map</h2>
         <div id="trip-map-container" data-trip-id="@trip.Id">
         </div>
     </section>*@
+</article>
+@*<article class="@(Editing ? "editing" : string.Empty)">
     <section id="itinerary">
-        <header>
-            <h2>
-                Itinerary
-                @if (currentUser.DefaultTrip == trip)
-                {
-                    <span class="link add-to-trip">+Add Plans</span>
-                }
-            </h2>
-        </header>
         <div class="activities">
             @for (int i = 1; i <= trip.TotalDays; i++)
             {
@@ -109,12 +102,5 @@
             }
         </div>
     </section>
-    @if (trip.PackingListItems.Any() || CurrentUserOwnsTrip)
-    {
-        <section id="packinglist">
-            @{
-        Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
-            }
-        </section>
-    }
 </article>
+*@

@@ -10,14 +10,14 @@
         <h1>@tag.NiceName
         </h1>
     </header>
-    @if (tripSearchForm.Results.Any())
+    @*    @if (tripSearchForm.Results.Any())
     {
         <section>
             <h2>
                 Trips</h2>
             @Html.Action("SearchResults", "Trips", new { form = tripSearchForm })
         </section>
-    }
+    }*@
     @if (items.Any())
     {
         <section>
@@ -29,6 +29,6 @@
     @if (!tripSearchForm.Results.Any() && !items.Any())
     {
         <p style="margin: 20px;">
-            No trips or packing list items found.</p>
+            No packing list found.</p>
     }
 </article>

@@ -2,7 +2,8 @@
     Trip trip = (Trip)ViewBag.Trip;
 }
 <div id="side-container">
-    <a href="@Url.Details(trip)">Itinerary</a> <a href="@Url.Map(trip)">Map</a>
+    <a href="@Url.Details(trip)">Itinerary</a> 
+    @*<a href="@Url.Map(trip)">Map</a>*@
     @if (trip.PackingListItems.Any() || ViewBag.UserOwnsTrip)
     {
         <a href="@Url.PackingList(trip)">Packing List</a>

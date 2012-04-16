@@ -292,15 +292,17 @@ footer { width: 955px; height: 100px; }
 
 
 /* Create Trip Form */
-#create-trip-form input[type="text"] { width: 400px; font-size: 18px; }
+
+#create-trip-form label { width: 140px; }
+#create-trip-form input[type="text"] { width: 400px; }
+
+#trip-bar #create-trip-form p { display: inline; margin-right: 10px; }
+#trip-bar #create-trip-form input[type="text"] { width: 250px; }
 
 #landing-page-panel #create-trip-form { float: right; @include transparent-background(#52BCFE, 0.7); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8)); }
 #landing-page-panel #create-trip-form h3 { font-size: 18px; margin: 20px 20px 10px 20px; }
 #landing-page-panel #create-trip-form p { margin:10px 20px; }
 #landing-page-panel #create-trip-form input[type="text"] { width: 300px; }
-
-#trip-bar #create-trip-form p { display: inline; margin-right: 10px; }
-#trip-bar #create-trip-form input[type="text"] { width: 250px; }
 
 /* Trip Settings Form */
 #trip-settings-form label { width: 140px; }

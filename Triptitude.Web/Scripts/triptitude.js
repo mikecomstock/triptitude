@@ -63,13 +63,31 @@ $(function () {
 
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
+        var tripID = $(e.currentTarget).data('trip-id');
+        var trip = new TT.Models.Trip({ ID: tripID });
+
+        trip.fetch({
+            success: function (model, response) {
+                console.log('trip.fetch success, results is:', model);
+
+                var newActivity = new TT.Models.Activity({ Title: '', TripID: tripID });
+                trip.get('Activities').add(newActivity).moveToEnd(newActivity);
+
+                console.log('editing activity:', newActivity, 'for trip:', model);
+                openEditor(model, newActivity);
+            },
+            error: function (model, response) {
+                console.log('error!', 'model:', model, 'response:', response);
+            }
+        });
+
         //        var url = $(this).attr('href');
         //        OpenSuperDialog(url);
 
-        var activity = new TT.Models.Activity();
-        var dialog = new TT.Views.ActivityDialog({ model: activity });
-        dialog.render();
-        $('#trip-bar').append(dialog.el);
+        //        var activity = new TT.Models.Activity();
+        //        var dialog = new TT.Views.ActivityDialog({ model: activity });
+        //        dialog.render();
+        //        $('#trip-bar').append(dialog.el);
 
     });
 
@@ -132,7 +150,7 @@ $(function () {
                         //                        var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: currentUserModel, edit: newActivity });
                         //editor.render();
                     } else {
-                        alert("you don't own this activity!");
+                        alert("You don't own this activity!");
                     }
                 }
             });

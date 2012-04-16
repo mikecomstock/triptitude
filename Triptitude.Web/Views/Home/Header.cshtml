@@ -28,7 +28,7 @@
                     Welcome, <a href="@Url.MyTrips()">anonymous user</a>
                 </div>
                 <div id="user-status-menu">
-                    <a href="@Url.MySettings()">sign up</a> <a href="@Url.CreateTrip()" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
+                    <a href="@Url.MySettings()">sign up</a> <a href="/trips/create" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
                     @Html.RouteLink("log in", "login", null, new { id = "login-link" })
                 </div>
             }
@@ -55,17 +55,17 @@
                 <li><span class="link">Details</span>
                     <ul>
                         <li><a href="@Url.Details(currentUser.DefaultTrip)#itinerary" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
-                        <li><a href="@Url.Details(currentUser.DefaultTrip)#map">Map<span><strong>Map your destinations</strong></span></a></li>
+                        @*<li><a href="@Url.Details(currentUser.DefaultTrip)#map">Map<span><strong>Map your destinations</strong></span></a></li>*@
                         <li><a href="@Url.Details(currentUser.DefaultTrip)#packinglist">Packing List<span><strong>Update your packing list</strong></span></a></li>
                         <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Set a title and start date</strong></span></a></li>
                     </ul>
                 </li>
                 <li><span class="add-plans-link link">+ Add Plans</span>
                     <ul>
-                        <li><a class="super-dialog-link link" href="/activities/create?type=transportation" accesskey="t">Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>
-                        <li><a class="super-dialog-link link" href="/activities/create?type=place" accesskey="a">Place / Activity<span>Like <strong>Whale Watching </strong>in <strong>Boston</strong></span></a></li>
-                        <li><a class="super-dialog-link link" href="/notes/create" accesskey="n">Note<span>Like <strong>Emily says this place has the best Pizza!</strong></span></a></li>
-                        <li><a class="super-dialog-link link" href="/packing/create" accesskey="p">Packing List<span>Like pack your <strong>sunglasses</strong> and <strong>phone charger</strong></span></a></li>
+                        @*<li><a class="super-dialog-link link" href="/activities/create?type=transportation" accesskey="t">Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>*@
+                        <li><a class="super-dialog-link link" accesskey="a" data-trip-id="@currentUser.DefaultTrip.Id">Activity<span>Like <strong>Whale Watching </strong>in <strong>Boston</strong></span></a></li>
+                        @*<li><a class="super-dialog-link link" href="/notes/create" accesskey="n">Note<span>Like <strong>Emily says this place has the best Pizza!</strong></span></a></li>*@
+                        <li><a href="/packing" accesskey="p">Packing List<span>Like pack your <strong>sunglasses</strong> and <strong>phone charger</strong></span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -96,9 +96,10 @@ else if (ViewBag.HideTripBar != true)
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
             @Html.AntiForgeryToken()
             <p>
-                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Your Destination..." />
-                <input type="hidden" name="togoogreference" />
-                <input type="hidden" name="togoogid" />
+                <input type="text" name="Name" id="name" placeholder="name your trip..." />
+                @*<input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Your Destination..." />
+                    <input type="hidden" name="togoogreference" />
+                    <input type="hidden" name="togoogid" />*@
             </p>
             <p>
                 <input type="submit" value="Start Planning >" />

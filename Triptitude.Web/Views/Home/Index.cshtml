@@ -13,10 +13,22 @@
         <h3>
             Get Started:</h3>
         <p>
+            @Html.ValidationMessage("name")
+            <input type="text" name="name" id="name" tabindex="1" class="focus" placeholder="Name your trip..." />
+        </p>
+        <p>
+            <label for="visibility">
+                Visibility</label>
+            @{
+                var form = new NewCreateTripForm { Visibility = Trip.TripVisibility.Public };
+            }
+            @Html.DropDownList("visibility", form.Visibility.ToSelectList())
+        </p>
+        @*<p>
             <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Destination" />
             <input type="hidden" name="togoogreference" />
             <input type="hidden" name="togoogid" />
-        </p>
+        </p>*@
         <p>
             <input type="submit" value="Start Planning >" />
         </p>
@@ -41,10 +53,10 @@
                     <a href="/trips">All Trips</a>
                 </div>
                 @{
-            TripSearchForm form = new TripSearchForm();
+            TripSearchForm form2 = new TripSearchForm();
                 }
-                @Helpers.TripSearchForm(form)
-                @Html.Action("SearchResults", "Trips", new { form = form })
+                @Helpers.TripSearchForm(form2)
+                @Html.Action("SearchResults", "Trips", new { form = form2 })
             </div>
         }
     </div>

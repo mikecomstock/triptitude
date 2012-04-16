@@ -7,9 +7,9 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
 
-//        $(document).ready(function () {
-//            $('form.disabled').find('input,select').attr('disabled', 'disabled');
-//        });
+        //        $(document).ready(function () {
+        //            $('form.disabled').find('input,select').attr('disabled', 'disabled');
+        //        });
         
     </script>
 }
@@ -42,12 +42,12 @@
                     Name your trip</label>
                 <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="@(currentUser.CreatedTrips(trip) ? "focus" : string.Empty)" />
             </p>
-            <p>
+            @*            <p>
                 @Html.ValidationMessage("begindate")
                 <label for="begindate">
                     Start Date</label>
                 @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
-            </p>
+            </p>*@
             <p>
                 <label for="visibility">
                     Visibility</label>

@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Create a Trip";
-    CreateTripForm form = (CreateTripForm)ViewBag.Form;
+    NewCreateTripForm form = (NewCreateTripForm)ViewBag.Form;
 }
 <div id="main-container">
     <div class="panel">
@@ -10,14 +10,15 @@
         </div>
         <div class="panel-content">
             <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-            @Html.AntiForgeryToken()
             <p>
-                @Html.ValidationMessage("to")
-                <label for="toname">
-                    Destination</label>
-                <input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" class="place-autocomplete focus" value="@form.ToName" placeholder="Where do you want to go?" />
-                <input type="hidden" name="togoogreference" value="@form.ToGoogReference" />
-                <input type="hidden" name="togoogid" value="@form.ToGoogId" />
+                @Html.ValidationMessage("name")
+                <label for="name">
+                    Name your trip</label>
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="focus" />
+            </p>
+            <p>
+                <label for="visibility">
+                    Visibility</label>
                 @Html.DropDownList("visibility", form.Visibility.ToSelectList())
             </p>
             <p>

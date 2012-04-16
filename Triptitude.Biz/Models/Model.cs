@@ -144,6 +144,12 @@ namespace Triptitude.Biz.Models
 
     public class Trip
     {
+        public Trip()
+        {
+            Activities = new Collection<Activity>();
+            UserTrips = new Collection<UserTrip>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<UserTrip> UserTrips { get; set; }
@@ -188,14 +194,14 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                var beginAts = Activities.Select(a => a.BeginAt);
+                var beginAts = NonDeletedActivities.Select(a => a.BeginAt);
                 var withValues = beginAts.Where(d => d.HasValue);
                 if (withValues.Any())
                 {
                     var min = withValues.Min(d => d.Value.Date);
                     var max = withValues.Max(d => d.Value.Date);
 
-                    for (DateTime i = min; i < max; i = i.AddDays(1))
+                    for (DateTime i = min; i <= max; i = i.AddDays(1))
                     {
                         yield return i;
                     }
