@@ -14,12 +14,12 @@
 {
     foreach (Activity activity in activities.OrderBy(a => a.TimeForSort(day)))
     {
-        activity.Title = activity.OrderNumber + " | " + activity.BeginAt + " - " + activity.Title;
+        var title = activity.OrderNumber + " | " + activity.BeginAt + " - " + activity.Title;
     <div class="activity" data-activity-id="@activity.Id">
-        @if (!string.IsNullOrWhiteSpace(activity.Title))
+        @if (!string.IsNullOrWhiteSpace(title))
         {
             <p>
-                @activity.Title
+                @title
             </p>
         }
         @if (!activity.ActivityPlaces.IsNullOrEmpty())
@@ -47,7 +47,7 @@
             else
             {
                 var place = activity.ActivityPlaces.First().Place;
-            <p class="place @(string.IsNullOrWhiteSpace(activity.Title) ? "no-title" : "with-title")">
+            <p class="place @(string.IsNullOrWhiteSpace(title) ? "no-title" : "with-title")">
                 <a href="@Url.Details(place)">@place.Name</a>
             </p>
             }

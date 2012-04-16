@@ -29,6 +29,18 @@
         </h1>
     </header>
     <section id="itinerary">
+        <div class="activities">
+            @for (int i = 1; i <= trip.TotalDays; i++)
+            {
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
+            }
+            @if (trip.Activities.Any(a => a.IsUnscheduled))
+            {
+                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
+            }
+        </div>
+    </section>
+    <section id="itinerary">
         <header>
             <h2>
                 Itinerary
@@ -89,18 +101,3 @@
         </div>
     </section>*@
 </article>
-@*<article class="@(Editing ? "editing" : string.Empty)">
-    <section id="itinerary">
-        <div class="activities">
-            @for (int i = 1; i <= trip.TotalDays; i++)
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
-            }
-            @if (trip.Activities.Any(a => a.IsUnscheduled))
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
-            }
-        </div>
-    </section>
-</article>
-*@
