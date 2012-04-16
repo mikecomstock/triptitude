@@ -93,6 +93,7 @@ namespace Triptitude.Biz.Models
                        {
                            Email = Email,
                            DefaultTripID = DefaultTrip.Id,
+                           PhotoURL,
                            Trips = Trips.Select(t => t.Json(forUser))
                        };
         }
