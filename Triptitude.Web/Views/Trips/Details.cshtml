@@ -28,7 +28,7 @@
         <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a></span>
         </h1>
     </header>
-    <section id="itinerary">
+    @*<section id="itinerary">
         <div class="activities">
             @for (int i = 1; i <= trip.TotalDays; i++)
             {
@@ -39,7 +39,7 @@
                 Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
             }
         </div>
-    </section>
+    </section>*@
     <section id="itinerary">
         <header>
             <h2>
