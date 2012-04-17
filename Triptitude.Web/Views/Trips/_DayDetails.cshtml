@@ -14,7 +14,7 @@
 {
     foreach (Activity activity in activities.OrderBy(a => a.TimeForSort(day)))
     {
-        var title = activity.OrderNumber + " | " + activity.BeginAt + " - " + activity.Title;
+        var title = activity.Title;
     <div class="activity" data-activity-id="@activity.Id">
         @if (!string.IsNullOrWhiteSpace(title))
         {
