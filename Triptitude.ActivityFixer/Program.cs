@@ -14,14 +14,39 @@ namespace Triptitude.ActivityFixer
             TripsRepo repo = new TripsRepo();
             ActivitiesRepo aRepo = new ActivitiesRepo();
 
-            {
-                var trips = repo.FindAll().ToList();
-                trips = trips.Where(t => t.Created_On.Date == DateTime.Parse("12/6/2011")
-                                         || t.Created_On.Date == DateTime.Parse("12/15/2011")
-                                         || t.Created_On.Date == DateTime.Parse("1/3/2012")
-                                         || t.Created_On.Date == DateTime.Parse("2/11/2012")).ToList();
+            var trips = repo.FindAll().ToList().OrderBy(t => t.Id);
 
-                Console.WriteLine(string.Join(",", trips.Select(t => t.Id.ToString())));
+            foreach (Trip trip in trips)
+            {
+                Console.WriteLine(string.Format("Trip ID: {0}. Begin Date: {1} ", trip.Id, trip.BeginDate));
+                var activities = trip.Activities;
+                foreach (Activity activity in activities)
+                {
+                    if(!activity.BeginDay.HasValue) continue;
+
+                    var beginAt = trip.BeginDate.Value.AddDays(activity.BeginDay.Value - 1);
+
+                    if (activity.BeginTime.HasValue)
+                        beginAt = beginAt.Add(activity.BeginTime.Value);
+
+                    activity.BeginAt = beginAt;
+                    Console.WriteLine(string.Format("Activity ID: {0}. Begin Day: {2}. Begin Time: {3}. BeginAt: {4}. OrderNumber: {6}",
+                        activity.Id, null, activity.BeginDay, activity.BeginTime, activity.BeginAt, null, activity.OrderNumber
+                        ));
+                }
+            }
+
+            repo.Save();
+
+
+            //{
+                //var trips = repo.FindAll().ToList();
+                //trips = trips.Where(t => t.Created_On.Date == DateTime.Parse("12/6/2011")
+                //                         || t.Created_On.Date == DateTime.Parse("12/15/2011")
+                //                         || t.Created_On.Date == DateTime.Parse("1/3/2012")
+                //                         || t.Created_On.Date == DateTime.Parse("2/11/2012")).ToList();
+
+                //Console.WriteLine(string.Join(",", trips.Select(t => t.Id.ToString())));
 
                 //var selectMany = trips.SelectMany(t => t.Users).ToList();
                 //var userTrips = trips.SelectMany(t => t.UserTrips).ToList();
@@ -69,7 +94,7 @@ namespace Triptitude.ActivityFixer
 //select * from activities a
 //left join Trips t on a.Trip_Id = t.Id
 //where t.Id is null
-            }
+            //}
 
             //{
             //    foreach (Trip trip in trips)
@@ -102,35 +127,35 @@ namespace Triptitude.ActivityFixer
             Console.ReadKey(true);
         }
 
-        public static string GenerateTitle(Activity activity)
-        {
-            if (!string.IsNullOrWhiteSpace(activity.Title))
-                return activity.Title;
+        //public static string GenerateTitle(Activity activity)
+        //{
+        //    if (!string.IsNullOrWhiteSpace(activity.Title))
+        //        return activity.Title;
 
-            if (activity.IsTransportation)
-            {
-                var title = activity.TransportationType != null ? activity.TransportationType.Name : "Transportation";
-                foreach (ActivityPlace activityPlace in activity.ActivityPlaces.ToList())
-                {
-                    title += (activityPlace.SortIndex == 0) ? " from " : " to ";
-                    title += activityPlace.Place.Name;
-                }
-                return title;
-            }
+        //    if (activity.IsTransportation)
+        //    {
+        //        var title = activity.TransportationType != null ? activity.TransportationType.Name : "Transportation";
+        //        foreach (ActivityPlace activityPlace in activity.ActivityPlaces.ToList())
+        //        {
+        //            title += (activityPlace.SortIndex == 0) ? " from " : " to ";
+        //            title += activityPlace.Place.Name;
+        //        }
+        //        return title;
+        //    }
 
-            if (activity.ActivityPlaces.Any())
-            {
-                return activity.ActivityPlaces.First().Place.Name;
-            }
+        //    if (activity.ActivityPlaces.Any())
+        //    {
+        //        return activity.ActivityPlaces.First().Place.Name;
+        //    }
 
-            if (activity.Tags.Any())
-            {
-                var tagss = activity.Tags.Select(t => t.NiceName);
-                var join = String.Join(", ", tagss);
-                return join;
-            }
+        //    if (activity.Tags.Any())
+        //    {
+        //        var tagss = activity.Tags.Select(t => t.NiceName);
+        //        var join = String.Join(", ", tagss);
+        //        return join;
+        //    }
 
-            throw new Exception("Title could not be generated.");
-        }
+        //    throw new Exception("Title could not be generated.");
+        //}
     }
 }
