@@ -11,32 +11,32 @@ namespace Triptitude.ActivityFixer
     {
         static void Main(string[] args)
         {
-            TripsRepo repo = new TripsRepo();
-            ActivitiesRepo aRepo = new ActivitiesRepo();
+            //TripsRepo repo = new TripsRepo();
+            //ActivitiesRepo aRepo = new ActivitiesRepo();
 
-            var trips = repo.FindAll().ToList().OrderBy(t => t.Id);
+            //var trips = repo.FindAll().ToList().OrderBy(t => t.Id);
 
-            foreach (Trip trip in trips)
-            {
-                Console.WriteLine(string.Format("Trip ID: {0}. Begin Date: {1} ", trip.Id, trip.BeginDate));
-                var activities = trip.Activities;
-                foreach (Activity activity in activities)
-                {
-                    if(!activity.BeginDay.HasValue) continue;
+            //foreach (Trip trip in trips)
+            //{
+            //    Console.WriteLine(string.Format("Trip ID: {0}. Begin Date: {1} ", trip.Id, trip.BeginDate));
+            //    var activities = trip.Activities;
+            //    foreach (Activity activity in activities)
+            //    {
+            //        if(!activity.BeginDay.HasValue) continue;
 
-                    var beginAt = trip.BeginDate.Value.AddDays(activity.BeginDay.Value - 1);
+            //        var beginAt = trip.BeginDate.Value.AddDays(activity.BeginDay.Value - 1);
 
-                    if (activity.BeginTime.HasValue)
-                        beginAt = beginAt.Add(activity.BeginTime.Value);
+            //        if (activity.BeginTime.HasValue)
+            //            beginAt = beginAt.Add(activity.BeginTime.Value);
 
-                    activity.BeginAt = beginAt;
-                    Console.WriteLine(string.Format("Activity ID: {0}. Begin Day: {2}. Begin Time: {3}. BeginAt: {4}. OrderNumber: {6}",
-                        activity.Id, null, activity.BeginDay, activity.BeginTime, activity.BeginAt, null, activity.OrderNumber
-                        ));
-                }
-            }
+            //        activity.BeginAt = beginAt;
+            //        Console.WriteLine(string.Format("Activity ID: {0}. Begin Day: {2}. Begin Time: {3}. BeginAt: {4}. OrderNumber: {6}",
+            //            activity.Id, null, activity.BeginDay, activity.BeginTime, activity.BeginAt, null, activity.OrderNumber
+            //            ));
+            //    }
+            //}
 
-            repo.Save();
+            //repo.Save();
 
 
             //{
