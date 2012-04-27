@@ -48,7 +48,7 @@ namespace Triptitude.Web.Helpers
                                                                Items = from n in trip.Activities.Where(a => a.BeginDay == i)
                                                                        select new OptionItem
                                                                                   {
-                                                                                      Text = n.NiceName,
+                                                                                      Text = n.Title,
                                                                                       Value = n.Id.ToString()
                                                                                   },
                                                                Name = "Day " + i
@@ -61,7 +61,7 @@ namespace Triptitude.Web.Helpers
                                     Items = from n in trip.Activities.Where(a => a.IsUnscheduled)
                                             select new OptionItem
                                                        {
-                                                           Text = n.NiceName,
+                                                           Text = n.Title,
                                                            Value = n.Id.ToString()
                                                        },
                                     Name = "Unscheduled Activities"

@@ -28,7 +28,7 @@
         <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a></span>
         </h1>
     </header>
-    <section id="itinerary">
+    @*<section id="itinerary">
         <div class="activities">
             @for (int i = 1; i <= trip.TotalDays; i++)
             {
@@ -39,7 +39,7 @@
                 Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
             }
         </div>
-    </section>
+    </section>*@
     <section id="itinerary">
         <header>
             <h2>
@@ -72,8 +72,25 @@
 
                     foreach (var activity in activities)
                     {
-                    <li class="activity" data-activity-id="@activity.Id">
-                        @activity.GeneratedTitle
+                    <li class="activity" data-activity-id="@activity.Id">@{
+                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap=>ap.SortIndex);
+                        }
+                        @if (mappablePlaces.Any())
+                        {
+                            <ul class="maps">
+                                @foreach (var place in mappablePlaces)
+                                {
+                                    <li>
+                                        <img src="@place.Place.StaticMapURL()" alt="map of @place.Place.Name"/>
+                                    </li>
+                                }
+                            </ul>   
+                        }
+                        @activity.Title
+                        @if (activity.BeginAt.HasValue)
+                        {
+                            <div>@activity.BeginAt.Value.ToShortTimeString()</div>
+                        }
                     </li>
                     }
                 }

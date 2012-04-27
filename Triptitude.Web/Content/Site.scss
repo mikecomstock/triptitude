@@ -357,8 +357,16 @@ ul.tags > li + li { margin-left: 5px; }
 		padding: 10px 0; @include clearfix; background: url('/static/images/activitybackgroundline.png') repeat-y 20px;
 			> .date { padding: 2px 5px; background-color: #999; color: #FFF; float: left; clear: both; @include border-radius(4px); font-size: 12px; margin: 3px 0; z-index: 2; position: relative; }
 			> .activity {
-				padding: 8px; padding-left: 40px; clear: both;
-				&:hover { background-color: #F3F3F3; cursor: pointer; }	
+				@include clearfix; padding: 8px; padding-left: 40px; clear: both; position: relative; overflow: hidden;
+				&:hover {
+					background-color: #F3F3F3; cursor: pointer; overflow: visible; z-index: 10;
+					> .maps { background-color: #F3F3F3; }
+				}	
+				&+ .activity { border-top: 1px solid #CCC; }	
+				> .maps {
+					float:right; @include clearfix; position: absolute; right:5px;
+					li { float: left; margin-left: 10px; }
+				}
 			}
 		}
 

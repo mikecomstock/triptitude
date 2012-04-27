@@ -1052,12 +1052,51 @@ ul.tags > li + li {
     z-index: 2;
     position: relative; }
   #trips-details #itinerary .activities2 > .activity {
+    zoom: 1;
     padding: 8px;
     padding-left: 40px;
-    clear: both; }
+    clear: both;
+    position: relative;
+    overflow: hidden; }
+    #trips-details #itinerary .activities2 > .activity:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #trips-details #itinerary .activities2 > .activity:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
     #trips-details #itinerary .activities2 > .activity:hover {
       background-color: #F3F3F3;
-      cursor: pointer; }
+      cursor: pointer;
+      overflow: visible;
+      z-index: 10; }
+      #trips-details #itinerary .activities2 > .activity:hover > .maps {
+        background-color: #F3F3F3; }
+    #trips-details #itinerary .activities2 > .activity + .activity {
+      border-top: 1px solid #CCC; }
+    #trips-details #itinerary .activities2 > .activity > .maps {
+      float: right;
+      zoom: 1;
+      position: absolute;
+      right: 5px; }
+      #trips-details #itinerary .activities2 > .activity > .maps:before {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline; }
+      #trips-details #itinerary .activities2 > .activity > .maps:after {
+        display: table;
+        content: "";
+        zoom: 1;
+        *display: inline;
+        clear: both; }
+      #trips-details #itinerary .activities2 > .activity > .maps li {
+        float: left;
+        margin-left: 10px; }
 #trips-details #itinerary .activities {
   padding: 10px 0;
   zoom: 1;

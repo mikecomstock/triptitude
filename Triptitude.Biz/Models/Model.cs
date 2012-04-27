@@ -296,17 +296,6 @@ namespace Triptitude.Biz.Models
         public virtual TransportationType TransportationType { get; set; }
         public string SourceURL { get; set; }
 
-        //[NotMapped]
-        //public virtual string Name { get; set; }
-        //[NotMapped]
-        //public virtual string ActivityTypeName { get; set; }
-
-        public string GeneratedTitle
-        {
-            get { return string.IsNullOrWhiteSpace(Title) ? "Generated Title" : Title; }
-        }
-
-        public string NiceName { get { return !string.IsNullOrWhiteSpace(Title) ? Title : GeneratedTitle; } }
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
 
         public TimeSpan? TimeForSort(int? day)
@@ -353,14 +342,12 @@ namespace Triptitude.Biz.Models
             return new
                        {
                            ID = Id,
-                           Title = Title,
+                           Title,
                            IsTransportation,
                            BeginAt,
                            EndAt,
-                           //BeginAt = BeginAt.HasValue ? BeginAt.Value : string.Empty,
-                           //EndAt = EndAt.HasValue ? EndAt.Value.ToString("MM/dd/yy") : string.Empty,
                            TransportationTypeName = TransportationType == null ? string.Empty : TransportationType.Name,
-                           SourceURL = SourceURL,
+                           SourceURL,
                            TagString,
                            OrderNumber,
                            Trip = new
@@ -371,11 +358,11 @@ namespace Triptitude.Biz.Models
                                       },
                            Places = from p in ActivityPlaces
                                     select new
-                                    {
-                                        p.SortIndex,
-                                        p.Place.Id,
-                                        p.Place.Name
-                                    },
+                                               {
+                                                   p.SortIndex,
+                                                   p.Place.Id,
+                                                   p.Place.Name
+                                               },
                            Notes = from n in Notes
                                    select new
                                               {
@@ -384,10 +371,10 @@ namespace Triptitude.Biz.Models
                                                   n.Public,
                                                   n.Created_On,
                                                   User = new
-                                                                    {
-                                                                        n.User.Email,
-                                                                        ID = n.User.Id
-                                                                    }
+                                                             {
+                                                                 n.User.Email,
+                                                                 ID = n.User.Id
+                                                             }
                                               }
                        };
         }
@@ -653,6 +640,14 @@ namespace Triptitude.Biz.Models
                 var full = String.Join(", ", parts);
                 return full;
             }
+        }
+
+        public string StaticMapURL()
+        {
+            if (!Latitude.HasValue || !Longitude.HasValue) return null;
+
+            var s = "http://maps.googleapis.com/maps/api/staticmap?size=200x200&zoom=14&markers={0},{1}&sensor=true";
+            return string.Format(s, Latitude.Value, Longitude.Value);
         }
     }
 
