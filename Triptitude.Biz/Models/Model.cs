@@ -182,14 +182,14 @@ namespace Triptitude.Biz.Models
             get { return Activities.Where(a => !a.Deleted).OrderBy(a => a.OrderNumber); }
         }
 
-        public int TotalDays
-        {
-            get
-            {
-                int? max = Activities.Where(a => !a.Deleted).Select(a => a.BeginDay).Union(Activities.Where(a => !a.Deleted).Select(a => a.EndDay)).Max();
-                return max ?? 1;
-            }
-        }
+        //public int TotalDays
+        //{
+        //    get
+        //    {
+        //        int? max = Activities.Where(a => !a.Deleted).Select(a => a.BeginDay).Union(Activities.Where(a => !a.Deleted).Select(a => a.EndDay)).Max();
+        //        return max ?? 1;
+        //    }
+        //}
 
         public IEnumerable<DateTime?> Dates
         {
@@ -236,22 +236,6 @@ namespace Triptitude.Biz.Models
             {
                 var tags = Activities.Where(a => !a.Deleted).SelectMany(a => a.Tags).Distinct();
                 return tags;
-            }
-        }
-
-        public string NiceDay(int? dayNumer, User currentUser)
-        {
-            if (!dayNumer.HasValue)
-            {
-                return "Unscheduled Activities";
-            }
-            else if (BeginDate.HasValue && (BeginDate.Value.AddDays(TotalDays - 1) < DateTime.Today || currentUser.OwnsTrips(this)))
-            {
-                return string.Format("Day {0} - {1:dddd, MMM dd}", dayNumer, BeginDate.Value.AddDays(dayNumer.Value - 1));
-            }
-            else
-            {
-                return string.Format("Day {0}", dayNumer);
             }
         }
 

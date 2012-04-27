@@ -8,15 +8,3 @@
 @Html.CheckBoxFor(model => trip.ShowInSearch)
 <input type="submit" value="Save" />
 </form>
-<h2>
-    Itinerary</h2>
-<div class="panel-content">
-    @for (int i = 1; i <= trip.TotalDays; i++)
-    {
-        Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i, area = "" });
-    }
-    @if (trip.Activities.Any(a => a.IsUnscheduled))
-    {
-        Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1, area = "" });
-    }
-</div>
