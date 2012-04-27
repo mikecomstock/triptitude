@@ -13,7 +13,7 @@ namespace Triptitude.Web.Controllers
                 return Redirect("/tripmarklet/createtrip");
             
             ViewBag.URL = url;
-            ViewBag.ParsedTitle = title;
+            ViewBag.ParsedTitle = title.Trim();
 
             var currentUserData = CurrentUser.Json(CurrentUser);
             ViewBag.CurrentUserData = currentUserData;

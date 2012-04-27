@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CEC3991-2F51-4C6A-BD50-2D25317DBECA}"
 	ProjectSection(SolutionItems) = preProject
 		DB Scripts\Seed.sql = DB Scripts\Seed.sql
-		DB Scripts\Triptitude.sql = DB Scripts\Triptitude.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triptitude.ActivityFixer", "Triptitude.ActivityFixer\Triptitude.ActivityFixer.csproj", "{99D936D1-E991-42CD-9B6E-2A3691F10994}"

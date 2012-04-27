@@ -31,9 +31,15 @@
     c.onclick = close;
     contentContainer.appendChild(c);
 
+    var title = document.title;
+    if (window.location.host == 'www.tripadvisor.com') {
+        var heading = document.getElementById('HEADING');
+        if (heading) title = heading.innerHTML;
+    }
+    
     var i = document.createElement('iframe');
     i.style.cssText = "display: block; height: 100%; width: 100%; margin: 0; border: none; z-index: 8675311;";
-    var src = '{siteRoot}/tripmarklet/tripmarklet?url=' + encodeURIComponent(document.URL) + '&title=' + encodeURIComponent(document.title);
+    var src = '{siteRoot}/tripmarklet/tripmarklet?url=' + encodeURIComponent(document.URL) + '&title=' + encodeURIComponent(title);
     i.src = src;
     contentContainer.appendChild(i);
 })();
