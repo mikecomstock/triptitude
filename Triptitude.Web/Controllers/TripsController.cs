@@ -70,9 +70,15 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            //TODO: check permissions
             var trip = repo.Find(id);
             if (trip == null) return HttpNotFound();
+
+            if (trip.Visibility == (byte)Trip.TripVisibility.Private && !CurrentUser.OwnsTrips(trip))
+            {
+                //TODO: make nice 'permission denied' page
+                Response.StatusCode = 403;
+                return Content("Sorry, this trip is private. If this is your trip, please log in and try again.");
+            }
 
             if (Request.IsAjaxRequest())
                 return Json(trip.Json(CurrentUser), JsonRequestBehavior.AllowGet);
@@ -163,7 +169,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Create(int? to)
         {
-            var form = new NewCreateTripForm{ Visibility = Trip.TripVisibility.Public };
+            var form = new NewCreateTripForm { Visibility = Trip.TripVisibility.Public };
 
             if (to.HasValue)
             {
