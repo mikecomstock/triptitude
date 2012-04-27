@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -194,6 +194,8 @@ namespace Triptitude.Web.Controllers
                 trip.UserTrips.Add(userTrip);
 
                 repo.Save();
+
+                EmailService.SendTripCreated(trip);
 
                 new UsersRepo().SetDefaultTrip(CurrentUser, trip);
                 new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);

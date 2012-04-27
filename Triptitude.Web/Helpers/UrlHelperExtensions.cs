@@ -111,7 +111,7 @@ namespace Triptitude.Web.Helpers
 
         public static string CreateTrip(this UrlHelper url, Place to = null)
         {
-            return url.Action("create", "trips", new { to = to == null ? string.Empty : to.Id.ToString() });
+            return "/trips/create";// url.Action("create", "trips", new { to = to == null ? string.Empty : to.Id.ToString() });
         }
 
         public static string SetDefaultTrip(this UrlHelper url, Trip trip)
@@ -143,23 +143,23 @@ namespace Triptitude.Web.Helpers
             return url.Action("delete", "activities", new { id = activityId });
         }
 
-        public static string ItineraryAddTransportation(this UrlHelper url)
-        {
-            return url.Action("addtransportation", "activities");
-        }
-        public static string ItineraryEditTransportation(this UrlHelper url)
-        {
-            return url.Action("edittransportation", "activities");
-        }
+        //public static string ItineraryAddTransportation(this UrlHelper url)
+        //{
+        //    return url.Action("addtransportation", "activities");
+        //}
+        //public static string ItineraryEditTransportation(this UrlHelper url)
+        //{
+        //    return url.Action("edittransportation", "activities");
+        //}
 
-        public static string ItineraryAddPlace(this UrlHelper url)
-        {
-            return url.Action("addplace", "activities");
-        }
-        public static string ItineraryEditPlace(this UrlHelper url)
-        {
-            return url.Action("editplace", "activities");
-        }
+        //public static string ItineraryAddPlace(this UrlHelper url)
+        //{
+        //    return url.Action("addplace", "activities");
+        //}
+        //public static string ItineraryEditPlace(this UrlHelper url)
+        //{
+        //    return url.Action("editplace", "activities");
+        //}
 
         #endregion
 

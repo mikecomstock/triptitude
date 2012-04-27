@@ -36,6 +36,32 @@ namespace Triptitude.Biz.Services
             Send(message);
         }
 
+        public static void SendTripCreated(Trip trip)
+        {
+            PostmarkMessage message = new PostmarkMessage
+            {
+                From = "admin@triptitude.com",
+                To = "mikecomstock@gmail.com",
+                Subject = "Trip Created",
+                TextBody = string.Format("New trip created! ID: {0} Title: {1} User ID: {2}", trip.Id, trip.Name, trip.Creator.Id),
+                Tag = "trip-create"
+            };
+            Send(message);
+        }
+
+        public static void SendUserSignedUp(User user)
+        {
+            PostmarkMessage message = new PostmarkMessage
+            {
+                From = "admin@triptitude.com",
+                To = "mikecomstock@gmail.com",
+                Subject = "User Signed Up",
+                TextBody = string.Format("New user signed up! ID: {0} Email: {1}", user.Id, user.Email),
+                Tag = "user-signup"
+            };
+            Send(message);
+        }
+
         public static void SendTest()
         {
             PostmarkMessage message = new PostmarkMessage

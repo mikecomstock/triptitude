@@ -53,6 +53,7 @@ namespace Triptitude.Web.Controllers
                         {
                             usersRepo.SetNewGuidIfNeeded(CurrentUser);
                             EmailService.SentSignupEmail(CurrentUser);
+                            EmailService.SendUserSignedUp(CurrentUser);
                             AuthHelper.SetAuthCookie(CurrentUser);
                             return Redirect(Url.MyTrips());
                         }
