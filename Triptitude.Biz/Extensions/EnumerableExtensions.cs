@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Triptitude.Biz.Models;
 
@@ -24,10 +25,19 @@ namespace Triptitude.Biz.Extensions
             return items.Where(e => e.Visibility_Id == 0);
         }
 
+        //TODO: Is this used anywhere?
         public static IEnumerable<Trip> Public(this IEnumerable<Trip> trips)
         {
             //TODO: make setting for public/private trips
             return trips.Where(t => true);
+        }
+    }
+
+    public static class DateExtensions
+    {
+        public static bool HasTimePart(this DateTime d)
+        {
+            return d.TimeOfDay != new TimeSpan(0, 0, 0, 0);
         }
     }
 }

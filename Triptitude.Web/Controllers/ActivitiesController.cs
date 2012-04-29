@@ -38,7 +38,7 @@ namespace Triptitude.Web.Controllers
             Activity activity = new Activity { Trip = trip };
             activity.Title = form.Title;
             activity.BeginAt = form.BeginAt;
-            activity.EndAt = form.EndAt;
+            //activity.EndAt = form.EndAt;
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 
@@ -53,7 +53,7 @@ namespace Triptitude.Web.Controllers
             public int TripID { get; set; }
             public string Title { get; set; }
             public DateTime? BeginAt { get; set; }
-            public DateTime? EndAt { get; set; }
+            //public DateTime? EndAt { get; set; }
             public int OrderNumber { get; set; }
             public string SourceURL { get; set; }
         }
@@ -66,8 +66,8 @@ namespace Triptitude.Web.Controllers
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
             activity.Title = form.Title;
-            activity.BeginAt = form.BeginAt;
-            activity.EndAt = form.EndAt;
+            activity.BeginAt = form.BeginAt.HasValue ? form.BeginAt.Value.ToUniversalTime() : (DateTime?)null;
+            //activity.EndAt = form.EndAt.HasValue ? DateTime.SpecifyKind(form.EndAt.Value, DateTimeKind.Utc) : (DateTime?)null;
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 

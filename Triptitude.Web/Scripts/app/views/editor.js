@@ -70,7 +70,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     },
     addActivity: function (e) {
         var date = $(e.currentTarget).data('date');
-        
+
         var newActivity = new TT.Models.Activity({ TripID: this.model.id, BeginAt: date });
         this.model.get('Activities').add(newActivity).moveToEnd(newActivity);
         this.editing = newActivity;
@@ -104,7 +104,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 .data('date', date)
                 .appendTo(this.activityList);
             var dateText = date ? TT.Util.FormatDate(date) : 'Unscheduled Activities';
-            dateLi.text(dateText + ' - ' + $.datepicker.formatDate('D', date));
+            dateLi.text(dateText);
 
             $(this.make('div', { 'class': 'add-activity' }, '+')).prependTo(dateLi).data('date', date);
 
@@ -163,7 +163,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         if (this.model) {
             this.model.on('change:BeginAt', function () {
-                this.BeginDateInput.datepicker('setDate', this.model.get('BeginAt'));
+                this.BeginDateInput.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
             }, this);
         }
 
@@ -183,17 +183,16 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     save: function () {
         var self = this;
 
-        var currentBeginDate = TT.Util.DatePart(this.model.get('BeginAt'));
-        var newBeginDate = TT.Util.DatePart(this.BeginDateInput.datepicker('getDate'));
+        var oldBeginAt = this.model.get('BeginAt');
+        var newBeginAt = TT.Util.FromDatePicker(this.BeginDateInput.datepicker('getDate'));
 
         this.model.set({
             Title: this.TitleInput.val(),
             SourceURL: this.SourceURLInput.val(),
-            BeginAt: newBeginDate,
-            EndAt: this.EndDateInput.datepicker('getDate')
+            BeginAt: newBeginAt
         });
 
-        if (!TT.Util.SameDate(currentBeginDate, newBeginDate)) {
+        if (!TT.Util.SameDate(oldBeginAt, newBeginAt)) {
             this.model.collection.moveToEnd(this.model);
         }
 
@@ -221,7 +220,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         var decodedTitle = $('<div>').html(this.model.get('Title')).text();
         var beginDate = this.model.get('BeginAt');
-        var endDate = this.model.get('EndAt');
+        //        var endDate = this.model.get('EndAt');
 
         var p = {};
         var newP = function (cssClass) { return $('<div>').appendTo(self.el).addClass(cssClass); };
@@ -251,8 +250,8 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
                 $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
             }
         };
-        this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', beginDate);
-        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
+        this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', TT.Util.ToDatePicker(beginDate));
+        //        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
 
         p.Tags = newP('tags');
         $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);

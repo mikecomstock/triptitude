@@ -245,7 +245,7 @@ namespace Triptitude.Biz.Models
             {
                 ID = Id,
                 Name,
-                Activities = NonDeletedActivities.Select(a => a.Json(forUser))
+                Activities = NonDeletedActivities.OrderBy(a=>a.BeginAt).ThenBy(a=>a.OrderNumber).Select(a => a.Json(forUser))
             };
         }
     }
@@ -328,8 +328,8 @@ namespace Triptitude.Biz.Models
                            ID = Id,
                            Title,
                            IsTransportation,
-                           BeginAt,
-                           EndAt,
+                           BeginAt = BeginAt.HasValue ? DateTime.SpecifyKind(BeginAt.Value, DateTimeKind.Utc) : (DateTime?)null,
+                           //EndAt,
                            TransportationTypeName = TransportationType == null ? string.Empty : TransportationType.Name,
                            SourceURL,
                            TagString,

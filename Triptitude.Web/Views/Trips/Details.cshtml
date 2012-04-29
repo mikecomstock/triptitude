@@ -87,7 +87,7 @@
                             </ul>   
                         }
                         @activity.Title
-                        @if (activity.BeginAt.HasValue)
+                        @if (activity.BeginAt.HasValue && activity.BeginAt.Value.HasTimePart())
                         {
                             <div>@activity.BeginAt.Value.ToShortTimeString()</div>
                         }
