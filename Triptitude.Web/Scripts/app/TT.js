@@ -32,11 +32,13 @@
                 return date1 == date2;
         },
         FromDatePicker: function (date) {
+            if (!date) return;
             // datepicker returns in local time, so subtract the offset
             date.setTime(date.getTime() - date.getTimezoneOffset() * 60 * 1000);
             return date;
         },
         ToDatePicker: function (date) {
+            if (!date) return;
             // date is in UTC but datepicker takes local, so convert to local
             var local = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
             return local;
