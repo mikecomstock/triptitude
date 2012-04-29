@@ -25,7 +25,15 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
 
-        public IEnumerable<Trip> Trips { get { return UserTrips == null ? null : UserTrips.Select(ut => ut.Trip); } }
+        //public IEnumerable<Trip> Trips { get { return UserTrips == null ? null : UserTrips.Where(ut=>!ut.Trip.Deleted).Select(ut => ut.Trip); } }
+
+        public IEnumerable<Trip> Trips(User forUser)
+        {
+            var trips = UserTrips.Select(ut => ut.Trip);
+            trips = trips.Where(t => !t.Deleted);
+            trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public || forUser.OwnsTrips(t));
+            return trips;
+        }
 
         public string FullName
         {
@@ -91,10 +99,10 @@ namespace Triptitude.Biz.Models
         {
             return new
                        {
-                           Email = Email,
+                           Email,
                            DefaultTripID = DefaultTrip.Id,
                            PhotoURL,
-                           Trips = Trips.Select(t => t.Json(forUser))
+                           Trips = Trips(forUser).Select(t => t.Json(forUser))
                        };
         }
     }
@@ -160,6 +168,7 @@ namespace Triptitude.Biz.Models
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
         public byte Visibility { get; set; }
+        public bool Deleted { get; set; }
 
         public enum TripVisibility : byte
         {
@@ -245,7 +254,7 @@ namespace Triptitude.Biz.Models
             {
                 ID = Id,
                 Name,
-                Activities = NonDeletedActivities.OrderBy(a=>a.BeginAt).ThenBy(a=>a.OrderNumber).Select(a => a.Json(forUser))
+                Activities = NonDeletedActivities.OrderBy(a => a.BeginAt).ThenBy(a => a.OrderNumber).Select(a => a.Json(forUser))
             };
         }
     }

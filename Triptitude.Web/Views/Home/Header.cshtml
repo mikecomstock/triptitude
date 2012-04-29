@@ -1,6 +1,7 @@
 ﻿@using System.Configuration
 @{
     User currentUser = (User)ViewBag.CurrentUser;
+    IEnumerable<Trip> currentUserTrips = currentUser.Trips(currentUser);
 }
 <div id="header-container">
     <div id="header">
@@ -22,7 +23,7 @@
                     <a href="/trips/create" accesskey="c" class="create-trip">create a trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a> <a href="/logout">sign out</a>
                 </div>
             }
-            else if (!currentUser.Trips.IsNullOrEmpty())
+            else if (!currentUserTrips.IsNullOrEmpty())
             {
                 <div id="user-status-header">
                     Welcome, <a href="@Url.MyTrips()">anonymous user</a>
@@ -73,7 +74,7 @@
                 currently planning...</div>
             <a id="trip-bar-title" href="@Url.Details(currentUser.DefaultTrip)">
                 @currentUser.DefaultTrip.Name</a>
-            @if (string.IsNullOrWhiteSpace(currentUser.Email) && currentUser.Trips != null && currentUser.Trips.Any())
+            @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
             {
                 <div id="email-warning">
                     You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!

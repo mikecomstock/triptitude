@@ -53,25 +53,30 @@ namespace Triptitude.Web.Controllers
             return PartialView();
         }
 
-        public ActionResult Print(int id)
-        {
-            Trip trip = new TripsRepo().Find(id);
-            ViewBag.Trip = trip;
-            return View();
-        }
+        //public ActionResult Print(int id)
+        //{
+        //    Trip trip = new TripsRepo().Find(id);
+        //    ViewBag.Trip = trip;
+        //    return View();
+        //}
 
-        public ActionResult Map(int id)
-        {
-            Trip trip = new TripsRepo().Find(id);
-            return RedirectPermanent(Url.Details(trip) + "#map");
-            //ViewBag.Trip = trip;
-            //return View();
-        }
+        //public ActionResult Map(int id)
+        //{
+        //    Trip trip = new TripsRepo().Find(id);
+        //    return RedirectPermanent(Url.Details(trip) + "#map");
+        //    //ViewBag.Trip = trip;
+        //    //return View();
+        //}
 
         public ActionResult Details(int id)
         {
             var trip = repo.Find(id);
             if (trip == null) return HttpNotFound();
+            if (trip.Deleted)
+            {
+                Response.StatusCode = 410; // Gone
+                return Content("Sorry, this trip has been deleted.");
+            }
 
             if (trip.Visibility == (byte)Trip.TripVisibility.Private && !CurrentUser.OwnsTrips(trip))
             {
@@ -212,6 +217,22 @@ namespace Triptitude.Web.Controllers
                 ViewBag.Form = form;
                 return View();
             }
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var trip = CurrentUser.Trips(CurrentUser).FirstOrDefault(t => t.Id == id);
+            if (trip == null) return Redirect("/");
+
+            trip.Deleted = true;
+
+            if (CurrentUser.DefaultTrip.Id == trip.Id)
+                CurrentUser.DefaultTrip = CurrentUser.Trips(CurrentUser).OrderByDescending(t => t.Id).FirstOrDefault();
+            
+            repo.Save();
+
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Trips, trip.Id);
+            return Json(trip.Json(CurrentUser));
         }
 
         public ActionResult History(int id)

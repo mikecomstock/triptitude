@@ -41,7 +41,7 @@ join Trips t on a.Trip_Id = t.Id";
                 trips = trips.Where(t => t.Activities.Where(a => !a.Deleted).Any(a => a.Tags.Select(ta => ta.Id).Contains(tag.Id)));
             }
 
-            trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public);
+            trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public && !t.Deleted);
 
             return trips.Distinct();
         }

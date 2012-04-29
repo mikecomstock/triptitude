@@ -2,7 +2,7 @@
     User user = ViewBag.User;
     User currentUser = ViewBag.CurrentUser;
     ViewBag.Title = user.FullName;
-    IEnumerable<Trip> trips = (user == currentUser) ? user.Trips : user.Trips.Public();
+    IEnumerable<Trip> trips = user.Trips(currentUser);
 }
 <div class="panel">
     <div class="panel-title">
