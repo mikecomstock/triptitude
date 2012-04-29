@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
-using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
@@ -37,8 +34,8 @@ namespace Triptitude.Web.Controllers
 
             Activity activity = new Activity { Trip = trip };
             activity.Title = form.Title;
-            activity.BeginAt = form.BeginAt;
-            //activity.EndAt = form.EndAt;
+            activity.BeginAt = form.BeginAt.HasValue ? form.BeginAt.Value.ToUniversalTime() : (DateTime?)null;
+            //activity.EndAt = form.EndAt.HasValue ? DateTime.SpecifyKind(form.EndAt.Value, DateTimeKind.Utc) : (DateTime?)null;
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 

@@ -32,6 +32,7 @@ namespace Triptitude.Biz.Models
             var trips = UserTrips.Select(ut => ut.Trip);
             trips = trips.Where(t => !t.Deleted);
             trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public || forUser.OwnsTrips(t));
+            trips = trips.OrderByDescending(t => t.Id);
             return trips;
         }
 
