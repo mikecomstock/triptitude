@@ -43,13 +43,19 @@ namespace Triptitude.Web
             routes.MapRoute("OldTrips", "Trips/1/boston-in-a-day/map", new { controller = "Home", Action = "NotFound" });
             routes.MapRoute("OldDestinations", "Destinations/{*Data}", new { controller = "Home", Action = "NotFound" });
             // End of Old Stuff
-            
+
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
             routes.MapRoute("Tripmarklet", "tripmarklet", new { controller = "home", action = "tripmarklet" });
             routes.MapRoute("TripmarkletJS", "tripmarklet.js", new { controller = "home", action = "tripmarkletJS" });
+
+
+            //routes.MapRoute("TRIP WHO POST", "trips/{trip_id}/who", new { controller = "trips", action = "WhoCreate" }, new { httpMethod = new HttpMethodConstraint("POST") });
+            ////todo: figure out method for this:
+            //routes.MapRoute("TRIP WHO DELETE", "trips/{trip_id}/whodelete", new { controller = "trips", action = "Whodelete" }, new { httpMethod = new HttpMethodConstraint("POST") });
+
 
             routes.MapRoute("REST PUT", "{controller}/{id}", new { action = "Update" }, new { httpMethod = new HttpMethodConstraint("PUT") });
             routes.MapRoute("REST DELETE", "{controller}/{id}", new { action = "Delete" }, new { httpMethod = new HttpMethodConstraint("DELETE") });
@@ -81,7 +87,7 @@ namespace Triptitude.Web
             js.AddFile("~/Scripts/app/TT.js");
             js.AddDirectory("~/Scripts/app/models", "*.js", true);
             js.AddDirectory("~/Scripts/app/views", "*.js", true);
-            
+
             BundleTable.Bundles.Add(js);
 
             /* Trip Editor */

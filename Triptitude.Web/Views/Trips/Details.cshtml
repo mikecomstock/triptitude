@@ -3,10 +3,8 @@
     ViewBag.Title = trip.Name;
     ViewBag.ShowInSiteMap = @trip.ShowInSearch;
     User currentUser = ViewBag.CurrentUser;
-    bool CurrentUserOwnsTrip = currentUser.OwnsTrips(trip);
-    bool Editing = currentUser.DefaultTrip == trip;
 }
-@section Scripts {
+@*@section Scripts {
     <script type="text/javascript" charset="utf-8">
         $(function () {
             //            var tripId = $('#trip-map-container').data('trip-id');
@@ -19,20 +17,14 @@
             //                $(selectorToToggle).toggle();
             //            });
 
-            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
+            //            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
 
-            $('.invite').on('click', function (e) {
-                var tripID = $(e.currentTarget).data('trip-id');
-                console.log('tripID', tripID);
-                var dialogContainer = $('<div>');
-
-                var inviteDialog = new TT.Views.InviteDialog({ el: dialogContainer, tripID: tripID });
-                inviteDialog.render();
-
-                dialogContainer.dialog();
-            });
         });
     </script>
+}*@
+@if (currentUser.OwnsTrips(trip))
+{
+    @Html.Action("SidePanel", "Trips", new { trip })
 }
 <article>
     <header>
@@ -42,10 +34,8 @@
         <header>
             <h2>
                 Who's Going
-                @if (currentUser.Email == "mikecomstock@gmail.com")
-                {
-                    <span><a class="invite" data-trip-id="@trip.Id">Invite Someone</a> </span>
-                }
+                @if (currentUser.OwnsTrips(trip))
+                { <span><a href="@Url.Who(trip)">Add someone</a> </span>}
             </h2>
             <ul class="travelers">
                 @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))

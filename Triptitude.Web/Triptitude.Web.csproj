@@ -125,6 +125,7 @@
     <Compile Include="Controllers\TripsController.cs" />
     <Compile Include="Controllers\TriptitudeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UserTripsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +235,7 @@
     <Content Include="Views\Tripmarklet\Tripmarklet.cshtml" />
     <None Include="Content\Editor.scss" />
     <Content Include="Views\Tripmarklet\CreateTrip.cshtml" />
+    <Content Include="Views\Trips\Who.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

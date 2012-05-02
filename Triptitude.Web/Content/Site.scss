@@ -32,6 +32,7 @@ input.time-input { width: 75px !important; }
 	background-color: $warning-color-bg; color: $warning-color-fg; font-weight: bold;
 	a { color: $warning-color-fg; text-decoration: underline; }
 }
+subtitle.good { background-color: #53E925; }
 .hidden { display: none; }
 
 /* Form Defaults */
@@ -126,12 +127,12 @@ input.delete { background-color: #E92553; }
 #content { width: 955px; margin: 10px auto; @include clearfix; }
 
 #side-container {
-	float: left; width: 220px; margin-top: 50px; text-transform: lowercase;
+	float: left; width: 220px; margin-top: 50px; text-transform: lowercase; margin-right: 25px;
 	a { margin-bottom: 10px; @include transparent-background(#E9BA26,0.7); padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; @include border-radius(4px); }
 	a:hover, a:focus { background-color:#E9BA26; text-decoration:none; }
 }
 
-#main-container { float: left; width: 710px; margin-left: 25px; }
+#main-container { float: right; width: 710px; }
 
 article {
 	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
@@ -423,6 +424,18 @@ ul.tags > li + li { margin-left: 5px; }
 		.history {
 			padding: 8px;
 			+.history { border-top: 1px solid #F3F3F3; }
+		}
+	}
+}
+
+#trips-who {
+	.travelers {
+		li {
+			@include clearfix; padding: 8px;
+			img { float: left; margin-right: 8px; }
+			a.user { float: left; font-size: 16px; }
+			a.delete { float: right; }
+			&+ li { border-top: 1px solid #CCC; }
 		}
 	}
 }

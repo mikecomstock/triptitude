@@ -33,17 +33,16 @@
             <input type="submit" value="Start Planning >" />
         </p>
         </form>
-        <p>
-            You need a vacation. You deserve a vacation. You've <em>earned</em> a vacation, but planning the trip of your dreams isn't easy. Between flights and hotels, packing lists and activities, how do you keep everything straight? Triptitude helps you keep it all organized, so when it's finally time to go, you can relax and enjoy the ride.
-        </p>
         <h2>
+            Organize your travel plans from start to finish</h2>
+        <p>
+            You need a vacation. You deserve a vacation. You've <em>earned</em> a vacation, but planning the trip of your dreams isn't easy. Between flights, hotels, and activities, how do you keep everything straight? Triptitude helps you keep it all organized, so when it's finally time to go, you can relax and enjoy the ride.
+        </p>
+        @*<h2>
             Organize your travel plans from start to finish</h2>
         <ul>
             <li><a href="/trips">Search trips</a> others have planned and get inspired.</li>
-            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>
-            <li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>
-            @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@
-        </ul>
+            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>*@ @*<li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>*@ @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@ @*</ul>*@
         @if (trips != null && trips.Any())
         {
             <div id="trips">
@@ -55,7 +54,7 @@
                 @{
             TripSearchForm form2 = new TripSearchForm();
                 }
-                @Helpers.TripSearchForm(form2)
+                @*@Helpers.TripSearchForm(form2)*@
                 @Html.Action("SearchResults", "Trips", new { form = form2 })
             </div>
         }

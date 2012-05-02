@@ -151,6 +151,14 @@ namespace Triptitude.Biz.Models
             Public = 0,
             Private = 1
         }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+                       {
+                           id = Id,
+                       };
+        }
     }
 
     public enum UserTripStatus : byte

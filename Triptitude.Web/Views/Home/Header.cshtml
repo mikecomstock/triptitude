@@ -55,9 +55,10 @@
             <ul id="trip-bar-menu">
                 <li><span class="link">Details</span>
                     <ul>
-                        <li><a href="@Url.Details(currentUser.DefaultTrip)#itinerary" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
+                        <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span><strong>Add your fellow travelers</strong></span></a></li>
+                        <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
                         @*<li><a href="@Url.Details(currentUser.DefaultTrip)#map">Map<span><strong>Map your destinations</strong></span></a></li>*@
-                        <li><a href="@Url.Details(currentUser.DefaultTrip)#packinglist">Packing List<span><strong>Update your packing list</strong></span></a></li>
+                        @*<li><a href="@Url.Details(currentUser.DefaultTrip)#packinglist">Packing List<span><strong>Update your packing list</strong></span></a></li>*@
                         <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Set a title and start date</strong></span></a></li>
                     </ul>
                 </li>

@@ -100,6 +100,11 @@ namespace Triptitude.Web.Helpers
             return url.SlugAction("details", "trips", trip.Id, trip.Name);
         }
 
+        public static string Who(this UrlHelper url, Trip trip)
+        {
+            return url.SlugAction("who", "trips", trip.Id, trip.Name);
+        }
+
         public static string PackingList(this UrlHelper url, Trip trip)
         {
             return url.SlugAction("packinglist", "trips", trip.Id, trip.Name);

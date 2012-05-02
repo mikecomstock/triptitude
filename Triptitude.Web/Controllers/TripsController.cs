@@ -259,5 +259,15 @@ namespace Triptitude.Web.Controllers
             ViewBag.Trip = repo.Find(id);
             return View();
         }
+
+        public ActionResult Who(int id)
+        {
+            var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
+            if (userTrip == null) return Redirect("/");
+            var trip = userTrip.Trip;
+            ViewBag.Trip = trip;
+
+            return View();
+        }
     }
 }

@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = @ViewBag.Trip.Name + " - Who's Going";
+    User currentUser = ViewBag.CurrentUser;
+    Trip trip = ViewBag.Trip;
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+
+        TT.Models.UserTrip = Backbone.Model.extend({ urlRoot: '/usertrips' });
+
+        $(function () {
+
+            $('.travelers').on('click', '.delete', function (e) {
+                e.preventDefault();
+                if (!confirm('Are you sure?')) return;
+
+                var li = $(e.currentTarget).closest('li');
+                var id = $(e.currentTarget).data('id');
+                var ut = new TT.Models.UserTrip({ id: id });
+                ut.destroy({
+                    success: function () {
+                        li.slideUp();
+                    },
+                    error: function () { alert('User could not be removed.'); }
+                });
+
+            });
+
+        });
+    </script>
+}
+@Html.Action("SidePanel", "Trips", new { trip })
+<div id="main-container">
+    <div class="panel">
+        <div class="panel-title">
+            <h1>
+                @ViewBag.Title
+            </h1>
+        </div>
+        @if (TempData["message"] != null)
+        {
+            <div class="subtitle">
+                @TempData["message"]
+            </div>
+        }
+        <div class="subtitle">
+            <h3>
+                Add a Traveler</h3>
+            <form action="/usertrips" method="POST">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="trip_id" value="@trip.Id"/>
+            <input name="fname" placeholder="First Name" class="focus" />
+            <input name="lname" placeholder="Last Name" />
+            <input type="submit" value="Add Traveler" />
+            </form>
+        </div>
+        <div class="panel-content not-padded">
+            <ul class="travelers">
+                @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
+                {
+                    <li>
+                        <img src="@userTrip.User.PhotoURL" alt="" />
+                        <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a> </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

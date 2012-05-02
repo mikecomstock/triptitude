@@ -73,6 +73,9 @@ input.time-input {
     color: white;
     text-decoration: underline; }
 
+subtitle.good {
+  background-color: #53E925; }
+
 .hidden {
   display: none; }
 
@@ -382,7 +385,8 @@ input.delete {
   float: left;
   width: 220px;
   margin-top: 50px;
-  text-transform: lowercase; }
+  text-transform: lowercase;
+  margin-right: 25px; }
   #side-container a {
     margin-bottom: 10px;
     background: #e9ba26;
@@ -400,9 +404,8 @@ input.delete {
     text-decoration: none; }
 
 #main-container {
-  float: left;
-  width: 710px;
-  margin-left: 25px; }
+  float: right;
+  width: 710px; }
 
 article {
   -webkit-border-radius: 6px;
@@ -1226,6 +1229,31 @@ ul.tags > li + li {
   padding: 8px; }
   #trips-history .histories .history + .history {
     border-top: 1px solid #F3F3F3; }
+
+#trips-who .travelers li {
+  zoom: 1;
+  padding: 8px; }
+  #trips-who .travelers li:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #trips-who .travelers li:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #trips-who .travelers li img {
+    float: left;
+    margin-right: 8px; }
+  #trips-who .travelers li a.user {
+    float: left;
+    font-size: 16px; }
+  #trips-who .travelers li a.delete {
+    float: right; }
+  #trips-who .travelers li + li {
+    border-top: 1px solid #CCC; }
 
 /* Packing List */
 .packing-list-tag h3 {
