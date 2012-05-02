@@ -35,13 +35,13 @@
             <h2>
                 Who's Going
                 @if (currentUser.OwnsTrips(trip))
-                { <span><a href="@Url.Who(trip)">Add someone</a> </span>}
+                { <span><a href="@Url.Who(trip)">Add Someone</a> </span>}
             </h2>
             <ul class="travelers">
                 @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
                 {
                     <li><a href="@Url.Details(userTrip.User)">
-                        <img src="@userTrip.User.PhotoURL" src="" />
+                        <img src="@userTrip.User.PhotoURL" alt="" />
                         <span>@userTrip.User.FullName</span> </a></li>
                 }
             </ul>
@@ -51,6 +51,8 @@
         <header>
             <h2>
                 Itinerary
+                @if (currentUser.OwnsTrips(trip))
+                { <span><a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">Add Activity</a> </span>}
             </h2>
         </header>
         @if (trip.NonDeletedActivities.Any())

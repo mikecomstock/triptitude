@@ -104,7 +104,7 @@ namespace Triptitude.Web
             BundleTable.Bundles.Add(tripmarklet);
 
             /* Editor (used by tripmarklet) */
-            Bundle editorJs = new Bundle("~/Scripts/editor");
+            Bundle editorJs = new Bundle("~/Scripts/editor", new JsMinify());
             editorJs.AddFile("~/Scripts/jquery-1.7.1.min.js");
             editorJs.AddFile("~/Scripts/jquery-ui-1.8.18.min.js");
             editorJs.AddFile("~/Scripts/underscore.js");

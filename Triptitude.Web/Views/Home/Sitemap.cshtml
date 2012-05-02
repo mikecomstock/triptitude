@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
     IEnumerable<Trip> trips = ViewBag.Trips;
-    IEnumerable<Tag> tags = ViewBag.Tags;
+    //IEnumerable<Tag> tags = ViewBag.Tags;
 }
 <?xml version="1.0" encoding="UTF-8" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -9,10 +9,10 @@
       <loc>http://www.triptitude.com</loc>
       <changefreq>daily</changefreq>
    </url>
-   <url>
+@*   <url>
       <loc>http://www.triptitude.com/packing</loc>
       <changefreq>daily</changefreq>
-   </url>
+   </url>*@
    @foreach (Trip trip in trips)
    {
    <url>
@@ -20,11 +20,11 @@
       <changefreq>daily</changefreq>
    </url>
    }
-   @foreach (Tag tag in tags)
+   @*@foreach (Tag tag in tags)
    {
    <url>
       <loc>@("http://www.triptitude.com" + Url.Details(tag))</loc>
       <changefreq>daily</changefreq>
    </url>
-   }
+   }*@
 </urlset>

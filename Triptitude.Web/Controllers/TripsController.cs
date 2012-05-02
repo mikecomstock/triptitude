@@ -225,7 +225,7 @@ namespace Triptitude.Web.Controllers
 
                 new UsersRepo().SetDefaultTrip(CurrentUser, trip);
                 new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);
-                return Redirect(Url.Details(trip));
+                return Redirect(Url.Who(trip));
             }
             else
             {
