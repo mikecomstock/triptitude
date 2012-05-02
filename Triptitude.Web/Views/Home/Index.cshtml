@@ -20,7 +20,7 @@
             <label for="visibility">
                 Visibility</label>
             @{
-                var form = new NewCreateTripForm { Visibility = Trip.TripVisibility.Public };
+                var form = new NewCreateTripForm { Visibility = UserTrip.UserTripVisibility.Public };
             }
             @Html.DropDownList("visibility", form.Visibility.ToSelectList())
         </p>

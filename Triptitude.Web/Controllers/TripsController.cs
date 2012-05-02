@@ -72,13 +72,13 @@ namespace Triptitude.Web.Controllers
         {
             var trip = repo.Find(id);
             if (trip == null) return HttpNotFound();
-            if (trip.Deleted)
+            if (trip.UserTrips.All(ut => ut.Deleted))
             {
                 Response.StatusCode = 410; // Gone
                 return Content("Sorry, this trip has been deleted.");
             }
 
-            if (trip.Visibility == (byte)Trip.TripVisibility.Private && !CurrentUser.OwnsTrips(trip))
+            if (trip.UserTrips.All(ut => ut.Visibility == (byte)UserTrip.UserTripVisibility.Private) && !CurrentUser.OwnsTrips(trip) && !CurrentUser.IsAdmin)
             {
                 //TODO: make nice 'permission denied' page
                 Response.StatusCode = 403;
@@ -140,12 +140,16 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings(int id)
         {
-            var tripRepo = new TripsRepo();
-            Trip trip = tripRepo.Find(id);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+            var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
+            if (userTrip == null) return Redirect("/");
+            var trip = ViewBag.Trip = userTrip.Trip;
 
-            ViewBag.Trip = trip;
-            ViewBag.Form = tripRepo.GetSettingsForm(trip);
+            ViewBag.Form = new TripSettingsForm
+            {
+                Name = trip.Name,
+                Visibility = (UserTrip.UserTripVisibility)Enum.Parse(typeof(UserTrip.UserTripVisibility), userTrip.Visibility.ToString())
+            };
+
             return View();
         }
 
@@ -153,28 +157,32 @@ namespace Triptitude.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Settings(int id, TripSettingsForm form)
         {
-            var tripRepo = new TripsRepo();
-            Trip trip = tripRepo.Find(id);
-            if (!CurrentUser.CreatedTrips(trip)) return Redirect("/");
+            var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
+            if (userTrip == null) return Redirect("/");
+            var trip = userTrip.Trip;
 
-            if (ModelState.IsValid)
+            //Only the creator can change the name.
+            if (CurrentUser.CreatedTrips(trip))
             {
-                tripRepo.Save(trip, form);
-                new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Modified, HistoryTable.Trips, trip.Id);
-                TempData["saved"] = true;
-                return Redirect(Url.Settings(trip));
+                if (ModelState.IsValid) trip.Name = form.Name;
+                else
+                {
+                    ViewBag.Trip = trip;
+                    ViewBag.Form = form;
+                    return View();
+                }
             }
-            else
-            {
-                ViewBag.Trip = trip;
-                ViewBag.Form = form;
-                return View();
-            }
+
+            userTrip.Visibility = (byte)form.Visibility;
+            repo.Save();
+            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Modified, HistoryTable.Trips, trip.Id);
+            TempData["saved"] = true;
+            return Redirect(Url.Settings(trip));
         }
 
         public ActionResult Create(int? to)
         {
-            var form = new NewCreateTripForm { Visibility = Trip.TripVisibility.Public };
+            var form = new NewCreateTripForm { Visibility = UserTrip.UserTripVisibility.Public };
 
             if (to.HasValue)
             {
@@ -195,13 +203,20 @@ namespace Triptitude.Web.Controllers
                 Trip trip = new Trip
                 {
                     Name = form.Name,
-                    Created_On = DateTime.UtcNow,
-                    Visibility = (byte)form.Visibility
+                    Created_On = DateTime.UtcNow
                 };
 
                 repo.Add(trip);
 
-                UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = CurrentUser };
+                UserTrip userTrip = new UserTrip
+                {
+                    Trip = trip,
+                    IsCreator = true,
+                    Status = (byte)UserTripStatus.Attending,
+                    StatusUpdatedOnUTC = DateTime.UtcNow,
+                    User = CurrentUser,
+                    Visibility = (byte)form.Visibility
+                };
                 trip.UserTrips.Add(userTrip);
 
                 repo.Save();
@@ -221,14 +236,15 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            var trip = CurrentUser.Trips(CurrentUser).FirstOrDefault(t => t.Id == id);
-            if (trip == null) return Redirect("/");
+            var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
+            if (userTrip == null) return Redirect("/");
+            var trip = userTrip.Trip;
 
-            trip.Deleted = true;
+            userTrip.Deleted = true;
 
             if (CurrentUser.DefaultTrip.Id == trip.Id)
                 CurrentUser.DefaultTrip = CurrentUser.Trips(CurrentUser).OrderByDescending(t => t.Id).FirstOrDefault();
-            
+
             repo.Save();
 
             new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Trips, trip.Id);

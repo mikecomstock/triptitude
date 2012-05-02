@@ -25,13 +25,13 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
 
-        //public IEnumerable<Trip> Trips { get { return UserTrips == null ? null : UserTrips.Where(ut=>!ut.Trip.Deleted).Select(ut => ut.Trip); } }
+        public bool IsAdmin { get { return Email == "mikecomstock@gmail.com"; } }
 
         public IEnumerable<Trip> Trips(User forUser)
         {
-            var trips = UserTrips.Select(ut => ut.Trip);
-            trips = trips.Where(t => !t.Deleted);
-            trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public || forUser.OwnsTrips(t));
+            var a = UserTrips.Where(ut => !ut.Deleted);
+            a = a.Where(ut => ut.Visibility == (byte)UserTrip.UserTripVisibility.Public || forUser.OwnsTrips(ut.Trip));
+            var trips = a.Select(ut => ut.Trip);
             trips = trips.OrderByDescending(t => t.Id);
             return trips;
         }
@@ -91,8 +91,8 @@ namespace Triptitude.Biz.Models
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(Email)) return string.Empty;
-                return "http://www.gravatar.com/avatar/" + Email.Trim().ToLower().Md5Hash();
+                var email = string.IsNullOrWhiteSpace(Email) ? "anon@triptitude.com" : Email;
+                return "http://www.gravatar.com/avatar/" + email.Trim().ToLower().Md5Hash() + "?d=mm";
             }
         }
 
@@ -141,8 +141,16 @@ namespace Triptitude.Biz.Models
         public virtual Trip Trip { get; set; }
         public bool IsCreator { get; set; }
         public byte Status { get; set; }
-        public bool Archived { get; set; }
+        public bool Deleted { get; set; }
+        public byte Visibility { get; set; }
+
         public DateTime StatusUpdatedOnUTC { get; set; }
+
+        public enum UserTripVisibility : byte
+        {
+            Public = 0,
+            Private = 1
+        }
     }
 
     public enum UserTripStatus : byte
@@ -168,13 +176,14 @@ namespace Triptitude.Biz.Models
         public DateTime? BeginDate { get; set; }
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
-        public byte Visibility { get; set; }
-        public bool Deleted { get; set; }
 
-        public enum TripVisibility : byte
+        public IEnumerable<UserTrip> UserTripsFor(User user)
         {
-            Public = 0,
-            Private = 1
+            // Only return users that haven't deleted the trip
+            var a = UserTrips.Where(ut => !ut.Deleted);
+            // If the user owns the trip, return them all. Otherwise just return public ones.
+            a = a.Where(ut => ut.Visibility == (byte)UserTrip.UserTripVisibility.Public || user.OwnsTrips(ut.Trip));
+            return a;
         }
 
         public IEnumerable<User> Users { get { return UserTrips.Select(ut => ut.User); } }
@@ -191,15 +200,6 @@ namespace Triptitude.Biz.Models
         {
             get { return Activities.Where(a => !a.Deleted).OrderBy(a => a.OrderNumber); }
         }
-
-        //public int TotalDays
-        //{
-        //    get
-        //    {
-        //        int? max = Activities.Where(a => !a.Deleted).Select(a => a.BeginDay).Union(Activities.Where(a => !a.Deleted).Select(a => a.EndDay)).Max();
-        //        return max ?? 1;
-        //    }
-        //}
 
         public IEnumerable<DateTime?> Dates
         {

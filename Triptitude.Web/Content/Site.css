@@ -1029,6 +1029,28 @@ ul.tags > li + li {
   width: 100%;
   height: 250px;
   margin-bottom: 10px; }
+#trips-details #who .travelers {
+  zoom: 1; }
+  #trips-details #who .travelers:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #trips-details #who .travelers:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  #trips-details #who .travelers > li {
+    float: left;
+    display: block;
+    padding: 5px;
+    text-align: center; }
+    #trips-details #who .travelers > li span {
+      display: block; }
+    #trips-details #who .travelers > li:hover {
+      background-color: #EEE; }
 #trips-details #itinerary .activities2 {
   padding: 10px 0;
   zoom: 1;
@@ -1385,4 +1407,6 @@ ul.tags > li + li {
 #users-details img {
   float: left; }
 #users-details h1 {
-  float: left; }
+  float: left;
+  line-height: 80px;
+  margin-left: 15px; }

@@ -20,26 +20,43 @@
             //            });
 
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
+
+            $('.invite').on('click', function (e) {
+                var tripID = $(e.currentTarget).data('trip-id');
+                console.log('tripID', tripID);
+                var dialogContainer = $('<div>');
+
+                var inviteDialog = new TT.Views.InviteDialog({ el: dialogContainer, tripID: tripID });
+                inviteDialog.render();
+
+                dialogContainer.dialog();
+            });
         });
     </script>
 }
 <article>
     <header>
-        <h1>@trip.Name<span class="right">by <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a></span>
-        </h1>
+        <h1>@trip.Name</h1>
     </header>
-    @*<section id="itinerary">
-        <div class="activities">
-            @for (int i = 1; i <= trip.TotalDays; i++)
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = i });
-            }
-            @if (trip.Activities.Any(a => a.IsUnscheduled))
-            {
-                Html.RenderAction("daydetails", "trips", new { trip, dayNumber = -1 });
-            }
-        </div>
-    </section>*@
+    <section id="who">
+        <header>
+            <h2>
+                Who's Going
+                @if (currentUser.Email == "mikecomstock@gmail.com")
+                {
+                    <span><a class="invite" data-trip-id="@trip.Id">Invite Someone</a> </span>
+                }
+            </h2>
+            <ul class="travelers">
+                @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
+                {
+                    <li><a href="@Url.Details(userTrip.User)">
+                        <img src="@userTrip.User.PhotoURL" src="" />
+                        <span>@userTrip.User.FullName</span> </a></li>
+                }
+            </ul>
+        </header>
+    </section>
     <section id="itinerary">
         <header>
             <h2>
@@ -72,8 +89,9 @@
 
                     foreach (var activity in activities)
                     {
-                    <li class="activity" data-activity-id="@activity.Id">@{
-                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap=>ap.SortIndex);
+                    <li class="activity" data-activity-id="@activity.Id">
+                        @{
+                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap => ap.SortIndex);
                         }
                         @if (mappablePlaces.Any())
                         {
@@ -103,15 +121,14 @@
             </p>
         }
     </section>
-    @if (trip.PackingListItems.Any() || CurrentUserOwnsTrip)
+    @*@if (trip.PackingListItems.Any() || currentUser.OwnsTrips(trip))
     {
         <section id="packinglist">
             @{
         Html.RenderAction("packinglistpartial", "trips", new { trip.Id, currentUser });
             }
         </section>
-    }
-@*    <section id="map">
+    }*@ @*    <section id="map">
         <h2>
             Map</h2>
         <div id="trip-map-container" data-trip-id="@trip.Id">

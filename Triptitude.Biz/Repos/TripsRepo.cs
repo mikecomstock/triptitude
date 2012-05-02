@@ -41,7 +41,8 @@ join Trips t on a.Trip_Id = t.Id";
                 trips = trips.Where(t => t.Activities.Where(a => !a.Deleted).Any(a => a.Tags.Select(ta => ta.Id).Contains(tag.Id)));
             }
 
-            trips = trips.Where(t => t.Visibility == (byte)Trip.TripVisibility.Public && !t.Deleted);
+            // only return trips that have at least 1 UserTrip that is non-deleted and public.
+            trips = trips.Where(t => t.UserTrips.Any(ut => !ut.Deleted && ut.Visibility == (byte)UserTrip.UserTripVisibility.Public));
 
             return trips.Distinct();
         }
@@ -56,11 +57,18 @@ join Trips t on a.Trip_Id = t.Id";
             {
                 Name = "My trip to " + to.Name,
                 Created_On = DateTime.UtcNow,
-                Visibility = (byte)form.Visibility,
                 Activities = new List<Activity>(),
                 UserTrips = new Collection<UserTrip>()
             };
-            UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = currentUser };
+            UserTrip userTrip = new UserTrip
+                                    {
+                                        Trip = trip,
+                                        IsCreator = true,
+                                        Status = (byte)UserTripStatus.Attending,
+                                        StatusUpdatedOnUTC = DateTime.UtcNow,
+                                        User = currentUser,
+                                        Visibility = (byte)form.Visibility,
+                                    };
             trip.UserTrips.Add(userTrip);
 
             var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>(), IsTransportation = true };
@@ -91,30 +99,6 @@ join Trips t on a.Trip_Id = t.Id";
             Add(trip);
             Save();
             return trip;
-        }
-
-        public TripSettingsForm GetSettingsForm(Trip trip)
-        {
-            var form = new TripSettingsForm
-                           {
-                               Name = trip.Name,
-                               BeginDate = trip.BeginDate.HasValue ? trip.BeginDate.Value.ToString("MM/dd/yyyy") : string.Empty,
-                               Visibility = (Trip.TripVisibility)Enum.Parse(typeof(Trip.TripVisibility), trip.Visibility.ToString())
-                           };
-            return form;
-        }
-
-        public void Save(Trip trip, TripSettingsForm form)
-        {
-            trip.Name = form.Name;
-            trip.Visibility = (byte)form.Visibility;
-            DateTime parsedDate;
-            if (DateTime.TryParse(form.BeginDate, out parsedDate))
-                trip.BeginDate = parsedDate;
-            else
-                trip.BeginDate = null;
-
-            Save();
         }
     }
 }

@@ -4,15 +4,6 @@
     User currentUser = ViewBag.CurrentUser;
     Trip trip = ViewBag.Trip;
 }
-@section Scripts {
-    <script type="text/javascript" charset="utf-8">
-
-        //        $(document).ready(function () {
-        //            $('form.disabled').find('input,select').attr('disabled', 'disabled');
-        //        });
-        
-    </script>
-}
 @Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
@@ -24,7 +15,7 @@
         @if (!currentUser.CreatedTrips(trip))
         {
             <div class="subtitle warning">
-                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a> can change the settings for this trip.
+                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a> can change the name of this trip.
             </div>
         }
         @if (TempData["saved"] != null)
@@ -34,20 +25,14 @@
             </div>
         }
         <div class="panel-content">
-            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" class="@(currentUser.CreatedTrips(trip) ? string.Empty : "disabled")">
+            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" >
             @Html.AntiForgeryToken()
             <p>
                 @Html.ValidationMessage("name")
                 <label for="name">
                     Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" class="@(currentUser.CreatedTrips(trip) ? "focus" : string.Empty)" />
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" @(currentUser.CreatedTrips(trip) ? "class=\"focus\"" : "disabled=\"disabled\"") />
             </p>
-            @*            <p>
-                @Html.ValidationMessage("begindate")
-                <label for="begindate">
-                    Start Date</label>
-                @Html.TextBox("begindate", form.BeginDate, new { @class = "date-picker" })
-            </p>*@
             <p>
                 <label for="visibility">
                     Visibility</label>

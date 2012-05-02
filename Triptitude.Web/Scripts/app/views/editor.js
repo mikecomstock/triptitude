@@ -156,7 +156,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     initialize: function () {
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', placeholder: 'enter a title for your activity' }));
-        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url' }));
+        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', placeholder: 'http://' }));
 
         this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date' }));
         this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
@@ -167,7 +167,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             }, this);
         }
 
-        this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
+//        this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
         this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
         this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', placeholder: 'add a note...' }));
 
@@ -232,11 +232,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             self.TitleInput.focus();
         }, 50);
 
-        p.SourceURL = newP('source-url');
-        var sourceURL = this.model.get('SourceURL') || '';
-        $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
-        this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
-
         p.When = newP('when');
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When')).appendTo(p.When);
         var options = {
@@ -253,24 +248,29 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', TT.Util.ToDatePicker(beginDate));
         //        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
 
-        p.Tags = newP('tags');
-        $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);
-        this.TagsInput.val(this.model.get('TagString') || '').appendTo(p.Tags);
+        p.SourceURL = newP('source-url');
+        var sourceURL = this.model.get('SourceURL') || '';
+        $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
+        this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
 
-        p.Places = newP('places');
-        $(self.make('label', { 'for': '' }, 'Places')).appendTo(p.Places);
-        var placesUL = $(this.make('ul')).appendTo(p.Places);
-        var places = this.model.get('Places');
-        places.each(function (place) {
-            $(self.make('li')).text(place.get('Name')).appendTo(placesUL);
-        });
-        var placeInputLI = $('<li>').append(this.PlacesInput.val('')).appendTo(placesUL);
-        this.PlacesInput.on('keydown', function (e) {
-            if (e.which != 13) return;
-            var placeText = self.PlacesInput.val();
-            $(self.make('li')).text(placeText).insertBefore(placeInputLI);
-            self.PlacesInput.val('');
-        });
+//        p.Tags = newP('tags');
+//        $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);
+//        this.TagsInput.val(this.model.get('TagString') || '').appendTo(p.Tags);
+
+//        p.Places = newP('places');
+//        $(self.make('label', { 'for': '' }, 'Places')).appendTo(p.Places);
+//        var placesUL = $(this.make('ul')).appendTo(p.Places);
+//        var places = this.model.get('Places');
+//        places.each(function (place) {
+//            $(self.make('li')).text(place.get('Name')).appendTo(placesUL);
+//        });
+//        var placeInputLI = $('<li>').append(this.PlacesInput.val('')).appendTo(placesUL);
+//        this.PlacesInput.on('keydown', function (e) {
+//            if (e.which != 13) return;
+//            var placeText = self.PlacesInput.val();
+//            $(self.make('li')).text(placeText).insertBefore(placeInputLI);
+//            self.PlacesInput.val('');
+//        });
 
         p.Notes = newP('notes');
         $(self.make('label', { 'for': this.NotesInput.attr('id') }, 'Notes')).appendTo(p.Notes);

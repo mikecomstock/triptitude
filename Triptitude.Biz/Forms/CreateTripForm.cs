@@ -9,7 +9,7 @@ namespace Triptitude.Biz.Forms
         public string ToName { get; set; }
         public string ToGoogReference { get; set; }
         public string ToGoogId { get; set; }
-        public Trip.TripVisibility Visibility { get; set; }
+        public UserTrip.UserTripVisibility Visibility { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -21,7 +21,7 @@ namespace Triptitude.Biz.Forms
     public class NewCreateTripForm : IValidatableObject
     {
         public string Name { get; set; }
-        public Trip.TripVisibility Visibility { get; set; }
+        public UserTrip.UserTripVisibility Visibility { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

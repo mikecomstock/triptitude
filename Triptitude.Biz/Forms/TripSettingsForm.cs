@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Triptitude.Biz.Models;
 
@@ -8,8 +7,7 @@ namespace Triptitude.Biz.Forms
     public class TripSettingsForm : IValidatableObject
     {
         public string Name { get; set; }
-        public string BeginDate { get; set; }
-        public Trip.TripVisibility Visibility { get; set; }
+        public UserTrip.UserTripVisibility Visibility { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -18,10 +16,6 @@ namespace Triptitude.Biz.Forms
 
             if (Name != null && Name.Length > 50)
                 yield return new ValidationResult("Name is too long. Please use less than 50 characters.", new[] { "name" });
-
-            DateTime tmp;
-            if (!string.IsNullOrWhiteSpace(BeginDate) && !DateTime.TryParse(BeginDate, out tmp))
-                yield return new ValidationResult("Please enter a valid date.", new[] { "begindate" });
         }
     }
 }
