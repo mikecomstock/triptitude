@@ -51,12 +51,11 @@ namespace Triptitude.Web
             routes.MapRoute("Tripmarklet", "tripmarklet", new { controller = "home", action = "tripmarklet" });
             routes.MapRoute("TripmarkletJS", "tripmarklet.js", new { controller = "home", action = "tripmarkletJS" });
 
+            // Invitations
+            routes.MapRoute("Invitations GET", "i/{guid}", new { controller = "invitations", action = "details" }, new { httpMethod = new HttpMethodConstraint("GET") });
+            routes.MapRoute("Invitations PUT", "i/{guid}", new { controller = "invitations", action = "update" }, new { httpMethod = new HttpMethodConstraint("POST") }); //TODO: should really use PUT
 
-            //routes.MapRoute("TRIP WHO POST", "trips/{trip_id}/who", new { controller = "trips", action = "WhoCreate" }, new { httpMethod = new HttpMethodConstraint("POST") });
-            ////todo: figure out method for this:
-            //routes.MapRoute("TRIP WHO DELETE", "trips/{trip_id}/whodelete", new { controller = "trips", action = "Whodelete" }, new { httpMethod = new HttpMethodConstraint("POST") });
-
-
+            // RESTful
             routes.MapRoute("REST PUT", "{controller}/{id}", new { action = "Update" }, new { httpMethod = new HttpMethodConstraint("PUT") });
             routes.MapRoute("REST DELETE", "{controller}/{id}", new { action = "Delete" }, new { httpMethod = new HttpMethodConstraint("DELETE") });
             routes.MapRoute("REST POST", "{controller}", new { action = "Create" }, new { httpMethod = new HttpMethodConstraint("POST") });

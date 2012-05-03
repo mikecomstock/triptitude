@@ -212,8 +212,7 @@ namespace Triptitude.Web.Controllers
                 {
                     Trip = trip,
                     IsCreator = true,
-                    Status = (byte)UserTripStatus.Attending,
-                    StatusUpdatedOnUTC = DateTime.UtcNow,
+                    Created_On = DateTime.UtcNow,
                     User = CurrentUser,
                     Visibility = (byte)form.Visibility
                 };

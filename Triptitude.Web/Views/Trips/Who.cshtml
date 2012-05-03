@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Configuration
+@{
     ViewBag.Title = @ViewBag.Trip.Name + " - Who's Going";
     User currentUser = ViewBag.CurrentUser;
     Trip trip = ViewBag.Trip;
@@ -44,25 +45,48 @@
             </div>
         }
         <div class="subtitle">
-            <h3>
-                Add a Traveler</h3>
-            <form action="/usertrips" method="POST">
-            @Html.AntiForgeryToken()
-            <input type="hidden" name="trip_id" value="@trip.Id"/>
-            <input name="fname" placeholder="First Name" class="focus" />
-            <input name="lname" placeholder="Last Name" />
-            <input type="submit" value="Add Traveler" />
-            </form>
+            Enter the names of everyone that's going on the trip.
         </div>
         <div class="panel-content not-padded">
-            <ul class="travelers">
-                @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
-                {
-                    <li>
-                        <img src="@userTrip.User.PhotoURL" alt="" />
-                        <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a> </li>
-                }
-            </ul>
+            @if (string.IsNullOrWhiteSpace(currentUser.FirstName) && string.IsNullOrWhiteSpace(currentUser.LastName))
+            {   
+                <h3>
+                    Your Info</h3>
+                <form action="/usertrips" method="POST">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="trip_id" value="@trip.Id"/>
+                <input type="hidden" name="you" value="true" />
+                <input name="fname" placeholder="Your First Name" class="focus" />
+                <input name="lname" placeholder="Your Last Name" />
+                <input type="submit" value="Save" />
+                </form>
+            }
+            else
+            {
+                <ul class="travelers">
+                    @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
+                    {
+                        <li>
+                            <img src="@userTrip.User.PhotoURLSmall" alt="" />
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a> 
+                            @if (userTrip.Guid.HasValue)
+                            {
+                                <span><strong>Invitation Link:</strong> @ConfigurationManager.AppSettings["RootUrl"]/i/@userTrip.Guid </span>
+                            }
+                        </li>
+                    }
+                </ul>
+                <form action="/usertrips" method="POST">
+                <h3>
+                    Add a Traveler</h3>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="you" value="false" />
+                <input type="hidden" name="trip_id" value="@trip.Id"/>
+                <input name="fname" placeholder="First Name" class="focus" />
+                <input name="lname" placeholder="Last Name" />
+                <input type="submit" value="Add Traveler" />
+                </form>
+            }
         </div>
     </div>
 </div>

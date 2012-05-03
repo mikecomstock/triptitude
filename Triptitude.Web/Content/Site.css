@@ -1230,9 +1230,11 @@ ul.tags > li + li {
   #trips-history .histories .history + .history {
     border-top: 1px solid #F3F3F3; }
 
+#trips-who #main-container form {
+  margin: 10px; }
 #trips-who .travelers li {
   zoom: 1;
-  padding: 8px; }
+  padding: 10px; }
   #trips-who .travelers li:before {
     display: table;
     content: "";
@@ -1248,7 +1250,7 @@ ul.tags > li + li {
     float: left;
     margin-right: 8px; }
   #trips-who .travelers li a.user {
-    float: left;
+    display: block;
     font-size: 16px; }
   #trips-who .travelers li a.delete {
     float: right; }

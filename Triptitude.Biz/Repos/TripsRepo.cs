@@ -64,10 +64,10 @@ join Trips t on a.Trip_Id = t.Id";
                                     {
                                         Trip = trip,
                                         IsCreator = true,
-                                        Status = (byte)UserTripStatus.Attending,
-                                        StatusUpdatedOnUTC = DateTime.UtcNow,
+                                        Created_On = DateTime.UtcNow,
                                         User = currentUser,
                                         Visibility = (byte)form.Visibility,
+                                        Guid = Guid.NewGuid()
                                     };
             trip.UserTrips.Add(userTrip);
 
@@ -94,7 +94,7 @@ join Trips t on a.Trip_Id = t.Id";
                                 Activities = new List<Activity>(),
                                 UserTrips = new Collection<UserTrip>()
                             };
-            UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Status = (byte)UserTripStatus.Attending, StatusUpdatedOnUTC = DateTime.UtcNow, User = creator };
+            UserTrip userTrip = new UserTrip { Trip = trip, IsCreator = true, Created_On = DateTime.UtcNow, User = creator };
             trip.UserTrips.Add(userTrip);
             Add(trip);
             Save();

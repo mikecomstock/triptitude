@@ -38,10 +38,10 @@ namespace Triptitude.Biz.Models
 
         public string FullName
         {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(FirstName)) return "anonymous user";
-                return string.Format("{0} {1}", FirstName, LastName);
+            get {
+                return string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastName)
+                           ? "anonymous user"
+                           : string.Format("{0} {1}", FirstName, LastName).Trim();
             }
         }
 
@@ -96,6 +96,11 @@ namespace Triptitude.Biz.Models
             }
         }
 
+        public string PhotoURLSmall
+        {
+            get { return PhotoURL + "&s=50"; }
+        }
+
         public dynamic Json(User forUser)
         {
             return new
@@ -140,11 +145,10 @@ namespace Triptitude.Biz.Models
         public virtual User User { get; set; }
         public virtual Trip Trip { get; set; }
         public bool IsCreator { get; set; }
-        public byte Status { get; set; }
         public bool Deleted { get; set; }
         public byte Visibility { get; set; }
-
-        public DateTime StatusUpdatedOnUTC { get; set; }
+        public DateTime? Created_On { get; set; }
+        public Guid? Guid { get; set; }
 
         public enum UserTripVisibility : byte
         {
@@ -159,13 +163,6 @@ namespace Triptitude.Biz.Models
                            id = Id,
                        };
         }
-    }
-
-    public enum UserTripStatus : byte
-    {
-        Attending = 1,
-        Invited = 2,
-        NotAttending = 3
     }
 
     public class Trip

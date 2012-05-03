@@ -26,7 +26,7 @@
             else if (!currentUserTrips.IsNullOrEmpty())
             {
                 <div id="user-status-header">
-                    Welcome, <a href="@Url.MyTrips()">anonymous user</a>
+                    Welcome, <a href="@Url.MyTrips()">@currentUser.FullName</a>
                 </div>
                 <div id="user-status-menu">
                     <a href="@Url.MySettings()">sign up</a> <a href="/trips/create" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>

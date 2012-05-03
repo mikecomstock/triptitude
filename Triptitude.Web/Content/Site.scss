@@ -429,11 +429,14 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 #trips-who {
+	#main-container {
+		form { margin: 10px; }
+	}
 	.travelers {
 		li {
-			@include clearfix; padding: 8px;
+			@include clearfix; padding: 10px;
 			img { float: left; margin-right: 8px; }
-			a.user { float: left; font-size: 16px; }
+			a.user {display:block; font-size: 16px; }
 			a.delete { float: right; }
 			&+ li { border-top: 1px solid #CCC; }
 		}
