@@ -4,10 +4,10 @@
     ViewBag.Title = trip.Name + " - History"; ;
 }
 <div class="panel">
-    <div class="panel-title">
+    <header>
         <h1>
             @ViewBag.Title</h1>
-    </div>
+    </header>
     <div class="panel-content">
         <div class="histories timeline">
             @{ DateTime dt = DateTime.Today.AddYears(1).Date; }

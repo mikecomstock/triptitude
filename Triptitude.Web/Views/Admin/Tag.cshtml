@@ -3,10 +3,10 @@
     var tag = (Tag)ViewBag.Tag;
 }
 <div class="panel">
-    <div class="panel-title">
+    <header>
         <h1>
             Admin - @tag.Name (Tag)</h1>
-    </div>
+    </header>
     <div class="panel-content">
         <form action="@Url.Admin(tag)" method="post">
         @Html.Editor("tag", ViewData)

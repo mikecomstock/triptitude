@@ -459,25 +459,25 @@ article {
   margin: 10px 0;
   text-transform: lowercase; }
 
-.panel > .title, .panel-title, .panel > header {
+.panel > header {
   background-color: #E9BA26;
   padding: 15px;
   zoom: 1;
   line-height: 30px; }
-  .panel > .title:before, .panel-title:before, .panel > header:before {
+  .panel > header:before {
     display: table;
     content: "";
     zoom: 1;
     *display: inline; }
-  .panel > .title:after, .panel-title:after, .panel > header:after {
+  .panel > header:after {
     display: table;
     content: "";
     zoom: 1;
     *display: inline;
     clear: both; }
-  .panel > .title h1, .panel-title h1, .panel > header h1 {
+  .panel > header h1 {
     float: left; }
-  .panel > .title .add-to-trip, .panel-title .add-to-trip, .panel > header .add-to-trip {
+  .panel > header .add-to-trip {
     float: right; }
 
 .panel-alert {
@@ -547,24 +547,25 @@ article {
     width: 800px;
     background: #f3ecb7;
     background: rgba(243, 236, 183, 0.3); }
-    #landing-page-panel #trips .panel-title {
+    #landing-page-panel #trips header {
       padding: 5px;
-      zoom: 1; }
-      #landing-page-panel #trips .panel-title:before {
+      zoom: 1;
+      background-color: #E9BA26; }
+      #landing-page-panel #trips header:before {
         display: table;
         content: "";
         zoom: 1;
         *display: inline; }
-      #landing-page-panel #trips .panel-title:after {
+      #landing-page-panel #trips header:after {
         display: table;
         content: "";
         zoom: 1;
         *display: inline;
         clear: both; }
-      #landing-page-panel #trips .panel-title h2 {
+      #landing-page-panel #trips header h2 {
         margin: 0;
         float: left; }
-      #landing-page-panel #trips .panel-title a {
+      #landing-page-panel #trips header a {
         float: right; }
 
 /* Footer */

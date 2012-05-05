@@ -22,10 +22,10 @@
 @Html.Action("SidePanel", "My")
 <div id="main-container">
     <div class="panel">
-        <div class="title">
+        <header>
             <h1>
                 My Trips</h1>
-        </div>
+        </header>
         <div class="subtitle">
             Select a trip below to plan it.
         </div>
@@ -41,10 +41,7 @@
                 <ul class="my-trip-rows">
                     @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
                     {
-                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)">
-                            <a class="delete" data-trip-id="@trip.Id">
-                                delete</a>
-                            <a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a>
+                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a class="delete" data-trip-id="@trip.Id">delete</a> <a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a>
                             @if (trip.Users.Except(new[] { currentUser }).Any())
                             {
                                 <div class="travelers">

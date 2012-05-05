@@ -7,11 +7,11 @@
 @Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
+        <header>
             <h1>
                 @ViewBag.Title
             </h1>
-        </div>
+        </header>
         @if (!currentUser.CreatedTrips(trip))
         {
             <div class="subtitle warning">

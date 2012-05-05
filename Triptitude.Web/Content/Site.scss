@@ -156,7 +156,7 @@ article {
 .panel { @include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
-.panel > .title, .panel-title, .panel > header {
+.panel > header {
 	background-color: #E9BA26; padding: 15px; @include clearfix; line-height: 30px;
 	h1 { float:left; }
 	.add-to-trip { float: right; }
@@ -192,8 +192,8 @@ article {
 	}
 	#trips {
 		margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);
-		.panel-title {
-			padding: 5px; @include clearfix;
+		header {
+			padding: 5px; @include clearfix; background-color: #E9BA26;
 			h2 { margin: 0; float:left; }
 			a { float:right; }
 		}

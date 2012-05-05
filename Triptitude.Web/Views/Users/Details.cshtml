@@ -5,12 +5,12 @@
     IEnumerable<Trip> trips = user.Trips(currentUser);
 }
 <div class="panel">
-    <div class="panel-title">
+    <header>
         <img src="@user.PhotoURL" alt=""/>
         <h1>
             @ViewBag.Title</h1>
         
-    </div>
+    </header>
     <div class="panel-content">
         @if (trips.Any())
         {

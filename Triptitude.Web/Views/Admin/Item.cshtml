@@ -5,10 +5,10 @@
     IEnumerable<SelectListItem> list = allTags.Select(t => new SelectListItem { Text = t.Name, Value = t.Id.ToString() }); 
 }
 <div class="panel">
-    <div class="panel-title">
+    <header>
         <h1>
             Admin - @item.Name (AmazonItem)</h1>
-    </div>
+    </header>
     <div class="panel-content">
         <form action="@Url.Admin(item)" method="post">
         @Html.Editor("item", ViewData)
