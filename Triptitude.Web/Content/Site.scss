@@ -156,7 +156,7 @@ article {
 .panel { @include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
 .panel + .panel { margin-top: 10px; }
 .panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
-.panel > .title, .panel-title {
+.panel > .title, .panel-title, .panel > header {
 	background-color: #E9BA26; padding: 15px; @include clearfix; line-height: 30px;
 	h1 { float:left; }
 	.add-to-trip { float: right; }
@@ -350,6 +350,17 @@ ul.tags > li + li { margin-left: 5px; }
 .tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block; height: 15px; }
 .tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }
 
+
+.travelers-h {
+	@include clearfix;
+	> li {
+		float: left; display: block; padding: 5px; text-align: center;
+		img { }
+		span { display: block; }
+		&:hover { background-color: #EEE; }
+	}
+}
+
 /* Trips */
 #trips-details {
 	.panel-content { background-color:#EEE; }
@@ -438,6 +449,7 @@ ul.tags > li + li { margin-left: 5px; }
 			img { float: left; margin-right: 8px; }
 			a.user {display:block; font-size: 16px; }
 			a.delete { float: right; }
+			a.invite { font-weight: bold; font-size:14px; }
 			&+ li { border-top: 1px solid #CCC; }
 		}
 	}
@@ -512,4 +524,13 @@ ul.tags > li + li { margin-left: 5px; }
 #users-details {
 	img { float: left; }
 	h1 { float: left; line-height: 80px; margin-left: 15px; }
+}
+
+#invitations-details {
+	.panel-content {
+		h2 { font-weight: normal; font-size: 16px; }
+		.trip { font-size: 30px; }
+
+		.start-planning { font-size: 40px; @include border-radius(10px); margin: 30px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.8)); }
+	}	 
 }

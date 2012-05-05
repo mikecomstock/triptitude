@@ -19,7 +19,6 @@ namespace Triptitude.Web.Controllers
         {
             var userTrip = repo.FindAll().FirstOrDefault(ut => ut.Guid == guid);
             ViewBag.UserTrip = userTrip;
-
             return View();
         }
 

@@ -1,18 +1,30 @@
 ﻿@{
     UserTrip userTrip = ViewBag.UserTrip;
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Trip Invitation";
+    ViewBag.HideTripBar = true;
 }
-<h2>
-    Details</h2>
-<p>
-    @userTrip.Guid
-</p>
-<p>
-    @userTrip.User.FullName
-</p>
-<p>
-    @userTrip.Trip.Name
-</p>
-<form action="/i/@userTrip.Guid" method="POST">
-<input type="submit" value="Confirm" />
-</form>
+<div class="panel">
+    <header>
+        <h1>
+            @userTrip.Trip.Creator.FullName wants to plan a trip with you!
+        </h1>
+    </header>
+    <div class="panel-content">
+        <h2>
+            Trip Name</h2>
+        <div class="trip">@userTrip.Trip.Name</div>
+        <h2>
+            Who's Going</h2>
+        <ul class="travelers-h">
+            @foreach (var ut in userTrip.Trip.UserTripsFor(userTrip.User).OrderBy(ut => ut.Id))
+            {
+                <li><a href="@Url.Details(ut.User)">
+                    <img src="@ut.User.PhotoURL" alt="" />
+                    <span>@ut.User.FullName</span> </a></li>
+            }
+        </ul>
+        <form action="/i/@userTrip.Guid" method="POST">
+        <input type="submit" value="Start Planning" class="start-planning" />
+        </form>
+    </div>
+</div>

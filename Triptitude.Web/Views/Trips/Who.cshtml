@@ -1,5 +1,4 @@
-﻿@using System.Configuration
-@{
+﻿@{
     ViewBag.Title = @ViewBag.Trip.Name + " - Who's Going";
     User currentUser = ViewBag.CurrentUser;
     Trip trip = ViewBag.Trip;
@@ -24,16 +23,33 @@
                     },
                     error: function () { alert('User could not be removed.'); }
                 });
-
             });
 
+            $('.travelers').on('click', '.invite', function (e) {
+                e.preventDefault();
+                var currTarget = $(e.currentTarget);
+                var li = currTarget.closest('li');
+                var userName = li.find('.user').text();
+                var title = 'Invite ' + userName;
+                var id = currTarget.data('id');
+                var invitationURL = currTarget.data('url');
+
+                var template = _.template($("#invitation_template").html());
+                var html = $('<div>').html(template({ invitationURL: invitationURL, name: userName }));
+                html.dialog({ modal: true, draggable: false, title: title });
+            });
         });
     </script>
 }
 @Html.Action("SidePanel", "Trips", new { trip })
+<script type="text/template" id="invitation_template">
+    <h3>Invite with a link</h3>
+    <p>Send <%= name %> this link:</p>
+    <p><%= invitationURL %></p>
+</script>
 <div id="main-container">
     <div class="panel">
-        <div class="panel-title">
+        <header>
             <h1>
                 @ViewBag.Title
             </h1>
@@ -68,17 +84,17 @@
                     {
                         <li>
                             <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a> 
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a>
                             @if (userTrip.Guid.HasValue)
                             {
-                                <span><strong>Invitation Link:</strong> @ConfigurationManager.AppSettings["RootUrl"]/i/@userTrip.Guid </span>
+                                <a data-id="@userTrip.Id" data-url="@Url.Action("Details", "Invitations", new { guid = userTrip.Guid }, "http")" class="invite">Invite</a>
                             }
                         </li>
                     }
                 </ul>
                 <form action="/usertrips" method="POST">
                 <h3>
-                    Add a Traveler</h3>
+                    Add Someone</h3>
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="you" value="false" />
                 <input type="hidden" name="trip_id" value="@trip.Id"/>
@@ -89,4 +105,4 @@
             }
         </div>
     </div>
-</div>
+</> 

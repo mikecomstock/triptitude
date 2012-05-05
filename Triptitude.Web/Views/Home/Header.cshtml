@@ -76,7 +76,7 @@
             @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
             {
                 <div id="email-warning">
-                    You'll lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
+                    You might lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
                 </div>
             }
 @*<div id="super-dialog-container">

@@ -183,7 +183,6 @@
     <Content Include="Scripts\app\views\activity-dialog.js" />
     <Content Include="Scripts\app\views\create-trip.js" />
     <Content Include="Scripts\app\views\editor.js" />
-    <Content Include="Scripts\app\views\header.js" />
     <Content Include="Scripts\app\views\invite.js" />
     <Content Include="Scripts\app\views\place-search-input.js" />
     <Content Include="Scripts\backbone.js" />

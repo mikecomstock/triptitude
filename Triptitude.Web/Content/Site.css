@@ -459,25 +459,25 @@ article {
   margin: 10px 0;
   text-transform: lowercase; }
 
-.panel > .title, .panel-title {
+.panel > .title, .panel-title, .panel > header {
   background-color: #E9BA26;
   padding: 15px;
   zoom: 1;
   line-height: 30px; }
-  .panel > .title:before, .panel-title:before {
+  .panel > .title:before, .panel-title:before, .panel > header:before {
     display: table;
     content: "";
     zoom: 1;
     *display: inline; }
-  .panel > .title:after, .panel-title:after {
+  .panel > .title:after, .panel-title:after, .panel > header:after {
     display: table;
     content: "";
     zoom: 1;
     *display: inline;
     clear: both; }
-  .panel > .title h1, .panel-title h1 {
+  .panel > .title h1, .panel-title h1, .panel > header h1 {
     float: left; }
-  .panel > .title .add-to-trip, .panel-title .add-to-trip {
+  .panel > .title .add-to-trip, .panel-title .add-to-trip, .panel > header .add-to-trip {
     float: right; }
 
 .panel-alert {
@@ -1025,6 +1025,29 @@ ul.tags > li + li {
   color: #E0EAF1;
   text-decoration: none; }
 
+.travelers-h {
+  zoom: 1; }
+  .travelers-h:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  .travelers-h:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
+  .travelers-h > li {
+    float: left;
+    display: block;
+    padding: 5px;
+    text-align: center; }
+    .travelers-h > li span {
+      display: block; }
+    .travelers-h > li:hover {
+      background-color: #EEE; }
+
 /* Trips */
 #trips-details .panel-content {
   background-color: #EEE; }
@@ -1254,6 +1277,9 @@ ul.tags > li + li {
     font-size: 16px; }
   #trips-who .travelers li a.delete {
     float: right; }
+  #trips-who .travelers li a.invite {
+    font-weight: bold;
+    font-size: 14px; }
   #trips-who .travelers li + li {
     border-top: 1px solid #CCC; }
 
@@ -1440,3 +1466,18 @@ ul.tags > li + li {
   float: left;
   line-height: 80px;
   margin-left: 15px; }
+
+#invitations-details .panel-content h2 {
+  font-weight: normal;
+  font-size: 16px; }
+#invitations-details .panel-content .trip {
+  font-size: 30px; }
+#invitations-details .panel-content .start-planning {
+  font-size: 40px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin: 30px 0;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); }

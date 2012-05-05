@@ -95,13 +95,36 @@ namespace Triptitude.Biz.Repos
         public void MigrateAnonymousUser(string anonymousID, int userId)
         {
             User anonymousUser = FindAll().FirstOrDefault(u => u.AnonymousId == anonymousID);
-            User registeredUser = Find(userId);
             if (anonymousUser != null)
             {
-                //TODO: do this for every table that has a user_id
-                anonymousUser.UserTrips.ToList().ForEach(ut => ut.User = registeredUser);
+                User registeredUser = Find(userId);
+                var registeredUserTrips = registeredUser.UserTrips.Select(ut => ut.Trip);
+                
+                foreach (var anonUserTrip in anonymousUser.UserTrips)
+                {
+                    if (registeredUserTrips.Contains(anonUserTrip.Trip))
+                    {
+                        // mark as used??? not sure
+                    }
+                    else
+                    {
+                        // migrate it
+                        anonUserTrip.User = registeredUser;
+                        registeredUser.DefaultTrip = anonUserTrip.Trip;
+                    }
+                }
 
-                if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
+                //anonymousUser.UserTrips.Where(aut=> registeredUser.UserTrips.Select(rut=>rut.Trip).Contains())
+
+
+                // only migrate trips that the user doesn't already have
+                //var anonTripsToMigrate = anonymousUser.UserTrips.
+
+                //var userTripsToMigrate = anonymousUser.UserTrips.Where(ut=>ut.us)
+                ////TODO: do this for every table that has a user_id
+                //anonymousUser.UserTrips.ToList().ForEach(ut => ut.User = registeredUser);
+
+                //if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
             }
 
             Save();
