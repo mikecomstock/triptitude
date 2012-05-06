@@ -1020,9 +1020,23 @@ ul.tags > li + li {
     float: right; }
   #trips-who .travelers li .expanded {
     clear: both; }
-    #trips-who .travelers li .expanded form.invite {
+    #trips-who .travelers li .expanded .invite {
       margin: 0;
       float: left; }
+    #trips-who .travelers li .expanded .sent {
+      background-color: #E6EFC2;
+      color: #529214;
+      padding: 5px;
+      float: left;
+      margin-top: 5px; }
+  #trips-who .travelers li .expanded.not-sent .invite {
+    display: block; }
+  #trips-who .travelers li .expanded.not-sent .sent {
+    display: none; }
+  #trips-who .travelers li .expanded.sent .invite {
+    display: none; }
+  #trips-who .travelers li .expanded.sent .sent {
+    display: block; }
 
 /* Packing List */
 .packing-list-tag h3 {

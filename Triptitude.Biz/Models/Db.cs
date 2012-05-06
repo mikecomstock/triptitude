@@ -15,6 +15,7 @@ namespace Triptitude.Biz.Models
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserTrip> UserTrips { get; set; }
+        public DbSet<EmailInvite> EmailInvites { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Activity> Activities { get; set; }

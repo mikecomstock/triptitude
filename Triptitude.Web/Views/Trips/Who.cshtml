@@ -6,9 +6,8 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
 
-        TT.Models.UserTrip = Backbone.Model.extend({
-            urlRoot: '/usertrips'
-        });
+        TT.Models.UserTrip = Backbone.Model.extend({ urlRoot: '/usertrips' });
+        TT.Models.EmailInvite = Backbone.Model.extend({ urlRoot: '/invitations' });
 
         $(function () {
 
@@ -28,8 +27,8 @@
             });
 
             $('#add-someone').on('submit', function (e) {
-                var form = $(this);
                 e.preventDefault();
+                var form = $(this);
 
                 var fields = {
                     trip_id: form.find('[name="trip_id"]').val(),
@@ -54,7 +53,26 @@
                         alert('Something went wrong!');
                     }
                 });
+            });
 
+            $('.travelers').on('submit', '.invite', function (e) {
+                e.preventDefault();
+                var form = $(this);
+
+                var fields = {
+                    usertrip_id: form.find('[name="usertrip_id"]').val(),
+                    email: form.find('[name="email"]').val()
+                };
+                var i = new TT.Models.EmailInvite();
+                i.save(fields, {
+                    success: function (model) {
+                        form.closest('.expanded').removeClass('not-sent').addClass('sent');
+                        $('#add-someone [name="FirstName"]').focus();
+                    },
+                    error: function (model, response) {
+                        alert('Something went wrong!');
+                    }
+                });
             });
         });
     </script>
@@ -65,12 +83,16 @@
         <img src="<%= userTrip.PhotoURLSmall %>" alt="" />
         <a class="user" href="/users/<%= userTrip.UserId %>"><%= userTrip.FullName %></a>
         <a class="delete" data-id="<%= userTrip.id %>">remove</a>
-        <div class="expanded">
+        <div class="expanded not-sent">
             <form class="invite">
             Invite <%= userTrip.FirstName %> to help plan:
+            <input type="hidden" name="usertrip_id" value="<%= userTrip.id %>" />
             <input name="email" id="invite_email" placeholder="<%= userTrip.FirstName %>'s email" >
             <input type="submit" value="Invite" />
             </form>
+            <div class="sent">
+            Invitation sent!
+            </div>
         </div>
     </li>
 </script>
@@ -120,16 +142,19 @@
                     {
                         <li>
                             <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a>
-                            <a class="delete" data-id="@userTrip.Id">remove</a>
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a>
                             @if (userTrip.User != currentUser)
                             {
-                                <div class="expanded">
+                                <div class="expanded @(userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
                                     <form class="invite">
-                                        Invite @userTrip.User.FirstName to help plan:
-                                        <input name="email" id="invite_email" placeholder="@userTrip.User.FirstName's email" >
-                                        <input type="submit" value="Invite" />
+                                    Invite @userTrip.User.FirstName to help plan:
+                                    <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
+                                    <input name="email" id="invite_email" placeholder="@userTrip.User.FirstName's email" >
+                                    <input type="submit" value="Invite" />
                                     </form>
+                                    <div class="sent">
+                                        Invitation sent!
+                                    </div>
                                 </div>
                             }
                         </li>

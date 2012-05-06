@@ -22,6 +22,24 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Create(int usertrip_id, string email)
+        {
+            var userTrip = repo.Find(usertrip_id);
+            var trip = userTrip.Trip;
+            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+
+            EmailInvite emailInvite = new EmailInvite
+            {
+                UserTrip = userTrip,
+                Email = email,
+                Created_On = DateTime.UtcNow
+            };
+            userTrip.EmailInvites.Add(emailInvite);
+            repo.Save();
+
+            return Json(userTrip.Json(CurrentUser, Url));   
+        }
+
         public ActionResult Update(Guid guid)
         {
             var userTrip = repo.FindAll().FirstOrDefault(ut => ut.Guid == guid);

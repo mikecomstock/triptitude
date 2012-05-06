@@ -373,7 +373,16 @@ ul.tags > li + li { margin-left: 5px; }
 			a.delete { float: right; }
 			.expanded {
 				clear: both;
-				form.invite { margin: 0; float: left; }
+				.invite { margin: 0; float: left; }
+				.sent { background-color: #E6EFC2; color: #529214; padding: 5px; float: left; margin-top: 5px; }
+			}
+			.expanded.not-sent {
+				.invite { display: block; }
+				.sent { display: none; }
+			}
+			.expanded.sent {
+				.invite { display: none; }
+				.sent { display: block; }
 			}
 		}
 	}

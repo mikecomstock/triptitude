@@ -151,6 +151,7 @@ namespace Triptitude.Biz.Models
         public byte Visibility { get; set; }
         public DateTime? Created_On { get; set; }
         public Guid? Guid { get; set; }
+        public virtual ICollection<EmailInvite> EmailInvites { get; set; }
 
         public enum UserTripVisibility : byte
         {
@@ -175,7 +176,27 @@ namespace Triptitude.Biz.Models
                            User.FullName,
                            User.PhotoURLSmall,
                            UserId = User.Id,
-                           InvitationURL = InvitationURL(url)
+                           InvitationURL = InvitationURL(url),
+
+                       };
+        }
+    }
+
+    public class EmailInvite
+    {
+        public int Id { get; set; }
+        public virtual UserTrip UserTrip { get; set; }
+        public string Email { get; set; }
+        public DateTime Created_On { get; set; }
+
+        public dynamic Json(User forUser)
+        {
+            if (!forUser.OwnsTrips(UserTrip.Trip)) return new { };
+            return new
+                       {
+                           id = Id,
+                           Email,
+                           UserTrip_Id = UserTrip.Id
                        };
         }
     }
