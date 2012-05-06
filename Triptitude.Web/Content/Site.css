@@ -989,11 +989,14 @@ ul.tags > li + li {
   #trips-history .histories .history + .history {
     border-top: 1px solid #F3F3F3; }
 
-#trips-who #main-container form {
+#trips-who .panel-content > form {
   margin: 10px; }
 #trips-who .travelers li {
   zoom: 1;
-  padding: 10px; }
+  padding: 10px;
+  padding-left: 70px;
+  position: relative;
+  min-height: 50px; }
   #trips-who .travelers li:before {
     display: table;
     content: "";
@@ -1005,19 +1008,21 @@ ul.tags > li + li {
     zoom: 1;
     *display: inline;
     clear: both; }
+  #trips-who .travelers li + li {
+    border-top: 1px solid #CCC; }
   #trips-who .travelers li img {
-    float: left;
-    margin-right: 8px; }
+    position: absolute;
+    left: 10px; }
   #trips-who .travelers li a.user {
-    display: block;
+    float: left;
     font-size: 16px; }
   #trips-who .travelers li a.delete {
     float: right; }
-  #trips-who .travelers li a.invite {
-    font-weight: bold;
-    font-size: 14px; }
-  #trips-who .travelers li + li {
-    border-top: 1px solid #CCC; }
+  #trips-who .travelers li .expanded {
+    clear: both; }
+    #trips-who .travelers li .expanded form.invite {
+      margin: 0;
+      float: left; }
 
 /* Packing List */
 .packing-list-tag h3 {

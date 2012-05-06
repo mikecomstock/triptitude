@@ -45,24 +45,26 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(int trip_id, string fName, string lName, bool you)
+        //[ValidateAntiForgeryToken]
+        public ActionResult Create(int trip_id, string firstName, string lastName, bool you = false)
         {
             var currentUserTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == trip_id);
             if (currentUserTrip == null) return Redirect("/");
             var trip = currentUserTrip.Trip;
-
+            
             if (you)
             {
-                CurrentUser.FirstName = fName;
-                CurrentUser.LastName = lName;
+                CurrentUser.FirstName = firstName;
+                CurrentUser.LastName = lastName;
+                repo.Save();
+                return Redirect(Url.Who(trip));
             }
             else
             {
                 User newUser = new User
                 {
-                    FirstName = fName,
-                    LastName = lName
+                    FirstName = firstName,
+                    LastName = lastName
                 };
                 UserTrip newUserTrip = new UserTrip
                 {
@@ -73,11 +75,9 @@ namespace Triptitude.Web.Controllers
                     Guid = Guid.NewGuid()
                 };
                 trip.UserTrips.Add(newUserTrip);
+                repo.Save();
+                return Json(newUserTrip.Json(CurrentUser, Url));
             }
-
-            repo.Save();
-
-            return Redirect(Url.Who(trip));
         }
 
         public ActionResult Delete(int id)
@@ -85,6 +85,8 @@ namespace Triptitude.Web.Controllers
             var userTripToDelete = repo.Find(id);
             var trip = userTripToDelete.Trip;
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+
+            var jsonToReturn = userTripToDelete.Json(CurrentUser, Url);
 
             if (userTripToDelete.IsCreator)
             {
@@ -96,7 +98,7 @@ namespace Triptitude.Web.Controllers
                 repo.Save();
             }
 
-            return Json(userTripToDelete.Json(CurrentUser));
+            return Json(jsonToReturn);
         }
     }
 }

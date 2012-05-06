@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Models
@@ -38,7 +39,8 @@ namespace Triptitude.Biz.Models
 
         public string FullName
         {
-            get {
+            get
+            {
                 return string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastName)
                            ? "anonymous user"
                            : string.Format("{0} {1}", FirstName, LastName).Trim();
@@ -106,7 +108,7 @@ namespace Triptitude.Biz.Models
             return new
                        {
                            Email,
-                           DefaultTripID = DefaultTrip.Id,
+                           DefaultTripID = DefaultTrip == null ? null : (int?)DefaultTrip.Id,
                            PhotoURL,
                            Trips = Trips(forUser).Select(t => t.Json(forUser))
                        };
@@ -156,11 +158,24 @@ namespace Triptitude.Biz.Models
             Private = 1
         }
 
-        public dynamic Json(User forUser)
+        public string InvitationURL(UrlHelper url)
+        {
+            if (Guid.HasValue)
+                return url.Action("Details", "Invitations", new { guid = Guid.Value.ToString().Split('-').First() }, "http");
+            else return string.Empty;
+        }
+
+        public dynamic Json(User forUser, UrlHelper url)
         {
             return new
                        {
                            id = Id,
+                           User.FirstName,
+                           User.LastName,
+                           User.FullName,
+                           User.PhotoURLSmall,
+                           UserId = User.Id,
+                           InvitationURL = InvitationURL(url)
                        };
         }
     }

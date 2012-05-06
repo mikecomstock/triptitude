@@ -6,7 +6,9 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
 
-        TT.Models.UserTrip = Backbone.Model.extend({ urlRoot: '/usertrips' });
+        TT.Models.UserTrip = Backbone.Model.extend({
+            urlRoot: '/usertrips'
+        });
 
         $(function () {
 
@@ -25,27 +27,52 @@
                 });
             });
 
-            $('.travelers').on('click', '.invite', function (e) {
+            $('#add-someone').on('submit', function (e) {
+                var form = $(this);
                 e.preventDefault();
-                var currTarget = $(e.currentTarget);
-                var li = currTarget.closest('li');
-                var userName = li.find('.user').text();
-                var title = 'Invite ' + userName;
-                var id = currTarget.data('id');
-                var invitationURL = currTarget.data('url');
 
-                var template = _.template($("#invitation_template").html());
-                var html = $('<div>').html(template({ invitationURL: invitationURL, name: userName }));
-                html.dialog({ modal: true, draggable: false, title: title });
+                var fields = {
+                    trip_id: form.find('[name="trip_id"]').val(),
+                    FirstName: form.find('[name="FirstName"]').val(),
+                    LastName: form.find('[name="LastName"]').val()
+                };
+                var ut = new TT.Models.UserTrip();
+                ut.save(fields, {
+                    success: function (model, response) {
+                        var template = _.template($("#traveler_row_template").html());
+                        var li = $(template({ userTrip: model.attributes }));
+                        li.prependTo($('.travelers'));
+
+                        form.find('[name="FirstName"]').val('');
+                        form.find('[name="LastName"]').val('');
+
+                        li.find('[name="email"]').focus();
+                        setTimeout(function () { li.find('form').effect('highlight', { color: '#0190E9' }, 4000); }, 500);
+
+                    },
+                    error: function (model, response) {
+                        alert('Something went wrong!');
+                    }
+                });
+
             });
         });
     </script>
 }
 @Html.Action("SidePanel", "Trips", new { trip })
-<script type="text/template" id="invitation_template">
-    <h3>Invite with a link</h3>
-    <p>Send <%= name %> this link:</p>
-    <p><%= invitationURL %></p>
+<script type="text/template" id="traveler_row_template">
+    <li>
+        <img src="<%= userTrip.PhotoURLSmall %>" alt="" />
+        <a class="user" href="/users/<%= userTrip.UserId %>"><%= userTrip.FullName %></a>
+        <a class="delete" data-id="<%= userTrip.id %>">remove</a>
+        <div class="expanded">
+            <form class="invite">
+            Invite <%= userTrip.FirstName %> to help plan:
+            <input name="email" id="invite_email" placeholder="<%= userTrip.FirstName %>'s email" >
+            <input type="submit" value="Invite" />
+            </form>
+        </div>
+    </li>
 </script>
 <div id="main-container">
     <div class="panel">
@@ -79,30 +106,36 @@
             }
             else
             {
+                <form id="add-someone">
+                <h3>
+                    Add Someone</h3>
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="trip_id" value="@trip.Id"/>
+                <input name="FirstName" placeholder="First Name" class="focus" />
+                <input name="LastName" placeholder="Last Name" />
+                <input type="submit" value="Add Traveler" />
+                </form>
                 <ul class="travelers">
-                    @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
+                    @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
                     {
                         <li>
                             <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a>
-                            @if (userTrip.Guid.HasValue)
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a>
+                            <a class="delete" data-id="@userTrip.Id">remove</a>
+                            @if (userTrip.User != currentUser)
                             {
-                                <a data-id="@userTrip.Id" data-url="@Url.Action("Details", "Invitations", new { guid = userTrip.Guid }, "http")" class="invite">Invite</a>
+                                <div class="expanded">
+                                    <form class="invite">
+                                        Invite @userTrip.User.FirstName to help plan:
+                                        <input name="email" id="invite_email" placeholder="@userTrip.User.FirstName's email" >
+                                        <input type="submit" value="Invite" />
+                                    </form>
+                                </div>
                             }
                         </li>
                     }
                 </ul>
-                <form action="/usertrips" method="POST">
-                <h3>
-                    Add Someone</h3>
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="you" value="false" />
-                <input type="hidden" name="trip_id" value="@trip.Id"/>
-                <input name="fname" placeholder="First Name" class="focus" />
-                <input name="lname" placeholder="Last Name" />
-                <input type="submit" value="Add Traveler" />
-                </form>
             }
         </div>
     </div>
-</div> 
+</div>
