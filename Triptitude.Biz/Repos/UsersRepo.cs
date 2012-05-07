@@ -76,12 +76,6 @@ namespace Triptitude.Biz.Repos
             }
         }
 
-        public void SetDefaultTrip(User user, Trip trip)
-        {
-            user.DefaultTrip = trip;
-            _db.SaveChanges();
-        }
-
         public void SetNewGuidIfNeeded(User user)
         {
             if (!user.Guid.HasValue || !user.GuidCreatedOnUtc.HasValue || (DateTime.UtcNow - user.GuidCreatedOnUtc.Value).TotalDays > 1)

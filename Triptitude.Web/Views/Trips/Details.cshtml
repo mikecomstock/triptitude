@@ -34,7 +34,7 @@
         <header>
             <h2>
                 Who's Going
-                @if (currentUser.OwnsTrips(trip))
+                @if (currentUser.CreatedTrips(trip))
                 { <span><a href="@Url.Who(trip)">Add Someone</a> </span>}
             </h2>
             <ul class="travelers">

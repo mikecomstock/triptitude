@@ -6,8 +6,10 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
+using Triptitude.Biz.Repos;
 
 namespace Triptitude.Biz.Models
 {
@@ -122,23 +124,83 @@ namespace Triptitude.Biz.Models
         public User User { get; set; }
         public Trip Trip { get; set; }
         public byte Action { get; set; }
-        public byte TableName { get; set; }
-        public int TableId { get; set; }
+        public int? TableId1 { get; set; }
+        public int? TableId2 { get; set; }
 
-        public HistoryTable HistoryTable { get { return (HistoryTable)Enum.Parse(typeof(HistoryTable), TableName.ToString()); } }
         public HistoryAction HistoryAction { get { return (HistoryAction)Enum.Parse(typeof(HistoryAction), Action.ToString()); } }
+
+        public string ToString(bool includeTripName)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
+            sb.AppendFormat("{0} ", User.FullName);
+
+            switch (HistoryAction)
+            {
+                case HistoryAction.CreatedTrip:
+                    sb.AppendFormat("created {0}", includeTripName ? Trip.Name : "the trip");
+                    break;
+                case HistoryAction.UpdatedTrip:
+                    sb.AppendFormat("update trip settings {0}", includeTripName ? "for " + Trip.Name : string.Empty);
+                    break;
+                case HistoryAction.DeletedTrip:
+                    sb.AppendFormat("deleted {0}", includeTripName ? Trip.Name : "the trip");
+                    break;
+                case HistoryAction.AddUserToTrip:
+                    {
+                        var user = new UsersRepo().Find(TableId1.Value);
+                        sb.AppendFormat("added {0} {1}", user.FullName, includeTripName ? "to " + Trip.Name : string.Empty);
+                        break;
+                    }
+                case HistoryAction.CreateInvitation:
+                    {
+                        var user = new UsersRepo().Find(TableId1.Value);
+                        sb.AppendFormat("invited {0} to help plan {1}", user.FullName, includeTripName ? Trip.Name : "the trip");
+                        break;
+                    }
+                case HistoryAction.RemoveUserFromTrip:
+                    {
+                        var user = new UsersRepo().Find(TableId1.Value);
+                        sb.AppendFormat("remove {0} from {1}", user.FullName, includeTripName ? Trip.Name : "the trip");
+                        break;
+                    }
+                case HistoryAction.CreateActivity:
+                    {
+                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        sb.AppendFormat("added {0} to {1}", activity.Title, includeTripName ? Trip.Name : "the trip");
+                        break;
+                    }
+                case HistoryAction.UpdateActivity:
+                    {
+                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        sb.AppendFormat("updated {0}", activity.Title);
+                        break;
+                    }
+                case HistoryAction.DeletedActivity:
+                    {
+                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        sb.AppendFormat("removed {0} {1}", activity.Title, includeTripName ? "from " + Trip.Name : string.Empty);
+                        break;
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return sb.ToString().Trim();
+        }
     }
 
     public enum HistoryAction : byte
     {
-        Created = 0,
-        Modified = 1,
-        Deleted = 2
-    }
-
-    public enum HistoryTable : byte
-    {
-        Trips = 0, Activities = 1, PackingListItems = 2
+        CreatedTrip = 1,
+        UpdatedTrip = 2,
+        DeletedTrip = 3,
+        AddUserToTrip = 4,
+        CreateInvitation = 5,
+        RemoveUserFromTrip = 6,
+        CreateActivity = 7,
+        UpdateActivity = 8,
+        DeletedActivity = 9,
     }
 
     public class UserTrip
@@ -162,7 +224,7 @@ namespace Triptitude.Biz.Models
         public string InvitationURL(UrlHelper url)
         {
             if (Guid.HasValue)
-                return url.Action("Details", "Invitations", new { guid = Guid.Value.ToString().Split('-').First() }, "http");
+                return url.Action("Details", "Invitations", new { guid = Guid }, "http");
             else return string.Empty;
         }
 
@@ -288,6 +350,20 @@ namespace Triptitude.Biz.Models
                 var tags = Activities.Where(a => !a.Deleted).SelectMany(a => a.Tags).Distinct();
                 return tags;
             }
+        }
+
+        public void AddHistory(User user, HistoryAction action, int? tableId1 = null, int? tableId2 = null)
+        {
+            History h = new History
+                            {
+                                Trip = this,
+                                User = user,
+                                Action = (byte)action,
+                                CreatedOnUTC = DateTime.UtcNow,
+                                TableId1 = tableId1,
+                                TableId2 = tableId2,
+                            };
+            Histories.Add(h);
         }
 
         public dynamic Json(User forUser)

@@ -109,25 +109,30 @@
                 @TempData["message"]
             </div>
         }
-        <div class="subtitle">
-            Enter the names of everyone that's going on the trip.
-        </div>
+        @if (currentUser.CreatedTrips(trip))
+        {
+            <div class="subtitle">
+                Enter the names of everyone that's going on the trip.
+            </div>
+        }
         <div class="panel-content not-padded">
             @if (string.IsNullOrWhiteSpace(currentUser.FirstName) && string.IsNullOrWhiteSpace(currentUser.LastName))
             {   
+                <form action="/usertrips" method="POST">
                 <h3>
                     Your Info</h3>
-                <form action="/usertrips" method="POST">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="trip_id" value="@trip.Id"/>
                 <input type="hidden" name="you" value="true" />
-                <input name="fname" placeholder="Your First Name" class="focus" />
-                <input name="lname" placeholder="Your Last Name" />
+                <input name="FirstName" placeholder="Your First Name" class="focus" />
+                <input name="LastName" placeholder="Your Last Name" />
                 <input type="submit" value="Save" />
                 </form>
             }
             else
             {
+                if (currentUser.CreatedTrips(trip))
+                {
                 <form id="add-someone">
                 <h3>
                     Add Someone</h3>
@@ -137,14 +142,18 @@
                 <input name="LastName" placeholder="Last Name" />
                 <input type="submit" value="Add Traveler" />
                 </form>
+                }
                 <ul class="travelers">
                     @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
                     {
                         <li>
                             <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a> <a class="delete" data-id="@userTrip.Id">remove</a>
-                            @if (userTrip.User != currentUser)
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a>
+                            @if (currentUser.CreatedTrips(trip))
                             {
+                                <a class="delete" data-id="@userTrip.Id">remove</a>
+                                if (userTrip.User != currentUser)
+                                {
                                 <div class="expanded @(userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
                                     <form class="invite">
                                     Invite @userTrip.User.FirstName to help plan:
@@ -156,6 +165,7 @@
                                         Invitation sent!
                                     </div>
                                 </div>
+                                }
                             }
                         </li>
                     }

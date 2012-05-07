@@ -3,6 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Repos;
+using Triptitude.Biz.Services;
 using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
@@ -18,6 +20,11 @@ namespace Triptitude.Web.Controllers
         public ActionResult Details(Guid guid)
         {
             var userTrip = repo.FindAll().FirstOrDefault(ut => ut.Guid == guid);
+
+            // If they already accepted the invitation and they own the trip, just redirect them
+            if (CurrentUser.OwnsTrips(userTrip.Trip))
+                Redirect(Url.Details(userTrip.Trip));
+
             ViewBag.UserTrip = userTrip;
             return View();
         }
@@ -35,9 +42,13 @@ namespace Triptitude.Web.Controllers
                 Created_On = DateTime.UtcNow
             };
             userTrip.EmailInvites.Add(emailInvite);
+
+            EmailService.SentEmailInvite(emailInvite, Url);
+            trip.AddHistory(CurrentUser, HistoryAction.CreateInvitation, userTrip.User.Id);
+
             repo.Save();
 
-            return Json(userTrip.Json(CurrentUser, Url));   
+            return Json(userTrip.Json(CurrentUser, Url));
         }
 
         public ActionResult Update(Guid guid)
@@ -69,7 +80,7 @@ namespace Triptitude.Web.Controllers
             var currentUserTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == trip_id);
             if (currentUserTrip == null) return Redirect("/");
             var trip = currentUserTrip.Trip;
-            
+
             if (you)
             {
                 CurrentUser.FirstName = firstName;
@@ -93,7 +104,12 @@ namespace Triptitude.Web.Controllers
                     Guid = Guid.NewGuid()
                 };
                 trip.UserTrips.Add(newUserTrip);
+                newUser.DefaultTrip = trip;
                 repo.Save();
+
+                trip.AddHistory(CurrentUser, HistoryAction.AddUserToTrip, newUserTrip.User.Id);
+                repo.Save();
+
                 return Json(newUserTrip.Json(CurrentUser, Url));
             }
         }
@@ -104,6 +120,7 @@ namespace Triptitude.Web.Controllers
             var trip = userTripToDelete.Trip;
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
+            var userTripUser = userTripToDelete.User;
             var jsonToReturn = userTripToDelete.Json(CurrentUser, Url);
 
             if (userTripToDelete.IsCreator)
@@ -113,6 +130,7 @@ namespace Triptitude.Web.Controllers
             else
             {
                 repo.Delete(userTripToDelete);
+                trip.AddHistory(CurrentUser, HistoryAction.RemoveUserFromTrip, userTripUser.Id);
                 repo.Save();
             }
 

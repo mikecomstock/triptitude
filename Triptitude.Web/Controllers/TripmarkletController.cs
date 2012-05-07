@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Triptitude.Biz;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -11,7 +12,7 @@ namespace Triptitude.Web.Controllers
         {
             if (CurrentUser.DefaultTrip == null)
                 return Redirect("/tripmarklet/createtrip");
-            
+
             ViewBag.URL = url;
             ViewBag.ParsedTitle = title.Trim();
 
@@ -33,9 +34,12 @@ namespace Triptitude.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Trip trip = new TripsRepo().Save(form, CurrentUser);
-                new UsersRepo().SetDefaultTrip(CurrentUser, trip);
-                new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);
+                var repo = new TripsRepo();
+                Trip trip = repo.Save(form, CurrentUser);
+                CurrentUser.DefaultTrip = trip;
+                trip.AddHistory(CurrentUser, HistoryAction.CreatedTrip);
+                repo.Save();
+
                 return Redirect("/tripmarklet/tripmarklet");
             }
             else

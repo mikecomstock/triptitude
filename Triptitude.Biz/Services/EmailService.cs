@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Diagnostics;
+using System.Web.Mvc;
 using PostmarkDotNet;
 using Triptitude.Biz.Models;
 
@@ -8,6 +9,20 @@ namespace Triptitude.Biz.Services
 {
     public class EmailService
     {
+        public static void SentEmailInvite(EmailInvite emailInvite, UrlHelper url)
+        {
+            PostmarkMessage message = new PostmarkMessage
+            {
+                From = "admin@triptitude.com",
+                To = emailInvite.Email,
+                Subject = emailInvite.UserTrip.Trip.Creator.FullName + " wants to plan a trip with you",
+                HtmlBody = string.Format("<a href='{0}'>Click here to start planning.</a>", emailInvite.UserTrip.InvitationURL(url)),
+                TextBody = string.Format("Go here to help plan the trip: {0}", emailInvite.UserTrip.InvitationURL(url)),
+                Tag = "invite"
+            };
+            Send(message);
+        }
+
         public static void SentSignupEmail(User user)
         {
             PostmarkMessage message = new PostmarkMessage

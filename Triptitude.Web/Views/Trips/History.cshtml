@@ -2,6 +2,7 @@
 @{
     Trip trip = ViewBag.Trip;
     ViewBag.Title = trip.Name + " - History"; ;
+    
 }
 <div class="panel">
     <header>
@@ -10,51 +11,12 @@
     </header>
     <div class="panel-content">
         <div class="histories timeline">
-            @{ DateTime dt = DateTime.Today.AddYears(1).Date; }
             @foreach (var h in trip.Histories.OrderByDescending(h => h.Id))
             {
-                if (h.CreatedOnUTC.Date != dt.Date)
-                {
-                    dt = h.CreatedOnUTC.Date;
-                <text><h3>@h.CreatedOnUTC.ToShortDateString()</h3></text>
-                }
-                @History(h);
+                <div class="history">
+                    @h.ToString(false)
+                </div>
             }
         </div>
     </div>
 </div>
-@helper History(History h)
-    {
-        try
-        {
-    <div class="history">
-        @h.CreatedOnUTC.ToShortTimeString() <a href="@Url.Details(h.User)">@h.User.FullName</a>
-        @if (h.HistoryTable == HistoryTable.Trips)
-        {
-            var trip = new TripsRepo().Find(h.TableId);
-            <text>@Enum.GetName(typeof(HistoryAction), h.Action).ToLower() <a href="@Url.Details(trip)">@trip.Name</a>
-            </text>
-        }
-        else if (h.HistoryTable == HistoryTable.Activities)
-        {
-            var activity = new ActivitiesRepo().Find(h.TableId);
-            <text>@(h.HistoryAction == HistoryAction.Created ? "added" : h.HistoryAction == HistoryAction.Modified ? "edited" : "removed")</text>
-            <text>@activity.Name</text>
-            <text>@(h.HistoryAction == HistoryAction.Created ? "to" : h.HistoryAction == HistoryAction.Modified ? "in" : "from")</text>
-            <text>the itinerary</text>
-        }
-        else if (h.HistoryTable == HistoryTable.PackingListItems)
-        {
-            var packingListItem = new PackingListItemsRepo().Find(h.TableId);
-            <text>@(h.HistoryAction == HistoryAction.Created ? "added" : h.HistoryAction == HistoryAction.Modified ? "edited" : "removed")</text>
-            <text>@packingListItem.ItemTag.Item.Name</text>
-            <text>@(h.HistoryAction == HistoryAction.Created ? "to" : h.HistoryAction == HistoryAction.Modified ? "in" : "from")</text>
-            <text>the packing list</text>
-        }
-    </div>
-        }
-        catch
-        {
-    @Html.Raw("something</div>");
-        }
-}

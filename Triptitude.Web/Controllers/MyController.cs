@@ -75,13 +75,11 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        // CSRF vulnerable here. Shouldn't matter though...
         public ActionResult DefaultTrip(int id)
         {
             Trip trip = new TripsRepo().Find(id);
             if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
-
-            usersRepo.SetDefaultTrip(CurrentUser, trip);
+            CurrentUser.DefaultTrip = trip;
             return Redirect(Url.Details(trip));
         }
     }

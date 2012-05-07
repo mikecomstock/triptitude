@@ -174,8 +174,8 @@ namespace Triptitude.Web.Controllers
             }
 
             userTrip.Visibility = (byte)form.Visibility;
+            trip.AddHistory(CurrentUser, HistoryAction.UpdatedTrip);
             repo.Save();
-            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Modified, HistoryTable.Trips, trip.Id);
             TempData["saved"] = true;
             return Redirect(Url.Settings(trip));
         }
@@ -216,14 +216,13 @@ namespace Triptitude.Web.Controllers
                     User = CurrentUser,
                     Visibility = (byte)form.Visibility
                 };
-                trip.UserTrips.Add(userTrip);
 
+                trip.UserTrips.Add(userTrip);
+                CurrentUser.DefaultTrip = trip;
+                trip.AddHistory(CurrentUser, HistoryAction.CreatedTrip);
                 repo.Save();
 
                 EmailService.SendTripCreated(trip);
-
-                new UsersRepo().SetDefaultTrip(CurrentUser, trip);
-                new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Created, HistoryTable.Trips, trip.Id);
                 return Redirect(Url.Who(trip));
             }
             else
@@ -244,9 +243,9 @@ namespace Triptitude.Web.Controllers
             if (CurrentUser.DefaultTrip.Id == trip.Id)
                 CurrentUser.DefaultTrip = CurrentUser.Trips(CurrentUser).OrderByDescending(t => t.Id).FirstOrDefault();
 
+            trip.AddHistory(CurrentUser, HistoryAction.DeletedTrip);
             repo.Save();
 
-            new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.Trips, trip.Id);
             return Json(trip.Json(CurrentUser));
         }
 
