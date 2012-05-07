@@ -40,8 +40,7 @@
 @*AddThis Button BEGIN*@
             <div class="share-bar-container">
                 <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-                    <a class="addthis_button_facebook"></a><a class="addthis_button_google_plusone_share"></a><a class="addthis_button_twitter"></a>
-                    <a class="addthis_button_pinterest_share"></a>
+                    <a class="addthis_button_facebook"></a><a class="addthis_button_google_plusone_share"></a><a class="addthis_button_twitter"></a><a class="addthis_button_pinterest_share"></a>
                 </div>
             </div>
 @*AddThis Button END*@
@@ -65,6 +64,24 @@
             </ul>
         </header>
     </section>
+    @if (currentUser.OwnsTrips(trip))
+    {
+        <section id="history">
+            <header>
+                <h2>
+                    Recent Activity <span><a href="@Url.History(trip)">All Activity</a></span>
+                </h2>
+            </header>
+            <ol class="histories">
+                @foreach (var history in trip.Histories.OrderByDescending(h => h.Id).Take(10))
+                {
+                    <li>
+                        @history.ToString()
+                    </li>
+                }
+            </ol>
+        </section>
+    }
     <section id="itinerary">
         <header>
             <h2>

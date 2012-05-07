@@ -1000,7 +1000,8 @@ ul.tags > li + li {
   padding: 10px;
   padding-left: 70px;
   position: relative;
-  min-height: 50px; }
+  min-height: 50px;
+  border-top: 1px solid #CCC; }
   #trips-who .travelers li:before {
     display: table;
     content: "";
@@ -1012,8 +1013,6 @@ ul.tags > li + li {
     zoom: 1;
     *display: inline;
     clear: both; }
-  #trips-who .travelers li + li {
-    border-top: 1px solid #CCC; }
   #trips-who .travelers li img {
     position: absolute;
     left: 10px; }

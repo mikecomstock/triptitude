@@ -2,19 +2,23 @@
     Trip trip = ViewBag.Trip;
     ViewBag.Title = trip.Name + " - History";
 }
+@if (ViewBag.CurrentUser.OwnsTrips(trip))
+{
+    @Html.Action("SidePanel", "Trips", new { trip })
+}
 <div class="panel">
     <header>
         <h1>
             @ViewBag.Title</h1>
     </header>
     <div class="panel-content">
-        <div class="histories timeline">
+        <ol class="histories timeline">
             @foreach (var h in trip.Histories.OrderByDescending(h => h.Id))
             {
                 <div class="history">
                     @h.ToString()
                 </div>
             }
-        </div>
+        </ol>
     </div>
 </div>

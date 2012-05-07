@@ -110,6 +110,11 @@ namespace Triptitude.Web.Helpers
             return url.SlugAction("packinglist", "trips", trip.Id, trip.Name);
         }
 
+        public static string History(this UrlHelper url, Trip trip)
+        {
+            return url.SlugAction("history", "trips", trip.Id, trip.Name);
+        }
+
         #endregion
 
         #region Plan Trip

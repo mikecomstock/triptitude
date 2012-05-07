@@ -371,7 +371,8 @@ ul.tags > li + li { margin-left: 5px; }
 	.travelers {
 		li {
 			@include clearfix; padding: 10px; padding-left: 70px; position: relative; min-height: 50px;
-			&+ li { border-top: 1px solid #CCC; }
+			border-top: 1px solid #CCC;
+			&+ li {  }
 			img { position: absolute; left: 10px; }
 			a.user { float: left; font-size: 16px; }
 			a.delete { float: right; }

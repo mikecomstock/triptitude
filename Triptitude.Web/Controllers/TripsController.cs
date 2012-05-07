@@ -219,6 +219,9 @@ namespace Triptitude.Web.Controllers
                 };
 
                 trip.UserTrips.Add(userTrip);
+                repo.Save();
+
+                // weird errors unless repo.save is called before setting default trip
                 CurrentUser.DefaultTrip = trip;
                 trip.AddHistory(CurrentUser, HistoryAction.CreatedTrip);
                 repo.Save();
