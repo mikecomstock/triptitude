@@ -4,10 +4,10 @@ function SetBindings() {
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
-    $('.place-autocomplete').googAutocomplete();
-    $('.tag-autocomplete').tagAutocomplete();
-    $('.item-autocomplete').itemAutocomplete();
-    $('#trip-search-form').submit(T.TripSearchSubmit);
+//    $('.place-autocomplete').googAutocomplete();
+//    $('.tag-autocomplete').tagAutocomplete();
+//    $('.item-autocomplete').itemAutocomplete();
+//    $('#trip-search-form').submit(T.TripSearchSubmit);
 };
 
 $(function () {
@@ -29,10 +29,10 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-    superDialog = $('#super-dialog');
-    superDialogOverlay = $('#super-dialog-overlay');
-    superDialogOverlay.click(function () { CloseSuperDialog(); });
-    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
+//    superDialog = $('#super-dialog');
+//    superDialogOverlay = $('#super-dialog-overlay');
+//    superDialogOverlay.click(function () { CloseSuperDialog(); });
+//    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
     $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
@@ -44,22 +44,22 @@ $(function () {
         }
     });
 
-    $('.trip-row-map-link').live('click', function () {
-        var tripId = $(this).data('trip-id');
-        var name = $(this).data('trip-name');
+//    $('.trip-row-map-link').live('click', function () {
+//        var tripId = $(this).data('trip-id');
+//        var name = $(this).data('trip-name');
 
-        var container = $(document.createElement('div'));
-        container.dialog({
-            title: name,
-            width: 540,
-            height: 400,
-            resizable: false
-        });
+//        var container = $(document.createElement('div'));
+//        container.dialog({
+//            title: name,
+//            width: 540,
+//            height: 400,
+//            resizable: false
+//        });
 
-        $.get('/maps/trip/' + tripId, function (mapData) {
-            drawMap(container, mapData);
-        });
-    });
+//        $.get('/maps/trip/' + tripId, function (mapData) {
+//            drawMap(container, mapData);
+//        });
+//    });
 
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
@@ -91,13 +91,13 @@ $(function () {
 
     });
 
-    $('.editing .packing-list-item').live('click', function (e) {
-        if ($(e.target).is('a')) return;
-        if ($(this).parent().is('.suggestions')) return;
+//    $('.editing .packing-list-item').live('click', function (e) {
+//        if ($(e.target).is('a')) return;
+//        if ($(this).parent().is('.suggestions')) return;
 
-        var id = $(this).data('id');
-        OpenSuperDialog('/packing/edit/' + id);
-    });
+//        var id = $(this).data('id');
+//        OpenSuperDialog('/packing/edit/' + id);
+//    });
 
     var openEditor = function (trip, activity) {
         console.log('openEditor');
@@ -160,37 +160,37 @@ $(function () {
         }
     });
 
-    $('.add-to-trip').live('click', function (e) {
+//    $('.add-to-trip').live('click', function (e) {
 
-        if (e.target != this && $(e.target).is('a')) return;
+//        if (e.target != this && $(e.target).is('a')) return;
 
-        e.preventDefault();
-        var link = $(this);
-        var type = link.data('type');
-        if (type == 'packing-list-item') {
-            OpenSuperDialog('/packing/create', function () {
-                superDialog.find('input[name="name"]').val(link.data('name'));
-                superDialog.find('input[name="tagstring"]').val(link.data('tag'));
-            });
-        } else {
-            var place = $(e.target).data('place');
-            if (!place) {
-                place = {
-                    id: $(this).data('id'),
-                    reference: $(this).data('reference'),
-                    name: $(this).data('name')
-                };
-            }
-            OpenSuperDialog('/activities/create?type=place', function () {
-                var placeInputParagraph = superDialog.find('[name="name"]').parent();
-                placeInputParagraph.find('input[name="googid"]').val(place.id);
-                placeInputParagraph.find('input[name="googreference"]').val(place.reference);
-                placeInputParagraph.find('input[name="googname"]').val(place.name).trigger('change');
-                placeInputParagraph.hide();
-                $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
-            });
-        }
-    });
+//        e.preventDefault();
+//        var link = $(this);
+//        var type = link.data('type');
+//        if (type == 'packing-list-item') {
+//            OpenSuperDialog('/packing/create', function () {
+//                superDialog.find('input[name="name"]').val(link.data('name'));
+//                superDialog.find('input[name="tagstring"]').val(link.data('tag'));
+//            });
+//        } else {
+//            var place = $(e.target).data('place');
+//            if (!place) {
+//                place = {
+//                    id: $(this).data('id'),
+//                    reference: $(this).data('reference'),
+//                    name: $(this).data('name')
+//                };
+//            }
+//            OpenSuperDialog('/activities/create?type=place', function () {
+//                var placeInputParagraph = superDialog.find('[name="name"]').parent();
+//                placeInputParagraph.find('input[name="googid"]').val(place.id);
+//                placeInputParagraph.find('input[name="googreference"]').val(place.reference);
+//                placeInputParagraph.find('input[name="googname"]').val(place.name).trigger('change');
+//                placeInputParagraph.hide();
+//                $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
+//            });
+//        }
+//    });
 });
 
 //function OpenSuperDialog(url, callback) {
@@ -549,178 +549,178 @@ function moveScroller() {
     a();
 }
 
-function scrollToBottom($element) {
-    if ($element) {
-        $element.prop({ scrollTop: $element.prop('scrollHeight') });
-    }
-}
+//function scrollToBottom($element) {
+//    if ($element) {
+//        $element.prop({ scrollTop: $element.prop('scrollHeight') });
+//    }
+//}
 
-log = function (a) {
-    if (window['console'] && console['log']) {
-        console.log(a);
-    }
-};
+//log = function (a) {
+//    if (window['console'] && console['log']) {
+//        console.log(a);
+//    }
+//};
 
-var T = {};
+//var T = {};
 
-T.TripSearchSubmit = function (e) {
-    e.preventDefault();
-    var form = $(this);
-    $.get('/trips/searchresults', form.serialize(), function (data) {
-        log(data);
-        $('#trip-search-results').html(data);
-    });
-    log('trip search');
-    log(form);
-};
+//T.TripSearchSubmit = function (e) {
+//    e.preventDefault();
+//    var form = $(this);
+//    $.get('/trips/searchresults', form.serialize(), function (data) {
+//        log(data);
+//        $('#trip-search-results').html(data);
+//    });
+//    log('trip search');
+//    log(form);
+//};
 
-T.NearbyPlaces = function () {
+//T.NearbyPlaces = function () {
 
-    var map;
-    var searchService;
-    var searchForm = $('#placeSearch');
-    var infowindow;
-    var placeList = $('#place-rows');
-    var noResults;
+//    var map;
+//    var searchService;
+//    var searchForm = $('#placeSearch');
+//    var infowindow;
+//    var placeList = $('#place-rows');
+//    var noResults;
 
-    function initialize() {
-        var m = $('#map');
-        var lat = m.data('lat');
-        var lng = m.data('lng');
-        var centerOn = new google.maps.LatLng(lat, lng);
+//    function initialize() {
+//        var m = $('#map');
+//        var lat = m.data('lat');
+//        var lng = m.data('lng');
+//        var centerOn = new google.maps.LatLng(lat, lng);
 
-        map = new google.maps.Map(document.getElementById('map'), {
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            center: centerOn,
-            zoom: 14
-        });
-        google.maps.event.addListener(map, 'idle', function () { doSearch(); });
+//        map = new google.maps.Map(document.getElementById('map'), {
+//            mapTypeId: google.maps.MapTypeId.ROADMAP,
+//            center: centerOn,
+//            zoom: 14
+//        });
+//        google.maps.event.addListener(map, 'idle', function () { doSearch(); });
 
-        searchService = new google.maps.places.PlacesService(map);
+//        searchService = new google.maps.places.PlacesService(map);
 
-        infowindow = new google.maps.InfoWindow({ zIndex: 10000 });
-        google.maps.event.addListener(infowindow, 'closeclick', function () { clearActive(); });
+//        infowindow = new google.maps.InfoWindow({ zIndex: 10000 });
+//        google.maps.event.addListener(infowindow, 'closeclick', function () { clearActive(); });
 
-        searchForm.submit(function (e) {
-            e.preventDefault();
-            clearActive();
-            doSearch();
-        });
-    }
+//        searchForm.submit(function (e) {
+//            e.preventDefault();
+//            clearActive();
+//            doSearch();
+//        });
+//    }
 
-    function doSearch() {
+//    function doSearch() {
 
-        var keyword = searchForm.find('#keyword').val();
-        var types = searchForm.find('#types').val() == "" ? null : [searchForm.find('#types').val()];
+//        var keyword = searchForm.find('#keyword').val();
+//        var types = searchForm.find('#types').val() == "" ? null : [searchForm.find('#types').val()];
 
-        var options = { bounds: map.getBounds(), keyword: keyword, types: types };
-        searchService.search(options, function (results, status) {
+//        var options = { bounds: map.getBounds(), keyword: keyword, types: types };
+//        searchService.search(options, function (results, status) {
 
-            if (noResults) {
-                noResults.remove();
-                noResults = null;
-            }
+//            if (noResults) {
+//                noResults.remove();
+//                noResults = null;
+//            }
 
-            placeList.find('li:not(.active)').each(function (i, li) {
-                var $li = $(li);
-                var place = $li.data('place');
-                place.marker.setMap(null);
-                $li.remove();
-            });
+//            placeList.find('li:not(.active)').each(function (i, li) {
+//                var $li = $(li);
+//                var place = $li.data('place');
+//                place.marker.setMap(null);
+//                $li.remove();
+//            });
 
-            switch (status) {
-                case google.maps.places.PlacesServiceStatus.OK:
-                    {
-                        var activePlace = placeList.find('li.active').data('place');
-                        $.each(results, function (i, place) {
-                            // Can't compare objects here, use IDs instead.
-                            if (activePlace == null || place.id != activePlace.id) {
-                                createMarker(place);
-                                createListItem(place);
-                            }
-                        });
-                        break;
-                    }
-                case google.maps.places.PlacesServiceStatus.ZERO_RESULTS:
-                    {
-                        noResults = $(document.createElement('div')).text('No results found');
-                        noResults.insertAfter(placeList);
-                        break;
-                    }
-                default:
-                    {
-                        noResults = $(document.createElement('div')).text('An error has occured. Please edit your search and try again.');
-                        noResults.insertAfter(placeList);
-                        break;
-                    }
-            }
-        });
-    }
+//            switch (status) {
+//                case google.maps.places.PlacesServiceStatus.OK:
+//                    {
+//                        var activePlace = placeList.find('li.active').data('place');
+//                        $.each(results, function (i, place) {
+//                            // Can't compare objects here, use IDs instead.
+//                            if (activePlace == null || place.id != activePlace.id) {
+//                                createMarker(place);
+//                                createListItem(place);
+//                            }
+//                        });
+//                        break;
+//                    }
+//                case google.maps.places.PlacesServiceStatus.ZERO_RESULTS:
+//                    {
+//                        noResults = $(document.createElement('div')).text('No results found');
+//                        noResults.insertAfter(placeList);
+//                        break;
+//                    }
+//                default:
+//                    {
+//                        noResults = $(document.createElement('div')).text('An error has occured. Please edit your search and try again.');
+//                        noResults.insertAfter(placeList);
+//                        break;
+//                    }
+//            }
+//        });
+//    }
 
-    function createMarker(place) {
-        var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
-        google.maps.event.addListener(marker, 'click', function () { setActive(place); });
-        place.marker = marker;
-    }
+//    function createMarker(place) {
+//        var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
+//        google.maps.event.addListener(marker, 'click', function () { setActive(place); });
+//        place.marker = marker;
+//    }
 
-    function createListItem(place) {
-        var li = $(document.createElement('li'))
-            .text(place.name)
-            .appendTo(placeList)
-            .click(function (e) { if (e.target == this) { setActive(place); } })
-            .data('place', place);
-        place.li = li;
-        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
-    }
+//    function createListItem(place) {
+//        var li = $(document.createElement('li'))
+//            .text(place.name)
+//            .appendTo(placeList)
+//            .click(function (e) { if (e.target == this) { setActive(place); } })
+//            .data('place', place);
+//        place.li = li;
+//        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(li);
+//    }
 
-    function getInfoWindowContent(place) {
-        var content = $(document.createElement('div')).addClass('info-window');
-        $('<a class="title" rel="nofollow"></a>')
-            .text(place.name)
-            .data('place', place)
-            .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
-            .appendTo(content);
-        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
-        return content;
-    }
+//    function getInfoWindowContent(place) {
+//        var content = $(document.createElement('div')).addClass('info-window');
+//        $('<a class="title" rel="nofollow"></a>')
+//            .text(place.name)
+//            .data('place', place)
+//            .attr('href', '/places/redirect?googReference=' + place.reference + '&googId=' + place.id)
+//            .appendTo(content);
+//        $('<a class="add-to-trip" rel="nofollow">+ Add to Trip</a>').data('place', place).appendTo(content);
+//        return content;
+//    }
 
-    function setActive(place) {
-        clearActive();
-        placeList.find('li.active').removeClass('active');
-        place.li.addClass('active');
+//    function setActive(place) {
+//        clearActive();
+//        placeList.find('li.active').removeClass('active');
+//        place.li.addClass('active');
 
-        var infoWindowContent = getInfoWindowContent(place);
-        infowindow.setContent(infoWindowContent[0]);
-        infowindow.open(map, place.marker);
-    }
+//        var infoWindowContent = getInfoWindowContent(place);
+//        infowindow.setContent(infoWindowContent[0]);
+//        infowindow.open(map, place.marker);
+//    }
 
-    function clearActive() {
-        infowindow.close();
-        placeList.find('.active').removeClass('active');
-    }
+//    function clearActive() {
+//        infowindow.close();
+//        placeList.find('.active').removeClass('active');
+//    }
 
-    var mapPinning = function () {
-        var b = $(window).scrollTop() + 90;
-        var sa = $("#mapanchor");
-        var d = sa.offset().top;
-        var c = $("#map");
-        c.width(c.width()); // fixes an overlay issue
-        if (b > d) {
-            var height = c.outerHeight(true);
-            sa.css({ height: height + "px" });
-            c.addClass('at-top');
-        } else {
-            if (b <= d) {
-                c.removeClass('at-top');
-                sa.css({ height: "0" });
-            }
-        }
-    };
+//    var mapPinning = function () {
+//        var b = $(window).scrollTop() + 90;
+//        var sa = $("#mapanchor");
+//        var d = sa.offset().top;
+//        var c = $("#map");
+//        c.width(c.width()); // fixes an overlay issue
+//        if (b > d) {
+//            var height = c.outerHeight(true);
+//            sa.css({ height: height + "px" });
+//            c.addClass('at-top');
+//        } else {
+//            if (b <= d) {
+//                c.removeClass('at-top');
+//                sa.css({ height: "0" });
+//            }
+//        }
+//    };
 
-    initialize();
-    $(window).scroll(mapPinning);
-    mapPinning();
-};
+//    initialize();
+//    $(window).scroll(mapPinning);
+//    mapPinning();
+//};
 
 /**
 * jQuery Masonry v2.0.111015
@@ -731,4 +731,4 @@ T.NearbyPlaces = function () {
 * Licensed under the MIT license.
 * Copyright 2011 David DeSandro
 */
-(function (a, b, c) { var d = b.event, e; d.special.smartresize = { setup: function () { b(this).bind("resize", d.special.smartresize.handler) }, teardown: function () { b(this).unbind("resize", d.special.smartresize.handler) }, handler: function (a, b) { var c = this, d = arguments; a.type = "smartresize", e && clearTimeout(e), e = setTimeout(function () { jQuery.event.handle.apply(c, d) }, b === "execAsap" ? 0 : 100) } }, b.fn.smartresize = function (a) { return a ? this.bind("smartresize", a) : this.trigger("smartresize", ["execAsap"]) }, b.Mason = function (a, c) { this.element = b(c), this._create(a), this._init() }; var f = ["position", "height"]; b.Mason.settings = { isResizable: !0, isAnimated: !1, animationOptions: { queue: !1, duration: 500 }, gutterWidth: 0, isRTL: !1, isFitWidth: !1 }, b.Mason.prototype = { _filterFindBricks: function (a) { var b = this.options.itemSelector; return b ? a.filter(b).add(a.find(b)) : a }, _getBricks: function (a) { var b = this._filterFindBricks(a).css({ position: "absolute" }).addClass("masonry-brick"); return b }, _create: function (c) { this.options = b.extend(!0, {}, b.Mason.settings, c), this.styleQueue = [], this.reloadItems(); var d = this.element[0].style; this.originalStyle = {}; for (var e = 0, g = f.length; e < g; e++) { var h = f[e]; this.originalStyle[h] = d[h] || "" } this.element.css({ position: "relative" }), this.horizontalDirection = this.options.isRTL ? "right" : "left", this.offset = {}; var i = b(document.createElement("div")); this.element.prepend(i), this.offset.y = Math.round(i.position().top), this.options.isRTL ? (i.css({ "float": "right", display: "inline-block" }), this.offset.x = Math.round(this.element.outerWidth() - i.position().left)) : this.offset.x = Math.round(i.position().left), i.remove(); var j = this; setTimeout(function () { j.element.addClass("masonry") }, 0), this.options.isResizable && b(a).bind("smartresize.masonry", function () { j.resize() }) }, _init: function (a) { this._getColumns(), this._reLayout(a) }, option: function (a, c) { b.isPlainObject(a) && (this.options = b.extend(!0, this.options, a)) }, layout: function (a, c) { var d, e, f, g, h, i; for (var j = 0, k = a.length; j < k; j++) { d = b(a[j]), e = Math.ceil(d.outerWidth(!0) / this.columnWidth), e = Math.min(e, this.cols); if (e === 1) this._placeBrick(d, this.colYs); else { f = this.cols + 1 - e, g = []; for (i = 0; i < f; i++) h = this.colYs.slice(i, i + e), g[i] = Math.max.apply(Math, h); this._placeBrick(d, g) } } var l = {}; l.height = Math.max.apply(Math, this.colYs) - this.offset.y; if (this.options.isFitWidth) { var m = 0, j = this.cols; while (--j) { if (this.colYs[j] !== this.offset.y) break; m++ } l.width = (this.cols - m) * this.columnWidth - this.options.gutterWidth } this.styleQueue.push({ $el: this.element, style: l }); var n = this.isLaidOut ? this.options.isAnimated ? "animate" : "css" : "css", o = this.options.animationOptions, p; for (j = 0, k = this.styleQueue.length; j < k; j++) p = this.styleQueue[j], p.$el[n](p.style, o); this.styleQueue = [], c && c.call(a), this.isLaidOut = !0 }, _getColumns: function () { var a = this.options.isFitWidth ? this.element.parent() : this.element, b = a.width(); this.columnWidth = this.options.columnWidth || this.$bricks.outerWidth(!0) || b, this.columnWidth += this.options.gutterWidth, this.cols = Math.floor((b + this.options.gutterWidth) / this.columnWidth), this.cols = Math.max(this.cols, 1) }, _placeBrick: function (a, b) { var c = Math.min.apply(Math, b), d = 0; for (var e = 0, f = b.length; e < f; e++) if (b[e] === c) { d = e; break } var g = { top: c }; g[this.horizontalDirection] = this.columnWidth * d + this.offset.x, this.styleQueue.push({ $el: a, style: g }); var h = c + a.outerHeight(!0), i = this.cols + 1 - f; for (e = 0; e < i; e++) this.colYs[d + e] = h }, resize: function () { var a = this.cols; this._getColumns(), this.cols !== a && this._reLayout() }, _reLayout: function (a) { var b = this.cols; this.colYs = []; while (b--) this.colYs.push(this.offset.y); this.layout(this.$bricks, a) }, reloadItems: function () { this.$bricks = this._getBricks(this.element.children()) }, reload: function (a) { this.reloadItems(), this._init(a) }, appended: function (a, b, c) { if (b) { this._filterFindBricks(a).css({ top: this.element.height() }); var d = this; setTimeout(function () { d._appended(a, c) }, 1) } else this._appended(a, c) }, _appended: function (a, b) { var c = this._getBricks(a); this.$bricks = this.$bricks.add(c), this.layout(c, b) }, remove: function (a) { this.$bricks = this.$bricks.not(a), a.remove() }, destroy: function () { this.$bricks.removeClass("masonry-brick").each(function () { this.style.position = "", this.style.top = "", this.style.left = "" }); var c = this.element[0].style; for (var d = 0, e = f.length; d < e; d++) { var g = f[d]; c[g] = this.originalStyle[g] } this.element.unbind(".masonry").removeClass("masonry").removeData("masonry"), b(a).unbind(".masonry") } }, b.fn.imagesLoaded = function (a) { function h() { --e <= 0 && this.src !== f && (setTimeout(g), d.unbind("load error", h)) } function g() { a.call(b, d) } var b = this, d = b.find("img").add(b.filter("img")), e = d.length, f = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="; e || g(), d.bind("load error", h).each(function () { if (this.complete || this.complete === c) { var a = this.src; this.src = f, this.src = a } }); return b }; var g = function (a) { this.console && console.error(a) }; b.fn.masonry = function (a) { if (typeof a == "string") { var c = Array.prototype.slice.call(arguments, 1); this.each(function () { var d = b.data(this, "masonry"); if (!d) g("cannot call methods on masonry prior to initialization; attempted to call method '" + a + "'"); else { if (!b.isFunction(d[a]) || a.charAt(0) === "_") { g("no such method '" + a + "' for masonry instance"); return } d[a].apply(d, c) } }) } else this.each(function () { var c = b.data(this, "masonry"); c ? (c.option(a || {}), c._init()) : b.data(this, "masonry", new b.Mason(a, this)) }); return this } })(window, jQuery);
+//(function (a, b, c) { var d = b.event, e; d.special.smartresize = { setup: function () { b(this).bind("resize", d.special.smartresize.handler) }, teardown: function () { b(this).unbind("resize", d.special.smartresize.handler) }, handler: function (a, b) { var c = this, d = arguments; a.type = "smartresize", e && clearTimeout(e), e = setTimeout(function () { jQuery.event.handle.apply(c, d) }, b === "execAsap" ? 0 : 100) } }, b.fn.smartresize = function (a) { return a ? this.bind("smartresize", a) : this.trigger("smartresize", ["execAsap"]) }, b.Mason = function (a, c) { this.element = b(c), this._create(a), this._init() }; var f = ["position", "height"]; b.Mason.settings = { isResizable: !0, isAnimated: !1, animationOptions: { queue: !1, duration: 500 }, gutterWidth: 0, isRTL: !1, isFitWidth: !1 }, b.Mason.prototype = { _filterFindBricks: function (a) { var b = this.options.itemSelector; return b ? a.filter(b).add(a.find(b)) : a }, _getBricks: function (a) { var b = this._filterFindBricks(a).css({ position: "absolute" }).addClass("masonry-brick"); return b }, _create: function (c) { this.options = b.extend(!0, {}, b.Mason.settings, c), this.styleQueue = [], this.reloadItems(); var d = this.element[0].style; this.originalStyle = {}; for (var e = 0, g = f.length; e < g; e++) { var h = f[e]; this.originalStyle[h] = d[h] || "" } this.element.css({ position: "relative" }), this.horizontalDirection = this.options.isRTL ? "right" : "left", this.offset = {}; var i = b(document.createElement("div")); this.element.prepend(i), this.offset.y = Math.round(i.position().top), this.options.isRTL ? (i.css({ "float": "right", display: "inline-block" }), this.offset.x = Math.round(this.element.outerWidth() - i.position().left)) : this.offset.x = Math.round(i.position().left), i.remove(); var j = this; setTimeout(function () { j.element.addClass("masonry") }, 0), this.options.isResizable && b(a).bind("smartresize.masonry", function () { j.resize() }) }, _init: function (a) { this._getColumns(), this._reLayout(a) }, option: function (a, c) { b.isPlainObject(a) && (this.options = b.extend(!0, this.options, a)) }, layout: function (a, c) { var d, e, f, g, h, i; for (var j = 0, k = a.length; j < k; j++) { d = b(a[j]), e = Math.ceil(d.outerWidth(!0) / this.columnWidth), e = Math.min(e, this.cols); if (e === 1) this._placeBrick(d, this.colYs); else { f = this.cols + 1 - e, g = []; for (i = 0; i < f; i++) h = this.colYs.slice(i, i + e), g[i] = Math.max.apply(Math, h); this._placeBrick(d, g) } } var l = {}; l.height = Math.max.apply(Math, this.colYs) - this.offset.y; if (this.options.isFitWidth) { var m = 0, j = this.cols; while (--j) { if (this.colYs[j] !== this.offset.y) break; m++ } l.width = (this.cols - m) * this.columnWidth - this.options.gutterWidth } this.styleQueue.push({ $el: this.element, style: l }); var n = this.isLaidOut ? this.options.isAnimated ? "animate" : "css" : "css", o = this.options.animationOptions, p; for (j = 0, k = this.styleQueue.length; j < k; j++) p = this.styleQueue[j], p.$el[n](p.style, o); this.styleQueue = [], c && c.call(a), this.isLaidOut = !0 }, _getColumns: function () { var a = this.options.isFitWidth ? this.element.parent() : this.element, b = a.width(); this.columnWidth = this.options.columnWidth || this.$bricks.outerWidth(!0) || b, this.columnWidth += this.options.gutterWidth, this.cols = Math.floor((b + this.options.gutterWidth) / this.columnWidth), this.cols = Math.max(this.cols, 1) }, _placeBrick: function (a, b) { var c = Math.min.apply(Math, b), d = 0; for (var e = 0, f = b.length; e < f; e++) if (b[e] === c) { d = e; break } var g = { top: c }; g[this.horizontalDirection] = this.columnWidth * d + this.offset.x, this.styleQueue.push({ $el: a, style: g }); var h = c + a.outerHeight(!0), i = this.cols + 1 - f; for (e = 0; e < i; e++) this.colYs[d + e] = h }, resize: function () { var a = this.cols; this._getColumns(), this.cols !== a && this._reLayout() }, _reLayout: function (a) { var b = this.cols; this.colYs = []; while (b--) this.colYs.push(this.offset.y); this.layout(this.$bricks, a) }, reloadItems: function () { this.$bricks = this._getBricks(this.element.children()) }, reload: function (a) { this.reloadItems(), this._init(a) }, appended: function (a, b, c) { if (b) { this._filterFindBricks(a).css({ top: this.element.height() }); var d = this; setTimeout(function () { d._appended(a, c) }, 1) } else this._appended(a, c) }, _appended: function (a, b) { var c = this._getBricks(a); this.$bricks = this.$bricks.add(c), this.layout(c, b) }, remove: function (a) { this.$bricks = this.$bricks.not(a), a.remove() }, destroy: function () { this.$bricks.removeClass("masonry-brick").each(function () { this.style.position = "", this.style.top = "", this.style.left = "" }); var c = this.element[0].style; for (var d = 0, e = f.length; d < e; d++) { var g = f[d]; c[g] = this.originalStyle[g] } this.element.unbind(".masonry").removeClass("masonry").removeData("masonry"), b(a).unbind(".masonry") } }, b.fn.imagesLoaded = function (a) { function h() { --e <= 0 && this.src !== f && (setTimeout(g), d.unbind("load error", h)) } function g() { a.call(b, d) } var b = this, d = b.find("img").add(b.filter("img")), e = d.length, f = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="; e || g(), d.bind("load error", h).each(function () { if (this.complete || this.complete === c) { var a = this.src; this.src = f, this.src = a } }); return b }; var g = function (a) { this.console && console.error(a) }; b.fn.masonry = function (a) { if (typeof a == "string") { var c = Array.prototype.slice.call(arguments, 1); this.each(function () { var d = b.data(this, "masonry"); if (!d) g("cannot call methods on masonry prior to initialization; attempted to call method '" + a + "'"); else { if (!b.isFunction(d[a]) || a.charAt(0) === "_") { g("no such method '" + a + "' for masonry instance"); return } d[a].apply(d, c) } }) } else this.each(function () { var c = b.data(this, "masonry"); c ? (c.option(a || {}), c._init()) : b.data(this, "masonry", new b.Mason(a, this)) }); return this } })(window, jQuery);

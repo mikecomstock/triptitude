@@ -129,7 +129,7 @@ namespace Triptitude.Biz.Models
 
         public HistoryAction HistoryAction { get { return (HistoryAction)Enum.Parse(typeof(HistoryAction), Action.ToString()); } }
 
-        public string ToString(bool includeTripName)
+        public string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
@@ -138,48 +138,48 @@ namespace Triptitude.Biz.Models
             switch (HistoryAction)
             {
                 case HistoryAction.CreatedTrip:
-                    sb.AppendFormat("created {0}", includeTripName ? Trip.Name : "the trip");
+                    sb.AppendFormat("created the trip");
                     break;
                 case HistoryAction.UpdatedTrip:
-                    sb.AppendFormat("update trip settings {0}", includeTripName ? "for " + Trip.Name : string.Empty);
+                    sb.AppendFormat("update trip settings");
                     break;
                 case HistoryAction.DeletedTrip:
-                    sb.AppendFormat("deleted {0}", includeTripName ? Trip.Name : "the trip");
+                    sb.AppendFormat("deleted the trip");
                     break;
                 case HistoryAction.AddUserToTrip:
                     {
                         var user = new UsersRepo().Find(TableId1.Value);
-                        sb.AppendFormat("added {0} {1}", user.FullName, includeTripName ? "to " + Trip.Name : string.Empty);
+                        sb.AppendFormat("added {0}", user.FullName);
                         break;
                     }
                 case HistoryAction.CreateInvitation:
                     {
                         var user = new UsersRepo().Find(TableId1.Value);
-                        sb.AppendFormat("invited {0} to help plan {1}", user.FullName, includeTripName ? Trip.Name : "the trip");
+                        sb.AppendFormat("invited {0} to help plan", user.FullName);
                         break;
                     }
                 case HistoryAction.RemoveUserFromTrip:
                     {
                         var user = new UsersRepo().Find(TableId1.Value);
-                        sb.AppendFormat("remove {0} from {1}", user.FullName, includeTripName ? Trip.Name : "the trip");
+                        sb.AppendFormat("removed {0}", user.FullName);
                         break;
                     }
                 case HistoryAction.CreateActivity:
                     {
                         var activity = new ActivitiesRepo().Find(TableId1.Value);
-                        sb.AppendFormat("added {0} to {1}", activity.Title, includeTripName ? Trip.Name : "the trip");
+                        sb.AppendFormat("added \"{0}\"", activity.Title);
                         break;
                     }
                 case HistoryAction.UpdateActivity:
                     {
                         var activity = new ActivitiesRepo().Find(TableId1.Value);
-                        sb.AppendFormat("updated {0}", activity.Title);
+                        sb.AppendFormat("updated \"{0}\"", activity.Title);
                         break;
                     }
                 case HistoryAction.DeletedActivity:
                     {
                         var activity = new ActivitiesRepo().Find(TableId1.Value);
-                        sb.AppendFormat("removed {0} {1}", activity.Title, includeTripName ? "from " + Trip.Name : string.Empty);
+                        sb.AppendFormat("removed \"{0}\"", activity.Title);
                         break;
                     }
                 default:
@@ -269,6 +269,7 @@ namespace Triptitude.Biz.Models
         {
             Activities = new Collection<Activity>();
             UserTrips = new Collection<UserTrip>();
+            Histories = new Collection<History>();
         }
 
         public int Id { get; set; }
@@ -303,6 +304,8 @@ namespace Triptitude.Biz.Models
         {
             get { return Activities.Where(a => !a.Deleted).OrderBy(a => a.OrderNumber); }
         }
+
+        public bool Sharable { get { return UserTrips.Any(ut => ut.Visibility == (byte)UserTrip.UserTripVisibility.Public); } }
 
         public IEnumerable<DateTime?> Dates
         {
@@ -418,35 +421,35 @@ namespace Triptitude.Biz.Models
             return result ?? TimeSpan.MaxValue;
         }
 
-        public string Duration
-        {
-            get
-            {
-                if ((BeginDay.HasValue && !EndDay.HasValue) || (!BeginDay.HasValue && EndDay.HasValue)) return null;
-                if ((BeginTime.HasValue && !EndTime.HasValue) || (!BeginTime.HasValue && EndTime.HasValue)) return null;
+        //public string Duration
+        //{
+        //    get
+        //    {
+        //        if ((BeginDay.HasValue && !EndDay.HasValue) || (!BeginDay.HasValue && EndDay.HasValue)) return null;
+        //        if ((BeginTime.HasValue && !EndTime.HasValue) || (!BeginTime.HasValue && EndTime.HasValue)) return null;
 
-                DateTime begin = DateTime.Today;
-                DateTime end = DateTime.Today;
+        //        DateTime begin = DateTime.Today;
+        //        DateTime end = DateTime.Today;
 
-                if (BeginDay.HasValue) begin = begin.AddDays(BeginDay.Value);
-                if (EndDay.HasValue) end = end.AddDays(EndDay.Value);
+        //        if (BeginDay.HasValue) begin = begin.AddDays(BeginDay.Value);
+        //        if (EndDay.HasValue) end = end.AddDays(EndDay.Value);
 
-                if (BeginTime.HasValue) begin = begin.Add(BeginTime.Value);
-                if (EndTime.HasValue) end = end.Add(EndTime.Value);
+        //        if (BeginTime.HasValue) begin = begin.Add(BeginTime.Value);
+        //        if (EndTime.HasValue) end = end.Add(EndTime.Value);
 
-                TimeSpan duration = end - begin;
+        //        TimeSpan duration = end - begin;
 
-                List<string> parts = new List<string>(3);
-                if (duration.Days == 1) parts.Add(duration.Days + "day");
-                if (duration.Days > 1) parts.Add(duration.Days + "days");
-                if (duration.Hours == 1) parts.Add(duration.Hours + " hour");
-                if (duration.Hours > 1) parts.Add(duration.Hours + " hours");
-                if (duration.Minutes == 1) parts.Add(duration.Minutes + " minute");
-                if (duration.Minutes > 1) parts.Add(duration.Minutes + " minutes");
+        //        List<string> parts = new List<string>(3);
+        //        if (duration.Days == 1) parts.Add(duration.Days + "day");
+        //        if (duration.Days > 1) parts.Add(duration.Days + "days");
+        //        if (duration.Hours == 1) parts.Add(duration.Hours + " hour");
+        //        if (duration.Hours > 1) parts.Add(duration.Hours + " hours");
+        //        if (duration.Minutes == 1) parts.Add(duration.Minutes + " minute");
+        //        if (duration.Minutes > 1) parts.Add(duration.Minutes + " minutes");
 
-                return string.Join(", ", parts);
-            }
-        }
+        //        return string.Join(", ", parts);
+        //    }
+        //}
 
         public dynamic Json(User forUser)
         {

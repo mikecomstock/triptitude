@@ -102,17 +102,17 @@ namespace Triptitude.Web.Controllers
         //}
 
         // partial only
-        public ActionResult DayDetails(Trip trip, int? dayNumber)
-        {
-            // For unscheduled activities
-            dayNumber = dayNumber == -1 ? null : dayNumber;
+        //public ActionResult DayDetails(Trip trip, int? dayNumber)
+        //{
+        //    // For unscheduled activities
+        //    dayNumber = dayNumber == -1 ? null : dayNumber;
 
-            ViewBag.DayNumber = dayNumber;
-            ViewBag.Trip = trip;
-            ViewBag.Editing = CurrentUser.DefaultTrip == trip;
-            ViewBag.CurrentUser = CurrentUser;
-            return PartialView("_DayDetails");
-        }
+        //    ViewBag.DayNumber = dayNumber;
+        //    ViewBag.Trip = trip;
+        //    ViewBag.Editing = CurrentUser.DefaultTrip == trip;
+        //    ViewBag.CurrentUser = CurrentUser;
+        //    return PartialView("_DayDetails");
+        //}
 
         public ActionResult PackingList(int id)
         {
@@ -180,16 +180,17 @@ namespace Triptitude.Web.Controllers
             return Redirect(Url.Settings(trip));
         }
 
-        public ActionResult Create(int? to)
+        //public ActionResult Create(int? to)
+        public ActionResult Create()
         {
             var form = new NewCreateTripForm { Visibility = UserTrip.UserTripVisibility.Public };
 
-            if (to.HasValue)
-            {
-                var placesRepo = new PlacesRepo();
-                Place place = placesRepo.Find(to.Value);
-                form.Name = "Trip to " + place.Name;
-            }
+            //if (to.HasValue)
+            //{
+            //    var placesRepo = new PlacesRepo();
+            //    Place place = placesRepo.Find(to.Value);
+            //    form.Name = "Trip to " + place.Name;
+            //}
 
             ViewBag.Form = form;
             return View();

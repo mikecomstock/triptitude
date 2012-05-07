@@ -1,8 +1,6 @@
-﻿@using Triptitude.Biz.Repos
-@{
+﻿@{
     Trip trip = ViewBag.Trip;
-    ViewBag.Title = trip.Name + " - History"; ;
-    
+    ViewBag.Title = trip.Name + " - History";
 }
 <div class="panel">
     <header>
@@ -14,7 +12,7 @@
             @foreach (var h in trip.Histories.OrderByDescending(h => h.Id))
             {
                 <div class="history">
-                    @h.ToString(false)
+                    @h.ToString()
                 </div>
             }
         </div>
