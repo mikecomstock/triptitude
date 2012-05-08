@@ -11,7 +11,7 @@ namespace Triptitude.Biz.Repos
     {
         public User FindByEmailAndPassword(string email, string password)
         {
-            User user = FindAll().FirstOrDefault(u => u.Email == email);
+            User user = FindAll().FirstOrDefault(u => u.Email == email.Trim());
             if (user == null) return null;
 
             bool hashesMatch = BCryptHelper.CheckPassword(password, user.HashedPassword);
@@ -20,7 +20,7 @@ namespace Triptitude.Biz.Repos
 
         public User FindByEmail(string email)
         {
-            User user = FindAll().FirstOrDefault(u => u.Email == email);
+            User user = FindAll().FirstOrDefault(u => u.Email == email.Trim());
             return user;
         }
 
@@ -55,10 +55,10 @@ namespace Triptitude.Biz.Repos
             // Set users properties
             if (userSaveAction != UserSaveAction.EmailAlreadyTaken)
             {
-                user.FirstName = form.FirstName;
-                user.LastName = form.LastName;
+                user.FirstName = form.FirstName.Trim();
+                user.LastName = form.LastName.Trim();
                 // For new users only (don't allow changes, just to simplify code for now)
-                user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email : user.Email;
+                user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email.Trim() : user.Email;
 
                 if (!string.IsNullOrWhiteSpace(form.Password))
                 {

@@ -45,18 +45,17 @@ input.delete { background-color: #E92553; }
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
 /* Panel Form Defaults */
-.panel form {
+/*.panel form {
 	label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
 	span { line-height: 33px; font-size: 16px; }
 	input[type="checkbox"] { margin: 10px 0; }
   	input[type="text"], input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
-}
+}*/
 
 /* Dynamic parts of background are defined inline */
 #background {
 	position: fixed; top:0; left:0; right:0; overflow: hidden; z-index: -1;
 	img { width: 100%; z-index: -2; min-width: 1400px; }
-	.fader { width: 100%; height:100%; z-index: 0; position: absolute; }
 }
 
 /* Header */
@@ -468,7 +467,20 @@ ul.tags > li + li { margin-left: 5px; }
 	.panel-content {
 		h2 { font-weight: normal; font-size: 16px; }
 		.trip { font-size: 30px; }
-
-		.start-planning { font-size: 40px; @include border-radius(10px); margin: 30px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.8)); }
+		#confirm-form {
+			float: right; background-color: #F4F4F4; @include border-radius(10px); margin: 20px 50px;
+			header { background-color: #0190E9; color: #FFF; padding: 10px;@include border-radius(10px 10px 0 0); text-align: center; font-size: 18px; }
+			form {
+				margin: 10px;
+				p { text-align: right; }
+				input[type="text"] { width: 200px; font-size: 16px; }
+				input[type="password"] { width: 200px; font-size: 16px; }
+				label { font-size: 16px; }
+				label:after { content: ':'; }
+				.submit input { font-size: 16px; @include border-radius(5px); }
+			}
+			&.show-sign-in { .sign-in { display: block; } .sign-up { display: none; } }
+			&.show-sign-up { .sign-in { display: none; } .sign-up { display: block; } }
+		}
 	}	 
 }

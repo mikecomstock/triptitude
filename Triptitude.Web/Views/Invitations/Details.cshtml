@@ -1,7 +1,16 @@
 ﻿@{
     UserTrip userTrip = ViewBag.UserTrip;
+    EmailInvite invite = userTrip.EmailInvites.OrderByDescending(ei => ei.Id).FirstOrDefault();
     ViewBag.Title = "Trip Invitation";
     ViewBag.HideTripBar = true;
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.sign-in').on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-in').addClass('show-sign-up'); });
+            $('.sign-up').on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-up').addClass('show-sign-in'); });
+        });
+    </script>
 }
 <div class="panel">
     <header>
@@ -10,6 +19,63 @@
         </h1>
     </header>
     <div class="panel-content">
+        <div id="confirm-form" class="@(ViewBag.EmailTaken ? "show-sign-in":"show-sign-up")">
+            <header>
+                <h3>
+                    Accept the Invitation</h3>
+            </header>
+            <form class="sign-in">
+            <h4>
+                Sign In</h4>
+            <input type="hidden" name="invitationGUID" value="@userTrip.Guid"/>
+            <p>
+                <label for="email1">
+                    Email</label>
+                <input type="text" name="email" id="email1" value="@invite.Email" />
+            </p>
+            <p>
+                <label for="password1">
+                    Password</label>
+                <input type="password" name="password" id="password1" value="" />
+            </p>
+            <p class="submit">
+                <input type="submit" value="Start Planning" class="submit" />
+                <a class="toggle">Create an account</a>
+            </p>
+            </form>
+            <form class="sign-up">
+            <h4>
+                Confirm Your Info</h4>
+            <input type="hidden" name="invitationGUID" value="@userTrip.Guid"/>
+            <p class="firstname">
+                <label for="firstname">
+                    First Name</label>
+                <input type="text" name="firstname" id="firstname" value="@userTrip.User.FirstName" />
+            </p>
+            <p class="lastname">
+                <label for="lastname">
+                    Last Name</label>
+                <input type="text" name="lastname" id="lastname" value="@userTrip.User.LastName" />
+            </p>
+            <p class="email">
+                <label for="email2">
+                    Email</label>
+                <input type="text" name="email" id="email2" value="@invite.Email" />
+            </p>
+            <p class="password">
+                <label for="password2">
+                    Create a Password</label>
+                <input type="password" name="password" id="password2" value="" />
+            </p>
+            <p class="submit">
+                <input type="submit" value="Start Planning" />
+                <a class="toggle">I have an account</a>
+            </p>
+            </form>
+        </div>
+        @*<form action="/i/@userTrip.Guid" method="POST">
+        <input type="submit" value="Start Planning" class="start-planning" />
+        </form>*@
         <h2>
             Trip Name</h2>
         <div class="trip">@userTrip.Trip.Name</div>
@@ -23,8 +89,5 @@
                     <span>@ut.User.FullName</span> </a></li>
             }
         </ul>
-        <form action="/i/@userTrip.Guid" method="POST">
-        <input type="submit" value="Start Planning" class="start-planning" />
-        </form>
     </div>
 </div>

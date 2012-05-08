@@ -109,26 +109,12 @@ input.delete {
   line-height: 20px; }
 
 /* Panel Form Defaults */
-.panel form label {
-  display: block;
-  float: left;
-  width: 100px;
-  line-height: 33px;
-  font-size: 16px;
-  clear: both; }
-.panel form span {
-  line-height: 33px;
-  font-size: 16px; }
-.panel form input[type="checkbox"] {
-  margin: 10px 0; }
-.panel form input[type="text"], .panel form input[type="password"] {
-  font-size: 18px;
-  font-weight: bold;
-  color: #666666;
-  width: 330px;
-  padding: 5px;
-  margin-right: 10px; }
-
+/*.panel form {
+	label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
+	span { line-height: 33px; font-size: 16px; }
+	input[type="checkbox"] { margin: 10px 0; }
+  	input[type="text"], input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
+}*/
 /* Dynamic parts of background are defined inline */
 #background {
   position: fixed;
@@ -141,11 +127,6 @@ input.delete {
     width: 100%;
     z-index: -2;
     min-width: 1400px; }
-  #background .fader {
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    position: absolute; }
 
 /* Header */
 #header-container {
@@ -1230,12 +1211,46 @@ ul.tags > li + li {
   font-size: 16px; }
 #invitations-details .panel-content .trip {
   font-size: 30px; }
-#invitations-details .panel-content .start-planning {
-  font-size: 40px;
+#invitations-details .panel-content #confirm-form {
+  float: right;
+  background-color: #F4F4F4;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  margin: 30px 0;
-  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); }
+  margin: 20px 50px; }
+  #invitations-details .panel-content #confirm-form header {
+    background-color: #0190E9;
+    color: #FFF;
+    padding: 10px;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 18px; }
+  #invitations-details .panel-content #confirm-form form {
+    margin: 10px; }
+    #invitations-details .panel-content #confirm-form form p {
+      text-align: right; }
+    #invitations-details .panel-content #confirm-form form input[type="text"] {
+      width: 200px;
+      font-size: 16px; }
+    #invitations-details .panel-content #confirm-form form input[type="password"] {
+      width: 200px;
+      font-size: 16px; }
+    #invitations-details .panel-content #confirm-form form label {
+      font-size: 16px; }
+    #invitations-details .panel-content #confirm-form form label:after {
+      content: ':'; }
+    #invitations-details .panel-content #confirm-form form .submit input {
+      font-size: 16px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px; }
+  #invitations-details .panel-content #confirm-form.show-sign-in .sign-in {
+    display: block; }
+  #invitations-details .panel-content #confirm-form.show-sign-in .sign-up {
+    display: none; }
+  #invitations-details .panel-content #confirm-form.show-sign-up .sign-in {
+    display: none; }
+  #invitations-details .panel-content #confirm-form.show-sign-up .sign-up {
+    display: block; }

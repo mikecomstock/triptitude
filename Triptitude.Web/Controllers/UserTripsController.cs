@@ -25,7 +25,12 @@ namespace Triptitude.Web.Controllers
             if (CurrentUser.OwnsTrips(userTrip.Trip))
                 Redirect(Url.Details(userTrip.Trip));
 
+            var emailInvite = userTrip.EmailInvites.OrderByDescending(ei => ei.Id).FirstOrDefault();
+
             ViewBag.UserTrip = userTrip;
+            ViewBag.EmailInvite = emailInvite;
+            ViewBag.EmailTaken = new UsersRepo().FindByEmail(emailInvite.Email) != null;
+
             return View();
         }
 

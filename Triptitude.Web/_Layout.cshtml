@@ -18,8 +18,6 @@
 <body id="@Html.RouteCssId()" class="@Html.RouteCssClasses()" data-id="@Html.RouteId()">
     <header>
         <div id="background">
-            <div class="fader" style="background: url('@Url.Static("backgrounds/background-fade.png")') repeat-x scroll left bottom transparent;">
-                &nbsp;</div>
             <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
         </div>
         @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
@@ -34,9 +32,7 @@
         $(function () {
             T.init();
         });
-    </script>*@
-    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true&libraries=places"></script>
-
+    </script>*@ @*<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=true&libraries=places"></script>*@
     @if (IsSectionDefined("Scripts"))
     {
         @RenderSection("Scripts")
