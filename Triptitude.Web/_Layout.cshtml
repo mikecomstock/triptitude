@@ -15,17 +15,21 @@
     <![endif]-->
     <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
 </head>
-<body id="@Html.RouteCssId()" class="@Html.RouteCssClasses()" data-id="@Html.RouteId()">
+<body id="@Html.RouteCssId()" class="@Html.RouteCssClasses()" data-id="@Html.RouteId()" style="background-image: url(@Url.Static("backgrounds/beach.jpg"));">
     <header>
-        <div id="background">
+        @*        <div id="background">
             <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
-        </div>
+        </div>*@
         @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
     </header>
     <div id="content">
         @RenderBody()
     </div>
     <footer>
+        <span>
+        © @DateTime.Now.Year Triptitude.com | 
+        <a href="/home/attribution">attribution</a>
+        </span>
     </footer>
     <script type="text/javascript" src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Scripts/js")"></script>
     @*<script type="text/javascript">

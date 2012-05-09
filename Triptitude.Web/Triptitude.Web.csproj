@@ -236,6 +236,7 @@
     <Content Include="Views\Tripmarklet\CreateTrip.cshtml" />
     <Content Include="Views\Trips\Who.cshtml" />
     <Content Include="Views\Invitations\Details.cshtml" />
+    <Content Include="Views\Home\Attribution.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

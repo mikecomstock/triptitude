@@ -3,7 +3,10 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   margin: 0;
-  background-color: #000; }
+  background-color: #666;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: bottom center; }
 
 h1, h2, h3, h4, h5 {
   margin: 0;
@@ -556,7 +559,15 @@ header .share-bar-container {
 /* Footer */
 footer {
   width: 955px;
-  height: 100px; }
+  height: 100px;
+  margin: 30px auto;
+  text-align: right; }
+  footer span {
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 2px 5px; }
 
 /* Map InfoWindows */
 .info-window p {

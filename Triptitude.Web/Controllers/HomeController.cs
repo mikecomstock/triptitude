@@ -37,6 +37,11 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Attribution()
+        {
+            return View();
+        }
+
         public ActionResult NotFound()
         {
             Response.StatusCode = 410;
