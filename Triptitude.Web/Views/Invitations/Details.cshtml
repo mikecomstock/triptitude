@@ -1,5 +1,6 @@
 ﻿@{
     UserTrip userTrip = ViewBag.UserTrip;
+    User currentUser = ViewBag.CurrentUser;
     EmailInvite invite = userTrip.EmailInvites.OrderByDescending(ei => ei.Id).FirstOrDefault();
     ViewBag.Title = "Trip Invitation";
     ViewBag.HideTripBar = true;
@@ -7,8 +8,42 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            $('.sign-in').on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-in').addClass('show-sign-up'); });
-            $('.sign-up').on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-up').addClass('show-sign-in'); });
+            var signInForm = $('#sign-in');
+            var signUpForm = $('#sign-up');
+            signInForm.on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-in').addClass('show-sign-up'); });
+            signUpForm.on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-up').addClass('show-sign-in'); });
+
+            signInForm.on('submit', function (e) {
+                e.preventDefault();
+                var user = new TT.Models.User({
+                    email: signInForm.find('[name="email"]').val(),
+                    password: signInForm.find('[name="password"]').val()
+                });
+                user.signIn({
+                    success: function () { $('#accept').submit(); },
+                    error: function (response) {
+                        var message = $.parseJSON(response.responseText).message;
+                        alert(message);
+                    }
+                });
+            });
+
+            signUpForm.on('submit', function (e) {
+                e.preventDefault();
+                var user = new TT.Models.User({
+                    firstname: signUpForm.find('[name="firstname"]').val(),
+                    lastname: signUpForm.find('[name="lastname"]').val(),
+                    email: signUpForm.find('[name="email"]').val(),
+                    password: signUpForm.find('[name="password"]').val()
+                });
+                user.save(null, {
+                    success: function () { $('#accept').submit(); },
+                    error: function (model, response) {
+                        var message = $.parseJSON(response.responseText).message;
+                        alert(message);
+                    }
+                });
+            });
         });
     </script>
 }
@@ -19,15 +54,14 @@
         </h1>
     </header>
     <div class="panel-content">
-        <div id="confirm-form" class="@(ViewBag.EmailTaken ? "show-sign-in":"show-sign-up")">
+        <div id="confirm-form" class="@(ViewBag.EmailTaken ? "show-sign-in" : "show-sign-up")">
             <header>
                 <h3>
                     Accept the Invitation</h3>
             </header>
-            <form class="sign-in">
+            <form id="sign-in">
             <h4>
                 Sign In</h4>
-            <input type="hidden" name="invitationGUID" value="@userTrip.Guid"/>
             <p>
                 <label for="email1">
                     Email</label>
@@ -43,10 +77,9 @@
                 <a class="toggle">Create an account</a>
             </p>
             </form>
-            <form class="sign-up">
+            <form id="sign-up">
             <h4>
                 Confirm Your Info</h4>
-            <input type="hidden" name="invitationGUID" value="@userTrip.Guid"/>
             <p class="firstname">
                 <label for="firstname">
                     First Name</label>
@@ -70,6 +103,14 @@
             <p class="submit">
                 <input type="submit" value="Start Planning" />
                 <a class="toggle">I have an account</a>
+            </p>
+            </form>
+            <form id="accept" action="/i/@userTrip.Guid" method="POST">
+            <h4>
+                You're currently signed in as <a href="@Url.Details(currentUser)">@currentUser.FullName</a>.<br />
+                Do you want to accept this invitation and begin planning?</h4>
+            <p class="submit">
+                <input type="submit" value="Start Planning" />
             </p>
             </form>
         </div>

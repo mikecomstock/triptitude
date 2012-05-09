@@ -15,6 +15,12 @@ namespace Triptitude.Biz.Models
 {
     public class User
     {
+        public User()
+        {
+            Notes = new Collection<Note>();
+            UserTrips = new Collection<UserTrip>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -121,8 +127,8 @@ namespace Triptitude.Biz.Models
     {
         public int Id { get; set; }
         public DateTime CreatedOnUTC { get; set; }
-        public User User { get; set; }
-        public Trip Trip { get; set; }
+        public virtual User User { get; set; }
+        public virtual Trip Trip { get; set; }
         public byte Action { get; set; }
         public int? TableId1 { get; set; }
         public int? TableId2 { get; set; }
@@ -131,6 +137,9 @@ namespace Triptitude.Biz.Models
 
         public string ToString()
         {
+            var usersRepo = new UsersRepo();
+            var activitiesRepo = new ActivitiesRepo();
+
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
             sb.AppendFormat("{0} ", User.FullName);
@@ -148,37 +157,42 @@ namespace Triptitude.Biz.Models
                     break;
                 case HistoryAction.AddUserToTrip:
                     {
-                        var user = new UsersRepo().Find(TableId1.Value);
+                        var user = usersRepo.Find(TableId1.Value);
                         sb.AppendFormat("added {0}", user.FullName);
                         break;
                     }
                 case HistoryAction.CreateInvitation:
                     {
-                        var user = new UsersRepo().Find(TableId1.Value);
+                        var user = usersRepo.Find(TableId1.Value);
                         sb.AppendFormat("invited {0} to help plan", user.FullName);
+                        break;
+                    }
+                case HistoryAction.AcceptInvitation:
+                    {
+                        sb.AppendFormat("accepted the invitation");
                         break;
                     }
                 case HistoryAction.RemoveUserFromTrip:
                     {
-                        var user = new UsersRepo().Find(TableId1.Value);
+                        var user = usersRepo.Find(TableId1.Value);
                         sb.AppendFormat("removed {0}", user.FullName);
                         break;
                     }
                 case HistoryAction.CreateActivity:
                     {
-                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        var activity = activitiesRepo.Find(TableId1.Value);
                         sb.AppendFormat("added \"{0}\"", activity.Title);
                         break;
                     }
                 case HistoryAction.UpdateActivity:
                     {
-                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        var activity = activitiesRepo.Find(TableId1.Value);
                         sb.AppendFormat("updated \"{0}\"", activity.Title);
                         break;
                     }
                 case HistoryAction.DeletedActivity:
                     {
-                        var activity = new ActivitiesRepo().Find(TableId1.Value);
+                        var activity = activitiesRepo.Find(TableId1.Value);
                         sb.AppendFormat("removed \"{0}\"", activity.Title);
                         break;
                     }
@@ -201,6 +215,7 @@ namespace Triptitude.Biz.Models
         CreateActivity = 7,
         UpdateActivity = 8,
         DeletedActivity = 9,
+        AcceptInvitation = 10
     }
 
     public class UserTrip

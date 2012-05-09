@@ -42,9 +42,25 @@ namespace Triptitude.Biz.Repos
             NoAction, NewUserCreated, EmailAlreadyTaken
         }
 
+        public User Create(UserSettingsForm form)
+        {
+            string salt = BCryptHelper.GenerateSalt(10);
+
+            User u = new User
+                         {
+                             Email = form.Email.Trim(),
+                             FirstName = form.FirstName.Trim(),
+                             LastName = form.LastName.Trim(),
+                             HashedPassword = BCryptHelper.HashPassword(form.Password, salt),
+                             Guid = Guid.NewGuid(),
+                             GuidCreatedOnUtc = DateTime.UtcNow
+                         };
+            return u;
+        }
+
         public void Save(UserSettingsForm form, User user, out UserSaveAction userSaveAction)
         {
-            var existingUser = FindAll().FirstOrDefault(u => u.Id != user.Id && u.Email == form.Email);
+            var existingUser = FindAll().FirstOrDefault(u => u.Id != user.Id && u.Email == form.Email.Trim());
             bool emailAlreadyTaken = existingUser != null;
 
             // Handle UserSaveAction
@@ -93,7 +109,7 @@ namespace Triptitude.Biz.Repos
             {
                 User registeredUser = Find(userId);
                 var registeredUserTrips = registeredUser.UserTrips.Select(ut => ut.Trip);
-                
+
                 foreach (var anonUserTrip in anonymousUser.UserTrips)
                 {
                     if (registeredUserTrips.Contains(anonUserTrip.Trip))

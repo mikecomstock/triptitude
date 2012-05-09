@@ -1,7 +1,7 @@
 ﻿@import "Mixins.scss";
 
 /* Html Tags */
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #666; background-size: cover; background-attachment: fixed; background-position: bottom center; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #666; background-size: cover; background-attachment: fixed; background-position: bottom right; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
 h1 { font-size: 28px; }
 a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
@@ -482,8 +482,14 @@ ul.tags > li + li { margin-left: 5px; }
 				label:after { content: ':'; }
 				.submit input { font-size: 16px; @include border-radius(5px); }
 			}
-			&.show-sign-in { .sign-in { display: block; } .sign-up { display: none; } }
-			&.show-sign-up { .sign-in { display: none; } .sign-up { display: block; } }
+			&.show-sign-in { #sign-in { display: block; } #sign-up { display: none; } }
+			&.show-sign-up { #sign-in { display: none; } #sign-up { display: block; } }
+			#accept {
+				text-align: center;
+				h4 { line-height: 40px; }
+				p { text-align: center; }
+				.submit input { font-size: 24px; margin-bottom: 20px; }
+			}
 		}
 	}	 
 }

@@ -2,17 +2,13 @@
     Trip trip = (Trip)ViewBag.Trip;
 }
 <div id="side-container">
-    <a href="@Url.Who(trip)">Who's Going</a> 
-    <a href="@Url.Details(trip)">Itinerary</a> 
-    
-    @*<a href="@Url.Map(trip)">Map</a>*@
-    @*@if (trip.PackingListItems.Any() || ViewBag.UserOwnsTrip)
+    <a href="@Url.Details(trip)">Itinerary</a> <a href="@Url.Who(trip)">Who's Going</a> @*<a href="@Url.Map(trip)">Map</a>*@ @*@if (trip.PackingListItems.Any() || ViewBag.UserOwnsTrip)
     {
         <a href="@Url.PackingList(trip)">Packing List</a>
     }*@
     @if (ViewBag.UserOwnsTrip)
     {
+        <a id="trip-settings-link" href="@Url.History(trip)">Activity Stream</a>
         <a id="trip-settings-link" href="@Url.Settings(trip)">Settings</a>
-        <a id="trip-settings-link" href="@Url.History(trip)">Planning History</a>
     }
 </div>

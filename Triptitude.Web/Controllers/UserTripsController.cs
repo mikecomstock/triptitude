@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Triptitude.Biz;
 using Triptitude.Biz.Models;
@@ -56,15 +57,20 @@ namespace Triptitude.Web.Controllers
             return Json(userTrip.Json(CurrentUser, Url));
         }
 
-        public ActionResult Update(Guid guid)
+        [HttpPost]
+        public ActionResult Accept(Guid guid)
         {
             var userTrip = repo.FindAll().FirstOrDefault(ut => ut.Guid == guid);
-
-            if (string.IsNullOrWhiteSpace(CurrentUser.FirstName)) CurrentUser.FirstName = userTrip.User.FirstName;
-            if (string.IsNullOrWhiteSpace(CurrentUser.LastName)) CurrentUser.LastName = userTrip.User.LastName;
-            userTrip.User = CurrentUser;
             CurrentUser.DefaultTrip = userTrip.Trip;
-            //TODO: delete the orphaned user or not???
+            
+            // Only change the userTrip's user if the currentUser doesn't already own the trip
+            if (!CurrentUser.OwnsTrips(userTrip.Trip))
+            {
+                userTrip.User = CurrentUser;
+                //TODO: delete the orphaned user or not???
+                userTrip.Trip.AddHistory(CurrentUser, HistoryAction.AcceptInvitation);
+            }
+
             repo.Save();
             return Redirect(Url.Details(userTrip.Trip));
         }

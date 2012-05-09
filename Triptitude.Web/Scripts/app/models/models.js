@@ -96,6 +96,7 @@ TT.Collections.Trips = Backbone.Collection.extend({
 });
 
 TT.Models.User = Backbone.Model.extend({
+    urlRoot: '/users',
     idAttribute: 'ID',
     initialize: function () {
         //TODO: do this same thing in parse
@@ -110,5 +111,16 @@ TT.Models.User = Backbone.Model.extend({
         var tripId = activity.get('Trip').id;
         console.log('tripId:', tripId);
         return true;
+    },
+    signIn: function (callbacks) {
+        var data = { email: this.get('email'), password: this.get('password') };
+        $.ajax({
+            url: '/login2',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            success: callbacks.success,
+            error: callbacks.error
+        });
     }
 });

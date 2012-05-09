@@ -43,7 +43,8 @@ namespace Triptitude.Web.Controllers
                 return View();
             }
 
-            var user = new AuthService().Authenticate(form);
+            User user = new UsersRepo().FindByEmailAndPassword(form.Email, form.Password);
+
             if (user != null)
             {
                 AuthHelper.SetAuthCookie(user);
@@ -56,6 +57,27 @@ namespace Triptitude.Web.Controllers
                 ViewBag.Form = form;
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult Login2(string email, string password)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                Response.StatusCode = 403; // forbidden
+                return Json(new { message = "Invalid Credentials!" });
+            }
+
+            User user = new UsersRepo().FindByEmailAndPassword(email, password);
+            if (user == null)
+            {
+                Response.StatusCode = 403; // forbidden
+                return Json(new { message = "Invalid Credentials!" });
+            }
+
+            AuthHelper.SetAuthCookie(user);
+            return Json(user.Json(user));
+
         }
 
         public ActionResult Logout()

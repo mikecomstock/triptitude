@@ -46,6 +46,7 @@ namespace Triptitude.Web
 
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
+            routes.MapRoute("Login2", "login2", new { controller = "auth", action = "login2" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
             routes.MapRoute("Tripmarklet", "tripmarklet", new { controller = "home", action = "tripmarklet" });
@@ -53,7 +54,7 @@ namespace Triptitude.Web
 
             // Invitations
             routes.MapRoute("Invitations GET", "i/{guid}", new { controller = "invitations", action = "details" }, new { httpMethod = new HttpMethodConstraint("GET") });
-            routes.MapRoute("Invitations PUT", "i/{guid}", new { controller = "invitations", action = "update" }, new { httpMethod = new HttpMethodConstraint("POST") }); //TODO: should really use PUT
+            routes.MapRoute("Invitations PUT", "i/{guid}", new { controller = "invitations", action = "accept" }, new { httpMethod = new HttpMethodConstraint("POST") });
 
             // RESTful
             routes.MapRoute("REST PUT", "{controller}/{id}", new { action = "Update" }, new { httpMethod = new HttpMethodConstraint("PUT") });

@@ -6,7 +6,7 @@ body {
   background-color: #666;
   background-size: cover;
   background-attachment: fixed;
-  background-position: bottom center; }
+  background-position: bottom right; }
 
 h1, h2, h3, h4, h5 {
   margin: 0;
@@ -1257,11 +1257,20 @@ ul.tags > li + li {
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px; }
-  #invitations-details .panel-content #confirm-form.show-sign-in .sign-in {
+  #invitations-details .panel-content #confirm-form.show-sign-in #sign-in {
     display: block; }
-  #invitations-details .panel-content #confirm-form.show-sign-in .sign-up {
+  #invitations-details .panel-content #confirm-form.show-sign-in #sign-up {
     display: none; }
-  #invitations-details .panel-content #confirm-form.show-sign-up .sign-in {
+  #invitations-details .panel-content #confirm-form.show-sign-up #sign-in {
     display: none; }
-  #invitations-details .panel-content #confirm-form.show-sign-up .sign-up {
+  #invitations-details .panel-content #confirm-form.show-sign-up #sign-up {
     display: block; }
+  #invitations-details .panel-content #confirm-form #accept {
+    text-align: center; }
+    #invitations-details .panel-content #confirm-form #accept h4 {
+      line-height: 40px; }
+    #invitations-details .panel-content #confirm-form #accept p {
+      text-align: center; }
+    #invitations-details .panel-content #confirm-form #accept .submit input {
+      font-size: 24px;
+      margin-bottom: 20px; }
