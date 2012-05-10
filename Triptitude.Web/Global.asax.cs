@@ -48,6 +48,7 @@ namespace Triptitude.Web
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
             routes.MapRoute("Login2", "login2", new { controller = "auth", action = "login2" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
+            routes.MapRoute("SignUp", "signup", new { controller = "users", action = "new" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });
             routes.MapRoute("Tripmarklet", "tripmarklet", new { controller = "home", action = "tripmarklet" });
             routes.MapRoute("TripmarkletJS", "tripmarklet.js", new { controller = "home", action = "tripmarkletJS" });
@@ -57,6 +58,7 @@ namespace Triptitude.Web
             routes.MapRoute("Invitations PUT", "i/{guid}", new { controller = "invitations", action = "accept" }, new { httpMethod = new HttpMethodConstraint("POST") });
 
             // RESTful
+            routes.MapRoute("REST GET", "{controller}/new", new { action = "New" }, new { httpMethod = new HttpMethodConstraint("GET") });
             routes.MapRoute("REST PUT", "{controller}/{id}", new { action = "Update" }, new { httpMethod = new HttpMethodConstraint("PUT") });
             routes.MapRoute("REST DELETE", "{controller}/{id}", new { action = "Delete" }, new { httpMethod = new HttpMethodConstraint("DELETE") });
             routes.MapRoute("REST POST", "{controller}", new { action = "Create" }, new { httpMethod = new HttpMethodConstraint("POST") });

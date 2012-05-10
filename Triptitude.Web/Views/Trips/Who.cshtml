@@ -85,7 +85,7 @@
         <a class="delete" data-id="<%= userTrip.id %>">remove</a>
         <div class="expanded not-sent">
             <form class="invite">
-            Invite <%= userTrip.FirstName %> to help plan:
+            Invite <%= userTrip.FirstName %> to help plan?
             <input type="hidden" name="usertrip_id" value="<%= userTrip.id %>" />
             <input name="email" id="invite_email" placeholder="<%= userTrip.FirstName %>'s email" >
             <input type="submit" value="Invite" />
@@ -156,7 +156,7 @@
                                 {
                                 <div class="expanded @(userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
                                     <form class="invite">
-                                    Invite @userTrip.User.FirstName to help plan:
+                                    Invite @userTrip.User.FirstName to help plan?
                                     <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
                                     <input name="email" id="invite_email" placeholder="@userTrip.User.FirstName's email" >
                                     <input type="submit" value="Invite" />

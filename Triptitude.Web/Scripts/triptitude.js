@@ -4,10 +4,10 @@ function SetBindings() {
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
-//    $('.place-autocomplete').googAutocomplete();
-//    $('.tag-autocomplete').tagAutocomplete();
-//    $('.item-autocomplete').itemAutocomplete();
-//    $('#trip-search-form').submit(T.TripSearchSubmit);
+    //    $('.place-autocomplete').googAutocomplete();
+    //    $('.tag-autocomplete').tagAutocomplete();
+    //    $('.item-autocomplete').itemAutocomplete();
+    //    $('#trip-search-form').submit(T.TripSearchSubmit);
 };
 
 $(function () {
@@ -29,10 +29,40 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-//    superDialog = $('#super-dialog');
-//    superDialogOverlay = $('#super-dialog-overlay');
-//    superDialogOverlay.click(function () { CloseSuperDialog(); });
-//    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
+    $('body > header').on('click', 'a.sign-up', function (e) {
+        e.preventDefault();
+
+        $.get('/templates/users/new.html', function (template) {
+            var overlay = TT.Util.ShowOverlay();
+            overlay.append(template);
+
+            overlay.on('submit', 'form', function (f) {
+                f.preventDefault();
+                var form = $(f.currentTarget);
+                var user = new TT.Models.User({
+                    firstname: form.find('[name="firstname"]').val(),
+                    lastname: form.find('[name="lastname"]').val(),
+                    email: form.find('[name="email"]').val(),
+                    password: form.find('[name="password"]').val()
+                });
+                user.save(null, {
+                    success: function (model) {
+                        window.location = '/my/trips';
+                    },
+                    error: function (model, response) {
+                        var message = $.parseJSON(response.responseText).message;
+                        alert(message);
+                    }
+                });
+            });
+
+        });
+    });
+
+    //    superDialog = $('#super-dialog');
+    //    superDialogOverlay = $('#super-dialog-overlay');
+    //    superDialogOverlay.click(function () { CloseSuperDialog(); });
+    //    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
     $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
@@ -44,22 +74,22 @@ $(function () {
         }
     });
 
-//    $('.trip-row-map-link').live('click', function () {
-//        var tripId = $(this).data('trip-id');
-//        var name = $(this).data('trip-name');
+    //    $('.trip-row-map-link').live('click', function () {
+    //        var tripId = $(this).data('trip-id');
+    //        var name = $(this).data('trip-name');
 
-//        var container = $(document.createElement('div'));
-//        container.dialog({
-//            title: name,
-//            width: 540,
-//            height: 400,
-//            resizable: false
-//        });
+    //        var container = $(document.createElement('div'));
+    //        container.dialog({
+    //            title: name,
+    //            width: 540,
+    //            height: 400,
+    //            resizable: false
+    //        });
 
-//        $.get('/maps/trip/' + tripId, function (mapData) {
-//            drawMap(container, mapData);
-//        });
-//    });
+    //        $.get('/maps/trip/' + tripId, function (mapData) {
+    //            drawMap(container, mapData);
+    //        });
+    //    });
 
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
@@ -91,13 +121,13 @@ $(function () {
 
     });
 
-//    $('.editing .packing-list-item').live('click', function (e) {
-//        if ($(e.target).is('a')) return;
-//        if ($(this).parent().is('.suggestions')) return;
+    //    $('.editing .packing-list-item').live('click', function (e) {
+    //        if ($(e.target).is('a')) return;
+    //        if ($(this).parent().is('.suggestions')) return;
 
-//        var id = $(this).data('id');
-//        OpenSuperDialog('/packing/edit/' + id);
-//    });
+    //        var id = $(this).data('id');
+    //        OpenSuperDialog('/packing/edit/' + id);
+    //    });
 
     var openEditor = function (trip, activity) {
         console.log('openEditor');
@@ -160,37 +190,37 @@ $(function () {
         }
     });
 
-//    $('.add-to-trip').live('click', function (e) {
+    //    $('.add-to-trip').live('click', function (e) {
 
-//        if (e.target != this && $(e.target).is('a')) return;
+    //        if (e.target != this && $(e.target).is('a')) return;
 
-//        e.preventDefault();
-//        var link = $(this);
-//        var type = link.data('type');
-//        if (type == 'packing-list-item') {
-//            OpenSuperDialog('/packing/create', function () {
-//                superDialog.find('input[name="name"]').val(link.data('name'));
-//                superDialog.find('input[name="tagstring"]').val(link.data('tag'));
-//            });
-//        } else {
-//            var place = $(e.target).data('place');
-//            if (!place) {
-//                place = {
-//                    id: $(this).data('id'),
-//                    reference: $(this).data('reference'),
-//                    name: $(this).data('name')
-//                };
-//            }
-//            OpenSuperDialog('/activities/create?type=place', function () {
-//                var placeInputParagraph = superDialog.find('[name="name"]').parent();
-//                placeInputParagraph.find('input[name="googid"]').val(place.id);
-//                placeInputParagraph.find('input[name="googreference"]').val(place.reference);
-//                placeInputParagraph.find('input[name="googname"]').val(place.name).trigger('change');
-//                placeInputParagraph.hide();
-//                $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
-//            });
-//        }
-//    });
+    //        e.preventDefault();
+    //        var link = $(this);
+    //        var type = link.data('type');
+    //        if (type == 'packing-list-item') {
+    //            OpenSuperDialog('/packing/create', function () {
+    //                superDialog.find('input[name="name"]').val(link.data('name'));
+    //                superDialog.find('input[name="tagstring"]').val(link.data('tag'));
+    //            });
+    //        } else {
+    //            var place = $(e.target).data('place');
+    //            if (!place) {
+    //                place = {
+    //                    id: $(this).data('id'),
+    //                    reference: $(this).data('reference'),
+    //                    name: $(this).data('name')
+    //                };
+    //            }
+    //            OpenSuperDialog('/activities/create?type=place', function () {
+    //                var placeInputParagraph = superDialog.find('[name="name"]').parent();
+    //                placeInputParagraph.find('input[name="googid"]').val(place.id);
+    //                placeInputParagraph.find('input[name="googreference"]').val(place.reference);
+    //                placeInputParagraph.find('input[name="googname"]').val(place.name).trigger('change');
+    //                placeInputParagraph.hide();
+    //                $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
+    //            });
+    //        }
+    //    });
 });
 
 //function OpenSuperDialog(url, callback) {

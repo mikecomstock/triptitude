@@ -29,14 +29,14 @@
                     Welcome, <a href="@Url.MyTrips()">@currentUser.FullName</a>
                 </div>
                 <div id="user-status-menu">
-                    <a href="@Url.MySettings()">sign up</a> <a href="/trips/create" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
+                    <a class="sign-up">sign up</a> <a href="/trips/create" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a>
                     @Html.RouteLink("log in", "login", null, new { id = "login-link" })
                 </div>
             }
             else
             {
                 <div id="user-status-header">
-                    <a href="@Url.MySettings()">sign up</a> |
+                    <a class="sign-up">sign up</a> |
                     @Html.RouteLink("login", "login", null, new { id = "login-link" })
                 </div>
                 <div id="start-here-link">
@@ -76,7 +76,7 @@
             @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
             {
                 <div id="email-warning">
-                    You might lose your trip unless you <a href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
+                    You might lose your trip unless you <a class="sign-up" href="@Url.MySettings()">sign up</a> or @Html.RouteLink("log in", "login", null, new { id = "login-link" })!
                 </div>
             }
         </div>

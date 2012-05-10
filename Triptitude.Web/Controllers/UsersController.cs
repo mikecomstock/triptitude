@@ -27,6 +27,11 @@ namespace Triptitude.Web.Controllers
             return Json(CurrentUser.Json(CurrentUser), JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult New()
+        {
+            return View();
+        }
+
         public ActionResult Create(UserSettingsForm form)
         {
             if (!ModelState.IsValid)
@@ -54,7 +59,7 @@ namespace Triptitude.Web.Controllers
                 EmailService.SentSignupEmail(newUser);
                 EmailService.SendUserSignedUp(newUser);
 
-                return Json(newUser);
+                return Json(newUser.Json(newUser));
             }
             catch
             {

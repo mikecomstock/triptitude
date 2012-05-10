@@ -62,7 +62,7 @@ namespace Triptitude.Web.Controllers
         {
             var userTrip = repo.FindAll().FirstOrDefault(ut => ut.Guid == guid);
             CurrentUser.DefaultTrip = userTrip.Trip;
-            
+
             // Only change the userTrip's user if the currentUser doesn't already own the trip
             if (!CurrentUser.OwnsTrips(userTrip.Trip))
             {
@@ -85,14 +85,13 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Create(int trip_id, string firstName, string lastName, bool you = false)
         {
             var currentUserTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == trip_id);
             if (currentUserTrip == null) return Redirect("/");
             var trip = currentUserTrip.Trip;
 
-            if (you)
+            if (you && string.IsNullOrWhiteSpace(CurrentUser.FirstName) && string.IsNullOrWhiteSpace(CurrentUser.LastName))
             {
                 CurrentUser.FirstName = firstName;
                 CurrentUser.LastName = lastName;

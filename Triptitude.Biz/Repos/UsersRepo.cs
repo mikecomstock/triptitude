@@ -124,6 +124,9 @@ namespace Triptitude.Biz.Repos
                     }
                 }
 
+                var historiesToMigrate = anonymousUser.Histories;
+                historiesToMigrate.ToList().ForEach(h => h.User = registeredUser);
+
                 //anonymousUser.UserTrips.Where(aut=> registeredUser.UserTrips.Select(rut=>rut.Trip).Contains())
 
 

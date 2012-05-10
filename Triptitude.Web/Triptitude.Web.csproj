@@ -218,6 +218,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Mixins.scss</DependentUpon>
     </Content>
+    <Content Include="Templates\Users\New.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -237,6 +238,8 @@
     <Content Include="Views\Trips\Who.cshtml" />
     <Content Include="Views\Invitations\Details.cshtml" />
     <Content Include="Views\Home\Attribution.cshtml" />
+    <Content Include="Views\Users\_New.cshtml" />
+    <Content Include="Views\Users\New.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

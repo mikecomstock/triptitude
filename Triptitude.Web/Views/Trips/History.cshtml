@@ -16,7 +16,7 @@
             @foreach (var h in trip.Histories.OrderByDescending(h => h.Id))
             {
                 <div class="history">
-                    @h.ToString()
+                    @h.ToString(ViewBag.CurrentUser)
                 </div>
             }
         </ol>

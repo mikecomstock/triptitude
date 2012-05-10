@@ -52,6 +52,15 @@ article, aside, figure, footer, header, hgroup, menu, nav, section {
   font-weight: normal !important;
   color: #666666 !important; }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10; }
+
 input.day-input {
   width: 30px !important; }
 
@@ -347,6 +356,29 @@ input.delete {
       #trip-bar-menu > li ul li a, #trip-bar-menu > li ul li .link {
         padding: 5px;
         cursor: pointer; }
+
+/* Dialogs */
+#new-user-dialog {
+  margin: 100px auto 0 auto;
+  width: 370px;
+  background-color: #FFF;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px; }
+  #new-user-dialog header {
+    background-color: #0190E9;
+    color: #FFF;
+    padding: 10px;
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 18px; }
+  #new-user-dialog h1 {
+    text-align: center; }
+  #new-user-dialog p.submit {
+    text-align: center;
+    padding: 10px 0; }
 
 /* Page Sections */
 #content {
@@ -1238,25 +1270,6 @@ ul.tags > li + li {
     border-radius: 10px 10px 0 0;
     text-align: center;
     font-size: 18px; }
-  #invitations-details .panel-content #confirm-form form {
-    margin: 10px; }
-    #invitations-details .panel-content #confirm-form form p {
-      text-align: right; }
-    #invitations-details .panel-content #confirm-form form input[type="text"] {
-      width: 200px;
-      font-size: 16px; }
-    #invitations-details .panel-content #confirm-form form input[type="password"] {
-      width: 200px;
-      font-size: 16px; }
-    #invitations-details .panel-content #confirm-form form label {
-      font-size: 16px; }
-    #invitations-details .panel-content #confirm-form form label:after {
-      content: ':'; }
-    #invitations-details .panel-content #confirm-form form .submit input {
-      font-size: 16px;
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      border-radius: 5px; }
   #invitations-details .panel-content #confirm-form.show-sign-in #sign-in {
     display: block; }
   #invitations-details .panel-content #confirm-form.show-sign-in #sign-up {
@@ -1274,3 +1287,23 @@ ul.tags > li + li {
     #invitations-details .panel-content #confirm-form #accept .submit input {
       font-size: 24px;
       margin-bottom: 20px; }
+
+.sign-up-form, .sign-in-form {
+  margin: 10px; }
+  .sign-up-form p, .sign-in-form p {
+    text-align: right; }
+  .sign-up-form input[type="text"], .sign-in-form input[type="text"] {
+    width: 200px;
+    font-size: 16px; }
+  .sign-up-form input[type="password"], .sign-in-form input[type="password"] {
+    width: 200px;
+    font-size: 16px; }
+  .sign-up-form label, .sign-in-form label {
+    font-size: 16px; }
+  .sign-up-form label:after, .sign-in-form label:after {
+    content: ':'; }
+  .sign-up-form .submit input, .sign-in-form .submit input {
+    font-size: 16px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; }

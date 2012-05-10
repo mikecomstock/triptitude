@@ -33,6 +33,7 @@ namespace Triptitude.Biz.Models
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
 
         public bool IsAdmin { get { return Email == "mikecomstock@gmail.com"; } }
 
@@ -115,6 +116,7 @@ namespace Triptitude.Biz.Models
         {
             return new
                        {
+                           ID = Id,
                            Email,
                            DefaultTripID = DefaultTrip == null ? null : (int?)DefaultTrip.Id,
                            PhotoURL,
@@ -135,14 +137,14 @@ namespace Triptitude.Biz.Models
 
         public HistoryAction HistoryAction { get { return (HistoryAction)Enum.Parse(typeof(HistoryAction), Action.ToString()); } }
 
-        public string ToString()
+        public string ToString(User forUser)
         {
             var usersRepo = new UsersRepo();
             var activitiesRepo = new ActivitiesRepo();
 
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
-            sb.AppendFormat("{0} ", User.FullName);
+            sb.AppendFormat("{0} ", User == forUser ? "You" : User.FullName);
 
             switch (HistoryAction)
             {

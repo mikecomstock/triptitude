@@ -76,7 +76,7 @@
                 @foreach (var history in trip.Histories.OrderByDescending(h => h.Id).Take(10))
                 {
                     <li>
-                        @history.ToString()
+                        @history.ToString(currentUser)
                     </li>
                 }
             </ol>

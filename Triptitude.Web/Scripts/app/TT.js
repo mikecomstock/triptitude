@@ -42,6 +42,14 @@
             // date is in UTC but datepicker takes local, so convert to local
             var local = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
             return local;
+        },
+        ShowOverlay: function () {
+            $('.overlay').remove();
+            var overlay = $('<div>').addClass('overlay').appendTo($('body'));
+            overlay.on('click', function (e) {
+                if ($(e.target).hasClass('overlay')) overlay.remove();
+            });
+            return overlay;
         }
     },
     Models: {},

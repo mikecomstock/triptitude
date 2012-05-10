@@ -22,6 +22,7 @@ $warning-color-fg: #FFF;
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
+.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.3); z-index: 10; }
 input.day-input { width: 30px !important; }
 input.time-input { width: 75px !important; }
 .ui-autocomplete { z-index: 10 !important; }
@@ -120,6 +121,15 @@ input.delete { background-color: #E92553; }
 		}
 	}
 }
+
+/* Dialogs */
+#new-user-dialog {
+	margin: 100px auto 0 auto; width: 370px; background-color: #FFF; @include border-radius(10px);
+	header { background-color: #0190E9; color: #FFF; padding: 10px;@include border-radius(10px 10px 0 0); text-align: center; font-size: 18px; }
+	h1 { text-align: center; }
+	p.submit { text-align: center; padding: 10px 0; }
+}
+
 
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; @include clearfix; }
@@ -473,15 +483,6 @@ ul.tags > li + li { margin-left: 5px; }
 		#confirm-form {
 			float: right; background-color: #F4F4F4; @include border-radius(10px); margin: 20px 50px;
 			header { background-color: #0190E9; color: #FFF; padding: 10px;@include border-radius(10px 10px 0 0); text-align: center; font-size: 18px; }
-			form {
-				margin: 10px;
-				p { text-align: right; }
-				input[type="text"] { width: 200px; font-size: 16px; }
-				input[type="password"] { width: 200px; font-size: 16px; }
-				label { font-size: 16px; }
-				label:after { content: ':'; }
-				.submit input { font-size: 16px; @include border-radius(5px); }
-			}
 			&.show-sign-in { #sign-in { display: block; } #sign-up { display: none; } }
 			&.show-sign-up { #sign-in { display: none; } #sign-up { display: block; } }
 			#accept {
@@ -492,4 +493,14 @@ ul.tags > li + li { margin-left: 5px; }
 			}
 		}
 	}	 
+}
+
+.sign-up-form, .sign-in-form {
+	margin: 10px;
+	p { text-align: right; }
+	input[type="text"] { width: 200px; font-size: 16px; }
+	input[type="password"] { width: 200px; font-size: 16px; }
+	label { font-size: 16px; }
+	label:after { content: ':'; }
+	.submit input { font-size: 16px; @include border-radius(5px); }
 }
