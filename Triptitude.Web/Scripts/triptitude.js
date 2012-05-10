@@ -29,6 +29,34 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
+    $('body > header').on('click', 'a.login', function (e) {
+        e.preventDefault();
+
+        $.get('/templates/auth/new.html', function (template) {
+            var overlay = TT.Util.ShowOverlay();
+            overlay.append(template);
+
+            overlay.on('submit', 'form', function (f) {
+                f.preventDefault();
+                var form = $(f.currentTarget);
+                var user = new TT.Models.User({
+                    email: form.find('[name="email"]').val(),
+                    password: form.find('[name="password"]').val()
+                });
+                user.signIn({
+                    success: function () {
+                        window.location = '/my/trips';
+                    },
+                    error: function (response) {
+                        var message = $.parseJSON(response.responseText).message;
+                        alert(message);
+                    }
+                });
+            });
+
+        });
+    });
+
     $('body > header').on('click', 'a.sign-up', function (e) {
         e.preventDefault();
 

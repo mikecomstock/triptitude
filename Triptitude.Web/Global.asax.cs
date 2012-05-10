@@ -46,7 +46,6 @@ namespace Triptitude.Web
 
             routes.MapRoute("Sitemap", "sitemap.xml", new { controller = "home", action = "sitemap" });
             routes.MapRoute("Login", "login", new { controller = "auth", action = "login" });
-            routes.MapRoute("Login2", "login2", new { controller = "auth", action = "login2" });
             routes.MapRoute("Logout", "logout", new { controller = "auth", action = "logout" });
             routes.MapRoute("SignUp", "signup", new { controller = "users", action = "new" });
             routes.MapRoute("ForgotPass", "forgotpass", new { controller = "auth", action = "forgotpass" });

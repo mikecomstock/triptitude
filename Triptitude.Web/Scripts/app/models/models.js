@@ -115,7 +115,7 @@ TT.Models.User = Backbone.Model.extend({
     signIn: function (callbacks) {
         var data = { email: this.get('email'), password: this.get('password') };
         $.ajax({
-            url: '/login2',
+            url: '/login',
             type: 'POST',
             data: data,
             dataType: 'json',

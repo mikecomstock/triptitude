@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -11,56 +10,8 @@ namespace Triptitude.Web.Controllers
 {
     public class AuthController : Controller
     {
-        [HttpGet]
-        public ActionResult Login(Guid? token, string returnUrl)
-        {
-            if (token.HasValue)
-            {
-                var usersRepo = new UsersRepo();
-                User user = usersRepo.FindByToken(token.Value);
-
-                if (user != null && !user.GuidIsExpired)
-                {
-                    AuthHelper.SetAuthCookie(user);
-                    return string.IsNullOrWhiteSpace(returnUrl) ? Redirect(Url.MySettings()) : Redirect(returnUrl);
-                }
-                else
-                {
-                    ModelState.AddModelError("credentials", "Your login link has expired. Use the 'Forgot Password' link to create a new one.");
-                }
-            }
-
-            ViewBag.Form = new LoginForm { ReturnUrl = returnUrl };
-            return View();
-        }
-
         [HttpPost]
-        public ActionResult Login(LoginForm form)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Form = form;
-                return View();
-            }
-
-            User user = new UsersRepo().FindByEmailAndPassword(form.Email, form.Password);
-
-            if (user != null)
-            {
-                AuthHelper.SetAuthCookie(user);
-                return string.IsNullOrWhiteSpace(form.ReturnUrl) ? Redirect(Url.MyAccount()) : Redirect(form.ReturnUrl);
-            }
-            else
-            {
-                ModelState.AddModelError("credentials", "Invalid credentials.");
-                Session["email"] = form.Email;
-                ViewBag.Form = form;
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public ActionResult Login2(string email, string password)
+        public ActionResult Login(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
             {

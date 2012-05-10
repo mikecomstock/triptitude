@@ -173,10 +173,6 @@
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
     <Content Include="google398a80352917011f.html" />
     <Content Include="google650c6fbb6afb9905.html" />
-    <Content Include="mobile\checkin.html" />
-    <Content Include="mobile\login.html" />
-    <Content Include="mobile\misc.html" />
-    <Content Include="mobile\profile.html" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\app\models\models.js" />
     <Content Include="Scripts\app\TT.js" />
@@ -218,6 +214,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Mixins.scss</DependentUpon>
     </Content>
+    <Content Include="Templates\Auth\New.html" />
     <Content Include="Templates\Users\New.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -273,9 +270,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Auth\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Header.cshtml" />
