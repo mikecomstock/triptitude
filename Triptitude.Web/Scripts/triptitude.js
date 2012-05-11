@@ -101,24 +101,7 @@ $(function () {
             e.preventDefault();
         }
     });
-
-    //    $('.trip-row-map-link').live('click', function () {
-    //        var tripId = $(this).data('trip-id');
-    //        var name = $(this).data('trip-name');
-
-    //        var container = $(document.createElement('div'));
-    //        container.dialog({
-    //            title: name,
-    //            width: 540,
-    //            height: 400,
-    //            resizable: false
-    //        });
-
-    //        $.get('/maps/trip/' + tripId, function (mapData) {
-    //            drawMap(container, mapData);
-    //        });
-    //    });
-
+    
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
         var tripID = $(e.currentTarget).data('trip-id');

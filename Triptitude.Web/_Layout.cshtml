@@ -17,9 +17,6 @@
 </head>
 <body id="@Html.RouteCssId()" class="@Html.RouteCssClasses()" data-id="@Html.RouteId()" style="background-image: url(@Url.Static("backgrounds/beach.jpg"));">
     <header>
-        @*        <div id="background">
-            <img src="@Url.Static("backgrounds/dreamstimefree_524710.jpg")" alt="" />
-        </div>*@
         @Html.Action("Header", "Home", new { ViewBag.HideTripBar, area = string.Empty })
     </header>
     <div id="content">

@@ -85,7 +85,7 @@ input.time-input {
     color: white;
     text-decoration: underline; }
 
-subtitle.good {
+.subtitle.good {
   background-color: #53E925; }
 
 .hidden {
@@ -127,19 +127,6 @@ input.delete {
 	input[type="checkbox"] { margin: 10px 0; }
   	input[type="text"], input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
 }*/
-/* Dynamic parts of background are defined inline */
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  z-index: -1; }
-  #background img {
-    width: 100%;
-    z-index: -2;
-    min-width: 1400px; }
-
 /* Header */
 #header-container {
   background-color: #262626;
@@ -175,29 +162,12 @@ input.delete {
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#39b3fe', endColorstr='#0190e9')"; }
 
 /* Search */
-#search {
-  float: right;
-  margin: 10px 10px 10px 30px; }
-
-#search form {
-  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.8); }
-
-#search input[type="text"] {
-  font-size: 16px;
-  padding: 4px;
-  border: none;
-  width: 200px; }
-
-#search input[type="submit"] {
-  font-size: 16px;
-  padding: 6px;
-  background-color: #E9BA26;
-  border: none;
-  color: #000;
-  margin-left: -6px; }
-
+/*#search {
+	float: right; margin: 10px 10px 10px 30px;
+	form { @include box-shadow(0 3px 5px rgba(0, 0, 0, 0.8)); }
+	input[type="text"] { font-size: 16px; padding: 4px; border: none; width: 200px; }
+	input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #000; margin-left: -6px; }
+}*/
 /* User status */
 #user-status {
   color: #FFFFFF;
@@ -235,127 +205,125 @@ input.delete {
   z-index: 5;
   margin-top: 10px;
   position: relative; }
-
-#trip-bar-container.at-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #262626;
-  margin: 0; }
-
-#trip-bar {
-  width: 935px;
-  padding: 10px;
-  margin: 0 auto;
-  background: #262626;
-  background: rgba(38, 38, 38, 0.8);
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  border-radius: 7px; }
-
-#trip-bar #create-trip-form {
-  float: right;
-  text-align: right; }
-
-#trip-bar-title {
-  color: #FFFFFF;
-  font-size: 24px;
-  font-weight: bold;
-  display: inline; }
-
-#trip-bar-pre-title {
-  color: #BBB; }
-
-#email-warning {
-  background-color: #E92553;
-  font-size: 14px;
-  letter-spacing: 1px;
-  font-weight: bold;
-  text-align: center;
-  padding: 3px;
-  color: #000;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  margin-top: 3px; }
-
-#email-warning a {
-  color: #FFF; }
-
-#trip-bar-menu {
-  float: right;
-  z-index: 6;
-  position: relative;
-  margin: 5px 0;
-  font-size: 20px;
-  font-weight: bold;
-  zoom: 1; }
-  #trip-bar-menu:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #trip-bar-menu:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  #trip-bar-menu .link {
-    cursor: default; }
-  #trip-bar-menu a, #trip-bar-menu .link {
-    color: #66C3FE;
-    padding: 5px 20px;
-    margin: 0;
-    display: block; }
-    #trip-bar-menu a:hover, #trip-bar-menu .link:hover {
-      text-decoration: none !important; }
-    #trip-bar-menu a span, #trip-bar-menu .link span {
-      color: #BBB;
-      font-weight: normal;
-      display: block;
-      padding: 10px 5px 10px 15px;
+  #trip-bar-container.at-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #262626;
+    margin: 0; }
+  #trip-bar-container #trip-bar {
+    width: 935px;
+    padding: 10px;
+    margin: 0 auto;
+    background: #262626;
+    background: rgba(38, 38, 38, 0.8);
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px; }
+    #trip-bar-container #trip-bar #create-trip-form {
+      float: right;
+      text-align: right; }
+      #trip-bar-container #trip-bar #create-trip-form p {
+        display: inline;
+        margin-right: 10px; }
+      #trip-bar-container #trip-bar #create-trip-form input[type="text"] {
+        width: 250px;
+        font-size: 16px; }
+    #trip-bar-container #trip-bar #trip-bar-pre-title {
+      color: #BBB; }
+    #trip-bar-container #trip-bar #trip-bar-title {
+      color: #FFFFFF;
+      font-size: 24px;
+      font-weight: bold;
+      display: inline; }
+    #trip-bar-container #trip-bar #email-warning {
+      background-color: #E92553;
       font-size: 14px;
-      white-space: nowrap; }
-      #trip-bar-menu a span strong, #trip-bar-menu .link span strong {
-        color: #FFF;
+      letter-spacing: 1px;
+      font-weight: bold;
+      text-align: center;
+      padding: 3px;
+      color: #000;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      margin-top: 3px; }
+      #trip-bar-container #trip-bar #email-warning a {
+        color: #FFF; }
+  #trip-bar-container #trip-bar-menu {
+    float: right;
+    z-index: 6;
+    position: relative;
+    margin: 5px 0;
+    font-size: 20px;
+    font-weight: bold;
+    zoom: 1; }
+    #trip-bar-container #trip-bar-menu:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #trip-bar-container #trip-bar-menu:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #trip-bar-container #trip-bar-menu .link {
+      cursor: default; }
+    #trip-bar-container #trip-bar-menu a, #trip-bar-container #trip-bar-menu .link {
+      color: #66C3FE;
+      padding: 5px 20px;
+      margin: 0;
+      display: block; }
+      #trip-bar-container #trip-bar-menu a:hover, #trip-bar-container #trip-bar-menu .link:hover {
+        text-decoration: none !important; }
+      #trip-bar-container #trip-bar-menu a span, #trip-bar-container #trip-bar-menu .link span {
+        color: #BBB;
         font-weight: normal;
-        letter-spacing: 1.5px; }
-  #trip-bar-menu > li {
-    float: left;
-    position: relative; }
-    #trip-bar-menu > li > .link {
-      padding-right: 10px; }
-      #trip-bar-menu > li > .link:after {
-        content: "";
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 6px solid #66C3FE;
-        margin-left: 5px;
-        position: relative;
-        top: 16px; }
-    #trip-bar-menu > li:hover {
-      background-color: #333; }
-    #trip-bar-menu > li + li {
-      border-left: 1px solid #FFF; }
-    #trip-bar-menu > li ul {
-      display: none;
-      position: absolute;
-      right: 0;
-      font-size: 14px;
-      padding: 10px;
-      background-color: #333;
-      z-index: 2; }
-      #trip-bar-menu > li ul li:hover {
-        background-color: #444; }
-      #trip-bar-menu > li ul li + li {
-        border-top: 1px solid #555; }
-      #trip-bar-menu > li ul li a, #trip-bar-menu > li ul li .link {
-        padding: 5px;
-        cursor: pointer; }
+        display: block;
+        padding: 10px 5px 10px 15px;
+        font-size: 14px;
+        white-space: nowrap; }
+        #trip-bar-container #trip-bar-menu a span strong, #trip-bar-container #trip-bar-menu .link span strong {
+          color: #FFF;
+          font-weight: normal;
+          letter-spacing: 1.5px; }
+    #trip-bar-container #trip-bar-menu > li {
+      float: left;
+      position: relative; }
+      #trip-bar-container #trip-bar-menu > li > .link {
+        padding-right: 10px; }
+        #trip-bar-container #trip-bar-menu > li > .link:after {
+          content: "";
+          width: 0;
+          height: 0;
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 6px solid #66C3FE;
+          margin-left: 5px;
+          position: relative;
+          top: 16px; }
+      #trip-bar-container #trip-bar-menu > li:hover {
+        background-color: #333; }
+      #trip-bar-container #trip-bar-menu > li + li {
+        border-left: 1px solid #FFF; }
+      #trip-bar-container #trip-bar-menu > li ul {
+        display: none;
+        position: absolute;
+        right: 0;
+        font-size: 14px;
+        padding: 10px;
+        background-color: #333;
+        z-index: 2; }
+        #trip-bar-container #trip-bar-menu > li ul li:hover {
+          background-color: #444; }
+        #trip-bar-container #trip-bar-menu > li ul li + li {
+          border-top: 1px solid #555; }
+        #trip-bar-container #trip-bar-menu > li ul li a, #trip-bar-container #trip-bar-menu > li ul li .link {
+          padding: 5px;
+          cursor: pointer; }
 
 /* Dialogs */
 #new-user-dialog {
@@ -534,59 +502,72 @@ header .share-bar-container {
   -moz-border-radius: 7px;
   border-radius: 7px;
   padding-bottom: 40px; }
-
-#landing-page-panel {
-  margin: 0 20px;
-  padding: 20px 0; }
-  #landing-page-panel h1 {
-    font-size: 40px;
-    margin: 0 0 30px 0;
-    color: #0190E9; }
-  #landing-page-panel h2 {
-    font-size: 22px;
-    margin: 20px 0 20px 0; }
-  #landing-page-panel h3 {
-    font-size: 24px !important;
-    color: #333; }
-  #landing-page-panel > p {
-    color: #333;
-    font-size: 17px;
-    line-height: 1.5;
-    margin: -10px 0 0 0; }
-  #landing-page-panel > ul {
-    list-style: disc;
-    margin: 0;
-    padding-left: 40px; }
-    #landing-page-panel > ul li {
-      font-size: 16px;
-      margin: 10px 0; }
-      #landing-page-panel > ul li a {
-        font-weight: bold; }
-  #landing-page-panel #trips {
-    margin: 50px auto;
-    width: 800px;
-    background: #f3ecb7;
-    background: rgba(243, 236, 183, 0.3); }
-    #landing-page-panel #trips header {
-      padding: 5px;
-      zoom: 1;
-      background-color: #E9BA26; }
-      #landing-page-panel #trips header:before {
-        display: table;
-        content: "";
+  #landing-page-panel-container #landing-page-panel {
+    margin: 0 20px;
+    padding: 20px 0;
+    /*> ul {
+    	list-style: disc;
+    	margin: 0; padding-left: 40px;
+    	li {
+    		font-size: 16px; margin: 10px 0;
+    		a { font-weight: bold; }
+    	}
+    }*/ }
+    #landing-page-panel-container #landing-page-panel h1 {
+      font-size: 40px;
+      margin: 0 0 30px 0;
+      color: #0190E9; }
+    #landing-page-panel-container #landing-page-panel h2 {
+      font-size: 22px;
+      margin: 20px 0 20px 0; }
+    #landing-page-panel-container #landing-page-panel h3 {
+      font-size: 24px !important;
+      color: #333; }
+    #landing-page-panel-container #landing-page-panel > p {
+      color: #333;
+      font-size: 17px;
+      line-height: 1.5;
+      margin: -10px 0 0 0; }
+    #landing-page-panel-container #landing-page-panel #create-trip-form {
+      float: right;
+      background: #52bcfe;
+      background: rgba(82, 188, 254, 0.7);
+      margin: 0 20px 20px 30px;
+      -webkit-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
+      -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
+      box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
+      #landing-page-panel-container #landing-page-panel #create-trip-form h3 {
+        font-size: 18px;
+        margin: 20px 20px 10px 20px; }
+      #landing-page-panel-container #landing-page-panel #create-trip-form p {
+        margin: 10px 20px; }
+      #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
+        width: 300px; }
+    #landing-page-panel-container #landing-page-panel #trips {
+      margin: 50px auto;
+      width: 800px;
+      background: #f3ecb7;
+      background: rgba(243, 236, 183, 0.3); }
+      #landing-page-panel-container #landing-page-panel #trips header {
+        padding: 5px;
         zoom: 1;
-        *display: inline; }
-      #landing-page-panel #trips header:after {
-        display: table;
-        content: "";
-        zoom: 1;
-        *display: inline;
-        clear: both; }
-      #landing-page-panel #trips header h2 {
-        margin: 0;
-        float: left; }
-      #landing-page-panel #trips header a {
-        float: right; }
+        background-color: #E9BA26; }
+        #landing-page-panel-container #landing-page-panel #trips header:before {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline; }
+        #landing-page-panel-container #landing-page-panel #trips header:after {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline;
+          clear: both; }
+        #landing-page-panel-container #landing-page-panel #trips header h2 {
+          margin: 0;
+          float: left; }
+        #landing-page-panel-container #landing-page-panel #trips header a {
+          float: right; }
 
 /* Footer */
 footer {
@@ -602,58 +583,21 @@ footer {
     padding: 2px 5px; }
 
 /* Map InfoWindows */
-.info-window p {
-  margin: 0; }
-.info-window a {
-  display: block; }
-.info-window a + a {
-  margin-top: 10px; }
-.info-window .title {
-  font-weight: bold; }
-
-.note {
-  font-size: 12px; }
-
-.note + .note {
-  margin-top: 6px; }
-
-.note:before {
-  content: "note:";
-  color: #999; }
-
+/*.info-window {
+	p { margin: 0; }
+	a { display: block; }
+	a + a { margin-top:10px; }
+	.title { font-weight: bold; }
+}*/
+/*
+.note { font-size: 12px; }
+.note + .note { margin-top: 6px; }
+.note:before { content: "note:"; color: #999; }
+*/
 /* Create Trip Form */
-#create-trip-form label {
-  width: 140px; }
-
-#create-trip-form input[type="text"] {
-  width: 400px; }
-
-#trip-bar #create-trip-form p {
-  display: inline;
-  margin-right: 10px; }
-
-#trip-bar #create-trip-form input[type="text"] {
-  width: 250px; }
-
-#landing-page-panel #create-trip-form {
-  float: right;
-  background: #52bcfe;
-  background: rgba(82, 188, 254, 0.7);
-  margin: 0 20px 20px 30px;
-  -webkit-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
-  box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
-
-#landing-page-panel #create-trip-form h3 {
-  font-size: 18px;
-  margin: 20px 20px 10px 20px; }
-
-#landing-page-panel #create-trip-form p {
-  margin: 10px 20px; }
-
-#landing-page-panel #create-trip-form input[type="text"] {
-  width: 300px; }
-
+/*#create-trip-form label { width: 140px; }
+#create-trip-form input[type="text"] { width: 400px; }
+*/
 /* Trip Settings Form */
 #trip-settings-form label {
   width: 140px; }
@@ -662,10 +606,9 @@ footer {
   width: 400px; }
 
 /* Trip Search Form */
-#trip-search-form {
-  font-size: 16px;
-  margin-bottom: 10px; }
-
+/*#trip-search-form {
+	font-size: 16px; margin-bottom:10px;
+}*/
 /* My Trips */
 #my-trips .none-found {
   padding: 15px; }
@@ -733,62 +676,15 @@ footer {
   .trip-row .trip-row-title {
     font-weight: bold;
     font-size: 16px; }
-  .trip-row .trip-row-map-link {
-    float: right;
-    background-image: url("/static/icons/map.png");
-    background-repeat: no-repeat;
-    background-position: 3px 3px;
-    padding: 4px 6px 4px 24px; }
-  .trip-row .trip-row-map-link:hover {
-    background-color: #AAA;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    color: #FFF; }
   .trip-row .trip-map-dialog-link {
     display: block; }
 
 /* Tags */
-ul.tags {
-  zoom: 1;
-  height: 26px; }
-  ul.tags:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  ul.tags:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-
-ul.tags > li {
-  float: left; }
-
-ul.tags > li + li {
-  margin-left: 5px; }
-
-.tag {
-  background-color: #E0EAF1;
-  padding: 3px 4px;
-  border-bottom: 1px solid #3E6D8E;
-  border-right: 1px solid #7F9FB6;
-  margin: 2px 2px 2px 0;
-  text-decoration: none;
-  white-space: nowrap;
-  font-size: 90%;
-  display: block;
-  height: 15px; }
-
-.tag:hover, .tag:focus {
-  background-color: #0190E9;
-  border-bottom: 1px solid #0190E9;
-  border-right: 1px solid #0190E9;
-  color: #E0EAF1;
-  text-decoration: none; }
-
+/*ul.tags { @include clearfix; height: 26px; }
+ul.tags > li { float: left; }
+ul.tags > li + li { margin-left: 5px; }
+.tag { background-color: #E0EAF1; padding: 3px 4px; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; margin: 2px 2px 2px 0; text-decoration: none; white-space: nowrap; font-size: 90%; display: block; height: 15px; }
+.tag:hover, .tag:focus { background-color: #0190E9; border-bottom: 1px solid #0190E9; border-right: 1px solid #0190E9; color: #E0EAF1; text-decoration: none; }*/
 .travelers-h {
   zoom: 1; }
   .travelers-h:before {
@@ -841,80 +737,6 @@ ul.tags > li + li {
       display: block; }
     #trips-details #who .travelers > li:hover {
       background-color: #EEE; }
-#trips-details #itinerary .activities2 {
-  padding: 10px 0;
-  zoom: 1;
-  background: url("/static/images/activitybackgroundline.png") repeat-y 20px; }
-  #trips-details #itinerary .activities2:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  #trips-details #itinerary .activities2:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  #trips-details #itinerary .activities2 > .date {
-    padding: 2px 5px;
-    background-color: #999;
-    color: #FFF;
-    float: left;
-    clear: both;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    font-size: 12px;
-    margin: 3px 0;
-    z-index: 2;
-    position: relative; }
-  #trips-details #itinerary .activities2 > .activity {
-    zoom: 1;
-    padding: 8px;
-    padding-left: 40px;
-    clear: both;
-    position: relative;
-    overflow: hidden; }
-    #trips-details #itinerary .activities2 > .activity:before {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline; }
-    #trips-details #itinerary .activities2 > .activity:after {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline;
-      clear: both; }
-    #trips-details #itinerary .activities2 > .activity:hover {
-      background-color: #F3F3F3;
-      cursor: pointer;
-      overflow: visible;
-      z-index: 10; }
-      #trips-details #itinerary .activities2 > .activity:hover > .maps {
-        background-color: #F3F3F3; }
-    #trips-details #itinerary .activities2 > .activity + .activity {
-      border-top: 1px solid #CCC; }
-    #trips-details #itinerary .activities2 > .activity > .maps {
-      float: right;
-      zoom: 1;
-      position: absolute;
-      right: 5px; }
-      #trips-details #itinerary .activities2 > .activity > .maps:before {
-        display: table;
-        content: "";
-        zoom: 1;
-        *display: inline; }
-      #trips-details #itinerary .activities2 > .activity > .maps:after {
-        display: table;
-        content: "";
-        zoom: 1;
-        *display: inline;
-        clear: both; }
-      #trips-details #itinerary .activities2 > .activity > .maps li {
-        float: left;
-        margin-left: 10px; }
 #trips-details #itinerary .activities {
   padding: 10px 0;
   zoom: 1;
@@ -930,86 +752,69 @@ ul.tags > li + li {
     zoom: 1;
     *display: inline;
     clear: both; }
-  #trips-details #itinerary .activities .day-header {
-    zoom: 1;
+  #trips-details #itinerary .activities > .date {
+    padding: 2px 5px;
+    background-color: #999;
+    color: #FFF;
+    float: left;
+    clear: both;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 3px 0;
+    z-index: 2;
     position: relative; }
-    #trips-details #itinerary .activities .day-header:before {
+  #trips-details #itinerary .activities > .activity {
+    zoom: 1;
+    padding: 8px;
+    padding-left: 40px;
+    clear: both;
+    position: relative;
+    overflow: hidden; }
+    #trips-details #itinerary .activities > .activity:before {
       display: table;
       content: "";
       zoom: 1;
       *display: inline; }
-    #trips-details #itinerary .activities .day-header:after {
+    #trips-details #itinerary .activities > .activity:after {
       display: table;
       content: "";
       zoom: 1;
       *display: inline;
       clear: both; }
-    #trips-details #itinerary .activities .day-header:before {
-      border-top: 1px solid #F3F3F3;
-      display: block;
-      position: absolute;
-      top: 12px;
-      left: 0;
-      right: 0;
-      z-index: 1; }
-    #trips-details #itinerary .activities .day-header h3 {
-      padding: 2px 5px;
-      background-color: #999;
-      color: #FFF;
-      float: left;
-      clear: both;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-      border-radius: 4px;
-      font-size: 12px;
-      margin: 3px 0;
-      z-index: 2;
-      position: relative; }
-  #trips-details #itinerary .activities .activity {
-    padding: 8px;
-    padding-left: 40px;
-    clear: both;
-    margin: 0; }
-    #trips-details #itinerary .activities .activity > *:first-child {
-      font-weight: bold;
-      color: #333; }
-    #trips-details #itinerary .activities .activity > * {
-      margin: 0; }
-      #trips-details #itinerary .activities .activity > * + * {
-        margin-top: 5px; }
-    #trips-details #itinerary .activities .activity + .activity {
+    #trips-details #itinerary .activities > .activity:hover {
+      background-color: #F3F3F3;
+      cursor: pointer;
+      overflow: visible;
+      z-index: 10; }
+      #trips-details #itinerary .activities > .activity:hover > .maps {
+        background-color: #F3F3F3; }
+    #trips-details #itinerary .activities > .activity + .activity {
       border-top: 1px solid #CCC; }
-    #trips-details #itinerary .activities .activity .place {
-      color: #333; }
-      #trips-details #itinerary .activities .activity .place.with-title:before {
-        content: "at";
-        font-weight: normal; }
-    #trips-details #itinerary .activities .activity .tags:before {
-      content: "tags:";
-      float: left;
-      color: #999;
-      padding: 3px 0; }
-    #trips-details #itinerary .activities .activity .notes {
-      zoom: 1; }
-      #trips-details #itinerary .activities .activity .notes:before {
+    #trips-details #itinerary .activities > .activity > .maps {
+      float: right;
+      zoom: 1;
+      position: absolute;
+      right: 5px; }
+      #trips-details #itinerary .activities > .activity > .maps:before {
         display: table;
         content: "";
         zoom: 1;
         *display: inline; }
-      #trips-details #itinerary .activities .activity .notes:after {
+      #trips-details #itinerary .activities > .activity > .maps:after {
         display: table;
         content: "";
         zoom: 1;
         *display: inline;
         clear: both; }
-    #trips-details #itinerary .activities .activity:hover {
-      background-color: #F3F3F3;
-      cursor: pointer; }
+      #trips-details #itinerary .activities > .activity > .maps li {
+        float: left;
+        margin-left: 10px; }
 
-#trips-map #trip-map-container {
-  width: 100%;
-  height: 500px; }
-
+/*#trips-map {
+	#trip-map-container { width: 100%; height: 500px; }
+}*/
 #trips-history .histories h3 {
   margin: 10px 0; }
 #trips-history .histories .history {
@@ -1188,60 +993,31 @@ ul.tags > li + li {
         background-color: #EEE; }
 
 /* Places */
-#places-nearby #place-rows {
-  margin-top: 10px;
-  cursor: pointer; }
-  #places-nearby #place-rows li {
-    padding: 10px; }
-    #places-nearby #place-rows li + li {
-      border-top: 1px solid #DDD; }
-    #places-nearby #place-rows li .add-to-trip {
-      float: right; }
-  #places-nearby #place-rows li.active {
-    background-color: #EEE; }
-  #places-nearby #place-rows li:hover {
-    background-color: #EEE; }
-#places-nearby .panel-content {
-  position: relative; }
-#places-nearby #map {
-  height: 300px; }
-#places-nearby #map.at-top {
-  position: fixed !important;
-  top: 90px; }
-#places-nearby #placeSearch #keyword {
-  width: 250px; }
-
-.search-form {
-  zoom: 1;
-  margin: 10px 0; }
-  .search-form:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  .search-form:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  .search-form input, .search-form select, .search-form span {
-    float: left;
-    display: block;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    /* Firefox */
-    -webkit-box-sizing: border-box;
-    /* Safari */
-    height: 26px;
-    margin-right: 5px; }
-  .search-form input[type="text"] {
-    font-weight: bold; }
-  .search-form select {
-    padding: 3px; }
-  .search-form span {
-    line-height: 26px; }
-
+/*#places-nearby {
+	#place-rows {
+		margin-top: 10px; cursor: pointer;
+		li {
+			padding: 10px;
+			+ li { border-top: 1px solid #DDD; }
+			.add-to-trip { float:right; }
+		}
+		li.active { background-color: #EEE; }
+		li:hover { background-color: #EEE; }
+	}
+	.panel-content { position: relative; }
+	#map { height: 300px; }
+	#map.at-top { position: fixed !important; top: 90px; }
+	#placeSearch {
+		#keyword { width: 250px; }
+	}
+}*/
+/*.search-form {
+	@include clearfix; margin: 10px 0;
+	input, select, span { float: left; display: block; @include border-box; height: 26px; margin-right:5px; }
+	input[type="text"] { font-weight: bold; }
+	select { padding: 3px; }
+	span { line-height: 26px; }	
+}*/
 #users-details img {
   float: left; }
 #users-details h1 {
