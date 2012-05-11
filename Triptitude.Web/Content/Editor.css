@@ -182,14 +182,12 @@
   #editor-itinerary .activity-form label {
     width: 70px;
     display: block;
-    float: left;
-    text-align: right;
     padding: 3px 10px 3px 0;
     margin: 2px 0;
     color: #555; }
   #editor-itinerary .activity-form > div {
     zoom: 1;
-    margin: 15px 0; }
+    margin-bottom: 10px; }
     #editor-itinerary .activity-form > div:before {
       display: table;
       content: "";
@@ -201,16 +199,10 @@
       zoom: 1;
       *display: inline;
       clear: both; }
-    #editor-itinerary .activity-form > div.title {
-      margin-bottom: 30px; }
-      #editor-itinerary .activity-form > div.title label {
-        float: none;
-        display: inline;
-        width: auto; }
-      #editor-itinerary .activity-form > div.title input {
-        width: 100%;
-        display: block;
-        font-size: 28px; }
+    #editor-itinerary .activity-form > div.title input {
+      width: 100%;
+      display: block;
+      font-size: 28px; }
     #editor-itinerary .activity-form > div.when input {
       width: 100px;
       margin-right: 8px; }
@@ -222,10 +214,6 @@
       float: left; }
       #editor-itinerary .activity-form > div.places > ul > li {
         margin: 5px 0; }
-    #editor-itinerary .activity-form > div.notes label {
-      float: none;
-      display: inline;
-      width: auto; }
     #editor-itinerary .activity-form > div.notes > ul > li {
       margin: 5px 0; }
       #editor-itinerary .activity-form > div.notes > ul > li .who {

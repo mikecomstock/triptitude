@@ -207,7 +207,7 @@ header .share-bar-container {
 			}
 		}*/
 		#create-trip-form {
-			float: right; @include transparent-background(#52BCFE, 0.7); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8));
+			float: right; @include transparent-background(#52BCFE, 0.5); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8));
 			h3 { font-size: 18px; margin: 20px 20px 10px 20px; }
 			p { margin:10px 20px; }
 			input[type="text"] { width: 300px; }
@@ -278,7 +278,7 @@ footer {
 .trip-row {
 	padding: 5px; @include clearfix;
 	p { margin: 5px 0; }
-	+ .trip-row { border-top: 1px dashed #CCCCCC; }	
+	+ .trip-row { border-top: 1px dashed #CCCCCC; }
 	.trip-row-photo { float: left; margin: 5px; }
 	.trip-row-body { margin-top: 2px; }
 	.trip-row-title { font-weight: bold; font-size: 16px; }

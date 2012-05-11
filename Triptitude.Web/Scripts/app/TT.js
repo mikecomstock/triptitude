@@ -59,7 +59,5 @@
     Views: {
         Editor: {}
     },
-    init: function () {
-        //var header = new T.Views.Header({ el: $('#header') });
-    }
+    init: function () {}
 };

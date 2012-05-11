@@ -42,12 +42,10 @@
 
 #editor-itinerary .activity-form {
 	@include clearfix; float: right; width: 660px; padding-right: 20px; height: 536px; overflow-y: auto; overflow-x: hidden;
-	label { width: 70px; display: block; float: left; text-align:right; padding: 3px 10px 3px 0; margin: 2px 0; color: #555; }
+	label { width: 70px; display: block; padding: 3px 10px 3px 0; margin: 2px 0; color: #555; }
 	> div {
-		@include clearfix; margin: 15px 0;
+		@include clearfix; margin-bottom: 10px;
 		&.title {
-			margin-bottom: 30px;
-			label { float: none; display: inline; width: auto; }
 			input { width: 100%; display: block; font-size: 28px; }
 		}
 		&.when {
@@ -66,7 +64,6 @@
 			}
 		}
 		&.notes {
-			label { float: none; display: inline; width: auto; }
 			> ul {
 				> li {
 					margin: 5px 0;

@@ -45,20 +45,19 @@ TT.Collections.Activities = Backbone.Collection.extend({
         activity.set('OrderNumber', maxOrder + 1);
     },
     dates: function () {
-
+        var dates = [];
         var allBeginAts = this.pluck('BeginAt');
         var nonNull = _.reject(allBeginAts, function (d) { return !d; });
-        var min = TT.Util.DatePart(_.min(nonNull)),
-            max = TT.Util.DatePart(_.max(nonNull));
+        if (nonNull.length > 0) {
+            var min = TT.Util.DatePart(_.min(nonNull)),
+                max = TT.Util.DatePart(_.max(nonNull));
 
-        var dates = [];
-        for (var d = new Date(min); d <= max; d.setDate(d.getDate() + 1)) {
-            dates.push(new Date(d));
+            for (var d = new Date(min); d <= max; d.setDate(d.getDate() + 1)) {
+                dates.push(new Date(d));
+            }
         }
-
         var hasNull = !_.isEmpty(_.filter(allBeginAts, function (d) { return d == null; }));
         if (hasNull) dates.push(null);
-
         return dates;
     },
     onDate: function (d) {
