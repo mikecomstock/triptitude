@@ -130,7 +130,8 @@ input.delete {
 /* Header */
 #header-container {
   background-color: #262626;
-  z-index: 5; }
+  z-index: 5;
+  height: 56px; }
 
 #header {
   width: 955px;
@@ -173,32 +174,29 @@ input.delete {
   color: #FFFFFF;
   float: right;
   text-align: right;
-  margin: 10px; }
-
-#user-status a, #user-status a:visited {
-  color: #66C3FE; }
-
-#user-status-header {
-  margin-bottom: 5px;
-  color: #8A8A8A; }
-
-#user-status-header a {
-  font-weight: bold;
-  font-size: 13px; }
-
-#user-status #start-here-link {
-  font-size: 12px;
-  font-weight: normal; }
-
-#user-status-menu {
-  font-size: 12px;
-  font-weight: normal; }
-  #user-status-menu a {
-    padding-left: 5px;
-    margin: 0; }
-  #user-status-menu a + a {
+  margin-top: 7px; }
+  #user-status a, #user-status a:visited {
+    color: #66C3FE; }
+  #user-status a + a {
     border-left: 1px solid #8A8A8A;
-    margin-left: 5px; }
+    padding-left: 5px; }
+  #user-status p {
+    margin: 0;
+    margin-top: 3px; }
+  #user-status p.single {
+    margin-top: 13px; }
+  #user-status #user-status-header {
+    margin-bottom: 5px;
+    color: #8A8A8A; }
+    #user-status #user-status-header a {
+      font-weight: bold;
+      font-size: 13px; }
+  #user-status #user-status-menu {
+    font-size: 12px;
+    font-weight: normal; }
+    #user-status #user-status-menu a {
+      padding-left: 5px;
+      margin: 0; }
 
 /* Tripbar */
 #trip-bar-container {
@@ -516,10 +514,8 @@ header .share-bar-container {
     #landing-page-panel-container #landing-page-panel h1 {
       font-size: 40px;
       margin: 0 0 30px 0;
-      color: #0190E9; }
-    #landing-page-panel-container #landing-page-panel h2 {
-      font-size: 22px;
-      margin: 20px 0 20px 0; }
+      color: #0190E9;
+      text-align: center; }
     #landing-page-panel-container #landing-page-panel h3 {
       font-size: 24px !important;
       color: #333; }
@@ -527,7 +523,7 @@ header .share-bar-container {
       color: #333;
       font-size: 17px;
       line-height: 1.5;
-      margin: -10px 0 0 0; }
+      font-weight: bold; }
     #landing-page-panel-container #landing-page-panel #create-trip-form {
       float: right;
       background: #52bcfe;

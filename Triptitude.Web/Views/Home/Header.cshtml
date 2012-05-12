@@ -5,9 +5,10 @@
 }
 <div id="header-container">
     <div id="header">
-        <a id="logo" href="/">Triptitude.com</a> <a onclick="alert('Drag me to the bookarks bar'); return false;" href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','@ConfigurationManager.AppSettings["RootUrl"]Scripts/tripmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());" title="Add to Trip">Add to Trip</a> @*<div id="search">
+        <a id="logo" href="/">Triptitude</a> <a onclick="alert('Drag me to the bookarks bar'); return false;" href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','@ConfigurationManager.AppSettings["RootUrl"]Scripts/tripmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());" title="Add to Trip">Add to Trip</a> @*<div id="search">
             <form action="@Url.PlaceSearch()" method="post">
-            <input type="text" name="s" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-auto-submit="true" placeholder="Where are you going?" accesskey="s" />
+            <input type="text" name="s" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-auto-submit="true" placeholder="Where 
+            going?" accesskey="s" />
             <input type="hidden" name="googreference" />
             <input type="hidden" name="googid" />
             <input type="submit" value="Go >" />
@@ -16,30 +17,27 @@
         <div id="user-status">
             @if (Request.IsAuthenticated)
             {
-                <div id="user-status-header">
+                <p>
                     Welcome, <a href="@Url.MyTrips()">@currentUser.FullName</a>
-                </div>
-                <div id="user-status-menu">
+                </p>
+                <p>
                     <a href="/trips/create" accesskey="c" class="create-trip">create a trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a> <a href="/logout">sign out</a>
-                </div>
+                </p>
             }
             else if (!currentUserTrips.IsNullOrEmpty())
             {
-                <div id="user-status-header">
+                <p>
                     Welcome, <a href="@Url.MyTrips()">@currentUser.FullName</a>
-                </div>
-                <div id="user-status-menu">
+                </p>
+                <p>
                     <a class="sign-up">sign up</a> <a href="/trips/create" accesskey="c">create a trip</a> <a href="@Url.MyTrips()">my trips</a> <a class="login">log in</a>
-                </div>
+                </p>
             }
             else
             {
-                <div id="user-status-header">
-                    <a class="sign-up">sign up</a> | <a class="login">log in</a>
-                </div>
-                <div id="start-here-link">
-                    Hi, are you new? <a href="/">Start here</a>
-                </div>
+                <p class="single">
+                    <a class="sign-up">sign up</a> <a class="login">log in</a>
+                </p>
             }
         </div>
     </div>

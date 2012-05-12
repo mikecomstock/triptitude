@@ -1,62 +1,96 @@
 ﻿@{
-    ViewBag.Title = "Plan your trips & vacations";
-    ViewBag.Description = "Easily create a custom travel itinerary. We'll suggest hotels and activities along the way.";
-    IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
+    ViewBag.Title = "Plan your trips, together";
+    ViewBag.Description = "Triptitude is a trip planning tool that helps you organize your itinerary before you book it.";
+            //IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
 }
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
         <h1>
-            Organize your travel plans from start to finish
+            Plan your trips, together
         </h1>
         <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-        @Html.AntiForgeryToken()
-        <h3>
-            Get Started:</h3>
+            @Html.AntiForgeryToken()
+            <h3>
+          Create a Trip</h3>
+            <p>
+                <input type="text" name="name" id="name" tabindex="1" class="focus" placeholder="Name your trip..." />
+            </p>
+            <p>
+                <label for="visibility">
+                    Visibility</label>
+                @Html.DropDownList("visibility", UserTrip.UserTripVisibility.Public.ToSelectList())
+            </p>
+            <p>
+                <input type="submit" value="Start Planning" />
+            </p>
+        </form>
         <p>
-            @Html.ValidationMessage("name")
-            <input type="text" name="name" id="name" tabindex="1" class="focus" placeholder="Name your trip..." />
-        </p>
-        <p>
-            <label for="visibility">
-                Visibility</label>
-            @{
-                var form = new NewCreateTripForm { Visibility = UserTrip.UserTripVisibility.Public };
-            }
-            @Html.DropDownList("visibility", form.Visibility.ToSelectList())
+            Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Make sure your itinerary is perfect before you book, and then track your reservations.
+            With your travel plans in one place, you'll be able to enjoy stress-free travel.
         </p>
         @*<p>
-            <input type="text" name="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Destination" />
-            <input type="hidden" name="togoogreference" />
-            <input type="hidden" name="togoogid" />
-        </p>*@
-        <p>
-            <input type="submit" value="Start Planning >" />
+            Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Use it before booking to make sure your itinerary is perfect, and after you book to keep track of your activities.
+            With your travel plans in one place, you'll be able to enjoy stress-free travel.
         </p>
-        </form>
-        <h2>Planning a trip is hard. We make it easier.
-            </h2>
+        <p>
+            Triptitude helps you plan trips. Create the perfect itinerary alone, or invite your friends to help. Use Triptitude, and you'll have better trips.
+        </p>
+        <p>
+            Triptitude helps you plan trips. Create the perfect itinerary alone, or invite your friends to help. When your plans are in Triptitude, instead of in your head, you'll have better trips.
+        </p>
+        <p>
+            Triptitude helps you plan trips. Create the perfect itinerary alone, or invite your friends to help you. Easily keep your fellow travelers up-to-date on how the trip is progressing.
+        </p>
+        <p>
+            Triptitude is a travel planning tool that helps you plan trips. Create the trip of your dreams alone, or invite your friends to help you. Organize your activities before you book them, and keep track of them after.
+        </p>
+        <p>
+            Triptitude is a travel planning tool that helps you organize your trips. You can create an itinerary alone, or invite your friends to help you. Use it before you book to make sure you plan the perfect trip, or after you book to keep track of activities.
+        </p>
+        <p>
+            Triptitude is a travel planning tool that helps you organize your itinerary. You can use it alone, or invite your fellow travelers to help you. Use it before you book so you know your trip is perfect.
+        </p>
+        <p>
+            Triptitude is a trip planning tool that helps you organize your itinerary before you book it.
+        </p>
+        <p>
+            Triptitude is a travel planning tool. We help you organize your itinerary, alone or with friends.
+        </p>
+        <p>
+            Triptitude lets you create the itinerary of your dreams, alone or with friends.
+        </p>
+        <p>
+            Triptitude helps you create the trip of your dreams. It helps you create and organize an itinerary.
+        </p>
+        <p>
+            Triptitude is a travel organizer. It lets you create an itinerary, alone or with friends, before you book anything.
+        </p>
+        <p>
+            Triptitude lets you plan a trip, without booking anything. Alone or with friends, it lets you design and perfect an itinerary.
+        </p>
+        <p>
+            Triptitude helps you organize your trip, before you book it. Alone or with friends, you can create an itinerary
+        </p>
         <p>
             You need a vacation. You deserve a vacation. You've <em>earned</em> a vacation, but planning the trip of your dreams isn't easy. Between flights, hotels, and activities, how do you keep everything straight? Triptitude helps you keep it all organized, so when it's finally time to go, you can relax and enjoy the ride.
-        </p>
+        </p>*@
         @*<h2>
             Organize your travel plans from start to finish</h2>
         <ul>
             <li><a href="/trips">Search trips</a> others have planned and get inspired.</li>
-            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>*@ @*<li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>*@ @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@ @*</ul>*@
-        @if (trips != null && trips.Any())
+            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>*@ @*<li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>*@ @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@ @*</ul>*@ @*@if (trips != null && trips.Any())
         {
             <div id="trips">
                 <header>
                     <h2>
                         Recent Trips</h2>
-                    <a href="/trips">All Trips</a>
                 </header>
                 @{
             TripSearchForm form2 = new TripSearchForm();
                 }
-                @*@Helpers.TripSearchForm(form2)*@
+                @Helpers.TripSearchForm(form2)
                 @Html.Action("SearchResults", "Trips", new { form = form2 })
             </div>
-        }
+        }*@
     </div>
 </div>
