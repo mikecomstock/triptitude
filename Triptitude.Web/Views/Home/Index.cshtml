@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Plan your trips, together";
-    ViewBag.Description = "Triptitude is a trip planning tool that helps you organize your itinerary before you book it.";
+    ViewBag.Description = "Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help.";
             //IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
 }
 <div id="landing-page-panel-container">
@@ -9,24 +9,23 @@
             Plan your trips, together
         </h1>
         <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-            @Html.AntiForgeryToken()
-            <h3>
-          Create a Trip</h3>
-            <p>
-                <input type="text" name="name" id="name" tabindex="1" class="focus" placeholder="Name your trip..." />
-            </p>
-            <p>
-                <label for="visibility">
-                    Visibility</label>
-                @Html.DropDownList("visibility", UserTrip.UserTripVisibility.Public.ToSelectList())
-            </p>
-            <p>
-                <input type="submit" value="Start Planning" />
-            </p>
+        @Html.AntiForgeryToken()
+        <h3>
+            Create a Trip</h3>
+        <p>
+            <input type="text" name="name" id="name" tabindex="1" class="focus" placeholder="Name your trip..." />
+        </p>
+        <p>
+            <label for="visibility">
+                Visibility</label>
+            @Html.DropDownList("visibility", UserTrip.UserTripVisibility.Public.ToSelectList())
+        </p>
+        <p>
+            <input type="submit" value="Start Planning" />
+        </p>
         </form>
         <p>
-            Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Make sure your itinerary is perfect before you book, and then track your reservations.
-            With your travel plans in one place, you'll be able to enjoy stress-free travel.
+            Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Make sure your itinerary is perfect before you book, and then track your reservations. With your travel plans in one place, you'll be able to enjoy stress-free travel.
         </p>
         @*<p>
             Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Use it before booking to make sure your itinerary is perfect, and after you book to keep track of your activities.
@@ -73,8 +72,7 @@
         </p>
         <p>
             You need a vacation. You deserve a vacation. You've <em>earned</em> a vacation, but planning the trip of your dreams isn't easy. Between flights, hotels, and activities, how do you keep everything straight? Triptitude helps you keep it all organized, so when it's finally time to go, you can relax and enjoy the ride.
-        </p>*@
-        @*<h2>
+        </p>*@ @*<h2>
             Organize your travel plans from start to finish</h2>
         <ul>
             <li><a href="/trips">Search trips</a> others have planned and get inspired.</li>
