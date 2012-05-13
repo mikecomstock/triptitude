@@ -202,29 +202,26 @@
     #editor-itinerary .activity-form > div.title input {
       width: 100%;
       display: block;
-      font-size: 28px; }
+      font-size: 36px; }
     #editor-itinerary .activity-form > div.when input {
-      width: 100px;
-      margin-right: 8px; }
-    #editor-itinerary .activity-form > div.tags input {
-      width: 550px; }
+      width: 150px;
+      margin-right: 8px;
+      font-size: 24px; }
     #editor-itinerary .activity-form > div.source-url input {
       width: 550px; }
-    #editor-itinerary .activity-form > div.places > ul {
-      float: left; }
-      #editor-itinerary .activity-form > div.places > ul > li {
-        margin: 5px 0; }
-    #editor-itinerary .activity-form > div.notes > ul > li {
-      margin: 5px 0; }
-      #editor-itinerary .activity-form > div.notes > ul > li .who {
-        float: left;
-        background-color: #999;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        padding: 0 2px;
-        margin-right: 5px;
-        color: #FFF; }
+    #editor-itinerary .activity-form > div.notes textarea {
+      width: 550px;
+      height: 50px; }
+    #editor-itinerary .activity-form > div.notes > ol > li {
+      padding: 3px 0; }
+      #editor-itinerary .activity-form > div.notes > ol > li .when {
+        float: right; }
+      #editor-itinerary .activity-form > div.notes > ol > li .who:after {
+        content: ': '; }
+      #editor-itinerary .activity-form > div.notes > ol > li .text {
+        display: inline; }
+      #editor-itinerary .activity-form > div.notes > ol > li + li {
+        border-top: 1px solid #F0F0F0; }
   #editor-itinerary .activity-form .buttons {
     clear: both;
     margin-top: 20px; }

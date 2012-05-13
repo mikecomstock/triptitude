@@ -15,9 +15,9 @@
         <ol class="histories timeline">
             @foreach (var h in trip.Histories.OrderByDescending(h => h.Id))
             {
-                <div class="history">
+                <li class="history">
                     @h.ToString(ViewBag.CurrentUser)
-                </div>
+                </li>
             }
         </ol>
     </div>

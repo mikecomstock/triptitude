@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
@@ -86,7 +86,7 @@ namespace Triptitude.Web.Controllers
             }
 
             if (Request.IsAjaxRequest())
-                return Json(trip.Json(CurrentUser), JsonRequestBehavior.AllowGet);
+                return Json(trip.Json(CurrentUser, Url), JsonRequestBehavior.AllowGet);
 
             ViewBag.Trip = trip;
             return View();
@@ -250,7 +250,7 @@ namespace Triptitude.Web.Controllers
             trip.AddHistory(CurrentUser, HistoryAction.DeletedTrip);
             repo.Save();
 
-            return Json(trip.Json(CurrentUser));
+            return Json(trip.Json(CurrentUser, Url));
         }
 
         public ActionResult History(int id)

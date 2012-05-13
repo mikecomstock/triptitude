@@ -46,28 +46,25 @@
 	> div {
 		@include clearfix; margin-bottom: 10px;
 		&.title {
-			input { width: 100%; display: block; font-size: 28px; }
+			input { width: 100%; display: block; font-size: 36px; }
 		}
 		&.when {
-			input { width: 100px; margin-right: 8px; }
-		}
-		&.tags {
-			input { width: 550px; }
+			input { width: 150px; margin-right: 8px; font-size: 24px; }
 		}
 		&.source-url {
 			input { width: 550px; }
 		}
-		&.places {
-			> ul {
-				float: left;
-				> li { margin: 5px 0;  }
-			}
-		}
 		&.notes {
-			> ul {
+			textarea { width: 550px; height: 50px; }
+			> ol {
 				> li {
-					margin: 5px 0;
-					.who { float: left; background-color: #999; @include border-radius(3px); padding: 0 2px; margin-right: 5px; color: #FFF; }
+					padding: 3px 0;
+					.when { float: right; }
+					.who {
+						&:after { content: ': '; }
+					}
+					.text { display: inline; }
+					& + li { border-top: 1px solid #F0F0F0; }
 				}
 			}
 		}

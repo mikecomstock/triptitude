@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Triptitude.Biz;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
 using Triptitude.Biz.Services;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {

@@ -112,7 +112,7 @@ namespace Triptitude.Biz.Models
             get { return PhotoURL + "&s=50"; }
         }
 
-        public dynamic Json(User forUser)
+        public dynamic Json(User forUser, UrlHelper url)
         {
             return new
                        {
@@ -120,7 +120,7 @@ namespace Triptitude.Biz.Models
                            Email,
                            DefaultTripID = DefaultTrip == null ? null : (int?)DefaultTrip.Id,
                            PhotoURL,
-                           Trips = Trips(forUser).Select(t => t.Json(forUser))
+                           Trips = Trips(forUser).Select(t => t.Json(forUser, url))
                        };
         }
     }
@@ -198,6 +198,13 @@ namespace Triptitude.Biz.Models
                         sb.AppendFormat("removed \"{0}\"", activity.Title);
                         break;
                     }
+                case HistoryAction.CreatedNote:
+                    {
+                        var notesRepo = new Repo<Note>();
+                        var note = notesRepo.Find(TableId1.Value);
+                        sb.AppendFormat("added a note: {0}", note.Text);
+                        break;
+                    }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -217,7 +224,8 @@ namespace Triptitude.Biz.Models
         CreateActivity = 7,
         UpdateActivity = 8,
         DeletedActivity = 9,
-        AcceptInvitation = 10
+        AcceptInvitation = 10,
+        CreatedNote = 11
     }
 
     public class UserTrip
@@ -292,6 +300,7 @@ namespace Triptitude.Biz.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<UserTrip> UserTrips { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
         public DateTime Created_On { get; set; }
         public User Creator { get { return UserTrips.First(ut => ut.IsCreator).User; } }
         public DateTime? BeginDate { get; set; }
@@ -376,7 +385,6 @@ namespace Triptitude.Biz.Models
         {
             History h = new History
                             {
-                                Trip = this,
                                 User = user,
                                 Action = (byte)action,
                                 CreatedOnUTC = DateTime.UtcNow,
@@ -386,13 +394,26 @@ namespace Triptitude.Biz.Models
             Histories.Add(h);
         }
 
-        public dynamic Json(User forUser)
+        public Note AddNote(User user, Activity activity, string text)
+        {
+            var note = new Note
+                           {
+                               Activity = activity,
+                               User = user,
+                               Created_On = DateTime.UtcNow,
+                               Text = text.Trim()
+                           };
+            Notes.Add(note);
+            return note;
+        }
+
+        public dynamic Json(User forUser, UrlHelper url)
         {
             return new
             {
                 ID = Id,
                 Name,
-                Activities = NonDeletedActivities.OrderBy(a => a.BeginAt).ThenBy(a => a.OrderNumber).Select(a => a.Json(forUser))
+                Activities = NonDeletedActivities.OrderBy(a => a.BeginAt).ThenBy(a => a.OrderNumber).Select(a => a.Json(forUser, url))
             };
         }
     }
@@ -468,7 +489,7 @@ namespace Triptitude.Biz.Models
         //    }
         //}
 
-        public dynamic Json(User forUser)
+        public dynamic Json(User forUser, UrlHelper url)
         {
             return new
                        {
@@ -494,19 +515,7 @@ namespace Triptitude.Biz.Models
                                                    p.Place.Id,
                                                    p.Place.Name
                                                },
-                           Notes = from n in Notes
-                                   select new
-                                              {
-                                                  ID = n.Id,
-                                                  n.Text,
-                                                  n.Public,
-                                                  n.Created_On,
-                                                  User = new
-                                                             {
-                                                                 n.User.Email,
-                                                                 ID = n.User.Id
-                                                             }
-                                              }
+                           Notes = Notes.OrderByDescending(n => n.Id).Select(n => n.Json(forUser, url))
                        };
         }
     }
@@ -602,21 +611,24 @@ namespace Triptitude.Biz.Models
     public class Note
     {
         public int Id { get; set; }
+        public virtual Trip Trip { get; set; }
         public virtual Activity Activity { get; set; }
         public virtual User User { get; set; }
         public DateTime Created_On { get; set; }
         public string Text { get; set; }
-        public bool Public { get; set; }
 
-        public dynamic Json(User forUser)
+        public dynamic Json(User forUser, UrlHelper url)
         {
             return new
                        {
-                           User = User.Json(forUser),
+                           Id,
+                           User = new
+                                      {
+                                          User.FullName,
+                                          DetailsURL = url.Details(User)
+                                      },
                            Text,
-                           Created_On,
-                           Public,
-                           Id
+                           RelativeTime = Created_On.ToRelative()
                        };
         }
     }

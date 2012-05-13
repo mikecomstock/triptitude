@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\UrlHelperExtensions.cs" />
     <Compile Include="Forms\ActivityForms.cs" />
     <Compile Include="Forms\CitySearchForm.cs" />
     <Compile Include="Forms\ForgotPassForm.cs" />

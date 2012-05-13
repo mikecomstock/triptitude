@@ -138,9 +138,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 tmpOrderNumber = 1;
             } else if ($li.is('.activity')) {
                 var activity = $li.data('activity');
-
-                activity.set({ BeginAt: tmpDate, OrderNumber: tmpOrderNumber++ });
-                activity.save();
+                activity.save({ BeginAt: tmpDate, OrderNumber: tmpOrderNumber++ });
             }
         }, this);
 
@@ -156,11 +154,10 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     tagName: 'form',
     initialize: function () {
-        this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', placeholder: 'enter a title for your activity' }));
-        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', placeholder: 'http://' }));
-
-        this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date' }));
-        this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
+        this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', tabindex: 1, placeholder: 'enter a title for your activity' }));
+        this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
+        //this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
+        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', tabindex: 3, placeholder: 'http://' }));
 
         if (this.model) {
             this.model.on('change:BeginAt', function () {
@@ -169,11 +166,10 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         }
 
         //        this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
-        this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
-        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', placeholder: 'add a note...' }));
-
-        this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save' }, 'Save'));
-        this.DeleteButton = $(this.make('button', { type: 'button', 'class': 'delete' }, 'Delete'));
+        //this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
+        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: '4', placeholder: 'add notes and details...' }));
+        this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save', tabindex: 5 }, 'Save'));
+        this.DeleteButton = $(this.make('button', { type: 'button', 'class': 'delete', tabindex: 6 }, 'Delete'));
 
         _.bindAll(this);
     },
@@ -191,7 +187,8 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         this.model.set({
             Title: this.TitleInput.val(),
             SourceURL: this.SourceURLInput.val(),
-            BeginAt: newBeginAt
+            BeginAt: newBeginAt,
+            Note: this.NotesInput.val()
         });
 
         if (!TT.Util.SameDate(oldBeginAt, newBeginAt)) {
@@ -203,6 +200,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
                 var msg = $(self.make('div', { 'class': 'msg success' }, "Activity Saved!")).appendTo(self.el);
                 setTimeout(function () { msg.fadeOut(1000); }, 3000);
                 self.trigger('activitysaved');
+                self.render();
             },
             error: function () {
                 var msg = $(self.make('div', { 'class': 'msg error' }, "Woah, there was a problem! Please try again.")).appendTo(self.el);
@@ -220,6 +218,8 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             return this;
         }
 
+        this.$el.html('');
+
         var decodedTitle = $('<div>').html(this.model.get('Title')).text();
         var beginDate = this.model.get('BeginAt');
         //        var endDate = this.model.get('EndAt');
@@ -230,30 +230,29 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         p.Title = newP('title');
         $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
-        setTimeout(function () {
-            self.TitleInput.focus();
-        }, 50);
+        //setTimeout(function () { self.TitleInput.focus(); }, 50);
 
         p.When = newP('when');
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When?')).appendTo(p.When);
         var options = {
-            onSelect: function (selectedDate) {
-                var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
-                    instance = $(this).data("datepicker"),
-                    date = $.datepicker.parseDate(
-                        instance.settings.dateFormat ||
-                            $.datepicker._defaults.dateFormat,
-                        selectedDate, instance.settings);
-                $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
-            }
+//            onSelect: function (selectedDate) {
+//                var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
+//                    instance = $(this).data("datepicker"),
+//                    date = $.datepicker.parseDate(
+//                        instance.settings.dateFormat ||
+//                            $.datepicker._defaults.dateFormat,
+//                        selectedDate, instance.settings);
+//                $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
+//            }
         };
         this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', TT.Util.ToDatePicker(beginDate));
         //        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
 
-        p.SourceURL = newP('source-url');
-        var sourceURL = this.model.get('SourceURL') || '';
-        $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
-        this.SourceURLInput.val(sourceURL).appendTo(p.SourceURL);
+        if (this.model.get('SourceURL')) {
+            p.SourceURL = newP('source-url');
+            $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
+            this.SourceURLInput.val(this.model.get('SourceURL')).appendTo(p.SourceURL);
+        }
 
         //        p.Tags = newP('tags');
         //        $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);
@@ -276,15 +275,14 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         p.Notes = newP('notes');
         $(self.make('label', { 'for': this.NotesInput.attr('id') }, 'Notes')).appendTo(p.Notes);
-        var NotesUL = $(this.make('ul')).appendTo(p.Notes);
+        this.NotesInput.val('').appendTo(p.Notes);
+        var NotesOL = $(this.make('ol')).appendTo(p.Notes);
         var Notes = this.model.get('Notes');
-        var noteLITemplate = '<a class="who" href="/users/<%= note.get("User").ID %>" target="blank"><%= note.get("User").Email %></a> <div><%= note.get("Text") %></div>';
+        var noteLITemplate = _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.FullName %></a> <div class="text"><%= n.Text %></div></li>');
         Notes.each(function (note) {
-            var noteHTML = _.template(noteLITemplate, { note: note });
-            $(self.make('li', null, noteHTML)).appendTo(NotesUL);
+            var noteHTML = noteLITemplate({ n: note.attributes });
+            NotesOL.append(noteHTML);
         });
-
-        $('<li>').append(this.NotesInput.val('')).appendTo(NotesUL);
 
         var buttonContainer = $(this.make('div', { 'class': 'buttons' })).appendTo(this.el);
         this.SaveButton.appendTo(buttonContainer);

@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using Triptitude.Biz;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -16,7 +15,7 @@ namespace Triptitude.Web.Controllers
             ViewBag.URL = url;
             ViewBag.ParsedTitle = title.Trim();
 
-            var currentUserData = CurrentUser.Json(CurrentUser);
+            var currentUserData = CurrentUser.Json(CurrentUser, Url);
             ViewBag.CurrentUserData = currentUserData;
             return View();
         }

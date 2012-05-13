@@ -19,7 +19,7 @@ namespace Triptitude.Web.Controllers
         public JsonResult Details(int id)
         {
             var activity = repo.Find(id);
-            return Json(activity.Json(CurrentUser), JsonRequestBehavior.AllowGet);
+            return Json(activity.Json(CurrentUser, Url), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -35,14 +35,22 @@ namespace Triptitude.Web.Controllers
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 
+            Note note = null;
+            if (!string.IsNullOrWhiteSpace(form.Note))
+                note = trip.AddNote(CurrentUser, activity, form.Note);
+
             repo.Add(activity);
             repo.Save();
 
             // have to call repo.save before this so we have the id
             trip.AddHistory(CurrentUser, HistoryAction.CreateActivity, activity.Id);
             repo.Save();
-
-            return Json(activity.Json(CurrentUser));
+            if (note != null)
+            {
+                trip.AddHistory(CurrentUser, HistoryAction.CreatedNote, note.Id);
+                repo.Save();
+            }
+            return Json(activity.Json(CurrentUser, Url));
         }
 
         public class ActivityForm
@@ -53,6 +61,7 @@ namespace Triptitude.Web.Controllers
             //public DateTime? EndAt { get; set; }
             public int OrderNumber { get; set; }
             public string SourceURL { get; set; }
+            public string Note { get; set; }
         }
 
         [HttpPut]
@@ -68,10 +77,18 @@ namespace Triptitude.Web.Controllers
             activity.OrderNumber = form.OrderNumber;
             activity.SourceURL = form.SourceURL;
 
-            trip.AddHistory(CurrentUser, HistoryAction.UpdateActivity, activity.Id);
+            Note note = null;
+            if (!string.IsNullOrWhiteSpace(form.Note))
+                note = trip.AddNote(CurrentUser, activity, form.Note);
 
+            trip.AddHistory(CurrentUser, HistoryAction.UpdateActivity, activity.Id);
             repo.Save();
-            return Json(activity.Json(CurrentUser));
+            if (note != null)
+            {
+                trip.AddHistory(CurrentUser, HistoryAction.CreatedNote, note.Id);
+                repo.Save();
+            }
+            return Json(activity.Json(CurrentUser, Url));
         }
 
 

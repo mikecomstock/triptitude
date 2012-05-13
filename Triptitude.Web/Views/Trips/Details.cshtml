@@ -129,12 +129,28 @@
                                         <img src="@place.Place.StaticMapURL()" alt="map of @place.Place.Name"/>
                                     </li>
                                 }
-                            </ul>   
+                            </ul>
                         }
-                        @activity.Title
+                        <div class="title">
+                            @activity.Title
+                        </div>
                         @if (activity.BeginAt.HasValue && activity.BeginAt.Value.HasTimePart())
                         {
                             <div>@activity.BeginAt.Value.ToShortTimeString()</div>
+                        }
+                        @if (activity.Notes.Any() && currentUser.OwnsTrips(trip))
+                        {
+                            <ol class="notes">
+                                @foreach (var note in activity.Notes.OrderByDescending(n => n.Id))
+                                {
+                                    <li>
+                                        <div class="when">
+                                            @note.Created_On.ToRelative()
+                                        </div>
+                                        <a href="@Url.Details(note.User)">@note.User.FullName</a>: @note.Text
+                                    </li>
+                                }
+                            </ol>
                         }
                     </li>
                     }

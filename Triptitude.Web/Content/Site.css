@@ -590,6 +590,17 @@ footer {
 .note + .note { margin-top: 6px; }
 .note:before { content: "note:"; color: #999; }
 */
+ol.notes {
+  margin: 10px 0; }
+  ol.notes:before {
+    content: 'Notes:'; }
+  ol.notes li {
+    padding: 3px 0; }
+    ol.notes li .when {
+      float: right; }
+  ol.notes li + li {
+    border-top: 1px solid #F0F0F0; }
+
 /* Create Trip Form */
 /*#create-trip-form label { width: 140px; }
 #create-trip-form input[type="text"] { width: 400px; }
@@ -779,6 +790,8 @@ ul.tags > li + li { margin-left: 5px; }
       zoom: 1;
       *display: inline;
       clear: both; }
+    #trips-details #itinerary .activities > .activity .title {
+      font-weight: bold; }
     #trips-details #itinerary .activities > .activity:hover {
       background-color: #F3F3F3;
       cursor: pointer;

@@ -27,7 +27,7 @@ namespace Triptitude.Web.Controllers
             }
 
             AuthHelper.SetAuthCookie(user);
-            return Json(user.Json(user));
+            return Json(user.Json(user, Url));
 
         }
 

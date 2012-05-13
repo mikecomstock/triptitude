@@ -1,9 +1,9 @@
 using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
-using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {

@@ -11,7 +11,6 @@
         resp.Places = new TT.Collections.Places(resp.Places);
         resp.Notes = new TT.Collections.Notes(resp.Notes);
         resp.BeginAt = TT.Util.ParseDate(resp.BeginAt);
-        //        console.log('activity.parse', 'resp:', resp, 'xhr:', xhr);
         return resp;
     },
     createTitle: function () {
@@ -98,18 +97,12 @@ TT.Models.User = Backbone.Model.extend({
     urlRoot: '/users',
     idAttribute: 'ID',
     initialize: function () {
-        //TODO: do this same thing in parse
+        //TODO: do this in parse
         // convert object array into collection
         this.set('Trips', new TT.Collections.Trips(this.get('Trips')));
     },
     getCurrentTrip: function () {
         return this.get('Trips').get(this.get('DefaultTripID'));
-    },
-    ownsActivity: function (activity) {
-        console.log('user.ownsActivity', activity);
-        var tripId = activity.get('Trip').id;
-        console.log('tripId:', tripId);
-        return true;
     },
     signIn: function (callbacks) {
         var data = { email: this.get('email'), password: this.get('password') };

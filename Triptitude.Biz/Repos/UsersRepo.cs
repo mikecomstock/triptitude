@@ -127,17 +127,8 @@ namespace Triptitude.Biz.Repos
                 var historiesToMigrate = anonymousUser.Histories;
                 historiesToMigrate.ToList().ForEach(h => h.User = registeredUser);
 
-                //anonymousUser.UserTrips.Where(aut=> registeredUser.UserTrips.Select(rut=>rut.Trip).Contains())
-
-
-                // only migrate trips that the user doesn't already have
-                //var anonTripsToMigrate = anonymousUser.UserTrips.
-
-                //var userTripsToMigrate = anonymousUser.UserTrips.Where(ut=>ut.us)
-                ////TODO: do this for every table that has a user_id
-                //anonymousUser.UserTrips.ToList().ForEach(ut => ut.User = registeredUser);
-
-                //if (anonymousUser.DefaultTrip != null) registeredUser.DefaultTrip = anonymousUser.DefaultTrip;
+                var notesToMigrate = anonymousUser.Notes;
+                notesToMigrate.ToList().ForEach(n => n.User = registeredUser);
             }
 
             Save();

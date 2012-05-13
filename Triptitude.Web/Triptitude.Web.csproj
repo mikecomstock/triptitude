@@ -132,7 +132,6 @@
     <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
-    <Compile Include="Helpers\UrlHelperExtensions.cs" />
     <Compile Include="ModelBinders\CurrentUserModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

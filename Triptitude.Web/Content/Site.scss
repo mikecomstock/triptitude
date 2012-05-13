@@ -248,6 +248,16 @@ footer {
 .note:before { content: "note:"; color: #999; }
 */
 
+ol.notes {
+	margin: 10px 0;
+	&:before { content: 'Notes:'; }
+	li {
+		padding: 3px 0;
+		.when { float: right; }
+	}
+	li + li { border-top: 1px solid #F0F0F0; }
+}
+
 /* Create Trip Form */
 /*#create-trip-form label { width: 140px; }
 #create-trip-form input[type="text"] { width: 400px; }
@@ -329,6 +339,7 @@ ul.tags > li + li { margin-left: 5px; }
 			> .date { padding: 2px 5px; background-color: #999; color: #FFF; float: left; clear: both; @include border-radius(4px); font-size: 12px; margin: 3px 0; z-index: 2; position: relative; }
 			> .activity {
 				@include clearfix; padding: 8px; padding-left: 40px; clear: both; position: relative; overflow: hidden;
+				.title { font-weight: bold; }
 				&:hover {
 					background-color: #F3F3F3; cursor: pointer; overflow: visible; z-index: 10;
 					> .maps { background-color: #F3F3F3; }

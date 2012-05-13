@@ -24,7 +24,7 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Current()
         {
-            return Json(CurrentUser.Json(CurrentUser), JsonRequestBehavior.AllowGet);
+            return Json(CurrentUser.Json(CurrentUser, Url), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult New()
@@ -59,7 +59,7 @@ namespace Triptitude.Web.Controllers
                 EmailService.SentSignupEmail(newUser);
                 EmailService.SendUserSignedUp(newUser);
 
-                return Json(newUser.Json(newUser));
+                return Json(newUser.Json(newUser, Url));
             }
             catch
             {
