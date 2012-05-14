@@ -3,9 +3,7 @@
     initialize: function () {
         this.Header = new TT.Views.Editor.Header({ model: this.model });
         this.Tabs = {
-            Itinerary: new TT.Views.Editor.Itinerary({ model: this.model, edit: this.options.edit }),
-//            PackingList: new TT.Views.Editor.PackingList({ model: this.model }),
-//            Settings: new TT.Views.Editor.Settings({ model: this.model })
+            Itinerary: new TT.Views.Editor.Itinerary({ model: this.model, edit: this.options.edit })
         };
         this.CurrentTab = this.Tabs.Itinerary;
     },
@@ -161,18 +159,8 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     initialize: function () {
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', tabindex: 1, placeholder: 'enter a title for your activity' }));
         this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
-        //this.EndDateInput = $(this.make('input', { name: 'EndDate', id: 'activity-form-end-date' }));
         this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', tabindex: 3, placeholder: 'http://' }));
-
-        if (this.model) {
-            this.model.on('change:BeginAt', function () {
-                this.BeginDateInput.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
-            }, this);
-        }
-
-        //this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
-        //this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
-        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: '4', placeholder: 'add notes and details...' }));
+        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: 4, placeholder: 'add notes and details...' }));
         this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save', tabindex: 5 }, 'Save'));
         this.DeleteButton = $(this.make('button', { type: 'button', 'class': 'delete', tabindex: 6 }, 'Delete'));
 
@@ -221,6 +209,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         this.model.collection.remove(this.model);
     },
     render: function () {
+        console.log('render');
         var self = this;
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');
@@ -228,59 +217,31 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         }
 
         this.$el.html('');
-
-        var decodedTitle = $('<div>').html(this.model.get('Title')).text();
-        var beginDate = this.model.get('BeginAt');
-        //        var endDate = this.model.get('EndAt');
-
+        
         var p = {};
         var newP = function (cssClass) { return $('<div>').appendTo(self.el).addClass(cssClass); };
 
         p.Title = newP('title');
         $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
+        var decodedTitle = $('<div>').html(this.model.get('Title')).text();
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
-        //setTimeout(function () { self.TitleInput.focus(); }, 50);
 
         p.When = newP('when');
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When?')).appendTo(p.When);
-        var options = {
-            //            onSelect: function (selectedDate) {
-            //                var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
-            //                    instance = $(this).data("datepicker"),
-            //                    date = $.datepicker.parseDate(
-            //                        instance.settings.dateFormat ||
-            //                            $.datepicker._defaults.dateFormat,
-            //                        selectedDate, instance.settings);
-            //                $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
-            //            }
-        };
-        this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', TT.Util.ToDatePicker(beginDate));
-        //        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
+        var beginDate = this.model.get('BeginAt');
+        this.BeginDateInput.appendTo(p.When).datepicker().datepicker('setDate', TT.Util.ToDatePicker(beginDate));
+
+//        if (this.model) {
+//            this.model.on('change:BeginAt', function () {
+//                this.BeginDateInput.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
+//            }, this);
+//        }
 
         if (this.model.get('SourceURL')) {
             p.SourceURL = newP('source-url');
             $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
             this.SourceURLInput.val(this.model.get('SourceURL')).appendTo(p.SourceURL);
         }
-
-        //        p.Tags = newP('tags');
-        //        $(self.make('label', { 'for': this.TagsInput.attr('id') }, 'Tags')).appendTo(p.Tags);
-        //        this.TagsInput.val(this.model.get('TagString') || '').appendTo(p.Tags);
-
-        //        p.Places = newP('places');
-        //        $(self.make('label', { 'for': '' }, 'Places')).appendTo(p.Places);
-        //        var placesUL = $(this.make('ul')).appendTo(p.Places);
-        //        var places = this.model.get('Places');
-        //        places.each(function (place) {
-        //            $(self.make('li')).text(place.get('Name')).appendTo(placesUL);
-        //        });
-        //        var placeInputLI = $('<li>').append(this.PlacesInput.val('')).appendTo(placesUL);
-        //        this.PlacesInput.on('keydown', function (e) {
-        //            if (e.which != 13) return;
-        //            var placeText = self.PlacesInput.val();
-        //            $(self.make('li')).text(placeText).insertBefore(placeInputLI);
-        //            self.PlacesInput.val('');
-        //        });
 
         p.Notes = newP('notes');
         $(self.make('label', { 'for': this.NotesInput.attr('id') }, 'Notes')).appendTo(p.Notes);
@@ -300,20 +261,3 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         return this;
     }
 });
-
-
-//TT.Views.Editor.PackingList = Backbone.View.extend({
-//    id: 'editor-packing-list',
-//    render: function () {
-//        this.$el.text('b');
-//        return this;
-//    }
-//});
-
-//TT.Views.Editor.Settings = Backbone.View.extend({
-//    id: 'editor-settings',
-//    render: function () {
-//        this.$el.text('c');
-//        return this;
-//    }
-//});
