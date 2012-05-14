@@ -62,6 +62,7 @@ namespace Triptitude.Web.Controllers
             public int OrderNumber { get; set; }
             public string SourceURL { get; set; }
             public string Note { get; set; }
+            public bool? Moved { get; set; }
         }
 
         [HttpPut]
@@ -81,7 +82,13 @@ namespace Triptitude.Web.Controllers
             if (!string.IsNullOrWhiteSpace(form.Note))
                 note = trip.AddNote(CurrentUser, activity, form.Note);
 
-            trip.AddHistory(CurrentUser, HistoryAction.UpdateActivity, activity.Id);
+            // Only save the UpdatedActivity row when 
+            // 1) They are editing the activty with the form, and there is a save button
+            // 2) They drag THIS activity on the timeline. When this happends, multiple activities get save called,
+            //    but only one of them gets the history.
+            if (!form.Moved.HasValue || form.Moved.Value)
+                trip.AddHistory(CurrentUser, HistoryAction.UpdateActivity, activity.Id);
+
             repo.Save();
             if (note != null)
             {

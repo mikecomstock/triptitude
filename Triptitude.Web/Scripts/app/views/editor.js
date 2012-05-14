@@ -125,7 +125,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.activityList.scrollTop(top);
 
     },
-    sortUpdate: function () {
+    sortUpdate: function (e, ui) {
         var firstDate = this.activityList.children('.date').first();
         var tmpDate = new Date(firstDate.data('date'));
         tmpDate.setDate(tmpDate.getDate() - 1);
@@ -138,7 +138,9 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
                 tmpOrderNumber = 1;
             } else if ($li.is('.activity')) {
                 var activity = $li.data('activity');
-                activity.save({ BeginAt: tmpDate, OrderNumber: tmpOrderNumber++ });
+                var activityMovedId = $(ui.item).data('activity').id;
+                var thisActivityMoved = activity.id == activityMovedId;
+                activity.save({ BeginAt: tmpDate, OrderNumber: tmpOrderNumber++, Moved: thisActivityMoved });
             }
         }, this);
 
