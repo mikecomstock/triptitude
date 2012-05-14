@@ -88,9 +88,9 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         //TODO: unbind the zombie form before removing (though normally unbinding zombies gets you eaten)
         if (this.ActivityForm) this.ActivityForm.remove();
 
-        this.ActivityForm = new TT.Views.Editor.ActivityForm({ model: this.editing })
-            .on('activitysaved', this.renderActivityList)
-            .render().$el.prependTo(this.el);
+        this.ActivityForm = new TT.Views.Editor.ActivityForm({ model: this.editing });
+        this.ActivityForm.on('activitysaved', this.renderActivityList).render().$el.prependTo(this.el);
+        this.ActivityForm.setFocus();
     },
     renderActivityList: function () {
         var self = this;
@@ -167,7 +167,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             }, this);
         }
 
-        //        this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
+        //this.TagsInput = $(this.make('input', { Name: 'Tags', id: 'activity-form-tags' }));
         //this.PlacesInput = $(this.make('input', { Name: 'Places', id: 'activity-form-places', placeholder: 'add a place...' }));
         this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: '4', placeholder: 'add notes and details...' }));
         this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save', tabindex: 5 }, 'Save'));
@@ -178,6 +178,10 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     events: {
         'submit': 'submit',
         'click .delete': 'deleteActivity'
+    },
+    setFocus: function () {
+        var self = this;
+        setTimeout(function () { self.TitleInput.focus(); }, 10);
     },
     submit: function (e) {
         e.preventDefault();
@@ -237,15 +241,15 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         p.When = newP('when');
         $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When?')).appendTo(p.When);
         var options = {
-//            onSelect: function (selectedDate) {
-//                var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
-//                    instance = $(this).data("datepicker"),
-//                    date = $.datepicker.parseDate(
-//                        instance.settings.dateFormat ||
-//                            $.datepicker._defaults.dateFormat,
-//                        selectedDate, instance.settings);
-//                $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
-//            }
+            //            onSelect: function (selectedDate) {
+            //                var option = this.id == "activity-form-begin-date" ? "minDate" : "maxDate",
+            //                    instance = $(this).data("datepicker"),
+            //                    date = $.datepicker.parseDate(
+            //                        instance.settings.dateFormat ||
+            //                            $.datepicker._defaults.dateFormat,
+            //                        selectedDate, instance.settings);
+            //                $('#activity-form-begin-date, #activity-form-end-date').not(this).datepicker("option", option, date);
+            //            }
         };
         this.BeginDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', TT.Util.ToDatePicker(beginDate));
         //        this.EndDateInput.appendTo(p.When).datepicker(options).datepicker('setDate', endDate);
