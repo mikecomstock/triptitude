@@ -4,8 +4,8 @@
         this.Header = new TT.Views.Editor.Header({ model: this.model });
         this.Tabs = {
             Itinerary: new TT.Views.Editor.Itinerary({ model: this.model, edit: this.options.edit }),
-            PackingList: new TT.Views.Editor.PackingList({ model: this.model }),
-            Settings: new TT.Views.Editor.Settings({ model: this.model })
+//            PackingList: new TT.Views.Editor.PackingList({ model: this.model }),
+//            Settings: new TT.Views.Editor.Settings({ model: this.model })
         };
         this.CurrentTab = this.Tabs.Itinerary;
     },
@@ -127,10 +127,13 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     },
     sortUpdate: function (e, ui) {
         var firstDate = this.activityList.children('.date').first();
-        var tmpDate = new Date(firstDate.data('date'));
-        tmpDate.setDate(tmpDate.getDate() - 1);
+        var tmpDate = null;
+        if(firstDate.data('date')) {    
+            tmpDate = new Date(firstDate.data('date'));
+            tmpDate.setDate(tmpDate.getDate() - 1);
+        }
         var tmpOrderNumber = 1;
-
+        
         _.each(this.activityList.children('li'), function (activityLI) {
             var $li = $(activityLI);
             if ($li.is('.date')) {
@@ -299,18 +302,18 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 });
 
 
-TT.Views.Editor.PackingList = Backbone.View.extend({
-    id: 'editor-packing-list',
-    render: function () {
-        this.$el.text('b');
-        return this;
-    }
-});
+//TT.Views.Editor.PackingList = Backbone.View.extend({
+//    id: 'editor-packing-list',
+//    render: function () {
+//        this.$el.text('b');
+//        return this;
+//    }
+//});
 
-TT.Views.Editor.Settings = Backbone.View.extend({
-    id: 'editor-settings',
-    render: function () {
-        this.$el.text('c');
-        return this;
-    }
-});
+//TT.Views.Editor.Settings = Backbone.View.extend({
+//    id: 'editor-settings',
+//    render: function () {
+//        this.$el.text('c');
+//        return this;
+//    }
+//});
