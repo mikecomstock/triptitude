@@ -250,7 +250,6 @@ footer {
 
 ol.notes {
 	margin: 10px 0;
-	&:before { content: 'Notes:'; }
 	li {
 		padding: 3px 0;
 		.when { float: right; }
