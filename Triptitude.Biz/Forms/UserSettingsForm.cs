@@ -11,6 +11,7 @@ namespace Triptitude.Biz.Forms
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public bool EmailWhenTripsUpdated { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -27,17 +28,6 @@ namespace Triptitude.Biz.Forms
 
             if (string.IsNullOrWhiteSpace(LastName) || LastName.Length < 1)
                 yield return new ValidationResult("Last name is required.", new[] { "lastname" });
-        }
-
-        public static UserSettingsForm CreateFrom(User user)
-        {
-            UserSettingsForm form = new UserSettingsForm
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email
-            };
-            return form;
         }
     }
 }

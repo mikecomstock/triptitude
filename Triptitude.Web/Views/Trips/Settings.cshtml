@@ -12,12 +12,6 @@
                 @ViewBag.Title
             </h1>
         </header>
-        @if (!currentUser.CreatedTrips(trip))
-        {
-            <div class="subtitle warning">
-                Only <a href="@Url.Details(trip.Creator)">@trip.Creator.FullName</a> can change the name of this trip.
-            </div>
-        }
         @if (TempData["saved"] != null)
         {
             <div class="subtitle">
@@ -27,12 +21,15 @@
         <div class="panel-content">
             <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" >
             @Html.AntiForgeryToken()
-            <p>
-                @Html.ValidationMessage("name")
-                <label for="name">
-                    Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" @(currentUser.CreatedTrips(trip) ? "class=\"focus\"" : "disabled=\"disabled\"") />
-            </p>
+            @if (currentUser.CreatedTrips(trip))
+            {
+                <p>
+                    @Html.ValidationMessage("name")
+                    <label for="name">
+                        Name your trip</label>
+                    <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" @(currentUser.CreatedTrips(trip) ? "class=\"focus\"" : string.Empty) />
+                </p>
+            }
             <p>
                 <label for="visibility">
                     Visibility</label>

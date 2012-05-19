@@ -37,7 +37,7 @@ input.time-input { width: 75px !important; }
 
 /* Form Defaults */
 textarea, input, select { font-size: 14px; }
-input[type="submit"], input[type="button"], select { padding: 5px; }
+input[type="submit"], input[type="button"], select { padding: 3px; }
 input[type="submit"], input[type="button"] { border: none; color: #FFFFFF; background-color: #0190E9; cursor: pointer; }
 input[type="submit"][disabled="disabled"], input[type="button"][disabled="disabled"] { display: none; }
 
@@ -380,18 +380,13 @@ ul.tags > li + li { margin-left: 5px; }
 			a.user { float: left; font-size: 16px; }
 			a.delete { float: right; }
 			.expanded {
-				clear: both;
-				.invite { margin: 0; float: left; }
-				.sent { background-color: #E6EFC2; color: #529214; padding: 5px; float: left; margin-top: 5px; }
+				float: left; @include clearfix; clear: both; margin-top: 5px;
+				> * { display: none; float: left; }
+				.sent, .accepted { background-color: #E6EFC2; color: #529214; padding: 5px; }
 			}
-			.expanded.not-sent {
-				.invite { display: block; }
-				.sent { display: none; }
-			}
-			.expanded.sent {
-				.invite { display: none; }
-				.sent { display: block; }
-			}
+			.expanded.not-sent .invite { display: block; }
+			.expanded.sent .sent { display: block; }
+			.expanded.accepted .accepted { display: block; }
 		}
 	}
 }
@@ -474,8 +469,10 @@ ul.tags > li + li { margin-left: 5px; }
 		#confirm-form {
 			float: right; background-color: #F4F4F4; @include border-radius(10px); margin: 20px 50px;
 			header { background-color: #0190E9; color: #FFF; padding: 10px;@include border-radius(10px 10px 0 0); text-align: center; font-size: 18px; }
-			&.show-sign-in { #sign-in { display: block; } #sign-up { display: none; } }
-			&.show-sign-up { #sign-in { display: none; } #sign-up { display: block; } }
+			form { display: none; }
+			&.show-sign-in { #sign-in { display: block; } }
+			&.show-sign-up { #sign-up { display: block; } }
+			&.show-accept { #accept { display: block; } }
 			#accept {
 				text-align: center;
 				h4 { line-height: 40px; }

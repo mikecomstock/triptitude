@@ -29,6 +29,7 @@ namespace Triptitude.Biz.Models
         public string AnonymousId { get; set; }
         public Guid? Guid { get; set; }
         public DateTime? GuidCreatedOnUtc { get; set; }
+        public bool EmailWhenTripsUpdated { get; set; }
 
         public virtual Trip DefaultTrip { get; set; }
         public virtual ICollection<UserTrip> UserTrips { get; set; }
@@ -45,6 +46,8 @@ namespace Triptitude.Biz.Models
             trips = trips.OrderByDescending(t => t.Id);
             return trips;
         }
+
+        public bool IsRegistered { get { return !string.IsNullOrWhiteSpace(Email); } }
 
         public string FullName
         {
@@ -239,6 +242,7 @@ namespace Triptitude.Biz.Models
         public DateTime? Created_On { get; set; }
         public Guid? Guid { get; set; }
         public virtual ICollection<EmailInvite> EmailInvites { get; set; }
+        public bool InviteAccepted { get; set; }
 
         public enum UserTripVisibility : byte
         {

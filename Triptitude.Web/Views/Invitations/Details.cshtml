@@ -54,7 +54,7 @@
         </h1>
     </header>
     <div class="panel-content">
-        <div id="confirm-form" class="@(ViewBag.EmailTaken ? "show-sign-in" : "show-sign-up")">
+        <div id="confirm-form" class="@(currentUser.IsRegistered ? "show-accept" : (ViewBag.EmailTaken ? "show-sign-in" : "show-sign-up"))">
             <header>
                 <h3>
                     Accept the Invitation</h3>

@@ -74,6 +74,12 @@
                     }
                 });
             });
+
+            $('.travelers').on('click', '.sent a', function (e) {
+                e.preventDefault();
+                $(e.currentTarget).closest('.expanded').removeClass('sent').addClass('not-sent');
+            });
+
         });
     </script>
 }
@@ -154,7 +160,7 @@
                                 <a class="delete" data-id="@userTrip.Id">remove</a>
                                 if (userTrip.User != currentUser)
                                 {
-                                <div class="expanded @(userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
+                                <div class="expanded @(userTrip.InviteAccepted ? "accepted" : userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
                                     <form class="invite">
                                     Invite @userTrip.User.FirstName to help plan?
                                     <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
@@ -162,7 +168,10 @@
                                     <input type="submit" value="Invite" />
                                     </form>
                                     <div class="sent">
-                                        Invitation sent!
+                                        Invitation sent! <span><a>send again</a> </span>
+                                    </div>
+                                    <div class="accepted">
+                                        Invitation accepted
                                     </div>
                                 </div>
                                 }

@@ -96,7 +96,7 @@ textarea, input, select {
   font-size: 14px; }
 
 input[type="submit"], input[type="button"], select {
-  padding: 5px; }
+  padding: 3px; }
 
 input[type="submit"], input[type="button"] {
   border: none;
@@ -858,23 +858,33 @@ ul.tags > li + li { margin-left: 5px; }
   #trips-who .travelers li a.delete {
     float: right; }
   #trips-who .travelers li .expanded {
-    clear: both; }
-    #trips-who .travelers li .expanded .invite {
-      margin: 0;
+    float: left;
+    zoom: 1;
+    clear: both;
+    margin-top: 5px; }
+    #trips-who .travelers li .expanded:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #trips-who .travelers li .expanded:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
+    #trips-who .travelers li .expanded > * {
+      display: none;
       float: left; }
-    #trips-who .travelers li .expanded .sent {
+    #trips-who .travelers li .expanded .sent, #trips-who .travelers li .expanded .accepted {
       background-color: #E6EFC2;
       color: #529214;
-      padding: 5px;
-      float: left;
-      margin-top: 5px; }
+      padding: 5px; }
   #trips-who .travelers li .expanded.not-sent .invite {
     display: block; }
-  #trips-who .travelers li .expanded.not-sent .sent {
-    display: none; }
-  #trips-who .travelers li .expanded.sent .invite {
-    display: none; }
   #trips-who .travelers li .expanded.sent .sent {
+    display: block; }
+  #trips-who .travelers li .expanded.accepted .accepted {
     display: block; }
 
 /* Packing List */
@@ -1053,13 +1063,13 @@ ul.tags > li + li { margin-left: 5px; }
     border-radius: 10px 10px 0 0;
     text-align: center;
     font-size: 18px; }
+  #invitations-details .panel-content #confirm-form form {
+    display: none; }
   #invitations-details .panel-content #confirm-form.show-sign-in #sign-in {
     display: block; }
-  #invitations-details .panel-content #confirm-form.show-sign-in #sign-up {
-    display: none; }
-  #invitations-details .panel-content #confirm-form.show-sign-up #sign-in {
-    display: none; }
   #invitations-details .panel-content #confirm-form.show-sign-up #sign-up {
+    display: block; }
+  #invitations-details .panel-content #confirm-form.show-accept #accept {
     display: block; }
   #invitations-details .panel-content #confirm-form #accept {
     text-align: center; }

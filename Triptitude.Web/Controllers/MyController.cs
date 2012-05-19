@@ -34,7 +34,14 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult Settings()
         {
-            var form = UserSettingsForm.CreateFrom(CurrentUser);
+            UserSettingsForm form = new UserSettingsForm
+            {
+                FirstName = CurrentUser.FirstName,
+                LastName = CurrentUser.LastName,
+                Email = CurrentUser.Email,
+                EmailWhenTripsUpdated = CurrentUser.EmailWhenTripsUpdated
+            };
+
             ViewBag.Form = form;
             ViewBag.User = CurrentUser;
             return View();

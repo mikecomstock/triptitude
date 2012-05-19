@@ -46,6 +46,12 @@
                 </label>
                 <input type="password" name="password" id="password" value="@form.Password" tabindex="4" />
             </p>
+            <p>
+                <label for="EmailWhenTripsUpdated">
+                    Email me when my trips are updated
+                </label>
+                @Html.CheckBox("EmailWhenTripsUpdated", form.EmailWhenTripsUpdated)
+            </p>
             <input type="submit" value="Save Settings" tabindex="5" />
             </form>
         </div>

@@ -73,6 +73,7 @@ namespace Triptitude.Biz.Repos
             {
                 user.FirstName = form.FirstName.Trim();
                 user.LastName = form.LastName.Trim();
+                user.EmailWhenTripsUpdated = form.EmailWhenTripsUpdated;
                 // For new users only (don't allow changes, just to simplify code for now)
                 user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email.Trim() : user.Email;
 
