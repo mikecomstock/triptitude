@@ -9,24 +9,23 @@ namespace Triptitude.Web.Controllers
 {
     public class CronController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string pass)
         {
-            StringBuilder sb = new StringBuilder();
+            if (pass != "reijfdIJFDKjewidjsKDJ") return Redirect("/");
 
+            StringBuilder sb = new StringBuilder();
             var repo = new Repo<History>();
 
+            // Exclude trips that are currently actively being edited
+            var halfHourAgo = DateTime.UtcNow.AddMinutes(-3);
+            var volatileTrips = repo.FindAll().Where(h => h.CreatedOnUTC > halfHourAgo).Select(t => t.Trip);
+            
             var hourAgo = DateTime.UtcNow.AddHours(-1);
-            var halfHourAgo = DateTime.UtcNow.AddMinutes(-30);
+            var nonVolatileHistories = repo.FindAll().Where(h => h.CreatedOnUTC > hourAgo && !volatileTrips.Contains(h.Trip));
+            //nonVolatileHistories = nonVolatileHistories.Where(h => h.Action == (byte)HistoryAction.UpdateActivity);
 
-            // histories within the past hour
-            var histories = repo.FindAll().Where(h => h.CreatedOnUTC < hourAgo);
-            // trips that have changed within the past 30 minutes
-            var volatileTrips = histories.Where(h => h.CreatedOnUTC > halfHourAgo).Select(h => h.Trip);
-            // don't include the histories from the volatile trips
-            var nonVolatileHistories = histories.Where(h => !volatileTrips.Contains(h.Trip));
-
+            // 
             var eligibleTrips = nonVolatileHistories.Select(h => h.Trip).Distinct();
-
             foreach (var eligibleTrip in eligibleTrips)
             {
                 var userTrips = eligibleTrip.UserTrips;
