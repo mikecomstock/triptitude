@@ -67,6 +67,7 @@ namespace Triptitude.Web.Controllers
             {
                 userTrip.User = CurrentUser;
                 userTrip.InviteAccepted = true;
+                userTrip.UpToDateAsOfUTC = DateTime.UtcNow;
                 //TODO: delete the orphaned user or not???
                 userTrip.Trip.AddHistory(CurrentUser, HistoryAction.AcceptInvitation);
             }

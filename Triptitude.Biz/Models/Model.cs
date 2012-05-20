@@ -47,7 +47,7 @@ namespace Triptitude.Biz.Models
             return trips;
         }
 
-        public bool IsRegistered { get { return !string.IsNullOrWhiteSpace(Email); } }
+        public bool IsRegistered { get { return !string.IsNullOrWhiteSpace(HashedPassword); } }
 
         public string FullName
         {
@@ -140,13 +140,16 @@ namespace Triptitude.Biz.Models
 
         public HistoryAction HistoryAction { get { return (HistoryAction)Enum.Parse(typeof(HistoryAction), Action.ToString()); } }
 
-        public string ToString(User forUser)
+        public string ToString(User forUser, bool IncludeRelativeTime = true)
         {
             var usersRepo = new UsersRepo();
             var activitiesRepo = new ActivitiesRepo();
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
+
+            if (IncludeRelativeTime)
+                sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
+
             sb.AppendFormat("{0} ", User == forUser ? "You" : User.FullName);
 
             switch (HistoryAction)
@@ -243,6 +246,7 @@ namespace Triptitude.Biz.Models
         public Guid? Guid { get; set; }
         public virtual ICollection<EmailInvite> EmailInvites { get; set; }
         public bool InviteAccepted { get; set; }
+        public DateTime? UpToDateAsOfUTC { get; set; }
 
         public enum UserTripVisibility : byte
         {
@@ -306,6 +310,7 @@ namespace Triptitude.Biz.Models
         public virtual ICollection<UserTrip> UserTrips { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public DateTime Created_On { get; set; }
+        public DateTime ModifiedUTC { get; set; }
         public User Creator { get { return UserTrips.First(ut => ut.IsCreator).User; } }
         public DateTime? BeginDate { get; set; }
         public bool ShowInSearch { get; set; }
@@ -396,6 +401,7 @@ namespace Triptitude.Biz.Models
                                 TableId2 = tableId2,
                             };
             Histories.Add(h);
+            ModifiedUTC = DateTime.UtcNow;
         }
 
         public Note AddNote(User user, Activity activity, string text)

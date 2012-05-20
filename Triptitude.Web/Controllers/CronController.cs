@@ -4,55 +4,87 @@ using System.Text;
 using System.Web.Mvc;
 using Triptitude.Biz;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Services;
+using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Web.Controllers
 {
     public class CronController : Controller
     {
+        private static readonly byte[] AlertableActions = new[] {
+            (byte)HistoryAction.CreateActivity,
+            (byte)HistoryAction.UpdateActivity,
+            (byte)HistoryAction.DeletedActivity,
+            (byte)HistoryAction.AddUserToTrip,
+            (byte)HistoryAction.CreatedNote
+        };
+
         public ActionResult Index(string pass)
         {
             if (pass != "reijfdIJFDKjewidjsKDJ") return Redirect("/");
 
             StringBuilder sb = new StringBuilder();
-            var repo = new Repo<History>();
+            var repo = new Repo<UserTrip>();
 
-            // Exclude trips that are currently actively being edited
-            var halfHourAgo = DateTime.UtcNow.AddMinutes(-3);
-            var volatileTrips = repo.FindAll().Where(h => h.CreatedOnUTC > halfHourAgo).Select(t => t.Trip);
-            
-            var hourAgo = DateTime.UtcNow.AddHours(-1);
-            var nonVolatileHistories = repo.FindAll().Where(h => h.CreatedOnUTC > hourAgo && !volatileTrips.Contains(h.Trip));
-            //nonVolatileHistories = nonVolatileHistories.Where(h => h.Action == (byte)HistoryAction.UpdateActivity);
+            //var halfHourAgo = DateTime.UtcNow.AddMinutes(-3);
+            var halfHourAgo = DateTime.UtcNow.AddSeconds(-30);
+            var userTrips = repo.FindAll().Where(ut =>
+                ut.UpToDateAsOfUTC < ut.Trip.ModifiedUTC // changed since we last sent them an email
+                && ut.Trip.ModifiedUTC < halfHourAgo // exclude trips that are getting changed RIGHT NOW (or somewhat recently)
+                && ut.User.EmailWhenTripsUpdated // make sure they actually WANT to get an email
+                && !ut.Deleted // don't include deleted trips!
+            ).ToList();
 
-            // 
-            var eligibleTrips = nonVolatileHistories.Select(h => h.Trip).Distinct();
-            foreach (var eligibleTrip in eligibleTrips)
+            foreach (var userTrip in userTrips)
             {
-                var userTrips = eligibleTrip.UserTrips;
-                foreach (var userTrip in userTrips)
+                var validHistories = userTrip.Trip.Histories.Where(h =>
+                    h.CreatedOnUTC > userTrip.UpToDateAsOfUTC // only alert them on histories that have happend since we last updated them
+                    && h.User != userTrip.User // they already know what THEY have done, so don't alert them on those things
+                    && AlertableActions.Contains(h.Action) // only alert on certain actions
+                ).OrderBy(h => h.Id);
+
+                if (!validHistories.Any()) continue;
+
+                string subject;
+                var updaters = validHistories.Select(h => h.User).Distinct();
+                var firstUpdater = updaters.First();
+                var numUpdaters = updaters.Count();
+                if (numUpdaters == 1) { subject = string.Format("{0} has updated your trip", firstUpdater.FirstName); }
+                else if (numUpdaters == 2)
                 {
-                    if (string.IsNullOrWhiteSpace(userTrip.User.Email) || !userTrip.User.EmailWhenTripsUpdated)
-                        continue;
-
-                    // look for histories that weren't authored by this user
-                    var eligibleHistories = nonVolatileHistories.Where(h => h.Trip.Id == eligibleTrip.Id && h.User.Id != userTrip.User.Id).ToList();
-
-                    // if someone other than this user has changed the trip, then alert this user
-                    if (eligibleHistories.Any())
-                    {
-                        sb.AppendFormat("<p>send email to {0} (id: {1}, email: {2}) for trip {3} (id: {4})",
-                                        userTrip.User.FullName, userTrip.User.Id, userTrip.User.Email,
-                                        userTrip.Trip.Name, userTrip.Trip.Id);
-
-                        // send email
-                        var tripChangedBy = eligibleHistories.Select(h => h.User).Distinct();
-                        var users = String.Join(",", tripChangedBy.Select(u => u.FullName).ToArray());
-                        sb.AppendFormat("<br/>trip was changed by: {0}</p>", users);
-                    }
-
+                    var updaterNames = String.Join(" and ", updaters.Select(u => u.FirstName));
+                    subject = string.Format("{0} have updated your trip", updaterNames);
                 }
+                else { subject = string.Format("{0} and {1} others have updated your trip", firstUpdater.FirstName, numUpdaters - 1); }
+
+                StringBuilder body = new StringBuilder();
+                body.AppendFormat("<h2><a href=\"{1}\">{0}</a></h2>", userTrip.Trip.Name, Url.Details(userTrip.Trip, true));
+
+                body.Append("<ul>");
+                var historyDescriptions = validHistories.Select(h => h.ToString(userTrip.User, false));
+                historyDescriptions.ToList().ForEach(hd => body.AppendFormat("<li>{0}</li>", hd));
+                body.Append("</ul>");
+
+                body.AppendFormat("<a href=\"{0}\">View Full Trip</a>", Url.Details(userTrip.Trip, true));
+
+#if DEBUG
+                sb.AppendFormat("<div> <p>To: {0}</p> <p>Subject: {1}</p> <p>Body: {2}</p> </div>", userTrip.User.Email, subject, body);
+#endif
+
+                // actually send the email!
+                userTrip.UpToDateAsOfUTC = DateTime.UtcNow;
+                repo.Save();
+                var sent = EmailService.SendTripUpdate(userTrip.User, subject, body.ToString());
+
+                if (!sent)
+                {
+                    var b = string.Format("To User: {0} Email: {1}, Body: {2}", userTrip.User.Id, userTrip.User.Email, body);
+                    EmailService.SendAdmin("Error sending email update!", b);
+                }
+
             }
 
+            sb.Append("<p>Success</p>");
             return Content(sb.ToString());
         }
     }

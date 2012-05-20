@@ -53,7 +53,8 @@ namespace Triptitude.Biz.Repos
                              LastName = form.LastName.Trim(),
                              HashedPassword = BCryptHelper.HashPassword(form.Password, salt),
                              Guid = Guid.NewGuid(),
-                             GuidCreatedOnUtc = DateTime.UtcNow
+                             GuidCreatedOnUtc = DateTime.UtcNow,
+                             EmailWhenTripsUpdated = true
                          };
             return u;
         }

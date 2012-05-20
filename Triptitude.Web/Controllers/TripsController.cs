@@ -204,7 +204,8 @@ namespace Triptitude.Web.Controllers
                 Trip trip = new Trip
                 {
                     Name = form.Name,
-                    Created_On = DateTime.UtcNow
+                    Created_On = DateTime.UtcNow,
+                    ModifiedUTC = DateTime.UtcNow,
                 };
 
                 repo.Add(trip);
@@ -214,6 +215,7 @@ namespace Triptitude.Web.Controllers
                     Trip = trip,
                     IsCreator = true,
                     Created_On = DateTime.UtcNow,
+                    UpToDateAsOfUTC = DateTime.UtcNow,
                     User = CurrentUser,
                     Visibility = (byte)form.Visibility
                 };

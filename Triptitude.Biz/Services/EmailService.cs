@@ -9,6 +9,21 @@ namespace Triptitude.Biz.Services
 {
     public class EmailService
     {
+        public static bool SendTripUpdate(User user, string subject, string htmlBody)
+        {
+            PostmarkMessage message = new PostmarkMessage
+                                          {
+                                              From = "admin@triptitude.com",
+                                              Subject = subject,
+                                              HtmlBody = htmlBody,
+                                              To = user.Email,
+                                              Tag = "trip-update"
+                                          };
+
+            var response = Send(message);
+            return response.Status == PostmarkStatus.Success;
+        }
+
         public static void SentEmailInvite(EmailInvite emailInvite, UrlHelper url)
         {
             PostmarkMessage message = new PostmarkMessage
@@ -91,7 +106,20 @@ namespace Triptitude.Biz.Services
             Send(message);
         }
 
-        private static void Send(PostmarkMessage message)
+        public static void SendAdmin(string subject, string body)
+        {
+            var message = new PostmarkMessage
+                              {
+                                  From = "admin@triptitude.com",
+                                  To = "admin@triptitude.com",
+                                  Subject = subject,
+                                  HtmlBody = body,
+                                  Tag = "error"
+                              };
+            Send(message);
+        }
+
+        private static PostmarkResponse Send(PostmarkMessage message)
         {
             if (!Util.ServerIsProduction)
             {
@@ -105,10 +133,12 @@ namespace Triptitude.Biz.Services
 
             PostmarkClient client = new PostmarkClient(ConfigurationManager.AppSettings["PostmarkAPIKey"]);
             PostmarkResponse response = client.SendMessage(message);
-            Debug.WriteLine(response.Message);
 
-            //TODO: write entire message to database table if failure
+            Debug.WriteLine(response.Message);
+            //TODO: write entire message to database table if failure?
             //if (response.Status != PostmarkStatus.Success) { Console.WriteLine("Response was: " + response.Message); }
+
+            return response;
         }
     }
 }

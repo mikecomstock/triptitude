@@ -10,9 +10,11 @@ namespace Triptitude.Biz.Extensions
     {
         private readonly static string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-        public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name, string area = null)
+        public static string SlugAction(this UrlHelper url, string action, string controller, object id, string name, string area = null, bool absolute = false)
         {
-            return url.Action(action, controller, new { idslug = id + "-" + name.ToSlug(), area });
+            return absolute
+                ? url.Action(action, controller, new { idslug = id + "-" + name.ToSlug(), area }, "http")
+                : url.Action(action, controller, new { idslug = id + "-" + name.ToSlug(), area });
         }
 
         #region General
@@ -93,9 +95,9 @@ namespace Triptitude.Biz.Extensions
 
         #region Trips
 
-        public static string Details(this UrlHelper url, Trip trip)
+        public static string Details(this UrlHelper url, Trip trip, bool absolute = false)
         {
-            return url.SlugAction("details", "trips", trip.Id, trip.Name);
+            return url.SlugAction("details", "trips", trip.Id, trip.Name, absolute: absolute);
         }
 
         public static string Who(this UrlHelper url, Trip trip)

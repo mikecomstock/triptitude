@@ -42,6 +42,7 @@ namespace Triptitude.Web.Controllers
                     IsCreator = false,
                     Visibility = (byte)UserTrip.UserTripVisibility.Private,
                     Created_On = DateTime.UtcNow,
+                    UpToDateAsOfUTC = DateTime.UtcNow,
                     Guid = Guid.NewGuid()
                 };
                 trip.UserTrips.Add(newUserTrip);
