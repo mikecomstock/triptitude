@@ -205,12 +205,15 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
                 self.trigger('activitysaved');
                 self.render();
                 self.model.unset('Note', { silent: true });
-                var msg = $(self.make('div', { 'class': 'msg success' }, "Activity Saved!")).appendTo(self.el);
-                setTimeout(function () { msg.fadeOut(1000); }, 3000);
+                var msg = $(self.make('div', { 'class': 'msg success' }, 'Activity Saved!')).appendTo(self.el);
+                var another = $('<a class="add-activity another">add another activity</a>').appendTo(self.el);
+                another.data('date', self.model.get('BeginAt'));
+                setTimeout(function () { another.effect('highlight', { color: '#86D0FE' }, 3000); }, 1000);
+                setTimeout(function () { msg.fadeOut(1000); another.fadeOut(1000); }, 15000);
             },
             error: function () {
                 var msg = $(self.make('div', { 'class': 'msg error' }, "Woah, there was a problem! Please try again.")).appendTo(self.el);
-                setTimeout(function () { msg.fadeOut(1000); }, 3000);
+                setTimeout(function () { msg.fadeOut(1000); }, 10000);
             }
         });
     },

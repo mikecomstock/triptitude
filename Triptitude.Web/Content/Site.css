@@ -511,6 +511,14 @@ header .share-bar-container {
     		font-size: 16px; margin: 10px 0;
     		a { font-weight: bold; }
     	}
+    }*/
+    /*#trips {
+    	margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);
+    	header {
+    		padding: 5px; @include clearfix; background-color: #E9BA26;
+    		h2 { margin: 0; float:left; }
+    		a { float:right; }
+    	}
     }*/ }
     #landing-page-panel-container #landing-page-panel:before {
       display: table;
@@ -528,9 +536,6 @@ header .share-bar-container {
       margin: 0 0 30px 0;
       color: #0190E9;
       text-align: center; }
-    #landing-page-panel-container #landing-page-panel h3 {
-      font-size: 24px !important;
-      color: #333; }
     #landing-page-panel-container #landing-page-panel > p {
       color: #333;
       font-size: 17px;
@@ -546,37 +551,18 @@ header .share-bar-container {
       -moz-box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8);
       box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.8); }
       #landing-page-panel-container #landing-page-panel #create-trip-form h3 {
-        font-size: 18px;
-        margin: 20px 20px 10px 20px; }
+        margin: 20px 20px 10px 20px;
+        text-align: center;
+        font-size: 30px;
+        color: #666; }
       #landing-page-panel-container #landing-page-panel #create-trip-form p {
         margin: 10px 20px; }
       #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
         width: 300px; }
-    #landing-page-panel-container #landing-page-panel #trips {
-      margin: 50px auto;
-      width: 800px;
-      background: #f3ecb7;
-      background: rgba(243, 236, 183, 0.3); }
-      #landing-page-panel-container #landing-page-panel #trips header {
-        padding: 5px;
-        zoom: 1;
-        background-color: #E9BA26; }
-        #landing-page-panel-container #landing-page-panel #trips header:before {
-          display: table;
-          content: "";
-          zoom: 1;
-          *display: inline; }
-        #landing-page-panel-container #landing-page-panel #trips header:after {
-          display: table;
-          content: "";
-          zoom: 1;
-          *display: inline;
-          clear: both; }
-        #landing-page-panel-container #landing-page-panel #trips header h2 {
-          margin: 0;
-          float: left; }
-        #landing-page-panel-container #landing-page-panel #trips header a {
-          float: right; }
+      #landing-page-panel-container #landing-page-panel #create-trip-form input {
+        font-size: 30px; }
+      #landing-page-panel-container #landing-page-panel #create-trip-form select {
+        font-size: 16px; }
 
 /* Footer */
 footer {

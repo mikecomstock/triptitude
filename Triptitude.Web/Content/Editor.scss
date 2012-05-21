@@ -69,7 +69,8 @@
 			}
 		}
 	}
-	.buttons { clear: both; margin-top: 20px; }
-	.msg.success { background-color: #E6EFC2; border: 1px solid #C6D880; color: #529214; padding: 15px; font-size: 16px; float: left; margin: 10px 0; }
-	.msg.error { background: #FBE3E4; border: 1px solid #FBC2C4; color: #D12F19; padding: 15px; font-size: 16px; float: left; margin: 10px 0; }
+	.buttons { clear: both; margin: 15px 0; }
+	.msg.success { background-color: #E6EFC2; border: 1px solid #C6D880; color: #529214; padding: 10px; font-size: 16px; float: left; }
+	.msg.error { background: #FBE3E4; border: 1px solid #FBC2C4; color: #D12F19; padding: 10px; font-size: 16px; float: left; }
+	.another { float: left; padding: 5px; font-size: 14px; margin-top: 7px; margin-left: 10px; }
 }
