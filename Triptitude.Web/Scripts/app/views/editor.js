@@ -74,6 +74,7 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
         this.editing = newActivity;
         this.renderActivityList();
         this.renderForm();
+        setTimeout(this.scrollToActive, 50);
     },
     render: function () {
         this.AddToTripButton.prependTo(this.el);
