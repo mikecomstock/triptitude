@@ -213,10 +213,10 @@ header .share-bar-container {
 		#create-trip-form {
 			float: right; @include transparent-background(#52BCFE, 0.5); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8));
 			h3 { margin: 20px 20px 10px 20px; text-align: center; font-size: 30px; color: #666; }
-			p { margin:10px 20px; }
+			p { margin:10px 20px; text-align: center; }
 			input[type="text"] { width: 300px; }
-			input { font-size: 30px; }
-			select { font-size: 16px; }
+			input, select { font-size: 30px; @include border-radius(5px); padding: 5px; }
+			select { font-size: 16px; border-style: inset; }
 		}
 		/*#trips {
 			margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);

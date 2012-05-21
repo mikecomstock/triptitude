@@ -556,13 +556,19 @@ header .share-bar-container {
         font-size: 30px;
         color: #666; }
       #landing-page-panel-container #landing-page-panel #create-trip-form p {
-        margin: 10px 20px; }
+        margin: 10px 20px;
+        text-align: center; }
       #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
         width: 300px; }
-      #landing-page-panel-container #landing-page-panel #create-trip-form input {
-        font-size: 30px; }
+      #landing-page-panel-container #landing-page-panel #create-trip-form input, #landing-page-panel-container #landing-page-panel #create-trip-form select {
+        font-size: 30px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        padding: 5px; }
       #landing-page-panel-container #landing-page-panel #create-trip-form select {
-        font-size: 16px; }
+        font-size: 16px;
+        border-style: inset; }
 
 /* Footer */
 footer {
