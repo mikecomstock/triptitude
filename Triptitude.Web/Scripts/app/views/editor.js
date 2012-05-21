@@ -126,12 +126,12 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
     sortUpdate: function (e, ui) {
         var firstDate = this.activityList.children('.date').first();
         var tmpDate = null;
-        if(firstDate.data('date')) {    
+        if (firstDate.data('date')) {
             tmpDate = new Date(firstDate.data('date'));
             tmpDate.setDate(tmpDate.getDate() - 1);
         }
         var tmpOrderNumber = 1;
-        
+
         _.each(this.activityList.children('li'), function (activityLI) {
             var $li = $(activityLI);
             if ($li.is('.date')) {
@@ -158,11 +158,18 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     tagName: 'form',
     initialize: function () {
         this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', tabindex: 1, placeholder: 'enter a title for your activity' }));
-        this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
+        //this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
         this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', tabindex: 3, placeholder: 'http://' }));
         this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: 4, placeholder: 'add notes and details...' }));
         this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save', tabindex: 5 }, 'Save'));
         this.DeleteButton = $(this.make('button', { type: 'button', 'class': 'delete', tabindex: 6 }, 'Delete'));
+
+        if (this.model) {
+            this.model.on('change:BeginAt', function () {
+                var bdi = this.$el.find('[name="BeginDate"]');
+                bdi.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
+            }, this);
+        }
 
         _.bindAll(this);
     },
@@ -179,7 +186,8 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         var self = this;
 
         var oldBeginAt = this.model.get('BeginAt');
-        var newBeginAt = TT.Util.FromDatePicker(this.BeginDateInput.datepicker('getDate'));
+        var bdi = this.$el.find('[name="BeginDate"]');
+        var newBeginAt = TT.Util.FromDatePicker(bdi.datepicker('getDate'));
 
         this.model.set({
             Title: this.TitleInput.val(),
@@ -194,10 +202,11 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         this.model.save(null, {
             success: function () {
-                var msg = $(self.make('div', { 'class': 'msg success' }, "Activity Saved!")).appendTo(self.el);
-                setTimeout(function () { msg.fadeOut(1000); }, 3000);
                 self.trigger('activitysaved');
                 self.render();
+                self.model.unset('Note', { silent: true });
+                var msg = $(self.make('div', { 'class': 'msg success' }, "Activity Saved!")).appendTo(self.el);
+                setTimeout(function () { msg.fadeOut(1000); }, 3000);
             },
             error: function () {
                 var msg = $(self.make('div', { 'class': 'msg error' }, "Woah, there was a problem! Please try again.")).appendTo(self.el);
@@ -217,7 +226,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         }
 
         this.$el.html('');
-        
+
         var p = {};
         var newP = function (cssClass) { return $('<div>').appendTo(self.el).addClass(cssClass); };
 
@@ -226,16 +235,11 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         var decodedTitle = $('<div>').html(this.model.get('Title')).text();
         this.TitleInput.val(decodedTitle).appendTo(p.Title);
 
+        var bdi = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
         p.When = newP('when');
-        $(this.make('label', { 'for': this.BeginDateInput.attr('id') }, 'When?')).appendTo(p.When);
+        $(this.make('label', { 'for': bdi.attr('id') }, 'When?')).appendTo(p.When);
         var beginDate = this.model.get('BeginAt');
-        this.BeginDateInput.appendTo(p.When).datepicker().datepicker('setDate', TT.Util.ToDatePicker(beginDate));
-
-//        if (this.model) {
-//            this.model.on('change:BeginAt', function () {
-//                this.BeginDateInput.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
-//            }, this);
-//        }
+        bdi.appendTo(p.When).datepicker().datepicker('setDate', TT.Util.ToDatePicker(beginDate));
 
         if (this.model.get('SourceURL')) {
             p.SourceURL = newP('source-url');

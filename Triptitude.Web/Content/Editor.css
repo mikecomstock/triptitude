@@ -128,7 +128,7 @@
   border-right: 1px solid #CCC; }
   #editor-itinerary .activity-list .activity {
     background-color: #EEE;
-    padding: 15px;
+    padding: 10px 15px;
     position: relative; }
     #editor-itinerary .activity-list .activity h4 {
       margin: 0;

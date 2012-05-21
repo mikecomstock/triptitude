@@ -503,6 +503,7 @@ header .share-bar-container {
   #landing-page-panel-container #landing-page-panel {
     margin: 0 20px;
     padding: 20px 0;
+    zoom: 1;
     /*> ul {
     	list-style: disc;
     	margin: 0; padding-left: 40px;
@@ -511,6 +512,17 @@ header .share-bar-container {
     		a { font-weight: bold; }
     	}
     }*/ }
+    #landing-page-panel-container #landing-page-panel:before {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline; }
+    #landing-page-panel-container #landing-page-panel:after {
+      display: table;
+      content: "";
+      zoom: 1;
+      *display: inline;
+      clear: both; }
     #landing-page-panel-container #landing-page-panel h1 {
       font-size: 40px;
       margin: 0 0 30px 0;
@@ -523,7 +535,8 @@ header .share-bar-container {
       color: #333;
       font-size: 17px;
       line-height: 1.5;
-      font-weight: bold; }
+      font-weight: bold;
+      margin-top: 60px; }
     #landing-page-panel-container #landing-page-panel #create-trip-form {
       float: right;
       background: #52bcfe;

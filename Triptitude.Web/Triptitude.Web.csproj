@@ -193,6 +193,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Static\Backgrounds\background-fade.png" />
+    <Content Include="Static\Backgrounds\beach.jpg" />
     <Content Include="Static\Backgrounds\dreamstimefree_524710.jpg" />
     <Content Include="Static\Backgrounds\sources.txt" />
     <Content Include="Global.asax" />
