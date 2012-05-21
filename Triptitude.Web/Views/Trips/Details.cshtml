@@ -108,10 +108,13 @@
                     {
                     <li class="date">Unscheduled Activities</li>
                     }
+                    else if (currentUser.OwnsTrips(trip))
+                    {
+                    <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")</li>   
+                    }
                     else
                     {
-                    <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")
-                    </li>   
+                    <li class="date">Day @dayNumber </li>
                     }
 
                     foreach (var activity in activities)
