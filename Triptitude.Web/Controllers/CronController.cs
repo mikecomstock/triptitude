@@ -26,8 +26,8 @@ namespace Triptitude.Web.Controllers
             StringBuilder sb = new StringBuilder();
             var repo = new Repo<UserTrip>();
 
-            //var halfHourAgo = DateTime.UtcNow.AddMinutes(-3);
-            var halfHourAgo = DateTime.UtcNow.AddSeconds(-30);
+            var halfHourAgo = DateTime.UtcNow.AddMinutes(-30);
+            //var halfHourAgo = DateTime.UtcNow.AddSeconds(-30);
             var userTrips = repo.FindAll().Where(ut =>
                 ut.UpToDateAsOfUTC < ut.Trip.ModifiedUTC // changed since we last sent them an email
                 && ut.Trip.ModifiedUTC < halfHourAgo // exclude trips that are getting changed RIGHT NOW (or somewhat recently)
