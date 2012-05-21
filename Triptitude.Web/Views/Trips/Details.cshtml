@@ -73,7 +73,7 @@
                 </h2>
             </header>
             <ol class="histories">
-                @foreach (var history in trip.Histories.OrderByDescending(h => h.Id).Take(10))
+                @foreach (var history in trip.Histories.OrderByDescending(h => h.Id).Take(6))
                 {
                     <li>
                         @history.ToString(currentUser)
