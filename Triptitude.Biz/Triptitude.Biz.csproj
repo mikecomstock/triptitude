@@ -38,23 +38,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Hammock">
-      <HintPath>..\packages\Hammock.1.2.4\lib\net40\Hammock.dll</HintPath>
+    <Reference Include="Hammock, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c148cfba29ed1a4d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hammock.1.3.0\lib\net40\Hammock.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Postmark.1.0.9\lib\40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Lucene.Net">
-      <HintPath>..\packages\Lucene.2.9.2.2\lib\Lucene.Net.dll</HintPath>
+    <Reference Include="Postmark, Version=1.0.8.0, Culture=neutral, PublicKeyToken=d5072b33464229de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Postmark.1.0.9\lib\40\Postmark.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Postmark.1.0.6\lib\40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Postmark">
-      <HintPath>..\packages\Postmark.1.0.6\lib\40\Postmark.dll</HintPath>
-    </Reference>
-    <Reference Include="Specifications">
-      <HintPath>..\packages\Postmark.1.0.6\lib\40\Specifications.dll</HintPath>
+    <Reference Include="Specifications, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d764143a80b7cabb, processorArchitecture=MSIL">
+      <HintPath>..\packages\Postmark.1.0.9\lib\40\Specifications.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
