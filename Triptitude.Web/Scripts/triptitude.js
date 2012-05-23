@@ -101,7 +101,7 @@ $(function () {
             e.preventDefault();
         }
     });
-    
+
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
         var tripID = $(e.currentTarget).data('trip-id');
@@ -147,7 +147,8 @@ $(function () {
         var close = function () {
             overlay.remove();
             editorContent.remove();
-            location.reload();
+            if ($('#trips-itinerary').length > 0)
+                location.reload();
         };
 
         var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);

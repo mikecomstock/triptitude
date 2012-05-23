@@ -114,9 +114,7 @@
     height: 36px;
     line-height: 36px;
     border-right: 1px solid #CCC;
-    text-align: center;
-    background-color: #999;
-    cursor: pointer; }
+    text-align: center; }
 
 #editor-itinerary .activity-list {
   float: left;
@@ -144,14 +142,7 @@
     padding: 3px 15px;
     cursor: move; }
     #editor-itinerary .activity-list .date .add-activity {
-      cursor: pointer;
-      float: right;
-      text-align: center;
-      background-color: #999;
-      border-radius: 99px;
-      width: 16px;
-      height: 16px;
-      line-height: 16px; }
+      float: right; }
   #editor-itinerary .activity-list .sort-placeholder {
     height: 50px;
     background-color: #66C3FE; }

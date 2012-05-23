@@ -1,0 +1,114 @@
+﻿@{
+    Trip trip = ViewBag.Trip;
+    ViewBag.Title = trip.Name + " - Itinerary";
+    ViewBag.ShowInSiteMap = @trip.ShowInSearch;
+    User currentUser = ViewBag.CurrentUser;
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+
+            (function () {
+                var addThis = document.createElement('script'); addThis.type = 'text/javascript'; addThis.async = true;
+                addThis.src = 'http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4fa73d1420e93ac7';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(addThis, s);
+            })();
+
+        });
+    </script>
+}
+@if (currentUser.OwnsTrips(trip))
+{
+    @Html.Action("SidePanel", "Trips", new { trip })
+}
+<article>
+    <header>
+        @if (currentUser.OwnsTrips(trip))
+        {
+            <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
+        }
+        <h1>@ViewBag.Title</h1>
+    </header>
+    <section id="itinerary">
+        @if (trip.NonDeletedActivities.Any())
+        {
+            <ul class="activities">
+                @{ int dayNumber = 0; }
+                @foreach (DateTime? date in trip.Dates)
+                {
+                    dayNumber++;
+                    var activities = trip.ActivitiesOnDate(date).OrderBy(a => a.OrderNumber);
+
+                    if (!activities.Any())
+                    {
+                        continue;
+                    }
+
+                    if (!date.HasValue)
+                    {
+                    <li class="date">Unscheduled Activities</li>
+                    }
+                    else if (currentUser.OwnsTrips(trip))
+                    {
+                    <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")</li>   
+                    }
+                    else
+                    {
+                    <li class="date">Day @dayNumber </li>
+                    }
+
+                    foreach (var activity in activities)
+                    {
+                    <li class="activity" data-activity-id="@activity.Id">
+                        @{
+                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap => ap.SortIndex);
+                        }
+                        @if (mappablePlaces.Any())
+                        {
+                            <ul class="maps">
+                                @foreach (var place in mappablePlaces)
+                                {
+                                    <li>
+                                        <img src="@place.Place.StaticMapURL()" alt="map of @place.Place.Name"/>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <div class="title">
+                            @activity.Title
+                        </div>
+                        @if (activity.BeginAt.HasValue && activity.BeginAt.Value.HasTimePart())
+                        {
+                            <div>@activity.BeginAt.Value.ToShortTimeString()</div>
+                        }
+                        @if (activity.Notes.Any() && currentUser.OwnsTrips(trip))
+                        {
+                            <ol class="notes">
+                                @foreach (var note in activity.Notes.OrderByDescending(n => n.Id))
+                                {
+                                    <li>
+                                        <div class="when">
+                                            @note.Created_On.ToRelative()
+                                        </div>
+                                        <a href="@Url.Details(note.User)">@note.User.FullName</a>: @note.Text
+                                    </li>
+                                }
+                            </ol>
+                        }
+                    </li>
+                    }
+                }
+            </ul>
+        }
+        else
+        {
+            <p>
+                No activities found.
+                @if (currentUser.OwnsTrips(trip))
+        {
+            <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
+        }
+            </p>
+        }
+    </section>
+</article>

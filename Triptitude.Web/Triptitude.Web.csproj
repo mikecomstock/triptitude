@@ -239,6 +239,7 @@
     <Content Include="Views\Home\Attribution.cshtml" />
     <Content Include="Views\Users\_New.cshtml" />
     <Content Include="Views\Users\New.cshtml" />
+    <Content Include="Views\Trips\Itinerary.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

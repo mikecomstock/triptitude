@@ -92,6 +92,30 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
+        public ActionResult Itinerary(int id)
+        {
+            var trip = repo.Find(id);
+            if (trip == null) return HttpNotFound();
+            if (trip.UserTrips.All(ut => ut.Deleted))
+            {
+                Response.StatusCode = 410; // Gone
+                return Content("Sorry, this trip has been deleted.");
+            }
+
+            if (trip.UserTrips.All(ut => ut.Visibility == (byte)UserTrip.UserTripVisibility.Private) && !CurrentUser.OwnsTrips(trip) && !CurrentUser.IsAdmin)
+            {
+                //TODO: make nice 'permission denied' page
+                Response.StatusCode = 403;
+                return Content("Sorry, this trip is private. If this is your trip, please log in and try again.");
+            }
+
+            if (Request.IsAjaxRequest())
+                return Json(trip.Json(CurrentUser, Url), JsonRequestBehavior.AllowGet);
+
+            ViewBag.Trip = trip;
+            return View();
+        }
+
         //public JsonResult Find(int activity_id)
         //{
         //    var activity = new ActivitiesRepo().Find(activity_id);

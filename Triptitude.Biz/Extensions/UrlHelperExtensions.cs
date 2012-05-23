@@ -100,6 +100,11 @@ namespace Triptitude.Biz.Extensions
             return url.SlugAction("details", "trips", trip.Id, trip.Name, absolute: absolute);
         }
 
+        public static string Itinerary(this UrlHelper url, Trip trip, bool absolute = false)
+        {
+            return url.SlugAction("itinerary", "trips", trip.Id, trip.Name, absolute: absolute);
+        }
+
         public static string Who(this UrlHelper url, Trip trip)
         {
             return url.SlugAction("who", "trips", trip.Id, trip.Name);

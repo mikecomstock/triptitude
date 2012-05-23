@@ -7,7 +7,7 @@ namespace Triptitude.Biz
     {
         public static bool ServerIsProduction
         {
-            get { return HttpContext.Current != null && HttpContext.Current.Request.Url.Host.Contains("triptitude.com"); }
+            get { return HttpContext.Current != null && (HttpContext.Current.Request.Url.Host.Contains("triptitude.com") || HttpContext.Current.Request.Url.Host.Contains("discountasp.net")); }
         }
 
         public static string DateTimeRangeString(int? beginDay, TimeSpan? beginTime, int? endDay, TimeSpan? endTime)

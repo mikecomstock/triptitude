@@ -721,10 +721,6 @@ ul.tags > li + li { margin-left: 5px; }
 /* Trips */
 #trips-details .panel-content {
   background-color: #EEE; }
-#trips-details #trip-map-container {
-  width: 100%;
-  height: 250px;
-  margin-bottom: 10px; }
 #trips-details #who .travelers {
   zoom: 1; }
   #trips-details #who .travelers:before {
@@ -747,22 +743,43 @@ ul.tags > li + li { margin-left: 5px; }
       display: block; }
     #trips-details #who .travelers > li:hover {
       background-color: #EEE; }
-#trips-details #itinerary .activities {
+
+#trips-itinerary article > header a {
+  float: right;
+  color: #FFF;
+  font-size: 18px;
+  padding: 5px;
+  margin-right: 20px;
+  -webkit-border-radius: 0 0 7px 7px;
+  -moz-border-radius: 0 0 7px 7px;
+  border-radius: 0 0 7px 7px;
+  background-color: #b70116;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fe3950), to(#b70116));
+  background-image: -moz-linear-gradient(top, #fe3950, #b70116);
+  background-image: -ms-linear-gradient(top, #fe3950, #b70116);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fe3950), color-stop(100%, #b70116));
+  background-image: -webkit-linear-gradient(top, #fe3950, #b70116);
+  background-image: -o-linear-gradient(top, #fe3950, #b70116);
+  background-image: linear-gradient(top, #fe3950, #b70116);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+#trips-itinerary #itinerary .activities {
   padding: 10px 0;
   zoom: 1;
   background: url("/static/images/activitybackgroundline.png") repeat-y 20px; }
-  #trips-details #itinerary .activities:before {
+  #trips-itinerary #itinerary .activities:before {
     display: table;
     content: "";
     zoom: 1;
     *display: inline; }
-  #trips-details #itinerary .activities:after {
+  #trips-itinerary #itinerary .activities:after {
     display: table;
     content: "";
     zoom: 1;
     *display: inline;
     clear: both; }
-  #trips-details #itinerary .activities > .date {
+  #trips-itinerary #itinerary .activities > .date {
     padding: 2px 5px;
     background-color: #999;
     color: #FFF;
@@ -775,52 +792,52 @@ ul.tags > li + li { margin-left: 5px; }
     margin: 3px 0;
     z-index: 2;
     position: relative; }
-  #trips-details #itinerary .activities > .activity {
+  #trips-itinerary #itinerary .activities > .activity {
     zoom: 1;
     padding: 8px;
     padding-left: 40px;
     clear: both;
     position: relative;
     overflow: hidden; }
-    #trips-details #itinerary .activities > .activity:before {
+    #trips-itinerary #itinerary .activities > .activity:before {
       display: table;
       content: "";
       zoom: 1;
       *display: inline; }
-    #trips-details #itinerary .activities > .activity:after {
+    #trips-itinerary #itinerary .activities > .activity:after {
       display: table;
       content: "";
       zoom: 1;
       *display: inline;
       clear: both; }
-    #trips-details #itinerary .activities > .activity .title {
+    #trips-itinerary #itinerary .activities > .activity .title {
       font-weight: bold; }
-    #trips-details #itinerary .activities > .activity:hover {
+    #trips-itinerary #itinerary .activities > .activity:hover {
       background-color: #F3F3F3;
       cursor: pointer;
       overflow: visible;
       z-index: 10; }
-      #trips-details #itinerary .activities > .activity:hover > .maps {
+      #trips-itinerary #itinerary .activities > .activity:hover > .maps {
         background-color: #F3F3F3; }
-    #trips-details #itinerary .activities > .activity + .activity {
+    #trips-itinerary #itinerary .activities > .activity + .activity {
       border-top: 1px solid #CCC; }
-    #trips-details #itinerary .activities > .activity > .maps {
+    #trips-itinerary #itinerary .activities > .activity > .maps {
       float: right;
       zoom: 1;
       position: absolute;
       right: 5px; }
-      #trips-details #itinerary .activities > .activity > .maps:before {
+      #trips-itinerary #itinerary .activities > .activity > .maps:before {
         display: table;
         content: "";
         zoom: 1;
         *display: inline; }
-      #trips-details #itinerary .activities > .activity > .maps:after {
+      #trips-itinerary #itinerary .activities > .activity > .maps:after {
         display: table;
         content: "";
         zoom: 1;
         *display: inline;
         clear: both; }
-      #trips-details #itinerary .activities > .activity > .maps li {
+      #trips-itinerary #itinerary .activities > .activity > .maps li {
         float: left;
         margin-left: 10px; }
 

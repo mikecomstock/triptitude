@@ -19,7 +19,7 @@
 
 #editor-itinerary {
 	@include clearfix; overflow: hidden;
-	> .add-activity { float: left; width: 250px; height: 36px; line-height: 36px; border-right: 1px solid #CCC; text-align: center; background-color: #999; cursor: pointer; }
+	> .add-activity { float: left; width: 250px; height: 36px; line-height: 36px; border-right: 1px solid #CCC; text-align: center;  }
 }
 #editor-itinerary .activity-list {
 	float: left; clear: left; width: 250px; height: 500px; overflow-y: auto; overflow-x: hidden; border-right: 1px solid #CCC;
@@ -31,7 +31,7 @@
 	}
 	.date {
 		background-color: #F3ECB7; padding: 3px 15px; cursor: move;
-		.add-activity { cursor: pointer; float: right; text-align: center; background-color: #999; border-radius: 99px; width: 16px; height: 16px; line-height: 16px; }
+		.add-activity { float: right; }
 	}
 	.sort-placeholder {
 		height: 50px; background-color: #66C3FE;

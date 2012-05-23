@@ -64,12 +64,24 @@
             </ul>
         </header>
     </section>
+    <section id="itinerary">
+        <header>
+            <h2>
+                Itinerary
+            @if (currentUser.OwnsTrips(trip))
+            {
+                <span><a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">Add an Activity</a> </span>
+            }
+            </h2>
+        </header>
+        <a href="@Url.Itinerary(trip)">@trip.NonDeletedActivities.Count() activities</a>
+    </section>
     @if (currentUser.OwnsTrips(trip))
     {
         <section id="history">
             <header>
                 <h2>
-                    Recent Activity <span><a href="@Url.History(trip)">View All</a></span>
+                    Recent Changes <span><a href="@Url.History(trip)">View All</a></span>
                 </h2>
             </header>
             <ol class="histories">
@@ -82,92 +94,7 @@
             </ol>
         </section>
     }
-    <section id="itinerary">
-        <header>
-            <h2>
-                Itinerary
-                @if (currentUser.OwnsTrips(trip))
-                { <span><a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">Add Activity</a> </span>}
-            </h2>
-        </header>
-        @if (trip.NonDeletedActivities.Any())
-        {
-            <ul class="activities">
-                @{ int dayNumber = 0; }
-                @foreach (DateTime? date in trip.Dates)
-                {
-                    dayNumber++;
-                    var activities = trip.ActivitiesOnDate(date).OrderBy(a => a.OrderNumber);
-
-                    if (!activities.Any())
-                    {
-                        continue;
-                    }
-
-                    if (!date.HasValue)
-                    {
-                    <li class="date">Unscheduled Activities</li>
-                    }
-                    else if (currentUser.OwnsTrips(trip))
-                    {
-                    <li class="date">Day @dayNumber - @date.Value.ToString("MMMM dd, yyyy - dddd")</li>   
-                    }
-                    else
-                    {
-                    <li class="date">Day @dayNumber </li>
-                    }
-
-                    foreach (var activity in activities)
-                    {
-                    <li class="activity" data-activity-id="@activity.Id">
-                        @{
-                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap => ap.SortIndex);
-                        }
-                        @if (mappablePlaces.Any())
-                        {
-                            <ul class="maps">
-                                @foreach (var place in mappablePlaces)
-                                {
-                                    <li>
-                                        <img src="@place.Place.StaticMapURL()" alt="map of @place.Place.Name"/>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        <div class="title">
-                            @activity.Title
-                        </div>
-                        @if (activity.BeginAt.HasValue && activity.BeginAt.Value.HasTimePart())
-                        {
-                            <div>@activity.BeginAt.Value.ToShortTimeString()</div>
-                        }
-                        @if (activity.Notes.Any() && currentUser.OwnsTrips(trip))
-                        {
-                            <ol class="notes">
-                                @foreach (var note in activity.Notes.OrderByDescending(n => n.Id))
-                                {
-                                    <li>
-                                        <div class="when">
-                                            @note.Created_On.ToRelative()
-                                        </div>
-                                        <a href="@Url.Details(note.User)">@note.User.FullName</a>: @note.Text
-                                    </li>
-                                }
-                            </ol>
-                        }
-                    </li>
-                    }
-                }
-            </ul>
-        }
-        else
-        {
-            <p>
-                No activities found.
-            </p>
-        }
-    </section>
-    @*@if (trip.PackingListItems.Any() || currentUser.OwnsTrips(trip))
+@*@if (trip.PackingListItems.Any() || currentUser.OwnsTrips(trip))
     {
         <section id="packinglist">
             @{
