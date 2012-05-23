@@ -253,7 +253,7 @@ namespace Triptitude.Web.Controllers
                 repo.Save();
 
                 EmailService.SendTripCreated(trip);
-                return Redirect(Url.Who(trip));
+                return Redirect(Url.Details(trip));
             }
             else
             {
