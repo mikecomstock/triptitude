@@ -208,7 +208,16 @@ namespace Triptitude.Biz.Models
                     {
                         var notesRepo = new Repo<Note>();
                         var note = notesRepo.Find(TableId1.Value);
-                        sb.AppendFormat("added a note: {0}", note.Text);
+                        sb.Append("added a note");
+                        if (note.Activity != null)
+                        {
+                            sb.AppendFormat(" to \"{0}\": {1}", note.Activity.Title, note.Text);
+                        }
+                        else
+                        {
+                            sb.AppendFormat(": {0}", note.Text);
+                        }
+
                         break;
                     }
                 default:
