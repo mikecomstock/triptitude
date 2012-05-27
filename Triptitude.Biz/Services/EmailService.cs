@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Web.Mvc;
 using PostmarkDotNet;
 using Triptitude.Biz.Models;
+using Triptitude.Biz.Extensions;
 
 namespace Triptitude.Biz.Services
 {
@@ -66,14 +67,15 @@ namespace Triptitude.Biz.Services
             Send(message);
         }
 
-        public static void SendTripCreated(Trip trip)
+        public static void SendTripCreated(Trip trip, UrlHelper url)
         {
+
             PostmarkMessage message = new PostmarkMessage
             {
                 From = "admin@triptitude.com",
                 To = "mikecomstock@gmail.com",
                 Subject = "Trip Created",
-                TextBody = string.Format("New trip created! ID: {0} Title: {1} User ID: {2}", trip.Id, trip.Name, trip.Creator.Id),
+                TextBody = string.Format("Trip: {0} User: {1}", url.Details(trip, true), url.Details(trip.Creator, true)),
                 Tag = "trip-create"
             };
             Send(message);
@@ -123,8 +125,9 @@ namespace Triptitude.Biz.Services
         {
             if (!Util.ServerIsProduction)
             {
-                message.HtmlBody = string.Format("<h1><strong>DEV MODE</strong> Original Recipient: {0}</h1>{1}", message.To, message.HtmlBody);
-                message.TextBody = "***** DEV MODE *****" + Environment.NewLine + "Original Recipient: " + message.To + Environment.NewLine + message.TextBody;
+                message.Subject = message.Subject + " (dev mode)";
+                message.HtmlBody = string.Format("<p>Original Recipient: {0}</p>{1}", message.To, message.HtmlBody);
+                message.TextBody = "Original Recipient: " + message.To + Environment.NewLine + message.TextBody;
                 message.To = "test@triptitude.com";
                 message.Cc = null;
                 message.Bcc = null;
