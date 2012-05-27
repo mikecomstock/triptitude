@@ -13,7 +13,7 @@
                 e.preventDefault();
 
                 var term = $.trim($(this).find('input').val().toLowerCase());
-                console.log(term);
+                //console.log(term);
 
                 var items = $('.packing-list-item');
                 items.each(function (i, element) {
@@ -72,7 +72,7 @@
                     Search:
                 </label>
                 <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
-                <a class="link add-to-trip" data-type="packing-list-item" href="#">+Add an Item</a>
+                @*<a class="link add-to-trip" data-type="packing-list-item" href="#">+Add an Item</a>*@
             </form>
             
         </div>
@@ -82,8 +82,8 @@
             @foreach (Tag tag in tags)
             {
                 <div class="packing-list-tag" data-name="@tag.NiceName">
-                    <h3>
-                        <a href="@Url.Details(tag)">@tag.NiceName</a>
+                    <h3>@tag.NiceName
+                        @*<a href="@Url.Details(tag)">@tag.NiceName</a>*@
                     </h3>
                     @Helpers.ItemList(tag, currentUser)
                 </div>
