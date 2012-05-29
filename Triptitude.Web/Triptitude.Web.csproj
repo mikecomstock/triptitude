@@ -240,6 +240,7 @@
     <Content Include="Views\Users\_New.cshtml" />
     <Content Include="Views\Users\New.cshtml" />
     <Content Include="Views\Trips\Itinerary.cshtml" />
+    <Content Include="Views\Trips\Packing.cshtml" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.dll" />
     <None Include="_bin_deployableAssemblies\Microsoft.Web.Infrastructure.xml" />
     <None Include="_bin_deployableAssemblies\NuGet.Core.dll" />

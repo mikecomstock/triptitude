@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
@@ -32,58 +33,83 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string tag, string item, int quantity)
         {
-            var form = new PackingItemForm
-                           {
-                               TripId = CurrentUser.DefaultTrip.Id,
-                               Visibility_Id = (int)Visibility.Public
-                           };
-            ViewBag.Form = form;
-            ViewBag.Trip = CurrentUser.DefaultTrip;
-            ViewBag.Action = Url.SavePackingItem();
-            return PartialView("PackingItemDialog");
+            var trip = CurrentUser.DefaultTrip;
+            var packingItem = trip.PackingItems.FirstOrDefault(pi => pi.Item == item.Trim() && pi.Tag == tag.Trim());
+            if (packingItem == null)
+            {
+                packingItem = new PackingItem
+                                     {
+                                         Trip = CurrentUser.DefaultTrip,
+                                         CreatedUser = CurrentUser,
+                                         ForUser = CurrentUser,
+                                         Created_At = DateTime.UtcNow,
+                                         Modified_At = DateTime.UtcNow,
+                                         Item = item.Trim(),
+                                         Tag = tag.Trim()
+                                     };
+                trip.PackingItems.Add(packingItem);
+            }
+
+            packingItem.Quantity = quantity;
+            tripsRepo.Save();
+
+            return Json(packingItem.Json(CurrentUser));
         }
 
-        [HttpPost]
-        public ActionResult Save(PackingItemForm form)
-        {
-            var trip = tripsRepo.Find(form.TripId);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //public ActionResult Create()
+        //{
+        //    var form = new PackingItemForm
+        //                   {
+        //                       TripId = CurrentUser.DefaultTrip.Id,
+        //                       Visibility_Id = (int)Visibility.Public
+        //                   };
+        //    ViewBag.Form = form;
+        //    ViewBag.Trip = CurrentUser.DefaultTrip;
+        //    ViewBag.Action = Url.SavePackingItem();
+        //    return PartialView("PackingItemDialog");
+        //}
 
-            PackingListItem packingListItem = packingListItemsRepo.Save(form);
+        //[HttpPost]
+        //public ActionResult Save(PackingItemForm form)
+        //{
+        //    var trip = tripsRepo.Find(form.TripId);
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            //new HistoriesRepo().Create(CurrentUser, trip, form.PackingItemId.HasValue ? HistoryAction.Modified : HistoryAction.Created, HistoryTable.PackingListItems, packingListItem.Id);
+        //    PackingListItem packingListItem = packingListItemsRepo.Save(form);
 
-            var response = new { status = "OK" };
-            return Json(response);
-        }
+        //    //new HistoriesRepo().Create(CurrentUser, trip, form.PackingItemId.HasValue ? HistoryAction.Modified : HistoryAction.Created, HistoryTable.PackingListItems, packingListItem.Id);
 
-        public ActionResult Edit(int id)
-        {
-            var packingListItem = packingListItemsRepo.Find(id);
-            var trip = packingListItem.Trip;
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //    var response = new { status = "OK" };
+        //    return Json(response);
+        //}
 
-            ViewBag.PackingListItem = packingListItem;
-            ViewBag.Form = packingListItemsRepo.GetForm(id);
-            ViewBag.Trip = trip;
-            ViewBag.Action = Url.SavePackingItem();
-            return PartialView("PackingItemDialog");
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    var packingListItem = packingListItemsRepo.Find(id);
+        //    var trip = packingListItem.Trip;
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-        public ActionResult Delete(int id)
-        {
-            var packingListItem = packingListItemsRepo.Find(id);
-            var trip = packingListItem.Trip;
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+        //    ViewBag.PackingListItem = packingListItem;
+        //    ViewBag.Form = packingListItemsRepo.GetForm(id);
+        //    ViewBag.Trip = trip;
+        //    ViewBag.Action = Url.SavePackingItem();
+        //    return PartialView("PackingItemDialog");
+        //}
 
-            packingListItemsRepo.Delete(packingListItem);
-            packingListItemsRepo.Save();
+        //public ActionResult Delete(int id)
+        //{
+        //    var packingListItem = packingListItemsRepo.Find(id);
+        //    var trip = packingListItem.Trip;
+        //    if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
 
-            //new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.PackingListItems, packingListItem.Id);
+        //    packingListItemsRepo.Delete(packingListItem);
+        //    packingListItemsRepo.Save();
 
-            return Redirect(Url.PackingList(trip));
-        }
+        //    //new HistoriesRepo().Create(CurrentUser, trip, HistoryAction.Deleted, HistoryTable.PackingListItems, packingListItem.Id);
+
+        //    return Redirect(Url.PackingList(trip));
+        //}
     }
 }

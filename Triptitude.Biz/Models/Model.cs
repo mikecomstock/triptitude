@@ -101,6 +101,16 @@ namespace Triptitude.Biz.Models
             }
         }
 
+        public UserTrip DefaultUserTrip
+        {
+            get
+            {
+                return DefaultTrip == null
+                    ? null
+                    : UserTrips.FirstOrDefault(ut => ut.Trip.Id == DefaultTrip.Id);
+            }
+        }
+
         public string PhotoURL
         {
             get
@@ -325,6 +335,8 @@ namespace Triptitude.Biz.Models
         public bool ShowInSearch { get; set; }
         public DateTime? ModeratedOnUTC { get; set; }
 
+        public virtual ICollection<PackingItem> PackingItems { get; set; }
+
         public IEnumerable<UserTrip> UserTripsFor(User user)
         {
             // Only return users that haven't deleted the trip
@@ -425,6 +437,16 @@ namespace Triptitude.Biz.Models
             Notes.Add(note);
             return note;
         }
+
+        public IEnumerable<PackingItem> PackingItemSearch(User byUser = null, User forUser = null, string tag = null, string item = null)
+        {
+            var p = PackingItems.AsQueryable();
+            if (byUser != null) p = p.Where(pi => pi.CreatedUser == byUser);
+            if (forUser != null) p = p.Where(pi => pi.ForUser == forUser);
+            if (!string.IsNullOrWhiteSpace(tag)) p = p.Where(pi => pi.Tag == tag.Trim());
+            if (!string.IsNullOrWhiteSpace(item)) p = p.Where(pi => pi.Item== item.Trim());
+            return p;
+        } 
 
         public dynamic Json(User forUser, UrlHelper url)
         {
@@ -648,6 +670,30 @@ namespace Triptitude.Biz.Models
                                       },
                            Text,
                            RelativeTime = Created_On.ToRelative()
+                       };
+        }
+    }
+
+    public class PackingItem
+    {
+        public int Id { get; set; }
+        public Trip Trip { get; set; }
+        public User CreatedUser { get; set; }
+        public User ForUser { get; set; }
+        public string Tag { get; set; }
+        public string Item { get; set; }
+        public int Quantity { get; set; }
+        public DateTime Created_At { get; set; }
+        public DateTime Modified_At { get; set; }
+
+        public dynamic Json(User forUser)
+        {
+            return new
+                       {
+                           Id,
+                           Tag,
+                           Name = Item,
+                           Quantity
                        };
         }
     }

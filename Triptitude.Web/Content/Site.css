@@ -841,6 +841,27 @@ ul.tags > li + li { margin-left: 5px; }
         float: left;
         margin-left: 10px; }
 
+#trips-packing article > header a {
+  float: right;
+  color: #FFF;
+  font-size: 18px;
+  padding: 5px;
+  margin-right: 20px;
+  -webkit-border-radius: 0 0 7px 7px;
+  -moz-border-radius: 0 0 7px 7px;
+  border-radius: 0 0 7px 7px;
+  background-color: #b70116;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#fe3950), to(#b70116));
+  background-image: -moz-linear-gradient(top, #fe3950, #b70116);
+  background-image: -ms-linear-gradient(top, #fe3950, #b70116);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fe3950), color-stop(100%, #b70116));
+  background-image: -webkit-linear-gradient(top, #fe3950, #b70116);
+  background-image: -o-linear-gradient(top, #fe3950, #b70116);
+  background-image: linear-gradient(top, #fe3950, #b70116);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+
 /*#trips-map {
 	#trip-map-container { width: 100%; height: 500px; }
 }*/
@@ -1009,6 +1030,8 @@ ul.tags > li + li { margin-left: 5px; }
       content: "(private)";
       color: #888;
       margin-left: 2px; }
+    .packing-list-items li .quantity {
+      float: right; }
   .packing-list-items.suggestions {
     margin: 5px 20px;
     border-top: none;

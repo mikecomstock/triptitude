@@ -9,6 +9,10 @@ namespace Triptitude.Biz.Models
             modelBuilder.Entity<User>().HasOptional(u => u.DefaultTrip).WithMany().Map(m => m.MapKey("DefaultTrip_Id"));
             modelBuilder.Entity<Activity>().HasMany(a => a.Tags).WithMany(t => t.Activities).Map(m => m.ToTable("ActivityTags"));
 
+            //modelBuilder.Entity<UserTrip>().HasMany(ut => ut.).WithRequired(pi => pi.CreatedUserTrip);
+            //modelBuilder.Entity<PackingItem>().HasRequired(pi => pi.CreatedUser).WithMany(u=>u.);
+            //modelBuilder.Entity<PackingItem>().HasRequired(pi => pi.ForUserTrip).WithMany(ut => ut.ForPackingItems);
+
             modelBuilder.Entity<Place>().Property(p => p.Latitude).HasPrecision(9, 6);
             modelBuilder.Entity<Place>().Property(p => p.Longitude).HasPrecision(9, 6);
         }
@@ -20,6 +24,7 @@ namespace Triptitude.Biz.Models
         public DbSet<History> Histories { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityPlace> ActivityPlaces { get; set; }
+        public DbSet<PackingItem> PackingItems { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemTag> ItemTags { get; set; }

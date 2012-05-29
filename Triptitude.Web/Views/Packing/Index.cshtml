@@ -2,62 +2,84 @@
     ViewBag.Title = "Packing List Items";
     IEnumerable<Tag> tags = ViewBag.Tags;
     User currentUser = ViewBag.CurrentUser;
+    var userTrip = currentUser.DefaultUserTrip;
 }
 @section Scripts{
     <script type="text/javascript" charset="utf-8">
+
+        TT.Util.PL = {
+            Hide: function (element) {
+                element.addClass('hidden');
+                element.hide();
+            },
+            Show: function (element) {
+                element.removeClass('hidden');
+                element.show();
+            }
+        };
+
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
 
+            $('.packing-list-items').on('click', 'li', function (e) {
+                e.preventDefault();
+                var el = $(e.currentTarget);
+                var tag = el.data('tag');
+                var item = el.data('item');
+                var currentQuantity = parseInt(el.data('quantity'));
+                var newQuantity = currentQuantity + 1;
+                el.data('quantity', newQuantity);
+                el.find('.quantity').text(newQuantity);
+
+                var data = { tag: tag, item: item, quantity: newQuantity };
+
+                var pi = new Backbone.Model();
+                pi.urlRoot = '/packing';
+                pi.save(data, {
+                    error: function () {
+                        alert('An error has occured!');
+                        el.data('quantity', currentQuantity);
+                        el.find('.quantity').text(currentQuantity);
+                    }
+                });
+                
+            });
+
             $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
             $('#item-search').submit(function (e) {
-                e.preventDefault();
 
+                e.preventDefault();
                 var term = $.trim($(this).find('input').val().toLowerCase());
-                //console.log(term);
 
                 var items = $('.packing-list-item');
                 items.each(function (i, element) {
                     var item = $(element);
-                    var matches = item.data('name').toLowerCase().indexOf(term) != -1;
-                    if (matches) {
-                        show(item);
-                    } else {
-                        hide(item);
-                    }
+                    var matches = item.data('item').toLowerCase().indexOf(term) != -1;
+                    if (matches) TT.Util.PL.Show(item);
+                    else TT.Util.PL.Hide(item);
                 });
 
                 var tags = $('.packing-list-tag');
                 tags.each(function (i, element) {
                     var tag = $(element);
                     var hasVisibleItems = tag.find('.packing-list-item').not('.hidden').length > 0;
-                    if (hasVisibleItems) {
-                        show(tag);
-                    } else {
-                        hide(tag);
-                    }
+                    if (hasVisibleItems) TT.Util.PL.Show(tag);
+                    else TT.Util.PL.Hide(tag);
                 });
 
                 tags.each(function (i, element) {
                     var tag = $(element);
                     var matches = tag.data('name').toLowerCase().indexOf(term) != -1;
                     if (matches) {
-                        show(tag);
-                        tag.find('.packing-list-item').each(function (i, e2) { show($(e2)); });
+                        TT.Util.PL.Show(tag);
+                        tag.find('.packing-list-item').each(function (i, e2) {
+                            TT.Util.PL.Show($(e2));
+                        });
                     }
                 });
 
                 $('.packing-list-tags').masonry('reload');
             });
-
-            var hide = function (element) {
-                element.addClass('hidden');
-                element.hide();
-            };
-
-            var show = function (element) {
-                element.removeClass('hidden');
-                element.show();
-            };
         });
     </script>
 }
@@ -66,15 +88,13 @@
         <h1>
             Packing List Items</h1>
         <div class="subtitle">
-            
             <form id="item-search">
-                <label for="term">
-                    Search:
-                </label>
-                <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
-                @*<a class="link add-to-trip" data-type="packing-list-item" href="#">+Add an Item</a>*@
+            <label for="term">
+                Search:
+            </label>
+            <input type="text" class="focus" name="term" id="term" autocomplete="off" placeholder="tag or item name" />
+            @*<a class="link add-to-trip" data-type="packing-list-item" href="#">+Add an Item</a>*@
             </form>
-            
         </div>
     </header>
     <section>
@@ -82,10 +102,17 @@
             @foreach (Tag tag in tags)
             {
                 <div class="packing-list-tag" data-name="@tag.NiceName">
-                    <h3>@tag.NiceName
-                        @*<a href="@Url.Details(tag)">@tag.NiceName</a>*@
-                    </h3>
-                    @Helpers.ItemList(tag, currentUser)
+                    <h3>@tag.NiceName</h3>
+                    <ul class="packing-list-items">
+                        @foreach (Item item in tag.Items)
+                        {
+                            var packingItem = userTrip.Trip.PackingItemSearch(byUser: currentUser, forUser: currentUser, tag: tag.Name, item: item.Name).FirstOrDefault();
+                            int quantity = packingItem == null ? 0 : packingItem.Quantity;
+                            <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-item="@item.Name" data-tag="@tag.Name" data-quantity="@quantity" title="Click to add to trip">
+                                @item.Name
+                                <span class="quantity">@quantity</span> </li>
+                        }
+                    </ul>
                 </div>
             }
         </div>

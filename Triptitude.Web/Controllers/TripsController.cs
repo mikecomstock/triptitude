@@ -138,6 +138,14 @@ namespace Triptitude.Web.Controllers
         //    return PartialView("_DayDetails");
         //}
 
+        public ActionResult Packing(int id)
+        {
+            var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
+            if (userTrip == null) return Redirect("/");
+            ViewBag.UserTrip = userTrip;
+            return View();
+        }
+
         public ActionResult PackingList(int id)
         {
             Trip trip = new TripsRepo().Find(id);
