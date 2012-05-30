@@ -1,0 +1,59 @@
+﻿@{
+    UserTrip userTrip = ViewBag.UserTrip;
+    Trip trip = userTrip.Trip;
+    ViewBag.Title = trip.Name + " - Packing List";
+    User currentUser = ViewBag.CurrentUser;
+    var packingItems = trip.PackingItemSearch(byUser: currentUser, forUser: currentUser);
+}
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
+            $('.packing-list-items').on('click', 'li', TT.Util.PL.PackingListClick);
+        });
+    </script>
+}
+@if (currentUser.OwnsTrips(trip))
+{
+    @Html.Action("SidePanel", "Trips", new { trip })
+}
+<article>
+    <header>
+        @if (currentUser.OwnsTrips(trip))
+        {
+            <a href="@Url.PackingListIndex()">+ Add an Item</a> 
+        }
+        <h1>@ViewBag.Title</h1>
+    </header>
+    <section id="packing">
+        @if (packingItems.Any())
+        {
+            <div class="packing-list-tags fluid">
+                @foreach (var tag in packingItems.Select(pi => pi.Tag).Distinct().OrderBy(t => t))
+                {
+                    <div class="packing-list-tag">
+                        <h3>@tag.ToTitleCase()</h3>
+                        <ul class="packing-list-items">
+                            @foreach (var packingItem in packingItems.Where(pi => pi.Tag == tag))
+                            {
+                                <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-item="@packingItem.Item" data-tag="@packingItem.Tag" data-quantity="@packingItem.Quantity">
+                                    @packingItem.Item.ToTitleCase()
+                                    <span class="quantity">@packingItem.Quantity</span> </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>
+                No items found.
+                @if (currentUser.OwnsTrips(trip))
+                {
+                    <a href="@Url.PackingListIndex()">+ Add an Item</a> 
+                }
+            </p>
+        }
+    </section>
+</article>

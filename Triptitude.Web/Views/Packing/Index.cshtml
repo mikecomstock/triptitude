@@ -6,45 +6,9 @@
 }
 @section Scripts{
     <script type="text/javascript" charset="utf-8">
-
-        TT.Util.PL = {
-            Hide: function (element) {
-                element.addClass('hidden');
-                element.hide();
-            },
-            Show: function (element) {
-                element.removeClass('hidden');
-                element.show();
-            }
-        };
-
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-
-            $('.packing-list-items').on('click', 'li', function (e) {
-                e.preventDefault();
-                var el = $(e.currentTarget);
-                var tag = el.data('tag');
-                var item = el.data('item');
-                var currentQuantity = parseInt(el.data('quantity'));
-                var newQuantity = currentQuantity + 1;
-                el.data('quantity', newQuantity);
-                el.find('.quantity').text(newQuantity);
-
-                var data = { tag: tag, item: item, quantity: newQuantity };
-
-                var pi = new Backbone.Model();
-                pi.urlRoot = '/packing';
-                pi.save(data, {
-                    error: function () {
-                        alert('An error has occured!');
-                        el.data('quantity', currentQuantity);
-                        el.find('.quantity').text(currentQuantity);
-                    }
-                });
-                
-            });
-
+            $('.packing-list-items').on('click', 'li', TT.Util.PL.PackingListClick);
             $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
             $('#item-search').submit(function (e) {
 

@@ -59,5 +59,39 @@
     Views: {
         Editor: {}
     },
-    init: function () {}
+    init: function () { }
+};
+
+
+TT.Util.PL = {
+    Hide: function (element) {
+        element.addClass('hidden');
+        element.hide();
+    },
+    Show: function (element) {
+        element.removeClass('hidden');
+        element.show();
+    },
+    PackingListClick: function (e) {
+        e.preventDefault();
+        var el = $(e.currentTarget);
+        var tag = el.data('tag');
+        var item = el.data('item');
+        var currentQuantity = parseInt(el.data('quantity'));
+        var newQuantity = currentQuantity + 1;
+        el.data('quantity', newQuantity);
+        el.find('.quantity').text(newQuantity);
+
+        var data = { tag: tag, item: item, quantity: newQuantity };
+
+        var pi = new Backbone.Model();
+        pi.urlRoot = '/packing';
+        pi.save(data, {
+            error: function () {
+                alert('An error has occured!');
+                el.data('quantity', currentQuantity);
+                el.find('.quantity').text(currentQuantity);
+            }
+        });
+    }
 };
