@@ -117,10 +117,9 @@ input.delete { background-color: #E92553; }
 			float: left; position: relative;
 			> .link {
 				padding-right: 10px;
-				&:after { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-left:5px; position: relative; top:16px; }
+				&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:10px; position: relative; top:16px; }
 			}
 			&:hover { background-color: #333; }
-			&+ li { border-left: 1px solid #FFF; }
 			ul {
 				display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 2;
 				li {

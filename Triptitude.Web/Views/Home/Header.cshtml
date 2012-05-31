@@ -5,11 +5,7 @@
 }
 <div id="header-container">
     <div id="header">
-        <a id="logo" href="/">Triptitude</a>
-        
-        @*<a onclick="alert('Drag me to the bookarks bar'); return false;" href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','@ConfigurationManager.AppSettings["RootUrl"]Scripts/tripmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());" title="Add to Trip">Add to Trip</a> *@
-        
-        @*<div id="search">
+        <a id="logo" href="/">Triptitude</a> @*<a onclick="alert('Drag me to the bookarks bar'); return false;" href="javascript:void((function(){var e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','@ConfigurationManager.AppSettings["RootUrl"]Scripts/tripmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)})());" title="Add to Trip">Add to Trip</a> *@ @*<div id="search">
             <form action="@Url.PlaceSearch()" method="post">
             <input type="text" name="s" class="place-autocomplete" data-goog-reference-field="googreference" data-goog-id-field="googid" data-auto-submit="true" placeholder="Where 
             going?" accesskey="s" />
@@ -53,20 +49,13 @@
     <div id="trip-bar-container">
         <div id="trip-bar" data-trip-id="@currentUser.DefaultTrip.Id" >
             <ul id="trip-bar-menu">
-                <li><span class="link">Details</span>
+                <li><span class="link">Go To...</span>
                     <ul>
+                        <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span><strong>Your trip overview</strong></span></a></li>
                         <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span><strong>Add your fellow travelers</strong></span></a></li>
                         <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
-                        @*<li><a href="@Url.Details(currentUser.DefaultTrip)#map">Map<span><strong>Map your destinations</strong></span></a></li>*@ 
                         <li><a href="@Url.PackingList(currentUser.DefaultTrip)#packinglist">Packing List<span><strong>Update your packing list</strong></span></a></li>
-                        <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Set a title and start date</strong></span></a></li>
-                    </ul>
-                </li>
-                <li><span class="add-plans-link link">+ Add Plans</span>
-                    <ul>
-                        @*<li><a class="super-dialog-link link" href="/activities/create?type=transportation" accesskey="t">Transportation<span>Like <strong>Fly</strong> from <strong>Boston</strong> to <strong>San Francisco</strong></span></a></li>*@
-                        <li><a class="super-dialog-link link" accesskey="a" data-trip-id="@currentUser.DefaultTrip.Id">Activity<span>Like <strong>Whale Watching </strong>in <strong>Boston</strong></span></a></li>
-                        @*<li><a class="super-dialog-link link" href="/notes/create" accesskey="n">Note<span>Like <strong>Emily says this place has the best Pizza!</strong></span></a></li>*@ @*<li><a href="/packing" accesskey="p">Packing List<span>Like pack your <strong>sunglasses</strong> and <strong>phone charger</strong></span></a></li>*@
+                        <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Change title and privacy</strong></span></a></li>
                     </ul>
                 </li>
             </ul>
