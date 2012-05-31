@@ -11,6 +11,24 @@
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
             $('.packing-list-items').on('click', '.inc, .dec', TT.Util.PL.PackingListClick);
             $('.packing-list-items').disableSelection();
+
+            $('#add-pl-item').on('submit', function (e) {
+                e.preventDefault();
+                var form = $(e.currentTarget);
+                var data = {
+                    item: form.find('#pl_item').val(),
+                    tag: form.find('#pl_tag').val(),
+                    quantity: form.find('#pl_quantity').val()
+                };
+
+                var pi = new Backbone.Model();
+                pi.urlRoot = '/packing';
+                pi.save(data, {
+                    success: function () { location.reload(); },
+                    error: function () { alert('An error has occured!'); }
+                });
+
+            });
         });
     </script>
 }
@@ -22,10 +40,27 @@
     <header>
         @if (currentUser.OwnsTrips(trip))
         {
-            <a href="@Url.PackingListIndex()">+ Add an Item</a> 
+            <a href="@Url.PackingListIndex()">+ Find items to add</a> 
         }
         <h1>@ViewBag.Title</h1>
     </header>
+    <form id="add-pl-item" class="subtitle" action="POST">
+    <p>
+        <strong>Add an item</strong>
+    </p>
+    <p>
+        <label for="pl_item">
+            Name:</label>
+        <input id="pl_item" class="focus" placeholder="ex: cowboy  boots" />
+        <label for="pl_tag">
+            Category:</label>
+        <input id="pl_tag" placeholder="ex: footwear" />
+        <label for="pl_quantity">
+            Quantity:</label>
+        <input id="pl_quantity" />
+        <input type="submit" value="Add" />
+    </p>
+    </form>
     <section id="packing">
         @if (packingItems.Any())
         {
@@ -33,7 +68,7 @@
                 @foreach (var tag in packingItems.Select(pi => pi.Tag).Distinct().OrderBy(t => t))
                 {
                     <div class="packing-list-tag">
-                        <h3>@tag.ToTitleCase()</h3>
+                        <h3>@(tag.IsNullOrEmpty() ? "General" : tag.ToTitleCase())</h3>
                         <ul class="packing-list-items">
                             @foreach (var packingItem in packingItems.Where(pi => pi.Tag == tag))
                             {
@@ -53,11 +88,18 @@
         {
             <p>
                 No items found.
-                @if (currentUser.OwnsTrips(trip))
-                {
-                    <a href="@Url.PackingListIndex()">+ Add an Item</a> 
-                }
             </p>
+        }
+        @if (currentUser.OwnsTrips(trip))
+        {
+            <footer>
+                <p>
+                    Need some inspiration? <a href="@Url.PackingListIndex()">Find items to add</a>
+                </p>
+                <p>
+                    Your packing list is private. No one else can see it.
+                </p>
+            </footer>
         }
     </section>
 </article>

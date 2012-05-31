@@ -36,10 +36,18 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Create(string tag, string item, int quantity)
+        public ActionResult Create(string tag, string item, int? quantity)
         {
+            if (item.IsNullOrEmpty())
+            {
+                Response.StatusCode = 500;
+                return Json(new { error = "Item name is required." });
+            }
+
             var trip = CurrentUser.DefaultTrip;
-            var packingItem = trip.PackingItems.FirstOrDefault(pi => pi.Item == item.Trim() && pi.Tag == tag.Trim());
+            tag = tag.Trim().ToLower();
+            item = item.Trim().ToLower();
+            var packingItem = trip.PackingItemSearch(byUser: CurrentUser, forUser: CurrentUser, tag: tag, item: item).FirstOrDefault();
             if (packingItem == null)
             {
                 packingItem = new PackingItem
@@ -54,7 +62,7 @@ namespace Triptitude.Web.Controllers
                 trip.PackingItems.Add(packingItem);
             }
 
-            packingItem.Quantity = quantity;
+            packingItem.Quantity = quantity ?? 1;
             packingItem.Modified_At = DateTime.UtcNow;
 
             if (packingItem.Quantity <= 0)

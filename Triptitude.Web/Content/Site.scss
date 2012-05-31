@@ -230,7 +230,7 @@ header .share-bar-container {
 }
 
 /* Footer */
-footer {
+body > footer {
 	width: 955px; height: 100px; margin: 30px auto; text-align: right;
 	span { background-color: rgba(255,255,255,0.5); @include border-radius(5px); padding: 2px 5px; }
 }
@@ -363,11 +363,12 @@ ul.tags > li + li { margin-left: 5px; }
 	article > header {
 		a { float: right; color: #FFF; font-size: 18px; padding: 5px; margin-right: 20px; @include border-radius(0 0 7px 7px); @include gradient(#FE3950, #B70116); }
 	}
+	#add-pl-item {
+		p { margin: 5px; }
+		#pl_quantity { width: 30px; }
+	}
+	footer { border-top: 1px dashed #CCC; margin-top: 30px; }
 }
-
-/*#trips-map {
-	#trip-map-container { width: 100%; height: 500px; }
-}*/
 
 #trips-history {
 	.histories {
@@ -429,13 +430,12 @@ ul.tags > li + li { margin-left: 5px; }
 			color: #999 !important;
 			a { color: #999; }
 		}
-		&:hover { background-color: #EEE; cursor: pointer; }
 		&.visibility-private .name:after { content: "(private)"; color: #888; margin-left: 2px; }
 		.right {
 			float: right;
 			.quantity { float: left; margin: 0 5px; }
-			.inc, .dec { float: left; display: block; height: 16px; line-height: 16px; width: 16px; text-align: center; background-color: #DDD; @include border-radius(3px); }
-			.inc:hover, .dec:hover { background-color: #999; }
+			.inc, .dec { float: left; display: block; height: 16px; line-height: 16px; width: 16px; text-align: center; background-color: #DDD; @include border-radius(3px); cursor: pointer; }
+			.inc:hover, .dec:hover { background-color: #66C3FE; }
 		}
 	}
 	&.suggestions {

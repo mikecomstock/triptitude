@@ -571,12 +571,12 @@ header .share-bar-container {
         border-style: inset; }
 
 /* Footer */
-footer {
+body > footer {
   width: 955px;
   height: 100px;
   margin: 30px auto;
   text-align: right; }
-  footer span {
+  body > footer span {
     background-color: rgba(255, 255, 255, 0.5);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -861,10 +861,14 @@ ul.tags > li + li { margin-left: 5px; }
   background-image: linear-gradient(top, #fe3950, #b70116);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+#trips-packing #add-pl-item p {
+  margin: 5px; }
+#trips-packing #add-pl-item #pl_quantity {
+  width: 30px; }
+#trips-packing footer {
+  border-top: 1px dashed #CCC;
+  margin-top: 30px; }
 
-/*#trips-map {
-	#trip-map-container { width: 100%; height: 500px; }
-}*/
 #trips-history .histories h3 {
   margin: 10px 0; }
 #trips-history .histories .history {
@@ -1023,9 +1027,6 @@ ul.tags > li + li { margin-left: 5px; }
       color: #999 !important; }
       .packing-list-items li .packing-list-item-tag a {
         color: #999; }
-    .packing-list-items li:hover {
-      background-color: #EEE;
-      cursor: pointer; }
     .packing-list-items li.visibility-private .name:after {
       content: "(private)";
       color: #888;
@@ -1045,9 +1046,10 @@ ul.tags > li + li { margin-left: 5px; }
         background-color: #DDD;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
-        border-radius: 3px; }
+        border-radius: 3px;
+        cursor: pointer; }
       .packing-list-items li .right .inc:hover, .packing-list-items li .right .dec:hover {
-        background-color: #999; }
+        background-color: #66C3FE; }
   .packing-list-items.suggestions {
     margin: 5px 20px;
     border-top: none;
