@@ -861,13 +861,13 @@ ul.tags > li + li { margin-left: 5px; }
   background-image: linear-gradient(top, #fe3950, #b70116);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+#trips-packing section > footer {
+  border-top: 1px dashed #CCC;
+  margin-top: 30px; }
 #trips-packing #add-pl-item p {
   margin: 5px; }
 #trips-packing #add-pl-item #pl_quantity {
   width: 30px; }
-#trips-packing footer {
-  border-top: 1px dashed #CCC;
-  margin-top: 30px; }
 
 #trips-history .histories h3 {
   margin: 10px 0; }

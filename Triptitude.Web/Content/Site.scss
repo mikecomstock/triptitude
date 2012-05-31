@@ -363,11 +363,11 @@ ul.tags > li + li { margin-left: 5px; }
 	article > header {
 		a { float: right; color: #FFF; font-size: 18px; padding: 5px; margin-right: 20px; @include border-radius(0 0 7px 7px); @include gradient(#FE3950, #B70116); }
 	}
+	section > footer { border-top: 1px dashed #CCC; margin-top: 30px; }
 	#add-pl-item {
 		p { margin: 5px; }
 		#pl_quantity { width: 30px; }
-	}
-	footer { border-top: 1px dashed #CCC; margin-top: 30px; }
+	}	
 }
 
 #trips-history {
