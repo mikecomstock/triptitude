@@ -64,21 +64,23 @@
 
 
 TT.Util.PL = {
-    Hide: function (element) {
+    Hide: function(element) {
         element.addClass('hidden');
         element.hide();
     },
-    Show: function (element) {
+    Show: function(element) {
         element.removeClass('hidden');
         element.show();
     },
-    PackingListClick: function (e) {
+    PackingListClick: function(e) {
         e.preventDefault();
-        var el = $(e.currentTarget);
+        var el = $(e.currentTarget).closest('li');
         var tag = el.data('tag');
         var item = el.data('item');
         var currentQuantity = parseInt(el.data('quantity'));
-        var newQuantity = currentQuantity + 1;
+        var newQuantity = $(e.currentTarget).is('.inc') ? currentQuantity + 1 : currentQuantity - 1;
+        if (newQuantity < 0) newQuantity = 0;
+
         el.data('quantity', newQuantity);
         el.find('.quantity').text(newQuantity);
 
@@ -87,7 +89,11 @@ TT.Util.PL = {
         var pi = new Backbone.Model();
         pi.urlRoot = '/packing';
         pi.save(data, {
-            error: function () {
+            success: function(model, response) {
+                el.data('quantity', response.Quantity);
+                el.find('.quantity').text(response.Quantity);
+            },
+            error: function() {
                 alert('An error has occured!');
                 el.data('quantity', currentQuantity);
                 el.find('.quantity').text(currentQuantity);

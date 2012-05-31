@@ -431,7 +431,12 @@ ul.tags > li + li { margin-left: 5px; }
 		}
 		&:hover { background-color: #EEE; cursor: pointer; }
 		&.visibility-private .name:after { content: "(private)"; color: #888; margin-left: 2px; }
-		.quantity { float: right; }	
+		.right {
+			float: right;
+			.quantity { float: left; margin: 0 5px; }
+			.inc, .dec { float: left; display: block; height: 16px; line-height: 16px; width: 16px; text-align: center; background-color: #DDD; @include border-radius(3px); }
+			.inc:hover, .dec:hover { background-color: #999; }
+		}
 	}
 	&.suggestions {
 		margin: 5px 20px; border-top: none; @include clearfix; display: none;

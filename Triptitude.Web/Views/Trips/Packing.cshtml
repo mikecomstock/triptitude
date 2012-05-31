@@ -9,7 +9,8 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-            $('.packing-list-items').on('click', 'li', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').on('click', '.inc, .dec', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').disableSelection();
         });
     </script>
 }
@@ -38,7 +39,10 @@
                             {
                                 <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-item="@packingItem.Item" data-tag="@packingItem.Tag" data-quantity="@packingItem.Quantity">
                                     @packingItem.Item.ToTitleCase()
-                                    <span class="quantity">@packingItem.Quantity</span> </li>
+                                    <div class="right">
+                                        <span class="dec">-</span> <span class="quantity">@packingItem.Quantity</span> <span class="inc">+</span>
+                                    </div>
+                                </li>
                             }
                         </ul>
                     </div>

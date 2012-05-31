@@ -8,7 +8,8 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-            $('.packing-list-items').on('click', 'li', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').on('click', '.inc, .dec', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').disableSelection();
             $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
             $('#item-search').submit(function (e) {
 
@@ -74,7 +75,10 @@
                             int quantity = packingItem == null ? 0 : packingItem.Quantity;
                             <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-item="@item.Name" data-tag="@tag.Name" data-quantity="@quantity" title="Click to add to trip">
                                 @item.Name
-                                <span class="quantity">@quantity</span> </li>
+                                <div class="right">
+                                    <span class="dec">-</span> <span class="quantity">@quantity</span> <span class="inc">+</span>
+                                </div>
+                            </li>
                         }
                     </ul>
                 </div>

@@ -1030,8 +1030,24 @@ ul.tags > li + li { margin-left: 5px; }
       content: "(private)";
       color: #888;
       margin-left: 2px; }
-    .packing-list-items li .quantity {
+    .packing-list-items li .right {
       float: right; }
+      .packing-list-items li .right .quantity {
+        float: left;
+        margin: 0 5px; }
+      .packing-list-items li .right .inc, .packing-list-items li .right .dec {
+        float: left;
+        display: block;
+        height: 16px;
+        line-height: 16px;
+        width: 16px;
+        text-align: center;
+        background-color: #DDD;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px; }
+      .packing-list-items li .right .inc:hover, .packing-list-items li .right .dec:hover {
+        background-color: #999; }
   .packing-list-items.suggestions {
     margin: 5px 20px;
     border-top: none;

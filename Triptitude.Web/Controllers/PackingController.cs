@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using Triptitude.Biz;
 using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -12,11 +13,13 @@ namespace Triptitude.Web.Controllers
     {
         private readonly TripsRepo tripsRepo;
         private readonly PackingListItemsRepo packingListItemsRepo;
+        private readonly Repo<PackingItem> packingItemRepo;
 
         public PackingController()
         {
             tripsRepo = new TripsRepo();
             packingListItemsRepo = new PackingListItemsRepo();
+            packingItemRepo = new Repo<PackingItem>();
         }
 
         public ActionResult Index()
@@ -45,7 +48,6 @@ namespace Triptitude.Web.Controllers
                                          CreatedUser = CurrentUser,
                                          ForUser = CurrentUser,
                                          Created_At = DateTime.UtcNow,
-                                         Modified_At = DateTime.UtcNow,
                                          Item = item.Trim(),
                                          Tag = tag.Trim()
                                      };
@@ -53,6 +55,14 @@ namespace Triptitude.Web.Controllers
             }
 
             packingItem.Quantity = quantity;
+            packingItem.Modified_At = DateTime.UtcNow;
+
+            if (packingItem.Quantity <= 0)
+            {
+                packingItem.Quantity = 0;
+                packingItemRepo.Delete(packingItem);
+            }
+
             tripsRepo.Save();
 
             return Json(packingItem.Json(CurrentUser));
