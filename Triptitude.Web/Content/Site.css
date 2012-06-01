@@ -1169,7 +1169,8 @@ ul.tags > li + li { margin-left: 5px; }
     background-image: none !important; }
 
   #header {
-    width: 100%; }
+    width: auto;
+    padding: 0 10px; }
 
   body > footer {
     display: none; }
@@ -1202,17 +1203,19 @@ ul.tags > li + li { margin-left: 5px; }
     -moz-border-radius: 0;
     border-radius: 0; }
     #landing-page-panel-container #landing-page-panel {
-      margin: 0; }
+      margin: 0;
+      padding: 0; }
       #landing-page-panel-container #landing-page-panel h1 {
-        font-size: 28px; }
+        font-size: 28px;
+        margin: 10px; }
       #landing-page-panel-container #landing-page-panel > p {
         width: auto;
-        margin: 0 40px 10px 10px;
+        margin: 10px;
         float: none; }
       #landing-page-panel-container #landing-page-panel #create-trip-form {
         float: none;
         margin: 10px;
-        width: 90%; }
+        width: auto; }
         #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
           width: 90%; }
 
