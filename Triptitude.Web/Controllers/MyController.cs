@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
@@ -85,9 +86,9 @@ namespace Triptitude.Web.Controllers
 
         public ActionResult DefaultTrip(int id)
         {
-            Trip trip = new TripsRepo().Find(id);
-            if (!CurrentUser.OwnsTrips(trip)) return Redirect("/");
+            var trip = CurrentUser.Trips(CurrentUser).FirstOrDefault(t => t.Id == id);
             CurrentUser.DefaultTrip = trip;
+            usersRepo.Save();
             return Redirect(Url.Details(trip));
         }
     }
