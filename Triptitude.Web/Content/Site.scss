@@ -1,7 +1,7 @@
 ﻿@import "Mixins.scss";
 
 /* Html Tags */
-body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #666; background-size: cover; background-attachment: fixed; background-position: bottom right; }
+body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; margin: 0; background-color: #333; background-size: cover; background-attachment: fixed; background-position: bottom right; }
 h1, h2, h3, h4, h5 { margin: 0; padding: 0; }
 h1 { font-size: 28px; }
 a, a:visited, a:hover, .link { color: #0190E9; text-decoration: none; cursor: pointer; }
@@ -54,8 +54,8 @@ input.delete { background-color: #E92553; }
 }*/
 
 /* Header */
-#header-container { background-color: #262626; z-index: 5; height: 56px; }
-#header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; }
+#header-container { background-color: #262626; z-index: 5; }
+#header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; @include clearfix; }
 #logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; @include border-radius(0 0 7px 7px); @include gradient(#39B3FE, #0190E9); }
 
 /* Search */
@@ -68,11 +68,11 @@ input.delete { background-color: #E92553; }
 
 /* User status */
 #user-status {
-	color: #FFFFFF; float: right; text-align: right; margin-top: 7px;
+	color: #FFFFFF; float: right; text-align: right; margin: 7px 0;
 	a, a:visited { color: #66C3FE; }
 	a + a { border-left: 1px solid #8A8A8A; padding-left: 5px; }
 	p { margin: 0; margin-top: 3px; }
-	p.single { margin-top: 13px; }
+	p.single { margin: 13px 0; }
 	#user-status-header {
 		margin-bottom: 5px; color: #8A8A8A;
 		a { font-weight: bold; font-size: 13px; }
@@ -87,7 +87,6 @@ input.delete { background-color: #E92553; }
 /* Tripbar */
 #trip-bar-container {
 	z-index: 5; margin-top: 10px; position: relative;
-	&.at-top { position: fixed; top: 0; left: 0; right: 0; background-color: #262626; margin: 0; }
 	#trip-bar {
 		width: 935px; padding: 10px; margin: 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px);
 		#create-trip-form {
@@ -143,13 +142,14 @@ input.delete { background-color: #E92553; }
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; @include clearfix; }
 
+
 #side-container {
 	float: left; width: 220px; margin-top: 50px; text-transform: lowercase; margin-right: 25px;
 	a { margin-bottom: 10px; @include transparent-background(#E9BA26,0.7); padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; @include border-radius(4px); }
 	a:hover, a:focus { background-color:#E9BA26; text-decoration:none; }
 }
 
-#main-container { float: right; width: 710px; }
+#main-container {  }
 
 article {
 	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
@@ -200,7 +200,7 @@ header .share-bar-container {
 	#landing-page-panel {
 		margin: 0 20px; padding: 20px 0; @include clearfix;
 		h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; text-align: center; }
-		> p { color: #333; font-size: 17px; line-height: 1.5; font-weight: bold; margin-top: 60px; }
+		> p { float: left; width: 350px; color: #333; font-size: 17px; line-height: 1.5; font-weight: bold; margin-top: 60px; margin-left: 100px; }
 		/*> ul {
 			list-style: disc;
 			margin: 0; padding-left: 40px;
@@ -421,7 +421,7 @@ ul.tags > li + li { margin-left: 5px; }
 .packing-list-items {
 	@include clearfix;
 	li {
-		float: left; width: 30%; margin: 0 4px 4px 0; padding: 5px; @include clearfix; background-color: #F6F6F6; @include border-box;
+		float: left; width: 30%; margin: 0 4px 4px 0; padding-left: 5px; line-height: 22px; @include clearfix; background-color: #F6F6F6; @include border-box;
 		&.added { background: url("/static/icons/check.png") #F6F6F6 no-repeat right center; padding-right:30px; }
 		.add-to-trip { float: right; }
 		.packing-list-item-note { clear: both; background-color: #9FDAFE; padding: 3px; margin-top: 3px; }
@@ -432,9 +432,9 @@ ul.tags > li + li { margin-left: 5px; }
 		&.visibility-private .name:after { content: "(private)"; color: #888; margin-left: 2px; }
 		.right {
 			float: right;
-			.quantity { float: left; margin: 0 5px; }
-			.inc, .dec { float: left; display: block; height: 16px; line-height: 16px; width: 16px; text-align: center; background-color: #DDD; @include border-radius(3px); cursor: pointer; }
-			.inc:hover, .dec:hover { background-color: #66C3FE; }
+			.quantity { float: left; margin: 0 5px; line-height:22px; }
+			.inc, .dec { float: left; display: block; height: 18px; line-height: 18px; width: 18px; margin: 2px; text-align: center; background-color: #DDD; cursor: pointer; }
+			.inc:active, .dec:active { background-color: #66C3FE; }
 		}
 	}
 	&.suggestions {
@@ -460,7 +460,6 @@ ul.tags > li + li { margin-left: 5px; }
 	}
 	.panel-content { position: relative; }
 	#map { height: 300px; }
-	#map.at-top { position: fixed !important; top: 90px; }
 	#placeSearch {
 		#keyword { width: 250px; }
 	}
@@ -475,8 +474,7 @@ ul.tags > li + li { margin-left: 5px; }
 }*/
 
 #users-details {
-	img { float: left; }
-	h1 { float: left; line-height: 80px; margin-left: 15px; }
+	img { float: left; margin-right: 15px; }
 }
 
 #invitations-details {
@@ -508,4 +506,72 @@ ul.tags > li + li { margin-left: 5px; }
 	label { font-size: 16px; }
 	label:after { content: ':'; }
 	.submit input { font-size: 16px; @include border-radius(5px); }
+}
+
+@media only screen and (max-width: 480px) {
+	#uvTab { display: none !important; }
+	body { background-image: none !important; }
+	#header { width: 100%; }
+	body > footer { display: none; }
+	#trip-bar-container {
+		margin: 0;
+		#trip-bar { width: 100%; padding: 0; margin: 0; @include border-radius(0); }
+	}
+	#content { width: 100%; margin: 0; }
+	article, .panel {
+		clear: both; @include border-radius(0);
+		section { margin: 0; }
+	}	
+	#landing-page-panel-container {
+		width: 100%; @include border-radius(0);
+		#landing-page-panel {
+			margin: 0;
+			h1 { font-size: 28px; }
+			> p { width: auto; margin: 0 40px 10px 10px; float: none; }
+			#create-trip-form {
+				float: none; margin: 10px; width: 90%;
+				input[type="text"] { width: 90%; }
+			}
+		}
+	}
+	header .share-bar-container { display: none; }
+	#side-container { display: none; }
+	.packing-list-tags.fluid {	
+		.packing-list-tag {	width: 100%; margin: 0 0 10px 0; }
+	}
+	.packing-list-items {
+		li {
+			line-height: 40px;
+			.right {
+				.quantity { margin: 0 10px; line-height:36px; }
+				.inc, .dec { height: 36px; line-height: 36px; width: 36px; }
+			}
+		}
+	}
+	#trips-packing #add-pl-item {
+		@include clearfix;
+		input { float: left; }
+		label { float: left; clear: left; display: block; width: 60px; }
+	}
+	#editor-container {
+		width: 90%; margin-top: 20px; height: auto;
+		.add-activity { display: none; }
+		#editor-itinerary .activity-list {
+			display: none;
+		}
+		#editor-itinerary .activity-form {
+			float: none; width: 100%; margin: 0; padding: 10px; height: auto;
+			input, textarea { width: 80%; font-size: 14px; }
+			textarea { height: 20px; }
+			div { margin: 0; }
+		}
+		header { display: none; }
+	}
+	#new-user-dialog {
+		margin: 10px auto; width: 90%; @include border-radius(0);
+		h1 { font-size: 16px; }
+		header { @include border-radius(0); font-size: 14px; }
+		p { text-align: left; margin: 5px 0; }
+		label { display: block; }
+	}
 }

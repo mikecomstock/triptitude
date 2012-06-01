@@ -8,7 +8,7 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-            $('.packing-list-items').on('click', '.inc, .dec', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').on(TT.ClickEventType, '.inc, .dec', TT.Util.PL.PackingListClick);
             $('.packing-list-items').disableSelection();
             $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
             $('#item-search').submit(function (e) {

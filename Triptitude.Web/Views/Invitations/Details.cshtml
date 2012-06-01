@@ -10,8 +10,8 @@
         $(function () {
             var signInForm = $('#sign-in');
             var signUpForm = $('#sign-up');
-            signInForm.on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-in').addClass('show-sign-up'); });
-            signUpForm.on('click', '.toggle', function () { $('#confirm-form').removeClass('show-sign-up').addClass('show-sign-in'); });
+            signInForm.on(TT.ClickEventType, '.toggle', function () { $('#confirm-form').removeClass('show-sign-in').addClass('show-sign-up'); });
+            signUpForm.on(TT.ClickEventType, '.toggle', function () { $('#confirm-form').removeClass('show-sign-up').addClass('show-sign-in'); });
 
             signInForm.on('submit', function (e) {
                 e.preventDefault();

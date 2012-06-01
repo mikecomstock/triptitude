@@ -6,7 +6,7 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            $('.my-trip-rows').on('click', '.delete', null, function (e) {
+            $('.my-trip-rows').on(TT.ClickEventType, '.delete', null, function (e) {
                 e.preventDefault();
                 if (!confirm('Are you sure?')) return;
                 var button = $(e.currentTarget);
@@ -41,7 +41,9 @@
                 <ul class="my-trip-rows">
                     @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
                     {
-                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a class="delete" data-trip-id="@trip.Id">delete</a> <a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a>
+                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)">
+                            <a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a>
+                            <a class="delete" data-trip-id="@trip.Id">delete</a>
                             @if (trip.Users.Except(new[] { currentUser }).Any())
                             {
                                 <div class="travelers">

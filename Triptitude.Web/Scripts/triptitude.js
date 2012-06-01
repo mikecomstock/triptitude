@@ -12,7 +12,7 @@ function SetBindings() {
 
 $(function () {
 
-    moveScroller();
+    //    moveScroller();
     SetBindings();
 
     $('.place-search-input').each(function () {
@@ -29,7 +29,7 @@ $(function () {
         function () { $(this).children('ul').hide(); }
     );
 
-    $('body > header').on('click', 'a.login', function (e) {
+    $('body > header').on(TT.ClickEventType, 'a.login', function (e) {
         e.preventDefault();
 
         $.get('/templates/auth/new.html', function (template) {
@@ -57,7 +57,7 @@ $(function () {
         });
     });
 
-    $('body > header').on('click', 'a.sign-up', function (e) {
+    $('body > header').on(TT.ClickEventType, 'a.sign-up', function (e) {
         e.preventDefault();
 
         $.get('/templates/users/new.html', function (template) {
@@ -92,7 +92,7 @@ $(function () {
     //    superDialogOverlay.click(function () { CloseSuperDialog(); });
     //    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
 
-    $('.confirm-delete').live('click', function (e) {
+    $('.confirm-delete').live(TT.ClickEventType, function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
             var data_url = $(this).data('url');
@@ -102,7 +102,7 @@ $(function () {
         }
     });
 
-    $('.super-dialog-link').live('click', function (e) {
+    $('.super-dialog-link').live(TT.ClickEventType, function (e) {
         e.preventDefault();
         var tripID = $(e.currentTarget).data('trip-id');
         var trip = new TT.Models.Trip({ ID: tripID });
@@ -151,9 +151,9 @@ $(function () {
                 location.reload();
         };
 
-        var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);
+        var overlay = $('<div id="editor-overlay">').appendTo(body).on(TT.ClickEventType, close);
         var editorContent = $('<div id="editor-container">').appendTo(body);
-        $('<div id="editor-close">').text('×').attr('title', 'Close').on('click', close).appendTo(editorContent);
+        $('<div id="editor-close">').text('×').attr('title', 'Close').on(TT.ClickEventType, close).appendTo(editorContent);
         var editorElement = $('<div id="editor">').appendTo(editorContent);
         editorElement.text('loading...');
 
@@ -162,7 +162,7 @@ $(function () {
     };
 
 
-    $('.activity').live('click', function (e) {
+    $('.activity').live(TT.ClickEventType, function (e) {
 
         if ($(this).parents('#editor').length > 0) return;
 
@@ -570,26 +570,26 @@ function drawMap(container, mapData) {
     map.fitBounds(bounds);
 }
 
-function moveScroller() {
-    var a = function () {
-        var b = $(window).scrollTop();
-        var sa = $("#scrollanchor");
-        var d = sa.offset().top;
-        var c = $("#trip-bar-container");
-        if (b > d) {
-            var height = c.outerHeight(true);
-            sa.css({ height: height + "px" });
-            c.addClass('at-top');
-        } else {
-            if (b <= d) {
-                c.removeClass('at-top');
-                sa.css({ height: "0" });
-            }
-        }
-    };
-    $(window).scroll(a);
-    a();
-}
+//function moveScroller() {
+//    var a = function () {
+//        var b = $(window).scrollTop();
+//        var sa = $("#scrollanchor");
+//        var d = sa.offset().top;
+//        var c = $("#trip-bar-container");
+//        if (b > d) {
+//            var height = c.outerHeight(true);
+//            sa.css({ height: height + "px" });
+//            c.addClass('at-top');
+//        } else {
+//            if (b <= d) {
+//                c.removeClass('at-top');
+//                sa.css({ height: "0" });
+//            }
+//        }
+//    };
+//    $(window).scroll(a);
+//    a();
+//}
 
 //function scrollToBottom($element) {
 //    if ($element) {
