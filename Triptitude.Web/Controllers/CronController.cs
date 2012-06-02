@@ -49,13 +49,13 @@ namespace Triptitude.Web.Controllers
                 var updaters = validHistories.Select(h => h.User).Distinct();
                 var firstUpdater = updaters.First();
                 var numUpdaters = updaters.Count();
-                if (numUpdaters == 1) { subject = string.Format("{0} has updated your trip", firstUpdater.FirstName); }
+                if (numUpdaters == 1) { subject = string.Format("{0} has updated your trip", firstUpdater.NameOrAnon); }
                 else if (numUpdaters == 2)
                 {
-                    var updaterNames = String.Join(" and ", updaters.Select(u => u.FirstName));
+                    var updaterNames = String.Join(" and ", updaters.Select(u => u.NameOrAnon));
                     subject = string.Format("{0} have updated your trip", updaterNames);
                 }
-                else { subject = string.Format("{0} and {1} others have updated your trip", firstUpdater.FirstName, numUpdaters - 1); }
+                else { subject = string.Format("{0} and {1} others have updated your trip", firstUpdater.NameOrAnon, numUpdaters - 1); }
 
                 StringBuilder body = new StringBuilder();
                 body.AppendFormat("<h2><a href=\"{1}\">{0}</a></h2>", userTrip.Trip.Name, Url.Details(userTrip.Trip, true));

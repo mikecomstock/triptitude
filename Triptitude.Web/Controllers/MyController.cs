@@ -37,8 +37,7 @@ namespace Triptitude.Web.Controllers
         {
             UserSettingsForm form = new UserSettingsForm
             {
-                FirstName = CurrentUser.FirstName,
-                LastName = CurrentUser.LastName,
+                Name = CurrentUser.Name,
                 Email = CurrentUser.Email,
                 EmailWhenTripsUpdated = CurrentUser.EmailWhenTripsUpdated
             };

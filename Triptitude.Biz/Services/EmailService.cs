@@ -31,7 +31,7 @@ namespace Triptitude.Biz.Services
             {
                 From = "admin@triptitude.com",
                 To = emailInvite.Email,
-                Subject = emailInvite.UserTrip.Trip.Creator.FullName + " wants to plan a trip with you",
+                Subject = emailInvite.UserTrip.Trip.Creator.NameOrAnon + " wants to plan a trip with you",
                 HtmlBody = string.Format("<a href='{0}'>Click here to start planning.</a>", emailInvite.UserTrip.InvitationURL(url)),
                 TextBody = string.Format("Go here to help plan the trip: {0}", emailInvite.UserTrip.InvitationURL(url)),
                 Tag = "invite"

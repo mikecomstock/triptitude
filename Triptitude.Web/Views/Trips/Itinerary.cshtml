@@ -90,7 +90,7 @@
                                         <div class="when">
                                             @note.Created_On.ToRelative()
                                         </div>
-                                        <a href="@Url.Details(note.User)">@note.User.FullName</a>: @note.Text
+                                        <a href="@Url.Details(note.User)">@note.User.NameOrAnon</a>: @note.Text
                                     </li>
                                 }
                             </ol>

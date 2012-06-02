@@ -59,7 +59,7 @@
                 {
                     <li><a href="@Url.Details(userTrip.User)">
                         <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                        <span>@(userTrip.User == currentUser ? "you" : userTrip.User.FullName)</span> </a></li>
+                        <span>@(userTrip.User == currentUser ? "you" : userTrip.User.NameOrAnon)</span> </a></li>
                 }
             </ul>
         </header>

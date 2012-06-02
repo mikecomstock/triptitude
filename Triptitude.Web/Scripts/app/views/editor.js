@@ -256,7 +256,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         this.NotesInput.val('').appendTo(p.Notes);
         var NotesOL = $(this.make('ol')).appendTo(p.Notes);
         var Notes = this.model.get('Notes');
-        var noteLITemplate = _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.FullName %></a> <div class="text"><%= n.Text %></div></li>');
+        var noteLITemplate = _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.Name %></a> <div class="text"><%= n.Text %></div></li>');
         Notes.each(function (note) {
             var noteHTML = noteLITemplate({ n: note.attributes });
             NotesOL.append(noteHTML);

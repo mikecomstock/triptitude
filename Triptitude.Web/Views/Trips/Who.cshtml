@@ -32,18 +32,18 @@
 
                 var fields = {
                     trip_id: form.find('[name="trip_id"]').val(),
-                    FirstName: form.find('[name="FirstName"]').val(),
-                    LastName: form.find('[name="LastName"]').val()
+                    name: form.find('[name="Name"]').val()
                 };
+                
                 var ut = new TT.Models.UserTrip();
                 ut.save(fields, {
                     success: function (model, response) {
                         var template = _.template($("#traveler_row_template").html());
                         var li = $(template({ userTrip: model.attributes }));
+                        console.log(model.attributes);
                         li.prependTo($('.travelers'));
 
-                        form.find('[name="FirstName"]').val('');
-                        form.find('[name="LastName"]').val('');
+                        form.find('[name="Name"]').val('');
 
                         li.find('[name="email"]').focus();
                         setTimeout(function () { li.find('form').effect('highlight', { color: '#0190E9' }, 4000); }, 500);
@@ -67,7 +67,7 @@
                 i.save(fields, {
                     success: function (model) {
                         form.closest('.expanded').removeClass('not-sent').addClass('sent');
-                        $('#add-someone [name="FirstName"]').focus();
+                        $('#add-someone [name="Name"]').focus();
                     },
                     error: function (model, response) {
                         alert('Something went wrong!');
@@ -87,13 +87,13 @@
 <script type="text/template" id="traveler_row_template">
     <li>
         <img src="<%= userTrip.PhotoURLSmall %>" alt="" />
-        <a class="user" href="/users/<%= userTrip.UserId %>"><%= userTrip.FullName %></a>
+        <a class="user" href="/users/<%= userTrip.UserId %>"><%= userTrip.Name %></a>
         <a class="delete" data-id="<%= userTrip.id %>">remove</a>
         <div class="expanded not-sent">
             <form class="invite">
-            Invite <%= userTrip.FirstName %> to help plan?
+            Invite <%= userTrip.NameOrAnon %> to help plan?
             <input type="hidden" name="usertrip_id" value="<%= userTrip.id %>" />
-            <input name="email" id="invite_email" placeholder="<%= userTrip.FirstName %>'s email" >
+            <input name="email" id="invite_email" placeholder="<%= userTrip.Name %>'s email" >
             <input type="submit" value="Invite" />
             </form>
             <div class="sent">
@@ -122,7 +122,7 @@
             </div>
         }
         <div class="panel-content not-padded">
-            @if (string.IsNullOrWhiteSpace(currentUser.FirstName) && string.IsNullOrWhiteSpace(currentUser.LastName))
+            @if (string.IsNullOrWhiteSpace(currentUser.Name))
             {   
                 <form action="/usertrips" method="POST">
                 <h3>
@@ -130,8 +130,7 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="trip_id" value="@trip.Id"/>
                 <input type="hidden" name="you" value="true" />
-                <input name="FirstName" placeholder="Your First Name" class="focus" />
-                <input name="LastName" placeholder="Your Last Name" />
+                <input name="Name" placeholder="Your Name" class="focus" />
                 <input type="submit" value="Save" />
                 </form>
             }
@@ -144,8 +143,7 @@
                     Add Someone</h3>
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="trip_id" value="@trip.Id"/>
-                <input name="FirstName" placeholder="First Name" class="focus" />
-                <input name="LastName" placeholder="Last Name" />
+                <input name="Name" placeholder="Name" class="focus" />
                 <input type="submit" value="Add Traveler" />
                 </form>
                 }
@@ -154,7 +152,7 @@
                     {
                         <li>
                             <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.FullName</a>
+                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.NameOrAnon</a>
                             @if (currentUser.CreatedTrips(trip))
                             {
                                 <a class="delete" data-id="@userTrip.Id">remove</a>
@@ -162,9 +160,9 @@
                                 {
                                 <div class="expanded @(userTrip.InviteAccepted ? "accepted" : userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
                                     <form class="invite">
-                                    Invite @userTrip.User.FirstName to help plan?
+                                    Invite @userTrip.User.NameOrAnon to help plan?
                                     <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
-                                    <input name="email" id="invite_email" placeholder="@userTrip.User.FirstName's email" >
+                                    <input name="email" id="invite_email" placeholder="@userTrip.User.NameOrAnon's email" >
                                     <input type="submit" value="Invite" />
                                     </form>
                                     <div class="sent">

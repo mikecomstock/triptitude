@@ -16,26 +16,21 @@ namespace Triptitude.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int trip_id, string firstName, string lastName, bool you = false)
+        public ActionResult Create(int trip_id, string name, bool you = false)
         {
             var currentUserTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == trip_id);
             if (currentUserTrip == null) return Redirect("/");
             var trip = currentUserTrip.Trip;
 
-            if (you && string.IsNullOrWhiteSpace(CurrentUser.FirstName) && string.IsNullOrWhiteSpace(CurrentUser.LastName))
+            if (you && string.IsNullOrWhiteSpace(CurrentUser.Name))
             {
-                CurrentUser.FirstName = firstName;
-                CurrentUser.LastName = lastName;
+                CurrentUser.Name = name;
                 repo.Save();
                 return Redirect(Url.Who(trip));
             }
             else
             {
-                User newUser = new User
-                {
-                    FirstName = firstName,
-                    LastName = lastName
-                };
+                User newUser = new User { Name = name };
                 UserTrip newUserTrip = new UserTrip
                 {
                     User = newUser,

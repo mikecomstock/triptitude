@@ -22,8 +22,7 @@ namespace Triptitude.Biz.Models
         }
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
         public string HashedPassword { get; set; }
         public string AnonymousId { get; set; }
@@ -48,16 +47,7 @@ namespace Triptitude.Biz.Models
         }
 
         public bool IsRegistered { get { return !string.IsNullOrWhiteSpace(HashedPassword); } }
-
-        public string FullName
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(FirstName) && string.IsNullOrWhiteSpace(LastName)
-                           ? "anonymous user"
-                           : string.Format("{0} {1}", FirstName, LastName).Trim();
-            }
-        }
+        public string NameOrAnon { get { return string.IsNullOrWhiteSpace(Name) ? "anonymous user" : Name; } }
 
         public bool GuidIsExpired
         {
@@ -160,7 +150,7 @@ namespace Triptitude.Biz.Models
             if (IncludeRelativeTime)
                 sb.AppendFormat("{0} - ", CreatedOnUTC.ToRelative());
 
-            sb.AppendFormat("{0} ", User == forUser ? "You" : User.FullName);
+            sb.AppendFormat("{0} ", User == forUser ? "You" : User.NameOrAnon);
 
             switch (HistoryAction)
             {
@@ -176,13 +166,13 @@ namespace Triptitude.Biz.Models
                 case HistoryAction.AddUserToTrip:
                     {
                         var user = usersRepo.Find(TableId1.Value);
-                        sb.AppendFormat("added {0}", user.FullName);
+                        sb.AppendFormat("added {0}", user.NameOrAnon);
                         break;
                     }
                 case HistoryAction.CreateInvitation:
                     {
                         var user = usersRepo.Find(TableId1.Value);
-                        sb.AppendFormat("invited {0} to help plan", user.FullName);
+                        sb.AppendFormat("invited {0} to help plan", user.NameOrAnon);
                         break;
                     }
                 case HistoryAction.AcceptInvitation:
@@ -193,7 +183,7 @@ namespace Triptitude.Biz.Models
                 case HistoryAction.RemoveUserFromTrip:
                     {
                         var user = usersRepo.Find(TableId1.Value);
-                        sb.AppendFormat("removed {0}", user.FullName);
+                        sb.AppendFormat("removed {0}", user.NameOrAnon);
                         break;
                     }
                 case HistoryAction.CreateActivity:
@@ -285,9 +275,7 @@ namespace Triptitude.Biz.Models
             return new
                        {
                            id = Id,
-                           User.FirstName,
-                           User.LastName,
-                           User.FullName,
+                           Name = User.NameOrAnon,
                            User.PhotoURLSmall,
                            UserId = User.Id,
                            InvitationURL = InvitationURL(url),
@@ -444,9 +432,9 @@ namespace Triptitude.Biz.Models
             if (byUser != null) p = p.Where(pi => pi.CreatedUser == byUser);
             if (forUser != null) p = p.Where(pi => pi.ForUser == forUser);
             if (!string.IsNullOrWhiteSpace(tag)) p = p.Where(pi => pi.Tag == tag.Trim());
-            if (!string.IsNullOrWhiteSpace(item)) p = p.Where(pi => pi.Item== item.Trim());
+            if (!string.IsNullOrWhiteSpace(item)) p = p.Where(pi => pi.Item == item.Trim());
             return p;
-        } 
+        }
 
         public dynamic Json(User forUser, UrlHelper url)
         {
@@ -665,7 +653,7 @@ namespace Triptitude.Biz.Models
                            Id,
                            User = new
                                       {
-                                          User.FullName,
+                                          Name = User.NameOrAnon,
                                           DetailsURL = url.Details(User)
                                       },
                            Text,

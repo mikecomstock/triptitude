@@ -31,8 +31,7 @@
             signUpForm.on('submit', function (e) {
                 e.preventDefault();
                 var user = new TT.Models.User({
-                    firstname: signUpForm.find('[name="firstname"]').val(),
-                    lastname: signUpForm.find('[name="lastname"]').val(),
+                    name: signUpForm.find('[name="name"]').val(),
                     email: signUpForm.find('[name="email"]').val(),
                     password: signUpForm.find('[name="password"]').val()
                 });
@@ -50,7 +49,7 @@
 <div class="panel">
     <header>
         <h1>
-            @userTrip.Trip.Creator.FullName wants to plan a trip with you!
+            @userTrip.Trip.Creator.NameOrAnon wants to plan a trip with you!
         </h1>
     </header>
     <div class="panel-content">
@@ -80,15 +79,10 @@
             <form id="sign-up" class="sign-up-form" method="POST">
             <h4>
                 Confirm Your Info</h4>
-            <p class="firstname">
-                <label for="firstname">
-                    First Name</label>
-                <input type="text" name="firstname" id="firstname" value="@userTrip.User.FirstName" />
-            </p>
-            <p class="lastname">
-                <label for="lastname">
-                    Last Name</label>
-                <input type="text" name="lastname" id="lastname" value="@userTrip.User.LastName" />
+            <p class="name">
+                <label for="name">
+                    Name</label>
+                <input type="text" name="name" id="name" value="@userTrip.User.Name" />
             </p>
             <p class="email">
                 <label for="email2">
@@ -107,7 +101,7 @@
             </form>
             <form id="accept" action="/i/@userTrip.Guid" method="POST">
             <h4>
-                You're currently signed in as <a href="@Url.Details(currentUser)">@currentUser.FullName</a>.<br />
+                You're currently signed in as <a href="@Url.Details(currentUser)">@currentUser.NameOrAnon</a>.<br />
                 Do you want to accept this invitation and begin planning?</h4>
             <p class="submit">
                 <input type="submit" value="Start Planning" />
@@ -127,7 +121,7 @@
             {
                 <li><a href="@Url.Details(ut.User)">
                     <img src="@ut.User.PhotoURL" alt="" />
-                    <span>@ut.User.FullName</span> </a></li>
+                    <span>@ut.User.NameOrAnon</span> </a></li>
             }
         </ul>
     </div>

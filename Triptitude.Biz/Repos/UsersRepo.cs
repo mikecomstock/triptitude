@@ -49,8 +49,7 @@ namespace Triptitude.Biz.Repos
             User u = new User
                          {
                              Email = form.Email.Trim(),
-                             FirstName = form.FirstName.Trim(),
-                             LastName = form.LastName.Trim(),
+                             Name = form.Name.Trim(),
                              HashedPassword = BCryptHelper.HashPassword(form.Password, salt),
                              Guid = Guid.NewGuid(),
                              GuidCreatedOnUtc = DateTime.UtcNow,
@@ -72,8 +71,7 @@ namespace Triptitude.Biz.Repos
             // Set users properties
             if (userSaveAction != UserSaveAction.EmailAlreadyTaken)
             {
-                user.FirstName = form.FirstName.Trim();
-                user.LastName = form.LastName.Trim();
+                user.Name = form.Name.Trim();
                 user.EmailWhenTripsUpdated = form.EmailWhenTripsUpdated;
                 // For new users only (don't allow changes, just to simplify code for now)
                 user.Email = string.IsNullOrWhiteSpace(user.Email) ? form.Email.Trim() : user.Email;

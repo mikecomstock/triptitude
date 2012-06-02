@@ -48,7 +48,7 @@
                             {
                                 <div class="travelers">
                                     with
-                                    @Html.Raw(string.Join(", ", trip.UserTrips.Where(ut => ut.User != currentUser).Select(ut => string.Format("<a href=\"{0}\">{1}</a>", Url.Details(ut.User), ut.User.FullName))))
+                                    @Html.Raw(string.Join(", ", trip.UserTrips.Where(ut => ut.User != currentUser).Select(ut => string.Format("<a href=\"{0}\">{1}</a>", Url.Details(ut.User), ut.User.NameOrAnon))))
                                 </div>
                             }
                         </li>

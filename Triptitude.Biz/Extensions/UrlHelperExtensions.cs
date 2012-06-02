@@ -69,7 +69,7 @@ namespace Triptitude.Biz.Extensions
 
         public static string Details(this UrlHelper url, User user, bool absolute = false)
         {
-            return url.SlugAction("details", "users", user.Id, user.FullName, absolute: absolute);
+            return url.SlugAction("details", "users", user.Id, user.NameOrAnon, absolute: absolute);
         }
 
         #endregion

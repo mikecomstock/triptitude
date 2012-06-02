@@ -68,8 +68,7 @@ $(function () {
                 f.preventDefault();
                 var form = $(f.currentTarget);
                 var user = new TT.Models.User({
-                    firstname: form.find('[name="firstname"]').val(),
-                    lastname: form.find('[name="lastname"]').val(),
+                    name: form.find('[name="name"]').val(),
                     email: form.find('[name="email"]').val(),
                     password: form.find('[name="password"]').val()
                 });

@@ -13,16 +13,10 @@
         <div class="panel-content">
             <form id="my-settings-form" action="@Url.MySettings()" method="post">
             <p>
-                @Html.ValidationMessage("firstname")
-                <label for="firstname">
-                    First Name</label>
-                <input type="text" name="firstname" id="firstname" value="@form.FirstName" class="focus" tabindex="1"/>
-            </p>
-            <p>
-                @Html.ValidationMessage("lastname")
-                <label for="lastname">
-                    Last Name</label>
-                <input type="text" name="lastname" id="lastname" value="@form.LastName" tabindex="2"/>
+                @Html.ValidationMessage("name")
+                <label for="name">
+                    Name</label>
+                <input type="text" name="name" id="name" value="@form.Name" class="focus" tabindex="1"/>
             </p>
             <p>
                 @Html.ValidationMessage("email")

@@ -1,7 +1,7 @@
 ﻿@{
     User user = ViewBag.User;
     User currentUser = ViewBag.CurrentUser;
-    ViewBag.Title = user.FullName;
+    ViewBag.Title = user.NameOrAnon;
     IEnumerable<Trip> trips = user.Trips(currentUser);
 }
 <div class="panel">
