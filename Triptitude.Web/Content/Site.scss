@@ -508,7 +508,7 @@ ul.tags > li + li { margin-left: 5px; }
 	.submit input { font-size: 16px; @include border-radius(5px); }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 960px) {
 	#uvTab { display: none !important; }
 	body { background-image: none !important; }
 	#header { width: auto; padding: 0 10px; }
@@ -529,7 +529,7 @@ ul.tags > li + li { margin-left: 5px; }
 			h1 { font-size: 28px; margin: 10px; }
 			> p { width: auto; margin: 10px; float: none; }
 			#create-trip-form {
-				float: none; margin: 10px; width: auto;
+				float: none; margin: 10px auto; width: auto; max-width: 400px;
 				input[type="text"] { width: 90%; }
 			}
 		}

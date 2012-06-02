@@ -1161,7 +1161,7 @@ ul.tags > li + li { margin-left: 5px; }
     -moz-border-radius: 5px;
     border-radius: 5px; }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 960px) {
   #uvTab {
     display: none !important; }
 
@@ -1214,8 +1214,9 @@ ul.tags > li + li { margin-left: 5px; }
         float: none; }
       #landing-page-panel-container #landing-page-panel #create-trip-form {
         float: none;
-        margin: 10px;
-        width: auto; }
+        margin: 10px auto;
+        width: auto;
+        max-width: 400px; }
         #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
           width: 90%; }
 
