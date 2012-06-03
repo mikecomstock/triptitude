@@ -177,7 +177,6 @@
     <Content Include="robots.txt" />
     <Content Include="Scripts\app\models\models.js" />
     <Content Include="Scripts\app\TT.js" />
-    <Content Include="Scripts\app\views\activity-dialog.js" />
     <Content Include="Scripts\app\views\create-trip.js" />
     <Content Include="Scripts\app\views\editor.js" />
     <Content Include="Scripts\app\views\invite.js" />

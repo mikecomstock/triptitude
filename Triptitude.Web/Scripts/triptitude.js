@@ -1,23 +1,12 @@
-﻿var superDialog;
+﻿$(function () {
 
-function SetBindings() {
     $('input').placeholder();
     $('.focus').first().focus();
     $('.date-picker').datepicker();
-    //    $('.place-autocomplete').googAutocomplete();
-    //    $('.tag-autocomplete').tagAutocomplete();
-    //    $('.item-autocomplete').itemAutocomplete();
-    //    $('#trip-search-form').submit(T.TripSearchSubmit);
-};
 
-$(function () {
-
-    //    moveScroller();
-    SetBindings();
-
-    $('.place-search-input').each(function () {
-        var v = new TT.Views.PlaceSearchInput({ el: this });
-    });
+//    $('.place-search-input').each(function () {
+//        var v = new TT.Views.PlaceSearchInput({ el: this });
+//    });
 
     $('#search').submit(function (e) {
         var val = $('input[name="googreference"]', $(this)).val();
@@ -85,12 +74,7 @@ $(function () {
 
         });
     });
-
-    //    superDialog = $('#super-dialog');
-    //    superDialogOverlay = $('#super-dialog-overlay');
-    //    superDialogOverlay.click(function () { CloseSuperDialog(); });
-    //    $('*').live('keyup', function (e) { if (e.which == 27) { CloseSuperDialog(); } });
-
+    
     $('.confirm-delete').live(TT.ClickEventType, function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
@@ -120,25 +104,8 @@ $(function () {
                 console.log('error!', 'model:', model, 'response:', response);
             }
         });
-
-        //        var url = $(this).attr('href');
-        //        OpenSuperDialog(url);
-
-        //        var activity = new TT.Models.Activity();
-        //        var dialog = new TT.Views.ActivityDialog({ model: activity });
-        //        dialog.render();
-        //        $('#trip-bar').append(dialog.el);
-
     });
-
-    //    $('.editing .packing-list-item').live('click', function (e) {
-    //        if ($(e.target).is('a')) return;
-    //        if ($(this).parent().is('.suggestions')) return;
-
-    //        var id = $(this).data('id');
-    //        OpenSuperDialog('/packing/edit/' + id);
-    //    });
-
+    
     var openEditor = function (trip, activity) {
         console.log('openEditor');
         var body = $('body');
@@ -196,229 +163,12 @@ $(function () {
                 }
             });
 
-            //OpenSuperDialog('/activities/edit/' + activityId);
             //openEditor(activityId);
         }
     });
 
-    //    $('.add-to-trip').live('click', function (e) {
 
-    //        if (e.target != this && $(e.target).is('a')) return;
-
-    //        e.preventDefault();
-    //        var link = $(this);
-    //        var type = link.data('type');
-    //        if (type == 'packing-list-item') {
-    //            OpenSuperDialog('/packing/create', function () {
-    //                superDialog.find('input[name="name"]').val(link.data('name'));
-    //                superDialog.find('input[name="tagstring"]').val(link.data('tag'));
-    //            });
-    //        } else {
-    //            var place = $(e.target).data('place');
-    //            if (!place) {
-    //                place = {
-    //                    id: $(this).data('id'),
-    //                    reference: $(this).data('reference'),
-    //                    name: $(this).data('name')
-    //                };
-    //            }
-    //            OpenSuperDialog('/activities/create?type=place', function () {
-    //                var placeInputParagraph = superDialog.find('[name="name"]').parent();
-    //                placeInputParagraph.find('input[name="googid"]').val(place.id);
-    //                placeInputParagraph.find('input[name="googreference"]').val(place.reference);
-    //                placeInputParagraph.find('input[name="googname"]').val(place.name).trigger('change');
-    //                placeInputParagraph.hide();
-    //                $(document.createElement('p')).addClass('place').text(place.name).insertBefore(placeInputParagraph);
-    //            });
-    //        }
-    //    });
 });
-
-//function OpenSuperDialog(url, callback) {
-
-//    $('#trip-bar-menu li').children('ul').hide();
-//    superDialogOverlay.show();
-
-//    // Show loading screen if it's taking too long
-//    var loaded = false;
-//    setTimeout(function () { if (!loaded) superDialog.html('<header><h3>Loading Options...</h3></header>').show(); }, 500);
-
-//    $.get(url, function (result) {
-//        loaded = true;
-//        superDialog.html(result).show()
-//        superDialog.find('.focus').focus()
-//        superDialog.find('input.day-input').attr('autocomplete', 'off');
-//        superDialog.find('.cancel').click(function (e) { e.preventDefault(); CloseSuperDialog(); });
-//        superDialog.find('.place-autocomplete').googAutocomplete();
-//        superDialog.find('.tag-autocomplete').tagAutocomplete();
-//        superDialog.find('.item-autocomplete').itemAutocomplete();
-
-//        scrollToBottom(superDialog.find('.notes'));
-
-//        initializeActivityDialog();
-//        initializeTransportationDialog();
-//        initializeNoteDialog();
-
-//        if (callback) callback();
-
-//        superDialog.find('#dialog-menu li').click(function (e) {
-//            var dataPageName = $(this).data('page');
-//            var currentPage = $('li, .dialog-page');
-//            currentPage.removeClass('selected-page');
-//            var newPage = $('[data-page="' + dataPageName + '"]', superDialog);
-//            newPage.addClass('selected-page');
-//            $('.focus', newPage).first().focus();
-//            scrollToBottom($('.notes', superDialog));
-//        });
-
-//        superDialog.find('form').submit(function (e) {
-//            e.preventDefault();
-//            var form = $(this);
-
-//            var requiredFields = form.find('.required');
-//            requiredFields.each(function () {
-//                var field = $(this);
-//                if (field.val().length == 0) {
-//                    field.parent().addClass('invalid');
-//                } else {
-//                    field.parent().removeClass('invalid');
-//                }
-//            });
-
-//            var invalidFields = form.find('.invalid');
-
-//            if (invalidFields.size() > 0) {
-//                var firstField = invalidFields.first().find('input[type="text"]');
-//                firstField.focus();
-//            } else {
-//                var formData = form.serialize();
-//                var formAction = form.prop('action');
-//                $.post(formAction, formData)
-//                    .success(function (response) {
-//                        superDialog.data('changes', true);
-//                        if (response.replace) {
-//                            superDialog.html(response.replace);
-//                        } else {
-//                            var onPlanningPage = $('#trips-details, #trips-packinglist').size() > 0;
-//                            if (onPlanningPage) {
-//                                location.reload();
-//                            } else if (response.redirect) {
-//                                window.location.href = response.redirect;
-//                            } else {
-//                                $('.buttons').html('<div class="saved">Saved!</div>');
-//                                setTimeout(function () { CloseSuperDialog(); }, 1000);
-//                            }
-//                        }
-//                    });
-//            }
-//        });
-//    });
-//}
-
-//function CloseSuperDialog() {
-//    if (!superDialog.is(':visible')) return;
-
-//    var currentlyViewingTripId = $('body').data('id');
-//    var currentlyEditingTripId = $('#trip-bar').data('trip-id');
-
-//    if (superDialog.data('changes') && (currentlyViewingTripId == currentlyEditingTripId)) {
-//        location.reload();
-//    } else {
-//        superDialog.data('changes', false);
-//        superDialog.hide();
-//        superDialogOverlay.hide();
-//        superDialog.empty();
-//    }
-//}
-
-//function initializeActivityDialog() {
-//    var dialog = superDialog.find('#place-dialog');
-//    if (dialog.length == 0) return;
-
-//    dialog.on('click', '#change-title a', function (e) {
-//        e.preventDefault();
-//        showTitleFieldset();
-//    });
-
-//    dialog.on('keyup change', 'input,select', function () { updateTitle(); });
-
-//    var showTitleFieldset = function () {
-//        var titleFieldset = dialog.find('#title-fieldset').show();
-//        titleFieldset.find('input').focus();
-//        $(this).parent().hide();
-//        dialog.find('#change-title').hide();
-//    };
-//    if (dialog.find('input#title').val() != '') showTitleFieldset();
-
-//    var updateTitle = function () {
-//        var tagVal = dialog.find('#tagstring').val();
-//        var googVal = dialog.find('#googname').val();
-
-//        var calculatedTitle = tagVal;
-//        if (tagVal != '' && googVal != '')
-//            calculatedTitle += ' at ';
-
-//        calculatedTitle += googVal;
-
-//        // Override with title field, if available
-//        var titleInputVal = dialog.find('#title').val();
-//        if (titleInputVal != '') calculatedTitle = titleInputVal;
-
-//        calculatedTitle = calculatedTitle == '' ? 'Place / Activity' : calculatedTitle;
-//        dialog.find('h3').text(calculatedTitle);
-//    };
-//    updateTitle();
-//};
-
-//function initializeTransportationDialog() {
-//    var dialog = superDialog.find('#transportation-dialog');
-//    if (dialog.length == 0) return;
-
-//    dialog.on('click', '#change-title a', function (e) {
-//        e.preventDefault();
-//        showTitleFieldset();
-//    });
-
-//    dialog.on('keyup change', 'input,select', function () { updateTitle(); });
-
-//    var showTitleFieldset = function () {
-//        var titleFieldset = dialog.find('#title-fieldset').show();
-//        titleFieldset.find('input').focus();
-//        $(this).parent().hide();
-//        dialog.find('#change-title').hide();
-//    };
-//    if (dialog.find('input#title').val() != '') showTitleFieldset();
-
-//    var updateTitle = function () {
-
-//        var selectedType = dialog.find('#transportationtypeid option:selected');
-//        var typeVal = selectedType.val() == '' ? 'Transportation' : selectedType.text();
-//        var calculatedTitle = typeVal;
-
-//        var fromValue = dialog.find('#fromgoogname').val();
-//        calculatedTitle += fromValue == '' ? '' : ' from ' + fromValue;
-
-//        var toValue = dialog.find('#togoogname').val();
-//        calculatedTitle += toValue == '' ? '' : ' to ' + toValue;
-
-//        // Override with title field, if available
-//        var titleInputVal = dialog.find('#title').val();
-//        if (titleInputVal != '') calculatedTitle = titleInputVal;
-
-//        dialog.find('h3').text(calculatedTitle);
-//    };
-//    updateTitle();
-//};
-
-//function initializeNoteDialog() {
-//    var dialog = superDialog.find('#note-dialog');
-//    if (dialog.length == 0) return;
-
-//    dialog.on('change', 'select', function () {
-//        var activityId = $(this).val();
-//        OpenSuperDialog('/activities/edit/' + activityId + '?selectedtab=notes');
-//    });
-//};
 
 (function ($) {
     $.fn.tagAutocomplete = function () {
@@ -568,39 +318,6 @@ function drawMap(container, mapData) {
 
     map.fitBounds(bounds);
 }
-
-//function moveScroller() {
-//    var a = function () {
-//        var b = $(window).scrollTop();
-//        var sa = $("#scrollanchor");
-//        var d = sa.offset().top;
-//        var c = $("#trip-bar-container");
-//        if (b > d) {
-//            var height = c.outerHeight(true);
-//            sa.css({ height: height + "px" });
-//            c.addClass('at-top');
-//        } else {
-//            if (b <= d) {
-//                c.removeClass('at-top');
-//                sa.css({ height: "0" });
-//            }
-//        }
-//    };
-//    $(window).scroll(a);
-//    a();
-//}
-
-//function scrollToBottom($element) {
-//    if ($element) {
-//        $element.prop({ scrollTop: $element.prop('scrollHeight') });
-//    }
-//}
-
-//log = function (a) {
-//    if (window['console'] && console['log']) {
-//        console.log(a);
-//    }
-//};
 
 //var T = {};
 
