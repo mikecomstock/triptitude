@@ -46,7 +46,7 @@
 </div>
 @if (currentUser.DefaultTrip != null)
 {     
-    <div id="trip-bar-container">
+    <div id="trip-bar-container" class="trip-yes">
         <div id="trip-bar" data-trip-id="@currentUser.DefaultTrip.Id" >
             <ul id="trip-bar-menu">
                 <li><span class="link">Go To...</span>
@@ -66,35 +66,19 @@
             @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
             {
                 <div id="email-warning">
-                    You might lose your trip unless you <a class="sign-up" href="@Url.MySettings()">sign up</a> or <a class="login">log in</a>!
+                    You should <a class="sign-up" href="@Url.MySettings()">sign up</a> or <a class="login">log in</a> to save your trip!
                 </div>
             }
         </div>
     </div>
 }
-else if (ViewBag.HideTripBar != true)
+else
 {
-    <div id="trip-bar-container">
+    <div id="trip-bar-container" class="trip-no">
         <div id="trip-bar">
             <div id="trip-bar-title">
-                Like to travel? Plan your next trip:
+                Like to travel? <a href="/">Plan your next trip</a>
             </div>
-            <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-            @Html.AntiForgeryToken()
-            <p>
-                <input type="text" name="Name" id="name" placeholder="name your trip..." />
-                @*<input type="text" name="toname" id="toname" data-goog-reference-field="togoogreference" data-goog-id-field="togoogid" data-auto-submit="true" class="place-autocomplete" placeholder="Your Destination..." />
-                    <input type="hidden" name="togoogreference" />
-                    <input type="hidden" name="togoogid" />*@
-            </p>
-            <p>
-                <input type="submit" value="Start Planning >" />
-            </p>
-            </form>
-            @*<div id="super-dialog-container">
-                <div id="super-dialog">
-                </div>
-            </div>*@
         </div>
     </div>
 }

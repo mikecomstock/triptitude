@@ -3,7 +3,6 @@
     User currentUser = ViewBag.CurrentUser;
     EmailInvite invite = userTrip.EmailInvites.OrderByDescending(ei => ei.Id).FirstOrDefault();
     ViewBag.Title = "Trip Invitation";
-    ViewBag.HideTripBar = true;
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">

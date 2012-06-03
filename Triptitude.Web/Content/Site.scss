@@ -89,16 +89,22 @@ input.delete { background-color: #E92553; }
 	z-index: 5; margin-top: 10px; position: relative;
 	#trip-bar {
 		width: 935px; padding: 10px; margin: 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px);
-		#create-trip-form {
-		float: right;text-align: right;
-			p { display: inline; margin-right: 10px; }
-			input[type="text"] { width: 250px; font-size: 16px; }
-		}
 		#trip-bar-pre-title { color: #BBB; }
-		#trip-bar-title { color: #FFFFFF; font-size: 24px; font-weight: bold; display: inline; }
+		#trip-bar-title {
+			color: #FFF; font-size: 24px; font-weight: bold; display: inline;
+			
+		}
 		#email-warning {
 			background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px;
 			a { color: #FFF; }
+		}
+	}
+	&.trip-no {
+		#trip-bar {
+			#trip-bar-title {
+				font-size: 18px; font-weight: normal; text-align: center; display: block; padding: 5px 0;
+				a { color: #FFF; text-decoration: underline; }
+			}
 		}
 	}
 	#trip-bar-menu {
@@ -130,6 +136,9 @@ input.delete { background-color: #E92553; }
 		}
 	}
 }
+
+/* Hide the trip bar sometimes */
+#home-index, #invitations-details { #trip-bar-container.trip-no { display: none; } }
 
 /* Dialogs */
 #new-user-dialog {
@@ -497,11 +506,15 @@ ul.tags > li + li { margin-left: 5px; }
 @media (max-width: 960px) {
 	#uvTab { display: none !important; }
 	body { background-image: none !important; }
+	h1 { padding: 5px 10px !important; }
 	#header { width: auto; padding: 0 10px; }
 	body > footer { display: none; }
 	#trip-bar-container {
 		margin: 0;
-		#trip-bar { width: 100%; padding: 0; margin: 0; @include border-radius(0); }
+		#trip-bar {
+			width: 100%; background-color: #333; padding: 0; margin: 0; @include border-radius(0);
+			#email-warning { @include border-radius(0); }
+		}
 	}
 	#content { width: 100%; margin: 0; }
 	article, .panel {
