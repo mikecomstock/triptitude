@@ -8,16 +8,7 @@ namespace Triptitude.Web.Controllers
     {
         public ActionResult Index()
         {
-            //TripsRepo tripsRepo = new TripsRepo();
-            //var trips = tripsRepo.FindAll().Where(t => t.ShowInSearch).OrderByDescending(t => t.Created_On).Take(10).ToList();
-            //ViewBag.Trips = trips;
             return View();
-        }
-
-        public ActionResult Header()
-        {
-            ViewBag.CurrentUser = CurrentUser;
-            return PartialView();
         }
 
         public ActionResult Sitemap()
