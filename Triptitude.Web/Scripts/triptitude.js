@@ -4,19 +4,17 @@
     $('.focus').first().focus();
     $('.date-picker').datepicker();
 
-//    $('.place-search-input').each(function () {
-//        var v = new TT.Views.PlaceSearchInput({ el: this });
-//    });
+    //    $('.place-search-input').each(function () {
+    //        var v = new TT.Views.PlaceSearchInput({ el: this });
+    //    });
 
-    $('#search').submit(function (e) {
-        var val = $('input[name="googreference"]', $(this)).val();
-        if (val == '') e.preventDefault();
-    });
+    //    $('#search').submit(function (e) {
+    //        var val = $('input[name="googreference"]', $(this)).val();
+    //        if (val == '') e.preventDefault();
+    //    });
 
-    $('#trip-bar-menu li').hover(
-        function () { $(this).children('ul').show(); },
-        function () { $(this).children('ul').hide(); }
-    );
+    $('#trip-bar').on('mouseenter', '#nav-menu', function () { $(this).children('ul').show(); });
+    $('#trip-bar').on('mouseleave', '#nav-menu', function () { $(this).children('ul').hide(); });
 
     $('body > header').on(TT.ClickEventType, 'a.login', function (e) {
         e.preventDefault();
@@ -74,7 +72,7 @@
 
         });
     });
-    
+
     $('.confirm-delete').live(TT.ClickEventType, function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
@@ -105,7 +103,7 @@
             }
         });
     });
-    
+
     var openEditor = function (trip, activity) {
         console.log('openEditor');
         var body = $('body');

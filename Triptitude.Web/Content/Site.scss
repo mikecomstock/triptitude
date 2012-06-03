@@ -85,52 +85,39 @@ input.delete { background-color: #E92553; }
 }
 
 /* Tripbar */
-#trip-bar-container {
-	z-index: 5; margin-top: 10px; position: relative;
-	#trip-bar {
-		width: 935px; padding: 10px; margin: 0 auto; @include transparent-background(#262626, 0.8); @include border-radius(7px);
-		#trip-bar-pre-title { color: #BBB; }
-		#trip-bar-title {
-			color: #FFF; font-size: 24px; font-weight: bold; display: inline;
-			
-		}
-		#email-warning {
-			background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px;
-			a { color: #FFF; }
-		}
+#trip-bar {
+	width: 935px; padding: 10px; margin: 10px auto; @include transparent-background(#262626, 0.8); @include border-radius(7px);
+	.pre-title { color: #BBB; }
+	.title { color: #FFF; font-size: 24px; font-weight: bold; display: inline; }
+	#email-warning {
+		background-color: #E92553; font-size: 14px; letter-spacing: 1px; font-weight: bold; text-align: center; padding: 3px; color: #000; @include border-radius(4px); margin-top: 3px;
+		a { color: #FFF; }
 	}
 	&.trip-no {
-		#trip-bar {
-			#trip-bar-title {
-				font-size: 18px; font-weight: normal; text-align: center; display: block; padding: 5px 0;
-				a { color: #FFF; text-decoration: underline; }
-			}
+		.title {
+			font-size: 18px; font-weight: normal; text-align: center; display: block; padding: 5px 0;
+			a { color: #FFF; text-decoration: underline; }
 		}
 	}
-	#trip-bar-menu {
-		float: right; z-index: 6; position: relative; margin: 5px 0; font-size: 20px; font-weight: bold; @include clearfix;
-		.link { cursor: default; }
-		a, .link {
-			color: #66C3FE; padding: 5px 20px; margin: 0; display: block;
-			&:hover { text-decoration: none !important; }
-			span {
-				color: #BBB; font-weight: normal; display: block; padding: 10px 5px 10px 15px; font-size: 14px; white-space: nowrap;
-				strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
-			}
+	#nav-menu {
+		float: right; position: relative; margin: 5px 0; font-size: 20px; font-weight: bold; @include clearfix;
+		&:hover { background-color: #333; @include border-radius(4px 4px 0 0); }
+		.goto {
+			color: #66C3FE; padding: 5px 10px; margin: 0; cursor: default;
+			&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:10px; position: relative; top:16px; }
 		}
-		> li {
-			float: left; position: relative;
-			> .link {
-				padding-right: 10px;
-				&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:10px; position: relative; top:16px; }
-			}
-			&:hover { background-color: #333; }
-			ul {
-				display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 2;
-				li {
-					&:hover { background-color: #444; }
-					&+li { border-top: 1px solid #555; }
-					a, .link { padding: 5px; cursor: pointer; }
+		ul#inner-menu {
+			display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 3;
+			li {
+				&:hover { background-color: #444; }
+				&+li { border-top: 1px solid #555; }
+				a {
+					padding: 5px; display: block; color: #66C3FE;
+					&:hover { text-decoration: none !important; }
+				}
+				span {
+					color: #BBB; font-weight: normal; display: block; padding: 10px 5px 10px 15px; font-size: 14px; white-space: nowrap;
+					strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
 				}
 			}
 		}
@@ -138,7 +125,7 @@ input.delete { background-color: #E92553; }
 }
 
 /* Hide the trip bar sometimes */
-#home-index, #invitations-details { #trip-bar-container.trip-no { display: none; } }
+#home-index, #invitations-details { #trip-bar.trip-no { display: none; } }
 
 /* Dialogs */
 #new-user-dialog {
@@ -509,20 +496,19 @@ ul.tags > li + li { margin-left: 5px; }
 	h1 { padding: 5px 10px !important; }
 	#header { width: auto; padding: 0 10px; }
 	body > footer { display: none; }
-	#trip-bar-container {
-		margin: 0;
-		#trip-bar {
-			width: 100%; background-color: #333; padding: 0; margin: 0; @include border-radius(0);
-			#email-warning { @include border-radius(0); }
-		}
+	#trip-bar {
+		width: auto; background-color: #444; margin: 0; @include border-radius(0);
+		#nav-menu { margin-right: 10px; }
+		#email-warning { @include border-radius(0); width: auto; font-weight: normal; }
 	}
-	#content { width: 100%; margin: 0; }
+	#content { width: auto; margin: 0; }
 	article, .panel {
 		clear: both; @include border-radius(0);
 		section { margin: 0; }
-	}	
+		header { padding: 0; }
+	}
 	#landing-page-panel-container {
-		width: 100%; @include border-radius(0);
+		width: auto; @include border-radius(0);
 		#landing-page-panel {
 			margin: 0; padding: 0;
 			h1 { font-size: 28px; margin: 10px; }
@@ -559,7 +545,7 @@ ul.tags > li + li { margin-left: 5px; }
 			display: none;
 		}
 		#editor-itinerary .activity-form {
-			float: none; width: 100%; margin: 0; padding: 10px; height: auto;
+			float: none; width: auto; margin: 0; padding: 10px; height: auto;
 			input, textarea { width: 80%; font-size: 14px; }
 			textarea { height: 20px; }
 			div { margin: 0; }

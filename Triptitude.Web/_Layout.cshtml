@@ -52,43 +52,36 @@
                 </div>
             </div>
         </div>
-        <div id="scrollanchor">
-        </div>
         @if (currentUser.DefaultTrip != null)
         {     
-            <div id="trip-bar-container" class="trip-yes">
-                <div id="trip-bar" data-trip-id="@currentUser.DefaultTrip.Id" >
-                    <ul id="trip-bar-menu">
-                        <li><span class="link">Go To...</span>
-                            <ul>
-                                <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span><strong>Your trip overview</strong></span></a></li>
-                                <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span><strong>Add your fellow travelers</strong></span></a></li>
-                                <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
-                                <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List<span><strong>Update your packing list</strong></span></a></li>
-                                <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Change title and privacy</strong></span></a></li>
-                            </ul>
-                        </li>
+            <div id="trip-bar" class="trip-yes" data-trip-id="@currentUser.DefaultTrip.Id" >
+                <div id="nav-menu">
+                    <div class="goto">Go To...</div>
+                    <ul id="inner-menu">
+                        <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span><strong>Your trip overview</strong></span></a></li>
+                        <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span><strong>Add your fellow travelers</strong></span></a></li>
+                        <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
+                        <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List<span><strong>Update your packing list</strong></span></a></li>
+                        <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Change title and privacy</strong></span></a></li>
                     </ul>
-                    <div id="trip-bar-pre-title">
-                        currently planning...</div>
-                    <a id="trip-bar-title" href="@Url.Details(currentUser.DefaultTrip)">
-                        @currentUser.DefaultTrip.Name</a>
-                    @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
-                    {
-                        <div id="email-warning">
-                            You should <a class="sign-up" href="@Url.MySettings()">sign up</a> or <a class="login">log in</a> to save your trip!
-                        </div>
-                    }
                 </div>
+                <div class="pre-title">
+                    currently planning...</div>
+                <a class="title" href="@Url.Details(currentUser.DefaultTrip)">
+                    @currentUser.DefaultTrip.Name</a>
+                @if (string.IsNullOrWhiteSpace(currentUser.Email) && !currentUserTrips.IsNullOrEmpty())
+                {
+                    <div id="email-warning">
+                        You should <a class="sign-up" href="@Url.MySettings()">sign up</a> or <a class="login">log in</a> to save your trip!
+                    </div>
+                }
             </div>
         }
         else
         {
-            <div id="trip-bar-container" class="trip-no">
-                <div id="trip-bar">
-                    <div id="trip-bar-title">
-                        Like to travel? <a href="/">Plan your next trip</a>
-                    </div>
+            <div id="trip-bar" class="trip-no">
+                <div class="title">
+                    Like to travel? <a href="/">Plan your next trip</a>
                 </div>
             </div>
         }

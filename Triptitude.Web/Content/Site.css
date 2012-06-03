@@ -210,123 +210,115 @@ input.delete {
       margin: 0; }
 
 /* Tripbar */
-#trip-bar-container {
-  z-index: 5;
-  margin-top: 10px;
-  position: relative; }
-  #trip-bar-container #trip-bar {
-    width: 935px;
-    padding: 10px;
-    margin: 0 auto;
-    background: #262626;
-    background: rgba(38, 38, 38, 0.8);
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px; }
-    #trip-bar-container #trip-bar #trip-bar-pre-title {
-      color: #BBB; }
-    #trip-bar-container #trip-bar #trip-bar-title {
-      color: #FFF;
-      font-size: 24px;
-      font-weight: bold;
-      display: inline; }
-    #trip-bar-container #trip-bar #email-warning {
-      background-color: #E92553;
-      font-size: 14px;
-      letter-spacing: 1px;
-      font-weight: bold;
-      text-align: center;
-      padding: 3px;
-      color: #000;
-      -webkit-border-radius: 4px;
-      -moz-border-radius: 4px;
-      border-radius: 4px;
-      margin-top: 3px; }
-      #trip-bar-container #trip-bar #email-warning a {
-        color: #FFF; }
-  #trip-bar-container.trip-no #trip-bar #trip-bar-title {
+#trip-bar {
+  width: 935px;
+  padding: 10px;
+  margin: 10px auto;
+  background: #262626;
+  background: rgba(38, 38, 38, 0.8);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px; }
+  #trip-bar .pre-title {
+    color: #BBB; }
+  #trip-bar .title {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: bold;
+    display: inline; }
+  #trip-bar #email-warning {
+    background-color: #E92553;
+    font-size: 14px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-align: center;
+    padding: 3px;
+    color: #000;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    margin-top: 3px; }
+    #trip-bar #email-warning a {
+      color: #FFF; }
+  #trip-bar.trip-no .title {
     font-size: 18px;
     font-weight: normal;
     text-align: center;
     display: block;
     padding: 5px 0; }
-    #trip-bar-container.trip-no #trip-bar #trip-bar-title a {
+    #trip-bar.trip-no .title a {
       color: #FFF;
       text-decoration: underline; }
-  #trip-bar-container #trip-bar-menu {
+  #trip-bar #nav-menu {
     float: right;
-    z-index: 6;
     position: relative;
     margin: 5px 0;
     font-size: 20px;
     font-weight: bold;
     zoom: 1; }
-    #trip-bar-container #trip-bar-menu:before {
+    #trip-bar #nav-menu:before {
       display: table;
       content: "";
       zoom: 1;
       *display: inline; }
-    #trip-bar-container #trip-bar-menu:after {
+    #trip-bar #nav-menu:after {
       display: table;
       content: "";
       zoom: 1;
       *display: inline;
       clear: both; }
-    #trip-bar-container #trip-bar-menu .link {
-      cursor: default; }
-    #trip-bar-container #trip-bar-menu a, #trip-bar-container #trip-bar-menu .link {
+    #trip-bar #nav-menu:hover {
+      background-color: #333;
+      -webkit-border-radius: 4px 4px 0 0;
+      -moz-border-radius: 4px 4px 0 0;
+      border-radius: 4px 4px 0 0; }
+    #trip-bar #nav-menu .goto {
       color: #66C3FE;
-      padding: 5px 20px;
+      padding: 5px 10px;
       margin: 0;
-      display: block; }
-      #trip-bar-container #trip-bar-menu a:hover, #trip-bar-container #trip-bar-menu .link:hover {
-        text-decoration: none !important; }
-      #trip-bar-container #trip-bar-menu a span, #trip-bar-container #trip-bar-menu .link span {
+      cursor: default; }
+      #trip-bar #nav-menu .goto:before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #66C3FE;
+        margin-right: 10px;
+        position: relative;
+        top: 16px; }
+    #trip-bar #nav-menu ul#inner-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      font-size: 14px;
+      padding: 10px;
+      background-color: #333;
+      z-index: 3; }
+      #trip-bar #nav-menu ul#inner-menu li:hover {
+        background-color: #444; }
+      #trip-bar #nav-menu ul#inner-menu li + li {
+        border-top: 1px solid #555; }
+      #trip-bar #nav-menu ul#inner-menu li a {
+        padding: 5px;
+        display: block;
+        color: #66C3FE; }
+        #trip-bar #nav-menu ul#inner-menu li a:hover {
+          text-decoration: none !important; }
+      #trip-bar #nav-menu ul#inner-menu li span {
         color: #BBB;
         font-weight: normal;
         display: block;
         padding: 10px 5px 10px 15px;
         font-size: 14px;
         white-space: nowrap; }
-        #trip-bar-container #trip-bar-menu a span strong, #trip-bar-container #trip-bar-menu .link span strong {
+        #trip-bar #nav-menu ul#inner-menu li span strong {
           color: #FFF;
           font-weight: normal;
           letter-spacing: 1.5px; }
-    #trip-bar-container #trip-bar-menu > li {
-      float: left;
-      position: relative; }
-      #trip-bar-container #trip-bar-menu > li > .link {
-        padding-right: 10px; }
-        #trip-bar-container #trip-bar-menu > li > .link:before {
-          content: "";
-          width: 0;
-          height: 0;
-          border-left: 6px solid transparent;
-          border-right: 6px solid transparent;
-          border-top: 6px solid #66C3FE;
-          margin-right: 10px;
-          position: relative;
-          top: 16px; }
-      #trip-bar-container #trip-bar-menu > li:hover {
-        background-color: #333; }
-      #trip-bar-container #trip-bar-menu > li ul {
-        display: none;
-        position: absolute;
-        right: 0;
-        font-size: 14px;
-        padding: 10px;
-        background-color: #333;
-        z-index: 2; }
-        #trip-bar-container #trip-bar-menu > li ul li:hover {
-          background-color: #444; }
-        #trip-bar-container #trip-bar-menu > li ul li + li {
-          border-top: 1px solid #555; }
-        #trip-bar-container #trip-bar-menu > li ul li a, #trip-bar-container #trip-bar-menu > li ul li .link {
-          padding: 5px;
-          cursor: pointer; }
 
 /* Hide the trip bar sometimes */
-#home-index #trip-bar-container.trip-no, #invitations-details #trip-bar-container.trip-no {
+#home-index #trip-bar.trip-no, #invitations-details #trip-bar.trip-no {
   display: none; }
 
 /* Dialogs */
@@ -1172,23 +1164,24 @@ ul.tags > li + li { margin-left: 5px; }
   body > footer {
     display: none; }
 
-  #trip-bar-container {
-    margin: 0; }
-    #trip-bar-container #trip-bar {
-      width: 100%;
-      background-color: #333;
-      padding: 0;
-      margin: 0;
+  #trip-bar {
+    width: auto;
+    background-color: #444;
+    margin: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; }
+    #trip-bar #nav-menu {
+      margin-right: 10px; }
+    #trip-bar #email-warning {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
-      border-radius: 0; }
-      #trip-bar-container #trip-bar #email-warning {
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
-        border-radius: 0; }
+      border-radius: 0;
+      width: auto;
+      font-weight: normal; }
 
   #content {
-    width: 100%;
+    width: auto;
     margin: 0; }
 
   article, .panel {
@@ -1198,9 +1191,11 @@ ul.tags > li + li { margin-left: 5px; }
     border-radius: 0; }
     article section, .panel section {
       margin: 0; }
+    article header, .panel header {
+      padding: 0; }
 
   #landing-page-panel-container {
-    width: 100%;
+    width: auto;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
@@ -1273,7 +1268,7 @@ ul.tags > li + li { margin-left: 5px; }
       display: none; }
     #editor-container #editor-itinerary .activity-form {
       float: none;
-      width: 100%;
+      width: auto;
       margin: 0;
       padding: 10px;
       height: auto; }
