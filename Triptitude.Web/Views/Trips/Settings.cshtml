@@ -1,15 +1,17 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name + " - Settings";
-    TripSettingsForm form = ViewBag.Form;
-    User currentUser = ViewBag.CurrentUser;
     Trip trip = ViewBag.Trip;
+    const string pageName = "Settings";
+    ViewBag.Title = trip.Name + " - " + pageName;
+    User currentUser = ViewBag.CurrentUser;
+    
+    TripSettingsForm form = ViewBag.Form;
 }
 @Html.Action("SidePanel", "Trips", new { trip })
 <div id="main-container">
     <div class="panel">
         <header>
             <h1>
-                @ViewBag.Title
+                @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
             </h1>
         </header>
         @if (TempData["saved"] != null)

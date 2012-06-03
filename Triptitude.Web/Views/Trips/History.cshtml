@@ -1,6 +1,8 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
-    ViewBag.Title = trip.Name + " - Activity Stream";
+    const string pageName = "Activity Stream";
+    ViewBag.Title = trip.Name + " - " + pageName;
+    User currentUser = ViewBag.CurrentUser;
 }
 @if (ViewBag.CurrentUser.OwnsTrips(trip))
 {
@@ -9,7 +11,8 @@
 <div class="panel">
     <header>
         <h1>
-            @ViewBag.Title</h1>
+            @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
+        </h1>
     </header>
     <div class="panel-content">
         <ol class="histories timeline">

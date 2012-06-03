@@ -1,8 +1,10 @@
 ﻿@{
     Trip trip = ViewBag.Trip;
-    ViewBag.Title = trip.Name + " - Itinerary";
-    ViewBag.ShowInSiteMap = @trip.ShowInSearch;
+    const string pageName = "Itinerary";
+    ViewBag.Title = trip.Name + " - " + pageName;
     User currentUser = ViewBag.CurrentUser;
+
+    ViewBag.ShowInSiteMap = @trip.ShowInSearch;
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
@@ -27,7 +29,9 @@
         {
             <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
         }
-        <h1>@ViewBag.Title</h1>
+        <h1>
+            @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
+        </h1>
     </header>
     <section id="itinerary">
         @if (trip.NonDeletedActivities.Any())
@@ -105,9 +109,9 @@
             <p>
                 No activities found.
                 @if (currentUser.OwnsTrips(trip))
-        {
-            <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
-        }
+                {
+                    <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
+                }
             </p>
         }
     </section>

@@ -1,8 +1,9 @@
 ﻿@{
-    UserTrip userTrip = ViewBag.UserTrip;
-    Trip trip = userTrip.Trip;
-    ViewBag.Title = trip.Name + " - Packing List";
+    Trip trip = ViewBag.Trip;
+    const string pageName = "Packing List";
+    ViewBag.Title = trip.Name + " - " + pageName;
     User currentUser = ViewBag.CurrentUser;
+
     var packingItems = trip.PackingItemSearch(byUser: currentUser, forUser: currentUser);
 }
 @section Scripts {
@@ -18,7 +19,8 @@
                 var data = {
                     item: form.find('#pl_item').val(),
                     tag: form.find('#pl_tag').val(),
-                    quantity: form.find('#pl_quantity').val()
+                    quantity: form.find('#pl_quantity').val(),
+                    trip_id: form.find('[name="trip_id"]').val()
                 };
 
                 var pi = new Backbone.Model();
@@ -42,19 +44,22 @@
         {
             <a href="@Url.PackingListIndex()">+ Find items to add</a> 
         }
-        <h1>@ViewBag.Title</h1>
+        <h1>
+            @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
+        </h1>
     </header>
     <form id="add-pl-item" class="subtitle" action="POST">
     <p>
         <strong>Add an item</strong>
     </p>
     <p>
+        <input type="hidden" name="trip_id" value="@trip.Id" />
         <label for="pl_item">
             Name:</label>
-        <input id="pl_item" class="focus" placeholder="ex: cowboy  boots" />
+        <input id="pl_item" class="focus" placeholder="ex: sunscreen" />
         <label for="pl_tag">
             Category:</label>
-        <input id="pl_tag" placeholder="ex: footwear" />
+        <input id="pl_tag" placeholder="ex: beach" />
         <label for="pl_quantity">
             Quantity:</label>
         <input id="pl_quantity" />

@@ -53,13 +53,6 @@ namespace Triptitude.Web.Controllers
             return PartialView();
         }
 
-        //public ActionResult Print(int id)
-        //{
-        //    Trip trip = new TripsRepo().Find(id);
-        //    ViewBag.Trip = trip;
-        //    return View();
-        //}
-
         //public ActionResult Map(int id)
         //{
         //    Trip trip = new TripsRepo().Find(id);
@@ -142,33 +135,34 @@ namespace Triptitude.Web.Controllers
         {
             var userTrip = CurrentUser.UserTrips.SingleOrDefault(ut => ut.Trip.Id == id);
             if (userTrip == null) return Redirect("/");
-            ViewBag.UserTrip = userTrip;
+            ViewBag.Trip = userTrip.Trip;
+
             return View();
         }
 
-        public ActionResult PackingList(int id)
-        {
-            Trip trip = new TripsRepo().Find(id);
-            return RedirectPermanent(Url.Details(trip) + "#packinglist");
-        }
+        //public ActionResult PackingList(int id)
+        //{
+        //    Trip trip = new TripsRepo().Find(id);
+        //    return RedirectPermanent(Url.Details(trip) + "#packinglist");
+        //}
 
-        public ActionResult PackingListPartial(int id)
-        {
-            Trip trip = new TripsRepo().Find(id);
-            ViewBag.Trip = trip;
-            bool userOwnsTrip = CurrentUser.OwnsTrips(trip);
-            ViewBag.UserOwnsTrip = userOwnsTrip;
-            ViewBag.CurrentUser = CurrentUser;
+        //public ActionResult PackingListPartial(int id)
+        //{
+        //    Trip trip = new TripsRepo().Find(id);
+        //    ViewBag.Trip = trip;
+        //    bool userOwnsTrip = CurrentUser.OwnsTrips(trip);
+        //    ViewBag.UserOwnsTrip = userOwnsTrip;
+        //    ViewBag.CurrentUser = CurrentUser;
 
-            var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
-            ViewBag.PackingListItems = packingListItems;
-            var tags = packingListItems.Select(pli => pli.ItemTag).Select(it => it.Tag).Where(t => t != null).Distinct();
-            ViewBag.Tags = tags;
+        //    var packingListItems = trip.PackingListItems.Where(pli => userOwnsTrip || pli.Visibility == Visibility.Public).OrderBy(pli => pli.ItemTag.Item.Name);
+        //    ViewBag.PackingListItems = packingListItems;
+        //    var tags = packingListItems.Select(pli => pli.ItemTag).Select(it => it.Tag).Where(t => t != null).Distinct();
+        //    ViewBag.Tags = tags;
 
-            var itemIdsUsed = packingListItems.Select(pli => pli.ItemTag.Item.Id).Distinct();
-            ViewBag.Suggestions = new ItemTagRepo().MostPopular().Where(it => !itemIdsUsed.Contains(it.Item.Id)).Take(9);
-            return PartialView("PackingList");
-        }
+        //    var itemIdsUsed = packingListItems.Select(pli => pli.ItemTag.Item.Id).Distinct();
+        //    ViewBag.Suggestions = new ItemTagRepo().MostPopular().Where(it => !itemIdsUsed.Contains(it.Item.Id)).Take(9);
+        //    return PartialView("PackingList");
+        //}
 
         public ActionResult Settings(int id)
         {

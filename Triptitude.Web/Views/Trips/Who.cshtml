@@ -1,7 +1,8 @@
 ﻿@{
-    ViewBag.Title = @ViewBag.Trip.Name + " - Who's Going";
-    User currentUser = ViewBag.CurrentUser;
     Trip trip = ViewBag.Trip;
+    const string pageName = "Who's Going";
+    ViewBag.Title = trip.Name + " - " + pageName;
+    User currentUser = ViewBag.CurrentUser;
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
@@ -34,7 +35,7 @@
                     trip_id: form.find('[name="trip_id"]').val(),
                     name: form.find('[name="Name"]').val()
                 };
-                
+
                 var ut = new TT.Models.UserTrip();
                 ut.save(fields, {
                     success: function (model, response) {
@@ -106,7 +107,7 @@
     <div class="panel">
         <header>
             <h1>
-                @ViewBag.Title
+                @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
             </h1>
         </header>
         @if (TempData["message"] != null)

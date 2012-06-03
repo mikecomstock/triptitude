@@ -36,7 +36,7 @@ namespace Triptitude.Web.Controllers
             return View();
         }
 
-        public ActionResult Create(string tag, string item, int? quantity)
+        public ActionResult Create(string tag, string item, int quantity = 1, int? trip_id = null)
         {
             if (item.IsNullOrEmpty())
             {
@@ -44,7 +44,7 @@ namespace Triptitude.Web.Controllers
                 return Json(new { error = "Item name is required." });
             }
 
-            var trip = CurrentUser.DefaultTrip;
+            var trip = trip_id.HasValue ? CurrentUser.UserTrips.First(ut => ut.Trip.Id == trip_id.Value).Trip : CurrentUser.DefaultTrip;
             tag = tag.Trim().ToLower();
             item = item.Trim().ToLower();
             var packingItem = trip.PackingItemSearch(byUser: CurrentUser, forUser: CurrentUser, tag: tag, item: item).FirstOrDefault();
@@ -52,7 +52,6 @@ namespace Triptitude.Web.Controllers
             {
                 packingItem = new PackingItem
                                      {
-                                         Trip = CurrentUser.DefaultTrip,
                                          CreatedUser = CurrentUser,
                                          ForUser = CurrentUser,
                                          Created_At = DateTime.UtcNow,
@@ -62,7 +61,7 @@ namespace Triptitude.Web.Controllers
                 trip.PackingItems.Add(packingItem);
             }
 
-            packingItem.Quantity = quantity ?? 1;
+            packingItem.Quantity = quantity;
             packingItem.Modified_At = DateTime.UtcNow;
 
             if (packingItem.Quantity <= 0)
