@@ -249,24 +249,15 @@ input.delete {
     #trip-bar.trip-no .title a {
       color: #FFF;
       text-decoration: underline; }
+  #trip-bar.trip-kindof .title {
+    font-size: 18px;
+    font-weight: normal;
+    padding: 5px 0; }
   #trip-bar #nav-menu {
     float: right;
     position: relative;
     margin: 5px 0;
-    font-size: 20px;
-    font-weight: bold;
-    zoom: 1; }
-    #trip-bar #nav-menu:before {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline; }
-    #trip-bar #nav-menu:after {
-      display: table;
-      content: "";
-      zoom: 1;
-      *display: inline;
-      clear: both; }
+    font-size: 20px; }
     #trip-bar #nav-menu:hover {
       background-color: #333;
       -webkit-border-radius: 4px 4px 0 0;
@@ -276,7 +267,8 @@ input.delete {
       color: #66C3FE;
       padding: 5px 10px;
       margin: 0;
-      cursor: default; }
+      cursor: default;
+      white-space: nowrap; }
       #trip-bar #nav-menu .goto:before {
         content: "";
         width: 0;
@@ -284,7 +276,7 @@ input.delete {
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-top: 6px solid #66C3FE;
-        margin-right: 10px;
+        margin-right: 5px;
         position: relative;
         top: 16px; }
     #trip-bar #nav-menu ul#inner-menu {
@@ -306,16 +298,13 @@ input.delete {
         #trip-bar #nav-menu ul#inner-menu li a:hover {
           text-decoration: none !important; }
       #trip-bar #nav-menu ul#inner-menu li span {
-        color: #BBB;
+        color: #FFF;
         font-weight: normal;
         display: block;
         padding: 10px 5px 10px 15px;
         font-size: 14px;
-        white-space: nowrap; }
-        #trip-bar #nav-menu ul#inner-menu li span strong {
-          color: #FFF;
-          font-weight: normal;
-          letter-spacing: 1.5px; }
+        white-space: nowrap;
+        letter-spacing: 1.5px; }
 
 /* Hide the trip bar sometimes */
 #home-index #trip-bar.trip-no, #invitations-details #trip-bar.trip-no {
@@ -599,14 +588,9 @@ ol.notes {
 #trip-settings-form label {
   width: 140px; }
 
-#trip-settings-form input[type="text"] {
-  width: 400px; }
-
-/* Trip Search Form */
-/*#trip-search-form {
-	font-size: 16px; margin-bottom:10px;
-}*/
 /* My Trips */
+#my-trips .panel > header a {
+  float: right; }
 #my-trips .none-found {
   padding: 15px; }
 #my-trips .my-trip-rows li {
@@ -731,15 +715,17 @@ ul.tags > li + li { margin-left: 5px; }
     #trips-details #who .travelers > li:hover {
       background-color: #EEE; }
 
-#trips-itinerary article > header a {
+#trips-itinerary article > header a, #trips-packing article > header a {
+  display: block;
   float: right;
   color: #FFF;
   font-size: 18px;
+  text-align: center;
   padding: 5px;
-  margin-right: 20px;
-  -webkit-border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
-  border-radius: 0 0 7px 7px;
+  margin: 15px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
   background-color: #b70116;
   background-repeat: repeat-x;
   background-image: -khtml-gradient(linear, left top, left bottom, from(#fe3950), to(#b70116));
@@ -751,6 +737,12 @@ ul.tags > li + li { margin-left: 5px; }
   background-image: linear-gradient(top, #fe3950, #b70116);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+#trips-itinerary article > header a:hover, #trips-packing article > header a:hover {
+  text-decoration: none; }
+
+#trips-itinerary article > header a:after {
+  content: 'Add Activity';
+  margin-left: 10px; }
 #trips-itinerary #itinerary .activities {
   padding: 10px 0;
   zoom: 1;
@@ -785,7 +777,8 @@ ul.tags > li + li { margin-left: 5px; }
     padding-left: 40px;
     clear: both;
     position: relative;
-    overflow: hidden; }
+    overflow: hidden;
+    cursor: pointer; }
     #trips-itinerary #itinerary .activities > .activity:before {
       display: table;
       content: "";
@@ -801,7 +794,6 @@ ul.tags > li + li { margin-left: 5px; }
       font-weight: bold; }
     #trips-itinerary #itinerary .activities > .activity:hover {
       background-color: #F3F3F3;
-      cursor: pointer;
       overflow: visible;
       z-index: 10; }
       #trips-itinerary #itinerary .activities > .activity:hover > .maps {
@@ -828,26 +820,9 @@ ul.tags > li + li { margin-left: 5px; }
         float: left;
         margin-left: 10px; }
 
-#trips-packing article > header a {
-  float: right;
-  color: #FFF;
-  font-size: 18px;
-  padding: 5px;
-  margin-right: 20px;
-  -webkit-border-radius: 0 0 7px 7px;
-  -moz-border-radius: 0 0 7px 7px;
-  border-radius: 0 0 7px 7px;
-  background-color: #b70116;
-  background-repeat: repeat-x;
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#fe3950), to(#b70116));
-  background-image: -moz-linear-gradient(top, #fe3950, #b70116);
-  background-image: -ms-linear-gradient(top, #fe3950, #b70116);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fe3950), color-stop(100%, #b70116));
-  background-image: -webkit-linear-gradient(top, #fe3950, #b70116);
-  background-image: -o-linear-gradient(top, #fe3950, #b70116);
-  background-image: linear-gradient(top, #fe3950, #b70116);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
+#trips-packing article > header a:after {
+  content: 'Find Items';
+  margin-left: 10px; }
 #trips-packing section > footer {
   border-top: 1px dashed #CCC;
   margin-top: 30px; }
@@ -1155,7 +1130,11 @@ ul.tags > li + li { margin-left: 5px; }
     background-image: none !important; }
 
   h1 {
+    font-size: 20px;
     padding: 5px 10px !important; }
+
+  h2 {
+    font-size: 18px !important; }
 
   #header {
     width: auto;
@@ -1172,13 +1151,25 @@ ul.tags > li + li { margin-left: 5px; }
     -moz-border-radius: 0;
     border-radius: 0; }
     #trip-bar #nav-menu {
-      margin-right: 10px; }
+      margin: 0;
+      font-size: 16px; }
+      #trip-bar #nav-menu .goto:before {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #66C3FE;
+        margin-right: 5px;
+        top: 12px; }
+      #trip-bar #nav-menu li span {
+        padding: 0 !important;
+        font-size: 12px !important; }
     #trip-bar #email-warning {
       -webkit-border-radius: 0;
       -moz-border-radius: 0;
       border-radius: 0;
       width: auto;
       font-weight: normal; }
+    #trip-bar .pre-title {
+      display: none; }
 
   #content {
     width: auto;
@@ -1213,7 +1204,19 @@ ul.tags > li + li { margin-left: 5px; }
         float: none;
         margin: 10px auto;
         width: auto;
-        max-width: 400px; }
+        max-width: 400px;
+        zoom: 1; }
+        #landing-page-panel-container #landing-page-panel #create-trip-form:before {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline; }
+        #landing-page-panel-container #landing-page-panel #create-trip-form:after {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline;
+          clear: both; }
         #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
           width: 90%; }
 
@@ -1257,6 +1260,16 @@ ul.tags > li + li { margin-left: 5px; }
       clear: left;
       display: block;
       width: 60px; }
+
+  #trips-itinerary article > header a, #trips-packing article > header a {
+    font-size: 24px;
+    height: 24px;
+    line-height: 20px;
+    width: 24px;
+    padding: 0;
+    margin: 5px 10px; }
+  #trips-itinerary article > header a:after, #trips-packing article > header a:after {
+    display: none; }
 
   #editor-container {
     width: 90%;

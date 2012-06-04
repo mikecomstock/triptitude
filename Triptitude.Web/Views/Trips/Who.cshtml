@@ -12,7 +12,7 @@
 
         $(function () {
 
-            $('.travelers').on(TT.ClickEventType, '.delete', function (e) {
+            $('.travelers').on('click', '.delete', function (e) {
                 e.preventDefault();
                 if (!confirm('Are you sure?')) return;
 
@@ -76,7 +76,7 @@
                 });
             });
 
-            $('.travelers').on(TT.ClickEventType, '.sent a', function (e) {
+            $('.travelers').on('click', '.sent a', function (e) {
                 e.preventDefault();
                 $(e.currentTarget).closest('.expanded').removeClass('sent').addClass('not-sent');
             });

@@ -10,7 +10,7 @@
     <script type="text/javascript" charset="utf-8">
         $(function () {
             $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-            $('.packing-list-items').on(TT.ClickEventType, '.inc, .dec', TT.Util.PL.PackingListClick);
+            $('.packing-list-items').on(TT.FastClick, '.inc, .dec', TT.Util.PL.PackingListClick);
             $('.packing-list-items').disableSelection();
 
             $('#add-pl-item').on('submit', function (e) {
@@ -42,7 +42,7 @@
     <header>
         @if (currentUser.OwnsTrips(trip))
         {
-            <a href="@Url.PackingListIndex()">+ Find items to add</a> 
+            <a href="@Url.PackingListIndex()" title="Find Items">+</a> 
         }
         <h1>
             @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)

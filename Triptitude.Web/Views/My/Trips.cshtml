@@ -6,7 +6,7 @@
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            $('.my-trip-rows').on(TT.ClickEventType, '.delete', null, function (e) {
+            $('.my-trip-rows').on('click', '.delete', null, function (e) {
                 e.preventDefault();
                 if (!confirm('Are you sure?')) return;
                 var button = $(e.currentTarget);
@@ -23,6 +23,7 @@
 <div id="main-container">
     <div class="panel">
         <header>
+            <a href="/logout">sign out</a>
             <h1>
                 My Trips</h1>
         </header>

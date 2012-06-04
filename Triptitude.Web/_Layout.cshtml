@@ -37,10 +37,10 @@
                     @if (Request.IsAuthenticated)
                     {
                         <p>
-                            Welcome, <a href="@Url.MyTrips()">@currentUser.NameOrAnon</a>
+                            <a href="@Url.MyTrips()">@currentUser.NameOrAnon</a>
                         </p>
                         <p>
-                            <a href="/trips/create" accesskey="c" class="create-trip">create a trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a> <a href="/logout">sign out</a>
+                            <a href="/trips/create" accesskey="c" class="create-trip">new trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a>
                         </p>
                     }
                     else
@@ -52,17 +52,19 @@
                 </div>
             </div>
         </div>
-        @if (currentUser.DefaultTrip != null)
+        @if (currentUser.DefaultTrip != null && currentUser.DefaultTrip == ViewBag.Trip)
         {     
             <div id="trip-bar" class="trip-yes" data-trip-id="@currentUser.DefaultTrip.Id" >
                 <div id="nav-menu">
-                    <div class="goto">Go To...</div>
+                    <div class="goto">
+                        Go To...
+                    </div>
                     <ul id="inner-menu">
-                        <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span><strong>Your trip overview</strong></span></a></li>
-                        <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span><strong>Add your fellow travelers</strong></span></a></li>
-                        <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span><strong>Review your itinerary</strong></span></a></li>
-                        <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List<span><strong>Update your packing list</strong></span></a></li>
-                        <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span><strong>Change title and privacy</strong></span></a></li>
+                        <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span>Your trip overview</span></a></li>
+                        <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span>Add your fellow travelers</span></a></li>
+                        <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span>Review your itinerary</span></a></li>
+                        <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List<span>Update your packing list</span></a></li>
+                        <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span>Change title and privacy</span></a></li>
                     </ul>
                 </div>
                 <div class="pre-title">
@@ -75,6 +77,12 @@
                         You should <a class="sign-up" href="@Url.MySettings()">sign up</a> or <a class="login">log in</a> to save your trip!
                     </div>
                 }
+            </div>
+        }
+        else if (currentUser.DefaultTrip != null && currentUser.DefaultTrip != ViewBag.Trip)
+        {
+            <div id="trip-bar" class="trip-kindof">
+                <a class="title" href="@Url.Details(currentUser.DefaultTrip)">&lt;&lt; back to @currentUser.DefaultTrip.Name</a>
             </div>
         }
         else

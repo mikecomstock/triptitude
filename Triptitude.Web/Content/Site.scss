@@ -99,12 +99,15 @@ input.delete { background-color: #E92553; }
 			a { color: #FFF; text-decoration: underline; }
 		}
 	}
+	&.trip-kindof {
+		.title { font-size: 18px; font-weight: normal; padding: 5px 0; }
+	}
 	#nav-menu {
-		float: right; position: relative; margin: 5px 0; font-size: 20px; font-weight: bold; @include clearfix;
+		float: right; position: relative; margin: 5px 0; font-size: 20px;
 		&:hover { background-color: #333; @include border-radius(4px 4px 0 0); }
 		.goto {
-			color: #66C3FE; padding: 5px 10px; margin: 0; cursor: default;
-			&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:10px; position: relative; top:16px; }
+			color: #66C3FE; padding: 5px 10px; margin: 0; cursor: default; white-space: nowrap;
+			&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:5px; position: relative; top:16px; }
 		}
 		ul#inner-menu {
 			display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 3;
@@ -115,10 +118,7 @@ input.delete { background-color: #E92553; }
 					padding: 5px; display: block; color: #66C3FE;
 					&:hover { text-decoration: none !important; }
 				}
-				span {
-					color: #BBB; font-weight: normal; display: block; padding: 10px 5px 10px 15px; font-size: 14px; white-space: nowrap;
-					strong { color: #FFF; font-weight: normal; letter-spacing: 1.5px; }
-				}
+				span { color: #FFF; font-weight: normal; display: block; padding: 10px 5px 10px 15px; font-size: 14px; white-space: nowrap; letter-spacing: 1.5px; }
 			}
 		}
 	}
@@ -244,18 +244,12 @@ ol.notes {
 #create-trip-form input[type="text"] { width: 400px; }
 */
 
-
 /* Trip Settings Form */
 #trip-settings-form label { width: 140px; }
-#trip-settings-form input[type="text"] { width: 400px; }
-
-/* Trip Search Form */
-/*#trip-search-form {
-	font-size: 16px; margin-bottom:10px;
-}*/
 
 /* My Trips */
 #my-trips {
+	.panel > header a { float: right; }
 	.none-found { padding:15px; }
 	.my-trip-rows {
 		li {
@@ -315,22 +309,29 @@ ul.tags > li + li { margin-left: 5px; }
 	}
 }
 
+#trips-itinerary, #trips-packing {
+	article > header {
+		a { display: block; float: right; color: #FFF; font-size: 18px; text-align: center; padding: 5px; margin: 15px; @include border-radius(7px); @include gradient(#FE3950, #B70116); }
+		a:hover { text-decoration: none; }
+	}
+}
+
 #trips-itinerary {
 	article > header {
-		a { float: right; color: #FFF; font-size: 18px; padding: 5px; margin-right: 20px; @include border-radius(0 0 7px 7px); @include gradient(#FE3950, #B70116); }
+		a:after { content: 'Add Activity'; margin-left: 10px; }
 	}
 	#itinerary {
 		.activities {
 		padding: 10px 0; @include clearfix; background: url('/static/images/activitybackgroundline.png') repeat-y 20px;
 			> .date { padding: 2px 5px; background-color: #999; color: #FFF; float: left; clear: both; @include border-radius(4px); font-size: 12px; margin: 3px 0; z-index: 2; position: relative; }
 			> .activity {
-				@include clearfix; padding: 8px; padding-left: 40px; clear: both; position: relative; overflow: hidden;
+				@include clearfix; padding: 8px; padding-left: 40px; clear: both; position: relative; overflow: hidden; cursor: pointer;
 				.title { font-weight: bold; }
 				&:hover {
-					background-color: #F3F3F3; cursor: pointer; overflow: visible; z-index: 10;
+					background-color: #F3F3F3; overflow: visible; z-index: 10;
 					> .maps { background-color: #F3F3F3; }
 				}	
-				&+ .activity { border-top: 1px solid #CCC; }	
+				&+ .activity { border-top: 1px solid #CCC; }
 				> .maps {
 					float:right; @include clearfix; position: absolute; right:5px;
 					li { float: left; margin-left: 10px; }
@@ -342,7 +343,7 @@ ul.tags > li + li { margin-left: 5px; }
 
 #trips-packing {
 	article > header {
-		a { float: right; color: #FFF; font-size: 18px; padding: 5px; margin-right: 20px; @include border-radius(0 0 7px 7px); @include gradient(#FE3950, #B70116); }
+		a:after { content: 'Find Items'; margin-left: 10px; }
 	}
 	section > footer { border-top: 1px dashed #CCC; margin-top: 30px; }
 	#add-pl-item {
@@ -493,13 +494,21 @@ ul.tags > li + li { margin-left: 5px; }
 @media (max-width: 960px) {
 	#uvTab { display: none !important; }
 	body { background-image: none !important; }
-	h1 { padding: 5px 10px !important; }
+	h1 { font-size: 20px; padding: 5px 10px !important; }
+	h2 { font-size: 18px !important; }
 	#header { width: auto; padding: 0 10px; }
 	body > footer { display: none; }
 	#trip-bar {
 		width: auto; background-color: #444; margin: 0; @include border-radius(0);
-		#nav-menu { margin-right: 10px; }
+		#nav-menu {
+			margin: 0; font-size: 16px;
+			.goto {
+				&:before { border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #66C3FE; margin-right:5px; top:12px; }
+			}
+			li span { padding: 0 !important; font-size: 12px !important; }
+		}
 		#email-warning { @include border-radius(0); width: auto; font-weight: normal; }
+		.pre-title { display: none; }
 	}
 	#content { width: auto; margin: 0; }
 	article, .panel {
@@ -514,7 +523,7 @@ ul.tags > li + li { margin-left: 5px; }
 			h1 { font-size: 28px; margin: 10px; }
 			> p { width: auto; margin: 10px; float: none; }
 			#create-trip-form {
-				float: none; margin: 10px auto; width: auto; max-width: 400px;
+				float: none; margin: 10px auto; width: auto; max-width: 400px; @include clearfix;
 				input[type="text"] { width: 90%; }
 			}
 		}
@@ -537,6 +546,12 @@ ul.tags > li + li { margin-left: 5px; }
 		@include clearfix;
 		input { float: left; }
 		label { float: left; clear: left; display: block; width: 60px; }
+	}
+	#trips-itinerary, #trips-packing {
+		article > header {
+			a { font-size: 24px; height: 24px; line-height: 20px; width: 24px; padding: 0; margin: 5px 10px; }
+			a:after { display: none; }
+		}
 	}
 	#editor-container {
 		width: 90%; margin-top: 20px; height: auto;

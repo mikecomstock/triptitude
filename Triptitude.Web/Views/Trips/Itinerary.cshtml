@@ -8,15 +8,11 @@
 }
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
-        $(function () {
-
-            (function () {
-                var addThis = document.createElement('script'); addThis.type = 'text/javascript'; addThis.async = true;
-                addThis.src = 'http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4fa73d1420e93ac7';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(addThis, s);
-            })();
-
-        });
+        (function () {
+            var addThis = document.createElement('script'); addThis.type = 'text/javascript'; addThis.async = true;
+            addThis.src = 'http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4fa73d1420e93ac7';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(addThis, s);
+        })();
     </script>
 }
 @if (currentUser.OwnsTrips(trip))
@@ -27,7 +23,7 @@
     <header>
         @if (currentUser.OwnsTrips(trip))
         {
-            <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">+ Add an Activity</a> 
+            <a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id" title="Add Activity">+</a> 
         }
         <h1>
             @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)

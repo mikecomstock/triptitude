@@ -16,7 +16,7 @@
     $('#trip-bar').on('mouseenter', '#nav-menu', function () { $(this).children('ul').show(); });
     $('#trip-bar').on('mouseleave', '#nav-menu', function () { $(this).children('ul').hide(); });
 
-    $('body > header').on(TT.ClickEventType, 'a.login', function (e) {
+    $('body > header').on('click', 'a.login', function (e) {
         e.preventDefault();
 
         $.get('/templates/auth/new.html', function (template) {
@@ -44,7 +44,7 @@
         });
     });
 
-    $('body > header').on(TT.ClickEventType, 'a.sign-up', function (e) {
+    $('body > header').on('click', 'a.sign-up', function (e) {
         e.preventDefault();
 
         $.get('/templates/users/new.html', function (template) {
@@ -73,7 +73,7 @@
         });
     });
 
-    $('.confirm-delete').live(TT.ClickEventType, function (e) {
+    $('.confirm-delete').live('click', function (e) {
         var confirmed = confirm('Delete?');
         if (confirmed) {
             var data_url = $(this).data('url');
@@ -83,7 +83,7 @@
         }
     });
 
-    $('.super-dialog-link').live(TT.ClickEventType, function (e) {
+    $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
         var tripID = $(e.currentTarget).data('trip-id');
         var trip = new TT.Models.Trip({ ID: tripID });
@@ -115,9 +115,9 @@
                 location.reload();
         };
 
-        var overlay = $('<div id="editor-overlay">').appendTo(body).on(TT.ClickEventType, close);
+        var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);
         var editorContent = $('<div id="editor-container">').appendTo(body);
-        $('<div id="editor-close">').text('×').attr('title', 'Close').on(TT.ClickEventType, close).appendTo(editorContent);
+        $('<div id="editor-close">').text('×').attr('title', 'Close').on('click', close).appendTo(editorContent);
         var editorElement = $('<div id="editor">').appendTo(editorContent);
         editorElement.text('loading...');
 
@@ -126,7 +126,7 @@
     };
 
 
-    $('.activity').live(TT.ClickEventType, function (e) {
+    $('.activities').on('click', '.activity', function (e){
 
         if ($(this).parents('#editor').length > 0) return;
 
