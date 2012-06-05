@@ -7,16 +7,19 @@
 @section Scripts{
     <script type="text/javascript" charset="utf-8">
         $(function () {
-            $('.packing-list-tags.fluid').masonry({ itemSelector: '.packing-list-tag' });
-            $('.packing-list-items').on(TT.FastClick, '.inc, .dec', TT.Util.PL.PackingListClick);
-            $('.packing-list-items').disableSelection();
-            $('#item-search input').keyup(function () { $(this).closest('form').submit(); });
+            var tagsList = $('.packing-list-tags');
+            tagsList.masonry({ itemSelector: '.packing-list-tag' });
+            $('.packing-list-items').on(TT.FastClick, '.inc, .dec', TT.Util.PL.PackingListClick).disableSelection();
+            var form = $('#item-search');
+            var items = $('.packing-list-item');
+            var tags = $('.packing-list-tag');
+
+            $('#item-search input').keyup(function () { setTimeout(function () { form.submit(); }, 0); });
             $('#item-search').submit(function (e) {
 
                 e.preventDefault();
                 var term = $.trim($(this).find('input').val().toLowerCase());
 
-                var items = $('.packing-list-item');
                 items.each(function (i, element) {
                     var item = $(element);
                     var matches = item.data('item').toLowerCase().indexOf(term) != -1;
@@ -24,7 +27,6 @@
                     else TT.Util.PL.Hide(item);
                 });
 
-                var tags = $('.packing-list-tag');
                 tags.each(function (i, element) {
                     var tag = $(element);
                     var hasVisibleItems = tag.find('.packing-list-item').not('.hidden').length > 0;
@@ -43,7 +45,7 @@
                     }
                 });
 
-                $('.packing-list-tags').masonry('reload');
+                tagsList.masonry('reload');
             });
         });
     </script>
