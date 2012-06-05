@@ -47,43 +47,43 @@ join Trips t on a.Trip_Id = t.Id";
             return trips.Distinct();
         }
 
-        public Trip Save(CreateTripForm form, User currentUser)
-        {
-            var placesRepo = new PlacesRepo();
-            var activityPlacesRepo = new ActivityPlacesRepo();
-            Place to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
+        //public Trip Save(CreateTripForm form, User currentUser)
+        //{
+        //    var placesRepo = new PlacesRepo();
+        //    var activityPlacesRepo = new ActivityPlacesRepo();
+        //    Place to = placesRepo.FindOrInitializeByGoogReference(form.ToGoogId, form.ToGoogReference);
 
-            Trip trip = new Trip
-            {
-                Name = "My trip to " + to.Name,
-                Created_On = DateTime.UtcNow,
-                Activities = new List<Activity>(),
-                UserTrips = new Collection<UserTrip>()
-            };
-            UserTrip userTrip = new UserTrip
-                                    {
-                                        Trip = trip,
-                                        IsCreator = true,
-                                        Created_On = DateTime.UtcNow,
-                                        User = currentUser,
-                                        Visibility = (byte)form.Visibility,
-                                        Guid = Guid.NewGuid()
-                                    };
-            trip.UserTrips.Add(userTrip);
+        //    Trip trip = new Trip
+        //    {
+        //        Name = "My trip to " + to.Name,
+        //        Created_On = DateTime.UtcNow,
+        //        Activities = new List<Activity>(),
+        //        UserTrips = new Collection<UserTrip>()
+        //    };
+        //    UserTrip userTrip = new UserTrip
+        //                            {
+        //                                Trip = trip,
+        //                                IsCreator = true,
+        //                                Created_On = DateTime.UtcNow,
+        //                                User = currentUser,
+        //                                Visibility = (byte)form.Visibility,
+        //                                Guid = Guid.NewGuid()
+        //                            };
+        //    trip.UserTrips.Add(userTrip);
 
-            var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>(), IsTransportation = true };
-            activityPlacesRepo.FindOrInitialize(activity, 1, to);
-            trip.Activities.Add(activity);
+        //    var activity = new Activity { BeginDay = 1, EndDay = 1, ActivityPlaces = new EntityCollection<ActivityPlace>(), IsTransportation = true };
+        //    activityPlacesRepo.FindOrInitialize(activity, 1, to);
+        //    trip.Activities.Add(activity);
 
-            // TODO: don't create a new one, use this one
-            var tripsRepo = new TripsRepo();
-            tripsRepo.Add(trip);
-            tripsRepo.Save();
+        //    // TODO: don't create a new one, use this one
+        //    var tripsRepo = new TripsRepo();
+        //    tripsRepo.Add(trip);
+        //    tripsRepo.Save();
 
-            ActivitiesRepo.UpdateGeoPoints(activity);
+        //    ActivitiesRepo.UpdateGeoPoints(activity);
 
-            return trip;
-        }
+        //    return trip;
+        //}
 
         public Trip Save(NewCreateTripForm form, User creator)
         {

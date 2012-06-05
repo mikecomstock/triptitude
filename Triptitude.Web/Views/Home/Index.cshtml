@@ -1,12 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Plan your trips, together";
+    ViewBag.Title = "Plan trips, together";
     ViewBag.Description = "Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help.";
-            //IEnumerable<Trip> trips = (IEnumerable<Trip>)ViewBag.Trips;
 }
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
         <h1>
-            Plan your trips, together
+            Plan trips, together
         </h1>
         <p>
             Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Make sure your itinerary is perfect before you book. With your travel plans in one place, you'll be able to enjoy stress-free travel.
@@ -16,7 +15,7 @@
         <h3>
             Create a Trip</h3>
         <p>
-            <input type="text" name="name" id="name" class="focus" placeholder="Name your trip..." />
+            <input type="text" name="destination" placeholder="destination..." />
         </p>
         <p>
             <label for="visibility">
@@ -27,23 +26,5 @@
             <input type="submit" value="Start Planning" />
         </p>
         </form>
-        @*<h2>
-            Organize your travel plans from start to finish</h2>
-        <ul>
-            <li><a href="/trips">Search trips</a> others have planned and get inspired.</li>
-            <li><a href="@Url.CreateTrip()">Create an itinerary</a> or customize one.</li>*@ @*<li>Create a <a href="@Url.PackingListIndex()">packing list</a> so you don't forget anything.</li>*@ @*<li><strong>Print your itinerary</strong>, maps, packing list, and notes for stress-free travel.</li>*@ @*</ul>*@ @*@if (trips != null && trips.Any())
-        {
-            <div id="trips">
-                <header>
-                    <h2>
-                        Recent Trips</h2>
-                </header>
-                @{
-            TripSearchForm form2 = new TripSearchForm();
-                }
-                @Helpers.TripSearchForm(form2)
-                @Html.Action("SearchResults", "Trips", new { form = form2 })
-            </div>
-        }*@
     </div>
 </div>

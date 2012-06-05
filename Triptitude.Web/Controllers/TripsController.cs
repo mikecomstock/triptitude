@@ -225,6 +225,9 @@ namespace Triptitude.Web.Controllers
         [HttpPost]
         public ActionResult Create(NewCreateTripForm form)
         {
+            if (!string.IsNullOrWhiteSpace(form.Destination))
+                form.Name = "My trip to " + form.Destination.Trim().ToTitleCase();
+
             if (ModelState.IsValid)
             {
                 Trip trip = new Trip
@@ -297,6 +300,11 @@ namespace Triptitude.Web.Controllers
             var trip = userTrip.Trip;
             ViewBag.Trip = trip;
 
+            return View();
+        }
+
+        public ActionResult Wizard()
+        {
             return View();
         }
     }
