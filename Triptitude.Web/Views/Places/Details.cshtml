@@ -5,7 +5,7 @@
     TripSearchForm tripSearchForm = new TripSearchForm(place);
 }
 @Helpers.SidePanel(Url, place)
-<article>
+<div class="panel">
     <header>
         <h1>@place.Name</h1>
         <div class="subtitle">
@@ -21,7 +21,7 @@
         <section id="trips">
             <h2>
                 Trips near @place.Name</h2>
-            @Html.Action("SearchResults", "Trips", new {form = tripSearchForm})
+            @Html.Action("SearchResults", "Trips", new { form = tripSearchForm })
         </section>
     }
     <section id="places-nearby">
@@ -43,7 +43,7 @@
         <ul id="place-rows">
         </ul>
     </section>
-</article>
+</div>
 @section Scripts {
     <script type="text/javascript" charset="utf-8">
         T.NearbyPlaces();

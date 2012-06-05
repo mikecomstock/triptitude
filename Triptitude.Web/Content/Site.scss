@@ -102,14 +102,14 @@ input.delete { background-color: #E92553; }
 	&.trip-kindof {
 		.title { font-size: 18px; font-weight: normal; padding: 5px 0; }
 	}
-	#nav-menu {
+	nav {
 		float: right; position: relative; margin: 5px 0; font-size: 20px;
 		&:hover { background-color: #333; @include border-radius(4px 4px 0 0); }
 		.goto {
 			color: #66C3FE; padding: 5px 10px; margin: 0; cursor: default; white-space: nowrap;
 			&:before { content: ""; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #66C3FE; margin-right:5px; position: relative; top:16px; }
 		}
-		ul#inner-menu {
+		ul {
 			display: none; position: absolute; right: 0; font-size: 14px; padding: 10px; background-color: #333; z-index: 3;
 			li {
 				&:hover { background-color: #444; }
@@ -138,14 +138,13 @@ input.delete { background-color: #E92553; }
 /* Page Sections */
 #content { width: 955px; margin: 10px auto; @include clearfix; }
 
-
 #side-container {
 	float: left; width: 220px; margin-top: 50px; text-transform: lowercase; margin-right: 25px;
 	a { margin-bottom: 10px; @include transparent-background(#E9BA26,0.7); padding: 10px; display: block; font-weight: bold; color: #000000; font-size: 16px; @include border-radius(4px); }
 	a:hover, a:focus { background-color:#E9BA26; text-decoration:none; }
 }
 
-article {
+.panel {
 	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
 	> header {
 		background-color: #E9BA26;
@@ -153,40 +152,20 @@ article {
 			padding: 15px;
 			span.right { float:right; font-size: 16px; line-height: 34px; font-weight:normal; }
 		}
+		.share-bar-container { float:right; margin: 15px; }
 	}
 	section {
-		padding: 20px 10px 0 10px;
+		padding: 10px 15px;
 		h2 {
 			color: #404040; font-size: 26px; margin-bottom: 10px; text-transform: none;
 			span { font-size: 12px; font-weight: normal; }
 		}
 		.subtitle { padding: 5px; margin: 10px 0; }
 	}
+	.panel-content { padding: 10px; }
+	.panel-content.not-padded { padding: 0 !important; }
 }
 
-.panel { @include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; }
-.panel + .panel { margin-top: 10px; }
-.panel h2 { color: #262626; font-size: 22px; margin: 10px 0; text-transform: lowercase; }
-.panel > header {
-	background-color: #E9BA26; padding: 15px; @include clearfix; line-height: 30px;
-	h1 { float:left; }
-	.add-to-trip { float: right; }
-}
-
-header .share-bar-container {
-	float:right; margin: 15px;
-}
-
-.panel-alert { padding: 10px; background-color: #FE9FAA; font-weight: bold; text-align: center; font-size: 16px; }
-.panel-small-alert { padding: 5px 10px; background-color: #E9BA26; }
-
-.panel-suggestions {
-	margin: 10px 0;
-	.title { background-color: #0190E9; color: #FFF; padding: 5px; }
-}
-
-.panel-content { padding: 10px; }
-.panel-content.not-padded { padding: 0 !important; }
 
 /* Landing Page */
 #landing-page-panel-container {
@@ -211,14 +190,6 @@ header .share-bar-container {
 			input, select { font-size: 30px; @include border-radius(5px); padding: 5px; }
 			select { font-size: 16px; border-style: inset; }
 		}
-		/*#trips {
-			margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);
-			header {
-				padding: 5px; @include clearfix; background-color: #E9BA26;
-				h2 { margin: 0; float:left; }
-				a { float:right; }
-			}
-		}*/
 	}
 }
 
@@ -293,7 +264,6 @@ ul.tags > li + li { margin-left: 5px; }
 
 /* Trips */
 #trips-details {
-	.panel-content { background-color:#EEE; }
 	#who {
 		.travelers {
 			@include clearfix;
@@ -308,14 +278,14 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 #trips-itinerary, #trips-packing {
-	article > header {
+	.panel > header {
 		a { display: block; float: right; color: #FFF; font-size: 18px; text-align: center; padding: 5px; margin: 15px; @include border-radius(7px); @include gradient(#FE3950, #B70116); }
 		a:hover { text-decoration: none; }
 	}
 }
 
 #trips-itinerary {
-	article > header {
+	.panel > header {
 		a:after { content: 'Add Activity'; margin-left: 10px; }
 	}
 	#itinerary {
@@ -340,7 +310,7 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 #trips-packing {
-	article > header {
+	.panel > header {
 		a:after { content: 'Find Items'; margin-left: 10px; }
 	}
 	section > footer { border-top: 1px dashed #CCC; margin-top: 30px; }
@@ -361,7 +331,7 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 #trips-who {
-	.panel-content {
+	.panel {
 		> form { margin: 10px; }
 	}
 	.travelers {
@@ -439,7 +409,7 @@ ul.tags > li + li { margin-left: 5px; }
 		li.active { background-color: #EEE; }
 		li:hover { background-color: #EEE; }
 	}
-	.panel-content { position: relative; }
+	.panel { position: relative; }
 	#map { height: 300px; }
 	#placeSearch {
 		#keyword { width: 250px; }
@@ -459,7 +429,7 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 #invitations-details {
-	.panel-content {
+	.panel {
 		h2 { font-weight: normal; font-size: 16px; }
 		.trip { font-size: 30px; }
 		#confirm-form {
@@ -489,7 +459,7 @@ ul.tags > li + li { margin-left: 5px; }
 	.submit input { font-size: 16px; @include border-radius(5px); }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 800px) {
 	#uvTab { display: none !important; }
 	body { background-image: none !important; }
 	h1 { font-size: 20px; padding: 5px 10px !important; }
@@ -498,7 +468,7 @@ ul.tags > li + li { margin-left: 5px; }
 	body > footer { display: none; }
 	#trip-bar {
 		width: auto; background-color: #444; margin: 0; @include border-radius(0);
-		#nav-menu {
+		nav {
 			margin: 0; font-size: 16px;
 			.goto {
 				&:before { border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #66C3FE; margin-right:5px; top:12px; }
@@ -509,7 +479,7 @@ ul.tags > li + li { margin-left: 5px; }
 		.pre-title { display: none; }
 	}
 	#content { width: auto; margin: 0; }
-	article, .panel {
+	.panel {
 		clear: both; @include border-radius(0);
 		section { margin: 0; }
 		header { padding: 0; }
@@ -521,8 +491,10 @@ ul.tags > li + li { margin-left: 5px; }
 			h1 { font-size: 28px; margin: 10px; }
 			> p { width: auto; margin: 10px; float: none; }
 			#create-trip-form {
-				float: none; margin: 10px auto; width: auto; max-width: 400px; @include clearfix;
-				input[type="text"] { width: 90%; }
+				float: none; margin: 10px; width: auto; @include clearfix;
+				input[type="text"] { width: 90%; font-size: 22px; }
+				input[type="submit"] { font-size: 20px; }
+				h3 { margin: 10px; font-size: 26px; }
 			}
 		}
 	}
@@ -546,7 +518,7 @@ ul.tags > li + li { margin-left: 5px; }
 		label { float: left; clear: left; display: block; width: 60px; }
 	}
 	#trips-itinerary, #trips-packing {
-		article > header {
+		.panel > header {
 			a { font-size: 24px; height: 24px; line-height: 20px; width: 24px; padding: 0; margin: 5px 10px; }
 			a:after { display: none; }
 		}
@@ -583,7 +555,7 @@ ul.tags > li + li { margin-left: 5px; }
 		.activity { page-break-inside: avoid; }
 		.date { color: #000 !important; background-color: #FFF; }
 	}
-	#trips-packing article header a { display: none; }
+	#trips-packing .panel header a { display: none; }
 	.packing-list-tags {
 		height: auto !important;
 		.packing-list-tag {

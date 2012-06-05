@@ -222,7 +222,6 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         this.model.collection.remove(this.model);
     },
     render: function () {
-        console.log('render');
         var self = this;
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');

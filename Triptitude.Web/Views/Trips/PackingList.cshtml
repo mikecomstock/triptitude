@@ -6,7 +6,6 @@
     ViewBag.Title = trip.Name + " - Packing List";
     ViewBag.ShowInSiteMap = @trip.ShowInSearch;
     User currentUser = ViewBag.CurrentUser;
-    IEnumerable<ItemTag> suggestions = ViewBag.Suggestions;
 }
 <header>
     <h2>
@@ -16,25 +15,6 @@
             <span><a href="@Url.PackingListIndex()">Search Items</a></span>
         }
     </h2>
-    @*@if (suggestions.Any() && ViewBag.UserOwnsTrip && trip == currentUser.DefaultTrip)
-    {
-        <div class="panel-suggestions">
-            <div class="title link toggler" data-selector-to-toggle=".packing-list-items.suggestions">
-                + Popular items you might need</div>
-            <ul class="packing-list-items suggestions">
-                @foreach (ItemTag itemTag in suggestions)
-                {
-                    <li class="packing-list-item add-to-trip" data-type="packing-list-item" data-name="@itemTag.Item.Name" data-tag="@(itemTag.Tag == null ? string.Empty : itemTag.Tag.Name)" title="Click to add to trip"><span class="name">
-                        @itemTag.Item.Name
-                        @if (itemTag.Tag != null)
-                        {
-                            <span class="packing-list-item-tag">for <a href="@Url.Details(itemTag.Tag)">@itemTag.Tag.NiceName</a> </span>
-                        }
-                    </span></li>
-                }
-            </ul>
-        </div>
-    }*@
 </header>
 @if (packingListItems.Any())
 {

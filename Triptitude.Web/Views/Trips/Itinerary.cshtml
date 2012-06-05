@@ -19,7 +19,7 @@
 {
     @Html.Action("SidePanel", "Trips", new { trip })
 }
-<article>
+<div class="panel">
     <header>
         @if (currentUser.OwnsTrips(trip))
         {
@@ -111,4 +111,4 @@
             </p>
         }
     </section>
-</article>
+</div>

@@ -2,7 +2,7 @@
 
     $('input').placeholder();
     $('.focus').first().focus();
-    $('.date-picker').datepicker();
+    //$('.date-picker').datepicker();
 
     //    $('.place-search-input').each(function () {
     //        var v = new TT.Views.PlaceSearchInput({ el: this });
@@ -13,10 +13,12 @@
     //        if (val == '') e.preventDefault();
     //    });
 
-    $('#trip-bar').on('mouseenter', '#nav-menu', function () { $(this).children('ul').show(); });
-    $('#trip-bar').on('mouseleave', '#nav-menu', function () { $(this).children('ul').hide(); });
+    $('#trip-bar nav')
+        .on('mouseenter', function () { $(this).children('ul').show(); })
+        .on('mouseleave', function () { $(this).children('ul').hide(); })
+        .on('click', function () { $(this).children('ul').toggle(); });
 
-    $('body > header').on('click', 'a.login', function (e) {
+    $('body > header a.login').on('click', function (e) {
         e.preventDefault();
 
         $.get('/templates/auth/new.html', function (template) {
@@ -44,7 +46,7 @@
         });
     });
 
-    $('body > header').on('click', 'a.sign-up', function (e) {
+    $('body > header a.sign-up').on('click', function (e) {
         e.preventDefault();
 
         $.get('/templates/users/new.html', function (template) {
@@ -73,15 +75,15 @@
         });
     });
 
-    $('.confirm-delete').live('click', function (e) {
-        var confirmed = confirm('Delete?');
-        if (confirmed) {
-            var data_url = $(this).data('url');
-            window.location.replace(data_url);
-        } else {
-            e.preventDefault();
-        }
-    });
+    //    $('.confirm-delete').live('click', function (e) {
+    //        var confirmed = confirm('Delete?');
+    //        if (confirmed) {
+    //            var data_url = $(this).data('url');
+    //            window.location.replace(data_url);
+    //        } else {
+    //            e.preventDefault();
+    //        }
+    //    });
 
     $('.super-dialog-link').live('click', function (e) {
         e.preventDefault();
@@ -90,22 +92,19 @@
 
         trip.fetch({
             success: function (model, response) {
-                console.log('trip.fetch success, results is:', model);
 
                 var newActivity = new TT.Models.Activity({ Title: '', TripID: tripID });
                 trip.get('Activities').add(newActivity).moveToEnd(newActivity);
 
-                console.log('editing activity:', newActivity, 'for trip:', model);
                 openEditor(model, newActivity);
             },
             error: function (model, response) {
-                console.log('error!', 'model:', model, 'response:', response);
+                alert('An error has occured!');
             }
         });
     });
 
     var openEditor = function (trip, activity) {
-        console.log('openEditor');
         var body = $('body');
 
         var close = function () {
@@ -126,30 +125,25 @@
     };
 
 
-    $('.activities').on('click', '.activity', function (e){
+    $('.activities').on('click', '.activity', function (e) {
 
         if ($(this).parents('#editor').length > 0) return;
 
         if (!$(e.target).is('a')) {
             var activityId = $(this).data('activity-id');
             var activity = new TT.Models.Activity({ ID: activityId });
-            //            console.log('activity to fetch:', activity, 'with id:', activityId);
             activity.fetch({
                 success: function (model, response) {
-                    //console.log('activity.fetch success', 'model', model, 'response', response);
                     if (model.get('Trip').UserOwnsTrip) {
                         var trip = new TT.Models.Trip({ ID: activity.get('Trip').ID });
-                        //console.log('user owns trip, so now going to load trip', trip);
 
                         trip.fetch({
                             success: function (model, response) {
-                                console.log('trip.fetch success, results is:', model);
                                 var editing = model.get('Activities').get(activityId);
-                                console.log('editing activity:', editing, 'for trip:', model);
                                 openEditor(model, editing);
                             },
                             error: function (model, response) {
-                                console.log('error!', 'model:', model, 'response:', response);
+                                alert('An error has occured!');
                             }
                         });
 

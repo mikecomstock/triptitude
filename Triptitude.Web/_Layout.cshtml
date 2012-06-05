@@ -14,7 +14,7 @@
     {
         <meta name="robots" content="noindex" />
     }
-    <meta name="viewport" content="width=device-width; initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -55,18 +55,18 @@
         @if (currentUser.DefaultTrip != null && currentUser.DefaultTrip == ViewBag.Trip)
         {     
             <div id="trip-bar" class="trip-yes" data-trip-id="@currentUser.DefaultTrip.Id" >
-                <div id="nav-menu">
+                <nav>
                     <div class="goto">
                         Go To...
                     </div>
-                    <ul id="inner-menu">
+                    <ul>
                         <li><a href="@Url.Details(currentUser.DefaultTrip)" accesskey="w">Dashboard<span>Your trip overview</span></a></li>
                         <li><a href="@Url.Who(currentUser.DefaultTrip)" accesskey="w">Who's Going<span>Add your fellow travelers</span></a></li>
                         <li><a href="@Url.Itinerary(currentUser.DefaultTrip)" accesskey="i">Itinerary<span>Review your itinerary</span></a></li>
                         <li><a href="@Url.PackingList(currentUser.DefaultTrip)">Packing List<span>Update your packing list</span></a></li>
                         <li><a href="@Url.Settings(currentUser.DefaultTrip)">Settings<span>Change title and privacy</span></a></li>
                     </ul>
-                </div>
+                </nav>
                 <div class="pre-title">
                     currently planning...</div>
                 <a class="title" href="@Url.Details(currentUser.DefaultTrip)">

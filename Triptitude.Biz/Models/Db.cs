@@ -31,6 +31,6 @@ namespace Triptitude.Biz.Models
         public DbSet<PackingListItem> PackingListItems { get; set; }
         public DbSet<TransportationType> TransportationTypes { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<BlogPost> BlogPosts { get; set; }
+        //public DbSet<BlogPost> BlogPosts { get; set; }
     }
 }

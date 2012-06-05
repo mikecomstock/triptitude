@@ -51,19 +51,19 @@ namespace Triptitude.Biz.Extensions
 
         #endregion
 
-        #region Blogs
+        //#region Blogs
 
-        public static string BlogsCategory(this UrlHelper url, string category)
-        {
-            return url.RouteUrl("blogs_category", new { category });
-        }
+        //public static string BlogsCategory(this UrlHelper url, string category)
+        //{
+        //    return url.RouteUrl("blogs_category", new { category });
+        //}
 
-        public static string BlogPost(this UrlHelper url, BlogPost post)
-        {
-            return url.SlugAction("details", "blogs", post.Id, post.Title, "blogs");
-        }
+        //public static string BlogPost(this UrlHelper url, BlogPost post)
+        //{
+        //    return url.SlugAction("details", "blogs", post.Id, post.Title, "blogs");
+        //}
 
-        #endregion
+        //#endregion
 
         #region Users
 

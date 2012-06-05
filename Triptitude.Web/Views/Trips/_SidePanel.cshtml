@@ -1,7 +1,7 @@
 ﻿@{
     Trip trip = (Trip)ViewBag.Trip;
 }
-<div id="side-container">
+<nav id="side-container">
     
     <a href="@Url.Details(trip)">Dashboard</a> <a href="@Url.Itinerary(trip)">Itinerary</a> <a href="@Url.Who(trip)">Who's Going</a>
     @*<a href="@Url.Map(trip)">Map</a>*@
@@ -10,4 +10,4 @@
         <a href="@Url.PackingList(trip)">Packing List</a>
     }
     <a id="trip-settings-link" href="@Url.History(trip)">Activity Stream</a> <a id="trip-settings-link" href="@Url.Settings(trip)">Trip Settings</a>
-</div>
+</nav>

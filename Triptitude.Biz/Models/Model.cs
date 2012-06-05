@@ -847,15 +847,15 @@ namespace Triptitude.Biz.Models
         }
     }
 
-    public class BlogPost
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public string Category { get; set; }
-        public DateTime DisplayDate { get; set; }
-        public DateTime CreatedOnUTC { get; set; }
-        public DateTime UpdatedOnUTC { get; set; }
-        public virtual User User { get; set; }
-    }
+    //public class BlogPost
+    //{
+    //    public int Id { get; set; }
+    //    public string Title { get; set; }
+    //    public string Body { get; set; }
+    //    public string Category { get; set; }
+    //    public DateTime DisplayDate { get; set; }
+    //    public DateTime CreatedOnUTC { get; set; }
+    //    public DateTime UpdatedOnUTC { get; set; }
+    //    public virtual User User { get; set; }
+    //}
 }

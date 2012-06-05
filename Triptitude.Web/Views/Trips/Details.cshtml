@@ -21,7 +21,7 @@
 {
     @Html.Action("SidePanel", "Trips", new { trip })
 }
-<article>
+<div class="panel">
     <header>
         @if (trip.Sharable)
         {
@@ -38,32 +38,28 @@
         </h1>
     </header>
     <section id="who">
-        <header>
-            <h2>
-                Who's Going
-                @if (currentUser.CreatedTrips(trip))
-                { <span><a href="@Url.Who(trip)">add travelers</a> </span>}
-            </h2>
-            <ul class="travelers">
-                @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
-                {
-                    <li><a href="@Url.Details(userTrip.User)">
-                        <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                        <span>@(userTrip.User == currentUser ? "you" : userTrip.User.NameOrAnon)</span> </a></li>
-                }
-            </ul>
-        </header>
+        <h2>
+            Who's Going
+            @if (currentUser.CreatedTrips(trip))
+            { <span><a href="@Url.Who(trip)">add travelers</a> </span>}
+        </h2>
+        <ul class="travelers">
+            @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser))
+            {
+                <li><a href="@Url.Details(userTrip.User)">
+                    <img src="@userTrip.User.PhotoURLSmall" alt="" />
+                    <span>@(userTrip.User == currentUser ? "you" : userTrip.User.NameOrAnon)</span> </a></li>
+            }
+        </ul>
     </section>
     <section id="itinerary">
-        <header>
-            <h2>
-                Itinerary
-                @if (currentUser.OwnsTrips(trip))
-                {
-                    <span><a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">add activities</a> </span>
-                }
-            </h2>
-        </header>
+        <h2>
+            Itinerary
+            @if (currentUser.OwnsTrips(trip))
+            {
+                <span><a href="@Url.Who(trip)" class="super-dialog-link" data-trip-id="@trip.Id">add activities</a> </span>
+            }
+        </h2>
         <a href="@Url.Itinerary(trip)">@trip.NonDeletedActivities.Count() activities</a>
     </section>
     @if (currentUser.OwnsTrips(trip))
@@ -78,11 +74,9 @@
     @if (currentUser.OwnsTrips(trip))
     {
         <section id="history">
-            <header>
-                <h2>
-                    Recent Changes <span><a href="@Url.History(trip)">view all</a></span>
-                </h2>
-            </header>
+            <h2>
+                Recent Changes <span><a href="@Url.History(trip)">view all</a></span>
+            </h2>
             <ol class="histories">
                 @foreach (var history in trip.Histories.OrderByDescending(h => h.Id).Take(6))
                 {
@@ -93,4 +87,4 @@
             </ol>
         </section>
     }
-</article>
+</div>

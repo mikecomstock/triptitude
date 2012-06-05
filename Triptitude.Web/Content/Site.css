@@ -253,23 +253,23 @@ input.delete {
     font-size: 18px;
     font-weight: normal;
     padding: 5px 0; }
-  #trip-bar #nav-menu {
+  #trip-bar nav {
     float: right;
     position: relative;
     margin: 5px 0;
     font-size: 20px; }
-    #trip-bar #nav-menu:hover {
+    #trip-bar nav:hover {
       background-color: #333;
       -webkit-border-radius: 4px 4px 0 0;
       -moz-border-radius: 4px 4px 0 0;
       border-radius: 4px 4px 0 0; }
-    #trip-bar #nav-menu .goto {
+    #trip-bar nav .goto {
       color: #66C3FE;
       padding: 5px 10px;
       margin: 0;
       cursor: default;
       white-space: nowrap; }
-      #trip-bar #nav-menu .goto:before {
+      #trip-bar nav .goto:before {
         content: "";
         width: 0;
         height: 0;
@@ -279,7 +279,7 @@ input.delete {
         margin-right: 5px;
         position: relative;
         top: 16px; }
-    #trip-bar #nav-menu ul#inner-menu {
+    #trip-bar nav ul {
       display: none;
       position: absolute;
       right: 0;
@@ -287,17 +287,17 @@ input.delete {
       padding: 10px;
       background-color: #333;
       z-index: 3; }
-      #trip-bar #nav-menu ul#inner-menu li:hover {
+      #trip-bar nav ul li:hover {
         background-color: #444; }
-      #trip-bar #nav-menu ul#inner-menu li + li {
+      #trip-bar nav ul li + li {
         border-top: 1px solid #555; }
-      #trip-bar #nav-menu ul#inner-menu li a {
+      #trip-bar nav ul li a {
         padding: 5px;
         display: block;
         color: #66C3FE; }
-        #trip-bar #nav-menu ul#inner-menu li a:hover {
+        #trip-bar nav ul li a:hover {
           text-decoration: none !important; }
-      #trip-bar #nav-menu ul#inner-menu li span {
+      #trip-bar nav ul li span {
         color: #FFF;
         font-weight: normal;
         display: block;
@@ -372,7 +372,7 @@ input.delete {
     background-color: #E9BA26;
     text-decoration: none; }
 
-article {
+.panel {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -382,96 +382,35 @@ article {
   background-color: #FFFFFF;
   overflow: hidden !important;
   padding-bottom: 10px; }
-  article > header {
+  .panel > header {
     background-color: #E9BA26; }
-    article > header h1 {
+    .panel > header h1 {
       padding: 15px; }
-      article > header h1 span.right {
+      .panel > header h1 span.right {
         float: right;
         font-size: 16px;
         line-height: 34px;
         font-weight: normal; }
-  article section {
-    padding: 20px 10px 0 10px; }
-    article section h2 {
+    .panel > header .share-bar-container {
+      float: right;
+      margin: 15px; }
+  .panel section {
+    padding: 10px 15px; }
+    .panel section h2 {
       color: #404040;
       font-size: 26px;
       margin-bottom: 10px;
       text-transform: none; }
-      article section h2 span {
+      .panel section h2 span {
         font-size: 12px;
         font-weight: normal; }
-    article section .subtitle {
+    .panel section .subtitle {
       padding: 5px;
       margin: 10px 0; }
-
-.panel {
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  background-color: #FFFFFF;
-  overflow: hidden !important; }
-
-.panel + .panel {
-  margin-top: 10px; }
-
-.panel h2 {
-  color: #262626;
-  font-size: 22px;
-  margin: 10px 0;
-  text-transform: lowercase; }
-
-.panel > header {
-  background-color: #E9BA26;
-  padding: 15px;
-  zoom: 1;
-  line-height: 30px; }
-  .panel > header:before {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline; }
-  .panel > header:after {
-    display: table;
-    content: "";
-    zoom: 1;
-    *display: inline;
-    clear: both; }
-  .panel > header h1 {
-    float: left; }
-  .panel > header .add-to-trip {
-    float: right; }
-
-header .share-bar-container {
-  float: right;
-  margin: 15px; }
-
-.panel-alert {
-  padding: 10px;
-  background-color: #FE9FAA;
-  font-weight: bold;
-  text-align: center;
-  font-size: 16px; }
-
-.panel-small-alert {
-  padding: 5px 10px;
-  background-color: #E9BA26; }
-
-.panel-suggestions {
-  margin: 10px 0; }
-  .panel-suggestions .title {
-    background-color: #0190E9;
-    color: #FFF;
-    padding: 5px; }
-
-.panel-content {
-  padding: 10px; }
-
-.panel-content.not-padded {
-  padding: 0 !important; }
+  .panel .panel-content {
+    padding: 10px; }
+  .panel .panel-content.not-padded {
+    padding: 0 !important; }
 
 /* Landing Page */
 #landing-page-panel-container {
@@ -493,14 +432,6 @@ header .share-bar-container {
     	li {
     		font-size: 16px; margin: 10px 0;
     		a { font-weight: bold; }
-    	}
-    }*/
-    /*#trips {
-    	margin: 50px auto; width: 800px; @include transparent-background(#F3ECB7,0.3);
-    	header {
-    		padding: 5px; @include clearfix; background-color: #E9BA26;
-    		h2 { margin: 0; float:left; }
-    		a { float:right; }
     	}
     }*/ }
     #landing-page-panel-container #landing-page-panel:before {
@@ -690,8 +621,6 @@ ul.tags > li + li { margin-left: 5px; }
       background-color: #EEE; }
 
 /* Trips */
-#trips-details .panel-content {
-  background-color: #EEE; }
 #trips-details #who .travelers {
   zoom: 1; }
   #trips-details #who .travelers:before {
@@ -715,7 +644,7 @@ ul.tags > li + li { margin-left: 5px; }
     #trips-details #who .travelers > li:hover {
       background-color: #EEE; }
 
-#trips-itinerary article > header a, #trips-packing article > header a {
+#trips-itinerary .panel > header a, #trips-packing .panel > header a {
   display: block;
   float: right;
   color: #FFF;
@@ -737,10 +666,10 @@ ul.tags > li + li { margin-left: 5px; }
   background-image: linear-gradient(top, #fe3950, #b70116);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fe3950', endColorstr='#b70116')"; }
-#trips-itinerary article > header a:hover, #trips-packing article > header a:hover {
+#trips-itinerary .panel > header a:hover, #trips-packing .panel > header a:hover {
   text-decoration: none; }
 
-#trips-itinerary article > header a:after {
+#trips-itinerary .panel > header a:after {
   content: 'Add Activity';
   margin-left: 10px; }
 #trips-itinerary #itinerary .activities {
@@ -820,7 +749,7 @@ ul.tags > li + li { margin-left: 5px; }
         float: left;
         margin-left: 10px; }
 
-#trips-packing article > header a:after {
+#trips-packing .panel > header a:after {
   content: 'Find Items';
   margin-left: 10px; }
 #trips-packing section > footer {
@@ -838,7 +767,7 @@ ul.tags > li + li { margin-left: 5px; }
   #trips-history .histories .history + .history {
     border-top: 1px solid #F3F3F3; }
 
-#trips-who .panel-content > form {
+#trips-who .panel > form {
   margin: 10px; }
 #trips-who .travelers li {
   zoom: 1;
@@ -1046,7 +975,7 @@ ul.tags > li + li { margin-left: 5px; }
 		li.active { background-color: #EEE; }
 		li:hover { background-color: #EEE; }
 	}
-	.panel-content { position: relative; }
+	.panel { position: relative; }
 	#map { height: 300px; }
 	#placeSearch {
 		#keyword { width: 250px; }
@@ -1063,19 +992,19 @@ ul.tags > li + li { margin-left: 5px; }
   float: left;
   margin-right: 15px; }
 
-#invitations-details .panel-content h2 {
+#invitations-details .panel h2 {
   font-weight: normal;
   font-size: 16px; }
-#invitations-details .panel-content .trip {
+#invitations-details .panel .trip {
   font-size: 30px; }
-#invitations-details .panel-content #confirm-form {
+#invitations-details .panel #confirm-form {
   float: right;
   background-color: #F4F4F4;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
   margin: 20px 50px; }
-  #invitations-details .panel-content #confirm-form header {
+  #invitations-details .panel #confirm-form header {
     background-color: #0190E9;
     color: #FFF;
     padding: 10px;
@@ -1084,21 +1013,21 @@ ul.tags > li + li { margin-left: 5px; }
     border-radius: 10px 10px 0 0;
     text-align: center;
     font-size: 18px; }
-  #invitations-details .panel-content #confirm-form form {
+  #invitations-details .panel #confirm-form form {
     display: none; }
-  #invitations-details .panel-content #confirm-form.show-sign-in #sign-in {
+  #invitations-details .panel #confirm-form.show-sign-in #sign-in {
     display: block; }
-  #invitations-details .panel-content #confirm-form.show-sign-up #sign-up {
+  #invitations-details .panel #confirm-form.show-sign-up #sign-up {
     display: block; }
-  #invitations-details .panel-content #confirm-form.show-accept #accept {
+  #invitations-details .panel #confirm-form.show-accept #accept {
     display: block; }
-  #invitations-details .panel-content #confirm-form #accept {
+  #invitations-details .panel #confirm-form #accept {
     text-align: center; }
-    #invitations-details .panel-content #confirm-form #accept h4 {
+    #invitations-details .panel #confirm-form #accept h4 {
       line-height: 40px; }
-    #invitations-details .panel-content #confirm-form #accept p {
+    #invitations-details .panel #confirm-form #accept p {
       text-align: center; }
-    #invitations-details .panel-content #confirm-form #accept .submit input {
+    #invitations-details .panel #confirm-form #accept .submit input {
       font-size: 24px;
       margin-bottom: 20px; }
 
@@ -1122,7 +1051,7 @@ ul.tags > li + li { margin-left: 5px; }
     -moz-border-radius: 5px;
     border-radius: 5px; }
 
-@media (max-width: 960px) {
+@media (max-width: 800px) {
   #uvTab {
     display: none !important; }
 
@@ -1150,16 +1079,16 @@ ul.tags > li + li { margin-left: 5px; }
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
-    #trip-bar #nav-menu {
+    #trip-bar nav {
       margin: 0;
       font-size: 16px; }
-      #trip-bar #nav-menu .goto:before {
+      #trip-bar nav .goto:before {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
         border-top: 4px solid #66C3FE;
         margin-right: 5px;
         top: 12px; }
-      #trip-bar #nav-menu li span {
+      #trip-bar nav li span {
         padding: 0 !important;
         font-size: 12px !important; }
     #trip-bar #email-warning {
@@ -1175,14 +1104,14 @@ ul.tags > li + li { margin-left: 5px; }
     width: auto;
     margin: 0; }
 
-  article, .panel {
+  .panel {
     clear: both;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0; }
-    article section, .panel section {
+    .panel section {
       margin: 0; }
-    article header, .panel header {
+    .panel header {
       padding: 0; }
 
   #landing-page-panel-container {
@@ -1202,9 +1131,8 @@ ul.tags > li + li { margin-left: 5px; }
         float: none; }
       #landing-page-panel-container #landing-page-panel #create-trip-form {
         float: none;
-        margin: 10px auto;
+        margin: 10px;
         width: auto;
-        max-width: 400px;
         zoom: 1; }
         #landing-page-panel-container #landing-page-panel #create-trip-form:before {
           display: table;
@@ -1218,7 +1146,13 @@ ul.tags > li + li { margin-left: 5px; }
           *display: inline;
           clear: both; }
         #landing-page-panel-container #landing-page-panel #create-trip-form input[type="text"] {
-          width: 90%; }
+          width: 90%;
+          font-size: 22px; }
+        #landing-page-panel-container #landing-page-panel #create-trip-form input[type="submit"] {
+          font-size: 20px; }
+        #landing-page-panel-container #landing-page-panel #create-trip-form h3 {
+          margin: 10px;
+          font-size: 26px; }
 
   header .share-bar-container {
     display: none; }
@@ -1261,14 +1195,14 @@ ul.tags > li + li { margin-left: 5px; }
       display: block;
       width: 60px; }
 
-  #trips-itinerary article > header a, #trips-packing article > header a {
+  #trips-itinerary .panel > header a, #trips-packing .panel > header a {
     font-size: 24px;
     height: 24px;
     line-height: 20px;
     width: 24px;
     padding: 0;
     margin: 5px 10px; }
-  #trips-itinerary article > header a:after, #trips-packing article > header a:after {
+  #trips-itinerary .panel > header a:after, #trips-packing .panel > header a:after {
     display: none; }
 
   #editor-container {
@@ -1332,7 +1266,7 @@ ul.tags > li + li { margin-left: 5px; }
     color: #000 !important;
     background-color: #FFF; }
 
-  #trips-packing article header a {
+  #trips-packing .panel header a {
     display: none; }
 
   .packing-list-tags {
