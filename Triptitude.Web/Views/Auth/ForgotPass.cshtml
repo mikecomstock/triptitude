@@ -6,31 +6,29 @@
         $(document).ready(function () { document.getElementById('email').focus(); });
     </script>
 }
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>
-                Password Reset</h1>
-        </header>
-        <div class="panel-content">
-            @if (ViewBag.Sent)
-            {
-                <p>
-                    A reset link has been sent to @ViewBag.Form.Email. You should get it in a few minutes.</p>
-            }
-            else
-            {
-                <form method="post" action="@Url.ForgotPass()">
-                @Html.AntiForgeryToken()
-                <p>
-                    @Html.ValidationMessage("email")
-                    <label for="email">
-                        Email</label>
-                    <input type="text" id="email" name="email" value="@ViewBag.Form.Email" />
-                </p>
-                <input type="submit" value="Send Reset Link" />
-                </form>
-            }
-        </div>
+<div class="panel">
+    <header>
+        <h1>
+            Password Reset</h1>
+    </header>
+    <div class="panel-content">
+        @if (ViewBag.Sent)
+        {
+            <p>
+                A reset link has been sent to @ViewBag.Form.Email. You should get it in a few minutes.</p>
+        }
+        else
+        {
+            <form method="post" action="@Url.ForgotPass()">
+            @Html.AntiForgeryToken()
+            <p>
+                @Html.ValidationMessage("email")
+                <label for="email">
+                    Email</label>
+                <input type="text" id="email" name="email" value="@ViewBag.Form.Email" />
+            </p>
+            <input type="submit" value="Send Reset Link" />
+            </form>
+        }
     </div>
 </div>

@@ -2,29 +2,27 @@
     ViewBag.Title = "Create a Trip";
     NewCreateTripForm form = (NewCreateTripForm)ViewBag.Form;
 }
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>
-                Create a Trip</h1>
-        </header>
-        <div class="panel-content">
-            <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-            <p>
-                @Html.ValidationMessage("name")
-                <label for="name">
-                    Name your trip</label>
-                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" class="focus" />
-            </p>
-            <p>
-                <label for="visibility">
-                    Visibility</label>
-                @Html.DropDownList("visibility", form.Visibility.ToSelectList())
-            </p>
-            <p>
-                <input type="submit" value="Start Planning >" />
-            </p>
-            </form>
-        </div>
+<div class="panel">
+    <header>
+        <h1>
+            Create a Trip</h1>
+    </header>
+    <div class="panel-content">
+        <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
+        <p>
+            @Html.ValidationMessage("name")
+            <label for="name">
+                Name your trip</label>
+            <input type="text" name="name" id="name" value="@ViewBag.Form.Name" class="focus" />
+        </p>
+        <p>
+            <label for="visibility">
+                Visibility</label>
+            @Html.DropDownList("visibility", form.Visibility.ToSelectList())
+        </p>
+        <p>
+            <input type="submit" value="Start Planning >" />
+        </p>
+        </form>
     </div>
 </div>

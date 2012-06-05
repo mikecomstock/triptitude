@@ -14,15 +14,13 @@
     </script>
 }
 @Html.Action("SidePanel", "Trips", new { ViewBag.Trip })
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>@ViewBag.Title
-            </h1>
-        </header>
-        <div class="panel-content">
-            <div id="trip-map-container" data-trip-id="@ViewBag.Trip.Id">
-            </div>
+<div class="panel">
+    <header>
+        <h1>@ViewBag.Title
+        </h1>
+    </header>
+    <div class="panel-content">
+        <div id="trip-map-container" data-trip-id="@ViewBag.Trip.Id">
         </div>
     </div>
 </div>

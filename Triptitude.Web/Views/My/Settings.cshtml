@@ -4,50 +4,48 @@
     User user = (User)ViewBag.User;
 }
 @Html.Action("SidePanel", "My")
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>
-                My Settings</h1>
-        </header>
-        <div class="panel-content">
-            <form id="my-settings-form" action="@Url.MySettings()" method="post">
-            <p>
-                @Html.ValidationMessage("name")
-                <label for="name">
-                    Name</label>
-                <input type="text" name="name" id="name" value="@form.Name" class="focus" tabindex="1"/>
-            </p>
-            <p>
-                @Html.ValidationMessage("email")
-                <label for="email">
-                    Email
-                </label>
-                @if (string.IsNullOrWhiteSpace(user.Email))
-                {
-                    <input type="text" name="email" id="email" value="@form.Email" tabindex="3" />
-                }
-                else
-                {
-                    <span id="email">@user.Email</span>
-                    <input type="hidden" name="email" id="email" value="@form.Email" />
-                }
-            </p>
-            <p>
-                @Html.ValidationMessage("password")
-                <label for="password">
-                    Password
-                </label>
-                <input type="password" name="password" id="password" value="@form.Password" tabindex="4" />
-            </p>
-            <p>
-                <label for="EmailWhenTripsUpdated">
-                    Email me when my trips are updated
-                </label>
-                @Html.CheckBox("EmailWhenTripsUpdated", form.EmailWhenTripsUpdated)
-            </p>
-            <input type="submit" value="Save Settings" tabindex="5" />
-            </form>
-        </div>
+<div class="panel">
+    <header>
+        <h1>
+            My Settings</h1>
+    </header>
+    <div class="panel-content">
+        <form id="my-settings-form" action="@Url.MySettings()" method="post">
+        <p>
+            @Html.ValidationMessage("name")
+            <label for="name">
+                Name</label>
+            <input type="text" name="name" id="name" value="@form.Name" class="focus" tabindex="1"/>
+        </p>
+        <p>
+            @Html.ValidationMessage("email")
+            <label for="email">
+                Email
+            </label>
+            @if (string.IsNullOrWhiteSpace(user.Email))
+            {
+                <input type="text" name="email" id="email" value="@form.Email" tabindex="3" />
+            }
+            else
+            {
+                <span id="email">@user.Email</span>
+                <input type="hidden" name="email" id="email" value="@form.Email" />
+            }
+        </p>
+        <p>
+            @Html.ValidationMessage("password")
+            <label for="password">
+                Password
+            </label>
+            <input type="password" name="password" id="password" value="@form.Password" tabindex="4" />
+        </p>
+        <p>
+            <label for="EmailWhenTripsUpdated">
+                Email me when my trips are updated
+            </label>
+            @Html.CheckBox("EmailWhenTripsUpdated", form.EmailWhenTripsUpdated)
+        </p>
+        <input type="submit" value="Save Settings" tabindex="5" />
+        </form>
     </div>
 </div>

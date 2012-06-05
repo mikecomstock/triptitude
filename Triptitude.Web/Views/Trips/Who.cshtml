@@ -103,82 +103,80 @@
         </div>
     </li>
 </script>
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>
-                @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
-            </h1>
-        </header>
-        @if (TempData["message"] != null)
-        {
-            <div class="subtitle">
-                @TempData["message"]
-            </div>
-        }
-        @if (currentUser.CreatedTrips(trip))
-        {
-            <div class="subtitle">
-                Enter the names of everyone that's going on the trip.
-            </div>
-        }
-        <div class="panel-content not-padded">
-            @if (string.IsNullOrWhiteSpace(currentUser.Name))
-            {   
-                <form action="/usertrips" method="POST">
-                <h3>
-                    Your Info</h3>
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="trip_id" value="@trip.Id"/>
-                <input type="hidden" name="you" value="true" />
-                <input name="Name" placeholder="Your Name" class="focus" />
-                <input type="submit" value="Save" />
-                </form>
-            }
-            else
-            {
-                if (currentUser.CreatedTrips(trip))
-                {
-                <form id="add-someone">
-                <h3>
-                    Add Someone</h3>
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="trip_id" value="@trip.Id"/>
-                <input name="Name" placeholder="Name" class="focus" />
-                <input type="submit" value="Add Traveler" />
-                </form>
-                }
-                <ul class="travelers">
-                    @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
-                    {
-                        <li>
-                            <img src="@userTrip.User.PhotoURLSmall" alt="" />
-                            <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.NameOrAnon</a>
-                            @if (currentUser.CreatedTrips(trip))
-                            {
-                                <a class="delete" data-id="@userTrip.Id">remove</a>
-                                if (userTrip.User != currentUser)
-                                {
-                                <div class="expanded @(userTrip.InviteAccepted ? "accepted" : userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
-                                    <form class="invite">
-                                    Invite @userTrip.User.NameOrAnon to help plan?
-                                    <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
-                                    <input name="email" id="invite_email" placeholder="@userTrip.User.NameOrAnon's email" >
-                                    <input type="submit" value="Invite" />
-                                    </form>
-                                    <div class="sent">
-                                        Invitation sent! <span><a>send again</a> </span>
-                                    </div>
-                                    <div class="accepted">
-                                        Invitation accepted
-                                    </div>
-                                </div>
-                                }
-                            }
-                        </li>
-                    }
-                </ul>
-            }
+<div class="panel">
+    <header>
+        <h1>
+            @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
+        </h1>
+    </header>
+    @if (TempData["message"] != null)
+    {
+        <div class="subtitle">
+            @TempData["message"]
         </div>
+    }
+    @if (currentUser.CreatedTrips(trip))
+    {
+        <div class="subtitle">
+            Enter the names of everyone that's going on the trip.
+        </div>
+    }
+    <div class="panel-content not-padded">
+        @if (string.IsNullOrWhiteSpace(currentUser.Name))
+        {   
+            <form action="/usertrips" method="POST">
+            <h3>
+                Your Info</h3>
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="trip_id" value="@trip.Id"/>
+            <input type="hidden" name="you" value="true" />
+            <input name="Name" placeholder="Your Name" class="focus" />
+            <input type="submit" value="Save" />
+            </form>
+        }
+        else
+        {
+            if (currentUser.CreatedTrips(trip))
+            {
+            <form id="add-someone">
+            <h3>
+                Add Someone</h3>
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="trip_id" value="@trip.Id"/>
+            <input name="Name" placeholder="Name" class="focus" />
+            <input type="submit" value="Add Traveler" />
+            </form>
+            }
+            <ul class="travelers">
+                @foreach (UserTrip userTrip in trip.UserTripsFor(currentUser).OrderByDescending(ut => ut.Id))
+                {
+                    <li>
+                        <img src="@userTrip.User.PhotoURLSmall" alt="" />
+                        <a class="user" href="@Url.Details(userTrip.User)">@userTrip.User.NameOrAnon</a>
+                        @if (currentUser.CreatedTrips(trip))
+                        {
+                            <a class="delete" data-id="@userTrip.Id">remove</a>
+                            if (userTrip.User != currentUser)
+                            {
+                            <div class="expanded @(userTrip.InviteAccepted ? "accepted" : userTrip.EmailInvites.Any() ? "sent" : "not-sent")">
+                                <form class="invite">
+                                Invite @userTrip.User.NameOrAnon to help plan?
+                                <input type="hidden" name="usertrip_id" value="@userTrip.Id" />
+                                <input name="email" id="invite_email" placeholder="@userTrip.User.NameOrAnon's email" >
+                                <input type="submit" value="Invite" />
+                                </form>
+                                <div class="sent">
+                                    Invitation sent! <span><a>send again</a> </span>
+                                </div>
+                                <div class="accepted">
+                                    Invitation accepted
+                                </div>
+                            </div>
+                            }
+                        }
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </div>

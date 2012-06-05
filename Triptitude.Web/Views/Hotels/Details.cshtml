@@ -20,21 +20,19 @@
 <div id="side-container">
     <a href="@Url.Details(hotel)">Details</a> @*<a href="#">Map</a> <a href="#">Trips</a> <a href="#">Alternatives</a>*@
 </div>
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>@hotel.Name</h1>
-        </header>
-        <div class="panel-content">
-            <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
-        </div>
+<div class="panel">
+    <header>
+        <h1>@hotel.Name</h1>
+    </header>
+    <div class="panel-content">
+        <img class="hotel-photo" alt="" src="@hotel.Photo.ImageURL" />
     </div>
-    <div class="panel">
-        <div class="panel-content">
-            <h2>
-                Map</h2>
-            <div id="hotel-details-map-container" style="width: 100%; height: 260px;">
-            </div>
+</div>
+<div class="panel">
+    <div class="panel-content">
+        <h2>
+            Map</h2>
+        <div id="hotel-details-map-container" style="width: 100%; height: 260px;">
         </div>
     </div>
 </div>

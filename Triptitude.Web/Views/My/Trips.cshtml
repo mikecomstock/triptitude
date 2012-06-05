@@ -20,42 +20,38 @@
     </script>
 }
 @Html.Action("SidePanel", "My")
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <a href="/logout">sign out</a>
-            <h1>
-                My Trips</h1>
-        </header>
-        <div class="subtitle">
-            Select a trip below to plan it.
-        </div>
-        <div class="panel-content not-padded">
-            @if (trips.IsNullOrEmpty())
-            {
-                <div class="none-found">
-                    No trips found. <a href="@Url.CreateTrip()">Create a trip.</a>
-                </div>
-            }
-            else
-            {
-                <ul class="my-trip-rows">
-                    @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
-                    {
-                        <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)">
-                            <a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a>
-                            <a class="delete" data-trip-id="@trip.Id">delete</a>
-                            @if (trip.Users.Except(new[] { currentUser }).Any())
-                            {
-                                <div class="travelers">
-                                    with
-                                    @Html.Raw(string.Join(", ", trip.UserTrips.Where(ut => ut.User != currentUser).Select(ut => string.Format("<a href=\"{0}\">{1}</a>", Url.Details(ut.User), ut.User.NameOrAnon))))
-                                </div>
-                            }
-                        </li>
-                    }
-                </ul>
-            }
-        </div>
+<div class="panel">
+    <header>
+        <a href="/logout">sign out</a>
+        <h1>
+            My Trips</h1>
+    </header>
+    <div class="subtitle">
+        Select a trip below to plan it.
+    </div>
+    <div class="panel-content not-padded">
+        @if (trips.IsNullOrEmpty())
+        {
+            <div class="none-found">
+                No trips found. <a href="@Url.CreateTrip()">Create a trip.</a>
+            </div>
+        }
+        else
+        {
+            <ul class="my-trip-rows">
+                @foreach (Trip trip in trips.OrderByDescending(t => t.Created_On))
+                {
+                    <li class="@(currentUser.DefaultTrip == trip ? "current" : string.Empty)"><a class="trip" href="@Url.SetDefaultTrip(trip)">@trip.Name</a> <a class="delete" data-trip-id="@trip.Id">delete</a>
+                        @if (trip.Users.Except(new[] { currentUser }).Any())
+                        {
+                            <div class="travelers">
+                                with
+                                @Html.Raw(string.Join(", ", trip.UserTrips.Where(ut => ut.User != currentUser).Select(ut => string.Format("<a href=\"{0}\">{1}</a>", Url.Details(ut.User), ut.User.NameOrAnon))))
+                            </div>
+                        }
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </div>

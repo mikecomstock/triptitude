@@ -3,42 +3,40 @@
     const string pageName = "Settings";
     ViewBag.Title = trip.Name + " - " + pageName;
     User currentUser = ViewBag.CurrentUser;
-    
+
     TripSettingsForm form = ViewBag.Form;
 }
 @Html.Action("SidePanel", "Trips", new { trip })
-<div id="main-container">
-    <div class="panel">
-        <header>
-            <h1>
-                @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
-            </h1>
-        </header>
-        @if (TempData["saved"] != null)
-        {
-            <div class="subtitle">
-                Trip settings have been saved.
-            </div>
-        }
-        <div class="panel-content">
-            <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" >
-            @Html.AntiForgeryToken()
-            @if (currentUser.CreatedTrips(trip))
-            {
-                <p>
-                    @Html.ValidationMessage("name")
-                    <label for="name">
-                        Name your trip</label>
-                    <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" @(currentUser.CreatedTrips(trip) ? "class=\"focus\"" : string.Empty) />
-                </p>
-            }
-            <p>
-                <label for="visibility">
-                    Visibility</label>
-                @Html.DropDownList("visibility", form.Visibility.ToSelectList())
-            </p>
-            <input type="submit" value="Save Settings" tabindex="2" />
-            </form>
+<div class="panel">
+    <header>
+        <h1>
+            @(currentUser.DefaultTrip == trip ? pageName : ViewBag.Title)
+        </h1>
+    </header>
+    @if (TempData["saved"] != null)
+    {
+        <div class="subtitle">
+            Trip settings have been saved.
         </div>
+    }
+    <div class="panel-content">
+        <form action="@Url.Settings((Trip)ViewBag.Trip)" method="post" id="trip-settings-form" >
+        @Html.AntiForgeryToken()
+        @if (currentUser.CreatedTrips(trip))
+        {
+            <p>
+                @Html.ValidationMessage("name")
+                <label for="name">
+                    Name your trip</label>
+                <input type="text" name="name" id="name" value="@ViewBag.Form.Name" tabindex="1" @(currentUser.CreatedTrips(trip) ? "class=\"focus\"" : string.Empty) />
+            </p>
+        }
+        <p>
+            <label for="visibility">
+                Visibility</label>
+            @Html.DropDownList("visibility", form.Visibility.ToSelectList())
+        </p>
+        <input type="submit" value="Save Settings" tabindex="2" />
+        </form>
     </div>
 </div>

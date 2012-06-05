@@ -145,8 +145,6 @@ input.delete { background-color: #E92553; }
 	a:hover, a:focus { background-color:#E9BA26; text-decoration:none; }
 }
 
-#main-container {  }
-
 article {
 	@include border-radius(6px); @include box-shadow(0 1px 3px rgba(0, 0, 0, 0.8)); background-color: #FFFFFF; overflow: hidden !important; padding-bottom: 10px;
 	> header {
