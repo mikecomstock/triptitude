@@ -330,8 +330,10 @@ input.delete {
   #new-user-dialog h1 {
     text-align: center; }
   #new-user-dialog p.submit {
-    text-align: center;
+    text-align: right;
     padding: 10px 0; }
+  #new-user-dialog .forgot-pass {
+    margin: 10px; }
 
 /* Page Sections */
 #content {
