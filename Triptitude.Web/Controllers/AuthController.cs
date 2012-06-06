@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using System.Web.Security;
+using Triptitude.Biz.Extensions;
 using Triptitude.Biz.Forms;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -8,8 +10,31 @@ using Triptitude.Web.Helpers;
 
 namespace Triptitude.Web.Controllers
 {
-    public class AuthController : Controller
+    public class AuthController : TriptitudeController
     {
+        [HttpGet]
+        public ActionResult Login(Guid? token, string returnUrl)
+        {
+            if (token.HasValue)
+            {
+                var usersRepo = new UsersRepo();
+                User user = usersRepo.FindByToken(token.Value);
+
+                if (user != null && !user.GuidIsExpired)
+                {
+                    AuthHelper.SetAuthCookie(user);
+                    return string.IsNullOrWhiteSpace(returnUrl) ? Redirect(Url.MySettings()) : Redirect(returnUrl);
+                }
+                else
+                {
+                    ModelState.AddModelError("credentials", "Your login link has expired. Use the 'Forgot Password' link to create a new one.");
+                }
+            }
+
+            ViewBag.Form = new LoginForm { ReturnUrl = returnUrl };
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
