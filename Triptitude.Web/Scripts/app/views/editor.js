@@ -157,22 +157,12 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     tagName: 'form',
+    editTemplate: '<form class="activity-form"><div class="title"><label for="activity-form-title">Title</label><input name="Title" id="activity-form-title" tabindex="1" placeholder="enter a title for your activity"></div><div class="when"><label for="activity-form-begin-date">When?</label><input name="BeginDate" id="activity-form-begin-date" tabindex="2"></div><div class="source-url"><label for="activity-form-source-url">Source URL</label><input name="SourceURL" id="activity-form-source-url" tabindex="3" placeholder="http://"></div><div class="notes"><label for="activity-form-notes">Notes</label><textarea name="Notes" id="activity-form-notes" tabindex="4" placeholder="add notes and details..."></textarea><ol></ol></div><div class="buttons"><button type="submit" class="save" tabindex="5">Save</button><button type="button" class="delete" tabindex="6">Delete</button></div></form>',
     initialize: function () {
-        this.TitleInput = $(this.make('input', { name: 'Title', id: 'activity-form-title', tabindex: 1, placeholder: 'enter a title for your activity' }));
-        //this.BeginDateInput = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
-        this.SourceURLInput = $(this.make('input', { name: 'SourceURL', id: 'activity-form-source-url', tabindex: 3, placeholder: 'http://' }));
-        this.NotesInput = $(this.make('textarea', { Name: 'Notes', id: 'activity-form-notes', tabindex: 4, placeholder: 'add notes and details...' }));
-        this.SaveButton = $(this.make('button', { type: 'submit', 'class': 'save', tabindex: 5 }, 'Save'));
-        this.DeleteButton = $(this.make('button', { type: 'button', 'class': 'delete', tabindex: 6 }, 'Delete'));
-
-        if (this.model) {
-            this.model.on('change:BeginAt', function () {
-                var bdi = this.$el.find('[name="BeginDate"]');
-                bdi.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
-            }, this);
-        }
-
-        _.bindAll(this);
+        this.model.on('change:BeginAt', function () {
+            var bdi = this.$el.find('[name="BeginDate"]');
+            bdi.datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
+        }, this);
     },
     events: {
         'submit': 'submit',
@@ -180,7 +170,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     },
     setFocus: function () {
         var self = this;
-        setTimeout(function () { self.TitleInput.focus(); }, 10);
+        setTimeout(function () { self.$el.find('[name="Title"]').focus(); }, 10);
     },
     submit: function (e) {
         e.preventDefault();
@@ -191,10 +181,10 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
         var newBeginAt = TT.Util.FromDatePicker(bdi.datepicker('getDate'));
 
         this.model.set({
-            Title: this.TitleInput.val(),
-            SourceURL: this.SourceURLInput.val(),
+            Title: this.$el.find('[name="Title"]').val(),
+            SourceURL: this.$el.find('[name="SourceURL"]').val(),
             BeginAt: newBeginAt,
-            Note: this.NotesInput.val()
+            Note: this.$el.find('[name="Notes"]').val()
         });
 
         if (!TT.Util.SameDate(oldBeginAt, newBeginAt)) {
@@ -206,64 +196,40 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
                 self.trigger('activitysaved');
                 self.render();
                 self.model.unset('Note', { silent: true });
-                var msg = $(self.make('div', { 'class': 'msg success' }, 'Activity Saved!')).appendTo(self.el);
+                $(self.make('div', { 'class': 'msg success' }, 'Activity Saved!')).appendTo(self.el);
                 var another = $('<a class="add-activity another">add another activity</a>').appendTo(self.el);
                 another.data('date', self.model.get('BeginAt'));
                 setTimeout(function () { another.effect('highlight', { color: '#86D0FE' }, 3000); }, 1000);
-                setTimeout(function () { msg.fadeOut(1000); another.fadeOut(1000); }, 15000);
             },
             error: function () {
-                var msg = $(self.make('div', { 'class': 'msg error' }, "Woah, there was a problem! Please try again.")).appendTo(self.el);
-                setTimeout(function () { msg.fadeOut(1000); }, 10000);
+                $(self.make('div', { 'class': 'msg error' }, "Woah, there was a problem! Please try again.")).appendTo(self.el);
             }
         });
     },
     deleteActivity: function () {
         this.model.collection.remove(this.model);
     },
+    noteLITemplate: _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.Name %></a> <div class="text"><%= n.Text %></div></li>'),
     render: function () {
-        var self = this;
+        
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');
             return this;
         }
 
-        this.$el.html('');
+        this.$el.html(this.editTemplate);
 
-        var p = {};
-        var newP = function (cssClass) { return $('<div>').appendTo(self.el).addClass(cssClass); };
-
-        p.Title = newP('title');
-        $(this.make('label', { 'for': this.TitleInput.attr('id') }, 'Title')).appendTo(p.Title);
-        var decodedTitle = $('<div>').html(this.model.get('Title')).text();
-        this.TitleInput.val(decodedTitle).appendTo(p.Title);
-
-        var bdi = $(this.make('input', { name: 'BeginDate', id: 'activity-form-begin-date', tabindex: 2 }));
-        p.When = newP('when');
-        $(this.make('label', { 'for': bdi.attr('id') }, 'When?')).appendTo(p.When);
-        var beginDate = this.model.get('BeginAt');
-        bdi.appendTo(p.When).datepicker().datepicker('setDate', TT.Util.ToDatePicker(beginDate));
-
-        if (this.model.get('SourceURL')) {
-            p.SourceURL = newP('source-url');
-            $(this.make('label', { 'for': this.SourceURLInput.attr('id') }, 'Source URL')).appendTo(p.SourceURL);
-            this.SourceURLInput.val(this.model.get('SourceURL')).appendTo(p.SourceURL);
-        }
-
-        p.Notes = newP('notes');
-        $(self.make('label', { 'for': this.NotesInput.attr('id') }, 'Notes')).appendTo(p.Notes);
-        this.NotesInput.val('').appendTo(p.Notes);
-        var NotesOL = $(this.make('ol')).appendTo(p.Notes);
-        var Notes = this.model.get('Notes');
-        var noteLITemplate = _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.Name %></a> <div class="text"><%= n.Text %></div></li>');
-        Notes.each(function (note) {
-            var noteHTML = noteLITemplate({ n: note.attributes });
+        var NotesOL = this.$el.find('ol');
+        this.model.get('Notes').each(function (note) {
+            var noteHTML = this.noteLITemplate({ n: note.attributes });
             NotesOL.append(noteHTML);
-        });
+        }, this);
 
-        var buttonContainer = $(this.make('div', { 'class': 'buttons' })).appendTo(this.el);
-        this.SaveButton.appendTo(buttonContainer);
-        this.DeleteButton.appendTo(buttonContainer);
+        this.$el.find('[name="Title"]').val(TT.Util.Decode(this.model.get('Title')));
+        this.$el.find('[name="BeginDate"]').datepicker().datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
+
+        this.$el.find('[name="SourceURL"]').val(TT.Util.Decode(this.model.get('SourceURL')));
+        if (!this.model.get('SourceURL')) this.$el.find('.source-url').hide();
 
         return this;
     }

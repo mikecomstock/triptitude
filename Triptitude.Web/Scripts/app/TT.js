@@ -21,6 +21,9 @@ TT.Util = {
             return null;
         }
     },
+    Decode: function (s) {
+        return $('<div>').html(s).text();
+    },
     FormatDate: function (date) {
         // date is in UTC but datepicker takes local, so convert to local
         var local = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
