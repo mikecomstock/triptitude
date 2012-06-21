@@ -22,7 +22,7 @@ TT.Util = {
         }
     },
     Decode: function (s) {
-        return $('<div>').html(s).text();
+        return s ? $('<div>').html(s).text() : s;
     },
     FormatDate: function (date) {
         // date is in UTC but datepicker takes local, so convert to local
