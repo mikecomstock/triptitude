@@ -137,8 +137,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BingSiteAuth.xml" />
+    <Content Include="Content\Admin.css">
+      <DependentUpon>Admin.scss</DependentUpon>
+    </Content>
     <Content Include="Content\Editor.css">
       <DependentUpon>Editor.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Mixins.css">
+      <DependentUpon>Mixins.scss</DependentUpon>
     </Content>
     <Content Include="Content\Site.css">
       <DependentUpon>Site.scss</DependentUpon>
@@ -203,16 +209,6 @@
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
-    <Content Include="Content\Admin.css">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Admin.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Mixins.css">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Mixins.scss</DependentUpon>
-    </Content>
     <Content Include="Templates\Auth\New.html" />
     <Content Include="Templates\Users\New.html" />
     <Content Include="Web.config">
@@ -365,14 +361,8 @@
     <Content Include="Areas\Admin\Views\_AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\API\Views\Web.config" />
-    <None Include="Content\Admin.scss">
-      <Generator>ScssGenerator</Generator>
-      <LastGenOutput>Admin.css</LastGenOutput>
-    </None>
-    <None Include="Content\Mixins.scss">
-      <Generator>ScssGenerator</Generator>
-      <LastGenOutput>Mixins.css</LastGenOutput>
-    </None>
+    <None Include="Content\Admin.scss" />
+    <None Include="Content\Mixins.scss" />
     <None Include="Content\Site.scss" />
     <Content Include="Views\Trips\SearchResults.cshtml" />
     <Content Include="Views\Packing\Index.cshtml" />

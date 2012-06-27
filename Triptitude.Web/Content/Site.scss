@@ -170,26 +170,30 @@ input.delete { background-color: #E92553; }
 
 /* Landing Page */
 #landing-page-panel-container {
-	width: 955px; margin: 0 auto; @include transparent-background(#FFF, 0.85); @include border-radius(7px); padding-bottom: 40px;
+	width: 955px; color: #FFF;
 	#landing-page-panel {
-		margin: 0 20px; padding: 20px 0; @include clearfix;
-		h1 { font-size: 40px; margin: 0 0 30px 0; color: #0190E9; text-align: center; }
-		> p { float: left; width: 350px; color: #333; font-size: 17px; line-height: 1.5; font-weight: bold; margin-top: 60px; margin-left: 100px; }
-		/*> ul {
-			list-style: disc;
-			margin: 0; padding-left: 40px;
-			li {
-				font-size: 16px; margin: 10px 0;
-				a { font-weight: bold; }
+		text-align: center;
+		width: 655px;  margin: 80px auto; @include transparent-background(#000, 0.7); @include border-radius(7px); @include clearfix;
+		h1 { font-size: 48px; margin: 20px; text-align: center; }
+		.flipper { display: block; }
+		> p { font-size: 17px; }
+		.button {
+			margin: 10px; font-size: 25px; @include border-radius(5px);  color: #FFF; padding: 0 24px;
+			height: 54px; line-height: 54px; display: inline-block; @include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.1));
+			&.scratch { @include gradient(#3C88CC, #276195); }
+			&.pick { @include gradient(#81BC2E, #659324); }
+		}
+	}
+	.features {
+		@include clearfix; color: #000; @include transparent-background(#FFF, 0.85); @include border-radius(7px);
+		li {
+			float: left; width: 280px; margin: 18px;
+			h3 {
+				font-size: 24px; margin: 0 0 8px 0;
 			}
-		}*/
-		#create-trip-form {
-			float: right; @include transparent-background(#52BCFE, 0.5); margin: 0 20px 20px 30px; @include box-shadow(3px 7px 10px rgba(0, 0, 0, 0.8));
-			h3 { margin: 20px 20px 10px 20px; text-align: center; font-size: 30px; color: #666; }
-			p { margin:10px 20px; text-align: center; }
-			input[type="text"] { width: 300px; }
-			input, select { font-size: 30px; @include border-radius(5px); padding: 5px; }
-			select { font-size: 16px; border-style: inset; }
+			p {
+				font-size: 16px; margin: 0;
+			}
 		}
 	}
 }
@@ -488,16 +492,11 @@ ul.tags > li + li { margin-left: 5px; }
 	#landing-page-panel-container {
 		width: auto; @include border-radius(0);
 		#landing-page-panel {
-			margin: 0; padding: 0;
+			margin: 0; padding: 0; width: auto; @include border-radius(0);
 			h1 { font-size: 28px; margin: 10px; }
-			> p { width: auto; margin: 10px; float: none; }
-			#create-trip-form {
-				float: none; margin: 10px; width: auto; @include clearfix;
-				input[type="text"] { width: 90%; font-size: 22px; }
-				input[type="submit"] { font-size: 20px; }
-				h3 { margin: 10px; font-size: 26px; }
-			}
-		}
+			.button { margin: 5px; padding: 0 10px; height: 35px; line-height: 35px; font-size: 16px; }
+		}		
+		.features { @include border-radius(0); }
 	}
 	header .share-bar-container { display: none; }
 	#side-container { display: none; }

@@ -58,3 +58,10 @@
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$startColor}', endColorstr='#{$endColor}'); // IE6 & IE7
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#{$startColor}', endColorstr='#{$endColor}')"; // IE8
 }
+
+@mixin transition($t) {
+  -webkit-transition: $t;  /* Saf3.2+, Chrome */
+     -moz-transition: $t;  /* FF4+ */
+       -o-transition: $t;  /* Opera 10.5+ */
+          transition: $t;
+}

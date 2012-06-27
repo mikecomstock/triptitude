@@ -2,29 +2,92 @@
     ViewBag.Title = "Plan trips, together";
     ViewBag.Description = "Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help.";
 }
+@section Scripts {
+    <script type="text/javascript" charset="utf-8">
+
+        (function () {
+            var flipper = $('.flipper');
+
+            var words = ['honeymoon', 'family vacation', 'spring break', 'road trip', 'backpacking trip', 'bachelorette party'];
+            var flip = function (i) {
+
+                flipper.fadeOut('1000', function () {
+                    flipper.text(words[i % words.length]);
+                    flipper.fadeIn('3000', function () {
+                        setTimeout(flip, 2000, i + 1);
+                    });
+                });
+
+            };
+
+            setTimeout(flip, 2000, 0);
+
+            $('.pick').on('click', function (e) {
+                alert('Pick a trip is coming soon! For now, start one from scratch instead.');
+            });
+
+        })();
+        
+    </script>
+}
 <div id="landing-page-panel-container">
     <div id="landing-page-panel">
         <h1>
-            Plan trips, together
+            Plan the perfect... <span class="flipper">trip</span>
         </h1>
         <p>
-            Triptitude helps you plan trips. Create the vacation of your dreams alone, or invite your fellow travelers to help. Make sure your itinerary is perfect before you book. With your travel plans in one place, you'll be able to enjoy stress-free travel.
+            <a class="button scratch" href="/trips/create">Start from scratch</a> or <a class="button pick" href="/trips/create">Pick a trip</a>
         </p>
-        <form action="@Url.CreateTrip()" method="post" id="create-trip-form">
-        @Html.AntiForgeryToken()
-        <h3>
-            Create a Trip</h3>
-        <p>
-            <input type="text" name="destination" placeholder="destination..." />
-        </p>
-        <p>
-            <label for="visibility">
-                Visibility</label>
-            @Html.DropDownList("visibility", UserTrip.UserTripVisibility.Public.ToSelectList())
-        </p>
-        <p>
-            <input type="submit" value="Start Planning" />
-        </p>
-        </form>
     </div>
+    <ul class="features">
+        <li>
+            <h3>
+                Plan your Itinerary</h3>
+            <p>
+                Organize your trip's activities, both on a calendar, and on a map. Tag your flights and hotels with reservation info and notes.
+            </p>
+        </li>
+        <li>
+            <h3>
+                Packing Lists</h3>
+            <p>
+                We'll make sure you don't forget your phone charger, and suggest items for the specific activities you are doing. Packing lists are always private.
+            </p>
+        </li>
+        <li>
+            <h3>
+                Plan with Friends
+            </h3>
+            <p>
+                Traveling with someone? Invite them to help you plan. When they add activities and notes, you'll get email updates. Keep everyone in the loop!
+            </p>
+        </li>
+        <li>
+            <h3>
+                Privacy</h3>
+            <p>
+                Don't want to share your bachelor party with the world? Just make your trip private. (Friends you've invited will still see the trip.)
+            </p>
+        </li>
+        <li>
+            <h3>
+                Use sites you trust</h3>
+            <p>
+                Use the travel planning sites you already know and love. When you find an activity you like, add it to Triptitude.</p>
+        </li>
+        <li>
+            <h3>
+                No Booking Required</h3>
+            <p>
+                Just fantasizing? Planning a trip is fun, even if you can't go quite yet. Design the trip of your dreams anyway, and you'll be one step closer to actually going.
+            </p>
+        </li>
+        @*<li>
+            <h3>Stop using Excel</h3>
+            <p>Excel and post-it notes aren't for planning trips.</p>
+        </li>
+        <li>
+            <h3>Mobile Enabled</h3>
+        </li>*@
+    </ul>
 </div>
