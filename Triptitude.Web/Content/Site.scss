@@ -430,6 +430,7 @@ ul.tags > li + li { margin-left: 5px; }
 }*/
 
 #users-details {
+	.panel header { @include clearfix; }
 	img { float: left; margin-right: 15px; }
 }
 

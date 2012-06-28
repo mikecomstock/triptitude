@@ -1016,6 +1016,19 @@ ul.tags > li + li { margin-left: 5px; }
 	select { padding: 3px; }
 	span { line-height: 26px; }	
 }*/
+#users-details .panel header {
+  zoom: 1; }
+  #users-details .panel header:before {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline; }
+  #users-details .panel header:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+    clear: both; }
 #users-details img {
   float: left;
   margin-right: 15px; }

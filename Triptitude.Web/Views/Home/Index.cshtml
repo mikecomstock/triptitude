@@ -6,6 +6,7 @@
     <script type="text/javascript" charset="utf-8">
 
         (function () {
+            
             var flipper = $('.flipper');
 
             var words = ['honeymoon', 'family vacation', 'spring break', 'road trip', 'backpacking trip', 'bachelorette party'];
@@ -22,8 +23,19 @@
 
             setTimeout(flip, 2000, 0);
 
-            $('.pick').on('click', function (e) {
-                alert('Pick a trip is coming soon! For now, start one from scratch instead.');
+            $('.button').on('click', function (e) {
+
+                var $el = $(e.currentTarget);
+
+                if ($el.is('.pick')) {
+                    _gaq.push(['_trackEvent', 'Trips', 'Create', 'Pick One']);
+                    alert('Pick a trip is coming soon! For now, start one from scratch instead.');
+                }
+
+                if ($el.is('.scratch')) {
+                    _gaq.push(['_trackEvent', 'Trips', 'Create', 'From Scratch']);
+                }
+
             });
 
         })();
