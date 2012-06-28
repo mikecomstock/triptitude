@@ -45,43 +45,36 @@ input.delete { background-color: #E92553; }
 
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
-/* Panel Form Defaults */
-/*.panel form {
-	label { display: block; float: left; width: 100px; line-height: 33px; font-size: 16px; clear: both; }
-	span { line-height: 33px; font-size: 16px; }
-	input[type="checkbox"] { margin: 10px 0; }
-  	input[type="text"], input[type="password"] { font-size: 18px; font-weight: bold; color: #666666; width: 330px; padding: 5px; margin-right: 10px; }
-}*/
+.button {
+	display: inline-block; @include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.1));
+	&.blue { @include gradient(#3C88CC, #276195); color: #FFF; }
+	&.green { @include gradient(#81BC2E, #659324); color: #FFF; }
+	&.yellow { @include gradient(#E9BA26, #C89E14); color: #FFF; }
+	&.medium { height: 30px; line-height: 30px; font-size: 17px; @include border-radius(4px); padding: 0 11px; }
+	&.large { height: 54px; line-height: 54px; font-size: 25px; @include border-radius(5px); padding: 0 24px; }
+}
 
 /* Header */
 #header-container { background-color: #262626; z-index: 5; }
-#header { width: 955px; margin: 0 auto; font-size: 13px; overflow: hidden; @include clearfix; }
-#logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; @include border-radius(0 0 7px 7px); @include gradient(#39B3FE, #0190E9); }
-
-/* Search */
-/*#search {
-	float: right; margin: 10px 10px 10px 30px;
-	form { @include box-shadow(0 3px 5px rgba(0, 0, 0, 0.8)); }
-	input[type="text"] { font-size: 16px; padding: 4px; border: none; width: 200px; }
-	input[type="submit"] { font-size: 16px; padding: 6px; background-color: #E9BA26; border: none; color: #000; margin-left: -6px; }
-}*/
-
-/* User status */
-#user-status {
-	color: #FFFFFF; float: right; text-align: right; margin: 7px 0;
-	a, a:visited { color: #66C3FE; }
-	a + a { border-left: 1px solid #8A8A8A; padding-left: 5px; }
-	p { margin: 0; margin-top: 3px; }
-	p.single { margin: 13px 0; }
-	#user-status-header {
-		margin-bottom: 5px; color: #8A8A8A;
-		a { font-weight: bold; font-size: 13px; }
-	}
-	#user-status-menu {
-		font-size: 12px; font-weight: normal;
-		a { padding-left: 5px; margin: 0; }
+#header {
+	width: 955px; margin: 0 auto; font-size: 13px; height: 52px; overflow: hidden; @include clearfix;
+	#logo { float: left; font-weight: bold; font-size: 22px; color: #FFF; letter-spacing: 1px; margin-top: -10px; padding: 15px 10px 5px 10px; @include border-radius(0 0 7px 7px); @include gradient(#39B3FE, #0190E9); }
+	#user-status {
+		color: #FFFFFF; float: right; text-align: right; margin: 7px 0;
+		a, a:visited { color: #66C3FE; }
+		a + a { border-left: 1px solid #8A8A8A; padding-left: 5px; }
+		p { margin: 12px 0; }
+		#user-status-header {
+			margin-bottom: 5px; color: #8A8A8A;
+			a { font-weight: bold; font-size: 13px; }
+		}
+		#user-status-menu {
+			font-size: 12px; font-weight: normal;
+			a { padding-left: 5px; margin: 0; }
 		
+		}
 	}
+	.create-trip.button { float: right; margin: 11px 0 0 15px; }
 }
 
 /* Tripbar */
@@ -177,12 +170,7 @@ input.delete { background-color: #E92553; }
 		h1 { font-size: 48px; margin: 20px; text-align: center; }
 		.flipper { display: block; }
 		> p { font-size: 17px; }
-		.button {
-			margin: 10px; font-size: 25px; @include border-radius(5px);  color: #FFF; padding: 0 24px;
-			height: 54px; line-height: 54px; display: inline-block; @include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.1));
-			&.scratch { @include gradient(#3C88CC, #276195); }
-			&.pick { @include gradient(#81BC2E, #659324); }
-		}
+		.button { margin: 10px;	}
 	}
 	.features {
 		@include clearfix; color: #000; @include transparent-background(#FFF, 0.85); @include border-radius(7px);
@@ -449,7 +437,6 @@ ul.tags > li + li { margin-left: 5px; }
 				text-align: center;
 				h4 { line-height: 40px; }
 				p { text-align: center; }
-				.submit input { font-size: 24px; margin-bottom: 20px; }
 			}
 		}
 	}	 
@@ -462,7 +449,6 @@ ul.tags > li + li { margin-left: 5px; }
 	input[type="password"] { width: 200px; font-size: 16px; }
 	label { font-size: 16px; }
 	label:after { content: ':'; }
-	.submit input { font-size: 16px; @include border-radius(5px); }
 }
 
 @media (max-width: 800px) {

@@ -32,20 +32,17 @@
             <input type="hidden" name="googid" />
             <input type="submit" value="Go >" />
             </form>
-        </div>*@
+        </div>*@ <a class="button yellow medium create-trip" href="/trips/create" accesskey="c">Plan a trip</a>
                 <div id="user-status">
                     @if (Request.IsAuthenticated)
                     {
                         <p>
                             <a href="@Url.MyTrips()">@currentUser.NameOrAnon</a>
                         </p>
-                        <p>
-                            <a href="/trips/create" accesskey="c" class="create-trip">new trip</a> <a href="@Url.MyTrips()" accesskey="m">my trips</a>
-                        </p>
                     }
                     else
                     {
-                        <p class="single">
+                        <p>
                             <a class="sign-up">sign up</a> <a class="login">log in</a>
                         </p>
                     }
