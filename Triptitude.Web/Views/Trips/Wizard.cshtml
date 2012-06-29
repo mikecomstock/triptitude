@@ -1,5 +1,72 @@
 ﻿@{
     ViewBag.Title = "Wizard";
 }
-
-<h2>Wizard</h2>
+<div class="panel">
+    <h1>
+        Create a Trip</h1>
+    <form>
+    <section>
+        <h2>
+            Where are you going?</h2>
+        <label for="w_from">
+            From
+        </label>
+        <input type="text" id="w_from" name="from" />
+        <label for="w_to">
+            To
+        </label>
+        <input type="text" id="w_to" name="to" />
+        <label for="w_how">
+            How?</label>
+        <select id="w_how" name="how">
+            <option>Fly</option>
+            <option>Drive</option>
+            @{
+                string[] funny = { "Gyrocopter", "Rollercoaster", "Unicorn", "Space Ship", "Time Machine", "Wild Horse", "Unicycle", "Camel" };
+                Random r = new Random();
+            }
+            <option>@funny[r.Next(0, funny.Length)]</option>
+        </select>
+    </section>
+    <section>
+        <h2>
+            Title & Dates
+        </h2>
+        <label for="w_title">
+            Title</label>
+        <input type="text" id="w_title" name="title" />
+        <select id="w_visibility" name="visibility">
+            <option>Public</option>
+            <option>Private</option>
+        </select>
+        <label for="w_begin">
+            Begin Date</label>
+        <input type="date" name="begin" id="w_begin" />
+        <label for="w_end">
+            End Date</label>
+        <input type="date" name="end" id="w_end" />
+        <label for="w_visibility">
+            Visibility</label>
+    </section>
+        <section>
+            <h2>
+                Who is going?</h2>
+            @foreach (var i in Enumerable.Range(1, 4))
+            {
+                <p>
+                    <label for="@("w_name_" + i)">
+                        Traveler @i Name</label>
+                    <input type="text" id="@("w_name_" + i)" name="travelers[@i].name"/>
+                    <label for="@("w_email_" + i)">
+                        Email</label>
+                    <input type="text" id="@("w_email_" + i)" name="travelers[@i].email"/>
+                </p>
+            }
+        </section>
+        <section>
+            <h2>Packing List</h2>
+            <p>Add standard items?</p>
+            (list of items here, all checked off with the ability to un-check)
+        </section>
+    </form>
+</div>
