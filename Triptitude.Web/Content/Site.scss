@@ -46,7 +46,7 @@ input.delete { background-color: #E92553; }
 .field-validation-error { display: block; padding: 5px; background-color: $invalid-color; color: #FFF; font-weight: bold; margin-bottom: 11px; font-size: 12px; line-height: 20px; }
 
 .button {
-	display: inline-block; @include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.1));
+	display: inline-block; @include box-shadow(0 2px 0 0 rgba(0, 0, 0, 0.1)); border: none; cursor: pointer;
 	&.blue { @include gradient(#3C88CC, #276195); color: #FFF; }
 	&.green { @include gradient(#81BC2E, #659324); color: #FFF; }
 	&.yellow { @include gradient(#E9BA26, #C89E14); color: #FFF; }
@@ -255,7 +255,30 @@ ul.tags > li + li { margin-left: 5px; }
 	}
 }
 
+
 /* Trips */
+#trips-wizard {
+	fieldset {
+		display: none; width: 400px; margin: 80px auto; @include transparent-background(#000, 0.7); @include border-radius(7px); @include clearfix;
+		border: none; padding: 30px; color: #FFF;
+		h2 { font-size: 30px; margin-bottom: 30px; text-align: center; }
+		p { @include clearfix; }
+		.buttons {
+			text-align: center;
+			.button { margin: 10px;	}
+			a { font-size: 20px; }
+		}
+		label { font-size: 20px; display: block; float: left; width: 120px; line-height: 30px; }
+		input { font-size: 20px; display: block; float: left; width: 260px; }
+		select { font-size: 20px; display: block; float: left; width: 260px; }
+	}
+	fieldset:first-child { display: block; }
+	.packing-fieldset {
+		p { text-align: center; }
+		label { float: none; width: auto; }
+		input { float: none; width: auto; margin-right: 10px; display: inline; }
+	}
+}
 #trips-details {
 	#who {
 		.travelers {
@@ -352,7 +375,7 @@ ul.tags > li + li { margin-left: 5px; }
 .packing-list-tags.fluid {
 	@include clearfix;
 	.packing-list-tag {	
-		width: 32%; display: inline; background-color: #E6E6E6; margin: 0 10px 10px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+		width: 31%; display: inline; background-color: #E6E6E6; margin: 0 10px 10px 0; @include box-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
 		h3 { margin: 5px }
 		&.hidden { width: 0; height: 0; margin: 0; left: 0; top: 0; display: none; position: hidden; }
 		.packing-list-items {
@@ -497,6 +520,15 @@ ul.tags > li + li { margin-left: 5px; }
 				.quantity { margin: 0 10px; line-height:36px; }
 				.inc, .dec { height: 36px; line-height: 36px; width: 36px; }
 			}
+		}
+	}
+	#trips-wizard {
+		fieldset {
+			width: auto; padding: 10px; margin: 0; @include border-radius(0);
+			h2 { margin: 0; }
+			p { margin: 10px 0; }
+			input, select { width: 90%; }
+			input, select, label, p { font-size: 16px; }
 		}
 	}
 	#trips-packing #add-pl-item {

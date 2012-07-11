@@ -310,6 +310,7 @@ namespace Triptitude.Biz.Models
             Activities = new Collection<Activity>();
             UserTrips = new Collection<UserTrip>();
             Histories = new Collection<History>();
+            PackingItems = new Collection<PackingItem>();
         }
 
         public int Id { get; set; }
