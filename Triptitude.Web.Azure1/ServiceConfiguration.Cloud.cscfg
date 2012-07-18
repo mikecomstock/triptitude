@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Triptitude.Web.Azure1" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*" schemaVersion="2012-05.1.7">
+  <Role name="Triptitude.Web">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=triptitude;AccountKey=tdJ6C26LV9VZ2X6Lw2YoWyKA2xgG2EmH3N18O0Bufuy4X8t0hUWyxN/yF56bWjvTgER8854LXWTyPD+LTDpgbw==" />
+    </ConfigurationSettings>
+  </Role>
+</ServiceConfiguration>

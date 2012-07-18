@@ -3,3 +3,4 @@
 _ReSharper*/
 *.user
 *.suo
+/Triptitude.Web.Azure1/csx/Release/roles/Triptitude.Web/approot
