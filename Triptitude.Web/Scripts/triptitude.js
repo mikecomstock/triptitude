@@ -1,5 +1,19 @@
 ﻿$(function () {
 
+    $('footer span').on('click', function (e) {
+        e.preventDefault();
+
+        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
+
+            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
+                var d = new TT.Views.PlaceSearchDialog({ el: container });
+                d.render();
+
+            });
+
+        });
+    });
+
     $('input').placeholder();
     $('.focus').first().focus();
     //$('.date-picker').datepicker();
@@ -22,27 +36,26 @@
         e.preventDefault();
 
         $.get('/templates/auth/new.html', function (template) {
-            var overlay = TT.Util.ShowOverlay();
-            overlay.append(template);
-
-            overlay.on('submit', 'form', function (f) {
-                f.preventDefault();
-                var form = $(f.currentTarget);
-                var user = new TT.Models.User({
-                    email: form.find('[name="email"]').val(),
-                    password: form.find('[name="password"]').val()
-                });
-                user.signIn({
-                    success: function () {
-                        window.location = '/my/trips';
-                    },
-                    error: function (response) {
-                        var message = $.parseJSON(response.responseText).message;
-                        alert(message);
-                    }
-                });
+            TT.Util.CreateOverlay('new-user-dialog', function (o, c) {
+                c.append(template)
+                 .on('submit', 'form', function (f) {
+                     f.preventDefault();
+                     var form = $(f.currentTarget);
+                     var user = new TT.Models.User({
+                         email: form.find('[name="email"]').val(),
+                         password: form.find('[name="password"]').val()
+                     });
+                     user.signIn({
+                         success: function () {
+                             window.location = '/my/trips';
+                         },
+                         error: function (response) {
+                             var message = $.parseJSON(response.responseText).message;
+                             alert(message);
+                         }
+                     });
+                 });
             });
-
         });
     });
 
@@ -50,28 +63,27 @@
         e.preventDefault();
 
         $.get('/templates/users/new.html', function (template) {
-            var overlay = TT.Util.ShowOverlay();
-            overlay.append(template);
-
-            overlay.on('submit', 'form', function (f) {
-                f.preventDefault();
-                var form = $(f.currentTarget);
-                var user = new TT.Models.User({
-                    name: form.find('[name="name"]').val(),
-                    email: form.find('[name="email"]').val(),
-                    password: form.find('[name="password"]').val()
-                });
-                user.save(null, {
-                    success: function (model) {
-                        window.location = '/my/trips';
-                    },
-                    error: function (model, response) {
-                        var message = $.parseJSON(response.responseText).message;
-                        alert(message);
-                    }
-                });
+            TT.Util.CreateOverlay('new-user-dialog', function (o, c) {
+                c.append(template)
+                 .on('submit', 'form', function (f) {
+                     f.preventDefault();
+                     var form = $(f.currentTarget);
+                     var user = new TT.Models.User({
+                         name: form.find('[name="name"]').val(),
+                         email: form.find('[name="email"]').val(),
+                         password: form.find('[name="password"]').val()
+                     });
+                     user.save(null, {
+                         success: function (model) {
+                             window.location = '/my/trips';
+                         },
+                         error: function (model, response) {
+                             var message = $.parseJSON(response.responseText).message;
+                             alert(message);
+                         }
+                     });
+                 });
             });
-
         });
     });
 

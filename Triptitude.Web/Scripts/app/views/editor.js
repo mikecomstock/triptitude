@@ -167,7 +167,23 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     events: {
         'submit': 'submit',
         'click .delete': 'deleteActivity'
+//        'click input': 'inputClick'
     },
+//    inputClick: function (e) {
+//        console.log('ic');
+
+//        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
+
+//            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
+//                var d = new TT.Views.PlaceSearchDialog();
+//                d.render();
+//                d.$el.appendTo(container);
+
+//            });
+
+//        });
+
+//    },
     setFocus: function () {
         var self = this;
         setTimeout(function () { self.$el.find('[name="Title"]').focus(); }, 10);
@@ -211,7 +227,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     },
     noteLITemplate: _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.Name %></a> <div class="text"><%= n.Text %></div></li>'),
     render: function () {
-        
+
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');
             return this;

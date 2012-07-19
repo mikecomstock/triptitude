@@ -193,6 +193,7 @@
     <Content Include="Scripts\app\views\create-trip.js" />
     <Content Include="Scripts\app\views\editor.js" />
     <Content Include="Scripts\app\views\invite.js" />
+    <Content Include="Scripts\app\views\place-search-dialog.js" />
     <Content Include="Scripts\app\views\place-search-input.js" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
@@ -201,6 +202,8 @@
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.js" />
     <Content Include="Scripts\jquery-ui-1.8.18.min.js" />
+    <Content Include="Scripts\requirejs-plugins\async.js" />
+    <Content Include="Scripts\require.min.js" />
     <Content Include="Scripts\tripmarklet_template.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />

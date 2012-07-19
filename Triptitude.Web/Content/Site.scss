@@ -22,7 +22,10 @@ $warning-color-fg: #FFF;
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
-.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.3); z-index: 10; }
+.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 10; }
+@mixin overlay-container {
+	z-index: 11; background-color: #FFF; margin: 200px auto 0 auto;
+}
 input.day-input { width: 30px !important; }
 input.time-input { width: 75px !important; }
 .ui-autocomplete { z-index: 10 !important; }
@@ -121,8 +124,8 @@ input.delete { background-color: #E92553; }
 #home-index, #invitations-details { #trip-bar.trip-no { display: none; } }
 
 /* Dialogs */
-#new-user-dialog {
-	margin: 100px auto 0 auto; width: 370px; background-color: #FFF; @include border-radius(10px);
+.new-user-dialog {
+	@include overlay-container;width: 370px; @include border-radius(10px);
 	header { background-color: #0190E9; color: #FFF; padding: 10px;@include border-radius(10px 10px 0 0); text-align: center; font-size: 18px; }
 	h1 { text-align: center; }
 	p.submit { text-align: right; padding: 10px 0; }
@@ -414,6 +417,10 @@ ul.tags > li + li { margin-left: 5px; }
 }
 
 /* Places */
+.place-search-container {
+	@include overlay-container;
+	height: 400px; width: 400px;
+}
 /*#places-nearby {
 	#place-rows {
 		margin-top: 10px; cursor: pointer;
@@ -556,7 +563,7 @@ ul.tags > li + li { margin-left: 5px; }
 		}
 		header { display: none; }
 	}
-	#new-user-dialog {
+	.new-user-dialog {
 		margin: 10px auto; width: 90%; @include border-radius(0);
 		h1 { font-size: 16px; }
 		header { @include border-radius(0); font-size: 14px; }
