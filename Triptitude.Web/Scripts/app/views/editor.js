@@ -167,23 +167,23 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     events: {
         'submit': 'submit',
         'click .delete': 'deleteActivity'
-//        'click input': 'inputClick'
+        //        'click input': 'inputClick'
     },
-//    inputClick: function (e) {
-//        console.log('ic');
+    //    inputClick: function (e) {
+    //        console.log('ic');
 
-//        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
+    //        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
 
-//            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
-//                var d = new TT.Views.PlaceSearchDialog();
-//                d.render();
-//                d.$el.appendTo(container);
+    //            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
+    //                var d = new TT.Views.PlaceSearchDialog();
+    //                d.render();
+    //                d.$el.appendTo(container);
 
-//            });
+    //            });
 
-//        });
+    //        });
 
-//    },
+    //    },
     setFocus: function () {
         var self = this;
         setTimeout(function () { self.$el.find('[name="Title"]').focus(); }, 10);
@@ -246,6 +246,31 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
         this.$el.find('[name="SourceURL"]').val(TT.Util.Decode(this.model.get('SourceURL')));
         if (!this.model.get('SourceURL')) this.$el.find('.source-url').hide();
+
+
+
+//        this.$el.find('input').on('click', function (e) {
+//            var input = $(e.currentTarget);
+//            e.preventDefault();
+
+//            require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
+
+//                TT.Util.CreateOverlay('place-search-container', function (overlay, container, closeOverlay) {
+//                    var d = new TT.Views.PlaceSearchDialog({ el: container });
+//                    d.render();
+
+//                    d.on('place-selected', function (place) {
+//                        console.log('place selected', place.name);
+//                        input.val(place.name);
+//                        closeOverlay();
+//                    });
+
+//                });
+
+//            });
+//        });
+
+
 
         return this;
     }

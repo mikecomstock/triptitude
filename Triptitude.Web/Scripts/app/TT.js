@@ -58,12 +58,13 @@ TT.Util = {
     },
     CreateOverlay: function (containerClass, callback) {
         var overlay = $('<div class="overlay">');
-        overlay.on('click', function (e) {
-            if ($(e.target).hasClass('overlay')) overlay.remove();
-        });
+        var closeOverlay = function (e) {
+            if (!e || $(e.target).hasClass('overlay')) overlay.remove();
+        };
+        overlay.on('click', closeOverlay);
         var container = $('<div>').addClass(containerClass).appendTo(overlay);
         overlay.appendTo('body');
-        callback(overlay, container);
+        callback(overlay, container, closeOverlay);
     }
 };
 

@@ -5,9 +5,14 @@
 
         require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
 
-            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
+            TT.Util.CreateOverlay('place-search-container', function (overlay, container, closeOverlay) {
                 var d = new TT.Views.PlaceSearchDialog({ el: container });
                 d.render();
+
+                d.on('place-selected', function (place) {
+                    console.log('place selected', place.name);
+                    closeOverlay();
+                });
 
             });
 

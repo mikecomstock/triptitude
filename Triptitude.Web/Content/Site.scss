@@ -22,7 +22,7 @@ $warning-color-fg: #FFF;
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
-.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 10; }
+.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 8675315; }
 @mixin overlay-container {
 	z-index: 11; background-color: #FFF; margin: 200px auto 0 auto;
 }
@@ -418,8 +418,27 @@ ul.tags > li + li { margin-left: 5px; }
 
 /* Places */
 .place-search-container {
-	@include overlay-container;
-	height: 400px; width: 400px;
+	@include overlay-container; @include clearfix; width: 775px;
+	form {
+		margin: 10px;
+	}
+	.place-list {
+		float: left; width: 250px; height: 350px; overflow-y: auto; margin: 10px 0 0 10px;
+		li {
+			margin: 0 5px 5px 0; padding: 10px; cursor: pointer;
+			strong { display: block; }
+			&.selected { background-color: #0190E9; color: #FFF; }
+		}
+		li + li { border-top: 1px solid #EEE; }
+	}
+	.map { float: right; height: 350px; width: 500px; margin: 10px 10px 0 0; }
+	.selection {
+		text-align: center; font-size: 25px;
+		.place-name {
+			margin: 30px;
+			em { border-bottom: 1px dotted rgba(255,255,255,0.4); }
+		}
+	}
 }
 /*#places-nearby {
 	#place-rows {

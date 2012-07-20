@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Triptitude.Web.Azure1" generation="1" functional="0" release="0" Id="790ee115-0d3b-4574-8db5-a6b8925d44e4" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
+<serviceModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Triptitude.Web.Azure1" generation="1" functional="0" release="0" Id="6187af44-61d8-422d-9f2d-822e7a31d969" dslVersion="1.2.0.0" xmlns="http://schemas.microsoft.com/dsltools/RDSM">
   <groups>
     <group name="Triptitude.Web.Azure1Group" generation="1" functional="0" release="0">
       <componentports>
@@ -68,9 +68,9 @@
     </group>
   </groups>
   <implements>
-    <implementation Id="83ce13d9-d65e-400b-8844-87b8f2e8fb37" ref="Microsoft.RedDog.Contract\ServiceContract\Triptitude.Web.Azure1Contract@ServiceDefinition.build">
+    <implementation Id="5e087943-318d-4c72-b263-e0460a0339ff" ref="Microsoft.RedDog.Contract\ServiceContract\Triptitude.Web.Azure1Contract@ServiceDefinition.build">
       <interfacereferences>
-        <interfaceReference Id="965e59f9-1448-43b4-bf33-444c688f89e1" ref="Microsoft.RedDog.Contract\Interface\Triptitude.Web:Endpoint1@ServiceDefinition.build">
+        <interfaceReference Id="54df34b3-5fca-4940-85b9-6d5003768e4b" ref="Microsoft.RedDog.Contract\Interface\Triptitude.Web:Endpoint1@ServiceDefinition.build">
           <inPort>
             <inPortMoniker name="/Triptitude.Web.Azure1/Triptitude.Web.Azure1Group/Triptitude.Web:Endpoint1" />
           </inPort>
