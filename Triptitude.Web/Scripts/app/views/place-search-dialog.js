@@ -1,10 +1,29 @@
 ﻿TT.Views.PlaceSearchDialog = Backbone.View.extend({
     initialize: function () {
+
+        this.iconSettings = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 5,
+            fillColor: '#81BC2E',
+            fillOpacity: 1,
+            strokeOpacity: 1,
+            strokeColor: '#81BC2E'
+        };
+
+        this.selectedIconSettings = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 5,
+            fillColor: '#0190E9',
+            fillOpacity: 1,
+            strokeOpacity: 1,
+            strokeColor: '#0190E9'
+        };
+
         _.bindAll(this);
     },
     events: {
         'submit': 'submitSearchForm',
-        'click .place-name': 'placeSelected'
+        'click .selection': 'placeSelected'
     },
     placeSelected: function () {
         this.trigger('place-selected', this.activePlace);
@@ -50,7 +69,7 @@
         var self = this;
 
         this.service.textSearch(request, function (results, status) {
-        
+
             self.removePlaces();
 
             if (status == google.maps.places.PlacesServiceStatus.OK) {
@@ -93,12 +112,16 @@
         this.markersArray.length = 0;
 
         this.activePlace = null;
-        this.$el.find('.selection').hide();
+        this.$el.find('.buttons').hide();
     },
     addPlace: function (place) {
         var self = this;
 
-        var marker = new google.maps.Marker({ map: this.map, position: place.geometry.location });
+        var marker = new google.maps.Marker({
+            map: this.map,
+            position: place.geometry.location,
+            icon: this.iconSettings
+        });
         place.marker = marker;
         this.markersArray.push(marker);
 
@@ -117,19 +140,27 @@
     },
     setActivePlace: function (place) {
 
-        if (this.activePlace == place) return;
-
-        if (this.activePlace) {
-            this.activePlace.marker.setAnimation(null);
-            this.activePlace.li.removeClass('selected');
+        if (this.activePlace == place) {
+            this.map.setCenter(place.geometry.location);
+            return;
         }
 
+        if (this.activePlace) {
+            this.activePlace.marker.setIcon(this.iconSettings);
+            this.activePlace.li.removeClass('selected');
+        }
         this.activePlace = place;
-        this.activePlace.li.addClass('selected');
-        var selectionDiv = this.$el.find('.selection');
-        selectionDiv.find('.place-name').html('Use <em>' + place.name + '</em>');
-        selectionDiv.slideDown();
 
-        this.activePlace.marker.setAnimation(google.maps.Animation.BOUNCE);
+        place.li.addClass('selected');
+        var buttons = this.$el.find('.buttons');
+        buttons.find('.selection').html('Use <em>' + place.name + '</em>');
+        buttons.show();
+
+        place.marker.setIcon(this.selectedIconSettings);
+
+        if (!this.map.getBounds().contains(place.marker.getPosition())) {
+            this.map.setCenter(place.geometry.location);
+        }
+
     }
 });
