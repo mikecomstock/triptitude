@@ -59,7 +59,7 @@ article, aside, figure, footer, header, hgroup, menu, nav, section {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 8675315; }
+  z-index: 10; }
 
 input.day-input {
   width: 30px !important; }
@@ -68,7 +68,7 @@ input.time-input {
   width: 75px !important; }
 
 .ui-autocomplete {
-  z-index: 10 !important; }
+  z-index: 20 !important; }
 
 .toggler {
   cursor: pointer; }
@@ -359,12 +359,12 @@ input.delete {
 
 /* Dialogs */
 .new-user-dialog {
-  z-index: 11;
   background-color: #FFF;
-  margin: 200px auto 0 auto;
+  margin: 100px auto 0 auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border: 10px solid #E5E5E5;
   width: 370px; }
   .new-user-dialog header {
     background-color: #0190E9;
@@ -835,35 +835,37 @@ ul.tags > li + li { margin-left: 5px; }
       zoom: 1;
       *display: inline;
       clear: both; }
-    #trips-itinerary #itinerary .activities > .activity .title {
-      font-weight: bold; }
     #trips-itinerary #itinerary .activities > .activity:hover {
       background-color: #F3F3F3;
       overflow: visible;
       z-index: 10; }
-      #trips-itinerary #itinerary .activities > .activity:hover > .maps {
-        background-color: #F3F3F3; }
-    #trips-itinerary #itinerary .activities > .activity + .activity {
-      border-top: 1px solid #CCC; }
-    #trips-itinerary #itinerary .activities > .activity > .maps {
-      float: right;
+    #trips-itinerary #itinerary .activities > .activity div.places {
       zoom: 1;
-      position: absolute;
-      right: 5px; }
-      #trips-itinerary #itinerary .activities > .activity > .maps:before {
+      margin: 10px 0; }
+      #trips-itinerary #itinerary .activities > .activity div.places:before {
         display: table;
         content: "";
         zoom: 1;
         *display: inline; }
-      #trips-itinerary #itinerary .activities > .activity > .maps:after {
+      #trips-itinerary #itinerary .activities > .activity div.places:after {
         display: table;
         content: "";
         zoom: 1;
         *display: inline;
         clear: both; }
-      #trips-itinerary #itinerary .activities > .activity > .maps li {
+      #trips-itinerary #itinerary .activities > .activity div.places ol.places {
         float: left;
-        margin-left: 10px; }
+        width: 270px;
+        list-style-type: decimal;
+        list-style-position: inside; }
+        #trips-itinerary #itinerary .activities > .activity div.places ol.places li {
+          margin: 10px 0; }
+          #trips-itinerary #itinerary .activities > .activity div.places ol.places li p {
+            margin: 0; }
+      #trips-itinerary #itinerary .activities > .activity div.places .map {
+        float: right; }
+    #trips-itinerary #itinerary .activities > .activity + .activity {
+      border-top: 1px solid #CCC; }
 
 #trips-packing .panel > header a:after {
   content: 'Find Items';
@@ -1081,15 +1083,14 @@ ul.tags > li + li { margin-left: 5px; }
 
 /* Places */
 .place-search-container {
-  z-index: 11;
   background-color: #FFF;
-  margin: 200px auto 0 auto;
+  margin: 100px auto 0 auto;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  border: 10px solid #E5E5E5;
   zoom: 1;
-  width: 775px;
-  border: 10px solid #E5E5E5; }
+  width: 775px; }
   .place-search-container:before {
     display: table;
     content: "";

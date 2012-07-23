@@ -1,4 +1,9 @@
-﻿@mixin clearfix {
+﻿@mixin overlay-container {
+	background-color: #FFF; margin: 100px auto 0 auto;
+	@include border-radius(5px); border: 10px solid #E5E5E5;
+}
+
+@mixin clearfix {
  zoom:1;
  &:before {
     display: table;

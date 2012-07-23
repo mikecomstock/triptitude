@@ -1,24 +1,5 @@
 ﻿$(function () {
 
-    $('footer span').on('click', function (e) {
-        e.preventDefault();
-
-        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
-
-            TT.Util.CreateOverlay('place-search-container', function (overlay, container, closeOverlay) {
-                var d = new TT.Views.PlaceSearchDialog({ el: container });
-                d.render();
-
-                d.on('place-selected', function (place) {
-                    console.log('place selected', place.name);
-                    closeOverlay();
-                });
-
-            });
-
-        });
-    });
-
     $('input').placeholder();
     $('.focus').first().focus();
     //$('.date-picker').datepicker();
@@ -42,7 +23,7 @@
 
         $.get('/templates/auth/new.html', function (template) {
             TT.Util.CreateOverlay('new-user-dialog', function (o, c) {
-                c.append(template)
+                c.html(template)
                  .on('submit', 'form', function (f) {
                      f.preventDefault();
                      var form = $(f.currentTarget);
@@ -69,7 +50,7 @@
 
         $.get('/templates/users/new.html', function (template) {
             TT.Util.CreateOverlay('new-user-dialog', function (o, c) {
-                c.append(template)
+                c.html(template)
                  .on('submit', 'form', function (f) {
                      f.preventDefault();
                      var form = $(f.currentTarget);
@@ -122,23 +103,16 @@
     });
 
     var openEditor = function (trip, activity) {
-        var body = $('body');
 
-        var close = function () {
-            overlay.remove();
-            editorContent.remove();
-            if ($('#trips-itinerary').length > 0)
-                location.reload();
-        };
+        TT.Util.CreateOverlay('editor-container', function (overlay, container) {
 
-        var overlay = $('<div id="editor-overlay">').appendTo(body).on('click', close);
-        var editorContent = $('<div id="editor-container">').appendTo(body);
-        $('<div id="editor-close">').text('×').attr('title', 'Close').on('click', close).appendTo(editorContent);
-        var editorElement = $('<div id="editor">').appendTo(editorContent);
-        editorElement.text('loading...');
+            var editor = new TT.Views.Editor.Main({ el: container, model: trip, edit: activity });
+            editor.render();
 
-        var editor = new TT.Views.Editor.Main({ el: $('#editor'), model: trip, edit: activity });
-        editor.render();
+        }, function () {
+            window.location.reload(true);
+        });
+
     };
 
 

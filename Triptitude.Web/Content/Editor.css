@@ -1,42 +1,11 @@
-#editor-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 8675310;
-  background-color: rgba(242, 242, 242, 0.7); }
-
-#editor-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 960px;
-  margin: 60px auto 0 auto;
-  z-index: 8675311; }
-
-#editor-close {
-  position: absolute;
-  right: -8px;
-  top: -8px;
-  z-index: 8675312;
-  cursor: pointer;
-  font-family: Tahoma,Arial,sans-serif;
-  font-size: 22px;
-  height: 22px;
-  width: 22px;
-  line-height: 21px;
-  text-align: center;
-  font-weight: bold;
-  font-style: normal;
-  color: #FFF;
-  background-color: #A00;
-  border: 2px solid #700;
-  box-shadow: 1px 1px 5px #888;
-  border-radius: 50px;
-  display: block; }
+.editor-container {
+  background-color: #FFF;
+  margin: 100px auto 0 auto;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 10px solid #E5E5E5;
+  width: 960px; }
 
 #editor {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -203,15 +172,15 @@
     #editor-itinerary .activity-form > div.notes textarea {
       width: 550px;
       height: 50px; }
-    #editor-itinerary .activity-form > div.notes > ol > li {
+    #editor-itinerary .activity-form > div.notes > ol.notes > li {
       padding: 3px 0; }
-      #editor-itinerary .activity-form > div.notes > ol > li .when {
+      #editor-itinerary .activity-form > div.notes > ol.notes > li .when {
         float: right; }
-      #editor-itinerary .activity-form > div.notes > ol > li .who:after {
+      #editor-itinerary .activity-form > div.notes > ol.notes > li .who:after {
         content: ': '; }
-      #editor-itinerary .activity-form > div.notes > ol > li .text {
+      #editor-itinerary .activity-form > div.notes > ol.notes > li .text {
         display: inline; }
-      #editor-itinerary .activity-form > div.notes > ol > li + li {
+      #editor-itinerary .activity-form > div.notes > ol.notes > li + li {
         border-top: 1px solid #F0F0F0; }
   #editor-itinerary .activity-form .buttons {
     clear: both;
@@ -236,3 +205,4 @@
     font-size: 14px;
     margin-top: 7px;
     margin-left: 10px; }
+

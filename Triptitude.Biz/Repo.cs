@@ -35,6 +35,11 @@ namespace Triptitude.Biz
             DbProvider._db.Set<T>().Remove(entity);
         }
 
+        public virtual void Delete<F>(F entity) where F : class
+        {
+            DbProvider._db.Set<F>().Remove(entity);
+        }
+
         public void Save()
         {
             DbProvider.Save();

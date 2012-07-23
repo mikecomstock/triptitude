@@ -1,8 +1,6 @@
 ﻿@import "Mixins.scss";
 
-#editor-overlay { position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 8675310; background-color: rgba(242,242,242,0.7); }
-#editor-container { position: fixed; top: 0; left: 0; bottom: 0; right: 0; width: 960px; margin: 60px auto 0 auto; z-index: 8675311; }
-#editor-close { position: absolute; right: -8px; top: -8px; z-index: 8675312; cursor: pointer; font-family: Tahoma,Arial,sans-serif; font-size: 22px; height: 22px; width: 22px; line-height: 21px; text-align: center; font-weight: bold; font-style: normal; color: #FFF; background-color: #A00; border: 2px solid #700; box-shadow: 1px 1px 5px #888; border-radius: 50px; display: block; }
+.editor-container { @include overlay-container; width: 960px; }
 
 #editor {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; background-color: #FFF; margin: 0; border: 5px dashed #AAA;
@@ -56,7 +54,7 @@
 		}
 		&.notes {
 			textarea { width: 550px; height: 50px; }
-			> ol {
+			> ol.notes {
 				> li {
 					padding: 3px 0;
 					.when { float: right; }

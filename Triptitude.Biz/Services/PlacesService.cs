@@ -8,18 +8,22 @@ namespace Triptitude.Biz.Services
     public class PlacesService
     {
         private static string GoogleAPIKey { get { return ConfigurationManager.AppSettings["GoogleAPIKey"]; } }
-        
+
         public Place CreateFromGoogle(string googleReference)
         {
             string path = string.Format("https://maps.googleapis.com/maps/api/place/details/json?reference={0}&sensor=true&key={1}", googleReference, GoogleAPIKey);
             dynamic json = GetJson(path).result;
-            Place place = new Place();
-            place.Name = json.Name;
-            place.GoogId = json.Id;
-            place.GoogReference = json.Reference;
-            place.Website = json.URL;
-            place.Latitude = json.Geometry.Location.Lat;
-            place.Longitude = json.Geometry.Location.Lng;
+            Place place = new Place
+                              {
+                                  Name = json.Name,
+                                  GoogId = json.Id,
+                                  GoogReference = json.Reference,
+                                  Website = json.URL,
+                                  Latitude = json.Geometry.Location.Lat,
+                                  Longitude = json.Geometry.Location.Lng,
+                                  AddressExtended = json.formatted_address,
+                                  Telephone = json.formatted_phone_number
+                              };
 
             return place;
         }

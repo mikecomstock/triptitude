@@ -60,26 +60,32 @@
                     foreach (var activity in activities)
                     {
                     <li class="activity" data-activity-id="@activity.Id">
-                        @{
-                        var mappablePlaces = activity.ActivityPlaces.Where(ap => ap.Place.StaticMapURL() != null).OrderBy(ap => ap.SortIndex);
-                        }
-                        @if (mappablePlaces.Any())
-                        {
-                            <ul class="maps">
-                                @foreach (var place in mappablePlaces)
-                                {
-                                    <li>
-                                        <img src="@place.Place.StaticMapURL()" alt="map of @place.Place.Name"/>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        <div class="title">
+                        <h3>
                             @activity.Title
-                        </div>
+                        </h3>
                         @if (activity.BeginAt.HasValue && activity.BeginAt.Value.HasTimePart())
                         {
                             <div>@activity.BeginAt.Value.ToShortTimeString()</div>
+                        }
+                        @if (activity.Mappable)
+                        {
+                            <div class="places">
+                                <ol class="places">
+                                    @foreach (var ap in activity.ActivityPlaces)
+                                    {
+                                        <li>
+                                            <h4>
+                                                @ap.Place.Name
+                                            </h4>
+                                            <p class="address">
+                                                @ap.Place.AddressExtended
+                                            </p>
+                                            <p class="phone">@ap.Place.Telephone</p>
+                                        </li>
+                                    }
+                                </ol>
+                                <img class="map" src="@activity.StaticMapURL()" alt="map"/>
+                            </div>
                         }
                         @if (activity.Notes.Any() && currentUser.OwnsTrips(trip))
                         {

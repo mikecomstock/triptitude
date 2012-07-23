@@ -1,0 +1,40 @@
+﻿<form class="activity-form">
+<div class="title">
+    <label for="activity-form-title">
+        Title</label>
+    <input name="Title" id="activity-form-title" placeholder="enter a title for your activity" value="<%= activity.get('Title') %>">
+</div>
+<div class="when">
+    <label for="activity-form-begin-date">
+        When?</label>
+    <input name="BeginDate" id="activity-form-begin-date"></div>
+<div class="source-url">
+    <label for="activity-form-source-url">
+        Source URL</label>
+    <input name="SourceURL" id="activity-form-source-url" placeholder="http://">
+</div>
+<div class="where">
+    <label for="activity-form-where">
+        Where?</label>
+    <ol class="places">
+        <% activity.get('Places').each(function(place) { %>
+        <li class="place" data-name="<%= place.get('Name') %>" data-googid="<%= place.get('GoogId') %>" data-googreference="<%= place.get('GoogReference') %>"><span class="name">
+            <%= place.get('Name') %></span> <a class="close" href="#">&times;</a> </li>
+        <% }) %>
+    </ol>
+    <a class="add-place" href="#">add a place</a>
+</div>
+<div class="notes">
+    <label for="activity-form-notes">
+        Notes</label>
+    <textarea name="Notes" id="activity-form-notes" placeholder="add notes and details..."></textarea>
+    <ol class="notes">
+    </ol>
+</div>
+<div class="buttons">
+    <button type="submit" class="save">
+        Save</button>
+    <button type="button" class="delete">
+        Delete</button>
+</div>
+</form>

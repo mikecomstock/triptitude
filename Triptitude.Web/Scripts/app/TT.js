@@ -56,10 +56,13 @@ TT.Util = {
         var local = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
         return local;
     },
-    CreateOverlay: function (containerClass, callback) {
+    CreateOverlay: function (containerClass, callback, onCloseCallback) {
         var overlay = $('<div class="overlay">');
         var closeOverlay = function (e) {
-            if (!e || $(e.target).hasClass('overlay')) overlay.remove();
+            if (!e || $(e.target).hasClass('overlay')) {
+                overlay.remove();
+                onCloseCallback();
+            }
         };
         overlay.on('click', closeOverlay);
         var container = $('<div>').addClass(containerClass).appendTo(overlay);

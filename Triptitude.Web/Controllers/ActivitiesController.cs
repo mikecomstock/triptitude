@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Triptitude.Biz.Models;
 using Triptitude.Biz.Repos;
@@ -38,6 +40,19 @@ namespace Triptitude.Web.Controllers
             Note note = null;
             if (!string.IsNullOrWhiteSpace(form.Note))
                 note = trip.AddNote(CurrentUser, activity, form.Note);
+            
+            // Places
+            var placesRepo = new PlacesRepo();
+            foreach (var activityPlaceForm in form.Places)
+            {
+                var place = placesRepo.FindOrInitializeByGoogReference(activityPlaceForm.GoogID, activityPlaceForm.GoogReference);
+                ActivityPlace ap = new ActivityPlace
+                {
+                    Place = place,
+                    SortIndex = form.Places.IndexOf(activityPlaceForm)
+                };
+                activity.ActivityPlaces.Add(ap);
+            }
 
             repo.Add(activity);
             repo.Save();
@@ -55,6 +70,11 @@ namespace Triptitude.Web.Controllers
 
         public class ActivityForm
         {
+            public ActivityForm()
+            {
+                Places = new List<ActivityPlaceForm>();
+            }
+
             public int TripID { get; set; }
             public string Title { get; set; }
             public DateTime? BeginAt { get; set; }
@@ -63,6 +83,15 @@ namespace Triptitude.Web.Controllers
             public string SourceURL { get; set; }
             public string Note { get; set; }
             public bool? Moved { get; set; }
+            public List<ActivityPlaceForm> Places { get; set; }
+        }
+
+        public class ActivityPlaceForm
+        {
+            public int ID { get; set; }
+            public string Name { get; set; }
+            public string GoogID { get; set; }
+            public string GoogReference { get; set; }
         }
 
         [HttpPut]
@@ -81,6 +110,26 @@ namespace Triptitude.Web.Controllers
             Note note = null;
             if (!string.IsNullOrWhiteSpace(form.Note))
                 note = trip.AddNote(CurrentUser, activity, form.Note);
+
+            
+            // Places
+            foreach (var activityPlace in activity.ActivityPlaces.ToList())
+            {
+                repo.Delete(activityPlace);
+            }
+            repo.Save();
+            var placesRepo = new PlacesRepo();
+            foreach (var activityPlaceForm in form.Places)
+            {
+                var place = placesRepo.FindOrInitializeByGoogReference(activityPlaceForm.GoogID, activityPlaceForm.GoogReference);
+                ActivityPlace ap = new ActivityPlace
+                                       {
+                                           Place = place,
+                                           SortIndex = form.Places.IndexOf(activityPlaceForm)
+                                       };
+                activity.ActivityPlaces.Add(ap);
+            }
+
 
             // Only save the UpdatedActivity row when 
             // 1) They are editing the activty with the form, and there is a save button

@@ -22,13 +22,11 @@ $warning-color-fg: #FFF;
 	
 /* Utilities */
 .placeholder { font-weight: normal !important; color: #666666 !important; }
-.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 8675315; }
-@mixin overlay-container {
-	z-index: 11; background-color: #FFF; margin: 200px auto 0 auto; @include border-radius(5px);
-}
+.overlay { position: fixed; top:0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); z-index: 10; }
+
 input.day-input { width: 30px !important; }
 input.time-input { width: 75px !important; }
-.ui-autocomplete { z-index: 10 !important; }
+.ui-autocomplete { z-index: 20 !important; }
 .toggler { cursor: pointer; }
 .subtitle { background-color: #F3ECB7; padding: 10px; }
 .subtitle.warning {
@@ -313,16 +311,19 @@ ul.tags > li + li { margin-left: 5px; }
 			> .date { padding: 2px 5px; background-color: #999; color: #FFF; float: left; clear: both; @include border-radius(4px); font-size: 12px; margin: 3px 0; z-index: 2; position: relative; }
 			> .activity {
 				@include clearfix; padding: 8px; padding-left: 40px; clear: both; position: relative; overflow: hidden; cursor: pointer;
-				.title { font-weight: bold; }
-				&:hover {
-					background-color: #F3F3F3; overflow: visible; z-index: 10;
-					> .maps { background-color: #F3F3F3; }
-				}	
-				&+ .activity { border-top: 1px solid #CCC; }
-				> .maps {
-					float:right; @include clearfix; position: absolute; right:5px;
-					li { float: left; margin-left: 10px; }
+				&:hover { background-color: #F3F3F3; overflow: visible; z-index: 10; }	
+				div.places {
+					@include clearfix; margin: 10px 0;
+					ol.places {
+						float: left; width: 270px; list-style-type: decimal; list-style-position: inside;
+						li {
+							margin: 10px 0;
+							p { margin: 0; }
+						}
+					}
+					.map { float: right; }
 				}
+				&+ .activity { border-top: 1px solid #CCC; }
 			}
 		}
 	}
@@ -418,7 +419,7 @@ ul.tags > li + li { margin-left: 5px; }
 
 /* Places */
 .place-search-container {
-	@include overlay-container; @include clearfix; width: 775px; border: 10px solid #E5E5E5;
+	@include overlay-container; @include clearfix; width: 775px;
 	form {
 		margin: 20px 0; text-align: center;
 		label { font-size: 20px; color: #AAA; }

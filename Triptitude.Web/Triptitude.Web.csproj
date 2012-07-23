@@ -222,6 +222,7 @@
     <Content Include="Areas\Admin\Views\AdminTrips\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdminTrips\Details.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Templates\Activities\edit.html" />
     <Content Include="Templates\Auth\New.html" />
     <Content Include="Templates\place-dialog.html" />
     <Content Include="Templates\Users\New.html" />

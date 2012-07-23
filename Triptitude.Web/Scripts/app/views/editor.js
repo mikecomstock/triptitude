@@ -157,7 +157,6 @@ TT.Views.Editor.Itinerary = Backbone.View.extend({
 TT.Views.Editor.ActivityForm = Backbone.View.extend({
     className: 'activity-form',
     tagName: 'form',
-    editTemplate: '<form class="activity-form"><div class="title"><label for="activity-form-title">Title</label><input name="Title" id="activity-form-title" tabindex="1" placeholder="enter a title for your activity"></div><div class="when"><label for="activity-form-begin-date">When?</label><input name="BeginDate" id="activity-form-begin-date" tabindex="2"></div><div class="source-url"><label for="activity-form-source-url">Source URL</label><input name="SourceURL" id="activity-form-source-url" tabindex="3" placeholder="http://"></div><div class="notes"><label for="activity-form-notes">Notes</label><textarea name="Notes" id="activity-form-notes" tabindex="4" placeholder="add notes and details..."></textarea><ol></ol></div><div class="buttons"><button type="submit" class="save" tabindex="5">Save</button><button type="button" class="delete" tabindex="6">Delete</button></div></form>',
     initialize: function () {
         this.model.on('change:BeginAt', function () {
             var bdi = this.$el.find('[name="BeginDate"]');
@@ -166,24 +165,40 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     },
     events: {
         'submit': 'submit',
-        'click .delete': 'deleteActivity'
-        //        'click input': 'inputClick'
+        'click .delete': 'deleteActivity',
+        'click .add-place': 'addPlaceClick',
+        'click .place .close': 'removePlaceClick'
     },
-    //    inputClick: function (e) {
-    //        console.log('ic');
+    addPlaceClick: function (e) {
 
-    //        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
+        e.preventDefault();
+        var self = this;
 
-    //            TT.Util.CreateOverlay('place-search-container', function (overlay, container) {
-    //                var d = new TT.Views.PlaceSearchDialog();
-    //                d.render();
-    //                d.$el.appendTo(container);
+        require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
 
-    //            });
+            TT.Util.CreateOverlay('place-search-container', function (overlay, container, close) {
+                var d = new TT.Views.PlaceSearchDialog({ el: container });
+                d.render();
 
-    //        });
+                d.on('place-selected', function (place) {
+                    var places = self.$el.find('.places');
+                    $('<li>').addClass('place').html('<span class="name">' + place.name + '</span><button class="close">&times;</button>')
+                        .data('name', place.name)
+                        .data('googid', place.id)
+                        .data('googreference', place.reference)
+                        .appendTo(places);
+                    close();
+                });
 
-    //    },
+            });
+
+        });
+
+    },
+    removePlaceClick: function (e) {
+        e.preventDefault();
+        $(e.currentTarget).closest('li').remove();
+    },
     setFocus: function () {
         var self = this;
         setTimeout(function () { self.$el.find('[name="Title"]').focus(); }, 10);
@@ -207,6 +222,19 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
             this.model.collection.moveToEnd(this.model);
         }
 
+        var places = [];
+        this.$el.find('li.place').each(function (i, li) {
+            var $li = $(li);
+            places.push({
+                Name: $li.data('name'),
+                GoogID: $li.data('googid'),
+                GoogReference: $li.data('googreference')
+            });
+        });
+        this.model.get('Places').reset(places);
+
+        //console.log('Places', this.model.get('Places'));
+
         this.model.save(null, {
             success: function () {
                 self.trigger('activitysaved');
@@ -225,52 +253,32 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
     deleteActivity: function () {
         this.model.collection.remove(this.model);
     },
-    noteLITemplate: _.template('<li><div class="when"><%= n.RelativeTime %></div><a class="who" href="<%= n.User.DetailsURL %>" target="blank"><%= n.User.Name %></a> <div class="text"><%= n.Text %></div></li>'),
+    noteLITemplate: _.template('<li><div class="when"><%= n.RelativeTime %></div><span class="who" href="<%= n.User.DetailsURL %>"><%= n.User.Name %></span> <div class="text"><%= n.Text %></div></li>'),
     render: function () {
+
+        var self = this;
 
         if (!this.model) {
             this.$el.html('<h3>No Activity Selected</h3>');
             return this;
         }
 
-        this.$el.html(this.editTemplate);
+        require(['text!/Templates/Activities/edit.html'], function (editTemplate) {
 
-        var NotesOL = this.$el.find('ol');
-        this.model.get('Notes').each(function (note) {
-            var noteHTML = this.noteLITemplate({ n: note.attributes });
-            NotesOL.append(noteHTML);
-        }, this);
+            var html = _.template(editTemplate, { activity: self.model });
+            self.$el.html(html);
 
-        this.$el.find('[name="Title"]').val(TT.Util.Decode(this.model.get('Title')));
-        this.$el.find('[name="BeginDate"]').datepicker().datepicker('setDate', TT.Util.ToDatePicker(this.model.get('BeginAt')));
+            var NotesOL = self.$el.find('ol.notes');
+            self.model.get('Notes').each(function (note) {
+                var noteHTML = self.noteLITemplate({ n: note.attributes });
+                NotesOL.append(noteHTML);
+            }, self);
 
-        this.$el.find('[name="SourceURL"]').val(TT.Util.Decode(this.model.get('SourceURL')));
-        if (!this.model.get('SourceURL')) this.$el.find('.source-url').hide();
+            self.$el.find('[name="BeginDate"]').datepicker().datepicker('setDate', TT.Util.ToDatePicker(self.model.get('BeginAt')));
+            self.$el.find('[name="SourceURL"]').val(TT.Util.Decode(self.model.get('SourceURL')));
+            if (!self.model.get('SourceURL')) self.$el.find('.source-url').hide();
 
-
-
-//        this.$el.find('input').on('click', function (e) {
-//            var input = $(e.currentTarget);
-//            e.preventDefault();
-
-//            require(['async!//maps.google.com/maps/api/js?sensor=true&libraries=places'], function () {
-
-//                TT.Util.CreateOverlay('place-search-container', function (overlay, container, closeOverlay) {
-//                    var d = new TT.Views.PlaceSearchDialog({ el: container });
-//                    d.render();
-
-//                    d.on('place-selected', function (place) {
-//                        console.log('place selected', place.name);
-//                        input.val(place.name);
-//                        closeOverlay();
-//                    });
-
-//                });
-
-//            });
-//        });
-
-
+        });
 
         return this;
     }

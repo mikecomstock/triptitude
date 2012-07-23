@@ -480,6 +480,22 @@ namespace Triptitude.Biz.Models
 
         public bool IsUnscheduled { get { return !BeginDay.HasValue && !EndDay.HasValue; } }
 
+        public bool Mappable { get { return ActivityPlaces.Any(ap => ap.Place.Mappable); } }
+
+        public string StaticMapURL()
+        {
+            if (!Mappable) return null;
+
+            var url = "http://maps.googleapis.com/maps/api/staticmap?size=350x200&sensor=false";
+            foreach (var ap in ActivityPlaces.Where(ap => ap.Place.Mappable).OrderBy(ap => ap.SortIndex))
+            {
+                url += string.Format("&markers=label:{2}|{0},{1}", ap.Place.Latitude, ap.Place.Longitude, ap.SortIndex + 1);
+            }
+            var pathLlocations = ActivityPlaces.Where(ap => ap.Place.Mappable).Select(ap => ap.Place.Latitude.ToString() + ',' + ap.Place.Longitude);
+            url += "&path=" + string.Join("|", pathLlocations);
+            return url;
+        }
+
         public TimeSpan? TimeForSort(int? day)
         {
             TimeSpan? result = null;
@@ -538,12 +554,14 @@ namespace Triptitude.Biz.Models
                                           Trip.Name,
                                           UserOwnsTrip = forUser.OwnsTrips(Trip)
                                       },
-                           Places = from p in ActivityPlaces
+                           Places = from p in ActivityPlaces.OrderBy(ap => ap.SortIndex)
                                     select new
                                                {
+                                                   ID = p.Place.Id,
+                                                   p.Place.Name,
                                                    p.SortIndex,
-                                                   p.Place.Id,
-                                                   p.Place.Name
+                                                   p.Place.GoogReference,
+                                                   p.Place.GoogId
                                                },
                            Notes = Notes.OrderByDescending(n => n.Id).Select(n => n.Json(forUser, url))
                        };
@@ -839,9 +857,11 @@ namespace Triptitude.Biz.Models
             }
         }
 
+        public bool Mappable { get { return Latitude.HasValue && Longitude.HasValue; } }
+
         public string StaticMapURL()
         {
-            if (!Latitude.HasValue || !Longitude.HasValue) return null;
+            if (!Mappable) return null;
 
             var s = "http://maps.googleapis.com/maps/api/staticmap?size=200x200&zoom=14&markers={0},{1}&sensor=true";
             return string.Format(s, Latitude.Value, Longitude.Value);
