@@ -182,7 +182,7 @@ TT.Views.Editor.ActivityForm = Backbone.View.extend({
 
                 d.on('place-selected', function (place) {
                     var places = self.$el.find('.places');
-                    $('<li>').addClass('place').html('<span class="name">' + place.name + '</span><button class="close">&times;</button>')
+                    $('<li>').addClass('place').html('<span class="name">' + place.name + '</span> <a class="close" href="#">&times;</a>')
                         .data('name', place.name)
                         .data('googid', place.id)
                         .data('googreference', place.reference)

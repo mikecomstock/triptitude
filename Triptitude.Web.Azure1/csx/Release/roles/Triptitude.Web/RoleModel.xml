@@ -33,11 +33,11 @@
     <Property name="OutputDir" value="C:\Source\triptitudenew\Triptitude.Web.Azure1\obj\Release\Triptitude.Web\" />
     <Property name="EntryPoint" value="Triptitude.Web.dll" />
     <Property name="SourceDir" value="C:\Source\triptitudenew\Triptitude.Web\" />
-    <Property name="SitePhysicalPath" value="C:\Source\triptitudenew\Triptitude.Web\" />
+    <Property name="SitePhysicalPath" value="C:\Source\triptitudenew\Triptitude.Web.Azure1\obj\Release\Triptitude.Web\" />
     <Property name="TargetRuntimeVersion" value="v4.0" />
   </Properties>
   <Sites>
-    <Site name="Web" physicalDirectory="C:\Source\triptitudenew\Triptitude.Web\">
+    <Site name="Web" physicalDirectory="C:\Source\triptitudenew\Triptitude.Web.Azure1\obj\Release\Triptitude.Web\">
       <Bindings>
         <Binding name="Endpoint1" endpointName="Endpoint1" />
       </Bindings>

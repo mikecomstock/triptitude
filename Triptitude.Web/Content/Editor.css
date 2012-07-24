@@ -169,6 +169,36 @@
       font-size: 24px; }
     #editor-itinerary .activity-form > div.source-url input {
       width: 550px; }
+    #editor-itinerary .activity-form > div.where .places {
+      margin: 5px 0;
+      font-size: 16px; }
+      #editor-itinerary .activity-form > div.where .places .place {
+        border-bottom: 1px solid #E5E5E5;
+        zoom: 1;
+        width: 350px;
+        padding: 5px 0; }
+        #editor-itinerary .activity-form > div.where .places .place:before {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline; }
+        #editor-itinerary .activity-form > div.where .places .place:after {
+          display: table;
+          content: "";
+          zoom: 1;
+          *display: inline;
+          clear: both; }
+        #editor-itinerary .activity-form > div.where .places .place .name {
+          width: 300px; }
+        #editor-itinerary .activity-form > div.where .places .place .close {
+          font-size: 20px;
+          line-height: 19px;
+          color: #999;
+          font-weight: bold;
+          float: right; }
+          #editor-itinerary .activity-form > div.where .places .place .close:hover {
+            text-decoration: none;
+            color: #333; }
     #editor-itinerary .activity-form > div.notes textarea {
       width: 550px;
       height: 50px; }

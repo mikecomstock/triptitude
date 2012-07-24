@@ -52,6 +52,19 @@
 		&.source-url {
 			input { width: 550px; }
 		}
+		&.where {
+			.places {
+				margin: 5px 0; font-size: 16px;
+				.place {
+					border-bottom: 1px solid #E5E5E5; @include clearfix; width: 350px; padding: 5px 0;
+					.name { width: 300px; }
+					.close {
+						font-size: 20px; line-height: 19px; color: #999; font-weight: bold; float: right;
+						&:hover { text-decoration: none; color: #333; }
+					}
+				}
+			}
+		}
 		&.notes {
 			textarea { width: 550px; height: 50px; }
 			> ol.notes {
